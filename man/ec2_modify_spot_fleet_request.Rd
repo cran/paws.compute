@@ -5,7 +5,7 @@
 \title{Modifies the specified Spot Fleet request}
 \usage{
 ec2_modify_spot_fleet_request(ExcessCapacityTerminationPolicy,
-  SpotFleetRequestId, TargetCapacity)
+  SpotFleetRequestId, TargetCapacity, OnDemandTargetCapacity)
 }
 \arguments{
 \item{ExcessCapacityTerminationPolicy}{Indicates whether running Spot Instances should be terminated if the
@@ -15,11 +15,15 @@ size of the Spot Fleet.}
 \item{SpotFleetRequestId}{[required] The ID of the Spot Fleet request.}
 
 \item{TargetCapacity}{The size of the fleet.}
+
+\item{OnDemandTargetCapacity}{The number of On-Demand Instances in the fleet.}
 }
 \description{
 Modifies the specified Spot Fleet request.
 }
 \details{
+You can only modify a Spot Fleet request of type \code{maintain}.
+
 While the Spot Fleet request is being modified, it is in the \code{modifying}
 state.
 
@@ -48,7 +52,8 @@ later, you can set the target capacity to 0.
 \preformatted{svc$modify_spot_fleet_request(
   ExcessCapacityTerminationPolicy = "noTermination"|"default",
   SpotFleetRequestId = "string",
-  TargetCapacity = 123
+  TargetCapacity = 123,
+  OnDemandTargetCapacity = 123
 )
 }
 }

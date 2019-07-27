@@ -42,7 +42,7 @@ of the request. For more information, see \href{https://docs.aws.amazon.com/AWSE
 
 \item{PrivateDnsEnabled}{(Interface endpoint) Indicate whether to associate a private hosted zone
 with the specified VPC. The private hosted zone contains a record set
-for the default public DNS name for the service for the region (for
+for the default public DNS name for the service for the Region (for
 example, \code{kinesis.us-east-1.amazonaws.com}) which resolves to the
 private IP addresses of the endpoint network interfaces in the VPC. This
 enables you to make requests to the default public DNS name for the
@@ -53,13 +53,13 @@ To use a private hosted zone, you must set the following VPC attributes
 to \code{true}: \code{enableDnsHostnames} and \code{enableDnsSupport}. Use
 ModifyVpcAttribute to set the VPC attributes.
 
-Default: \code{false}}
+Default: \code{true}}
 }
 \description{
 Creates a VPC endpoint for a specified service. An endpoint enables you
 to create a private connection between your VPC and the service. The
 service may be provided by AWS, an AWS Marketplace partner, or another
-AWS account. For more information, see \href{https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html}{VPC Endpoints}
+AWS account. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html}{VPC Endpoints}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 }
 \details{

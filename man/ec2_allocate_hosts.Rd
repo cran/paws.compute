@@ -5,22 +5,23 @@
 \title{Allocates a Dedicated Host to your account}
 \usage{
 ec2_allocate_hosts(AutoPlacement, AvailabilityZone, ClientToken,
-  InstanceType, Quantity, TagSpecifications)
+  InstanceType, Quantity, TagSpecifications, HostRecovery)
 }
 \arguments{
-\item{AutoPlacement}{This is enabled by default. This property allows instances to be
-automatically placed onto available Dedicated Hosts, when you are
-launching instances without specifying a host ID.
+\item{AutoPlacement}{Indicates whether the host accepts any untargeted instance launches that
+match its instance type configuration, or if it only accepts Host
+tenancy instance launches that specify its unique host ID. For more
+information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-understanding}{Understanding Instance Placement and Host Affinity}
+in the \emph{Amazon EC2 User Guide for Linux Instances}.
 
-Default: Enabled}
+Default: \code{on}}
 
-\item{AvailabilityZone}{[required] The Availability Zone for the Dedicated Hosts.}
+\item{AvailabilityZone}{[required] The Availability Zone in which to allocate the Dedicated Host.}
 
 \item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html}{How to Ensure Idempotency}
-in the \emph{Amazon Elastic Compute Cloud User Guide}.}
+idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.}
 
-\item{InstanceType}{[required] Specify the instance type for which to configure your Dedicated Hosts.
+\item{InstanceType}{[required] Specifies the instance type for which to configure your Dedicated Hosts.
 When you specify the instance type, that is the only instance type that
 you can launch onto that host.}
 
@@ -28,6 +29,13 @@ you can launch onto that host.}
 parameters.}
 
 \item{TagSpecifications}{The tags to apply to the Dedicated Host during creation.}
+
+\item{HostRecovery}{Indicates whether to enable or disable host recovery for the Dedicated
+Host. Host recovery is disabled by default. For more information, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html}{Host Recovery}
+in the \emph{Amazon Elastic Compute Cloud User Guide}.
+
+Default: \code{off}}
 }
 \description{
 Allocates a Dedicated Host to your account. At a minimum, specify the
@@ -43,7 +51,7 @@ allocate.
   Quantity = 123,
   TagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
       Tags = list(
         list(
           Key = "string",
@@ -51,7 +59,8 @@ allocate.
         )
       )
     )
-  )
+  ),
+  HostRecovery = "on"|"off"
 )
 }
 }

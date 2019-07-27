@@ -28,7 +28,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a VPN connection between an existing virtual private gateway and
-a VPN customer gateway. The only supported connection type is \code{ipsec.1}.
+a VPN customer gateway. The supported connection types is \code{ipsec.1}.
 }
 \details{
 The response includes information that you need to give to your network

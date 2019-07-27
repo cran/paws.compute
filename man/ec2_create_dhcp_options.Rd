@@ -32,7 +32,7 @@ in \code{domain-name}, you must set \code{domain-name-servers} to a custom DNS
 server.
 \item \code{domain-name} - If you're using AmazonProvidedDNS in \code{us-east-1},
 specify \code{ec2.internal}. If you're using AmazonProvidedDNS in
-another region, specify \code{region.compute.internal} (for example,
+another Region, specify \code{region.compute.internal} (for example,
 \code{ap-northeast-1.compute.internal}). Otherwise, specify a domain name
 (for example, \code{MyCompany.com}). This value is used to complete
 unqualified DNS hostnames. \strong{Important}: Some Linux operating
@@ -56,7 +56,7 @@ includes only a DNS server that we provide (AmazonProvidedDNS). If you
 create a set of options, and if your VPC has an internet gateway, make
 sure to set the \code{domain-name-servers} option either to
 \code{AmazonProvidedDNS} or to a domain name server of your choice. For more
-information, see \href{https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html}{DHCP Options Sets}
+information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html}{DHCP Options Sets}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 }
 \section{Request syntax}{

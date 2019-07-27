@@ -24,10 +24,10 @@ connection. You must specify this parameter in the request.}
 \item{VpcId}{The ID of the requester VPC. You must specify this parameter in the
 request.}
 
-\item{PeerRegion}{The region code for the accepter VPC, if the accepter VPC is located in
-a region other than the region in which you make the request.
+\item{PeerRegion}{The Region code for the accepter VPC, if the accepter VPC is located in
+a Region other than the Region in which you make the request.
 
-Default: The region in which you make the request.}
+Default: The Region in which you make the request.}
 }
 \description{
 Requests a VPC peering connection between two VPCs: a requester VPC that
@@ -39,7 +39,7 @@ have overlapping CIDR blocks.
 \details{
 Limitations and rules apply to a VPC peering connection. For more
 information, see the
-\href{https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/vpc-peering-basics.html#vpc-peering-limitations}{limitations}
+\href{https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html#vpc-peering-limitations}{limitations}
 section in the \emph{VPC Peering Guide}.
 
 The owner of the accepter VPC must accept the peering request to

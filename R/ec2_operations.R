@@ -156,8 +156,8 @@ ec2_accept_vpc_endpoint_connections <- function(DryRun = NULL, ServiceId, VpcEnd
 #' must be the owner of the peer VPC. Use DescribeVpcPeeringConnections to
 #' view your outstanding VPC peering connection requests.
 #' 
-#' For an inter-region VPC peering connection request, you must accept the
-#' VPC peering connection in the region of the accepter VPC.
+#' For an inter-Region VPC peering connection request, you must accept the
+#' VPC peering connection in the Region of the accepter VPC.
 #'
 #' @usage
 #' ec2_accept_vpc_peering_connection(DryRun, VpcPeeringConnectionId)
@@ -277,8 +277,8 @@ ec2_advertise_byoip_cidr <- function(Cidr, DryRun = NULL) {
 #' 
 #' An Elastic IP address is for use either in the EC2-Classic platform or
 #' in a VPC. By default, you can allocate 5 Elastic IP addresses for
-#' EC2-Classic per region and 5 Elastic IP addresses for EC2-VPC per
-#' region.
+#' EC2-Classic per Region and 5 Elastic IP addresses for EC2-VPC per
+#' Region.
 #' 
 #' For more information, see [Elastic IP
 #' Addresses](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html)
@@ -348,24 +348,33 @@ ec2_allocate_address <- function(Domain = NULL, Address = NULL, PublicIpv4Pool =
 #'
 #' @usage
 #' ec2_allocate_hosts(AutoPlacement, AvailabilityZone, ClientToken,
-#'   InstanceType, Quantity, TagSpecifications)
+#'   InstanceType, Quantity, TagSpecifications, HostRecovery)
 #'
-#' @param AutoPlacement This is enabled by default. This property allows instances to be
-#' automatically placed onto available Dedicated Hosts, when you are
-#' launching instances without specifying a host ID.
+#' @param AutoPlacement Indicates whether the host accepts any untargeted instance launches that
+#' match its instance type configuration, or if it only accepts Host
+#' tenancy instance launches that specify its unique host ID. For more
+#' information, see [Understanding Instance Placement and Host
+#' Affinity](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/how-dedicated-hosts-work.html#dedicated-hosts-understanding)
+#' in the *Amazon EC2 User Guide for Linux Instances*.
 #' 
-#' Default: Enabled
-#' @param AvailabilityZone &#91;required&#93; The Availability Zone for the Dedicated Hosts.
+#' Default: `on`
+#' @param AvailabilityZone &#91;required&#93; The Availability Zone in which to allocate the Dedicated Host.
 #' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
 #' idempotency of the request. For more information, see [How to Ensure
-#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html)
-#' in the *Amazon Elastic Compute Cloud User Guide*.
-#' @param InstanceType &#91;required&#93; Specify the instance type for which to configure your Dedicated Hosts.
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
+#' @param InstanceType &#91;required&#93; Specifies the instance type for which to configure your Dedicated Hosts.
 #' When you specify the instance type, that is the only instance type that
 #' you can launch onto that host.
 #' @param Quantity &#91;required&#93; The number of Dedicated Hosts to allocate to your account with these
 #' parameters.
 #' @param TagSpecifications The tags to apply to the Dedicated Host during creation.
+#' @param HostRecovery Indicates whether to enable or disable host recovery for the Dedicated
+#' Host. Host recovery is disabled by default. For more information, see
+#' [Host
+#' Recovery](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
+#' 
+#' Default: `off`
 #'
 #' @section Request syntax:
 #' ```
@@ -377,7 +386,7 @@ ec2_allocate_address <- function(Domain = NULL, Address = NULL, PublicIpv4Pool =
 #'   Quantity = 123,
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -385,21 +394,22 @@ ec2_allocate_address <- function(Domain = NULL, Address = NULL, PublicIpv4Pool =
 #'         )
 #'       )
 #'     )
-#'   )
+#'   ),
+#'   HostRecovery = "on"|"off"
 #' )
 #' ```
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_allocate_hosts
-ec2_allocate_hosts <- function(AutoPlacement = NULL, AvailabilityZone, ClientToken = NULL, InstanceType, Quantity, TagSpecifications = NULL) {
+ec2_allocate_hosts <- function(AutoPlacement = NULL, AvailabilityZone, ClientToken = NULL, InstanceType, Quantity, TagSpecifications = NULL, HostRecovery = NULL) {
   op <- new_operation(
     name = "AllocateHosts",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$allocate_hosts_input(AutoPlacement = AutoPlacement, AvailabilityZone = AvailabilityZone, ClientToken = ClientToken, InstanceType = InstanceType, Quantity = Quantity, TagSpecifications = TagSpecifications)
+  input <- .ec2$allocate_hosts_input(AutoPlacement = AutoPlacement, AvailabilityZone = AvailabilityZone, ClientToken = ClientToken, InstanceType = InstanceType, Quantity = Quantity, TagSpecifications = TagSpecifications, HostRecovery = HostRecovery)
   output <- .ec2$allocate_hosts_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -648,7 +658,8 @@ ec2_assign_private_ip_addresses <- function(AllowReassignment = NULL, NetworkInt
 #' you can specify either the instance ID or the network interface ID, but
 #' not both. The operation fails if you specify an instance ID unless
 #' exactly one network interface is attached.
-#' @param PublicIp The Elastic IP address. This is required for EC2-Classic.
+#' @param PublicIp The Elastic IP address to associate with the instance. This is required
+#' for EC2-Classic.
 #' @param AllowReassociation \[EC2-VPC\] For a VPC in an EC2-Classic account, specify true to allow
 #' an Elastic IP address that is already associated with an instance or
 #' network interface to be reassociated with the specified instance or
@@ -662,6 +673,9 @@ ec2_assign_private_ip_addresses <- function(AllowReassignment = NULL, NetworkInt
 #' Otherwise, it is `UnauthorizedOperation`.
 #' @param NetworkInterfaceId \[EC2-VPC\] The ID of the network interface. If the instance has more
 #' than one network interface, you must specify a network interface ID.
+#' 
+#' For EC2-VPC, you can specify either the instance ID or the network
+#' interface ID, but not both.
 #' @param PrivateIpAddress \[EC2-VPC\] The primary or secondary private IP address to associate
 #' with the Elastic IP address. If no private IP address is specified, the
 #' Elastic IP address is associated with the primary private IP address.
@@ -730,10 +744,13 @@ ec2_associate_address <- function(AllocationId = NULL, InstanceId = NULL, Public
 #'
 #' @usage
 #' ec2_associate_client_vpn_target_network(ClientVpnEndpointId, SubnetId,
-#'   DryRun)
+#'   ClientToken, DryRun)
 #'
 #' @param ClientVpnEndpointId &#91;required&#93; The ID of the Client VPN endpoint.
 #' @param SubnetId &#91;required&#93; The ID of the subnet to associate with the Client VPN endpoint.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -744,6 +761,7 @@ ec2_associate_address <- function(AllocationId = NULL, InstanceId = NULL, Public
 #' svc$associate_client_vpn_target_network(
 #'   ClientVpnEndpointId = "string",
 #'   SubnetId = "string",
+#'   ClientToken = "string",
 #'   DryRun = TRUE|FALSE
 #' )
 #' ```
@@ -751,14 +769,14 @@ ec2_associate_address <- function(AllocationId = NULL, InstanceId = NULL, Public
 #' @keywords internal
 #'
 #' @rdname ec2_associate_client_vpn_target_network
-ec2_associate_client_vpn_target_network <- function(ClientVpnEndpointId, SubnetId, DryRun = NULL) {
+ec2_associate_client_vpn_target_network <- function(ClientVpnEndpointId, SubnetId, ClientToken = NULL, DryRun = NULL) {
   op <- new_operation(
     name = "AssociateClientVpnTargetNetwork",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$associate_client_vpn_target_network_input(ClientVpnEndpointId = ClientVpnEndpointId, SubnetId = SubnetId, DryRun = DryRun)
+  input <- .ec2$associate_client_vpn_target_network_input(ClientVpnEndpointId = ClientVpnEndpointId, SubnetId = SubnetId, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$associate_client_vpn_target_network_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -781,7 +799,7 @@ ec2_associate_client_vpn_target_network <- function(ClientVpnEndpointId, SubnetI
 #' the operating system on the instance.
 #' 
 #' For more information, see [DHCP Options
-#' Sets](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html)
+#' Sets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -900,7 +918,7 @@ ec2_associate_iam_instance_profile <- function(IamInstanceProfile, InstanceId) {
 #' associated with multiple subnets.
 #' 
 #' For more information, see [Route
-#' Tables](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html)
+#' Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -1042,7 +1060,7 @@ ec2_associate_transit_gateway_route_table <- function(TransitGatewayRouteTableId
 #' 
 #' For more information about associating CIDR blocks with your VPC and
 #' applicable restrictions, see [VPC and Subnet
-#' Sizing](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html#VPC_Sizing)
+#' Sizing](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#VPC_Sizing)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -1150,7 +1168,7 @@ ec2_attach_classic_link_vpc <- function(DryRun = NULL, Groups, InstanceId, VpcId
 #' Attaches an internet gateway to a VPC, enabling connectivity between the
 #' internet and the VPC. For more information about your VPC and internet
 #' gateway, see the [Amazon Virtual Private Cloud User
-#' Guide](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/).
+#' Guide](https://docs.aws.amazon.com/vpc/latest/userguide/).
 #'
 #' @usage
 #' ec2_attach_internet_gateway(DryRun, InternetGatewayId, VpcId)
@@ -1258,17 +1276,14 @@ ec2_attach_network_interface <- function(DeviceIndex, DryRun = NULL, InstanceId,
 #' Attaches an EBS volume to a running or stopped instance and exposes it
 #' to the instance with the specified device name.
 #' 
-#' Encrypted EBS volumes may only be attached to instances that support
-#' Amazon EBS encryption. For more information, see [Amazon EBS
+#' Encrypted EBS volumes must be attached to instances that support Amazon
+#' EBS encryption. For more information, see [Amazon EBS
 #' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
 #' 
-#' For a list of supported device names, see [Attaching an EBS Volume to an
-#' Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html).
-#' Any device names that aren\'t reserved for instance store volumes can be
-#' used for EBS volumes. For more information, see [Amazon EC2 Instance
-#' Store](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html)
-#' in the *Amazon Elastic Compute Cloud User Guide*.
+#' After you attach an EBS volume, you must make it available. For more
+#' information, see [Making an EBS Volume Available For
+#' Use](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-using-volumes.html).
 #' 
 #' If a volume has an AWS Marketplace product code:
 #' 
@@ -1283,7 +1298,7 @@ ec2_attach_network_interface <- function(DeviceIndex, DryRun = NULL, InstanceId,
 #'     the product. For example, you can\'t detach a volume from a Windows
 #'     instance and attach it to a Linux instance.
 #' 
-#' For more information about EBS volumes, see [Attaching Amazon EBS
+#' For more information, see [Attaching Amazon EBS
 #' Volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-attaching-volume.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
 #'
@@ -1393,7 +1408,7 @@ ec2_attach_vpn_gateway <- function(VpcId, VpnGatewayId, DryRun = NULL) {
 #'
 #' @usage
 #' ec2_authorize_client_vpn_ingress(ClientVpnEndpointId, TargetNetworkCidr,
-#'   AccessGroupId, AuthorizeAllGroups, Description, DryRun)
+#'   AccessGroupId, AuthorizeAllGroups, Description, ClientToken, DryRun)
 #'
 #' @param ClientVpnEndpointId &#91;required&#93; The ID of the Client VPN endpoint.
 #' @param TargetNetworkCidr &#91;required&#93; The IPv4 address range, in CIDR notation, of the network for which
@@ -1403,6 +1418,9 @@ ec2_attach_vpn_gateway <- function(VpcId, VpnGatewayId, DryRun = NULL) {
 #' all clients who successfully establish a VPN connection access to the
 #' network.
 #' @param Description A brief description of the authorization rule.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -1416,6 +1434,7 @@ ec2_attach_vpn_gateway <- function(VpcId, VpnGatewayId, DryRun = NULL) {
 #'   AccessGroupId = "string",
 #'   AuthorizeAllGroups = TRUE|FALSE,
 #'   Description = "string",
+#'   ClientToken = "string",
 #'   DryRun = TRUE|FALSE
 #' )
 #' ```
@@ -1423,14 +1442,14 @@ ec2_attach_vpn_gateway <- function(VpcId, VpnGatewayId, DryRun = NULL) {
 #' @keywords internal
 #'
 #' @rdname ec2_authorize_client_vpn_ingress
-ec2_authorize_client_vpn_ingress <- function(ClientVpnEndpointId, TargetNetworkCidr, AccessGroupId = NULL, AuthorizeAllGroups = NULL, Description = NULL, DryRun = NULL) {
+ec2_authorize_client_vpn_ingress <- function(ClientVpnEndpointId, TargetNetworkCidr, AccessGroupId = NULL, AuthorizeAllGroups = NULL, Description = NULL, ClientToken = NULL, DryRun = NULL) {
   op <- new_operation(
     name = "AuthorizeClientVpnIngress",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$authorize_client_vpn_ingress_input(ClientVpnEndpointId = ClientVpnEndpointId, TargetNetworkCidr = TargetNetworkCidr, AccessGroupId = AccessGroupId, AuthorizeAllGroups = AuthorizeAllGroups, Description = Description, DryRun = DryRun)
+  input <- .ec2$authorize_client_vpn_ingress_input(ClientVpnEndpointId = ClientVpnEndpointId, TargetNetworkCidr = TargetNetworkCidr, AccessGroupId = AccessGroupId, AuthorizeAllGroups = AuthorizeAllGroups, Description = Description, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$authorize_client_vpn_ingress_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -1439,29 +1458,26 @@ ec2_authorize_client_vpn_ingress <- function(ClientVpnEndpointId, TargetNetworkC
 }
 .ec2$operations$authorize_client_vpn_ingress <- ec2_authorize_client_vpn_ingress
 
-#' &#91;EC2-VPC only&#93; Adds one or more egress rules to a security group
+#' &#91;VPC only&#93; Adds the specified egress rules to a security group
 #' for use with a VPC
 #'
-#' \[EC2-VPC only\] Adds one or more egress rules to a security group for
-#' use with a VPC. Specifically, this action permits instances to send
-#' traffic to one or more destination IPv4 or IPv6 CIDR address ranges, or
-#' to one or more destination security groups for the same VPC. This action
-#' doesn\'t apply to security groups for use in EC2-Classic. For more
-#' information, see [Security Groups for Your
-#' VPC](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html)
-#' in the *Amazon Virtual Private Cloud User Guide*. For more information
-#' about security group limits, see [Amazon VPC
-#' Limits](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html).
+#' \[VPC only\] Adds the specified egress rules to a security group for use
+#' with a VPC.
 #' 
-#' Each rule consists of the protocol (for example, TCP), plus either a
-#' CIDR range or a source group. For the TCP and UDP protocols, you must
-#' also specify the destination port or port range. For the ICMP protocol,
-#' you must also specify the ICMP type and code. You can use -1 for the
-#' type or code to mean all types or all codes. You can optionally specify
-#' a description for the rule.
+#' An outbound rule permits instances to send traffic to the specified IPv4
+#' or IPv6 CIDR address ranges, or to the instances associated with the
+#' specified destination security groups.
+#' 
+#' You specify a protocol for each rule (for example, TCP). For the TCP and
+#' UDP protocols, you must also specify the destination port or port range.
+#' For the ICMP protocol, you must also specify the ICMP type and code. You
+#' can use -1 for the type or code to mean all types or all codes.
 #' 
 #' Rule changes are propagated to affected instances as quickly as
 #' possible. However, a small delay might occur.
+#' 
+#' For more information about VPC security group limits, see [Amazon VPC
+#' Limits](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html).
 #'
 #' @usage
 #' ec2_authorize_security_group_egress(DryRun, GroupId, IpPermissions,
@@ -1473,9 +1489,8 @@ ec2_authorize_client_vpn_ingress <- function(ClientVpnEndpointId, TargetNetworkC
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
 #' @param GroupId &#91;required&#93; The ID of the security group.
-#' @param IpPermissions One or more sets of IP permissions. You can\'t specify a destination
-#' security group and a CIDR IP address range in the same set of
-#' permissions.
+#' @param IpPermissions The sets of IP permissions. You can\'t specify a destination security
+#' group and a CIDR IP address range in the same set of permissions.
 #' @param CidrIp Not supported. Use a set of IP permissions to specify the CIDR.
 #' @param FromPort Not supported. Use a set of IP permissions to specify the port.
 #' @param IpProtocol Not supported. Use a set of IP permissions to specify the protocol name
@@ -1592,55 +1607,59 @@ ec2_authorize_security_group_egress <- function(DryRun = NULL, GroupId, IpPermis
 }
 .ec2$operations$authorize_security_group_egress <- ec2_authorize_security_group_egress
 
-#' Adds one or more ingress rules to a security group
+#' Adds the specified ingress rules to a security group
 #'
-#' Adds one or more ingress rules to a security group.
+#' Adds the specified ingress rules to a security group.
+#' 
+#' An inbound rule permits instances to receive traffic from the specified
+#' IPv4 or IPv6 CIDR address ranges, or from the instances associated with
+#' the specified destination security groups.
+#' 
+#' You specify a protocol for each rule (for example, TCP). For TCP and
+#' UDP, you must also specify the destination port or port range. For
+#' ICMP/ICMPv6, you must also specify the ICMP/ICMPv6 type and code. You
+#' can use -1 to mean all types or all codes.
 #' 
 #' Rule changes are propagated to instances within the security group as
 #' quickly as possible. However, a small delay might occur.
 #' 
-#' \[EC2-Classic\] This action gives one or more IPv4 CIDR address ranges
-#' permission to access a security group in your account, or gives one or
-#' more security groups (called the *source groups*) permission to access a
-#' security group for your account. A source group can be for your own AWS
-#' account, or another. You can have up to 100 rules per group.
-#' 
-#' \[EC2-VPC\] This action gives one or more IPv4 or IPv6 CIDR address
-#' ranges permission to access a security group in your VPC, or gives one
-#' or more other security groups (called the *source groups*) permission to
-#' access a security group for your VPC. The security groups must all be
-#' for the same VPC or a peer VPC in a VPC peering connection. For more
-#' information about VPC security group limits, see [Amazon VPC
-#' Limits](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Appendix_Limits.html).
-#' 
-#' You can optionally specify a description for the security group rule.
+#' For more information about VPC security group limits, see [Amazon VPC
+#' Limits](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html).
 #'
 #' @usage
 #' ec2_authorize_security_group_ingress(CidrIp, FromPort, GroupId,
 #'   GroupName, IpPermissions, IpProtocol, SourceSecurityGroupName,
 #'   SourceSecurityGroupOwnerId, ToPort, DryRun)
 #'
-#' @param CidrIp The CIDR IPv4 address range. You can\'t specify this parameter when
-#' specifying a source security group.
-#' @param FromPort The start of port range for the TCP and UDP protocols, or an ICMP/ICMPv6
-#' type number. For the ICMP/ICMPv6 type number, use `-1` to specify all
-#' types. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+#' @param CidrIp The IPv4 address range, in CIDR format. You can\'t specify this
+#' parameter when specifying a source security group. To specify an IPv6
+#' address range, use a set of IP permissions.
+#' 
+#' Alternatively, use a set of IP permissions to specify multiple rules and
+#' a description for the rule.
+#' @param FromPort The start of port range for the TCP and UDP protocols, or an ICMP type
+#' number. For the ICMP type number, use `-1` to specify all types. If you
+#' specify all ICMP types, you must specify all codes.
+#' 
+#' Alternatively, use a set of IP permissions to specify multiple rules and
+#' a description for the rule.
 #' @param GroupId The ID of the security group. You must specify either the security group
 #' ID or the security group name in the request. For security groups in a
 #' nondefault VPC, you must specify the security group ID.
 #' @param GroupName \[EC2-Classic, default VPC\] The name of the security group. You must
 #' specify either the security group ID or the security group name in the
 #' request.
-#' @param IpPermissions One or more sets of IP permissions. Can be used to specify multiple
-#' rules in a single command.
+#' @param IpPermissions The sets of IP permissions.
 #' @param IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`) or number (see [Protocol
 #' Numbers](http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml)).
-#' (VPC only) Use `-1` to specify all protocols. If you specify `-1`, or a
-#' protocol number other than `tcp`, `udp`, `icmp`, or `58` (ICMPv6),
-#' traffic on all ports is allowed, regardless of any ports you specify.
-#' For `tcp`, `udp`, and `icmp`, you must specify a port range. For
-#' protocol `58` (ICMPv6), you can optionally specify a port range; if you
-#' don\'t, traffic for all types and codes is allowed.
+#' To specify `icmpv6`, use a set of IP permissions.
+#' 
+#' \[VPC only\] Use `-1` to specify all protocols. If you specify `-1` or a
+#' protocol other than `tcp`, `udp`, or `icmp`, traffic on all ports is
+#' allowed, regardless of any ports you specify.
+#' 
+#' Alternatively, use a set of IP permissions to specify multiple rules and
+#' a description for the rule.
 #' @param SourceSecurityGroupName \[EC2-Classic, default VPC\] The name of the source security group. You
 #' can\'t specify this parameter in combination with the following
 #' parameters: the CIDR IP address range, the start of the port range, the
@@ -1655,9 +1674,12 @@ ec2_authorize_security_group_egress <- function(DryRun = NULL, GroupId, IpPermis
 #' of the port range. Creates rules that grant full ICMP, UDP, and TCP
 #' access. To create a rule with a specific IP protocol and port range, use
 #' a set of IP permissions instead.
-#' @param ToPort The end of port range for the TCP and UDP protocols, or an ICMP/ICMPv6
-#' code number. For the ICMP/ICMPv6 code number, use `-1` to specify all
-#' codes. If you specify all ICMP/ICMPv6 types, you must specify all codes.
+#' @param ToPort The end of port range for the TCP and UDP protocols, or an ICMP code
+#' number. For the ICMP code number, use `-1` to specify all codes. If you
+#' specify all ICMP types, you must specify all codes.
+#' 
+#' Alternatively, use a set of IP permissions to specify multiple rules and
+#' a description for the rule.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -2301,9 +2323,9 @@ ec2_confirm_product_instance <- function(InstanceId, ProductCode, DryRun = NULL)
 }
 .ec2$operations$confirm_product_instance <- ec2_confirm_product_instance
 
-#' Copies the specified Amazon FPGA Image (AFI) to the current region
+#' Copies the specified Amazon FPGA Image (AFI) to the current Region
 #'
-#' Copies the specified Amazon FPGA Image (AFI) to the current region.
+#' Copies the specified Amazon FPGA Image (AFI) to the current Region.
 #'
 #' @usage
 #' ec2_copy_fpga_image(DryRun, SourceFpgaImageId, Description, Name,
@@ -2316,7 +2338,7 @@ ec2_confirm_product_instance <- function(InstanceId, ProductCode, DryRun = NULL)
 #' @param SourceFpgaImageId &#91;required&#93; The ID of the source AFI.
 #' @param Description The description for the new AFI.
 #' @param Name The name for the new AFI. The default is the name of the source AFI.
-#' @param SourceRegion &#91;required&#93; The region that contains the source AFI.
+#' @param SourceRegion &#91;required&#93; The Region that contains the source AFI.
 #' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
 #' idempotency of the request. For more information, see [Ensuring
 #' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html).
@@ -2352,11 +2374,11 @@ ec2_copy_fpga_image <- function(DryRun = NULL, SourceFpgaImageId, Description = 
 }
 .ec2$operations$copy_fpga_image <- ec2_copy_fpga_image
 
-#' Initiates the copy of an AMI from the specified source region to the
-#' current region
+#' Initiates the copy of an AMI from the specified source Region to the
+#' current Region
 #'
-#' Initiates the copy of an AMI from the specified source region to the
-#' current region. You specify the destination region by using its endpoint
+#' Initiates the copy of an AMI from the specified source Region to the
+#' current Region. You specify the destination Region by using its endpoint
 #' when making the request.
 #' 
 #' Copies of encrypted backing snapshots for the AMI are encrypted. Copies
@@ -2377,7 +2399,7 @@ ec2_copy_fpga_image <- function(DryRun = NULL, SourceFpgaImageId, Description = 
 #' the request. For more information, see [How to Ensure
 #' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
-#' @param Description A description for the new AMI in the destination region.
+#' @param Description A description for the new AMI in the destination Region.
 #' @param Encrypted Specifies whether the destination snapshots of the copied image should
 #' be encrypted. You can encrypt a copy of an unencrypted snapshot, but you
 #' cannot create an unencrypted copy of an encrypted snapshot. The default
@@ -2392,32 +2414,28 @@ ec2_copy_fpga_image <- function(DryRun = NULL, SourceFpgaImageId, Description = 
 #' parameter is not specified, the default CMK for EBS is used. If a
 #' `KmsKeyId` is specified, the `Encrypted` flag must also be set.
 #' 
-#' The CMK identifier may be provided in any of the following formats:
+#' To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias
+#' name, or alias ARN. When using an alias name, prefix it with \"alias/\".
+#' For example:
 #' 
-#' -   Key ID
+#' -   Key ID: `1234abcd-12ab-34cd-56ef-1234567890ab`
 #' 
-#' -   Key alias, in the form `alias/<i>ExampleAlias</i> `
+#' -   Key ARN:
+#'     `arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab`
 #' 
-#' -   ARN using key ID. The ID ARN contains the `arn:aws:kms` namespace,
-#'     followed by the region of the CMK, the AWS account ID of the CMK
-#'     owner, the `key` namespace, and then the CMK ID. For example,
-#'     arn:aws:kms:*us-east-1*:*012345678910*:key/*abcd1234-a123-456a-a12b-a123b4cd56ef*.
+#' -   Alias name: `alias/ExampleAlias`
 #' 
-#' -   ARN using key alias. The alias ARN contains the `arn:aws:kms`
-#'     namespace, followed by the region of the CMK, the AWS account ID of
-#'     the CMK owner, the `alias` namespace, and then the CMK alias. For
-#'     example,
-#'     arn:aws:kms:*us-east-1*:*012345678910*:alias/*ExampleAlias*.
+#' -   Alias ARN: `arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias`
 #' 
 #' AWS parses `KmsKeyId` asynchronously, meaning that the action you call
 #' may appear to complete even though you provided an invalid identifier.
 #' This action will eventually report failure.
 #' 
-#' The specified CMK must exist in the region that the snapshot is being
+#' The specified CMK must exist in the Region that the snapshot is being
 #' copied to.
-#' @param Name &#91;required&#93; The name of the new AMI in the destination region.
+#' @param Name &#91;required&#93; The name of the new AMI in the destination Region.
 #' @param SourceImageId &#91;required&#93; The ID of the AMI to copy.
-#' @param SourceRegion &#91;required&#93; The name of the region that contains the AMI to copy.
+#' @param SourceRegion &#91;required&#93; The name of the Region that contains the AMI to copy.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -2472,15 +2490,13 @@ ec2_copy_image <- function(ClientToken = NULL, Description = NULL, Encrypted = N
 #' Copies a point-in-time snapshot of an EBS volume and stores it in Amazon
 #' S3. You can copy the snapshot within the same Region or from one Region
 #' to another. You can use the snapshot to create EBS volumes or Amazon
-#' Machine Images (AMIs). The snapshot is copied to the regional endpoint
-#' that you send the HTTP request to.
+#' Machine Images (AMIs).
 #' 
 #' Copies of encrypted EBS snapshots remain encrypted. Copies of
-#' unencrypted snapshots remain unencrypted, unless the `Encrypted` flag is
-#' specified during the snapshot copy operation. By default, encrypted
-#' snapshot copies use the default AWS Key Management Service (AWS KMS)
-#' customer master key (CMK); however, you can specify a non-default CMK
-#' with the `KmsKeyId` parameter.
+#' unencrypted snapshots remain unencrypted, unless you enable encryption
+#' for the snapshot copy operation. By default, encrypted snapshot copies
+#' use the default AWS Key Management Service (AWS KMS) customer master key
+#' (CMK); however, you can specify a different CMK.
 #' 
 #' To copy an encrypted snapshot that has been shared from another account,
 #' you must have permissions for the CMK used to encrypt the snapshot.
@@ -2505,40 +2521,33 @@ ec2_copy_image <- function(ClientToken = NULL, Description = NULL, Encrypted = N
 #' HTTP request to (for example, `ec2.us-east-1.amazonaws.com`). With the
 #' AWS CLI, this is specified using the `--region` parameter or the default
 #' Region in your AWS configuration file.
-#' @param Encrypted Specifies whether the destination snapshot should be encrypted. You can
-#' encrypt a copy of an unencrypted snapshot, but you cannot use it to
-#' create an unencrypted copy of an encrypted snapshot. Your default CMK
-#' for EBS is used unless you specify a non-default AWS Key Management
-#' Service (AWS KMS) CMK using `KmsKeyId`. For more information, see
-#' [Amazon EBS
+#' @param Encrypted To encrypt a copy of an unencrypted snapshot if encryption by default is
+#' not enabled, enable encryption using this parameter. Otherwise, omit
+#' this parameter. Encrypted snapshots are encrypted, even if you omit this
+#' parameter and encryption by default is not enabled. You cannot set this
+#' parameter to false. For more information, see [Amazon EBS
 #' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
-#' @param KmsKeyId An identifier for the AWS Key Management Service (AWS KMS) customer
-#' master key (CMK) to use when creating the encrypted volume. This
-#' parameter is only required if you want to use a non-default CMK; if this
-#' parameter is not specified, the default CMK for EBS is used. If a
-#' `KmsKeyId` is specified, the `Encrypted` flag must also be set.
+#' @param KmsKeyId The identifier of the AWS Key Management Service (AWS KMS) customer
+#' master key (CMK) to use for Amazon EBS encryption. If this parameter is
+#' not specified, your AWS managed CMK for EBS is used. If `KmsKeyId` is
+#' specified, the encrypted state must be `true`.
 #' 
-#' The CMK identifier may be provided in any of the following formats:
+#' You can specify the CMK using any of the following:
 #' 
-#' -   Key ID
+#' -   Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
 #' 
-#' -   Key alias
+#' -   Key alias. For example, alias/ExampleAlias.
 #' 
-#' -   ARN using key ID. The ID ARN contains the `arn:aws:kms` namespace,
-#'     followed by the region of the CMK, the AWS account ID of the CMK
-#'     owner, the `key` namespace, and then the CMK ID. For example,
+#' -   Key ARN. For example,
 #'     arn:aws:kms:*us-east-1*:*012345678910*:key/*abcd1234-a123-456a-a12b-a123b4cd56ef*.
 #' 
-#' -   ARN using key alias. The alias ARN contains the `arn:aws:kms`
-#'     namespace, followed by the region of the CMK, the AWS account ID of
-#'     the CMK owner, the `alias` namespace, and then the CMK alias. For
-#'     example,
+#' -   Alias ARN. For example,
 #'     arn:aws:kms:*us-east-1*:*012345678910*:alias/*ExampleAlias*.
 #' 
-#' AWS parses `KmsKeyId` asynchronously, meaning that the action you call
-#' may appear to complete even though you provided an invalid identifier.
-#' The action will eventually fail.
+#' AWS authenticates the CMK asynchronously. Therefore, if you specify an
+#' ID, alias, or ARN that is not valid, the action can appear to complete,
+#' but eventually fails.
 #' @param PresignedUrl When you copy an encrypted source snapshot using the Amazon EC2 Query
 #' API, you must supply a pre-signed URL. This parameter is optional for
 #' unencrypted snapshots. For more information, see [Query
@@ -2731,7 +2740,7 @@ ec2_copy_snapshot <- function(Description = NULL, DestinationRegion = NULL, Encr
 #'   InstanceMatchCriteria = "open"|"targeted",
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -2809,9 +2818,9 @@ ec2_create_capacity_reservation <- function(ClientToken = NULL, InstanceType, In
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param ClientToken Unique, case-sensitive identifier you provide to ensure the idempotency
-#' of the request. For more information, see [How to Ensure
-#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html).
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
 #' @param TagSpecifications The tags to apply to the Client VPN endpoint during creation.
 #'
 #' @section Request syntax:
@@ -2844,7 +2853,7 @@ ec2_create_capacity_reservation <- function(ClientToken = NULL, InstanceType, In
 #'   ClientToken = "string",
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -2884,7 +2893,7 @@ ec2_create_client_vpn_endpoint <- function(ClientCidrBlock, ServerCertificateArn
 #'
 #' @usage
 #' ec2_create_client_vpn_route(ClientVpnEndpointId, DestinationCidrBlock,
-#'   TargetVpcSubnetId, Description, DryRun)
+#'   TargetVpcSubnetId, Description, ClientToken, DryRun)
 #'
 #' @param ClientVpnEndpointId &#91;required&#93; The ID of the Client VPN endpoint to which to add the route.
 #' @param DestinationCidrBlock &#91;required&#93; The IPv4 address range, in CIDR notation, of the route destination. For
@@ -2904,6 +2913,9 @@ ec2_create_client_vpn_endpoint <- function(ClientCidrBlock, ServerCertificateArn
 #' specified subnet must be an existing target network of the Client VPN
 #' endpoint.
 #' @param Description A brief description of the route.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -2916,6 +2928,7 @@ ec2_create_client_vpn_endpoint <- function(ClientCidrBlock, ServerCertificateArn
 #'   DestinationCidrBlock = "string",
 #'   TargetVpcSubnetId = "string",
 #'   Description = "string",
+#'   ClientToken = "string",
 #'   DryRun = TRUE|FALSE
 #' )
 #' ```
@@ -2923,14 +2936,14 @@ ec2_create_client_vpn_endpoint <- function(ClientCidrBlock, ServerCertificateArn
 #' @keywords internal
 #'
 #' @rdname ec2_create_client_vpn_route
-ec2_create_client_vpn_route <- function(ClientVpnEndpointId, DestinationCidrBlock, TargetVpcSubnetId, Description = NULL, DryRun = NULL) {
+ec2_create_client_vpn_route <- function(ClientVpnEndpointId, DestinationCidrBlock, TargetVpcSubnetId, Description = NULL, ClientToken = NULL, DryRun = NULL) {
   op <- new_operation(
     name = "CreateClientVpnRoute",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$create_client_vpn_route_input(ClientVpnEndpointId = ClientVpnEndpointId, DestinationCidrBlock = DestinationCidrBlock, TargetVpcSubnetId = TargetVpcSubnetId, Description = Description, DryRun = DryRun)
+  input <- .ec2$create_client_vpn_route_input(ClientVpnEndpointId = ClientVpnEndpointId, DestinationCidrBlock = DestinationCidrBlock, TargetVpcSubnetId = TargetVpcSubnetId, Description = Description, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$create_client_vpn_route_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -2954,8 +2967,8 @@ ec2_create_client_vpn_route <- function(ClientVpnEndpointId, DestinationCidrBloc
 #' already, you can use a private ASN (in the 64512 - 65534 range).
 #' 
 #' Amazon EC2 supports all 2-byte ASN numbers in the range of 1 - 65534,
-#' with the exception of 7224, which is reserved in the `us-east-1` region,
-#' and 9059, which is reserved in the `eu-west-1` region.
+#' with the exception of 7224, which is reserved in the `us-east-1` Region,
+#' and 9059, which is reserved in the `eu-west-1` Region.
 #' 
 #' For more information, see [AWS Site-to-Site
 #' VPN](https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html) in the
@@ -3028,7 +3041,7 @@ ec2_create_customer_gateway <- function(BgpAsn, PublicIp, Type, DryRun = NULL) {
 #' specified Availability Zone in your default VPC. You can have only one
 #' default subnet per Availability Zone. For more information, see
 #' [Creating a Default
-#' Subnet](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/default-vpc.html#create-default-subnet)
+#' Subnet](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html#create-default-subnet)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -3073,7 +3086,7 @@ ec2_create_default_subnet <- function(AvailabilityZone, DryRun = NULL) {
 #' Creates a default VPC with a size `/16` IPv4 CIDR block and a default
 #' subnet in each Availability Zone. For more information about the
 #' components of a default VPC, see [Default VPC and Default
-#' Subnets](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/default-vpc.html)
+#' Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html)
 #' in the *Amazon Virtual Private Cloud User Guide*. You cannot specify the
 #' components of the default VPC yourself.
 #' 
@@ -3139,7 +3152,7 @@ ec2_create_default_vpc <- function(DryRun = NULL) {
 #' 
 #' -   `domain-name` - If you\'re using AmazonProvidedDNS in `us-east-1`,
 #'     specify `ec2.internal`. If you\'re using AmazonProvidedDNS in
-#'     another region, specify `region.compute.internal` (for example,
+#'     another Region, specify `region.compute.internal` (for example,
 #'     `ap-northeast-1.compute.internal`). Otherwise, specify a domain name
 #'     (for example, `MyCompany.com`). This value is used to complete
 #'     unqualified DNS hostnames. **Important**: Some Linux operating
@@ -3166,7 +3179,7 @@ ec2_create_default_vpc <- function(DryRun = NULL) {
 #' sure to set the `domain-name-servers` option either to
 #' `AmazonProvidedDNS` or to a domain name server of your choice. For more
 #' information, see [DHCP Options
-#' Sets](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html)
+#' Sets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -3300,13 +3313,12 @@ ec2_create_egress_only_internet_gateway <- function(ClientToken = NULL, DryRun =
 #' of the request. For more information, see [Ensuring
 #' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
 #' @param SpotOptions Describes the configuration of Spot Instances in an EC2 Fleet.
-#' @param OnDemandOptions The allocation strategy of On-Demand Instances in an EC2 Fleet.
+#' @param OnDemandOptions Describes the configuration of On-Demand Instances in an EC2 Fleet.
 #' @param ExcessCapacityTerminationPolicy Indicates whether running instances should be terminated if the total
 #' target capacity of the EC2 Fleet is decreased below the current size of
 #' the EC2 Fleet.
 #' @param LaunchTemplateConfigs &#91;required&#93; The configuration for the EC2 Fleet.
-#' @param TargetCapacitySpecification &#91;required&#93; The `TotalTargetCapacity`, `OnDemandTargetCapacity`,
-#' `SpotTargetCapacity`, and `DefaultCapacityType` structure.
+#' @param TargetCapacitySpecification &#91;required&#93; The number of units to request.
 #' @param TerminateInstancesWithExpiration Indicates whether running instances should be terminated when the EC2
 #' Fleet expires.
 #' @param Type The type of the request. By default, the EC2 Fleet places an
@@ -3345,13 +3357,15 @@ ec2_create_egress_only_internet_gateway <- function(ClientToken = NULL, DryRun =
 #'     InstancePoolsToUseCount = 123,
 #'     SingleInstanceType = TRUE|FALSE,
 #'     SingleAvailabilityZone = TRUE|FALSE,
-#'     MinTargetCapacity = 123
+#'     MinTargetCapacity = 123,
+#'     MaxTotalPrice = "string"
 #'   ),
 #'   OnDemandOptions = list(
 #'     AllocationStrategy = "lowest-price"|"prioritized",
 #'     SingleInstanceType = TRUE|FALSE,
 #'     SingleAvailabilityZone = TRUE|FALSE,
-#'     MinTargetCapacity = 123
+#'     MinTargetCapacity = 123,
+#'     MaxTotalPrice = "string"
 #'   ),
 #'   ExcessCapacityTerminationPolicy = "no-termination"|"termination",
 #'   LaunchTemplateConfigs = list(
@@ -3363,7 +3377,7 @@ ec2_create_egress_only_internet_gateway <- function(ClientToken = NULL, DryRun =
 #'       ),
 #'       Overrides = list(
 #'         list(
-#'           InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'           InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'           MaxPrice = "string",
 #'           SubnetId = "string",
 #'           AvailabilityZone = "string",
@@ -3399,7 +3413,7 @@ ec2_create_egress_only_internet_gateway <- function(ClientToken = NULL, DryRun =
 #'   ReplaceUnhealthyInstances = TRUE|FALSE,
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -3439,7 +3453,7 @@ ec2_create_fleet <- function(DryRun = NULL, ClientToken = NULL, SpotOptions = NU
 #' Flow log data for a monitored network interface is recorded as flow log
 #' records, which are log events consisting of fields that describe the
 #' traffic flow. For more information, see [Flow Log
-#' Records](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/flow-logs.html#flow-log-records)
+#' Records](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html#flow-log-records)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #' 
 #' When publishing to CloudWatch Logs, flow log records are published to a
@@ -3449,7 +3463,7 @@ ec2_create_fleet <- function(DryRun = NULL, ClientToken = NULL, SpotOptions = NU
 #' that is stored in the specified bucket.
 #' 
 #' For more information, see [VPC Flow
-#' Logs](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/flow-logs.html)
+#' Logs](https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -3464,23 +3478,38 @@ ec2_create_fleet <- function(DryRun = NULL, ClientToken = NULL, SpotOptions = NU
 #' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
 #' idempotency of the request. For more information, see [How to Ensure
 #' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html).
-#' @param DeliverLogsPermissionArn The ARN for the IAM role that\'s used to post flow logs to a log group.
-#' @param LogGroupName The name of the log group.
-#' @param ResourceIds &#91;required&#93; One or more subnet, network interface, or VPC IDs.
+#' @param DeliverLogsPermissionArn The ARN for the IAM role that permits Amazon EC2 to publish flow logs to
+#' a CloudWatch Logs log group in your account.
+#' 
+#' If you specify `LogDestinationType` as `s3`, do not specify
+#' `DeliverLogsPermissionArn` or `LogGroupName`.
+#' @param LogGroupName The name of a new or existing CloudWatch Logs log group where Amazon EC2
+#' publishes your flow logs.
+#' 
+#' If you specify `LogDestinationType` as `s3`, do not specify
+#' `DeliverLogsPermissionArn` or `LogGroupName`.
+#' @param ResourceIds &#91;required&#93; The ID of the subnet, network interface, or VPC for which you want to
+#' create a flow log.
 #' 
 #' Constraints: Maximum of 1000 resources
-#' @param ResourceType &#91;required&#93; The type of resource on which to create the flow log.
-#' @param TrafficType &#91;required&#93; The type of traffic to log.
+#' @param ResourceType &#91;required&#93; The type of resource for which to create the flow log. For example, if
+#' you specified a VPC ID for the `ResourceId` property, specify `VPC` for
+#' this property.
+#' @param TrafficType &#91;required&#93; The type of traffic to log. You can log traffic that the resource
+#' accepts or rejects, or all traffic.
 #' @param LogDestinationType Specifies the type of destination to which the flow log data is to be
 #' published. Flow log data can be published to CloudWatch Logs or Amazon
 #' S3. To publish flow log data to CloudWatch Logs, specify
 #' `cloud-watch-logs`. To publish flow log data to Amazon S3, specify `s3`.
 #' 
+#' If you specify `LogDestinationType` as `s3`, do not specify
+#' `DeliverLogsPermissionArn` or `LogGroupName`.
+#' 
 #' Default: `cloud-watch-logs`
 #' @param LogDestination Specifies the destination to which the flow log data is to be published.
-#' Flow log data can be published to an CloudWatch Logs log group or an
+#' Flow log data can be published to a CloudWatch Logs log group or an
 #' Amazon S3 bucket. The value specified for this parameter depends on the
-#' value specified for LogDestinationType.
+#' value specified for `LogDestinationType`.
 #' 
 #' If LogDestinationType is not specified or `cloud-watch-logs`, specify
 #' the Amazon Resource Name (ARN) of the CloudWatch Logs log group.
@@ -3539,8 +3568,8 @@ ec2_create_flow_logs <- function(DryRun = NULL, ClientToken = NULL, DeliverLogsP
 #' for use, check the output logs.
 #' 
 #' An AFI contains the FPGA bitstream that is ready to download to an FPGA.
-#' You can securely deploy an AFI on one or more FPGA-accelerated
-#' instances. For more information, see the [AWS FPGA Hardware Development
+#' You can securely deploy an AFI on multiple FPGA-accelerated instances.
+#' For more information, see the [AWS FPGA Hardware Development
 #' Kit](https://github.com/aws/aws-fpga/).
 #'
 #' @usage
@@ -3617,10 +3646,9 @@ ec2_create_fpga_image <- function(DryRun = NULL, InputStorageLocation, LogsStora
 #' ec2_create_image(BlockDeviceMappings, Description, DryRun, InstanceId,
 #'   Name, NoReboot)
 #'
-#' @param BlockDeviceMappings Information about one or more block device mappings. This parameter
-#' cannot be used to modify the encryption status of existing volumes or
-#' snapshots. To create an AMI with encrypted snapshots, use the CopyImage
-#' action.
+#' @param BlockDeviceMappings The block device mappings. This parameter cannot be used to modify the
+#' encryption status of existing volumes or snapshots. To create an AMI
+#' with encrypted snapshots, use the CopyImage action.
 #' @param Description A description for the new image.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
@@ -3768,7 +3796,7 @@ ec2_create_instance_export_task <- function(Description = NULL, ExportToS3Task =
 #' 
 #' For more information about your VPC and internet gateway, see the
 #' [Amazon Virtual Private Cloud User
-#' Guide](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/).
+#' Guide](https://docs.aws.amazon.com/vpc/latest/userguide/).
 #'
 #' @usage
 #' ec2_create_internet_gateway(DryRun)
@@ -3816,11 +3844,11 @@ ec2_create_internet_gateway <- function(DryRun = NULL) {
 #' private key. If a key with the specified name already exists, Amazon EC2
 #' returns an error.
 #' 
-#' You can have up to five thousand key pairs per region.
+#' You can have up to five thousand key pairs per Region.
 #' 
-#' The key pair returned to you is available only in the region in which
+#' The key pair returned to you is available only in the Region in which
 #' you create it. If you prefer, you can create your own key pair using a
-#' third-party tool and upload it to any region using ImportKeyPair.
+#' third-party tool and upload it to any Region using ImportKeyPair.
 #' 
 #' For more information, see [Key
 #' Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
@@ -3933,6 +3961,7 @@ ec2_create_key_pair <- function(KeyName, DryRun = NULL) {
 #'         Groups = list(
 #'           "string"
 #'         ),
+#'         InterfaceType = "string",
 #'         Ipv6AddressCount = 123,
 #'         Ipv6Addresses = list(
 #'           list(
@@ -3952,7 +3981,7 @@ ec2_create_key_pair <- function(KeyName, DryRun = NULL) {
 #'       )
 #'     ),
 #'     ImageId = "string",
-#'     InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'     InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'     KeyName = "string",
 #'     Monitoring = list(
 #'       Enabled = TRUE|FALSE
@@ -3971,7 +4000,7 @@ ec2_create_key_pair <- function(KeyName, DryRun = NULL) {
 #'     UserData = "string",
 #'     TagSpecifications = list(
 #'       list(
-#'         ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'         ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'         Tags = list(
 #'           list(
 #'             Key = "string",
@@ -4021,13 +4050,13 @@ ec2_create_key_pair <- function(KeyName, DryRun = NULL) {
 #'         CapacityReservationId = "string"
 #'       )
 #'     ),
-#'     HibernationOptions = list(
-#'       Configured = TRUE|FALSE
-#'     ),
 #'     LicenseSpecifications = list(
 #'       list(
 #'         LicenseConfigurationArn = "string"
 #'       )
+#'     ),
+#'     HibernationOptions = list(
+#'       Configured = TRUE|FALSE
 #'     )
 #'   )
 #' )
@@ -4159,6 +4188,7 @@ ec2_create_launch_template <- function(DryRun = NULL, ClientToken = NULL, Launch
 #'         Groups = list(
 #'           "string"
 #'         ),
+#'         InterfaceType = "string",
 #'         Ipv6AddressCount = 123,
 #'         Ipv6Addresses = list(
 #'           list(
@@ -4178,7 +4208,7 @@ ec2_create_launch_template <- function(DryRun = NULL, ClientToken = NULL, Launch
 #'       )
 #'     ),
 #'     ImageId = "string",
-#'     InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'     InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'     KeyName = "string",
 #'     Monitoring = list(
 #'       Enabled = TRUE|FALSE
@@ -4197,7 +4227,7 @@ ec2_create_launch_template <- function(DryRun = NULL, ClientToken = NULL, Launch
 #'     UserData = "string",
 #'     TagSpecifications = list(
 #'       list(
-#'         ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'         ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'         Tags = list(
 #'           list(
 #'             Key = "string",
@@ -4247,13 +4277,13 @@ ec2_create_launch_template <- function(DryRun = NULL, ClientToken = NULL, Launch
 #'         CapacityReservationId = "string"
 #'       )
 #'     ),
-#'     HibernationOptions = list(
-#'       Configured = TRUE|FALSE
-#'     ),
 #'     LicenseSpecifications = list(
 #'       list(
 #'         LicenseConfigurationArn = "string"
 #'       )
+#'     ),
+#'     HibernationOptions = list(
+#'       Configured = TRUE|FALSE
 #'     )
 #'   )
 #' )
@@ -4298,7 +4328,7 @@ ec2_create_launch_template_version <- function(DryRun = NULL, ClientToken = NULL
 #' from a private subnet can be routed to the NAT gateway, therefore
 #' enabling instances in the private subnet to connect to the internet. For
 #' more information, see [NAT
-#' Gateways](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-nat-gateway.html)
+#' Gateways](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -4358,8 +4388,8 @@ ec2_create_nat_gateway <- function(AllocationId, ClientToken = NULL, SubnetId) {
 #' VPC.
 #' 
 #' For more information, see [Network
-#' ACLs](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html)
-#' in the *Amazon Virtual Private Cloud User Guide*.
+#' ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ACLs.html) in
+#' the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
 #' ec2_create_network_acl(DryRun, VpcId)
@@ -4423,8 +4453,8 @@ ec2_create_network_acl <- function(DryRun = NULL, VpcId) {
 #' it, or create an entry and delete the old one.
 #' 
 #' For more information about network ACLs, see [Network
-#' ACLs](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html)
-#' in the *Amazon Virtual Private Cloud User Guide*.
+#' ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ACLs.html) in
+#' the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
 #' ec2_create_network_acl_entry(CidrBlock, DryRun, Egress, IcmpTypeCode,
@@ -4530,7 +4560,7 @@ ec2_create_network_acl_entry <- function(CidrBlock = NULL, DryRun = NULL, Egress
 #' @usage
 #' ec2_create_network_interface(Description, DryRun, Groups,
 #'   Ipv6AddressCount, Ipv6Addresses, PrivateIpAddress, PrivateIpAddresses,
-#'   SecondaryPrivateIpAddressCount, SubnetId)
+#'   SecondaryPrivateIpAddressCount, InterfaceType, SubnetId)
 #'
 #' @param Description A description for the network interface.
 #' @param DryRun Checks whether you have the required permissions for the action, without
@@ -4563,6 +4593,10 @@ ec2_create_network_acl_entry <- function(CidrBlock = NULL, DryRun = NULL, Egress
 #' Instance
 #' Type](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html#AvailableIpPerENI)
 #' in the *Amazon Virtual Private Cloud User Guide*.
+#' @param InterfaceType Indicates the type of network interface. To create an Elastic Fabric
+#' Adapter (EFA), specify `efa`. For more information, see [Elastic Fabric
+#' Adapter](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
 #' @param SubnetId &#91;required&#93; The ID of the subnet to associate with the network interface.
 #'
 #' @section Request syntax:
@@ -4587,6 +4621,7 @@ ec2_create_network_acl_entry <- function(CidrBlock = NULL, DryRun = NULL, Egress
 #'     )
 #'   ),
 #'   SecondaryPrivateIpAddressCount = 123,
+#'   InterfaceType = "efa",
 #'   SubnetId = "string"
 #' )
 #' ```
@@ -4605,14 +4640,14 @@ ec2_create_network_acl_entry <- function(CidrBlock = NULL, DryRun = NULL, Egress
 #' @keywords internal
 #'
 #' @rdname ec2_create_network_interface
-ec2_create_network_interface <- function(Description = NULL, DryRun = NULL, Groups = NULL, Ipv6AddressCount = NULL, Ipv6Addresses = NULL, PrivateIpAddress = NULL, PrivateIpAddresses = NULL, SecondaryPrivateIpAddressCount = NULL, SubnetId) {
+ec2_create_network_interface <- function(Description = NULL, DryRun = NULL, Groups = NULL, Ipv6AddressCount = NULL, Ipv6Addresses = NULL, PrivateIpAddress = NULL, PrivateIpAddresses = NULL, SecondaryPrivateIpAddressCount = NULL, InterfaceType = NULL, SubnetId) {
   op <- new_operation(
     name = "CreateNetworkInterface",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$create_network_interface_input(Description = Description, DryRun = DryRun, Groups = Groups, Ipv6AddressCount = Ipv6AddressCount, Ipv6Addresses = Ipv6Addresses, PrivateIpAddress = PrivateIpAddress, PrivateIpAddresses = PrivateIpAddresses, SecondaryPrivateIpAddressCount = SecondaryPrivateIpAddressCount, SubnetId = SubnetId)
+  input <- .ec2$create_network_interface_input(Description = Description, DryRun = DryRun, Groups = Groups, Ipv6AddressCount = Ipv6AddressCount, Ipv6Addresses = Ipv6Addresses, PrivateIpAddress = PrivateIpAddress, PrivateIpAddresses = PrivateIpAddresses, SecondaryPrivateIpAddressCount = SecondaryPrivateIpAddressCount, InterfaceType = InterfaceType, SubnetId = SubnetId)
   output <- .ec2$create_network_interface_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -4844,7 +4879,7 @@ ec2_create_reserved_instances_listing <- function(ClientToken, InstanceCount, Pr
 #' target the traffic.
 #' 
 #' For more information about route tables, see [Route
-#' Tables](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html)
+#' Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -4924,7 +4959,7 @@ ec2_create_route <- function(DestinationCidrBlock = NULL, DestinationIpv6CidrBlo
 #' table, you can add routes and associate the table with a subnet.
 #' 
 #' For more information, see [Route
-#' Tables](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html)
+#' Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -4973,18 +5008,14 @@ ec2_create_route_table <- function(DryRun = NULL, VpcId) {
 #'
 #' Creates a security group.
 #' 
-#' A security group is for use with instances either in the EC2-Classic
-#' platform or in a specific VPC. For more information, see [Amazon EC2
+#' A security group acts as a virtual firewall for your instance to control
+#' inbound and outbound traffic. For more information, see [Amazon EC2
 #' Security
 #' Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html)
 #' in the *Amazon Elastic Compute Cloud User Guide* and [Security Groups
 #' for Your
 #' VPC](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
-#' 
-#' EC2-Classic: You can have up to 500 security groups.
-#' 
-#' EC2-VPC: You can create up to 500 security groups per VPC.
 #' 
 #' When you create a security group, you specify a friendly name of your
 #' choice. You can have a security group for use in EC2-Classic with the
@@ -5002,6 +5033,9 @@ ec2_create_route_table <- function(DryRun = NULL, VpcId) {
 #' You can add or remove rules from your security groups using
 #' AuthorizeSecurityGroupIngress, AuthorizeSecurityGroupEgress,
 #' RevokeSecurityGroupIngress, and RevokeSecurityGroupEgress.
+#' 
+#' For more information about VPC security group limits, see [Amazon VPC
+#' Limits](https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html).
 #'
 #' @usage
 #' ec2_create_security_group(Description, GroupName, VpcId, DryRun)
@@ -5122,7 +5156,7 @@ ec2_create_security_group <- function(Description, GroupName, VpcId = NULL, DryR
 #'   VolumeId = "string",
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -5162,6 +5196,72 @@ ec2_create_snapshot <- function(Description = NULL, VolumeId, TagSpecifications 
   return(response)
 }
 .ec2$operations$create_snapshot <- ec2_create_snapshot
+
+#' Creates crash-consistent snapshots of multiple EBS volumes and stores
+#' the data in S3
+#'
+#' Creates crash-consistent snapshots of multiple EBS volumes and stores
+#' the data in S3. Volumes are chosen by specifying an instance. Any
+#' attached volumes will produce one snapshot each that is crash-consistent
+#' across the instance. Boot volumes can be excluded by changing the
+#' paramaters.
+#'
+#' @usage
+#' ec2_create_snapshots(Description, InstanceSpecification,
+#'   TagSpecifications, DryRun, CopyTagsFromSource)
+#'
+#' @param Description A description propagated to every snapshot specified by the instance.
+#' @param InstanceSpecification &#91;required&#93; The instance to specify which volumes should be included in the
+#' snapshots.
+#' @param TagSpecifications Tags to apply to every snapshot specified by the instance.
+#' @param DryRun Checks whether you have the required permissions for the action without
+#' actually making the request. Provides an error response. If you have the
+#' required permissions, the error response is DryRunOperation. Otherwise,
+#' it is UnauthorizedOperation.
+#' @param CopyTagsFromSource Copies the tags from the specified instance to all snapshots.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$create_snapshots(
+#'   Description = "string",
+#'   InstanceSpecification = list(
+#'     InstanceId = "string",
+#'     ExcludeBootVolume = TRUE|FALSE
+#'   ),
+#'   TagSpecifications = list(
+#'     list(
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       Tags = list(
+#'         list(
+#'           Key = "string",
+#'           Value = "string"
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   DryRun = TRUE|FALSE,
+#'   CopyTagsFromSource = "volume"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_snapshots
+ec2_create_snapshots <- function(Description = NULL, InstanceSpecification, TagSpecifications = NULL, DryRun = NULL, CopyTagsFromSource = NULL) {
+  op <- new_operation(
+    name = "CreateSnapshots",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$create_snapshots_input(Description = Description, InstanceSpecification = InstanceSpecification, TagSpecifications = TagSpecifications, DryRun = DryRun, CopyTagsFromSource = CopyTagsFromSource)
+  output <- .ec2$create_snapshots_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_snapshots <- ec2_create_snapshots
 
 #' Creates a data feed for Spot Instances, enabling you to view Spot
 #' Instance usage logs
@@ -5247,7 +5347,7 @@ ec2_create_spot_datafeed_subscription <- function(Bucket, DryRun = NULL, Prefix 
 #' available.
 #' 
 #' For more information about subnets, see [Your VPC and
-#' Subnets](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html)
+#' Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -5310,10 +5410,10 @@ ec2_create_subnet <- function(AvailabilityZone = NULL, AvailabilityZoneId = NULL
 }
 .ec2$operations$create_subnet <- ec2_create_subnet
 
-#' Adds or overwrites one or more tags for the specified Amazon EC2
+#' Adds or overwrites the specified tags for the specified Amazon EC2
 #' resource or resources
 #'
-#' Adds or overwrites one or more tags for the specified Amazon EC2
+#' Adds or overwrites the specified tags for the specified Amazon EC2
 #' resource or resources. Each resource can have a maximum of 50 tags. Each
 #' tag consists of a key and optional value. Tag keys must be unique per
 #' resource.
@@ -5334,13 +5434,13 @@ ec2_create_subnet <- function(AvailabilityZone = NULL, AvailabilityZoneId = NULL
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param Resources &#91;required&#93; The IDs of one or more resources, separated by spaces.
+#' @param Resources &#91;required&#93; The IDs of the resources, separated by spaces.
 #' 
 #' Constraints: Up to 1000 resource IDs. We recommend breaking up this
 #' request into smaller batches.
-#' @param Tags &#91;required&#93; One or more tags. The `value` parameter is required, but if you don\'t
-#' want the tag to have a value, specify the parameter with no value, and
-#' we set the value to an empty string.
+#' @param Tags &#91;required&#93; The tags. The `value` parameter is required, but if you don\'t want the
+#' tag to have a value, specify the parameter with no value, and we set the
+#' value to an empty string.
 #'
 #' @section Request syntax:
 #' ```
@@ -5391,6 +5491,326 @@ ec2_create_tags <- function(DryRun = NULL, Resources, Tags) {
   return(response)
 }
 .ec2$operations$create_tags <- ec2_create_tags
+
+#' Creates a Traffic Mirror filter
+#'
+#' Creates a Traffic Mirror filter.
+#' 
+#' A Traffic Mirror filter is a set of rules that defines the traffic to
+#' mirror.
+#' 
+#' By default, no traffic is mirrored. To mirror traffic, use
+#' CreateTrafficMirrorFilterRule to add Traffic Mirror rules to the filter.
+#' The rules you add define what traffic gets mirrored. You can also use
+#' ModifyTrafficMirrorFilterNetworkServices to mirror supported network
+#' services.
+#'
+#' @usage
+#' ec2_create_traffic_mirror_filter(Description, TagSpecifications, DryRun,
+#'   ClientToken)
+#'
+#' @param Description The description of the Traffic Mirror filter.
+#' @param TagSpecifications The tags to assign to a Traffic Mirror filter.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
+#'
+#' @section Request syntax:
+#' ```
+#' svc$create_traffic_mirror_filter(
+#'   Description = "string",
+#'   TagSpecifications = list(
+#'     list(
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       Tags = list(
+#'         list(
+#'           Key = "string",
+#'           Value = "string"
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   DryRun = TRUE|FALSE,
+#'   ClientToken = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_traffic_mirror_filter
+ec2_create_traffic_mirror_filter <- function(Description = NULL, TagSpecifications = NULL, DryRun = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "CreateTrafficMirrorFilter",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$create_traffic_mirror_filter_input(Description = Description, TagSpecifications = TagSpecifications, DryRun = DryRun, ClientToken = ClientToken)
+  output <- .ec2$create_traffic_mirror_filter_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_traffic_mirror_filter <- ec2_create_traffic_mirror_filter
+
+#' Creates a Traffic Mirror rule
+#'
+#' Creates a Traffic Mirror rule.
+#' 
+#' A Traffic Mirror rule defines the Traffic Mirror source traffic to
+#' mirror.
+#' 
+#' You need the Traffic Mirror filter ID when you create the rule.
+#'
+#' @usage
+#' ec2_create_traffic_mirror_filter_rule(TrafficMirrorFilterId,
+#'   TrafficDirection, RuleNumber, RuleAction, DestinationPortRange,
+#'   SourcePortRange, Protocol, DestinationCidrBlock, SourceCidrBlock,
+#'   Description, DryRun, ClientToken)
+#'
+#' @param TrafficMirrorFilterId &#91;required&#93; The ID of the filter that this rule is associated with.
+#' @param TrafficDirection &#91;required&#93; The type of traffic (`ingress` \\| `egress`).
+#' @param RuleNumber &#91;required&#93; The number of the Traffic Mirror rule. This number must be unique for
+#' each Traffic Mirror rule in a given direction. The rules are processed
+#' in ascending order by rule number.
+#' @param RuleAction &#91;required&#93; The action to take (`accept` \\| `reject`) on the filtered traffic.
+#' @param DestinationPortRange The destination port range.
+#' @param SourcePortRange The source port range.
+#' @param Protocol The protocol, for example UDP, to assign to the Traffic Mirror rule.
+#' 
+#' For information about the protocol value, see [Protocol
+#' Numbers](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml)
+#' on the Internet Assigned Numbers Authority (IANA) website.
+#' @param DestinationCidrBlock &#91;required&#93; The destination CIDR block to assign to the Traffic Mirror rule.
+#' @param SourceCidrBlock &#91;required&#93; The source CIDR block to assign to the Traffic Mirror rule.
+#' @param Description The description of the Traffic Mirror rule.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
+#'
+#' @section Request syntax:
+#' ```
+#' svc$create_traffic_mirror_filter_rule(
+#'   TrafficMirrorFilterId = "string",
+#'   TrafficDirection = "ingress"|"egress",
+#'   RuleNumber = 123,
+#'   RuleAction = "accept"|"reject",
+#'   DestinationPortRange = list(
+#'     FromPort = 123,
+#'     ToPort = 123
+#'   ),
+#'   SourcePortRange = list(
+#'     FromPort = 123,
+#'     ToPort = 123
+#'   ),
+#'   Protocol = 123,
+#'   DestinationCidrBlock = "string",
+#'   SourceCidrBlock = "string",
+#'   Description = "string",
+#'   DryRun = TRUE|FALSE,
+#'   ClientToken = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_traffic_mirror_filter_rule
+ec2_create_traffic_mirror_filter_rule <- function(TrafficMirrorFilterId, TrafficDirection, RuleNumber, RuleAction, DestinationPortRange = NULL, SourcePortRange = NULL, Protocol = NULL, DestinationCidrBlock, SourceCidrBlock, Description = NULL, DryRun = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "CreateTrafficMirrorFilterRule",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$create_traffic_mirror_filter_rule_input(TrafficMirrorFilterId = TrafficMirrorFilterId, TrafficDirection = TrafficDirection, RuleNumber = RuleNumber, RuleAction = RuleAction, DestinationPortRange = DestinationPortRange, SourcePortRange = SourcePortRange, Protocol = Protocol, DestinationCidrBlock = DestinationCidrBlock, SourceCidrBlock = SourceCidrBlock, Description = Description, DryRun = DryRun, ClientToken = ClientToken)
+  output <- .ec2$create_traffic_mirror_filter_rule_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_traffic_mirror_filter_rule <- ec2_create_traffic_mirror_filter_rule
+
+#' Creates a Traffic Mirror session
+#'
+#' Creates a Traffic Mirror session.
+#' 
+#' A Traffic Mirror session actively copies packets from a Traffic Mirror
+#' source to a Traffic Mirror target. Create a filter, and then assign it
+#' to the session to define a subset of the traffic to mirror, for example
+#' all TCP traffic.
+#' 
+#' The Traffic Mirror source and the Traffic Mirror target (monitoring
+#' appliances) can be in the same VPC, or in a different VPC connected via
+#' VPC peering or a transit gateway.
+#' 
+#' By default, no traffic is mirrored. Use CreateTrafficMirrorFilter to
+#' create filter rules that specify the traffic to mirror.
+#'
+#' @usage
+#' ec2_create_traffic_mirror_session(NetworkInterfaceId,
+#'   TrafficMirrorTargetId, TrafficMirrorFilterId, PacketLength,
+#'   SessionNumber, VirtualNetworkId, Description, TagSpecifications, DryRun,
+#'   ClientToken)
+#'
+#' @param NetworkInterfaceId &#91;required&#93; The ID of the source network interface.
+#' @param TrafficMirrorTargetId &#91;required&#93; The ID of the Traffic Mirror target.
+#' @param TrafficMirrorFilterId &#91;required&#93; The ID of the Traffic Mirror filter.
+#' @param PacketLength The number of bytes in each packet to mirror. These are bytes after the
+#' VXLAN header. Do not specify this parameter when you want to mirror the
+#' entire packet. To mirror a subset of the packet, set this to the length
+#' (in bytes) that you want to mirror. For example, if you set this value
+#' to 1network0, then the first 100 bytes that meet the filter criteria are
+#' copied to the target.
+#' 
+#' If you do not want to mirror the entire packet, use the `PacketLength`
+#' parameter to specify the number of bytes in each packet to mirror.
+#' @param SessionNumber &#91;required&#93; The session number determines the order in which sessions are evaluated
+#' when an interface is used by multiple sessions. The first session with a
+#' matching filter is the one that mirrors the packets.
+#' 
+#' Valid values are 1-32766.
+#' @param VirtualNetworkId The VXLAN ID for the Traffic Mirror session. For more information about
+#' the VXLAN protocol, see [RFC 7348](https://tools.ietf.org/html/rfc7348).
+#' If you do not specify a `VirtualNetworkId`, an account-wide unique id is
+#' chosen at random.
+#' @param Description The description of the Traffic Mirror session.
+#' @param TagSpecifications The tags to assign to a Traffic Mirror session.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
+#'
+#' @section Request syntax:
+#' ```
+#' svc$create_traffic_mirror_session(
+#'   NetworkInterfaceId = "string",
+#'   TrafficMirrorTargetId = "string",
+#'   TrafficMirrorFilterId = "string",
+#'   PacketLength = 123,
+#'   SessionNumber = 123,
+#'   VirtualNetworkId = 123,
+#'   Description = "string",
+#'   TagSpecifications = list(
+#'     list(
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       Tags = list(
+#'         list(
+#'           Key = "string",
+#'           Value = "string"
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   DryRun = TRUE|FALSE,
+#'   ClientToken = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_traffic_mirror_session
+ec2_create_traffic_mirror_session <- function(NetworkInterfaceId, TrafficMirrorTargetId, TrafficMirrorFilterId, PacketLength = NULL, SessionNumber, VirtualNetworkId = NULL, Description = NULL, TagSpecifications = NULL, DryRun = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "CreateTrafficMirrorSession",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$create_traffic_mirror_session_input(NetworkInterfaceId = NetworkInterfaceId, TrafficMirrorTargetId = TrafficMirrorTargetId, TrafficMirrorFilterId = TrafficMirrorFilterId, PacketLength = PacketLength, SessionNumber = SessionNumber, VirtualNetworkId = VirtualNetworkId, Description = Description, TagSpecifications = TagSpecifications, DryRun = DryRun, ClientToken = ClientToken)
+  output <- .ec2$create_traffic_mirror_session_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_traffic_mirror_session <- ec2_create_traffic_mirror_session
+
+#' Creates a target for your Traffic Mirror session
+#'
+#' Creates a target for your Traffic Mirror session.
+#' 
+#' A Traffic Mirror target is the destination for mirrored traffic. The
+#' Traffic Mirror source and the Traffic Mirror target (monitoring
+#' appliances) can be in the same VPC, or in different VPCs connected via
+#' VPC peering or a transit gateway.
+#' 
+#' A Traffic Mirror target can be a network interface, or a Network Load
+#' Balancer.
+#' 
+#' To use the target in a Traffic Mirror session, use
+#' CreateTrafficMirrorSession.
+#'
+#' @usage
+#' ec2_create_traffic_mirror_target(NetworkInterfaceId,
+#'   NetworkLoadBalancerArn, Description, TagSpecifications, DryRun,
+#'   ClientToken)
+#'
+#' @param NetworkInterfaceId The network interface ID that is associated with the target.
+#' @param NetworkLoadBalancerArn The Amazon Resource Name (ARN) of the Network Load Balancer that is
+#' associated with the target.
+#' @param Description The description of the Traffic Mirror target.
+#' @param TagSpecifications The tags to assign to the Traffic Mirror target.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
+#'
+#' @section Request syntax:
+#' ```
+#' svc$create_traffic_mirror_target(
+#'   NetworkInterfaceId = "string",
+#'   NetworkLoadBalancerArn = "string",
+#'   Description = "string",
+#'   TagSpecifications = list(
+#'     list(
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       Tags = list(
+#'         list(
+#'           Key = "string",
+#'           Value = "string"
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   DryRun = TRUE|FALSE,
+#'   ClientToken = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_traffic_mirror_target
+ec2_create_traffic_mirror_target <- function(NetworkInterfaceId = NULL, NetworkLoadBalancerArn = NULL, Description = NULL, TagSpecifications = NULL, DryRun = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "CreateTrafficMirrorTarget",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$create_traffic_mirror_target_input(NetworkInterfaceId = NetworkInterfaceId, NetworkLoadBalancerArn = NetworkLoadBalancerArn, Description = Description, TagSpecifications = TagSpecifications, DryRun = DryRun, ClientToken = ClientToken)
+  output <- .ec2$create_traffic_mirror_target_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_traffic_mirror_target <- ec2_create_traffic_mirror_target
 
 #' Creates a transit gateway
 #'
@@ -5444,7 +5864,7 @@ ec2_create_tags <- function(DryRun = NULL, Resources, Tags) {
 #'   ),
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -5489,7 +5909,7 @@ ec2_create_transit_gateway <- function(Description = NULL, Options = NULL, TagSp
 #' on the most specific match.
 #' @param TransitGatewayRouteTableId &#91;required&#93; The ID of the transit gateway route table.
 #' @param TransitGatewayAttachmentId The ID of the attachment.
-#' @param Blackhole Indicates whether traffic matching this route is to be dropped.
+#' @param Blackhole Indicates whether to drop traffic that matches this route.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -5546,7 +5966,7 @@ ec2_create_transit_gateway_route <- function(DestinationCidrBlock, TransitGatewa
 #'   TransitGatewayId = "string",
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -5620,7 +6040,7 @@ ec2_create_transit_gateway_route_table <- function(TransitGatewayId, TagSpecific
 #'   ),
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -5664,10 +6084,10 @@ ec2_create_transit_gateway_vpc_attachment <- function(TransitGatewayId, VpcId, S
 #' snapshot. Any AWS Marketplace product codes from the snapshot are
 #' propagated to the volume.
 #' 
-#' You can create encrypted volumes with the `Encrypted` parameter.
-#' Encrypted volumes may only be attached to instances that support Amazon
-#' EBS encryption. Volumes that are created from encrypted snapshots are
-#' also automatically encrypted. For more information, see [Amazon EBS
+#' You can create encrypted volumes. Encrypted volumes must be attached to
+#' instances that support Amazon EBS encryption. Volumes that are created
+#' from encrypted snapshots are also automatically encrypted. For more
+#' information, see [Amazon EBS
 #' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
 #' 
@@ -5684,18 +6104,18 @@ ec2_create_transit_gateway_vpc_attachment <- function(TransitGatewayId, VpcId, S
 #' ec2_create_volume(AvailabilityZone, Encrypted, Iops, KmsKeyId, Size,
 #'   SnapshotId, VolumeType, DryRun, TagSpecifications)
 #'
-#' @param AvailabilityZone &#91;required&#93; The Availability Zone in which to create the volume. Use
-#' DescribeAvailabilityZones to list the Availability Zones that are
-#' currently available to you.
-#' @param Encrypted Specifies whether the volume should be encrypted. Encrypted Amazon EBS
-#' volumes may only be attached to instances that support Amazon EBS
-#' encryption. Volumes that are created from encrypted snapshots are
-#' automatically encrypted. There is no way to create an encrypted volume
-#' from an unencrypted snapshot or vice versa. If your AMI uses encrypted
-#' volumes, you can only launch it on supported instance types. For more
-#' information, see [Amazon EBS
-#' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
+#' @param AvailabilityZone &#91;required&#93; The Availability Zone in which to create the volume.
+#' @param Encrypted Specifies whether the volume should be encrypted. The effect of setting
+#' the encryption state to `true` depends on the volume origin (new or from
+#' a snapshot), starting encryption state, ownership, and whether
+#' encryption by default is enabled. For more information, see [Encryption
+#' by
+#' Default](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-by-default)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
+#' 
+#' Encrypted Amazon EBS volumes must be attached to instances that support
+#' Amazon EBS encryption. For more information, see [Supported Instance
+#' Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances).
 #' @param Iops The number of I/O operations per second (IOPS) to provision for the
 #' volume, with a maximum ratio of 50 IOPS/GiB. Range is 100 to 64,000 IOPS
 #' for volumes in most Regions. Maximum IOPS of 64,000 is guaranteed only
@@ -5707,32 +6127,26 @@ ec2_create_transit_gateway_vpc_attachment <- function(TransitGatewayId, VpcId, S
 #' in the *Amazon Elastic Compute Cloud User Guide*.
 #' 
 #' This parameter is valid only for Provisioned IOPS SSD (io1) volumes.
-#' @param KmsKeyId An identifier for the AWS Key Management Service (AWS KMS) customer
-#' master key (CMK) to use when creating the encrypted volume. This
-#' parameter is only required if you want to use a non-default CMK; if this
-#' parameter is not specified, the default CMK for EBS is used. If a
-#' `KmsKeyId` is specified, the `Encrypted` flag must also be set.
+#' @param KmsKeyId The identifier of the AWS Key Management Service (AWS KMS) customer
+#' master key (CMK) to use for Amazon EBS encryption. If this parameter is
+#' not specified, your AWS managed CMK for EBS is used. If `KmsKeyId` is
+#' specified, the encrypted state must be `true`.
 #' 
-#' The CMK identifier may be provided in any of the following formats:
+#' You can specify the CMK using any of the following:
 #' 
-#' -   Key ID
+#' -   Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
 #' 
-#' -   Key alias
+#' -   Key alias. For example, alias/ExampleAlias.
 #' 
-#' -   ARN using key ID. The ID ARN contains the `arn:aws:kms` namespace,
-#'     followed by the region of the CMK, the AWS account ID of the CMK
-#'     owner, the `key` namespace, and then the CMK ID. For example,
+#' -   Key ARN. For example,
 #'     arn:aws:kms:*us-east-1*:*012345678910*:key/*abcd1234-a123-456a-a12b-a123b4cd56ef*.
 #' 
-#' -   ARN using key alias. The alias ARN contains the `arn:aws:kms`
-#'     namespace, followed by the region of the CMK, the AWS account ID of
-#'     the CMK owner, the `alias` namespace, and then the CMK alias. For
-#'     example,
+#' -   Alias ARN. For example,
 #'     arn:aws:kms:*us-east-1*:*012345678910*:alias/*ExampleAlias*.
 #' 
-#' AWS parses `KmsKeyId` asynchronously, meaning that the action you call
-#' may appear to complete even though you provided an invalid identifier.
-#' The action will eventually fail.
+#' AWS authenticates the CMK asynchronously. Therefore, if you specify an
+#' ID, alias, or ARN that is not valid, the action can appear to complete,
+#' but eventually fails.
 #' @param Size The size of the volume, in GiBs.
 #' 
 #' Constraints: 1-16,384 for `gp2`, 4-16,384 for `io1`, 500-16,384 for
@@ -5743,7 +6157,7 @@ ec2_create_transit_gateway_vpc_attachment <- function(TransitGatewayId, VpcId, S
 #' Default: If you\'re creating the volume from a snapshot and don\'t
 #' specify a volume size, the default is the snapshot size.
 #' 
-#' At least one of Size or SnapshotId are required.
+#' At least one of Size or SnapshotId is required.
 #' @param SnapshotId The snapshot from which to create the volume.
 #' 
 #' At least one of Size or SnapshotId are required.
@@ -5775,7 +6189,7 @@ ec2_create_transit_gateway_vpc_attachment <- function(TransitGatewayId, VpcId, S
 #'   DryRun = TRUE|FALSE,
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -5831,7 +6245,7 @@ ec2_create_volume <- function(AvailabilityZone, Encrypted = NULL, Iops = NULL, K
 #' can create uses a /28 netmask (16 IPv4 addresses), and the largest uses
 #' a /16 netmask (65,536 IPv4 addresses). For more information about how
 #' large to make your VPC, see [Your VPC and
-#' Subnets](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html)
+#' Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #' 
 #' You can optionally request an Amazon-provided IPv6 CIDR block for the
@@ -5842,7 +6256,7 @@ ec2_create_volume <- function(AvailabilityZone, Encrypted = NULL, Iops = NULL, K
 #' By default, each instance you launch in the VPC has the default DHCP
 #' options, which include only a default DNS server that we provide
 #' (AmazonProvidedDNS). For more information, see [DHCP Options
-#' Sets](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html)
+#' Sets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #' 
 #' You can specify the instance tenancy value for the VPC when you create
@@ -5917,7 +6331,7 @@ ec2_create_vpc <- function(CidrBlock, AmazonProvidedIpv6CidrBlock = NULL, DryRun
 #' to create a private connection between your VPC and the service. The
 #' service may be provided by AWS, an AWS Marketplace partner, or another
 #' AWS account. For more information, see [VPC
-#' Endpoints](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html)
+#' Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #' 
 #' A `gateway` endpoint serves as a target for a route in your route table
@@ -5963,7 +6377,7 @@ ec2_create_vpc <- function(CidrBlock, AmazonProvidedIpv6CidrBlock = NULL, DryRun
 #' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
 #' @param PrivateDnsEnabled (Interface endpoint) Indicate whether to associate a private hosted zone
 #' with the specified VPC. The private hosted zone contains a record set
-#' for the default public DNS name for the service for the region (for
+#' for the default public DNS name for the service for the Region (for
 #' example, `kinesis.us-east-1.amazonaws.com`) which resolves to the
 #' private IP addresses of the endpoint network interfaces in the VPC. This
 #' enables you to make requests to the default public DNS name for the
@@ -5974,7 +6388,7 @@ ec2_create_vpc <- function(CidrBlock, AmazonProvidedIpv6CidrBlock = NULL, DryRun
 #' to `true`: `enableDnsHostnames` and `enableDnsSupport`. Use
 #' ModifyVpcAttribute to set the VPC attributes.
 #' 
-#' Default: `false`
+#' Default: `true`
 #'
 #' @section Request syntax:
 #' ```
@@ -6089,7 +6503,7 @@ ec2_create_vpc_endpoint_connection_notification <- function(DryRun = NULL, Servi
 #' To create an endpoint service configuration, you must first create a
 #' Network Load Balancer for your service. For more information, see [VPC
 #' Endpoint
-#' Services](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/endpoint-service.html)
+#' Services](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -6151,7 +6565,7 @@ ec2_create_vpc_endpoint_service_configuration <- function(DryRun = NULL, Accepta
 #' 
 #' Limitations and rules apply to a VPC peering connection. For more
 #' information, see the
-#' [limitations](https://docs.aws.amazon.com/AmazonVPC/latest/PeeringGuide/vpc-peering-basics.html#vpc-peering-limitations)
+#' [limitations](https://docs.aws.amazon.com/vpc/latest/peering/vpc-peering-basics.html#vpc-peering-limitations)
 #' section in the *VPC Peering Guide*.
 #' 
 #' The owner of the accepter VPC must accept the peering request to
@@ -6177,10 +6591,10 @@ ec2_create_vpc_endpoint_service_configuration <- function(DryRun = NULL, Accepta
 #' connection. You must specify this parameter in the request.
 #' @param VpcId The ID of the requester VPC. You must specify this parameter in the
 #' request.
-#' @param PeerRegion The region code for the accepter VPC, if the accepter VPC is located in
-#' a region other than the region in which you make the request.
+#' @param PeerRegion The Region code for the accepter VPC, if the accepter VPC is located in
+#' a Region other than the Region in which you make the request.
 #' 
-#' Default: The region in which you make the request.
+#' Default: The Region in which you make the request.
 #'
 #' @section Request syntax:
 #' ```
@@ -6216,7 +6630,7 @@ ec2_create_vpc_peering_connection <- function(DryRun = NULL, PeerOwnerId = NULL,
 #' a VPN customer gateway
 #'
 #' Creates a VPN connection between an existing virtual private gateway and
-#' a VPN customer gateway. The only supported connection type is `ipsec.1`.
+#' a VPN customer gateway. The supported connection types is `ipsec.1`.
 #' 
 #' The response includes information that you need to give to your network
 #' administrator to configure your customer gateway.
@@ -6682,6 +7096,8 @@ ec2_delete_fleets <- function(DryRun = NULL, FleetIds, TerminateInstances) {
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
 #' @param FlowLogIds &#91;required&#93; One or more flow log IDs.
+#' 
+#' Constraint: Maximum of 1000 flow log IDs.
 #'
 #' @section Request syntax:
 #' ```
@@ -7576,15 +7992,15 @@ ec2_delete_subnet <- function(SubnetId, DryRun = NULL) {
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param Resources &#91;required&#93; The IDs of one or more resources, separated by spaces.
+#' @param Resources &#91;required&#93; The IDs of the resources, separated by spaces.
 #' 
 #' Constraints: Up to 1000 resource IDs. We recommend breaking up this
 #' request into smaller batches.
-#' @param Tags One or more tags to delete. Specify a tag key and an optional tag value
-#' to delete specific tags. If you specify a tag key without a tag value,
-#' we delete any tag with this key regardless of its value. If you specify
-#' a tag key with an empty string as the tag value, we delete the tag only
-#' if its value is an empty string.
+#' @param Tags The tags to delete. Specify a tag key and an optional tag value to
+#' delete specific tags. If you specify a tag key without a tag value, we
+#' delete any tag with this key regardless of its value. If you specify a
+#' tag key with an empty string as the tag value, we delete the tag only if
+#' its value is an empty string.
 #' 
 #' If you omit this parameter, we delete all user-defined tags for the
 #' specified resources. We do not delete AWS-generated tags (tags that have
@@ -7638,6 +8054,172 @@ ec2_delete_tags <- function(DryRun = NULL, Resources, Tags = NULL) {
   return(response)
 }
 .ec2$operations$delete_tags <- ec2_delete_tags
+
+#' Deletes the specified Traffic Mirror filter
+#'
+#' Deletes the specified Traffic Mirror filter.
+#' 
+#' You cannot delete a Traffic Mirror filter that is in use by a Traffic
+#' Mirror session.
+#'
+#' @usage
+#' ec2_delete_traffic_mirror_filter(TrafficMirrorFilterId, DryRun)
+#'
+#' @param TrafficMirrorFilterId &#91;required&#93; The ID of the Traffic Mirror filter.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$delete_traffic_mirror_filter(
+#'   TrafficMirrorFilterId = "string",
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_traffic_mirror_filter
+ec2_delete_traffic_mirror_filter <- function(TrafficMirrorFilterId, DryRun = NULL) {
+  op <- new_operation(
+    name = "DeleteTrafficMirrorFilter",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$delete_traffic_mirror_filter_input(TrafficMirrorFilterId = TrafficMirrorFilterId, DryRun = DryRun)
+  output <- .ec2$delete_traffic_mirror_filter_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_traffic_mirror_filter <- ec2_delete_traffic_mirror_filter
+
+#' Deletes the specified Traffic Mirror rule
+#'
+#' Deletes the specified Traffic Mirror rule.
+#'
+#' @usage
+#' ec2_delete_traffic_mirror_filter_rule(TrafficMirrorFilterRuleId, DryRun)
+#'
+#' @param TrafficMirrorFilterRuleId &#91;required&#93; The ID of the Traffic Mirror rule.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$delete_traffic_mirror_filter_rule(
+#'   TrafficMirrorFilterRuleId = "string",
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_traffic_mirror_filter_rule
+ec2_delete_traffic_mirror_filter_rule <- function(TrafficMirrorFilterRuleId, DryRun = NULL) {
+  op <- new_operation(
+    name = "DeleteTrafficMirrorFilterRule",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$delete_traffic_mirror_filter_rule_input(TrafficMirrorFilterRuleId = TrafficMirrorFilterRuleId, DryRun = DryRun)
+  output <- .ec2$delete_traffic_mirror_filter_rule_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_traffic_mirror_filter_rule <- ec2_delete_traffic_mirror_filter_rule
+
+#' Deletes the specified Traffic Mirror session
+#'
+#' Deletes the specified Traffic Mirror session.
+#'
+#' @usage
+#' ec2_delete_traffic_mirror_session(TrafficMirrorSessionId, DryRun)
+#'
+#' @param TrafficMirrorSessionId &#91;required&#93; The ID of the Traffic Mirror session.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$delete_traffic_mirror_session(
+#'   TrafficMirrorSessionId = "string",
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_traffic_mirror_session
+ec2_delete_traffic_mirror_session <- function(TrafficMirrorSessionId, DryRun = NULL) {
+  op <- new_operation(
+    name = "DeleteTrafficMirrorSession",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$delete_traffic_mirror_session_input(TrafficMirrorSessionId = TrafficMirrorSessionId, DryRun = DryRun)
+  output <- .ec2$delete_traffic_mirror_session_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_traffic_mirror_session <- ec2_delete_traffic_mirror_session
+
+#' Deletes the specified Traffic Mirror target
+#'
+#' Deletes the specified Traffic Mirror target.
+#' 
+#' You cannot delete a Traffic Mirror target that is in use by a Traffic
+#' Mirror session.
+#'
+#' @usage
+#' ec2_delete_traffic_mirror_target(TrafficMirrorTargetId, DryRun)
+#'
+#' @param TrafficMirrorTargetId &#91;required&#93; The ID of the Traffic Mirror target.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$delete_traffic_mirror_target(
+#'   TrafficMirrorTargetId = "string",
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_traffic_mirror_target
+ec2_delete_traffic_mirror_target <- function(TrafficMirrorTargetId, DryRun = NULL) {
+  op <- new_operation(
+    name = "DeleteTrafficMirrorTarget",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$delete_traffic_mirror_target_input(TrafficMirrorTargetId = TrafficMirrorTargetId, DryRun = DryRun)
+  output <- .ec2$delete_traffic_mirror_target_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_traffic_mirror_target <- ec2_delete_traffic_mirror_target
 
 #' Deletes the specified transit gateway
 #'
@@ -8351,7 +8933,7 @@ ec2_deregister_image <- function(ImageId, DryRun = NULL) {
 #' @usage
 #' ec2_describe_account_attributes(AttributeNames, DryRun)
 #'
-#' @param AttributeNames One or more account attribute names.
+#' @param AttributeNames The account attribute names.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -8398,9 +8980,11 @@ ec2_describe_account_attributes <- function(AttributeNames = NULL, DryRun = NULL
 }
 .ec2$operations$describe_account_attributes <- ec2_describe_account_attributes
 
-#' Describes one or more of your Elastic IP addresses
+#' Describes the specified Elastic IP addresses or all of your Elastic IP
+#' addresses
 #'
-#' Describes one or more of your Elastic IP addresses.
+#' Describes the specified Elastic IP addresses or all of your Elastic IP
+#' addresses.
 #' 
 #' An Elastic IP address is for use in either the EC2-Classic platform or
 #' in a VPC. For more information, see [Elastic IP
@@ -8444,9 +9028,7 @@ ec2_describe_account_attributes <- function(AttributeNames = NULL, DryRun = NULL
 #' @param PublicIps One or more Elastic IP addresses.
 #' 
 #' Default: Describes all your Elastic IP addresses.
-#' @param AllocationIds \[EC2-VPC\] One or more allocation IDs.
-#' 
-#' Default: Describes all your Elastic IP addresses.
+#' @param AllocationIds \[EC2-VPC\] Information about the allocation IDs.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -8523,11 +9105,11 @@ ec2_describe_addresses <- function(Filters = NULL, PublicIps = NULL, AllocationI
 .ec2$operations$describe_addresses <- ec2_describe_addresses
 
 #' Describes the longer ID format settings for all resource types in a
-#' specific region
+#' specific Region
 #'
 #' Describes the longer ID format settings for all resource types in a
-#' specific region. This request is useful for performing a quick audit to
-#' determine whether a specific region is fully opted in for longer IDs
+#' specific Region. This request is useful for performing a quick audit to
+#' determine whether a specific Region is fully opted in for longer IDs
 #' (17-character IDs).
 #' 
 #' This request only returns information about resource types that support
@@ -8579,14 +9161,12 @@ ec2_describe_aggregate_id_format <- function(DryRun = NULL) {
 }
 .ec2$operations$describe_aggregate_id_format <- ec2_describe_aggregate_id_format
 
-#' Describes one or more of the Availability Zones that are available to
-#' you
+#' Describes the Availability Zones that are available to you
 #'
-#' Describes one or more of the Availability Zones that are available to
-#' you. The results include zones only for the region you\'re currently
-#' using. If there is an event impacting an Availability Zone, you can use
-#' this request to view the state and any provided message for that
-#' Availability Zone.
+#' Describes the Availability Zones that are available to you. The results
+#' include zones only for the Region you\'re currently using. If there is
+#' an event impacting an Availability Zone, you can use this request to
+#' view the state and any provided message for that Availability Zone.
 #' 
 #' For more information, see [Regions and Availability
 #' Zones](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html)
@@ -8595,11 +9175,11 @@ ec2_describe_aggregate_id_format <- function(DryRun = NULL) {
 #' @usage
 #' ec2_describe_availability_zones(Filters, ZoneNames, ZoneIds, DryRun)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `message` - Information about the Availability Zone.
 #' 
-#' -   `region-name` - The name of the region for the Availability Zone
+#' -   `region-name` - The name of the Region for the Availability Zone
 #'     (for example, `us-east-1`).
 #' 
 #' -   `state` - The state of the Availability Zone (`available` \\|
@@ -8610,8 +9190,8 @@ ec2_describe_aggregate_id_format <- function(DryRun = NULL) {
 #' 
 #' -   `zone-name` - The name of the Availability Zone (for example,
 #'     `us-east-1a`).
-#' @param ZoneNames The names of one or more Availability Zones.
-#' @param ZoneIds The IDs of one or more Availability Zones.
+#' @param ZoneNames The names of the Availability Zones.
+#' @param ZoneIds The IDs of the Availability Zones.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -8662,9 +9242,9 @@ ec2_describe_availability_zones <- function(Filters = NULL, ZoneNames = NULL, Zo
 }
 .ec2$operations$describe_availability_zones <- ec2_describe_availability_zones
 
-#' Describes one or more of your bundling tasks
+#' Describes the specified bundle tasks or all of your bundle tasks
 #'
-#' Describes one or more of your bundling tasks.
+#' Describes the specified bundle tasks or all of your bundle tasks.
 #' 
 #' Completed bundle tasks are listed for only a limited time. If your
 #' bundle task is no longer in the list, you can still register an AMI from
@@ -8674,10 +9254,10 @@ ec2_describe_availability_zones <- function(Filters = NULL, ZoneNames = NULL, Zo
 #' @usage
 #' ec2_describe_bundle_tasks(BundleIds, Filters, DryRun)
 #'
-#' @param BundleIds One or more bundle task IDs.
+#' @param BundleIds The bundle task IDs.
 #' 
 #' Default: Describes all your bundle tasks.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `bundle-id` - The ID of the bundle task.
 #' 
@@ -9229,10 +9809,10 @@ ec2_describe_client_vpn_target_networks <- function(ClientVpnEndpointId, Associa
 }
 .ec2$operations$describe_client_vpn_target_networks <- ec2_describe_client_vpn_target_networks
 
-#' Describes one or more of your conversion tasks
+#' Describes the specified conversion tasks or all your conversion tasks
 #'
-#' Describes one or more of your conversion tasks. For more information,
-#' see the [VM Import/Export User
+#' Describes the specified conversion tasks or all your conversion tasks.
+#' For more information, see the [VM Import/Export User
 #' Guide](https://docs.aws.amazon.com/vm-import/latest/userguide/).
 #' 
 #' For information about the import manifest referenced by this API action,
@@ -9242,7 +9822,7 @@ ec2_describe_client_vpn_target_networks <- function(ClientVpnEndpointId, Associa
 #' @usage
 #' ec2_describe_conversion_tasks(ConversionTaskIds, DryRun)
 #'
-#' @param ConversionTaskIds One or more conversion task IDs.
+#' @param ConversionTaskIds The conversion task IDs.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -9371,11 +9951,12 @@ ec2_describe_customer_gateways <- function(CustomerGatewayIds = NULL, Filters = 
 #' Describes one or more of your DHCP options sets.
 #' 
 #' For more information, see [DHCP Options
-#' Sets](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_DHCP_Options.html)
+#' Sets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
-#' ec2_describe_dhcp_options(DhcpOptionsIds, Filters, DryRun)
+#' ec2_describe_dhcp_options(DhcpOptionsIds, Filters, DryRun, NextToken,
+#'   MaxResults)
 #'
 #' @param DhcpOptionsIds The IDs of one or more DHCP options sets.
 #' 
@@ -9404,6 +9985,10 @@ ec2_describe_customer_gateways <- function(CustomerGatewayIds = NULL, Filters = 
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
+#' @param NextToken The token for the next page of results.
+#' @param MaxResults The maximum number of results to return with a single call. To retrieve
+#' the remaining results, make another call with the returned `nextToken`
+#' value.
 #'
 #' @section Request syntax:
 #' ```
@@ -9419,7 +10004,9 @@ ec2_describe_customer_gateways <- function(CustomerGatewayIds = NULL, Filters = 
 #'       )
 #'     )
 #'   ),
-#'   DryRun = TRUE|FALSE
+#'   DryRun = TRUE|FALSE,
+#'   NextToken = "string",
+#'   MaxResults = 123
 #' )
 #' ```
 #'
@@ -9434,14 +10021,14 @@ ec2_describe_customer_gateways <- function(CustomerGatewayIds = NULL, Filters = 
 #' @keywords internal
 #'
 #' @rdname ec2_describe_dhcp_options
-ec2_describe_dhcp_options <- function(DhcpOptionsIds = NULL, Filters = NULL, DryRun = NULL) {
+ec2_describe_dhcp_options <- function(DhcpOptionsIds = NULL, Filters = NULL, DryRun = NULL, NextToken = NULL, MaxResults = NULL) {
   op <- new_operation(
     name = "DescribeDhcpOptions",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$describe_dhcp_options_input(DhcpOptionsIds = DhcpOptionsIds, Filters = Filters, DryRun = DryRun)
+  input <- .ec2$describe_dhcp_options_input(DhcpOptionsIds = DhcpOptionsIds, Filters = Filters, DryRun = DryRun, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_dhcp_options_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -9511,12 +10098,12 @@ ec2_describe_egress_only_internet_gateways <- function(DryRun = NULL, EgressOnly
 #' ec2_describe_elastic_gpus(ElasticGpuIds, DryRun, Filters, MaxResults,
 #'   NextToken)
 #'
-#' @param ElasticGpuIds One or more Elastic Graphics accelerator IDs.
+#' @param ElasticGpuIds The Elastic Graphics accelerator IDs.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `availability-zone` - The Availability Zone in which the Elastic
 #'     Graphics accelerator resides.
@@ -9576,14 +10163,14 @@ ec2_describe_elastic_gpus <- function(ElasticGpuIds = NULL, DryRun = NULL, Filte
 }
 .ec2$operations$describe_elastic_gpus <- ec2_describe_elastic_gpus
 
-#' Describes one or more of your export tasks
+#' Describes the specified export tasks or all your export tasks
 #'
-#' Describes one or more of your export tasks.
+#' Describes the specified export tasks or all your export tasks.
 #'
 #' @usage
 #' ec2_describe_export_tasks(ExportTaskIds)
 #'
-#' @param ExportTaskIds One or more export task IDs.
+#' @param ExportTaskIds The export task IDs.
 #'
 #' @section Request syntax:
 #' ```
@@ -9688,7 +10275,7 @@ ec2_describe_fleet_history <- function(DryRun = NULL, EventType = NULL, MaxResul
 #' value.
 #' @param NextToken The token for the next set of results.
 #' @param FleetId &#91;required&#93; The ID of the EC2 Fleet.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `instance-type` - The instance type.
 #'
@@ -9729,9 +10316,9 @@ ec2_describe_fleet_instances <- function(DryRun = NULL, MaxResults = NULL, NextT
 }
 .ec2$operations$describe_fleet_instances <- ec2_describe_fleet_instances
 
-#' Describes one or more of your EC2 Fleets
+#' Describes the specified EC2 Fleets or all your EC2 Fleets
 #'
-#' Describes one or more of your EC2 Fleets.
+#' Describes the specified EC2 Fleets or all your EC2 Fleets.
 #'
 #' @usage
 #' ec2_describe_fleets(DryRun, MaxResults, NextToken, FleetIds, Filters)
@@ -9746,7 +10333,7 @@ ec2_describe_fleet_instances <- function(DryRun = NULL, MaxResults = NULL, NextT
 #' value.
 #' @param NextToken The token for the next set of results.
 #' @param FleetIds The ID of the EC2 Fleets.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `activity-status` - The progress of the EC2 Fleet ( `error` \\|
 #'     `pending-fulfillment` \\| `pending-termination` \\| `fulfilled`).
@@ -9835,6 +10422,8 @@ ec2_describe_fleets <- function(DryRun = NULL, MaxResults = NULL, NextToken = NU
 #' -   `traffic-type` - The type of traffic (`ACCEPT` \\| `REJECT` \\|
 #'     `ALL`).
 #' @param FlowLogIds One or more flow log IDs.
+#' 
+#' Constraint: Maximum of 1000 flow log IDs.
 #' @param MaxResults The maximum number of results to return with a single call. To retrieve
 #' the remaining results, make another call with the returned `nextToken`
 #' value.
@@ -9923,9 +10512,9 @@ ec2_describe_fpga_image_attribute <- function(DryRun = NULL, FpgaImageId, Attrib
 }
 .ec2$operations$describe_fpga_image_attribute <- ec2_describe_fpga_image_attribute
 
-#' Describes one or more available Amazon FPGA Images (AFIs)
+#' Describes the Amazon FPGA Images (AFIs) available to you
 #'
-#' Describes one or more available Amazon FPGA Images (AFIs). These include
+#' Describes the Amazon FPGA Images (AFIs) available to you. These include
 #' public AFIs, private AFIs that you own, and AFIs owned by other AWS
 #' accounts for which you have load permissions.
 #'
@@ -9937,11 +10526,11 @@ ec2_describe_fpga_image_attribute <- function(DryRun = NULL, FpgaImageId, Attrib
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param FpgaImageIds One or more AFI IDs.
+#' @param FpgaImageIds The AFI IDs.
 #' @param Owners Filters the AFI by owner. Specify an AWS account ID, `self` (owner is
 #' the sender of the request), or an AWS owner alias (valid values are
 #' `amazon` \\| `aws-marketplace`).
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `create-time` - The creation time of the AFI.
 #' 
@@ -10035,7 +10624,7 @@ ec2_describe_fpga_images <- function(DryRun = NULL, FpgaImageIds = NULL, Owners 
 #' ec2_describe_host_reservation_offerings(Filter, MaxDuration, MaxResults,
 #'   MinDuration, NextToken, OfferingId)
 #'
-#' @param Filter One or more filters.
+#' @param Filter The filters.
 #' 
 #' -   `instance-family` - The instance family of the offering (for
 #'     example, `m4`).
@@ -10107,7 +10696,7 @@ ec2_describe_host_reservation_offerings <- function(Filter = NULL, MaxDuration =
 #' ec2_describe_host_reservations(Filter, HostReservationIdSet, MaxResults,
 #'   NextToken)
 #'
-#' @param Filter One or more filters.
+#' @param Filter The filters.
 #' 
 #' -   `instance-family` - The instance family (for example, `m4`).
 #' 
@@ -10126,7 +10715,7 @@ ec2_describe_host_reservation_offerings <- function(Filter = NULL, MaxDuration =
 #' -   `tag-key` - The key of a tag assigned to the resource. Use this
 #'     filter to find all resources assigned a tag with a specific key,
 #'     regardless of the tag value.
-#' @param HostReservationIdSet One or more host reservation IDs.
+#' @param HostReservationIdSet The host reservation IDs.
 #' @param MaxResults The maximum number of results to return for the request in a single
 #' page. The remaining results can be seen by sending another request with
 #' the returned `nextToken` value. This value can be between 5 and 500. If
@@ -10171,9 +10760,9 @@ ec2_describe_host_reservations <- function(Filter = NULL, HostReservationIdSet =
 }
 .ec2$operations$describe_host_reservations <- ec2_describe_host_reservations
 
-#' Describes one or more of your Dedicated Hosts
+#' Describes the specified Dedicated Hosts or all your Dedicated Hosts
 #'
-#' Describes one or more of your Dedicated Hosts.
+#' Describes the specified Dedicated Hosts or all your Dedicated Hosts.
 #' 
 #' The results describe only the Dedicated Hosts in the Region you\'re
 #' currently using. All listed instances consume capacity on your Dedicated
@@ -10183,7 +10772,7 @@ ec2_describe_host_reservations <- function(Filter = NULL, HostReservationIdSet =
 #' @usage
 #' ec2_describe_hosts(Filter, HostIds, MaxResults, NextToken)
 #'
-#' @param Filter One or more filters.
+#' @param Filter The filters.
 #' 
 #' -   `auto-placement` - Whether auto-placement is enabled or disabled
 #'     (`on` \\| `off`).
@@ -10211,10 +10800,11 @@ ec2_describe_host_reservations <- function(Filter = NULL, HostReservationIdSet =
 #' @param MaxResults The maximum number of results to return for the request in a single
 #' page. The remaining results can be seen by sending another request with
 #' the returned `nextToken` value. This value can be between 5 and 500. If
-#' `maxResults` is given a larger value than 500, you receive an error. You
-#' cannot specify this parameter and the host IDs parameter in the same
+#' `maxResults` is given a larger value than 500, you receive an error.
+#' 
+#' You cannot specify this parameter and the host IDs parameter in the same
 #' request.
-#' @param NextToken The token to retrieve the next page of results.
+#' @param NextToken The token to use to retrieve the next page of results.
 #'
 #' @section Request syntax:
 #' ```
@@ -10262,8 +10852,8 @@ ec2_describe_hosts <- function(Filter = NULL, HostIds = NULL, MaxResults = NULL,
 #' ec2_describe_iam_instance_profile_associations(AssociationIds, Filters,
 #'   MaxResults, NextToken)
 #'
-#' @param AssociationIds One or more IAM instance profile associations.
-#' @param Filters One or more filters.
+#' @param AssociationIds The IAM instance profile associations.
+#' @param Filters The filters.
 #' 
 #' -   `instance-id` - The ID of the instance.
 #' 
@@ -10320,11 +10910,11 @@ ec2_describe_iam_instance_profile_associations <- function(AssociationIds = NULL
 }
 .ec2$operations$describe_iam_instance_profile_associations <- ec2_describe_iam_instance_profile_associations
 
-#' Describes the ID format settings for your resources on a per-region
+#' Describes the ID format settings for your resources on a per-Region
 #' basis, for example, to view which resource types are enabled for longer
 #' IDs
 #'
-#' Describes the ID format settings for your resources on a per-region
+#' Describes the ID format settings for your resources on a per-Region
 #' basis, for example, to view which resource types are enabled for longer
 #' IDs. This request only returns information about resource types whose ID
 #' formats can be modified; it does not return information about other
@@ -10515,16 +11105,20 @@ ec2_describe_image_attribute <- function(Attribute, ImageId, DryRun = NULL) {
 }
 .ec2$operations$describe_image_attribute <- ec2_describe_image_attribute
 
-#' Describes one or more of the images (AMIs, AKIs, and ARIs) available to
-#' you
+#' Describes the specified images (AMIs, AKIs, and ARIs) available to you
+#' or all of the images available to you
 #'
-#' Describes one or more of the images (AMIs, AKIs, and ARIs) available to
-#' you. Images available to you include public images, private images that
-#' you own, and private images owned by other AWS accounts but for which
-#' you have explicit launch permissions.
+#' Describes the specified images (AMIs, AKIs, and ARIs) available to you
+#' or all of the images available to you.
 #' 
-#' Deregistered images are included in the returned results for an
-#' unspecified interval after deregistration.
+#' The images available to you include public images, private images that
+#' you own, and private images owned by other AWS accounts for which you
+#' have explicit launch permissions.
+#' 
+#' Recently deregistered images appear in the returned results for a short
+#' interval and then return empty results. After all instances that
+#' reference a deregistered AMI are terminated, specifying the ID of the
+#' image results in an error indicating that the AMI ID cannot be found.
 #'
 #' @usage
 #' ec2_describe_images(ExecutableUsers, Filters, ImageIds, Owners, DryRun)
@@ -10532,9 +11126,10 @@ ec2_describe_image_attribute <- function(Attribute, ImageId, DryRun = NULL) {
 #' @param ExecutableUsers Scopes the images by users with explicit launch permissions. Specify an
 #' AWS account ID, `self` (the sender of the request), or `all` (public
 #' AMIs).
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
-#' -   `architecture` - The image architecture (`i386` \\| `x86_64`).
+#' -   `architecture` - The image architecture (`i386` \\| `x86_64` \\|
+#'     `arm64`).
 #' 
 #' -   `block-device-mapping.delete-on-termination` - A Boolean value that
 #'     indicates whether the Amazon EBS volume is deleted on instance
@@ -10620,7 +11215,7 @@ ec2_describe_image_attribute <- function(Attribute, ImageId, DryRun = NULL) {
 #' 
 #' -   `virtualization-type` - The virtualization type (`paravirtual` \\|
 #'     `hvm`).
-#' @param ImageIds One or more image IDs.
+#' @param ImageIds The image IDs.
 #' 
 #' Default: Describes all images available to you.
 #' @param Owners Filters the images by the owner. Specify an AWS account ID, `self`
@@ -10757,7 +11352,7 @@ ec2_describe_import_image_tasks <- function(DryRun = NULL, Filters = NULL, Impor
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' @param ImportTaskIds A list of import snapshot task IDs.
 #' @param MaxResults The maximum number of results to return in a single call. To retrieve
 #' the remaining results, make another call with the returned `NextToken`
@@ -10876,11 +11471,11 @@ ec2_describe_instance_attribute <- function(Attribute, DryRun = NULL, InstanceId
 }
 .ec2$operations$describe_instance_attribute <- ec2_describe_instance_attribute
 
-#' Describes the credit option for CPU usage of one or more of your T2 or
-#' T3 instances
+#' Describes the credit option for CPU usage of the specified T2 or T3
+#' instances
 #'
-#' Describes the credit option for CPU usage of one or more of your T2 or
-#' T3 instances. The credit options are `standard` and `unlimited`.
+#' Describes the credit option for CPU usage of the specified T2 or T3
+#' instances. The credit options are `standard` and `unlimited`.
 #' 
 #' If you do not specify an instance ID, Amazon EC2 returns T2 and T3
 #' instances with the `unlimited` credit option, as well as instances that
@@ -10913,10 +11508,10 @@ ec2_describe_instance_attribute <- function(Attribute, DryRun = NULL, InstanceId
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `instance-id` - The ID of the instance.
-#' @param InstanceIds One or more instance IDs.
+#' @param InstanceIds The instance IDs.
 #' 
 #' Default: Describes all your instances.
 #' 
@@ -10966,11 +11561,11 @@ ec2_describe_instance_credit_specifications <- function(DryRun = NULL, Filters =
 }
 .ec2$operations$describe_instance_credit_specifications <- ec2_describe_instance_credit_specifications
 
-#' Describes the status of one or more instances
+#' Describes the status of the specified instances or all of your instances
 #'
-#' Describes the status of one or more instances. By default, only running
-#' instances are described, unless you specifically indicate to return the
-#' status of all instances.
+#' Describes the status of the specified instances or all of your
+#' instances. By default, only running instances are described, unless you
+#' specifically indicate to return the status of all instances.
 #' 
 #' Instance status includes the following components:
 #' 
@@ -10999,7 +11594,7 @@ ec2_describe_instance_credit_specifications <- function(DryRun = NULL, Filters =
 #' ec2_describe_instance_status(Filters, InstanceIds, MaxResults,
 #'   NextToken, DryRun, IncludeAllInstances)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `availability-zone` - The Availability Zone of the instance.
 #' 
@@ -11046,7 +11641,7 @@ ec2_describe_instance_credit_specifications <- function(DryRun = NULL, Filters =
 #' -   `system-status.status` - The system status of the instance (`ok` \\|
 #'     `impaired` \\| `initializing` \\| `insufficient-data` \\|
 #'     `not-applicable`).
-#' @param InstanceIds One or more instance IDs.
+#' @param InstanceIds The instance IDs.
 #' 
 #' Default: Describes all your instances.
 #' 
@@ -11113,9 +11708,9 @@ ec2_describe_instance_status <- function(Filters = NULL, InstanceIds = NULL, Max
 }
 .ec2$operations$describe_instance_status <- ec2_describe_instance_status
 
-#' Describes one or more of your instances
+#' Describes the specified instances or all of AWS account's instances
 #'
-#' Describes one or more of your instances.
+#' Describes the specified instances or all of AWS account\'s instances.
 #' 
 #' If you specify one or more instance IDs, Amazon EC2 returns information
 #' for those instances. If you do not specify instance IDs, Amazon EC2
@@ -11137,12 +11732,13 @@ ec2_describe_instance_status <- function(Filters = NULL, InstanceIds = NULL, Max
 #' ec2_describe_instances(Filters, InstanceIds, DryRun, MaxResults,
 #'   NextToken)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `affinity` - The affinity setting for an instance running on a
 #'     Dedicated Host (`default` \\| `host`).
 #' 
-#' -   `architecture` - The instance architecture (`i386` \\| `x86_64`).
+#' -   `architecture` - The instance architecture (`i386` \\| `x86_64` \\|
+#'     `arm64`).
 #' 
 #' -   `availability-zone` - The Availability Zone of the instance.
 #' 
@@ -11329,8 +11925,8 @@ ec2_describe_instance_status <- function(Filters = NULL, InstanceIds = NULL, Max
 #' -   `placement-partition-number` - The partition in which the instance
 #'     is located.
 #' 
-#' -   `platform` - The platform. Use `windows` if you have Windows
-#'     instances; otherwise, leave blank.
+#' -   `platform` - The platform. To list only Windows instances, use
+#'     `windows`.
 #' 
 #' -   `private-dns-name` - The private IPv4 DNS name of the instance.
 #' 
@@ -11398,7 +11994,7 @@ ec2_describe_instance_status <- function(Filters = NULL, InstanceIds = NULL, Max
 #'     (`paravirtual` \\| `hvm`).
 #' 
 #' -   `vpc-id` - The ID of the VPC that the instance is running in.
-#' @param InstanceIds One or more instance IDs.
+#' @param InstanceIds The instance IDs.
 #' 
 #' Default: Describes all your instances.
 #' @param DryRun Checks whether you have the required permissions for the action, without
@@ -11576,9 +12172,9 @@ ec2_describe_internet_gateways <- function(Filters = NULL, DryRun = NULL, Intern
 }
 .ec2$operations$describe_internet_gateways <- ec2_describe_internet_gateways
 
-#' Describes one or more of your key pairs
+#' Describes the specified key pairs or all of your key pairs
 #'
-#' Describes one or more of your key pairs.
+#' Describes the specified key pairs or all of your key pairs.
 #' 
 #' For more information about key pairs, see [Key
 #' Pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html)
@@ -11587,12 +12183,12 @@ ec2_describe_internet_gateways <- function(Filters = NULL, DryRun = NULL, Intern
 #' @usage
 #' ec2_describe_key_pairs(Filters, KeyNames, DryRun)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `fingerprint` - The fingerprint of the key pair.
 #' 
 #' -   `key-name` - The name of the key pair.
-#' @param KeyNames One or more key pair names.
+#' @param KeyNames The key pair names.
 #' 
 #' Default: Describes all your key pairs.
 #' @param DryRun Checks whether you have the required permissions for the action, without
@@ -11985,8 +12581,8 @@ ec2_describe_nat_gateways <- function(Filter = NULL, MaxResults = NULL, NatGatew
 #' Describes one or more of your network ACLs.
 #' 
 #' For more information, see [Network
-#' ACLs](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html)
-#' in the *Amazon Virtual Private Cloud User Guide*.
+#' ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ACLs.html) in
+#' the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
 #' ec2_describe_network_acls(Filters, DryRun, NetworkAclIds, NextToken,
@@ -12338,7 +12934,7 @@ ec2_describe_network_interface_permissions <- function(NetworkInterfacePermissio
 #'     being managed by an AWS service (for example, AWS Management
 #'     Console, Auto Scaling, and so on).
 #' 
-#' -   `source-desk-check` - Indicates whether the network interface
+#' -   `source-dest-check` - Indicates whether the network interface
 #'     performs source/destination checking. A value of `true` means
 #'     checking is enabled, and `false` means checking is disabled. The
 #'     value must be `false` for the network interface to perform network
@@ -12421,17 +13017,17 @@ ec2_describe_network_interfaces <- function(Filters = NULL, DryRun = NULL, Netwo
 }
 .ec2$operations$describe_network_interfaces <- ec2_describe_network_interfaces
 
-#' Describes one or more of your placement groups
+#' Describes the specified placement groups or all of your placement groups
 #'
-#' Describes one or more of your placement groups. For more information,
-#' see [Placement
+#' Describes the specified placement groups or all of your placement
+#' groups. For more information, see [Placement
 #' Groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
 #'
 #' @usage
 #' ec2_describe_placement_groups(Filters, DryRun, GroupNames)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `group-name` - The name of the placement group.
 #' 
@@ -12444,7 +13040,7 @@ ec2_describe_network_interfaces <- function(Filters = NULL, DryRun = NULL, Netwo
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param GroupNames One or more placement group names.
+#' @param GroupNames The names of the placement groups.
 #' 
 #' Default: Describes all your placement groups, or only those otherwise
 #' specified.
@@ -12677,23 +13273,28 @@ ec2_describe_public_ipv_4_pools <- function(PoolIds = NULL, NextToken = NULL, Ma
 }
 .ec2$operations$describe_public_ipv_4_pools <- ec2_describe_public_ipv_4_pools
 
-#' Describes one or more regions that are currently available to you
+#' Describes the Regions that are currently available to you
 #'
-#' Describes one or more regions that are currently available to you.
+#' Describes the Regions that are currently available to you. The API
+#' returns a list of all the Regions, including Regions that are disabled
+#' for your account. For information about enabling Regions for your
+#' account, see [Enabling and Disabling
+#' Regions](https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/manage-account-payment.html#manage-account-payment-enable-disable-regions)
+#' in the *AWS Billing and Cost Management User Guide*.
 #' 
-#' For a list of the regions supported by Amazon EC2, see [Regions and
+#' For a list of the Regions supported by Amazon EC2, see [Regions and
 #' Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region).
 #'
 #' @usage
 #' ec2_describe_regions(Filters, RegionNames, DryRun)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
-#' -   `endpoint` - The endpoint of the region (for example,
+#' -   `endpoint` - The endpoint of the Region (for example,
 #'     `ec2.us-east-1.amazonaws.com`).
 #' 
-#' -   `region-name` - The name of the region (for example, `us-east-1`).
-#' @param RegionNames The names of one or more regions.
+#' -   `region-name` - The name of the Region (for example, `us-east-1`).
+#' @param RegionNames The names of the Regions.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -13153,7 +13754,7 @@ ec2_describe_reserved_instances_modifications <- function(Filters = NULL, Reserv
 #'     )
 #'   ),
 #'   IncludeMarketplace = TRUE|FALSE,
-#'   InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'   InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'   MaxDuration = 123,
 #'   MaxInstanceCount = 123,
 #'   MinDuration = 123,
@@ -13199,7 +13800,7 @@ ec2_describe_reserved_instances_offerings <- function(AvailabilityZone = NULL, F
 #' return the subnet ID for implicit associations.
 #' 
 #' For more information, see [Route
-#' Tables](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html)
+#' Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -13358,7 +13959,7 @@ ec2_describe_route_tables <- function(Filters = NULL, DryRun = NULL, RouteTableI
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `availability-zone` - The Availability Zone (for example,
 #'     `us-west-2a`).
@@ -13456,9 +14057,11 @@ ec2_describe_scheduled_instance_availability <- function(DryRun = NULL, Filters 
 }
 .ec2$operations$describe_scheduled_instance_availability <- ec2_describe_scheduled_instance_availability
 
-#' Describes one or more of your Scheduled Instances
+#' Describes the specified Scheduled Instances or all your Scheduled
+#' Instances
 #'
-#' Describes one or more of your Scheduled Instances.
+#' Describes the specified Scheduled Instances or all your Scheduled
+#' Instances.
 #'
 #' @usage
 #' ec2_describe_scheduled_instances(DryRun, Filters, MaxResults, NextToken,
@@ -13468,7 +14071,7 @@ ec2_describe_scheduled_instance_availability <- function(DryRun = NULL, Filters 
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `availability-zone` - The Availability Zone (for example,
 #'     `us-west-2a`).
@@ -13484,7 +14087,7 @@ ec2_describe_scheduled_instance_availability <- function(DryRun = NULL, Filters 
 #' remaining results, make another call with the returned `NextToken`
 #' value.
 #' @param NextToken The token for the next set of results.
-#' @param ScheduledInstanceIds One or more Scheduled Instance IDs.
+#' @param ScheduledInstanceIds The Scheduled Instance IDs.
 #' @param SlotStartTimeRange The time period for the first schedule to start.
 #'
 #' @section Request syntax:
@@ -13542,11 +14145,11 @@ ec2_describe_scheduled_instances <- function(DryRun = NULL, Filters = NULL, MaxR
 }
 .ec2$operations$describe_scheduled_instances <- ec2_describe_scheduled_instances
 
-#' &#91;EC2-VPC only&#93; Describes the VPCs on the other side of a VPC
-#' peering connection that are referencing the security groups you've
-#' specified in this request
+#' &#91;VPC only&#93; Describes the VPCs on the other side of a VPC peering
+#' connection that are referencing the security groups you've specified in
+#' this request
 #'
-#' \[EC2-VPC only\] Describes the VPCs on the other side of a VPC peering
+#' \[VPC only\] Describes the VPCs on the other side of a VPC peering
 #' connection that are referencing the security groups you\'ve specified in
 #' this request.
 #'
@@ -13557,7 +14160,7 @@ ec2_describe_scheduled_instances <- function(DryRun = NULL, Filters = NULL, MaxR
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param GroupId &#91;required&#93; One or more security group IDs in your account.
+#' @param GroupId &#91;required&#93; The IDs of the security groups in your account.
 #'
 #' @section Request syntax:
 #' ```
@@ -13597,9 +14200,9 @@ ec2_describe_security_group_references <- function(DryRun = NULL, GroupId) {
 }
 .ec2$operations$describe_security_group_references <- ec2_describe_security_group_references
 
-#' Describes one or more of your security groups
+#' Describes the specified security groups or all of your security groups
 #'
-#' Describes one or more of your security groups.
+#' Describes the specified security groups or all of your security groups.
 #' 
 #' A security group is for use with instances either in the EC2-Classic
 #' platform or in a specific VPC. For more information, see [Amazon EC2
@@ -13614,9 +14217,9 @@ ec2_describe_security_group_references <- function(DryRun = NULL, GroupId) {
 #' ec2_describe_security_groups(Filters, GroupIds, GroupNames, DryRun,
 #'   NextToken, MaxResults)
 #'
-#' @param Filters One or more filters. If using multiple filters for rules, the results
-#' include security groups for which any combination of rules - not
-#' necessarily a single rule - match all filters.
+#' @param Filters The filters. If using multiple filters for rules, the results include
+#' security groups for which any combination of rules - not necessarily a
+#' single rule - match all filters.
 #' 
 #' -   `description` - The description of the security group.
 #' 
@@ -13692,11 +14295,11 @@ ec2_describe_security_group_references <- function(DryRun = NULL, GroupId) {
 #' 
 #' -   `vpc-id` - The ID of the VPC specified when the security group was
 #'     created.
-#' @param GroupIds One or more security group IDs. Required for security groups in a
+#' @param GroupIds The IDs of the security groups. Required for security groups in a
 #' nondefault VPC.
 #' 
 #' Default: Describes all your security groups.
-#' @param GroupNames \[EC2-Classic and default VPC only\] One or more security group names.
+#' @param GroupNames \[EC2-Classic and default VPC only\] The names of the security groups.
 #' You can specify either the security group name or the security group ID.
 #' For security groups in a nondefault VPC, use the `group-name` filter to
 #' describe security groups by name.
@@ -13830,13 +14433,15 @@ ec2_describe_snapshot_attribute <- function(Attribute, SnapshotId, DryRun = NULL
 }
 .ec2$operations$describe_snapshot_attribute <- ec2_describe_snapshot_attribute
 
-#' Describes one or more of the EBS snapshots available to you
+#' Describes the specified EBS snapshots available to you or all of the EBS
+#' snapshots available to you
 #'
-#' Describes one or more of the EBS snapshots available to you. Available
-#' snapshots include public snapshots available for use by any AWS account,
-#' private snapshots that you own, and private snapshots owned by another
-#' AWS account for which you\'ve been given explicit create volume
-#' permissions.
+#' Describes the specified EBS snapshots available to you or all of the EBS
+#' snapshots available to you.
+#' 
+#' The snapshots available to you include public snapshots, private
+#' snapshots that you own, and private snapshots owned by other AWS
+#' accounts for which you have explicit create volume permissions.
 #' 
 #' The create volume permissions fall into the following categories:
 #' 
@@ -13887,14 +14492,17 @@ ec2_describe_snapshot_attribute <- function(Attribute, SnapshotId, DryRun = NULL
 #' ec2_describe_snapshots(Filters, MaxResults, NextToken, OwnerIds,
 #'   RestorableByUserIds, SnapshotIds, DryRun)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `description` - A description of the snapshot.
 #' 
+#' -   `encrypted` - Indicates whether the snapshot is encrypted (`true` \\|
+#'     `false`)
+#' 
 #' -   `owner-alias` - Value from an Amazon-maintained list (`amazon` \\|
-#'     `aws-marketplace` \\| `microsoft`) of snapshot owners. Not to be
-#'     confused with the user-configured AWS account alias, which is set
-#'     from the IAM console.
+#'     `self` \\| `all` \\| `aws-marketplace` \\| `microsoft`) of snapshot
+#'     owners. Not to be confused with the user-configured AWS account
+#'     alias, which is set from the IAM console.
 #' 
 #' -   `owner-id` - The ID of the AWS account that owns the snapshot.
 #' 
@@ -13936,9 +14544,9 @@ ec2_describe_snapshot_attribute <- function(Attribute, SnapshotId, DryRun = NULL
 #' exceeded the value of that parameter. Pagination continues from the end
 #' of the previous results that returned the `NextToken` value. This value
 #' is `null` when there are no more results to return.
-#' @param OwnerIds Describes the snapshots owned by one or more owners.
-#' @param RestorableByUserIds One or more AWS accounts IDs that can create volumes from the snapshot.
-#' @param SnapshotIds One or more snapshot IDs.
+#' @param OwnerIds Describes the snapshots owned by these owners.
+#' @param RestorableByUserIds The IDs of the AWS accounts that can create volumes from the snapshot.
+#' @param SnapshotIds The snapshot IDs.
 #' 
 #' Default: Describes the snapshots for which you have create volume
 #' permissions.
@@ -14151,7 +14759,7 @@ ec2_describe_spot_fleet_instances <- function(DryRun = NULL, MaxResults = NULL, 
 #' ```
 #' svc$describe_spot_fleet_request_history(
 #'   DryRun = TRUE|FALSE,
-#'   EventType = "instanceChange"|"fleetRequestChange"|"error",
+#'   EventType = "instanceChange"|"fleetRequestChange"|"error"|"information",
 #'   MaxResults = 123,
 #'   NextToken = "string",
 #'   SpotFleetRequestId = "string",
@@ -14523,7 +15131,7 @@ ec2_describe_spot_instance_requests <- function(Filters = NULL, DryRun = NULL, S
 #'     "2015-01-01"
 #'   ),
 #'   InstanceTypes = list(
-#'     "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge"
+#'     "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge"
 #'   ),
 #'   MaxResults = 123,
 #'   NextToken = "string",
@@ -14569,10 +15177,10 @@ ec2_describe_spot_price_history <- function(Filters = NULL, AvailabilityZone = N
 }
 .ec2$operations$describe_spot_price_history <- ec2_describe_spot_price_history
 
-#' &#91;EC2-VPC only&#93; Describes the stale security group rules for
-#' security groups in a specified VPC
+#' &#91;VPC only&#93; Describes the stale security group rules for security
+#' groups in a specified VPC
 #'
-#' \[EC2-VPC only\] Describes the stale security group rules for security
+#' \[VPC only\] Describes the stale security group rules for security
 #' groups in a specified VPC. Rules are stale when they reference a deleted
 #' security group in a peer VPC, or a security group in a peer VPC for
 #' which the VPC peering connection has been deleted.
@@ -14625,11 +15233,11 @@ ec2_describe_stale_security_groups <- function(DryRun = NULL, MaxResults = NULL,
 #' Describes one or more of your subnets.
 #' 
 #' For more information, see [Your VPC and
-#' Subnets](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Subnets.html)
+#' Subnets](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
-#' ec2_describe_subnets(Filters, SubnetIds, DryRun)
+#' ec2_describe_subnets(Filters, SubnetIds, DryRun, NextToken, MaxResults)
 #'
 #' @param Filters One or more filters.
 #' 
@@ -14686,6 +15294,10 @@ ec2_describe_stale_security_groups <- function(DryRun = NULL, MaxResults = NULL,
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
+#' @param NextToken The token for the next page of results.
+#' @param MaxResults The maximum number of results to return with a single call. To retrieve
+#' the remaining results, make another call with the returned `nextToken`
+#' value.
 #'
 #' @section Request syntax:
 #' ```
@@ -14701,7 +15313,9 @@ ec2_describe_stale_security_groups <- function(DryRun = NULL, MaxResults = NULL,
 #'   SubnetIds = list(
 #'     "string"
 #'   ),
-#'   DryRun = TRUE|FALSE
+#'   DryRun = TRUE|FALSE,
+#'   NextToken = "string",
+#'   MaxResults = 123
 #' )
 #' ```
 #'
@@ -14721,14 +15335,14 @@ ec2_describe_stale_security_groups <- function(DryRun = NULL, MaxResults = NULL,
 #' @keywords internal
 #'
 #' @rdname ec2_describe_subnets
-ec2_describe_subnets <- function(Filters = NULL, SubnetIds = NULL, DryRun = NULL) {
+ec2_describe_subnets <- function(Filters = NULL, SubnetIds = NULL, DryRun = NULL, NextToken = NULL, MaxResults = NULL) {
   op <- new_operation(
     name = "DescribeSubnets",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$describe_subnets_input(Filters = Filters, SubnetIds = SubnetIds, DryRun = DryRun)
+  input <- .ec2$describe_subnets_input(Filters = Filters, SubnetIds = SubnetIds, DryRun = DryRun, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_subnets_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -14737,9 +15351,9 @@ ec2_describe_subnets <- function(Filters = NULL, SubnetIds = NULL, DryRun = NULL
 }
 .ec2$operations$describe_subnets <- ec2_describe_subnets
 
-#' Describes one or more of the tags for your EC2 resources
+#' Describes the specified tags for your EC2 resources
 #'
-#' Describes one or more of the tags for your EC2 resources.
+#' Describes the specified tags for your EC2 resources.
 #' 
 #' For more information about tags, see [Tagging Your
 #' Resources](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html)
@@ -14752,7 +15366,7 @@ ec2_describe_subnets <- function(Filters = NULL, SubnetIds = NULL, DryRun = NULL
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `key` - The tag key.
 #' 
@@ -14825,6 +15439,220 @@ ec2_describe_tags <- function(DryRun = NULL, Filters = NULL, MaxResults = NULL, 
   return(response)
 }
 .ec2$operations$describe_tags <- ec2_describe_tags
+
+#' Describes one or more Traffic Mirror filters
+#'
+#' Describes one or more Traffic Mirror filters.
+#'
+#' @usage
+#' ec2_describe_traffic_mirror_filters(TrafficMirrorFilterIds, DryRun,
+#'   Filters, MaxResults, NextToken)
+#'
+#' @param TrafficMirrorFilterIds The ID of the Traffic Mirror filter.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#' @param Filters One or more filters. The possible values are:
+#' 
+#' -   `description`: The Traffic Mirror filter description.
+#' 
+#' -   `traffic-mirror-filter-id`: The ID of the Traffic Mirror filter.
+#' @param MaxResults The maximum number of results to return with a single call. To retrieve
+#' the remaining results, make another call with the returned `nextToken`
+#' value.
+#' @param NextToken The token for the next page of results.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$describe_traffic_mirror_filters(
+#'   TrafficMirrorFilterIds = list(
+#'     "string"
+#'   ),
+#'   DryRun = TRUE|FALSE,
+#'   Filters = list(
+#'     list(
+#'       Name = "string",
+#'       Values = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   MaxResults = 123,
+#'   NextToken = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_traffic_mirror_filters
+ec2_describe_traffic_mirror_filters <- function(TrafficMirrorFilterIds = NULL, DryRun = NULL, Filters = NULL, MaxResults = NULL, NextToken = NULL) {
+  op <- new_operation(
+    name = "DescribeTrafficMirrorFilters",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$describe_traffic_mirror_filters_input(TrafficMirrorFilterIds = TrafficMirrorFilterIds, DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
+  output <- .ec2$describe_traffic_mirror_filters_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_traffic_mirror_filters <- ec2_describe_traffic_mirror_filters
+
+#' Describes one or more Traffic Mirror sessions
+#'
+#' Describes one or more Traffic Mirror sessions. By default, all Traffic
+#' Mirror sessions are described. Alternatively, you can filter the
+#' results.
+#'
+#' @usage
+#' ec2_describe_traffic_mirror_sessions(TrafficMirrorSessionIds, DryRun,
+#'   Filters, MaxResults, NextToken)
+#'
+#' @param TrafficMirrorSessionIds The ID of the Traffic Mirror session.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#' @param Filters One or more filters. The possible values are:
+#' 
+#' -   `description`: The Traffic Mirror session description.
+#' 
+#' -   `network-interface-id`: The ID of the Traffic Mirror session network
+#'     interface.
+#' 
+#' -   `owner-id`: The ID of the account that owns the Traffic Mirror
+#'     session.
+#' 
+#' -   `packet-length`: The assigned number of packets to mirror.
+#' 
+#' -   `session-number`: The assigned session number.
+#' 
+#' -   `traffic-mirror-filter-id`: The ID of the Traffic Mirror filter.
+#' 
+#' -   `traffic-mirror-session-id`: The ID of the Traffic Mirror session.
+#' 
+#' -   `traffic-mirror-target-id`: The ID of the Traffic Mirror target.
+#' 
+#' -   `virtual-network-id`: The virtual network ID of the Traffic Mirror
+#'     session.
+#' @param MaxResults The maximum number of results to return with a single call. To retrieve
+#' the remaining results, make another call with the returned `nextToken`
+#' value.
+#' @param NextToken The token for the next page of results.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$describe_traffic_mirror_sessions(
+#'   TrafficMirrorSessionIds = list(
+#'     "string"
+#'   ),
+#'   DryRun = TRUE|FALSE,
+#'   Filters = list(
+#'     list(
+#'       Name = "string",
+#'       Values = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   MaxResults = 123,
+#'   NextToken = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_traffic_mirror_sessions
+ec2_describe_traffic_mirror_sessions <- function(TrafficMirrorSessionIds = NULL, DryRun = NULL, Filters = NULL, MaxResults = NULL, NextToken = NULL) {
+  op <- new_operation(
+    name = "DescribeTrafficMirrorSessions",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$describe_traffic_mirror_sessions_input(TrafficMirrorSessionIds = TrafficMirrorSessionIds, DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
+  output <- .ec2$describe_traffic_mirror_sessions_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_traffic_mirror_sessions <- ec2_describe_traffic_mirror_sessions
+
+#' Information about one or more Traffic Mirror targets
+#'
+#' Information about one or more Traffic Mirror targets.
+#'
+#' @usage
+#' ec2_describe_traffic_mirror_targets(TrafficMirrorTargetIds, DryRun,
+#'   Filters, MaxResults, NextToken)
+#'
+#' @param TrafficMirrorTargetIds The ID of the Traffic Mirror targets.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#' @param Filters One or more filters. The possible values are:
+#' 
+#' -   `description`: The Traffic Mirror target description.
+#' 
+#' -   `network-interface-id`: The ID of the Traffic Mirror session network
+#'     interface.
+#' 
+#' -   `network-load-balancer-arn`: The Amazon Resource Name (ARN) of the
+#'     Network Load Balancer that is associated with the session.
+#' 
+#' -   `owner-id`: The ID of the account that owns the Traffic Mirror
+#'     session.
+#' 
+#' -   `traffic-mirror-target-id`: The ID of the Traffic Mirror target.
+#' @param MaxResults The maximum number of results to return with a single call. To retrieve
+#' the remaining results, make another call with the returned `nextToken`
+#' value.
+#' @param NextToken The token for the next page of results.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$describe_traffic_mirror_targets(
+#'   TrafficMirrorTargetIds = list(
+#'     "string"
+#'   ),
+#'   DryRun = TRUE|FALSE,
+#'   Filters = list(
+#'     list(
+#'       Name = "string",
+#'       Values = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   MaxResults = 123,
+#'   NextToken = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_traffic_mirror_targets
+ec2_describe_traffic_mirror_targets <- function(TrafficMirrorTargetIds = NULL, DryRun = NULL, Filters = NULL, MaxResults = NULL, NextToken = NULL) {
+  op <- new_operation(
+    name = "DescribeTrafficMirrorTargets",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$describe_traffic_mirror_targets_input(TrafficMirrorTargetIds = TrafficMirrorTargetIds, DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
+  output <- .ec2$describe_traffic_mirror_targets_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_traffic_mirror_targets <- ec2_describe_traffic_mirror_targets
 
 #' Describes one or more attachments between resources and transit gateways
 #'
@@ -15254,7 +16082,7 @@ ec2_describe_volume_attribute <- function(Attribute, VolumeId, DryRun = NULL) {
 #' ec2_describe_volume_status(Filters, MaxResults, NextToken, VolumeIds,
 #'   DryRun)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `action.code` - The action code for the event (for example,
 #'     `enable-volume-io`).
@@ -15300,7 +16128,7 @@ ec2_describe_volume_attribute <- function(Attribute, VolumeId, DryRun = NULL) {
 #' request. When the results of the request exceed `MaxResults`, this value
 #' can be used to retrieve the next page of results. This value is `null`
 #' when there are no more results to return.
-#' @param VolumeIds One or more volume IDs.
+#' @param VolumeIds The IDs of the volumes.
 #' 
 #' Default: Describes all your volumes.
 #' @param DryRun Checks whether you have the required permissions for the action, without
@@ -15369,9 +16197,9 @@ ec2_describe_volume_status <- function(Filters = NULL, MaxResults = NULL, NextTo
 }
 .ec2$operations$describe_volume_status <- ec2_describe_volume_status
 
-#' Describes the specified EBS volumes
+#' Describes the specified EBS volumes or all of your EBS volumes
 #'
-#' Describes the specified EBS volumes.
+#' Describes the specified EBS volumes or all of your EBS volumes.
 #' 
 #' If you are describing a long list of volumes, you can paginate the
 #' output to make the list more manageable. The `MaxResults` parameter sets
@@ -15387,7 +16215,7 @@ ec2_describe_volume_status <- function(Filters = NULL, MaxResults = NULL, NextTo
 #' @usage
 #' ec2_describe_volumes(Filters, VolumeIds, DryRun, MaxResults, NextToken)
 #'
-#' @param Filters One or more filters.
+#' @param Filters The filters.
 #' 
 #' -   `attachment.attach-time` - The time stamp when the attachment
 #'     initiated.
@@ -15409,7 +16237,8 @@ ec2_describe_volume_status <- function(Filters = NULL, MaxResults = NULL, NextTo
 #' 
 #' -   `create-time` - The time stamp when the volume was created.
 #' 
-#' -   `encrypted` - The encryption status of the volume.
+#' -   `encrypted` - Indicates whether the volume is encrypted (`true` \\|
+#'     `false`)
 #' 
 #' -   `size` - The size of the volume, in GiB.
 #' 
@@ -15434,7 +16263,7 @@ ec2_describe_volume_status <- function(Filters = NULL, MaxResults = NULL, NextTo
 #'     General Purpose SSD, `io1` for Provisioned IOPS SSD, `st1` for
 #'     Throughput Optimized HDD, `sc1` for Cold HDD, or `standard` for
 #'     Magnetic volumes.
-#' @param VolumeIds One or more volume IDs.
+#' @param VolumeIds The volume IDs.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -15546,12 +16375,11 @@ ec2_describe_volumes <- function(Filters = NULL, VolumeIds = NULL, DryRun = NULL
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param VolumeIds One or more volume IDs for which in-progress modifications will be
+#' @param VolumeIds The IDs of the volumes for which in-progress modifications will be
 #' described.
-#' @param Filters One or more filters. Supported filters: `volume-id`,
-#' `modification-state`, `target-size`, `target-iops`,
-#' `target-volume-type`, `original-size`, `original-iops`,
-#' `original-volume-type`, `start-time`.
+#' @param Filters The filters. Supported filters: `volume-id`, `modification-state`,
+#' `target-size`, `target-iops`, `target-volume-type`, `original-size`,
+#' `original-iops`, `original-volume-type`, `start-time`.
 #' @param NextToken The `nextToken` value returned by a previous paginated request.
 #' @param MaxResults The maximum number of results (up to a limit of 500) to be returned in a
 #' paginated request.
@@ -15935,6 +16763,16 @@ ec2_describe_vpc_endpoint_connections <- function(DryRun = NULL, Filters = NULL,
 #' 
 #' -   `service-state` - The state of the service (`Pending` \\| `Available`
 #'     \\| `Deleting` \\| `Deleted` \\| `Failed`).
+#' 
+#' -   `tag`:\\<key\\> - The key/value combination of a tag assigned to the
+#'     resource. Use the tag key in the filter name and the tag value as
+#'     the filter value. For example, to find all resources that have a tag
+#'     with the key `Owner` and the value `TeamA`, specify `tag:Owner` for
+#'     the filter name and `TeamA` for the filter value.
+#' 
+#' -   `tag-key` - The key of a tag assigned to the resource. Use this
+#'     filter to find all resources assigned a tag with a specific key,
+#'     regardless of the tag value.
 #' @param MaxResults The maximum number of results to return for the request in a single
 #' page. The remaining results of the initial request can be seen by
 #' sending another request with the returned `NextToken` value. This value
@@ -16062,6 +16900,16 @@ ec2_describe_vpc_endpoint_service_permissions <- function(DryRun = NULL, Service
 #' @param Filters One or more filters.
 #' 
 #' -   `service-name`: The name of the service.
+#' 
+#' -   `tag`:\\<key\\> - The key/value combination of a tag assigned to the
+#'     resource. Use the tag key in the filter name and the tag value as
+#'     the filter value. For example, to find all resources that have a tag
+#'     with the key `Owner` and the value `TeamA`, specify `tag:Owner` for
+#'     the filter name and `TeamA` for the filter value.
+#' 
+#' -   `tag-key` - The key of a tag assigned to the resource. Use this
+#'     filter to find all resources assigned a tag with a specific key,
+#'     regardless of the tag value.
 #' @param MaxResults The maximum number of items to return for this request. The request
 #' returns a token that you can specify in a subsequent call to get the
 #' next set of results.
@@ -16133,6 +16981,16 @@ ec2_describe_vpc_endpoint_services <- function(DryRun = NULL, ServiceNames = NUL
 #' 
 #' -   `vpc-endpoint-state`: The state of the endpoint. (`pending` \\|
 #'     `available` \\| `deleting` \\| `deleted`)
+#' 
+#' -   `tag`:\\<key\\> - The key/value combination of a tag assigned to the
+#'     resource. Use the tag key in the filter name and the tag value as
+#'     the filter value. For example, to find all resources that have a tag
+#'     with the key `Owner` and the value `TeamA`, specify `tag:Owner` for
+#'     the filter name and `TeamA` for the filter value.
+#' 
+#' -   `tag-key` - The key of a tag assigned to the resource. Use this
+#'     filter to find all resources assigned a tag with a specific key,
+#'     regardless of the tag value.
 #' @param MaxResults The maximum number of items to return for this request. The request
 #' returns a token that you can specify in a subsequent call to get the
 #' next set of results.
@@ -16840,6 +17698,56 @@ ec2_detach_vpn_gateway <- function(VpcId, VpnGatewayId, DryRun = NULL) {
 }
 .ec2$operations$detach_vpn_gateway <- ec2_detach_vpn_gateway
 
+#' Disables EBS encryption by default for your account in the current
+#' Region
+#'
+#' Disables EBS encryption by default for your account in the current
+#' Region.
+#' 
+#' After you disable encryption by default, you can still create encrypted
+#' volumes by enabling encryption when you create each volume.
+#' 
+#' Disabling encryption by default does not change the encryption status of
+#' your existing volumes.
+#' 
+#' For more information, see [Amazon EBS
+#' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
+#'
+#' @usage
+#' ec2_disable_ebs_encryption_by_default(DryRun)
+#'
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$disable_ebs_encryption_by_default(
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_disable_ebs_encryption_by_default
+ec2_disable_ebs_encryption_by_default <- function(DryRun = NULL) {
+  op <- new_operation(
+    name = "DisableEbsEncryptionByDefault",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$disable_ebs_encryption_by_default_input(DryRun = DryRun)
+  output <- .ec2$disable_ebs_encryption_by_default_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$disable_ebs_encryption_by_default <- ec2_disable_ebs_encryption_by_default
+
 #' Disables the specified resource attachment from propagating routes to
 #' the specified propagation route table
 #'
@@ -17184,7 +18092,7 @@ ec2_disassociate_iam_instance_profile <- function(AssociationId) {
 #' After you perform this action, the subnet no longer uses the routes in
 #' the route table. Instead, it uses the routes in the VPC\'s main route
 #' table. For more information about route tables, see [Route
-#' Tables](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html)
+#' Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -17353,6 +18261,63 @@ ec2_disassociate_vpc_cidr_block <- function(AssociationId) {
 }
 .ec2$operations$disassociate_vpc_cidr_block <- ec2_disassociate_vpc_cidr_block
 
+#' Enables EBS encryption by default for your account in the current Region
+#'
+#' Enables EBS encryption by default for your account in the current
+#' Region.
+#' 
+#' After you enable encryption by default, the EBS volumes that you create
+#' are are always encrypted, either using the default CMK or the CMK that
+#' you specified when you created each volume. For more information, see
+#' [Amazon EBS
+#' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
+#' 
+#' You can specify the default CMK for encryption by default using
+#' ModifyEbsDefaultKmsKeyId or ResetEbsDefaultKmsKeyId.
+#' 
+#' Enabling encryption by default has no effect on the encryption status of
+#' your existing volumes.
+#' 
+#' After you enable encryption by default, you can no longer launch
+#' instances using instance types that do not support encryption. For more
+#' information, see [Supported Instance
+#' Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances).
+#'
+#' @usage
+#' ec2_enable_ebs_encryption_by_default(DryRun)
+#'
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$enable_ebs_encryption_by_default(
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_enable_ebs_encryption_by_default
+ec2_enable_ebs_encryption_by_default <- function(DryRun = NULL) {
+  op <- new_operation(
+    name = "EnableEbsEncryptionByDefault",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$enable_ebs_encryption_by_default_input(DryRun = DryRun)
+  output <- .ec2$enable_ebs_encryption_by_default_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$enable_ebs_encryption_by_default <- ec2_enable_ebs_encryption_by_default
+
 #' Enables the specified attachment to propagate routes to the specified
 #' propagation route table
 #'
@@ -17407,8 +18372,11 @@ ec2_enable_transit_gateway_route_table_propagation <- function(TransitGatewayRou
 #' @usage
 #' ec2_enable_vgw_route_propagation(GatewayId, RouteTableId)
 #'
-#' @param GatewayId &#91;required&#93; The ID of the virtual private gateway.
-#' @param RouteTableId &#91;required&#93; The ID of the route table.
+#' @param GatewayId &#91;required&#93; The ID of the virtual private gateway that is attached to a VPC. The
+#' virtual private gateway must be attached to the same VPC that the
+#' routing tables are associated with.
+#' @param RouteTableId &#91;required&#93; The ID of the route table. The routing table must be associated with the
+#' same VPC that the virtual private gateway is attached to.
 #'
 #' @section Request syntax:
 #' ```
@@ -17684,7 +18652,7 @@ ec2_export_client_vpn_client_configuration <- function(ClientVpnEndpointId, DryR
 #' @param TransitGatewayRouteTableId &#91;required&#93; The ID of the route table.
 #' @param Filters One or more filters. The possible values are:
 #' 
-#' -   `attachment.transit-gateway-attachment-id`- The id of the transit
+#' -   `attachment.transit-gateway-attachment-id` - The id of the transit
 #'     gateway attachment.
 #' 
 #' -   `attachment.resource-id` - The resource id of the transit gateway
@@ -17711,7 +18679,7 @@ ec2_export_client_vpn_client_configuration <- function(ClientVpnEndpointId, DryR
 #' 
 #' -   `transit-gateway-route-destination-cidr-block` - The CIDR range.
 #' 
-#' -   `type` - The type of roue (`active` \\| `blackhole`).
+#' -   `type` - The type of route (`active` \\| `blackhole`).
 #' @param S3Bucket &#91;required&#93; The name of the S3 bucket.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
@@ -17868,6 +18836,96 @@ ec2_get_console_screenshot <- function(DryRun = NULL, InstanceId, WakeUp = NULL)
   return(response)
 }
 .ec2$operations$get_console_screenshot <- ec2_get_console_screenshot
+
+#' Describes the default customer master key (CMK) for EBS encryption by
+#' default for your account in this Region
+#'
+#' Describes the default customer master key (CMK) for EBS encryption by
+#' default for your account in this Region. You can change the default CMK
+#' for encryption by default using ModifyEbsDefaultKmsKeyId or
+#' ResetEbsDefaultKmsKeyId.
+#' 
+#' For more information, see [Amazon EBS
+#' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
+#'
+#' @usage
+#' ec2_get_ebs_default_kms_key_id(DryRun)
+#'
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$get_ebs_default_kms_key_id(
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ebs_default_kms_key_id
+ec2_get_ebs_default_kms_key_id <- function(DryRun = NULL) {
+  op <- new_operation(
+    name = "GetEbsDefaultKmsKeyId",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$get_ebs_default_kms_key_id_input(DryRun = DryRun)
+  output <- .ec2$get_ebs_default_kms_key_id_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ebs_default_kms_key_id <- ec2_get_ebs_default_kms_key_id
+
+#' Describes whether EBS encryption by default is enabled for your account
+#' in the current Region
+#'
+#' Describes whether EBS encryption by default is enabled for your account
+#' in the current Region.
+#' 
+#' For more information, see [Amazon EBS
+#' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
+#'
+#' @usage
+#' ec2_get_ebs_encryption_by_default(DryRun)
+#'
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$get_ebs_encryption_by_default(
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ebs_encryption_by_default
+ec2_get_ebs_encryption_by_default <- function(DryRun = NULL) {
+  op <- new_operation(
+    name = "GetEbsEncryptionByDefault",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$get_ebs_encryption_by_default_input(DryRun = DryRun)
+  output <- .ec2$get_ebs_encryption_by_default_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ebs_encryption_by_default <- ec2_get_ebs_encryption_by_default
 
 #' Preview a reservation purchase with configurations that match those of
 #' your Dedicated Host
@@ -18339,7 +19397,7 @@ ec2_import_client_vpn_client_certificate_revocation_list <- function(ClientVpnEn
 #'
 #' @param Architecture The architecture of the virtual machine.
 #' 
-#' Valid values: `i386` \\| `x86_64`
+#' Valid values: `i386` \\| `x86_64` \\| `arm64`
 #' @param ClientData The client-specific data.
 #' @param ClientToken The token to enable idempotency for VM import requests.
 #' @param Description A description string for the import image task.
@@ -18367,15 +19425,18 @@ ec2_import_client_vpn_client_certificate_revocation_list <- function(ClientVpnEn
 #' 
 #' -   Key ID
 #' 
-#' -   Key alias, in the form `alias/<i>ExampleAlias</i> `
+#' -   Key alias. The alias ARN contains the `arn:aws:kms` namespace,
+#'     followed by the Region of the CMK, the AWS account ID of the CMK
+#'     owner, the `alias` namespace, and then the CMK alias. For example,
+#'     arn:aws:kms:*us-east-1*:*012345678910*:alias/*ExampleAlias*.
 #' 
 #' -   ARN using key ID. The ID ARN contains the `arn:aws:kms` namespace,
-#'     followed by the region of the CMK, the AWS account ID of the CMK
+#'     followed by the Region of the CMK, the AWS account ID of the CMK
 #'     owner, the `key` namespace, and then the CMK ID. For example,
 #'     arn:aws:kms:*us-east-1*:*012345678910*:key/*abcd1234-a123-456a-a12b-a123b4cd56ef*.
 #' 
 #' -   ARN using key alias. The alias ARN contains the `arn:aws:kms`
-#'     namespace, followed by the region of the CMK, the AWS account ID of
+#'     namespace, followed by the Region of the CMK, the AWS account ID of
 #'     the CMK owner, the `alias` namespace, and then the CMK alias. For
 #'     example,
 #'     arn:aws:kms:*us-east-1*:*012345678910*:alias/*ExampleAlias*.
@@ -18384,28 +19445,20 @@ ec2_import_client_vpn_client_certificate_revocation_list <- function(ClientVpnEn
 #' may appear to complete even though you provided an invalid identifier.
 #' This action will eventually report failure.
 #' 
-#' The specified CMK must exist in the region that the AMI is being copied
+#' The specified CMK must exist in the Region that the AMI is being copied
 #' to.
 #' @param LicenseType The license type to be used for the Amazon Machine Image (AMI) after
 #' importing.
 #' 
-#' **Note:** You may only use BYOL if you have existing licenses with
-#' rights to use these licenses in a third party cloud like AWS. For more
-#' information, see
+#' By default, we detect the source-system operating system (OS) and apply
+#' the appropriate license. Specify `AWS` to replace the source-system
+#' license with an AWS license, if appropriate. Specify `BYOL` to retain
+#' the source-system license, if appropriate.
+#' 
+#' To use `BYOL`, you must have existing licenses with rights to use these
+#' licenses in a third party cloud, such as AWS. For more information, see
 #' [Prerequisites](https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html#prerequisites-image)
 #' in the VM Import/Export User Guide.
-#' 
-#' Valid values include:
-#' 
-#' -   `Auto` - Detects the source-system operating system (OS) and applies
-#'     the appropriate license.
-#' 
-#' -   `AWS` - Replaces the source-system license with an AWS license, if
-#'     appropriate.
-#' 
-#' -   `BYOL` - Retains the source-system license, if appropriate.
-#' 
-#' Default value: `Auto`
 #' @param Platform The operating system of the virtual machine.
 #' 
 #' Valid values: `Windows` \\| `Linux`
@@ -18524,7 +19577,7 @@ ec2_import_image <- function(Architecture = NULL, ClientData = NULL, ClientToken
 #'       "string"
 #'     ),
 #'     InstanceInitiatedShutdownBehavior = "stop"|"terminate",
-#'     InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'     InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'     Monitoring = TRUE|FALSE,
 #'     Placement = list(
 #'       AvailabilityZone = "string",
@@ -18648,15 +19701,18 @@ ec2_import_key_pair <- function(DryRun = NULL, KeyName, PublicKeyMaterial) {
 #' 
 #' -   Key ID
 #' 
-#' -   Key alias, in the form `alias/<i>ExampleAlias</i> `
+#' -   Key alias. The alias ARN contains the `arn:aws:kms` namespace,
+#'     followed by the Region of the CMK, the AWS account ID of the CMK
+#'     owner, the `alias` namespace, and then the CMK alias. For example,
+#'     arn:aws:kms:*us-east-1*:*012345678910*:alias/*ExampleAlias*.
 #' 
 #' -   ARN using key ID. The ID ARN contains the `arn:aws:kms` namespace,
-#'     followed by the region of the CMK, the AWS account ID of the CMK
+#'     followed by the Region of the CMK, the AWS account ID of the CMK
 #'     owner, the `key` namespace, and then the CMK ID. For example,
 #'     arn:aws:kms:*us-east-1*:*012345678910*:key/*abcd1234-a123-456a-a12b-a123b4cd56ef*.
 #' 
 #' -   ARN using key alias. The alias ARN contains the `arn:aws:kms`
-#'     namespace, followed by the region of the CMK, the AWS account ID of
+#'     namespace, followed by the Region of the CMK, the AWS account ID of
 #'     the CMK owner, the `alias` namespace, and then the CMK alias. For
 #'     example,
 #'     arn:aws:kms:*us-east-1*:*012345678910*:alias/*ExampleAlias*.
@@ -18665,7 +19721,7 @@ ec2_import_key_pair <- function(DryRun = NULL, KeyName, PublicKeyMaterial) {
 #' may appear to complete even though you provided an invalid identifier.
 #' This action will eventually report failure.
 #' 
-#' The specified CMK must exist in the region that the snapshot is being
+#' The specified CMK must exist in the Region that the snapshot is being
 #' copied to.
 #' @param RoleName The name of the role to use when not using the default role,
 #' \'vmimport\'.
@@ -18930,6 +19986,79 @@ ec2_modify_client_vpn_endpoint <- function(ClientVpnEndpointId, ServerCertificat
 }
 .ec2$operations$modify_client_vpn_endpoint <- ec2_modify_client_vpn_endpoint
 
+#' Changes the default customer master key (CMK) for EBS encryption by
+#' default for your account in this Region
+#'
+#' Changes the default customer master key (CMK) for EBS encryption by
+#' default for your account in this Region.
+#' 
+#' AWS creates a unique AWS managed CMK in each Region for use with
+#' encryption by default. If you change the default CMK to a customer
+#' managed CMK, it is used instead of the AWS managed CMK. To reset the
+#' default CMK to the AWS managed CMK for EBS, use ResetEbsDefaultKmsKeyId.
+#' 
+#' If you delete or disable the customer managed CMK that you specified for
+#' use with encryption by default, your instances will fail to launch.
+#' 
+#' For more information, see [Amazon EBS
+#' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
+#'
+#' @usage
+#' ec2_modify_ebs_default_kms_key_id(KmsKeyId, DryRun)
+#'
+#' @param KmsKeyId &#91;required&#93; The identifier of the AWS Key Management Service (AWS KMS) customer
+#' master key (CMK) to use for Amazon EBS encryption. If this parameter is
+#' not specified, your AWS managed CMK for EBS is used. If `KmsKeyId` is
+#' specified, the encrypted state must be `true`.
+#' 
+#' You can specify the CMK using any of the following:
+#' 
+#' -   Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+#' 
+#' -   Key alias. For example, alias/ExampleAlias.
+#' 
+#' -   Key ARN. For example,
+#'     arn:aws:kms:*us-east-1*:*012345678910*:key/*abcd1234-a123-456a-a12b-a123b4cd56ef*.
+#' 
+#' -   Alias ARN. For example,
+#'     arn:aws:kms:*us-east-1*:*012345678910*:alias/*ExampleAlias*.
+#' 
+#' AWS authenticates the CMK asynchronously. Therefore, if you specify an
+#' ID, alias, or ARN that is not valid, the action can appear to complete,
+#' but eventually fails.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$modify_ebs_default_kms_key_id(
+#'   KmsKeyId = "string",
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_ebs_default_kms_key_id
+ec2_modify_ebs_default_kms_key_id <- function(KmsKeyId, DryRun = NULL) {
+  op <- new_operation(
+    name = "ModifyEbsDefaultKmsKeyId",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$modify_ebs_default_kms_key_id_input(KmsKeyId = KmsKeyId, DryRun = DryRun)
+  output <- .ec2$modify_ebs_default_kms_key_id_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_ebs_default_kms_key_id <- ec2_modify_ebs_default_kms_key_id
+
 #' Modifies the specified EC2 Fleet
 #'
 #' Modifies the specified EC2 Fleet.
@@ -19002,13 +20131,13 @@ ec2_modify_fleet <- function(DryRun = NULL, ExcessCapacityTerminationPolicy = NU
 #' @param FpgaImageId &#91;required&#93; The ID of the AFI.
 #' @param Attribute The name of the attribute.
 #' @param OperationType The operation type.
-#' @param UserIds One or more AWS account IDs. This parameter is valid only when modifying
-#' the `loadPermission` attribute.
-#' @param UserGroups One or more user groups. This parameter is valid only when modifying the
+#' @param UserIds The AWS account IDs. This parameter is valid only when modifying the
 #' `loadPermission` attribute.
-#' @param ProductCodes One or more product codes. After you add a product code to an AFI, it
-#' can\'t be removed. This parameter is valid only when modifying the
-#' `productCodes` attribute.
+#' @param UserGroups The user groups. This parameter is valid only when modifying the
+#' `loadPermission` attribute.
+#' @param ProductCodes The product codes. After you add a product code to an AFI, it can\'t be
+#' removed. This parameter is valid only when modifying the `productCodes`
+#' attribute.
 #' @param LoadPermission The load permission for the AFI.
 #' @param Description A description for the AFI.
 #' @param Name A name for the AFI.
@@ -19078,10 +20207,14 @@ ec2_modify_fpga_image_attribute <- function(DryRun = NULL, FpgaImageId, Attribut
 #' instance is launched onto a suitable host with auto-placement enabled.
 #'
 #' @usage
-#' ec2_modify_hosts(AutoPlacement, HostIds)
+#' ec2_modify_hosts(AutoPlacement, HostIds, HostRecovery)
 #'
-#' @param AutoPlacement &#91;required&#93; Specify whether to enable or disable auto-placement.
+#' @param AutoPlacement Specify whether to enable or disable auto-placement.
 #' @param HostIds &#91;required&#93; The IDs of the Dedicated Hosts to modify.
+#' @param HostRecovery Indicates whether to enable or disable host recovery for the Dedicated
+#' Host. For more information, see [Host
+#' Recovery](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
 #'
 #' @section Request syntax:
 #' ```
@@ -19089,21 +20222,22 @@ ec2_modify_fpga_image_attribute <- function(DryRun = NULL, FpgaImageId, Attribut
 #'   AutoPlacement = "on"|"off",
 #'   HostIds = list(
 #'     "string"
-#'   )
+#'   ),
+#'   HostRecovery = "on"|"off"
 #' )
 #' ```
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_modify_hosts
-ec2_modify_hosts <- function(AutoPlacement, HostIds) {
+ec2_modify_hosts <- function(AutoPlacement = NULL, HostIds, HostRecovery = NULL) {
   op <- new_operation(
     name = "ModifyHosts",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$modify_hosts_input(AutoPlacement = AutoPlacement, HostIds = HostIds)
+  input <- .ec2$modify_hosts_input(AutoPlacement = AutoPlacement, HostIds = HostIds, HostRecovery = HostRecovery)
   output <- .ec2$modify_hosts_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -19112,9 +20246,9 @@ ec2_modify_hosts <- function(AutoPlacement, HostIds) {
 }
 .ec2$operations$modify_hosts <- ec2_modify_hosts
 
-#' Modifies the ID format for the specified resource on a per-region basis
+#' Modifies the ID format for the specified resource on a per-Region basis
 #'
-#' Modifies the ID format for the specified resource on a per-region basis.
+#' Modifies the ID format for the specified resource on a per-Region basis.
 #' You can specify that resources should receive longer IDs (17-character
 #' IDs) when they are created.
 #' 
@@ -19297,11 +20431,11 @@ ec2_modify_identity_id_format <- function(PrincipalArn, Resource, UseLongIds) {
 #' @param LaunchPermission A new launch permission for the AMI.
 #' @param OperationType The operation type. This parameter can be used only when the `Attribute`
 #' parameter is `launchPermission`.
-#' @param ProductCodes One or more DevPay product codes. After you add a product code to an
-#' AMI, it can\'t be removed.
-#' @param UserGroups One or more user groups. This parameter can be used only when the
-#' `Attribute` parameter is `launchPermission`.
-#' @param UserIds One or more AWS account IDs. This parameter can be used only when the
+#' @param ProductCodes The DevPay product codes. After you add a product code to an AMI, it
+#' can\'t be removed.
+#' @param UserGroups The user groups. This parameter can be used only when the `Attribute`
+#' parameter is `launchPermission`.
+#' @param UserIds The AWS account IDs. This parameter can be used only when the
 #' `Attribute` parameter is `launchPermission`.
 #' @param Value The value of the attribute being modified. This parameter can be used
 #' only when the `Attribute` parameter is `description` or `productCodes`.
@@ -19693,7 +20827,7 @@ ec2_modify_instance_credit_specification <- function(DryRun = NULL, ClientToken 
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
-#' Otherwise, it is `UnauthorizedOperation.`
+#' Otherwise, it is `UnauthorizedOperation`.
 #' @param InstanceId &#91;required&#93; The ID of the instance with the scheduled event.
 #' @param InstanceEventId &#91;required&#93; The ID of the event whose date and time you are modifying.
 #' @param NotBefore &#91;required&#93; The new date and time when the event will take place.
@@ -20010,7 +21144,7 @@ ec2_modify_network_interface_attribute <- function(Attachment = NULL, Descriptio
 #'     list(
 #'       AvailabilityZone = "string",
 #'       InstanceCount = 123,
-#'       InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'       InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'       Platform = "string",
 #'       Scope = "Availability Zone"|"Region"
 #'     )
@@ -20041,9 +21175,9 @@ ec2_modify_reserved_instances <- function(ReservedInstancesIds, ClientToken = NU
 #'
 #' Adds or removes permission settings for the specified snapshot. You may
 #' add or remove specified AWS account IDs from a snapshot\'s list of
-#' create volume permissions, but you cannot do both in a single API call.
+#' create volume permissions, but you cannot do both in a single operation.
 #' If you need to both add and remove account IDs for a snapshot, you must
-#' use multiple API calls.
+#' use multiple operations.
 #' 
 #' Encrypted snapshots and snapshots with AWS Marketplace product codes
 #' cannot be made public. Snapshots encrypted with your default CMK cannot
@@ -20145,6 +21279,8 @@ ec2_modify_snapshot_attribute <- function(Attribute = NULL, CreateVolumePermissi
 #'
 #' Modifies the specified Spot Fleet request.
 #' 
+#' You can only modify a Spot Fleet request of type `maintain`.
+#' 
 #' While the Spot Fleet request is being modified, it is in the `modifying`
 #' state.
 #' 
@@ -20171,20 +21307,22 @@ ec2_modify_snapshot_attribute <- function(Attribute = NULL, CreateVolumePermissi
 #'
 #' @usage
 #' ec2_modify_spot_fleet_request(ExcessCapacityTerminationPolicy,
-#'   SpotFleetRequestId, TargetCapacity)
+#'   SpotFleetRequestId, TargetCapacity, OnDemandTargetCapacity)
 #'
 #' @param ExcessCapacityTerminationPolicy Indicates whether running Spot Instances should be terminated if the
 #' target capacity of the Spot Fleet request is decreased below the current
 #' size of the Spot Fleet.
 #' @param SpotFleetRequestId &#91;required&#93; The ID of the Spot Fleet request.
 #' @param TargetCapacity The size of the fleet.
+#' @param OnDemandTargetCapacity The number of On-Demand Instances in the fleet.
 #'
 #' @section Request syntax:
 #' ```
 #' svc$modify_spot_fleet_request(
 #'   ExcessCapacityTerminationPolicy = "noTermination"|"default",
 #'   SpotFleetRequestId = "string",
-#'   TargetCapacity = 123
+#'   TargetCapacity = 123,
+#'   OnDemandTargetCapacity = 123
 #' )
 #' ```
 #'
@@ -20207,14 +21345,14 @@ ec2_modify_snapshot_attribute <- function(Attribute = NULL, CreateVolumePermissi
 #' @keywords internal
 #'
 #' @rdname ec2_modify_spot_fleet_request
-ec2_modify_spot_fleet_request <- function(ExcessCapacityTerminationPolicy = NULL, SpotFleetRequestId, TargetCapacity = NULL) {
+ec2_modify_spot_fleet_request <- function(ExcessCapacityTerminationPolicy = NULL, SpotFleetRequestId, TargetCapacity = NULL, OnDemandTargetCapacity = NULL) {
   op <- new_operation(
     name = "ModifySpotFleetRequest",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ec2$modify_spot_fleet_request_input(ExcessCapacityTerminationPolicy = ExcessCapacityTerminationPolicy, SpotFleetRequestId = SpotFleetRequestId, TargetCapacity = TargetCapacity)
+  input <- .ec2$modify_spot_fleet_request_input(ExcessCapacityTerminationPolicy = ExcessCapacityTerminationPolicy, SpotFleetRequestId = SpotFleetRequestId, TargetCapacity = TargetCapacity, OnDemandTargetCapacity = OnDemandTargetCapacity)
   output <- .ec2$modify_spot_fleet_request_output()
   svc <- .ec2$service()
   request <- new_request(svc, op, input, output)
@@ -20240,10 +21378,8 @@ ec2_modify_spot_fleet_request <- function(ExcessCapacityTerminationPolicy = NULL
 #' If you enable the IPv6 addressing feature for your subnet, your network
 #' interface or instance only receives an IPv6 address if it\'s created
 #' using version `2016-11-15` or later of the Amazon EC2 API.
-#' @param MapPublicIpOnLaunch Specify `true` to indicate that network interfaces created in the
-#' specified subnet should be assigned a public IPv4 address. This includes
-#' a network interface that\'s created when launching an instance into the
-#' subnet (the instance therefore receives a public IPv4 address).
+#' @param MapPublicIpOnLaunch Specify `true` to indicate that ENIs attached to instances created in
+#' the specified subnet should be assigned a public IPv4 address.
 #' @param SubnetId &#91;required&#93; The ID of the subnet.
 #'
 #' @section Request syntax:
@@ -20287,6 +21423,218 @@ ec2_modify_subnet_attribute <- function(AssignIpv6AddressOnCreation = NULL, MapP
   return(response)
 }
 .ec2$operations$modify_subnet_attribute <- ec2_modify_subnet_attribute
+
+#' Allows or restricts mirroring network services
+#'
+#' Allows or restricts mirroring network services.
+#' 
+#' By default, Amazon DNS network services are not eligible for Traffic
+#' Mirror. Use `AddNetworkServices` to add network services to a Traffic
+#' Mirror filter. When a network service is added to the Traffic Mirror
+#' filter, all traffic related to that network service will be mirrored.
+#' When you no longer want to mirror network services, use
+#' `RemoveNetworkServices` to remove the network services from the Traffic
+#' Mirror filter.
+#' 
+#' FFor information about filter rule properties, see [Network
+#' Services](https://docs.aws.amazon.com/vpc/latest/mirroring/traffic-mirroring-considerations.html#traffic-mirroring-network-services)
+#' in the *Traffic Mirroring User Guide* .
+#'
+#' @usage
+#' ec2_modify_traffic_mirror_filter_network_services(TrafficMirrorFilterId,
+#'   AddNetworkServices, RemoveNetworkServices, DryRun)
+#'
+#' @param TrafficMirrorFilterId &#91;required&#93; The ID of the Traffic Mirror filter.
+#' @param AddNetworkServices The network service, for example Amazon DNS, that you want to mirror.
+#' @param RemoveNetworkServices The network service, for example Amazon DNS, that you no longer want to
+#' mirror.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$modify_traffic_mirror_filter_network_services(
+#'   TrafficMirrorFilterId = "string",
+#'   AddNetworkServices = list(
+#'     "amazon-dns"
+#'   ),
+#'   RemoveNetworkServices = list(
+#'     "amazon-dns"
+#'   ),
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_traffic_mirror_filter_network_services
+ec2_modify_traffic_mirror_filter_network_services <- function(TrafficMirrorFilterId, AddNetworkServices = NULL, RemoveNetworkServices = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "ModifyTrafficMirrorFilterNetworkServices",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$modify_traffic_mirror_filter_network_services_input(TrafficMirrorFilterId = TrafficMirrorFilterId, AddNetworkServices = AddNetworkServices, RemoveNetworkServices = RemoveNetworkServices, DryRun = DryRun)
+  output <- .ec2$modify_traffic_mirror_filter_network_services_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_traffic_mirror_filter_network_services <- ec2_modify_traffic_mirror_filter_network_services
+
+#' Modifies the specified Traffic Mirror rule
+#'
+#' Modifies the specified Traffic Mirror rule.
+#' 
+#' `DestinationCidrBlock` and `SourceCidrBlock` must both be an IPv4 range
+#' or an IPv6 range.
+#'
+#' @usage
+#' ec2_modify_traffic_mirror_filter_rule(TrafficMirrorFilterRuleId,
+#'   TrafficDirection, RuleNumber, RuleAction, DestinationPortRange,
+#'   SourcePortRange, Protocol, DestinationCidrBlock, SourceCidrBlock,
+#'   Description, RemoveFields, DryRun)
+#'
+#' @param TrafficMirrorFilterRuleId &#91;required&#93; The ID of the Traffic Mirror rule.
+#' @param TrafficDirection The type of traffic (`ingress` \\| `egress`) to assign to the rule.
+#' @param RuleNumber The number of the Traffic Mirror rule. This number must be unique for
+#' each Traffic Mirror rule in a given direction. The rules are processed
+#' in ascending order by rule number.
+#' @param RuleAction The action to assign to the rule.
+#' @param DestinationPortRange The destination ports that are associated with the Traffic Mirror rule.
+#' @param SourcePortRange The port range to assign to the Traffic Mirror rule.
+#' @param Protocol The protocol, for example TCP, to assign to the Traffic Mirror rule.
+#' @param DestinationCidrBlock The destination CIDR block to assign to the Traffic Mirror rule.
+#' @param SourceCidrBlock The source CIDR block to assign to the Traffic Mirror rule.
+#' @param Description The description to assign to the Traffic Mirror rule.
+#' @param RemoveFields The properties that you want to remove from the Traffic Mirror filter
+#' rule.
+#' 
+#' When you remove a property from a Traffic Mirror filter rule, the
+#' property is set to the default.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$modify_traffic_mirror_filter_rule(
+#'   TrafficMirrorFilterRuleId = "string",
+#'   TrafficDirection = "ingress"|"egress",
+#'   RuleNumber = 123,
+#'   RuleAction = "accept"|"reject",
+#'   DestinationPortRange = list(
+#'     FromPort = 123,
+#'     ToPort = 123
+#'   ),
+#'   SourcePortRange = list(
+#'     FromPort = 123,
+#'     ToPort = 123
+#'   ),
+#'   Protocol = 123,
+#'   DestinationCidrBlock = "string",
+#'   SourceCidrBlock = "string",
+#'   Description = "string",
+#'   RemoveFields = list(
+#'     "destination-port-range"|"source-port-range"|"protocol"|"description"
+#'   ),
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_traffic_mirror_filter_rule
+ec2_modify_traffic_mirror_filter_rule <- function(TrafficMirrorFilterRuleId, TrafficDirection = NULL, RuleNumber = NULL, RuleAction = NULL, DestinationPortRange = NULL, SourcePortRange = NULL, Protocol = NULL, DestinationCidrBlock = NULL, SourceCidrBlock = NULL, Description = NULL, RemoveFields = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "ModifyTrafficMirrorFilterRule",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$modify_traffic_mirror_filter_rule_input(TrafficMirrorFilterRuleId = TrafficMirrorFilterRuleId, TrafficDirection = TrafficDirection, RuleNumber = RuleNumber, RuleAction = RuleAction, DestinationPortRange = DestinationPortRange, SourcePortRange = SourcePortRange, Protocol = Protocol, DestinationCidrBlock = DestinationCidrBlock, SourceCidrBlock = SourceCidrBlock, Description = Description, RemoveFields = RemoveFields, DryRun = DryRun)
+  output <- .ec2$modify_traffic_mirror_filter_rule_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_traffic_mirror_filter_rule <- ec2_modify_traffic_mirror_filter_rule
+
+#' Modifies a Traffic Mirror session
+#'
+#' Modifies a Traffic Mirror session.
+#'
+#' @usage
+#' ec2_modify_traffic_mirror_session(TrafficMirrorSessionId,
+#'   TrafficMirrorTargetId, TrafficMirrorFilterId, PacketLength,
+#'   SessionNumber, VirtualNetworkId, Description, RemoveFields, DryRun)
+#'
+#' @param TrafficMirrorSessionId &#91;required&#93; The ID of the Traffic Mirror session.
+#' @param TrafficMirrorTargetId The Traffic Mirror target. The target must be in the same VPC as the
+#' source, or have a VPC peering connection with the source.
+#' @param TrafficMirrorFilterId The ID of the Traffic Mirror filter.
+#' @param PacketLength The number of bytes in each packet to mirror. These are bytes after the
+#' VXLAN header. To mirror a subset, set this to the length (in bytes) to
+#' mirror. For example, if you set this value to 100, then the first 100
+#' bytes that meet the filter criteria are copied to the target. Do not
+#' specify this parameter when you want to mirror the entire packet.
+#' @param SessionNumber The session number determines the order in which sessions are evaluated
+#' when an interface is used by multiple sessions. The first session with a
+#' matching filter is the one that mirrors the packets.
+#' 
+#' Valid values are 1-32766.
+#' @param VirtualNetworkId The virtual network ID of the Traffic Mirror session.
+#' @param Description The description to assign to the Traffic Mirror session.
+#' @param RemoveFields The properties that you want to remove from the Traffic Mirror session.
+#' 
+#' When you remove a property from a Traffic Mirror session, the property
+#' is set to the default.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$modify_traffic_mirror_session(
+#'   TrafficMirrorSessionId = "string",
+#'   TrafficMirrorTargetId = "string",
+#'   TrafficMirrorFilterId = "string",
+#'   PacketLength = 123,
+#'   SessionNumber = 123,
+#'   VirtualNetworkId = 123,
+#'   Description = "string",
+#'   RemoveFields = list(
+#'     "packet-length"|"description"|"virtual-network-id"
+#'   ),
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_traffic_mirror_session
+ec2_modify_traffic_mirror_session <- function(TrafficMirrorSessionId, TrafficMirrorTargetId = NULL, TrafficMirrorFilterId = NULL, PacketLength = NULL, SessionNumber = NULL, VirtualNetworkId = NULL, Description = NULL, RemoveFields = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "ModifyTrafficMirrorSession",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$modify_traffic_mirror_session_input(TrafficMirrorSessionId = TrafficMirrorSessionId, TrafficMirrorTargetId = TrafficMirrorTargetId, TrafficMirrorFilterId = TrafficMirrorFilterId, PacketLength = PacketLength, SessionNumber = SessionNumber, VirtualNetworkId = VirtualNetworkId, Description = Description, RemoveFields = RemoveFields, DryRun = DryRun)
+  output <- .ec2$modify_traffic_mirror_session_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_traffic_mirror_session <- ec2_modify_traffic_mirror_session
 
 #' Modifies the specified VPC attachment
 #'
@@ -20371,8 +21719,8 @@ ec2_modify_transit_gateway_vpc_attachment <- function(TransitGatewayAttachmentId
 #' an EBS volume. For information about CloudWatch Events, see the [Amazon
 #' CloudWatch Events User
 #' Guide](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/). You
-#' can also track the status of a modification using the
-#' DescribeVolumesModifications API. For information about tracking status
+#' can also track the status of a modification using
+#' DescribeVolumesModifications. For information about tracking status
 #' changes using either method, see [Monitoring Volume
 #' Modifications](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-expand-volume.html#monitoring_mods).
 #' 
@@ -20595,7 +21943,7 @@ ec2_modify_vpc_attribute <- function(EnableDnsHostnames = NULL, EnableDnsSupport
 #' Modifies attributes of a specified VPC endpoint. The attributes that you
 #' can modify depend on the type of VPC endpoint (interface or gateway).
 #' For more information, see [VPC
-#' Endpoints](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/vpc-endpoints.html)
+#' Endpoints](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -20790,7 +22138,7 @@ ec2_modify_vpc_endpoint_service_configuration <- function(DryRun = NULL, Service
 #' Modifies the permissions for your VPC endpoint service
 #'
 #' Modifies the permissions for your [VPC endpoint
-#' service](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/endpoint-service.html).
+#' service](https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html).
 #' You can add or remove permissions for service consumers (IAM users, IAM
 #' roles, and AWS accounts) to connect to your endpoint service.
 #' 
@@ -20868,11 +22216,11 @@ ec2_modify_vpc_endpoint_service_permissions <- function(DryRun = NULL, ServiceId
 #' resolution for queries from the local VPC. This ensures that queries
 #' from the local VPC resolve to private IP addresses in the peer VPC. This
 #' option is not available if the peered VPCs are in different AWS accounts
-#' or different regions. For peered VPCs in different AWS accounts, each
+#' or different Regions. For peered VPCs in different AWS accounts, each
 #' AWS account owner must initiate a separate request to modify the peering
 #' connection options. For inter-region peering connections, you must use
-#' the region for the requester VPC to modify the requester VPC peering
-#' options and the region for the accepter VPC to modify the accepter VPC
+#' the Region for the requester VPC to modify the requester VPC peering
+#' options and the Region for the accepter VPC to modify the accepter VPC
 #' peering options. To verify which VPCs are the accepter and the requester
 #' for a VPC peering connection, use the DescribeVpcPeeringConnections
 #' command.
@@ -20980,6 +22328,92 @@ ec2_modify_vpc_tenancy <- function(VpcId, InstanceTenancy, DryRun = NULL) {
 }
 .ec2$operations$modify_vpc_tenancy <- ec2_modify_vpc_tenancy
 
+#' Modifies the target gateway of a AWS Site-to-Site VPN connection
+#'
+#' Modifies the target gateway of a AWS Site-to-Site VPN connection. The
+#' following migration options are available:
+#' 
+#' -   An existing virtual private gateway to a new virtual private gateway
+#' 
+#' -   An existing virtual private gateway to a transit gateway
+#' 
+#' -   An existing transit gateway to a new transit gateway
+#' 
+#' -   An existing transit gateway to a virtual private gateway
+#' 
+#' Before you perform the migration to the new gateway, you must configure
+#' the new gateway. Use CreateVpnGateway to create a virtual private
+#' gateway, or CreateTransitGateway to create a transit gateway.
+#' 
+#' This step is required when you migrate from a virtual private gateway
+#' with static routes to a transit gateway.
+#' 
+#' You must delete the static routes before you migrate to the new gateway.
+#' 
+#' Keep a copy of the static route before you delete it. You will need to
+#' add back these routes to the transit gateway after the VPN connection
+#' migration is complete.
+#' 
+#' After you migrate to the new gateway, you might need to modify your VPC
+#' route table. Use CreateRoute and DeleteRoute to make the changes
+#' described in [VPN Gateway Target Modification Required VPC Route Table
+#' Updates](https://docs.aws.amazon.com/vpn/latest/s2svpn/modify-vpn-target.html#step-update-routing)
+#' in the *AWS Site-to-Site VPN User Guide*.
+#' 
+#' When the new gateway is a transit gateway, modify the transit gateway
+#' route table to allow traffic between the VPC and the AWS Site-to-Site
+#' VPN connection. Use CreateTransitGatewayRoute to add the routes.
+#' 
+#' If you deleted VPN static routes, you must add the static routes to the
+#' transit gateway route table.
+#' 
+#' After you perform this operation, the AWS VPN endpoint\'s IP addresses
+#' on the AWS side and the tunnel options remain intact. Your s2slong;
+#' connection will be temporarily unavailable for approximately 10 minutes
+#' while we provision the new endpoints
+#'
+#' @usage
+#' ec2_modify_vpn_connection(VpnConnectionId, TransitGatewayId,
+#'   VpnGatewayId, DryRun)
+#'
+#' @param VpnConnectionId &#91;required&#93; The ID of the VPN connection.
+#' @param TransitGatewayId The ID of the transit gateway.
+#' @param VpnGatewayId The ID of the virtual private gateway at the AWS side of the VPN
+#' connection.
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$modify_vpn_connection(
+#'   VpnConnectionId = "string",
+#'   TransitGatewayId = "string",
+#'   VpnGatewayId = "string",
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_vpn_connection
+ec2_modify_vpn_connection <- function(VpnConnectionId, TransitGatewayId = NULL, VpnGatewayId = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "ModifyVpnConnection",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$modify_vpn_connection_input(VpnConnectionId = VpnConnectionId, TransitGatewayId = TransitGatewayId, VpnGatewayId = VpnGatewayId, DryRun = DryRun)
+  output <- .ec2$modify_vpn_connection_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_vpn_connection <- ec2_modify_vpn_connection
+
 #' Enables detailed monitoring for a running instance
 #'
 #' Enables detailed monitoring for a running instance. Otherwise, basic
@@ -20993,7 +22427,7 @@ ec2_modify_vpc_tenancy <- function(VpcId, InstanceTenancy, DryRun = NULL) {
 #' @usage
 #' ec2_monitor_instances(InstanceIds, DryRun)
 #'
-#' @param InstanceIds &#91;required&#93; One or more instance IDs.
+#' @param InstanceIds &#91;required&#93; The IDs of the instances.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -21115,7 +22549,7 @@ ec2_move_address_to_vpc <- function(DryRun = NULL, PublicIp) {
 #' @param Cidr &#91;required&#93; The public IPv4 address range, in CIDR notation. The most specific
 #' prefix that you can specify is /24. The address range cannot overlap
 #' with another address range that you\'ve brought to this or another
-#' region.
+#' Region.
 #' @param CidrAuthorizationContext A signed document that proves that you are authorized to bring the
 #' specified IP address range to Amazon using BYOIP.
 #' @param Description A description for the address range and the address pool.
@@ -21168,10 +22602,9 @@ ec2_provision_byoip_cidr <- function(Cidr, CidrAuthorizationContext = NULL, Desc
 #' ec2_purchase_host_reservation(ClientToken, CurrencyCode, HostIdSet,
 #'   LimitPrice, OfferingId)
 #'
-#' @param ClientToken Unique, case-sensitive identifier you provide to ensure idempotency of
-#' the request. For more information, see [How to Ensure
-#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html)
-#' in the *Amazon Elastic Compute Cloud User Guide*.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the
+#' idempotency of the request. For more information, see [How to Ensure
+#' Idempotency](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html).
 #' @param CurrencyCode The currency in which the `totalUpfrontPrice`, `LimitPrice`, and
 #' `totalHourlyPrice` amounts are specified. At this time, the only
 #' supported currency is `USD`.
@@ -21281,9 +22714,9 @@ ec2_purchase_reserved_instances_offering <- function(InstanceCount, ReservedInst
 }
 .ec2$operations$purchase_reserved_instances_offering <- ec2_purchase_reserved_instances_offering
 
-#' Purchases one or more Scheduled Instances with the specified schedule
+#' Purchases the Scheduled Instances with the specified schedule
 #'
-#' Purchases one or more Scheduled Instances with the specified schedule.
+#' Purchases the Scheduled Instances with the specified schedule.
 #' 
 #' Scheduled Instances enable you to purchase Amazon EC2 compute capacity
 #' by the hour for a one-year term. Before you can purchase a Scheduled
@@ -21305,7 +22738,7 @@ ec2_purchase_reserved_instances_offering <- function(InstanceCount, ReservedInst
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
-#' @param PurchaseRequests &#91;required&#93; One or more purchase requests.
+#' @param PurchaseRequests &#91;required&#93; The purchase requests.
 #'
 #' @section Request syntax:
 #' ```
@@ -21351,9 +22784,9 @@ ec2_purchase_scheduled_instances <- function(ClientToken = NULL, DryRun = NULL, 
 }
 .ec2$operations$purchase_scheduled_instances <- ec2_purchase_scheduled_instances
 
-#' Requests a reboot of one or more instances
+#' Requests a reboot of the specified instances
 #'
-#' Requests a reboot of one or more instances. This operation is
+#' Requests a reboot of the specified instances. This operation is
 #' asynchronous; it only queues a request to reboot the specified
 #' instances. The operation succeeds if the instances are valid and belong
 #' to you. Requests to reboot terminated instances are ignored.
@@ -21369,7 +22802,7 @@ ec2_purchase_scheduled_instances <- function(ClientToken = NULL, DryRun = NULL, 
 #' @usage
 #' ec2_reboot_instances(InstanceIds, DryRun)
 #'
-#' @param InstanceIds &#91;required&#93; One or more instance IDs.
+#' @param InstanceIds &#91;required&#93; The instance IDs.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -21457,12 +22890,17 @@ ec2_reboot_instances <- function(InstanceIds, DryRun = NULL) {
 #'   Description, DryRun, EnaSupport, KernelId, Name, BillingProducts,
 #'   RamdiskId, RootDeviceName, SriovNetSupport, VirtualizationType)
 #'
-#' @param ImageLocation The full path to your AMI manifest in Amazon S3 storage.
+#' @param ImageLocation The full path to your AMI manifest in Amazon S3 storage. The specified
+#' bucket must have the `aws-exec-read` canned access control list (ACL) to
+#' ensure that it can be accessed by Amazon EC2. For more information, see
+#' [Canned
+#' ACLs](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl)
+#' in the *Amazon S3 Service Developer Guide*.
 #' @param Architecture The architecture of the AMI.
 #' 
 #' Default: For Amazon EBS-backed AMIs, `i386`. For instance store-backed
 #' AMIs, the architecture specified in the manifest file.
-#' @param BlockDeviceMappings One or more block device mapping entries.
+#' @param BlockDeviceMappings The block device mapping entries.
 #' @param Description A description for your AMI.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
@@ -21863,8 +23301,8 @@ ec2_replace_iam_instance_profile_association <- function(IamInstanceProfile, Ass
 #' Changes which network ACL a subnet is associated with. By default when
 #' you create a subnet, it\'s automatically associated with the default
 #' network ACL. For more information, see [Network
-#' ACLs](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html)
-#' in the *Amazon Virtual Private Cloud User Guide*.
+#' ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ACLs.html) in
+#' the *Amazon Virtual Private Cloud User Guide*.
 #' 
 #' This is an idempotent operation.
 #'
@@ -21919,8 +23357,8 @@ ec2_replace_network_acl_association <- function(AssociationId, DryRun = NULL, Ne
 #'
 #' Replaces an entry (rule) in a network ACL. For more information, see
 #' [Network
-#' ACLs](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_ACLs.html)
-#' in the *Amazon Virtual Private Cloud User Guide*.
+#' ACLs](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_ACLs.html) in
+#' the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
 #' ec2_replace_network_acl_entry(CidrBlock, DryRun, Egress, IcmpTypeCode,
@@ -22020,7 +23458,7 @@ ec2_replace_network_acl_entry <- function(CidrBlock = NULL, DryRun = NULL, Egres
 #' interface, or egress-only internet gateway.
 #' 
 #' For more information, see [Route
-#' Tables](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html)
+#' Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #'
 #' @usage
@@ -22098,7 +23536,7 @@ ec2_replace_route <- function(DestinationCidrBlock = NULL, DestinationIpv6CidrBl
 #' the operation completes, the subnet uses the routes in the new route
 #' table it\'s associated with. For more information about route tables,
 #' see [Route
-#' Tables](https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_Route_Tables.html)
+#' Tables](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Route_Tables.html)
 #' in the *Amazon Virtual Private Cloud User Guide*.
 #' 
 #' You can also use ReplaceRouteTableAssociation to change which table is
@@ -22224,9 +23662,8 @@ ec2_replace_transit_gateway_route <- function(DestinationCidrBlock, TransitGatew
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
 #' @param EndTime The time at which the reported instance health state ended.
-#' @param Instances &#91;required&#93; One or more instances.
-#' @param ReasonCodes &#91;required&#93; One or more reason codes that describe the health state of your
-#' instance.
+#' @param Instances &#91;required&#93; The instances.
+#' @param ReasonCodes &#91;required&#93; The reason codes that describe the health state of your instance.
 #' 
 #' -   `instance-stuck-in-state`: My instance is stuck in a state.
 #' 
@@ -22378,7 +23815,7 @@ ec2_report_instance_status <- function(Description = NULL, DryRun = NULL, EndTim
 #'           Name = "string"
 #'         ),
 #'         ImageId = "string",
-#'         InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'         InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'         KernelId = "string",
 #'         KeyName = "string",
 #'         Monitoring = list(
@@ -22408,7 +23845,8 @@ ec2_report_instance_status <- function(Description = NULL, DryRun = NULL, EndTim
 #'               )
 #'             ),
 #'             SecondaryPrivateIpAddressCount = 123,
-#'             SubnetId = "string"
+#'             SubnetId = "string",
+#'             InterfaceType = "string"
 #'           )
 #'         ),
 #'         Placement = list(
@@ -22423,7 +23861,7 @@ ec2_report_instance_status <- function(Description = NULL, DryRun = NULL, EndTim
 #'         WeightedCapacity = 123.0,
 #'         TagSpecifications = list(
 #'           list(
-#'             ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'             ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'             Tags = list(
 #'               list(
 #'                 Key = "string",
@@ -22443,7 +23881,7 @@ ec2_report_instance_status <- function(Description = NULL, DryRun = NULL, EndTim
 #'         ),
 #'         Overrides = list(
 #'           list(
-#'             InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'             InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'             SpotPrice = "string",
 #'             SubnetId = "string",
 #'             AvailabilityZone = "string",
@@ -22456,6 +23894,8 @@ ec2_report_instance_status <- function(Description = NULL, DryRun = NULL, EndTim
 #'     SpotPrice = "string",
 #'     TargetCapacity = 123,
 #'     OnDemandTargetCapacity = 123,
+#'     OnDemandMaxTotalPrice = "string",
+#'     SpotMaxTotalPrice = "string",
 #'     TerminateInstancesWithExpiration = TRUE|FALSE,
 #'     Type = "request"|"maintain"|"instant",
 #'     ValidFrom = as.POSIXct(
@@ -22751,7 +24191,7 @@ ec2_request_spot_fleet <- function(DryRun = NULL, SpotFleetRequestConfig) {
 #'       Name = "string"
 #'     ),
 #'     ImageId = "string",
-#'     InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'     InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'     KernelId = "string",
 #'     KeyName = "string",
 #'     Monitoring = list(
@@ -22781,7 +24221,8 @@ ec2_request_spot_fleet <- function(DryRun = NULL, SpotFleetRequestConfig) {
 #'           )
 #'         ),
 #'         SecondaryPrivateIpAddressCount = 123,
-#'         SubnetId = "string"
+#'         SubnetId = "string",
+#'         InterfaceType = "string"
 #'       )
 #'     ),
 #'     Placement = list(
@@ -22871,6 +24312,52 @@ ec2_request_spot_instances <- function(AvailabilityZoneGroup = NULL, BlockDurati
   return(response)
 }
 .ec2$operations$request_spot_instances <- ec2_request_spot_instances
+
+#' Resets the default customer master key (CMK) for EBS encryption for your
+#' account in this Region to the AWS managed CMK for EBS
+#'
+#' Resets the default customer master key (CMK) for EBS encryption for your
+#' account in this Region to the AWS managed CMK for EBS.
+#' 
+#' After resetting the default CMK to the AWS managed CMK, you can continue
+#' to encrypt by a customer managed CMK by specifying it when you create
+#' the volume. For more information, see [Amazon EBS
+#' Encryption](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
+#'
+#' @usage
+#' ec2_reset_ebs_default_kms_key_id(DryRun)
+#'
+#' @param DryRun Checks whether you have the required permissions for the action, without
+#' actually making the request, and provides an error response. If you have
+#' the required permissions, the error response is `DryRunOperation`.
+#' Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$reset_ebs_default_kms_key_id(
+#'   DryRun = TRUE|FALSE
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_reset_ebs_default_kms_key_id
+ec2_reset_ebs_default_kms_key_id <- function(DryRun = NULL) {
+  op <- new_operation(
+    name = "ResetEbsDefaultKmsKeyId",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ec2$reset_ebs_default_kms_key_id_input(DryRun = DryRun)
+  output <- .ec2$reset_ebs_default_kms_key_id_output()
+  svc <- .ec2$service()
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$reset_ebs_default_kms_key_id <- ec2_reset_ebs_default_kms_key_id
 
 #' Resets the specified attribute of the specified Amazon FPGA Image (AFI)
 #' to its default value
@@ -23232,10 +24719,10 @@ ec2_revoke_client_vpn_ingress <- function(ClientVpnEndpointId, TargetNetworkCidr
 }
 .ec2$operations$revoke_client_vpn_ingress <- ec2_revoke_client_vpn_ingress
 
-#' &#91;EC2-VPC only&#93; Removes one or more egress rules from a security
+#' &#91;VPC only&#93; Removes the specified egress rules from a security
 #' group for EC2-VPC
 #'
-#' \[EC2-VPC only\] Removes one or more egress rules from a security group
+#' \[VPC only\] Removes the specified egress rules from a security group
 #' for EC2-VPC. This action doesn\'t apply to security groups for use in
 #' EC2-Classic. To remove a rule, the values that you specify (for example,
 #' ports) must match the existing rule\'s values exactly.
@@ -23260,9 +24747,8 @@ ec2_revoke_client_vpn_ingress <- function(ClientVpnEndpointId, TargetNetworkCidr
 #' the required permissions, the error response is `DryRunOperation`.
 #' Otherwise, it is `UnauthorizedOperation`.
 #' @param GroupId &#91;required&#93; The ID of the security group.
-#' @param IpPermissions One or more sets of IP permissions. You can\'t specify a destination
-#' security group and a CIDR IP address range in the same set of
-#' permissions.
+#' @param IpPermissions The sets of IP permissions. You can\'t specify a destination security
+#' group and a CIDR IP address range in the same set of permissions.
 #' @param CidrIp Not supported. Use a set of IP permissions to specify the CIDR.
 #' @param FromPort Not supported. Use a set of IP permissions to specify the port.
 #' @param IpProtocol Not supported. Use a set of IP permissions to specify the protocol name
@@ -23342,15 +24828,15 @@ ec2_revoke_security_group_egress <- function(DryRun = NULL, GroupId, IpPermissio
 }
 .ec2$operations$revoke_security_group_egress <- ec2_revoke_security_group_egress
 
-#' Removes one or more ingress rules from a security group
+#' Removes the specified ingress rules from a security group
 #'
-#' Removes one or more ingress rules from a security group. To remove a
+#' Removes the specified ingress rules from a security group. To remove a
 #' rule, the values that you specify (for example, ports) must match the
 #' existing rule\'s values exactly.
 #' 
-#' \[EC2-Classic security groups only\] If the values you specify do not
-#' match the existing rule\'s values, no error is returned. Use
-#' DescribeSecurityGroups to verify that the rule has been removed.
+#' \[EC2-Classic only\] If the values you specify do not match the existing
+#' rule\'s values, no error is returned. Use DescribeSecurityGroups to
+#' verify that the rule has been removed.
 #' 
 #' Each rule consists of the protocol and the CIDR range or source security
 #' group. For the TCP and UDP protocols, you must also specify the
@@ -23377,8 +24863,8 @@ ec2_revoke_security_group_egress <- function(DryRun = NULL, GroupId, IpPermissio
 #' @param GroupName \[EC2-Classic, default VPC\] The name of the security group. You must
 #' specify either the security group ID or the security group name in the
 #' request.
-#' @param IpPermissions One or more sets of IP permissions. You can\'t specify a source security
-#' group and a CIDR IP address range in the same set of permissions.
+#' @param IpPermissions The sets of IP permissions. You can\'t specify a source security group
+#' and a CIDR IP address range in the same set of permissions.
 #' @param IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`) or number (see [Protocol
 #' Numbers](http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml)).
 #' Use `-1` to specify all.
@@ -23549,20 +25035,15 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #'   CreditSpecification, CpuOptions, CapacityReservationSpecification,
 #'   HibernationOptions, LicenseSpecifications)
 #'
-#' @param BlockDeviceMappings One or more block device mapping entries. You can\'t specify both a
-#' snapshot ID and an encryption value. This is because only blank volumes
-#' can be encrypted on creation. If a snapshot is the basis for a volume,
-#' it is not blank and its encryption status is used for the volume
-#' encryption status.
-#' @param ImageId The ID of the AMI, which you can get by calling DescribeImages. An AMI
-#' is required to launch an instance and must be specified here or in a
-#' launch template.
+#' @param BlockDeviceMappings The block device mapping entries.
+#' @param ImageId The ID of the AMI. An AMI ID is required to launch an instance and must
+#' be specified here or in a launch template.
 #' @param InstanceType The instance type. For more information, see [Instance
 #' Types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
 #' 
 #' Default: `m1.small`
-#' @param Ipv6AddressCount \[EC2-VPC\] A number of IPv6 addresses to associate with the primary
+#' @param Ipv6AddressCount \[EC2-VPC\] The number of IPv6 addresses to associate with the primary
 #' network interface. Amazon EC2 chooses the IPv6 addresses from the range
 #' of your subnet. You cannot specify this option and the option to assign
 #' specific IPv6 addresses in the same request. You can specify this option
@@ -23570,11 +25051,11 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #' 
 #' You cannot specify this option and the network interfaces option in the
 #' same request.
-#' @param Ipv6Addresses \[EC2-VPC\] Specify one or more IPv6 addresses from the range of the
-#' subnet to associate with the primary network interface. You cannot
-#' specify this option and the option to assign a number of IPv6 addresses
-#' in the same request. You cannot specify this option if you\'ve specified
-#' a minimum number of instances to launch.
+#' @param Ipv6Addresses \[EC2-VPC\] The IPv6 addresses from the range of the subnet to associate
+#' with the primary network interface. You cannot specify this option and
+#' the option to assign a number of IPv6 addresses in the same request. You
+#' cannot specify this option if you\'ve specified a minimum number of
+#' instances to launch.
 #' 
 #' You cannot specify this option and the network interfaces option in the
 #' same request.
@@ -23584,8 +25065,10 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #' more information, see
 #' [PV-GRUB](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
-#' @param KeyName The name of the key pair. You can create a key pair using CreateKeyPair
-#' or ImportKeyPair.
+#' @param KeyName The name of the key pair. You can create a key pair using
+#' [CreateKeyPair](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateKeyPair.html)
+#' or
+#' [ImportKeyPair](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ImportKeyPair.html).
 #' 
 #' If you do not specify a key pair, you can\'t connect to the instance
 #' unless you choose an AMI that is configured to allow users another way
@@ -23610,32 +25093,33 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #' Amazon
 #' EC2](http://aws.amazon.com/ec2/faqs/#How_many_instances_can_I_run_in_Amazon_EC2)
 #' in the Amazon EC2 General FAQ.
-#' @param Monitoring The monitoring for the instance.
+#' @param Monitoring Specifies whether detailed monitoring is enabled for the instance.
 #' @param Placement The placement for the instance.
-#' @param RamdiskId The ID of the RAM disk.
+#' @param RamdiskId The ID of the RAM disk to select. Some kernels require additional
+#' drivers at launch. Check the kernel requirements for information about
+#' whether you need to specify a RAM disk. To find kernel requirements, go
+#' to the AWS Resource Center and search for the kernel ID.
 #' 
 #' We recommend that you use PV-GRUB instead of kernels and RAM disks. For
 #' more information, see
 #' [PV-GRUB](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
-#' @param SecurityGroupIds One or more security group IDs. You can create a security group using
-#' CreateSecurityGroup.
+#' @param SecurityGroupIds The IDs of the security groups. You can create a security group using
+#' [CreateSecurityGroup](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateSecurityGroup.html).
 #' 
-#' Default: Amazon EC2 uses the default security group.
-#' 
-#' You cannot specify this option and the network interfaces option in the
-#' same request.
-#' @param SecurityGroups \[EC2-Classic, default VPC\] One or more security group names. For a
+#' If you specify a network interface, you must specify any security groups
+#' as part of the network interface.
+#' @param SecurityGroups \[EC2-Classic, default VPC\] The names of the security groups. For a
 #' nondefault VPC, you must use security group IDs instead.
 #' 
-#' You cannot specify this option and the network interfaces option in the
-#' same request.
+#' If you specify a network interface, you must specify any security groups
+#' as part of the network interface.
 #' 
 #' Default: Amazon EC2 uses the default security group.
 #' @param SubnetId \[EC2-VPC\] The ID of the subnet to launch the instance into.
 #' 
-#' You cannot specify this option and the network interfaces option in the
-#' same request.
+#' If you specify a network interface, you must specify any subnets as part
+#' of the network interface.
 #' @param UserData The user data to make available to the instance. For more information,
 #' see [Running Commands on Your Linux Instance at
 #' Launch](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html)
@@ -23643,7 +25127,7 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #' Data](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/ec2-instance-metadata.html#instancedata-add-user-data)
 #' (Windows). If you are using a command line tool, base64-encoding is
 #' performed for you, and you can load the text from a file. Otherwise, you
-#' must provide base64-encoded text.
+#' must provide base64-encoded text. User data is limited to 16 KB.
 #' @param AdditionalInfo Reserved.
 #' @param ClientToken Unique, case-sensitive identifier you provide to ensure the idempotency
 #' of the request. For more information, see [Ensuring
@@ -23652,7 +25136,8 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #' Constraints: Maximum 64 ASCII characters
 #' @param DisableApiTermination If you set this parameter to `true`, you can\'t terminate the instance
 #' using the Amazon EC2 console, CLI, or API; otherwise, you can. To change
-#' this attribute to `false` after launch, use ModifyInstanceAttribute.
+#' this attribute after launch, use
+#' [ModifyInstanceAttribute](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyInstanceAttribute.html).
 #' Alternatively, if you set `InstanceInitiatedShutdownBehavior` to
 #' `terminate`, you can terminate the instance by running the shutdown
 #' command from the instance.
@@ -23675,10 +25160,9 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #' system shutdown).
 #' 
 #' Default: `stop`
-#' @param NetworkInterfaces One or more network interfaces.
-#' 
-#' You cannot specify this option and the network interfaces option in the
-#' same request.
+#' @param NetworkInterfaces The network interfaces to associate with the instance. If you specify a
+#' network interface, you must specify any security groups and subnets as
+#' part of the network interface.
 #' @param PrivateIpAddress \[EC2-VPC\] The primary IPv4 address. You must specify a value from the
 #' IPv4 address range of the subnet.
 #' 
@@ -23690,12 +25174,20 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #' 
 #' You cannot specify this option and the network interfaces option in the
 #' same request.
-#' @param ElasticGpuSpecification An elastic GPU to associate with the instance.
-#' @param ElasticInferenceAccelerators An elastic inference accelerator.
+#' @param ElasticGpuSpecification An elastic GPU to associate with the instance. An Elastic GPU is a GPU
+#' resource that you can attach to your Windows instance to accelerate the
+#' graphics performance of your applications. For more information, see
+#' [Amazon EC2 Elastic
+#' GPUs](https://docs.aws.amazon.com/AWSEC2/latest/WindowsGuide/elastic-graphics.html)
+#' in the *Amazon Elastic Compute Cloud User Guide*.
+#' @param ElasticInferenceAccelerators An elastic inference accelerator to associate with the instance. Elastic
+#' inference accelerators are a resource you can attach to your Amazon EC2
+#' instances to accelerate your Deep Learning (DL) inference workloads.
 #' @param TagSpecifications The tags to apply to the resources during launch. You can only tag
 #' instances and volumes on launch. The specified tags are applied to all
 #' instances or volumes that are created during launch. To tag a resource
-#' after it has been created, see CreateTags.
+#' after it has been created, see
+#' [CreateTags](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html).
 #' @param LaunchTemplate The launch template to use to launch the instances. Any parameters that
 #' you specify in RunInstances override the same parameters in the launch
 #' template. You can specify either the name or ID of a launch template,
@@ -23705,10 +25197,11 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #' For RunInstances, persistent Spot Instance requests are only supported
 #' when **InstanceInterruptionBehavior** is set to either `hibernate` or
 #' `stop`.
-#' @param CreditSpecification The credit option for CPU usage of the instance. Valid values are
-#' `standard` and `unlimited`. To change this attribute after launch, use
-#' ModifyInstanceCreditSpecification. For more information, see [Burstable
-#' Performance
+#' @param CreditSpecification The credit option for CPU usage of the T2 or T3 instance. Valid values
+#' are `standard` and `unlimited`. To change this attribute after launch,
+#' use
+#' [ModifyInstanceCreditSpecification](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyInstanceCreditSpecification.html).
+#' For more information, see [Burstable Performance
 #' Instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html)
 #' in the *Amazon Elastic Compute Cloud User Guide*.
 #' 
@@ -23748,7 +25241,7 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #'     )
 #'   ),
 #'   ImageId = "string",
-#'   InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.12xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.12xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.12xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.18xlarge"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.12xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.12xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.12xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
+#'   InstanceType = "t1.micro"|"t2.nano"|"t2.micro"|"t2.small"|"t2.medium"|"t2.large"|"t2.xlarge"|"t2.2xlarge"|"t3.nano"|"t3.micro"|"t3.small"|"t3.medium"|"t3.large"|"t3.xlarge"|"t3.2xlarge"|"t3a.nano"|"t3a.micro"|"t3a.small"|"t3a.medium"|"t3a.large"|"t3a.xlarge"|"t3a.2xlarge"|"m1.small"|"m1.medium"|"m1.large"|"m1.xlarge"|"m3.medium"|"m3.large"|"m3.xlarge"|"m3.2xlarge"|"m4.large"|"m4.xlarge"|"m4.2xlarge"|"m4.4xlarge"|"m4.10xlarge"|"m4.16xlarge"|"m2.xlarge"|"m2.2xlarge"|"m2.4xlarge"|"cr1.8xlarge"|"r3.large"|"r3.xlarge"|"r3.2xlarge"|"r3.4xlarge"|"r3.8xlarge"|"r4.large"|"r4.xlarge"|"r4.2xlarge"|"r4.4xlarge"|"r4.8xlarge"|"r4.16xlarge"|"r5.large"|"r5.xlarge"|"r5.2xlarge"|"r5.4xlarge"|"r5.8xlarge"|"r5.12xlarge"|"r5.16xlarge"|"r5.24xlarge"|"r5.metal"|"r5a.large"|"r5a.xlarge"|"r5a.2xlarge"|"r5a.4xlarge"|"r5a.8xlarge"|"r5a.12xlarge"|"r5a.16xlarge"|"r5a.24xlarge"|"r5d.large"|"r5d.xlarge"|"r5d.2xlarge"|"r5d.4xlarge"|"r5d.8xlarge"|"r5d.12xlarge"|"r5d.16xlarge"|"r5d.24xlarge"|"r5d.metal"|"r5ad.large"|"r5ad.xlarge"|"r5ad.2xlarge"|"r5ad.4xlarge"|"r5ad.8xlarge"|"r5ad.12xlarge"|"r5ad.16xlarge"|"r5ad.24xlarge"|"x1.16xlarge"|"x1.32xlarge"|"x1e.xlarge"|"x1e.2xlarge"|"x1e.4xlarge"|"x1e.8xlarge"|"x1e.16xlarge"|"x1e.32xlarge"|"i2.xlarge"|"i2.2xlarge"|"i2.4xlarge"|"i2.8xlarge"|"i3.large"|"i3.xlarge"|"i3.2xlarge"|"i3.4xlarge"|"i3.8xlarge"|"i3.16xlarge"|"i3.metal"|"i3en.large"|"i3en.xlarge"|"i3en.2xlarge"|"i3en.3xlarge"|"i3en.6xlarge"|"i3en.12xlarge"|"i3en.24xlarge"|"hi1.4xlarge"|"hs1.8xlarge"|"c1.medium"|"c1.xlarge"|"c3.large"|"c3.xlarge"|"c3.2xlarge"|"c3.4xlarge"|"c3.8xlarge"|"c4.large"|"c4.xlarge"|"c4.2xlarge"|"c4.4xlarge"|"c4.8xlarge"|"c5.large"|"c5.xlarge"|"c5.2xlarge"|"c5.4xlarge"|"c5.9xlarge"|"c5.12xlarge"|"c5.18xlarge"|"c5.24xlarge"|"c5.metal"|"c5d.large"|"c5d.xlarge"|"c5d.2xlarge"|"c5d.4xlarge"|"c5d.9xlarge"|"c5d.18xlarge"|"c5n.large"|"c5n.xlarge"|"c5n.2xlarge"|"c5n.4xlarge"|"c5n.9xlarge"|"c5n.18xlarge"|"cc1.4xlarge"|"cc2.8xlarge"|"g2.2xlarge"|"g2.8xlarge"|"g3.4xlarge"|"g3.8xlarge"|"g3.16xlarge"|"g3s.xlarge"|"cg1.4xlarge"|"p2.xlarge"|"p2.8xlarge"|"p2.16xlarge"|"p3.2xlarge"|"p3.8xlarge"|"p3.16xlarge"|"p3dn.24xlarge"|"d2.xlarge"|"d2.2xlarge"|"d2.4xlarge"|"d2.8xlarge"|"f1.2xlarge"|"f1.4xlarge"|"f1.16xlarge"|"m5.large"|"m5.xlarge"|"m5.2xlarge"|"m5.4xlarge"|"m5.8xlarge"|"m5.12xlarge"|"m5.16xlarge"|"m5.24xlarge"|"m5.metal"|"m5a.large"|"m5a.xlarge"|"m5a.2xlarge"|"m5a.4xlarge"|"m5a.8xlarge"|"m5a.12xlarge"|"m5a.16xlarge"|"m5a.24xlarge"|"m5d.large"|"m5d.xlarge"|"m5d.2xlarge"|"m5d.4xlarge"|"m5d.8xlarge"|"m5d.12xlarge"|"m5d.16xlarge"|"m5d.24xlarge"|"m5d.metal"|"m5ad.large"|"m5ad.xlarge"|"m5ad.2xlarge"|"m5ad.4xlarge"|"m5ad.8xlarge"|"m5ad.12xlarge"|"m5ad.16xlarge"|"m5ad.24xlarge"|"h1.2xlarge"|"h1.4xlarge"|"h1.8xlarge"|"h1.16xlarge"|"z1d.large"|"z1d.xlarge"|"z1d.2xlarge"|"z1d.3xlarge"|"z1d.6xlarge"|"z1d.12xlarge"|"z1d.metal"|"u-6tb1.metal"|"u-9tb1.metal"|"u-12tb1.metal"|"a1.medium"|"a1.large"|"a1.xlarge"|"a1.2xlarge"|"a1.4xlarge",
 #'   Ipv6AddressCount = 123,
 #'   Ipv6Addresses = list(
 #'     list(
@@ -23814,7 +25307,8 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #'         )
 #'       ),
 #'       SecondaryPrivateIpAddressCount = 123,
-#'       SubnetId = "string"
+#'       SubnetId = "string",
+#'       InterfaceType = "string"
 #'     )
 #'   ),
 #'   PrivateIpAddress = "string",
@@ -23830,7 +25324,7 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
 #'   ),
 #'   TagSpecifications = list(
 #'     list(
-#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
+#'       ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"fleet"|"fpga-image"|"host-reservation"|"image"|"instance"|"internet-gateway"|"launch-template"|"natgateway"|"network-acl"|"network-interface"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway",
 #'       Tags = list(
 #'         list(
 #'           Key = "string",
@@ -24141,11 +25635,9 @@ ec2_run_scheduled_instances <- function(ClientToken = NULL, DryRun = NULL, Insta
 #'     supernet-of-match as 10.0.1.0/30, then the result returns
 #'     10.0.1.0/29.
 #' 
-#' -   `state` - The state of the attachment (`available` \\| `deleted` \\|
-#'     `deleting` \\| `failed` \\| `modifying` \\| `pendingAcceptance` \\|
-#'     `pending` \\| `rollingBack` \\| `rejected` \\| `rejecting`).
+#' -   `state` - The state of the route (`active` \\| `blackhole`).
 #' 
-#' -   `type` - The type of roue (`active` \\| `blackhole`).
+#' -   `type` - The type of roue (`propagated` \\| `static`).
 #' @param MaxResults The maximum number of routes to return.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
@@ -24219,7 +25711,7 @@ ec2_search_transit_gateway_routes <- function(TransitGatewayRouteTableId, Filter
 #' @usage
 #' ec2_start_instances(InstanceIds, AdditionalInfo, DryRun)
 #'
-#' @param InstanceIds &#91;required&#93; One or more instance IDs.
+#' @param InstanceIds &#91;required&#93; The IDs of the instances.
 #' @param AdditionalInfo Reserved.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
@@ -24321,7 +25813,7 @@ ec2_start_instances <- function(InstanceIds, AdditionalInfo = NULL, DryRun = NUL
 #' @usage
 #' ec2_stop_instances(InstanceIds, Hibernate, DryRun, Force)
 #'
-#' @param InstanceIds &#91;required&#93; One or more instance IDs.
+#' @param InstanceIds &#91;required&#93; The IDs of the instances.
 #' @param Hibernate Hibernates the instance if the instance was enabled for hibernation at
 #' launch. If the instance cannot hibernate successfully, a normal shutdown
 #' occurs. For more information, see [Hibernate Your
@@ -24428,9 +25920,9 @@ ec2_terminate_client_vpn_connections <- function(ClientVpnEndpointId, Connection
 }
 .ec2$operations$terminate_client_vpn_connections <- ec2_terminate_client_vpn_connections
 
-#' Shuts down one or more instances
+#' Shuts down the specified instances
 #'
-#' Shuts down one or more instances. This operation is idempotent; if you
+#' Shuts down the specified instances. This operation is idempotent; if you
 #' terminate an instance more than once, each call succeeds.
 #' 
 #' If you specify multiple instances and the request fails (for example,
@@ -24463,7 +25955,7 @@ ec2_terminate_client_vpn_connections <- function(ClientVpnEndpointId, Connection
 #' @usage
 #' ec2_terminate_instances(InstanceIds, DryRun)
 #'
-#' @param InstanceIds &#91;required&#93; One or more instance IDs.
+#' @param InstanceIds &#91;required&#93; The IDs of the instances.
 #' 
 #' Constraints: Up to 1000 instance IDs. We recommend breaking up this
 #' request into smaller batches.
@@ -24612,7 +26104,7 @@ ec2_unassign_private_ip_addresses <- function(NetworkInterfaceId, PrivateIpAddre
 #' @usage
 #' ec2_unmonitor_instances(InstanceIds, DryRun)
 #'
-#' @param InstanceIds &#91;required&#93; One or more instance IDs.
+#' @param InstanceIds &#91;required&#93; The IDs of the instances.
 #' @param DryRun Checks whether you have the required permissions for the action, without
 #' actually making the request, and provides an error response. If you have
 #' the required permissions, the error response is `DryRunOperation`.
@@ -24647,11 +26139,11 @@ ec2_unmonitor_instances <- function(InstanceIds, DryRun = NULL) {
 }
 .ec2$operations$unmonitor_instances <- ec2_unmonitor_instances
 
-#' &#91;EC2-VPC only&#93; Updates the description of an egress (outbound)
+#' &#91;VPC only&#93; Updates the description of an egress (outbound)
 #' security group rule
 #'
-#' \[EC2-VPC only\] Updates the description of an egress (outbound)
-#' security group rule. You can replace an existing description, or add a
+#' \[VPC only\] Updates the description of an egress (outbound) security
+#' group rule. You can replace an existing description, or add a
 #' description to a rule that did not have one previously.
 #' 
 #' You specify the description as part of the IP permissions structure. You

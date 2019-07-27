@@ -4,17 +4,22 @@
 \alias{ecs_create_cluster}
 \title{Creates a new Amazon ECS cluster}
 \usage{
-ecs_create_cluster(clusterName, tags)
+ecs_create_cluster(clusterName, tags, settings)
 }
 \arguments{
 \item{clusterName}{The name of your cluster. If you do not specify a name for your cluster,
 you create a cluster named \code{default}. Up to 255 letters (uppercase and
-lowercase), numbers, hyphens, and underscores are allowed.}
+lowercase), numbers, and hyphens are allowed.}
 
 \item{tags}{The metadata that you apply to the cluster to help you categorize and
 organize them. Each tag consists of a key and an optional value, both of
 which you define. Tag keys can have a maximum character length of 128
 characters, and tag values can have a maximum length of 256 characters.}
+
+\item{settings}{The setting to use when creating a cluster. This parameter is used to
+enable CloudWatch Container Insights for a cluster. If this value is
+specified, it will override the \code{containerInsights} value set with
+PutAccountSetting or PutAccountSettingDefault.}
 }
 \description{
 Creates a new Amazon ECS cluster. By default, your account receives a
@@ -28,7 +33,7 @@ create the service-linked role for your account so that required
 resources in other AWS services can be managed on your behalf. However,
 if the IAM user that makes the call does not have permissions to create
 the service-linked role, it is not created. For more information, see
-\href{http://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html}{Using Service-Linked Roles for Amazon ECS}
+\href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html}{Using Service-Linked Roles for Amazon ECS}
 in the \emph{Amazon Elastic Container Service Developer Guide}.
 }
 \section{Request syntax}{
@@ -37,6 +42,12 @@ in the \emph{Amazon Elastic Container Service Developer Guide}.
   tags = list(
     list(
       key = "string",
+      value = "string"
+    )
+  ),
+  settings = list(
+    list(
+      name = "containerInsights",
       value = "string"
     )
   )

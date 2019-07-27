@@ -12,7 +12,7 @@ ec2_import_image(Architecture, ClientData, ClientToken, Description,
 \arguments{
 \item{Architecture}{The architecture of the virtual machine.
 
-Valid values: \code{i386} \| \code{x86_64}}
+Valid values: \code{i386} \| \code{x86_64} \| \code{arm64}}
 
 \item{ClientData}{The client-specific data.}
 
@@ -46,13 +46,16 @@ specified, the \code{Encrypted} flag must also be set.
 The CMK identifier may be provided in any of the following formats:
 \itemize{
 \item Key ID
-\item Key alias, in the form \code{alias/<i>ExampleAlias</i> }
+\item Key alias. The alias ARN contains the \code{arn:aws:kms} namespace,
+followed by the Region of the CMK, the AWS account ID of the CMK
+owner, the \code{alias} namespace, and then the CMK alias. For example,
+arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:alias/\emph{ExampleAlias}.
 \item ARN using key ID. The ID ARN contains the \code{arn:aws:kms} namespace,
-followed by the region of the CMK, the AWS account ID of the CMK
+followed by the Region of the CMK, the AWS account ID of the CMK
 owner, the \code{key} namespace, and then the CMK ID. For example,
 arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:key/\emph{abcd1234-a123-456a-a12b-a123b4cd56ef}.
 \item ARN using key alias. The alias ARN contains the \code{arn:aws:kms}
-namespace, followed by the region of the CMK, the AWS account ID of
+namespace, followed by the Region of the CMK, the AWS account ID of
 the CMK owner, the \code{alias} namespace, and then the CMK alias. For
 example,
 arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:alias/\emph{ExampleAlias}.
@@ -62,28 +65,21 @@ AWS parses \code{KmsKeyId} asynchronously, meaning that the action you call
 may appear to complete even though you provided an invalid identifier.
 This action will eventually report failure.
 
-The specified CMK must exist in the region that the AMI is being copied
+The specified CMK must exist in the Region that the AMI is being copied
 to.}
 
 \item{LicenseType}{The license type to be used for the Amazon Machine Image (AMI) after
 importing.
 
-\strong{Note:} You may only use BYOL if you have existing licenses with
-rights to use these licenses in a third party cloud like AWS. For more
-information, see
+By default, we detect the source-system operating system (OS) and apply
+the appropriate license. Specify \code{AWS} to replace the source-system
+license with an AWS license, if appropriate. Specify \code{BYOL} to retain
+the source-system license, if appropriate.
+
+To use \code{BYOL}, you must have existing licenses with rights to use these
+licenses in a third party cloud, such as AWS. For more information, see
 \href{https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html#prerequisites-image}{Prerequisites}
-in the VM Import/Export User Guide.
-
-Valid values include:
-\itemize{
-\item \code{Auto} - Detects the source-system operating system (OS) and applies
-the appropriate license.
-\item \code{AWS} - Replaces the source-system license with an AWS license, if
-appropriate.
-\item \code{BYOL} - Retains the source-system license, if appropriate.
-}
-
-Default value: \code{Auto}}
+in the VM Import/Export User Guide.}
 
 \item{Platform}{The operating system of the virtual machine.
 
