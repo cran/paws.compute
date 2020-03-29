@@ -43,7 +43,7 @@ NULL
 #'
 #' @examples
 #' # The following example creates an Amazon EKS cluster called prod.
-#' \donttest{svc <- eks()
+#' \dontrun{svc <- eks()
 #' svc$create_cluster(
 #'   version = "1.10",
 #'   name = "prod",
@@ -108,8 +108,7 @@ eks <- function(config = list()) {
   target_prefix = ""
 )
 
-.eks$handlers <- new_handlers("restjson", "v4")
-
 .eks$service <- function(config = list()) {
-  new_service(.eks$metadata, .eks$handlers, config)
+  handlers <- new_handlers("restjson", "v4")
+  new_service(.eks$metadata, handlers, config)
 }

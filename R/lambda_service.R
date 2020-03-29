@@ -39,7 +39,7 @@ NULL
 #' @examples
 #' # This example adds a permission for an S3 bucket to invoke a Lambda
 #' # function.
-#' \donttest{svc <- lambda()
+#' \dontrun{svc <- lambda()
 #' svc$add_permission(
 #'   Action = "lambda:InvokeFunction",
 #'   FunctionName = "MyFunction",
@@ -125,8 +125,7 @@ lambda <- function(config = list()) {
   target_prefix = ""
 )
 
-.lambda$handlers <- new_handlers("restjson", "v4")
-
 .lambda$service <- function(config = list()) {
-  new_service(.lambda$metadata, .lambda$handlers, config)
+  handlers <- new_handlers("restjson", "v4")
+  new_service(.lambda$metadata, handlers, config)
 }

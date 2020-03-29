@@ -50,7 +50,7 @@ NULL
 #' @examples
 #' # The following code aborts a running application version deployment for
 #' # an environment named my-env:
-#' \donttest{svc <- elasticbeanstalk()
+#' \dontrun{svc <- elasticbeanstalk()
 #' svc$abort_environment_update(
 #'   EnvironmentName = "my-env"
 #' )}
@@ -126,8 +126,7 @@ elasticbeanstalk <- function(config = list()) {
   target_prefix = ""
 )
 
-.elasticbeanstalk$handlers <- new_handlers("query", "v4")
-
 .elasticbeanstalk$service <- function(config = list()) {
-  new_service(.elasticbeanstalk$metadata, .elasticbeanstalk$handlers, config)
+  handlers <- new_handlers("query", "v4")
+  new_service(.elasticbeanstalk$metadata, handlers, config)
 }

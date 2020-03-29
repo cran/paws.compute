@@ -20,7 +20,7 @@ owners. Not to be confused with the user-configured AWS account
 alias, which is set from the IAM console.
 \item \code{owner-id} - The ID of the AWS account that owns the snapshot.
 \item \code{progress} - The progress of the snapshot, as a percentage (for
-example, 80\\%).
+example, 80\%).
 \item \code{snapshot-id} - The snapshot ID.
 \item \code{start-time} - The time stamp when the snapshot was initiated.
 \item \code{status} - The status of the snapshot (\code{pending} \\| \code{completed} \\|
@@ -149,7 +149,7 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.
 \examples{
 # This example describes a snapshot with the snapshot ID of
 # `snap-1234567890abcdef0`.
-\donttest{svc$describe_snapshots(
+\dontrun{svc$describe_snapshots(
   SnapshotIds = list(
     "snap-1234567890abcdef0"
   )
@@ -157,7 +157,7 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.
 
 # This example describes all snapshots owned by the ID 012345678910 that
 # are in the `pending` status.
-\donttest{svc$describe_snapshots(
+\dontrun{svc$describe_snapshots(
   Filters = list(
     list(
       Name = "status",

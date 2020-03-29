@@ -44,7 +44,7 @@ NULL
 #' ```
 #'
 #' @examples
-#' \donttest{svc <- lightsail()
+#' \dontrun{svc <- lightsail()
 #' svc$allocate_static_ip(
 #'   Foo = 123
 #' )}
@@ -181,8 +181,7 @@ lightsail <- function(config = list()) {
   target_prefix = "Lightsail_20161128"
 )
 
-.lightsail$handlers <- new_handlers("jsonrpc", "v4")
-
 .lightsail$service <- function(config = list()) {
-  new_service(.lightsail$metadata, .lightsail$handlers, config)
+  handlers <- new_handlers("jsonrpc", "v4")
+  new_service(.lightsail$metadata, handlers, config)
 }
