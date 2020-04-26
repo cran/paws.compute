@@ -1,6 +1,6 @@
 Package: paws.compute
 Title: Amazon Web Services Compute APIs
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: 
     c(person(given = "David",
              family = "Kretch",
@@ -20,7 +20,7 @@ Imports: paws.common (>= 0.3.0)
 Suggests: testthat
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Collate: 'batch_service.R' 'batch_interfaces.R' 'batch_operations.R'
         'ec2_service.R' 'ec2_interfaces.R' 'ec2_operations.R'
         'ec2instanceconnect_service.R'
@@ -38,10 +38,10 @@ Collate: 'batch_service.R' 'batch_interfaces.R' 'batch_operations.R'
         'serverlessapplicationrepository_interfaces.R'
         'serverlessapplicationrepository_operations.R'
 NeedsCompilation: no
-Packaged: 2020-03-29 02:07:02 UTC; david.kretch
+Packaged: 2020-04-26 15:15:06 UTC; david.kretch
 Author: David Kretch [aut, cre],
   Adam Banker [aut],
   Amazon.com, Inc. [cph]
 Maintainer: David Kretch <david.kretch@gmail.com>
 Repository: CRAN
-Date/Publication: 2020-03-29 05:10:13 UTC
+Date/Publication: 2020-04-26 16:00:02 UTC
