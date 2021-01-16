@@ -9,7 +9,7 @@ ec2_advertise_byoip_cidr(Cidr, DryRun)
 }
 \arguments{
 \item{Cidr}{[required] The address range, in CIDR notation. This must be the exact range that
-you provisioned. You can\'t advertise only a portion of the provisioned
+you provisioned. You can't advertise only a portion of the provisioned
 range.}
 
 \item{DryRun}{Checks whether you have the required permissions for the action, without
@@ -20,8 +20,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Advertises an IPv4 or IPv6 address range that is provisioned for use
 with your AWS resources through bring your own IP addresses (BYOIP).
-}
-\details{
+
 You can perform this operation at most once every 10 seconds, even if
 you specify different address ranges each time.
 

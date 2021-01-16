@@ -28,17 +28,16 @@ example, \emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z).}
 Purchases a Reserved Instance for use with your account. With Reserved
 Instances, you pay a lower hourly rate compared to On-Demand instance
 pricing.
-}
-\details{
+
 Use DescribeReservedInstancesOfferings to get a list of Reserved
-Instance offerings that match your specifications. After you\'ve
+Instance offerings that match your specifications. After you've
 purchased a Reserved Instance, you can check for your new Reserved
 Instance with DescribeReservedInstances.
 
 To queue a purchase for a future date and time, specify a purchase time.
 If you do not specify a purchase time, the default is the current time.
 
-For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts-on-demand-reserved-instances.html}{Reserved Instances}
+For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-reserved-instances.html}{Reserved Instances}
 and \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ri-market-general.html}{Reserved Instance Marketplace}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }

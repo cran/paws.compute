@@ -5,6 +5,7 @@ NULL
 
 #' Checks the availability of one or more image layers in a repository
 #'
+#' @description
 #' Checks the availability of one or more image layers in a repository.
 #' 
 #' When an image is pushed to a repository, each image layer is checked to
@@ -59,15 +60,16 @@ ecr_batch_check_layer_availability <- function(registryId = NULL, repositoryName
 
 #' Deletes a list of specified images within a repository
 #'
+#' @description
 #' Deletes a list of specified images within a repository. Images are
 #' specified with either an `imageTag` or `imageDigest`.
 #' 
-#' You can remove a tag from an image by specifying the image\'s tag in
-#' your request. When you remove the last tag from an image, the image is
+#' You can remove a tag from an image by specifying the image's tag in your
+#' request. When you remove the last tag from an image, the image is
 #' deleted from your repository.
 #' 
 #' You can completely delete an image (and all of its tags) by specifying
-#' the image\'s digest in your request.
+#' the image's digest in your request.
 #'
 #' @usage
 #' ecr_batch_delete_image(registryId, repositoryName, imageIds)
@@ -130,6 +132,7 @@ ecr_batch_delete_image <- function(registryId = NULL, repositoryName, imageIds) 
 
 #' Gets detailed information for an image
 #'
+#' @description
 #' Gets detailed information for an image. Images are specified with either
 #' an `imageTag` or `imageDigest`.
 #' 
@@ -149,8 +152,8 @@ ecr_batch_delete_image <- function(registryId = NULL, repositoryName, imageIds) 
 #' `imageDigest=digest`.
 #' @param acceptedMediaTypes The accepted media types for the request.
 #' 
-#' Valid values: `application/vnd.docker.distribution.manifest.v1+json` \\|
-#' `application/vnd.docker.distribution.manifest.v2+json` \\|
+#' Valid values: `application/vnd.docker.distribution.manifest.v1+json` |
+#' `application/vnd.docker.distribution.manifest.v2+json` |
 #' `application/vnd.oci.image.manifest.v1+json`
 #'
 #' @section Request syntax:
@@ -207,6 +210,7 @@ ecr_batch_get_image <- function(registryId = NULL, repositoryName, imageIds, acc
 #' Informs Amazon ECR that the image layer upload has completed for a
 #' specified registry, repository name, and upload ID
 #'
+#' @description
 #' Informs Amazon ECR that the image layer upload has completed for a
 #' specified registry, repository name, and upload ID. You can optionally
 #' provide a `sha256` digest of the image layer for data validation
@@ -265,13 +269,14 @@ ecr_complete_layer_upload <- function(registryId = NULL, repositoryName, uploadI
 
 #' Creates a repository
 #'
+#' @description
 #' Creates a repository. For more information, see [Amazon ECR
 #' Repositories](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html)
 #' in the *Amazon Elastic Container Registry User Guide*.
 #'
 #' @usage
 #' ecr_create_repository(repositoryName, tags, imageTagMutability,
-#'   imageScanningConfiguration)
+#'   imageScanningConfiguration, encryptionConfiguration)
 #'
 #' @param repositoryName &#91;required&#93; The name to use for the repository. The repository name may be specified
 #' on its own (such as `nginx-web-app`) or it can be prepended with a
@@ -286,9 +291,11 @@ ecr_complete_layer_upload <- function(registryId = NULL, repositoryName, uploadI
 #' image tags to be overwritten. If `IMMUTABLE` is specified, all image
 #' tags within the repository will be immutable which will prevent them
 #' from being overwritten.
-#' @param imageScanningConfiguration The image scanning configuration for the repository. This setting
-#' determines whether images are scanned for known vulnerabilities after
-#' being pushed to the repository.
+#' @param imageScanningConfiguration The image scanning configuration for the repository. This determines
+#' whether images are scanned for known vulnerabilities after being pushed
+#' to the repository.
+#' @param encryptionConfiguration The encryption configuration for the repository. This determines how the
+#' contents of your repository are encrypted at rest.
 #'
 #' @section Request syntax:
 #' ```
@@ -303,6 +310,10 @@ ecr_complete_layer_upload <- function(registryId = NULL, repositoryName, uploadI
 #'   imageTagMutability = "MUTABLE"|"IMMUTABLE",
 #'   imageScanningConfiguration = list(
 #'     scanOnPush = TRUE|FALSE
+#'   ),
+#'   encryptionConfiguration = list(
+#'     encryptionType = "AES256"|"KMS",
+#'     kmsKey = "string"
 #'   )
 #' )
 #' ```
@@ -319,14 +330,14 @@ ecr_complete_layer_upload <- function(registryId = NULL, repositoryName, uploadI
 #' @keywords internal
 #'
 #' @rdname ecr_create_repository
-ecr_create_repository <- function(repositoryName, tags = NULL, imageTagMutability = NULL, imageScanningConfiguration = NULL) {
+ecr_create_repository <- function(repositoryName, tags = NULL, imageTagMutability = NULL, imageScanningConfiguration = NULL, encryptionConfiguration = NULL) {
   op <- new_operation(
     name = "CreateRepository",
     http_method = "POST",
     http_path = "/",
     paginator = list()
   )
-  input <- .ecr$create_repository_input(repositoryName = repositoryName, tags = tags, imageTagMutability = imageTagMutability, imageScanningConfiguration = imageScanningConfiguration)
+  input <- .ecr$create_repository_input(repositoryName = repositoryName, tags = tags, imageTagMutability = imageTagMutability, imageScanningConfiguration = imageScanningConfiguration, encryptionConfiguration = encryptionConfiguration)
   output <- .ecr$create_repository_output()
   config <- get_config()
   svc <- .ecr$service(config)
@@ -338,6 +349,7 @@ ecr_create_repository <- function(repositoryName, tags = NULL, imageTagMutabilit
 
 #' Deletes the lifecycle policy associated with the specified repository
 #'
+#' @description
 #' Deletes the lifecycle policy associated with the specified repository.
 #'
 #' @usage
@@ -376,8 +388,42 @@ ecr_delete_lifecycle_policy <- function(registryId = NULL, repositoryName) {
 }
 .ecr$operations$delete_lifecycle_policy <- ecr_delete_lifecycle_policy
 
+#' Deletes the registry permissions policy
+#'
+#' @description
+#' Deletes the registry permissions policy.
+#'
+#' @usage
+#' ecr_delete_registry_policy()
+#'
+#' @section Request syntax:
+#' ```
+#' svc$delete_registry_policy()
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_delete_registry_policy
+ecr_delete_registry_policy <- function() {
+  op <- new_operation(
+    name = "DeleteRegistryPolicy",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ecr$delete_registry_policy_input()
+  output <- .ecr$delete_registry_policy_output()
+  config <- get_config()
+  svc <- .ecr$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$delete_registry_policy <- ecr_delete_registry_policy
+
 #' Deletes a repository
 #'
+#' @description
 #' Deletes a repository. If the repository contains images, you must either
 #' delete all images in the repository or use the `force` option to delete
 #' the repository.
@@ -433,6 +479,7 @@ ecr_delete_repository <- function(registryId = NULL, repositoryName, force = NUL
 
 #' Deletes the repository policy associated with the specified repository
 #'
+#' @description
 #' Deletes the repository policy associated with the specified repository.
 #'
 #' @usage
@@ -483,6 +530,7 @@ ecr_delete_repository_policy <- function(registryId = NULL, repositoryName) {
 
 #' Returns the scan findings for the specified image
 #'
+#' @description
 #' Returns the scan findings for the specified image.
 #'
 #' @usage
@@ -545,6 +593,7 @@ ecr_describe_image_scan_findings <- function(registryId = NULL, repositoryName, 
 
 #' Returns metadata about the images in a repository
 #'
+#' @description
 #' Returns metadata about the images in a repository.
 #' 
 #' Beginning with Docker version 1.9, the Docker client compresses image
@@ -619,8 +668,44 @@ ecr_describe_images <- function(registryId = NULL, repositoryName, imageIds = NU
 }
 .ecr$operations$describe_images <- ecr_describe_images
 
+#' Describes the settings for a registry
+#'
+#' @description
+#' Describes the settings for a registry. The replication configuration for
+#' a repository can be created or updated with the
+#' PutReplicationConfiguration API action.
+#'
+#' @usage
+#' ecr_describe_registry()
+#'
+#' @section Request syntax:
+#' ```
+#' svc$describe_registry()
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_describe_registry
+ecr_describe_registry <- function() {
+  op <- new_operation(
+    name = "DescribeRegistry",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ecr$describe_registry_input()
+  output <- .ecr$describe_registry_output()
+  config <- get_config()
+  svc <- .ecr$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$describe_registry <- ecr_describe_registry
+
 #' Describes image repositories in a registry
 #'
+#' @description
 #' Describes image repositories in a registry.
 #'
 #' @usage
@@ -695,6 +780,7 @@ ecr_describe_repositories <- function(registryId = NULL, repositoryNames = NULL,
 
 #' Retrieves an authorization token
 #'
+#' @description
 #' Retrieves an authorization token. An authorization token represents your
 #' IAM authentication credentials and can be used to access any Amazon ECR
 #' registry that your IAM principal has access to. The authorization token
@@ -752,6 +838,7 @@ ecr_get_authorization_token <- function(registryIds = NULL) {
 #' Retrieves the pre-signed Amazon S3 download URL corresponding to an
 #' image layer
 #'
+#' @description
 #' Retrieves the pre-signed Amazon S3 download URL corresponding to an
 #' image layer. You can only get URLs for image layers that are referenced
 #' in an image.
@@ -804,6 +891,7 @@ ecr_get_download_url_for_layer <- function(registryId = NULL, repositoryName, la
 
 #' Retrieves the lifecycle policy for the specified repository
 #'
+#' @description
 #' Retrieves the lifecycle policy for the specified repository.
 #'
 #' @usage
@@ -845,6 +933,7 @@ ecr_get_lifecycle_policy <- function(registryId = NULL, repositoryName) {
 #' Retrieves the results of the lifecycle policy preview request for the
 #' specified repository
 #'
+#' @description
 #' Retrieves the results of the lifecycle policy preview request for the
 #' specified repository.
 #'
@@ -857,22 +946,22 @@ ecr_get_lifecycle_policy <- function(registryId = NULL, repositoryName) {
 #' assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository.
 #' @param imageIds The list of imageIDs to be included.
-#' @param nextToken The `nextToken` value returned from a previous paginatedâ€¨
+#' @param nextToken The `nextToken` value returned from a previous paginated 
 #' `GetLifecyclePolicyPreviewRequest` request where `maxResults` was used
-#' and theâ€¨ results exceeded the value of that parameter. Pagination
-#' continues from the end of theâ€¨ previous results that returned the
-#' `nextToken` value. This value isâ€¨ `null` when there are no more results
+#' and the  results exceeded the value of that parameter. Pagination
+#' continues from the end of the  previous results that returned the
+#' `nextToken` value. This value is  `null` when there are no more results
 #' to return. This option cannot be used when you specify images with
 #' `imageIds`.
 #' @param maxResults The maximum number of repository results returned by
-#' `GetLifecyclePolicyPreviewRequest` inâ€¨ paginated output. When this
-#' parameter is used, `GetLifecyclePolicyPreviewRequest` only returnsâ€¨
-#' `maxResults` results in a single page along with a `nextToken`â€¨ response
+#' `GetLifecyclePolicyPreviewRequest` in  paginated output. When this
+#' parameter is used, `GetLifecyclePolicyPreviewRequest` only returns 
+#' `maxResults` results in a single page along with a `nextToken`  response
 #' element. The remaining results of the initial request can be seen by
-#' sendingâ€¨ another `GetLifecyclePolicyPreviewRequest` request with the
-#' returned `nextToken`â€¨ value. This value can be between 1 and 1000. If
-#' thisâ€¨ parameter is not used, then `GetLifecyclePolicyPreviewRequest`
-#' returns up toâ€¨ 100 results and a `nextToken` value, ifâ€¨ applicable. This
+#' sending  another `GetLifecyclePolicyPreviewRequest` request with the
+#' returned `nextToken`  value. This value can be between 1 and 1000. If
+#' this  parameter is not used, then `GetLifecyclePolicyPreviewRequest`
+#' returns up to  100 results and a `nextToken` value, if  applicable. This
 #' option cannot be used when you specify images with `imageIds`.
 #' @param filter An optional parameter that filters results based on image tag status and
 #' all tags, if tagged.
@@ -916,8 +1005,42 @@ ecr_get_lifecycle_policy_preview <- function(registryId = NULL, repositoryName, 
 }
 .ecr$operations$get_lifecycle_policy_preview <- ecr_get_lifecycle_policy_preview
 
+#' Retrieves the permissions policy for a registry
+#'
+#' @description
+#' Retrieves the permissions policy for a registry.
+#'
+#' @usage
+#' ecr_get_registry_policy()
+#'
+#' @section Request syntax:
+#' ```
+#' svc$get_registry_policy()
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_get_registry_policy
+ecr_get_registry_policy <- function() {
+  op <- new_operation(
+    name = "GetRegistryPolicy",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ecr$get_registry_policy_input()
+  output <- .ecr$get_registry_policy_output()
+  config <- get_config()
+  svc <- .ecr$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$get_registry_policy <- ecr_get_registry_policy
+
 #' Retrieves the repository policy for the specified repository
 #'
+#' @description
 #' Retrieves the repository policy for the specified repository.
 #'
 #' @usage
@@ -967,6 +1090,7 @@ ecr_get_repository_policy <- function(registryId = NULL, repositoryName) {
 
 #' Notifies Amazon ECR that you intend to upload an image layer
 #'
+#' @description
 #' Notifies Amazon ECR that you intend to upload an image layer.
 #' 
 #' When an image is pushed, the InitiateLayerUpload API is called once per
@@ -1016,6 +1140,7 @@ ecr_initiate_layer_upload <- function(registryId = NULL, repositoryName) {
 
 #' Lists all the image IDs for the specified repository
 #'
+#' @description
 #' Lists all the image IDs for the specified repository.
 #' 
 #' You can filter images based on whether or not they are tagged by using
@@ -1096,6 +1221,7 @@ ecr_list_images <- function(registryId = NULL, repositoryName, nextToken = NULL,
 
 #' List the tags for an Amazon ECR resource
 #'
+#' @description
 #' List the tags for an Amazon ECR resource.
 #'
 #' @usage
@@ -1134,6 +1260,7 @@ ecr_list_tags_for_resource <- function(resourceArn) {
 
 #' Creates or updates the image manifest and tags associated with an image
 #'
+#' @description
 #' Creates or updates the image manifest and tags associated with an image.
 #' 
 #' When an image is pushed and all new image layers have been uploaded, the
@@ -1157,7 +1284,8 @@ ecr_list_tags_for_resource <- function(resourceArn) {
 #' does not contain the `mediaType` field, you must specify the
 #' `imageManifestMediaType` in the request.
 #' @param imageTag The tag to associate with the image. This parameter is required for
-#' images that use the Docker Image Manifest V2 Schema 2 or OCI formats.
+#' images that use the Docker Image Manifest V2 Schema 2 or Open Container
+#' Initiative (OCI) formats.
 #' @param imageDigest The image digest of the image manifest corresponding to the image.
 #'
 #' @section Request syntax:
@@ -1194,6 +1322,7 @@ ecr_put_image <- function(registryId = NULL, repositoryName, imageManifest, imag
 
 #' Updates the image scanning configuration for the specified repository
 #'
+#' @description
 #' Updates the image scanning configuration for the specified repository.
 #'
 #' @usage
@@ -1242,6 +1371,7 @@ ecr_put_image_scanning_configuration <- function(registryId = NULL, repositoryNa
 
 #' Updates the image tag mutability settings for the specified repository
 #'
+#' @description
 #' Updates the image tag mutability settings for the specified repository.
 #' For more information, see [Image Tag
 #' Mutability](https://docs.aws.amazon.com/AmazonECR/latest/userguide/image-tag-mutability.html)
@@ -1292,6 +1422,7 @@ ecr_put_image_tag_mutability <- function(registryId = NULL, repositoryName, imag
 
 #' Creates or updates the lifecycle policy for the specified repository
 #'
+#' @description
 #' Creates or updates the lifecycle policy for the specified repository.
 #' For more information, see [Lifecycle Policy
 #' Template](https://docs.aws.amazon.com/AmazonECR/latest/userguide/LifecyclePolicies.html).
@@ -1301,7 +1432,7 @@ ecr_put_image_tag_mutability <- function(registryId = NULL, repositoryName, imag
 #'   lifecyclePolicyText)
 #'
 #' @param registryId The AWS account ID associated with the registry that contains the
-#' repository. If you doâ€¨ not specify a registry, the default registry is
+#' repository. If you do  not specify a registry, the default registry is
 #' assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository to receive the policy.
 #' @param lifecyclePolicyText &#91;required&#93; The JSON repository policy text to apply to the repository.
@@ -1335,9 +1466,116 @@ ecr_put_lifecycle_policy <- function(registryId = NULL, repositoryName, lifecycl
 }
 .ecr$operations$put_lifecycle_policy <- ecr_put_lifecycle_policy
 
+#' Creates or updates the permissions policy for your registry
+#'
+#' @description
+#' Creates or updates the permissions policy for your registry.
+#' 
+#' A registry policy is used to specify permissions for another AWS account
+#' and is used when configuring cross-account replication. For more
+#' information, see [Registry
+#' permissions](https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html)
+#' in the *Amazon Elastic Container Registry User Guide*.
+#'
+#' @usage
+#' ecr_put_registry_policy(policyText)
+#'
+#' @param policyText &#91;required&#93; The JSON policy text to apply to your registry. The policy text follows
+#' the same format as IAM policy text. For more information, see [Registry
+#' permissions](https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html)
+#' in the *Amazon Elastic Container Registry User Guide*.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$put_registry_policy(
+#'   policyText = "string"
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_put_registry_policy
+ecr_put_registry_policy <- function(policyText) {
+  op <- new_operation(
+    name = "PutRegistryPolicy",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ecr$put_registry_policy_input(policyText = policyText)
+  output <- .ecr$put_registry_policy_output()
+  config <- get_config()
+  svc <- .ecr$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$put_registry_policy <- ecr_put_registry_policy
+
+#' Creates or updates the replication configuration for a registry
+#'
+#' @description
+#' Creates or updates the replication configuration for a registry. The
+#' existing replication configuration for a repository can be retrieved
+#' with the DescribeRegistry API action. The first time the
+#' PutReplicationConfiguration API is called, a service-linked IAM role is
+#' created in your account for the replication process. For more
+#' information, see [Using Service-Linked Roles for Amazon
+#' ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html)
+#' in the *Amazon Elastic Container Registry User Guide*.
+#' 
+#' When configuring cross-account replication, the destination account must
+#' grant the source account permission to replicate. This permission is
+#' controlled using a registry permissions policy. For more information,
+#' see PutRegistryPolicy.
+#'
+#' @usage
+#' ecr_put_replication_configuration(replicationConfiguration)
+#'
+#' @param replicationConfiguration &#91;required&#93; An object representing the replication configuration for a registry.
+#'
+#' @section Request syntax:
+#' ```
+#' svc$put_replication_configuration(
+#'   replicationConfiguration = list(
+#'     rules = list(
+#'       list(
+#'         destinations = list(
+#'           list(
+#'             region = "string",
+#'             registryId = "string"
+#'           )
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_put_replication_configuration
+ecr_put_replication_configuration <- function(replicationConfiguration) {
+  op <- new_operation(
+    name = "PutReplicationConfiguration",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .ecr$put_replication_configuration_input(replicationConfiguration = replicationConfiguration)
+  output <- .ecr$put_replication_configuration_output()
+  config <- get_config()
+  svc <- .ecr$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$put_replication_configuration <- ecr_put_replication_configuration
+
 #' Applies a repository policy to the specified repository to control
 #' access permissions
 #'
+#' @description
 #' Applies a repository policy to the specified repository to control
 #' access permissions. For more information, see [Amazon ECR Repository
 #' Policies](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-policies.html)
@@ -1391,6 +1629,7 @@ ecr_set_repository_policy <- function(registryId = NULL, repositoryName, policyT
 
 #' Starts an image vulnerability scan
 #'
+#' @description
 #' Starts an image vulnerability scan. An image scan can only be started
 #' once per day on an individual image. This limit includes if an image was
 #' scanned on initial push. For more information, see [Image
@@ -1440,6 +1679,7 @@ ecr_start_image_scan <- function(registryId = NULL, repositoryName, imageId) {
 
 #' Starts a preview of a lifecycle policy for the specified repository
 #'
+#' @description
 #' Starts a preview of a lifecycle policy for the specified repository.
 #' This allows you to see the results before associating the lifecycle
 #' policy with the repository.
@@ -1486,6 +1726,7 @@ ecr_start_lifecycle_policy_preview <- function(registryId = NULL, repositoryName
 
 #' Adds specified tags to a resource with the specified ARN
 #'
+#' @description
 #' Adds specified tags to a resource with the specified ARN. Existing tags
 #' on a resource are not changed if they are not specified in the request
 #' parameters.
@@ -1534,6 +1775,7 @@ ecr_tag_resource <- function(resourceArn, tags) {
 
 #' Deletes specified tags from a resource
 #'
+#' @description
 #' Deletes specified tags from a resource.
 #'
 #' @usage
@@ -1576,6 +1818,7 @@ ecr_untag_resource <- function(resourceArn, tagKeys) {
 
 #' Uploads an image layer part to Amazon ECR
 #'
+#' @description
 #' Uploads an image layer part to Amazon ECR.
 #' 
 #' When an image is pushed, each new image layer is uploaded in parts. The

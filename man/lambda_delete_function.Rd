@@ -22,15 +22,14 @@ You can append a version number or alias to any of the formats. The
 length constraint applies only to the full ARN. If you specify only the
 function name, it is limited to 64 characters in length.}
 
-\item{Qualifier}{Specify a version to delete. You can\'t delete a version that\'s
+\item{Qualifier}{Specify a version to delete. You can't delete a version that's
 referenced by an alias.}
 }
 \description{
 Deletes a Lambda function. To delete a specific function version, use
 the \code{Qualifier} parameter. Otherwise, all versions and aliases are
 deleted.
-}
-\details{
+
 To delete Lambda event source mappings that invoke a function, use
 DeleteEventSourceMapping. For AWS services and resources that invoke
 your function directly, delete the trigger in the service where you

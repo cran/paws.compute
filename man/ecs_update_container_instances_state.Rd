@@ -24,8 +24,7 @@ container instance state.}
 }
 \description{
 Modifies the status of an Amazon ECS container instance.
-}
-\details{
+
 Once a container instance has reached an \code{ACTIVE} state, you can change
 the status of a container instance to \code{DRAINING} to manually remove an
 instance from a cluster, for example to perform system updates, update
@@ -43,16 +42,16 @@ container instance that are in the \code{PENDING} state are stopped
 immediately.
 
 Service tasks on the container instance that are in the \code{RUNNING} state
-are stopped and replaced according to the service\'s deployment
+are stopped and replaced according to the service's deployment
 configuration parameters, \code{minimumHealthyPercent} and \code{maximumPercent}.
 You can change the deployment configuration of your service using
 UpdateService.
 \itemize{
-\item If \code{minimumHealthyPercent} is below 100\%, the scheduler can ignore
+\item If \code{minimumHealthyPercent} is below 100\\%, the scheduler can ignore
 \code{desiredCount} temporarily during task replacement. For example,
-\code{desiredCount} is four tasks, a minimum of 50\% allows the scheduler
+\code{desiredCount} is four tasks, a minimum of 50\\% allows the scheduler
 to stop two existing tasks before starting two new tasks. If the
-minimum is 100\%, the service scheduler can\'t remove existing tasks
+minimum is 100\\%, the service scheduler can't remove existing tasks
 until the replacement tasks are considered healthy. Tasks for
 services that do not use a load balancer are considered healthy if
 they are in the \code{RUNNING} state. Tasks for services that use a load
@@ -62,10 +61,10 @@ by the load balancer.
 \item The \code{maximumPercent} parameter represents an upper limit on the
 number of running tasks during task replacement, which enables you
 to define the replacement batch size. For example, if \code{desiredCount}
-is four tasks, a maximum of 200\% starts four new tasks before
+is four tasks, a maximum of 200\\% starts four new tasks before
 stopping the four tasks to be drained, provided that the cluster
-resources required to do this are available. If the maximum is 100\%,
-then replacement tasks can\'t start until the draining tasks have
+resources required to do this are available. If the maximum is 100\\%,
+then replacement tasks can't start until the draining tasks have
 stopped.
 }
 

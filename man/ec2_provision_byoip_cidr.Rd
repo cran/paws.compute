@@ -13,7 +13,7 @@ ec2_provision_byoip_cidr(Cidr, CidrAuthorizationContext,
 \item{Cidr}{[required] The public IPv4 or IPv6 address range, in CIDR notation. The most
 specific IPv4 prefix that you can specify is /24. The most specific IPv6
 prefix you can specify is /56. The address range cannot overlap with
-another address range that you\'ve brought to this or another Region.}
+another address range that you've brought to this or another Region.}
 
 \item{CidrAuthorizationContext}{A signed document that proves that you are authorized to bring the
 specified IP address range to Amazon using BYOIP.}
@@ -37,8 +37,7 @@ Provisions an IPv4 or IPv6 address range for use with your AWS resources
 through bring your own IP addresses (BYOIP) and creates a corresponding
 address pool. After the address range is provisioned, it is ready to be
 advertised using AdvertiseByoipCidr.
-}
-\details{
+
 AWS verifies that you own the address range and are authorized to
 advertise it. You must ensure that the address range is registered to
 you and that you created an RPKI ROA to authorize Amazon ASNs 16509 and
@@ -65,7 +64,7 @@ address pool.
   DryRun = TRUE|FALSE,
   PoolTagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
       Tags = list(
         list(
           Key = "string",

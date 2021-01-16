@@ -22,7 +22,7 @@ ec2_modify_image_attribute(Attribute, Description, ImageId,
 parameter is \code{launchPermission}.}
 
 \item{ProductCodes}{The DevPay product codes. After you add a product code to an AMI, it
-can\'t be removed.}
+can't be removed.}
 
 \item{UserGroups}{The user groups. This parameter can be used only when the \code{Attribute}
 parameter is \code{launchPermission}.}
@@ -43,8 +43,7 @@ Modifies the specified attribute of the specified AMI. You can specify
 only one attribute at a time. You can use the \code{Attribute} parameter to
 specify the attribute or one of the following parameters: \code{Description},
 \code{LaunchPermission}, or \code{ProductCode}.
-}
-\details{
+
 AWS Marketplace product codes cannot be modified. Images with an AWS
 Marketplace product code cannot be made public.
 

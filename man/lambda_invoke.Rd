@@ -30,7 +30,7 @@ Keep the connection open until the function returns a response or
 times out. The API response includes the function response and
 additional data.
 \item \code{Event} - Invoke the function asynchronously. Send events that fail
-multiple times to the function\'s dead-letter queue (if it\'s
+multiple times to the function's dead-letter queue (if it's
 configured). The API response only includes a status code.
 \item \code{DryRun} - Validate parameter values and verify that the user or
 role has permission to invoke the function.
@@ -50,20 +50,19 @@ function.}
 Invokes a Lambda function. You can invoke a function synchronously (and
 wait for the response), or asynchronously. To invoke a function
 asynchronously, set \code{InvocationType} to \code{Event}.
-}
-\details{
+
 For \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-sync.html}{synchronous invocation},
 details about the function response, including errors, are included in
 the response body and headers. For either invocation type, you can find
-more information in the \href{https://docs.aws.amazon.com/lambda/latest/dg/monitoring-functions.html}{execution log}
+more information in the \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-monitoring.html}{execution log}
 and
-\href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-x-ray.html}{trace}.
+\href{https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html}{trace}.
 
 When an error occurs, your function may be invoked multiple times. Retry
 behavior varies by error type, client, event source, and invocation
 type. For example, if you invoke a function asynchronously and it
 returns an error, Lambda executes the function up to two more times. For
-more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/retries-on-errors.html}{Retry Behavior}.
+more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-retries.html}{Retry Behavior}.
 
 For \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html}{asynchronous invocation},
 Lambda adds events to a queue before sending them to your function. If
@@ -72,13 +71,13 @@ events may be lost. Occasionally, your function may receive the same
 event multiple times, even if no error occurs. To retain events that
 were not processed, configure your function with a \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#dlq}{dead-letter queue}.
 
-The status code in the API response doesn\'t reflect function errors.
+The status code in the API response doesn't reflect function errors.
 Error codes are reserved for errors that prevent your function from
-executing, such as permissions errors, \href{https://docs.aws.amazon.com/lambda/latest/dg/limits.html}{limit errors}, or
-issues with your function\'s code and configuration. For example, Lambda
-returns \code{TooManyRequestsException} if executing the function would cause
-you to exceed a concurrency limit at either the account level
-(\code{ConcurrentInvocationLimitExceeded}) or function level
+executing, such as permissions errors, \href{https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-limits.html}{limit errors},
+or issues with your function's code and configuration. For example,
+Lambda returns \code{TooManyRequestsException} if executing the function
+would cause you to exceed a concurrency limit at either the account
+level (\code{ConcurrentInvocationLimitExceeded}) or function level
 (\code{ReservedFunctionConcurrentInvocationLimitExceeded}).
 
 For functions with a long timeout, your client might be disconnected
@@ -87,7 +86,7 @@ your HTTP client, SDK, firewall, proxy, or operating system to allow for
 long connections with timeout or keep-alive settings.
 
 This operation requires permission for the
-\href{https://docs.aws.amazon.com/IAM/latest/UserGuide/list_awslambda.html}{lambda:InvokeFunction}
+\href{https://docs.aws.amazon.com/service-authorization/latest/reference/list_awslambda.html}{lambda:InvokeFunction}
 action.
 }
 \section{Request syntax}{

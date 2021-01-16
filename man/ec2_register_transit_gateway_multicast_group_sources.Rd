@@ -14,7 +14,7 @@ ec2_register_transit_gateway_multicast_group_sources(
 
 \item{GroupIpAddress}{The IP address assigned to the transit gateway multicast group.}
 
-\item{NetworkInterfaceIds}{The group sources\' network interface IDs to register with the transit
+\item{NetworkInterfaceIds}{The group sources' network interface IDs to register with the transit
 gateway multicast group.}
 
 \item{DryRun}{Checks whether you have the required permissions for the action, without
@@ -25,11 +25,10 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Registers sources (network interfaces) with the specified transit
 gateway multicast group.
-}
-\details{
+
 A multicast source is a network interface attached to a supported
 instance that sends multicast traffic. For information about supported
-instances, see \href{https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-limits.html#multicast-limits}{Multicast Considerations}
+instances, see \href{https://docs.aws.amazon.com/vpc/latest/tgw/transit-gateway-quotas.html#multicast-limits}{Multicast Considerations}
 in \emph{Amazon VPC Transit Gateways}.
 
 After you add the source, use

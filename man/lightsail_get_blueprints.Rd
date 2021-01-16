@@ -2,7 +2,7 @@
 % Please edit documentation in R/lightsail_operations.R
 \name{lightsail_get_blueprints}
 \alias{lightsail_get_blueprints}
-\title{Returns the list of available instance images, or \emph{blueprints}}
+\title{Returns the list of available instance images, or blueprints}
 \usage{
 lightsail_get_blueprints(includeInactive, pageToken)
 }
@@ -22,8 +22,7 @@ use a blueprint to create a new instance already running a specific
 operating system, as well as a preinstalled app or development stack.
 The software each instance is running depends on the blueprint image you
 choose.
-}
-\details{
+
 Use active blueprints when creating new instances. Inactive blueprints
 are listed to support customers with existing instances and are not
 necessarily available to create new instances. Blueprints are marked

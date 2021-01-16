@@ -18,15 +18,14 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Describes the default credit option for CPU usage of a burstable
 performance instance family.
-}
-\details{
+
 For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html}{Burstable performance instances}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{
 \preformatted{svc$get_default_credit_specification(
   DryRun = TRUE|FALSE,
-  InstanceFamily = "t2"|"t3"|"t3a"
+  InstanceFamily = "t2"|"t3"|"t3a"|"t4g"
 )
 }
 }

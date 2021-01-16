@@ -6,6 +6,7 @@ NULL
 #' Creates an application, optionally including an AWS SAM file to create
 #' the first application version in the same call
 #'
+#' @description
 #' Creates an application, optionally including an AWS SAM file to create
 #' the first application version in the same call.
 #'
@@ -19,7 +20,7 @@ NULL
 #' 
 #' Minimum length=1. Maximum length=127.
 #' 
-#' Pattern \"\\^\[a-z0-9\]((\[a-z0-9\]\\|-(?!-))*\[a-z0-9\])?\\$\";
+#' Pattern "^\[a-z0-9\]((\[a-z0-9\]|-(?!-))*\[a-z0-9\])?$";
 #' @param Description &#91;required&#93; The description of the application.
 #' 
 #' Minimum length=1. Maximum length=256
@@ -29,10 +30,10 @@ NULL
 #' 
 #' Minimum length=1. Maximum length=127. Maximum number of labels: 10
 #' 
-#' Pattern: \"\\^\[a-zA-Z0-9+\\\\-\\_:\\\\/@@\]+\\$\";
+#' Pattern: "^\[a-zA-Z0-9+\\\\-\\_:\\\\/@@\]+$";
 #' @param LicenseBody A local text file that contains the license of the app that matches the
 #' spdxLicenseID value of your application. The file has the format
-#' file://\\<path\\>/\\<filename\\>.
+#' file://&lt;path&gt;/&lt;filename&gt;.
 #' 
 #' Maximum size 5 MB
 #' 
@@ -49,10 +50,10 @@ NULL
 #' 
 #' Minimum length=1. Maximum length=140
 #' 
-#' Pattern: \"\[a-zA-Z0-9\\\\-\]+\";
+#' Pattern: "\[a-zA-Z0-9\\\\-\]+";
 #' @param ReadmeBody A local text readme file in Markdown language that contains a more
 #' detailed description of the application and how it works. The file has
-#' the format file://\\<path\\>/\\<filename\\>.
+#' the format file://&lt;path&gt;/&lt;filename&gt;.
 #' 
 #' Maximum size 5 MB
 #' 
@@ -76,7 +77,7 @@ NULL
 #' for example the URL of a specific GitHub commit.
 #' @param SpdxLicenseId A valid identifier from <https://spdx.org/licenses/>.
 #' @param TemplateBody The local raw packaged AWS SAM template file of your application. The
-#' file has the format file://\\<path\\>/\\<filename\\>.
+#' file has the format file://&lt;path&gt;/&lt;filename&gt;.
 #' 
 #' You can specify only one of templateBody and templateUrl; otherwise an
 #' error results.
@@ -131,6 +132,7 @@ serverlessapplicationrepository_create_application <- function(Author, Descripti
 
 #' Creates an application version
 #'
+#' @description
 #' Creates an application version.
 #'
 #' @usage
@@ -183,6 +185,7 @@ serverlessapplicationrepository_create_application_version <- function(Applicati
 
 #' Creates an AWS CloudFormation change set for the given application
 #'
+#' @description
 #' Creates an AWS CloudFormation change set for the given application.
 #'
 #' @usage
@@ -229,43 +232,43 @@ serverlessapplicationrepository_create_application_version <- function(Applicati
 #' 
 #' If your application template contains any of the above resources, we
 #' recommend that you review all permissions associated with the
-#' application before deploying. If you don\'t specify this parameter for
-#' an application that requires capabilities, the call will fail.
+#' application before deploying. If you don't specify this parameter for an
+#' application that requires capabilities, the call will fail.
 #' @param ChangeSetName This property corresponds to the parameter of the same name for the *AWS
 #' CloudFormation
-#' [CreateChangeSet](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet)*
+#' [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html)*
 #' API.
 #' @param ClientToken This property corresponds to the parameter of the same name for the *AWS
 #' CloudFormation
-#' [CreateChangeSet](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet)*
+#' [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html)*
 #' API.
 #' @param Description This property corresponds to the parameter of the same name for the *AWS
 #' CloudFormation
-#' [CreateChangeSet](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet)*
+#' [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html)*
 #' API.
 #' @param NotificationArns This property corresponds to the parameter of the same name for the *AWS
 #' CloudFormation
-#' [CreateChangeSet](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet)*
+#' [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html)*
 #' API.
 #' @param ParameterOverrides A list of parameter values for the parameters of the application.
 #' @param ResourceTypes This property corresponds to the parameter of the same name for the *AWS
 #' CloudFormation
-#' [CreateChangeSet](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet)*
+#' [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html)*
 #' API.
 #' @param RollbackConfiguration This property corresponds to the parameter of the same name for the *AWS
 #' CloudFormation
-#' [CreateChangeSet](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet)*
+#' [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html)*
 #' API.
 #' @param SemanticVersion The semantic version of the application:
 #' 
 #' <https://semver.org/>
 #' @param StackName &#91;required&#93; This property corresponds to the parameter of the same name for the *AWS
 #' CloudFormation
-#' [CreateChangeSet](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet)*
+#' [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html)*
 #' API.
 #' @param Tags This property corresponds to the parameter of the same name for the *AWS
 #' CloudFormation
-#' [CreateChangeSet](https://docs.aws.amazon.com/goto/WebAPI/cloudformation-2010-05-15/CreateChangeSet)*
+#' [CreateChangeSet](https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html)*
 #' API.
 #' @param TemplateId The UUID returned by CreateCloudFormationTemplate.
 #' 
@@ -337,6 +340,7 @@ serverlessapplicationrepository_create_cloud_formation_change_set <- function(Ap
 
 #' Creates an AWS CloudFormation template
 #'
+#' @description
 #' Creates an AWS CloudFormation template.
 #'
 #' @usage
@@ -378,6 +382,7 @@ serverlessapplicationrepository_create_cloud_formation_template <- function(Appl
 
 #' Deletes the specified application
 #'
+#' @description
 #' Deletes the specified application.
 #'
 #' @usage
@@ -414,6 +419,7 @@ serverlessapplicationrepository_delete_application <- function(ApplicationId) {
 
 #' Gets the specified application
 #'
+#' @description
 #' Gets the specified application.
 #'
 #' @usage
@@ -453,6 +459,7 @@ serverlessapplicationrepository_get_application <- function(ApplicationId, Seman
 
 #' Retrieves the policy for the application
 #'
+#' @description
 #' Retrieves the policy for the application.
 #'
 #' @usage
@@ -489,6 +496,7 @@ serverlessapplicationrepository_get_application_policy <- function(ApplicationId
 
 #' Gets the specified AWS CloudFormation template
 #'
+#' @description
 #' Gets the specified AWS CloudFormation template.
 #'
 #' @usage
@@ -531,6 +539,7 @@ serverlessapplicationrepository_get_cloud_formation_template <- function(Applica
 
 #' Retrieves the list of applications nested in the containing application
 #'
+#' @description
 #' Retrieves the list of applications nested in the containing application.
 #'
 #' @usage
@@ -574,6 +583,7 @@ serverlessapplicationrepository_list_application_dependencies <- function(Applic
 
 #' Lists versions for the specified application
 #'
+#' @description
 #' Lists versions for the specified application.
 #'
 #' @usage
@@ -615,6 +625,7 @@ serverlessapplicationrepository_list_application_versions <- function(Applicatio
 
 #' Lists applications owned by the requester
 #'
+#' @description
 #' Lists applications owned by the requester.
 #'
 #' @usage
@@ -653,9 +664,10 @@ serverlessapplicationrepository_list_applications <- function(MaxItems = NULL, N
 
 #' Sets the permission policy for an application
 #'
+#' @description
 #' Sets the permission policy for an application. For the list of actions
 #' supported for this operation, see [Application
-#' Permissions](https://docs.aws.amazon.com/serverlessrepo/latest/devguide/access-control-resource-based.html#application-permissions)
+#' Permissions](https://docs.aws.amazon.com/serverlessrepo/latest/devguide/security_iam_resource-based-policy-examples.html#application-permissions)
 #' .
 #'
 #' @usage
@@ -708,9 +720,10 @@ serverlessapplicationrepository_put_application_policy <- function(ApplicationId
 
 #' Unshares an application from an AWS Organization
 #'
+#' @description
 #' Unshares an application from an AWS Organization.
 #' 
-#' This operation can be called only from the organization\'s master
+#' This operation can be called only from the organization's master
 #' account.
 #'
 #' @usage
@@ -750,6 +763,7 @@ serverlessapplicationrepository_unshare_application <- function(ApplicationId, O
 
 #' Updates the specified application
 #'
+#' @description
 #' Updates the specified application.
 #'
 #' @usage
@@ -761,7 +775,7 @@ serverlessapplicationrepository_unshare_application <- function(ApplicationId, O
 #' 
 #' Minimum length=1. Maximum length=127.
 #' 
-#' Pattern \"\\^\[a-z0-9\]((\[a-z0-9\]\\|-(?!-))*\[a-z0-9\])?\\$\";
+#' Pattern "^\[a-z0-9\]((\[a-z0-9\]|-(?!-))*\[a-z0-9\])?$";
 #' @param Description The description of the application.
 #' 
 #' Minimum length=1. Maximum length=256
@@ -771,7 +785,7 @@ serverlessapplicationrepository_unshare_application <- function(ApplicationId, O
 #' 
 #' Minimum length=1. Maximum length=127. Maximum number of labels: 10
 #' 
-#' Pattern: \"\\^\[a-zA-Z0-9+\\\\-\\_:\\\\/@@\]+\\$\";
+#' Pattern: "^\[a-zA-Z0-9+\\\\-\\_:\\\\/@@\]+$";
 #' @param ReadmeBody A text readme file in Markdown language that contains a more detailed
 #' description of the application and how it works.
 #' 

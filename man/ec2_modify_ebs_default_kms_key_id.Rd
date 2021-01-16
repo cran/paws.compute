@@ -15,12 +15,12 @@ specified, the encrypted state must be \code{true}.
 
 You can specify the CMK using any of the following:
 \itemize{
-\item Key ID. For example, key/1234abcd-12ab-34cd-56ef-1234567890ab.
+\item Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
 \item Key alias. For example, alias/ExampleAlias.
 \item Key ARN. For example,
-arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:key/\emph{abcd1234-a123-456a-a12b-a123b4cd56ef}.
+arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
 \item Alias ARN. For example,
-arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:alias/\emph{ExampleAlias}.
+arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
 }
 
 AWS authenticates the CMK asynchronously. Therefore, if you specify an
@@ -37,8 +37,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Changes the default customer master key (CMK) for EBS encryption by
 default for your account in this Region.
-}
-\details{
+
 AWS creates a unique AWS managed CMK in each Region for use with
 encryption by default. If you change the default CMK to a symmetric
 customer managed CMK, it is used instead of the AWS managed CMK. To
@@ -48,7 +47,7 @@ ResetEbsDefaultKmsKeyId. Amazon EBS does not support asymmetric CMKs.
 If you delete or disable the customer managed CMK that you specified for
 use with encryption by default, your instances will fail to launch.
 
-For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html}{Amazon EBS Encryption}
+For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html}{Amazon EBS encryption}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{

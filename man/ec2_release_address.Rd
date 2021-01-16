@@ -11,7 +11,8 @@ ec2_release_address(AllocationId, PublicIp, NetworkBorderGroup, DryRun)
 
 \item{PublicIp}{[EC2-Classic] The Elastic IP address. Required for EC2-Classic.}
 
-\item{NetworkBorderGroup}{The location that the IP address is released from.
+\item{NetworkBorderGroup}{The set of Availability Zones, Local Zones, or Wavelength Zones from
+which AWS advertises IP addresses.
 
 If you provide an incorrect network border group, you will receive an
 \code{InvalidAddress.NotFound} error. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/errors-overview.html}{Error Codes}.
@@ -27,10 +28,9 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Releases the specified Elastic IP address.
-}
-\details{
+
 [EC2-Classic, default VPC] Releasing an Elastic IP address
-automatically disassociates it from any instance that it\'s associated
+automatically disassociates it from any instance that it's associated
 with. To disassociate an Elastic IP address without releasing it, use
 DisassociateAddress.
 
@@ -41,7 +41,7 @@ returns an error (\code{InvalidIPAddress.InUse}).
 After releasing an Elastic IP address, it is released to the IP address
 pool. Be sure to update your DNS records and any servers or devices that
 communicate with the address. If you attempt to release an Elastic IP
-address that you already released, you\'ll get an \code{AuthFailure} error if
+address that you already released, you'll get an \code{AuthFailure} error if
 the address is already allocated to another AWS account.
 
 [EC2-VPC] After you release an Elastic IP address for use in a VPC,

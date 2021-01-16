@@ -15,7 +15,7 @@ Constraints: Up to 255 characters in length
 Constraints for EC2-Classic: ASCII characters
 
 Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and
-.\\_-:/()\\#,@[]+=&;\{\}!\\$*}
+.\\_-:/()\\#,@[]+=&;\{\}!$*}
 
 \item{GroupName}{[required] The name of the security group.
 
@@ -24,7 +24,7 @@ Constraints: Up to 255 characters in length. Cannot start with \verb{sg-}.
 Constraints for EC2-Classic: ASCII characters
 
 Constraints for EC2-VPC: a-z, A-Z, 0-9, spaces, and
-.\\_-:/()\\#,@[]+=&;\{\}!\\$*}
+.\\_-:/()\\#,@[]+=&;\{\}!$*}
 
 \item{VpcId}{[EC2-VPC] The ID of the VPC. Required for EC2-VPC.}
 
@@ -37,21 +37,20 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a security group.
-}
-\details{
+
 A security group acts as a virtual firewall for your instance to control
-inbound and outbound traffic. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html}{Amazon EC2 Security Groups}
-in the \emph{Amazon Elastic Compute Cloud User Guide} and \href{https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html}{Security Groups for Your VPC}
+inbound and outbound traffic. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html}{Amazon EC2 Security Groups}
+in the \emph{Amazon Elastic Compute Cloud User Guide} and \href{https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html}{Security Groups for Your VPC}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 
 When you create a security group, you specify a friendly name of your
 choice. You can have a security group for use in EC2-Classic with the
-same name as a security group for use in a VPC. However, you can\'t have
+same name as a security group for use in a VPC. However, you can't have
 two security groups for use in EC2-Classic with the same name or two
 security groups for use in a VPC with the same name.
 
 You have a default security group for use in EC2-Classic and a default
-security group for use in your VPC. If you don\'t specify a security
+security group for use in your VPC. If you don't specify a security
 group when you launch an instance, the instance is launched into the
 appropriate default security group. A default security group includes a
 default rule that grants instances unrestricted network access to each
@@ -70,7 +69,7 @@ For more information about VPC security group limits, see \href{https://docs.aws
   VpcId = "string",
   TagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
       Tags = list(
         list(
           Key = "string",

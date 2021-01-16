@@ -7,14 +7,14 @@
 lambda_untag_resource(Resource, TagKeys)
 }
 \arguments{
-\item{Resource}{[required] The function\'s Amazon Resource Name (ARN).}
+\item{Resource}{[required] The function's Amazon Resource Name (ARN).}
 
 \item{TagKeys}{[required] A list of tag keys to remove from the function.}
 }
 \description{
 Removes
-\href{https://docs.aws.amazon.com/lambda/latest/dg/tagging.html}{tags} from a
-function.
+\href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html}{tags}
+from a function.
 }
 \section{Request syntax}{
 \preformatted{svc$untag_resource(

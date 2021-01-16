@@ -12,7 +12,7 @@ ec2_import_image(Architecture, ClientData, ClientToken, Description,
 \arguments{
 \item{Architecture}{The architecture of the virtual machine.
 
-Valid values: \code{i386} \\| \code{x86_64} \\| \code{arm64}}
+Valid values: \code{i386} | \code{x86_64} | \code{arm64}}
 
 \item{ClientData}{The client-specific data.}
 
@@ -85,10 +85,9 @@ in the VM Import/Export User Guide.}
 
 \item{Platform}{The operating system of the virtual machine.
 
-Valid values: \code{Windows} \\| \code{Linux}}
+Valid values: \code{Windows} | \code{Linux}}
 
-\item{RoleName}{The name of the role to use when not using the default role,
-\'vmimport\'.}
+\item{RoleName}{The name of the role to use when not using the default role, 'vmimport'.}
 
 \item{LicenseSpecifications}{The ARNs of the license configurations.}
 
@@ -141,7 +140,7 @@ in the \emph{VM Import/Export User Guide}.
   ),
   TagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
       Tags = list(
         list(
           Key = "string",

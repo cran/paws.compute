@@ -11,9 +11,7 @@ ec2_create_capacity_reservation(ClientToken, InstanceType,
 }
 \arguments{
 \item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.
-
-Constraint: Maximum 64 ASCII characters.}
+idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.}
 
 \item{InstanceType}{[required] The instance type for which to reserve capacity. For more information,
 see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html}{Instance Types}
@@ -40,7 +38,7 @@ hardware that is dedicated to a single AWS account.
 \item{EbsOptimized}{Indicates whether the Capacity Reservation supports EBS-optimized
 instances. This optimization provides dedicated throughput to Amazon EBS
 and an optimized configuration stack to provide optimal I/O performance.
-This optimization isn\'t available with all instance types. Additional
+This optimization isn't available with all instance types. Additional
 usage charges apply when using an EBS- optimized instance.}
 
 \item{EphemeralStorage}{Indicates whether the Capacity Reservation supports instances with
@@ -48,8 +46,8 @@ temporary, block-level storage.}
 
 \item{EndDate}{The date and time at which the Capacity Reservation expires. When a
 Capacity Reservation expires, the reserved capacity is released and you
-can no longer launch instances into it. The Capacity Reservation\'s
-state changes to \code{expired} when it reaches its end date and time.
+can no longer launch instances into it. The Capacity Reservation's state
+changes to \code{expired} when it reaches its end date and time.
 
 You must provide an \code{EndDate} value if \code{EndDateType} is \code{limited}. Omit
 \code{EndDate} if \code{EndDateType} is \code{unlimited}.
@@ -95,8 +93,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a new Capacity Reservation with the specified attributes.
-}
-\details{
+
 Capacity Reservations enable you to reserve capacity for your Amazon EC2
 instances in a specific Availability Zone for any duration. This gives
 you the flexibility to selectively add capacity reservations and still
@@ -139,7 +136,7 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.
   InstanceMatchCriteria = "open"|"targeted",
   TagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
       Tags = list(
         list(
           Key = "string",

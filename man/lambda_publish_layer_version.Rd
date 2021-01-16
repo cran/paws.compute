@@ -17,7 +17,7 @@ lambda_publish_layer_version(LayerName, Description, Content,
 \item{CompatibleRuntimes}{A list of compatible \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html}{function runtimes}.
 Used for filtering with ListLayers and ListLayerVersions.}
 
-\item{LicenseInfo}{The layer\'s software license. It can be any of the following:
+\item{LicenseInfo}{The layer's software license. It can be any of the following:
 \itemize{
 \item An \href{https://spdx.org/licenses/}{SPDX license identifier}. For
 example, \code{MIT}.
@@ -30,8 +30,7 @@ example, \code{MIT}.
 Creates an \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html}{AWS Lambda layer}
 from a ZIP archive. Each time you call \code{PublishLayerVersion} with the
 same layer name, a new version is created.
-}
-\details{
+
 Add layers to your function with CreateFunction or
 UpdateFunctionConfiguration.
 }
@@ -46,7 +45,7 @@ UpdateFunctionConfiguration.
     ZipFile = raw
   ),
   CompatibleRuntimes = list(
-    "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"
+    "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2"
   ),
   LicenseInfo = "string"
 )

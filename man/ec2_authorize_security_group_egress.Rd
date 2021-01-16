@@ -17,7 +17,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{GroupId}{[required] The ID of the security group.}
 
-\item{IpPermissions}{The sets of IP permissions. You can\'t specify a destination security
+\item{IpPermissions}{The sets of IP permissions. You can't specify a destination security
 group and a CIDR IP address range in the same set of permissions.}
 
 \item{CidrIp}{Not supported. Use a set of IP permissions to specify the CIDR.}
@@ -38,8 +38,7 @@ security group.}
 \description{
 [VPC only] Adds the specified egress rules to a security group for use
 with a VPC.
-}
-\details{
+
 An outbound rule permits instances to send traffic to the specified IPv4
 or IPv6 CIDR address ranges, or to the instances associated with the
 specified destination security groups.

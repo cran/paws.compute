@@ -14,11 +14,10 @@ elasticbeanstalk_delete_configuration_template(ApplicationName,
 }
 \description{
 Deletes the specified configuration template.
-}
-\details{
+
 When you launch an environment using a configuration template, the
 environment gets a copy of the template. You can delete or modify the
-environment\'s copy of the template without affecting the running
+environment's copy of the template without affecting the running
 environment.
 }
 \section{Request syntax}{

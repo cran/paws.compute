@@ -12,8 +12,7 @@ provider to delete.}
 }
 \description{
 Deletes the specified capacity provider.
-}
-\details{
+
 The \code{FARGATE} and \code{FARGATE_SPOT} capacity providers are reserved and
 cannot be deleted. You can disassociate them from a cluster using either
 the PutClusterCapacityProviders API or by deleting the cluster.
@@ -21,7 +20,7 @@ the PutClusterCapacityProviders API or by deleting the cluster.
 Prior to a capacity provider being deleted, the capacity provider must
 be removed from the capacity provider strategy from all services. The
 UpdateService API can be used to remove a capacity provider from a
-service\'s capacity provider strategy. When updating a service, the
+service's capacity provider strategy. When updating a service, the
 \code{forceNewDeployment} option can be used to ensure that any tasks using
 the Amazon EC2 instance capacity provided by the capacity provider are
 transitioned to use the capacity from the remaining capacity providers.

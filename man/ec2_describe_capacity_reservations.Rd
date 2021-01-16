@@ -10,11 +10,12 @@ ec2_describe_capacity_reservations(CapacityReservationIds, NextToken,
 \arguments{
 \item{CapacityReservationIds}{The ID of the Capacity Reservation.}
 
-\item{NextToken}{The token to retrieve the next page of results.}
+\item{NextToken}{The token to use to retrieve the next page of results.}
 
 \item{MaxResults}{The maximum number of results to return for the request in a single
 page. The remaining results can be seen by sending another request with
-the returned nextToken value.}
+the returned \code{nextToken} value. This value can be between 5 and 500. If
+\code{maxResults} is given a larger value than 500, you receive an error.}
 
 \item{Filters}{One or more filters.
 \itemize{
@@ -57,7 +58,7 @@ retained for 60 minutes.
 \item \code{end-date} - The date and time at which the Capacity Reservation
 expires. When a Capacity Reservation expires, the reserved capacity
 is released and you can no longer launch instances into it. The
-Capacity Reservation\'s state changes to expired when it reaches its
+Capacity Reservation's state changes to expired when it reaches its
 end date and time.
 \item \code{end-date-type} - Indicates the way in which the Capacity
 Reservation ends. A Capacity Reservation can have one of the
@@ -91,7 +92,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes one or more of your Capacity Reservations. The results
-describe only the Capacity Reservations in the AWS Region that you\'re
+describe only the Capacity Reservations in the AWS Region that you're
 currently using.
 }
 \section{Request syntax}{

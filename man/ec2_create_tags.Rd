@@ -18,7 +18,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 Constraints: Up to 1000 resource IDs. We recommend breaking up this
 request into smaller batches.}
 
-\item{Tags}{[required] The tags. The \code{value} parameter is required, but if you don\'t want the
+\item{Tags}{[required] The tags. The \code{value} parameter is required, but if you don't want the
 tag to have a value, specify the parameter with no value, and we set the
 value to an empty string.}
 }
@@ -28,12 +28,11 @@ resource or resources. When you specify an existing tag key, the value
 is overwritten with the new value. Each resource can have a maximum of
 50 tags. Each tag consists of a key and optional value. Tag keys must be
 unique per resource.
-}
-\details{
+
 For more information about tags, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html}{Tagging Your Resources}
 in the \emph{Amazon Elastic Compute Cloud User Guide}. For more information
-about creating IAM policies that control users\' access to resources
-based on tags, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-supported-iam-actions-resources.html}{Supported Resource-Level Permissions for Amazon EC2 API Actions}
+about creating IAM policies that control users' access to resources
+based on tags, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-policy-structure.html#ec2-supported-iam-actions-resources}{Supported Resource-Level Permissions for Amazon EC2 API Actions}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{

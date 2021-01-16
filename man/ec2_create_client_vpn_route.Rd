@@ -14,18 +14,19 @@ ec2_create_client_vpn_route(ClientVpnEndpointId, DestinationCidrBlock,
 example:
 \itemize{
 \item To add a route for Internet access, enter \verb{0.0.0.0/0}
-\item To add a route for a peered VPC, enter the peered VPC\'s IPv4 CIDR
+\item To add a route for a peered VPC, enter the peered VPC's IPv4 CIDR
 range
 \item To add a route for an on-premises network, enter the AWS
-Site-to-Site VPN connection\'s IPv4 CIDR range
-}
-
-Route address ranges cannot overlap with the CIDR range specified for
-client allocation.}
+Site-to-Site VPN connection's IPv4 CIDR range
+\item To add a route for the local network, enter the client CIDR range
+}}
 
 \item{TargetVpcSubnetId}{[required] The ID of the subnet through which you want to route traffic. The
 specified subnet must be an existing target network of the Client VPN
-endpoint.}
+endpoint.
+
+Alternatively, if you're adding a route for the local network, specify
+\code{local}.}
 
 \item{Description}{A brief description of the route.}
 
@@ -41,7 +42,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 Adds a route to a network to a Client VPN endpoint. Each Client VPN
 endpoint has a route table that describes the available destination
 network routes. Each route in the route table specifies the path for
-traï¬ƒc to speciï¬c resources or networks.
+traﬃc to speciﬁc resources or networks.
 }
 \section{Request syntax}{
 \preformatted{svc$create_client_vpn_route(

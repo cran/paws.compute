@@ -33,7 +33,8 @@ The following metrics are available for each resource type:
 and \code{NetworkTransmitThroughput}.
 }
 
-For more information about these metrics, see \href{https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-resource-health-metrics#available-metrics}{Metrics available in Lightsail}.}
+For more information about these metrics, see Metrics available in
+Lightsail.}
 
 \item{monitoredResourceName}{[required] The name of the Lightsail resource that will be monitored.
 
@@ -47,7 +48,7 @@ operand.}
 \item{threshold}{[required] The value against which the specified statistic is compared.}
 
 \item{evaluationPeriods}{[required] The number of most recent periods over which data is compared to the
-specified threshold. If you are setting an \"M out of N\" alarm, this
+specified threshold. If you are setting an "M out of N" alarm, this
 value (\code{evaluationPeriods}) is the N.
 
 If you are setting an alarm that requires that a number of consecutive
@@ -62,7 +63,7 @@ You can specify a minimum valuation period of 1 (5 minutes), and a
 maximum evaluation period of 288 (24 hours).}
 
 \item{datapointsToAlarm}{The number of data points that must be not within the specified
-threshold to trigger the alarm. If you are setting an \"M out of N\"
+threshold to trigger the alarm. If you are setting an "M out of N"
 alarm, this value (\code{datapointsToAlarm}) is the M.}
 
 \item{treatMissingData}{Sets how this alarm will handle missing data points.
@@ -122,23 +123,22 @@ notification is sent when the alarm switches from an \code{OK} or \code{ALARM}
 alarm state to an \code{INSUFFICIENT_DATA} state.
 }
 
-The notification trigger defaults to \code{ALARM} if you don\'t specify this
+The notification trigger defaults to \code{ALARM} if you don't specify this
 parameter.}
 
 \item{notificationEnabled}{Indicates whether the alarm is enabled.
 
-Notifications are enabled by default if you don\'t specify this
+Notifications are enabled by default if you don't specify this
 parameter.}
 }
 \description{
 Creates or updates an alarm, and associates it with the specified
 metric.
-}
-\details{
+
 An alarm is used to monitor a single metric for one of your resources.
 When a metric condition is met, the alarm can notify you by email, SMS
 text message, and a banner displayed on the Amazon Lightsail console.
-For more information, see \href{https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-alarms}{Alarms in Amazon Lightsail}.
+For more information, see Alarms in Amazon Lightsail.
 
 When this action creates an alarm, the alarm state is immediately set to
 \code{INSUFFICIENT_DATA}. The alarm is then evaluated and its state is set

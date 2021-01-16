@@ -8,8 +8,8 @@ ec2_modify_network_interface_attribute(Attachment, Description, DryRun,
   Groups, NetworkInterfaceId, SourceDestCheck)
 }
 \arguments{
-\item{Attachment}{Information about the interface attachment. If modifying the \'delete on
-termination\' attribute, you must specify the ID of the interface
+\item{Attachment}{Information about the interface attachment. If modifying the 'delete on
+termination' attribute, you must specify the ID of the interface
 attachment.}
 
 \item{Description}{A description for the network interface.}
@@ -21,7 +21,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Groups}{Changes the security groups for the network interface. The new set of
 groups you specify replaces the current set. You must specify at least
-one group, even if it\'s just the default security group in the VPC. You
+one group, even if it's just the default security group in the VPC. You
 must specify the ID of the security group, not the name.}
 
 \item{NetworkInterfaceId}{[required] The ID of the network interface.}
@@ -29,7 +29,7 @@ must specify the ID of the security group, not the name.}
 \item{SourceDestCheck}{Indicates whether source/destination checking is enabled. A value of
 \code{true} means checking is enabled, and \code{false} means checking is
 disabled. This value must be \code{false} for a NAT instance to perform NAT.
-For more information, see \href{https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_NAT_Instance.html}{NAT Instances}
+For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/VPC_NAT_Instance.html}{NAT Instances}
 in the \emph{Amazon Virtual Private Cloud User Guide}.}
 }
 \description{

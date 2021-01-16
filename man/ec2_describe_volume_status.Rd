@@ -17,19 +17,19 @@ ec2_describe_volume_status(Filters, MaxResults, NextToken, VolumeIds,
 \item \code{availability-zone} - The Availability Zone of the instance.
 \item \code{event.description} - A description of the event.
 \item \code{event.event-id} - The event ID.
-\item \code{event.event-type} - The event type (for \code{io-enabled}: \code{passed} \\|
-\code{failed}; for \code{io-performance}: \code{io-performance:degraded} \\|
-\code{io-performance:severely-degraded} \\| \code{io-performance:stalled}).
+\item \code{event.event-type} - The event type (for \code{io-enabled}: \code{passed} |
+\code{failed}; for \code{io-performance}: \code{io-performance:degraded} |
+\code{io-performance:severely-degraded} | \code{io-performance:stalled}).
 \item \code{event.not-after} - The latest end time for the event.
 \item \code{event.not-before} - The earliest start time for the event.
 \item \code{volume-status.details-name} - The cause for \code{volume-status.status}
-(\code{io-enabled} \\| \code{io-performance}).
+(\code{io-enabled} | \code{io-performance}).
 \item \code{volume-status.details-status} - The status of
-\code{volume-status.details-name} (for \code{io-enabled}: \code{passed} \\|
-\code{failed}; for \code{io-performance}: \code{normal} \\| \code{degraded} \\|
-\code{severely-degraded} \\| \code{stalled}).
-\item \code{volume-status.status} - The status of the volume (\code{ok} \\|
-\code{impaired} \\| \code{warning} \\| \code{insufficient-data}).
+\code{volume-status.details-name} (for \code{io-enabled}: \code{passed} | \code{failed};
+for \code{io-performance}: \code{normal} | \code{degraded} | \code{severely-degraded} |
+\code{stalled}).
+\item \code{volume-status.status} - The status of the volume (\code{ok} | \code{impaired}
+| \code{warning} | \code{insufficient-data}).
 }}
 
 \item{MaxResults}{The maximum number of volume results returned by \code{DescribeVolumeStatus}
@@ -37,8 +37,8 @@ in paginated output. When this parameter is used, the request only
 returns \code{MaxResults} results in a single page along with a \code{NextToken}
 response element. The remaining results of the initial request can be
 seen by sending another request with the returned \code{NextToken} value.
-This value can be between 5 and 1000; if \code{MaxResults} is given a value
-larger than 1000, only 1000 results are returned. If this parameter is
+This value can be between 5 and 1,000; if \code{MaxResults} is given a value
+larger than 1,000, only 1,000 results are returned. If this parameter is
 not used, then \code{DescribeVolumeStatus} returns all results. You cannot
 specify this parameter and the volume IDs parameter in the same request.}
 
@@ -60,14 +60,13 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 Describes the status of the specified volumes. Volume status provides
 the result of the checks performed on your volumes to determine events
 that can impair the performance of your volumes. The performance of a
-volume can be affected if an issue occurs on the volume\'s underlying
-host. If the volume\'s underlying host experiences a power outage or
+volume can be affected if an issue occurs on the volume's underlying
+host. If the volume's underlying host experiences a power outage or
 system issue, after the system is restored, there could be data
 inconsistencies on the volume. Volume events notify you if this occurs.
 Volume actions notify you if any action needs to be taken in response to
 the event.
-}
-\details{
+
 The \code{DescribeVolumeStatus} operation provides the following information
 about the specified volumes:
 
@@ -75,18 +74,18 @@ about the specified volumes:
 are \code{ok}, \code{impaired} , \code{warning}, or \code{insufficient-data}. If all checks
 pass, the overall status of the volume is \code{ok}. If the check fails, the
 overall status is \code{impaired}. If the status is \code{insufficient-data}, then
-the checks may still be taking place on your volume at the time. We
+the checks might still be taking place on your volume at the time. We
 recommend that you retry the request. For more information about volume
-status, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-volume-status.html}{Monitoring the Status of Your Volumes}
+status, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/monitoring-volume-status.html}{Monitoring the status of your volumes}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 
-\emph{Events}: Reflect the cause of a volume status and may require you to
+\emph{Events}: Reflect the cause of a volume status and might require you to
 take action. For example, if your volume returns an \code{impaired} status,
 then the volume event might be \code{potential-data-inconsistency}. This
 means that your volume has been affected by an issue with the underlying
-host, has all I/O operations disabled, and may have inconsistent data.
+host, has all I/O operations disabled, and might have inconsistent data.
 
-\emph{Actions}: Reflect the actions you may have to take in response to an
+\emph{Actions}: Reflect the actions you might have to take in response to an
 event. For example, if the status of the volume is \code{impaired} and the
 volume event shows \code{potential-data-inconsistency}, then the action shows
 \code{enable-volume-io}. This means that you may want to enable the I/O

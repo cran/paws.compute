@@ -17,35 +17,33 @@ on instance termination.
 mapping (for example, \verb{/dev/sda1}).
 \item \code{attachment.instance-id} - The ID of the instance the volume is
 attached to.
-\item \code{attachment.status} - The attachment state (\code{attaching} \\|
-\code{attached} \\| \code{detaching}).
+\item \code{attachment.status} - The attachment state (\code{attaching} | \code{attached}
+| \code{detaching}).
 \item \code{availability-zone} - The Availability Zone in which the volume was
 created.
 \item \code{create-time} - The time stamp when the volume was created.
-\item \code{encrypted} - Indicates whether the volume is encrypted (\code{true} \\|
+\item \code{encrypted} - Indicates whether the volume is encrypted (\code{true} |
 \code{false})
 \item \code{multi-attach-enabled} - Indicates whether the volume is enabled for
-Multi-Attach (\code{true} \\| \code{false})
+Multi-Attach (\code{true} | \code{false})
 \item \code{fast-restored} - Indicates whether the volume was created from a
-snapshot that is enabled for fast snapshot restore (\code{true} \\|
+snapshot that is enabled for fast snapshot restore (\code{true} |
 \code{false}).
 \item \code{size} - The size of the volume, in GiB.
 \item \code{snapshot-id} - The snapshot from which the volume was created.
-\item \code{status} - The status of the volume (\code{creating} \\| \code{available} \\|
-\verb{in-use} \\| \code{deleting} \\| \code{deleted} \\| \code{error}).
-\item \code{tag}:\\<key\\> - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
+\item \code{status} - The state of the volume (\code{creating} | \code{available} |
+\verb{in-use} | \code{deleting} | \code{deleted} | \code{error}).
+\item \code{tag}:<key> - The key/value combination of a tag assigned to
+the resource. Use the tag key in the filter name and the tag value
+as the filter value. For example, to find all resources that have a
+tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner}
+for the filter name and \code{TeamA} for the filter value.
 \item \code{tag-key} - The key of a tag assigned to the resource. Use this
 filter to find all resources assigned a tag with a specific key,
 regardless of the tag value.
 \item \code{volume-id} - The volume ID.
-\item \code{volume-type} - The Amazon EBS volume type. This can be \code{gp2} for
-General Purpose SSD, \code{io1} for Provisioned IOPS SSD, \code{st1} for
-Throughput Optimized HDD, \code{sc1} for Cold HDD, or \code{standard} for
-Magnetic volumes.
+\item \code{volume-type} - The Amazon EBS volume type (\code{gp2} | \code{gp3} | \code{io1} |
+\code{io2} | \code{st1} | \code{sc1}| \code{standard})
 }}
 
 \item{VolumeIds}{The volume IDs.}
@@ -74,8 +72,7 @@ is \code{null} when there are no more results to return.}
 }
 \description{
 Describes the specified EBS volumes or all of your EBS volumes.
-}
-\details{
+
 If you are describing a long list of volumes, we recommend that you
 paginate the output to make the list more manageable. The \code{MaxResults}
 parameter sets the maximum number of results returned in a single page.
@@ -84,7 +81,7 @@ of results is returned along with a \code{NextToken} value that can be passed
 to a subsequent \code{DescribeVolumes} request to retrieve the remaining
 results.
 
-For more information about EBS volumes, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html}{Amazon EBS Volumes}
+For more information about EBS volumes, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes.html}{Amazon EBS volumes}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{

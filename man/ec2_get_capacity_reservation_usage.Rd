@@ -10,11 +10,12 @@ ec2_get_capacity_reservation_usage(CapacityReservationId, NextToken,
 \arguments{
 \item{CapacityReservationId}{[required] The ID of the Capacity Reservation.}
 
-\item{NextToken}{The token to retrieve the next page of results.}
+\item{NextToken}{The token to use to retrieve the next page of results.}
 
 \item{MaxResults}{The maximum number of results to return for the request in a single
 page. The remaining results can be seen by sending another request with
-the returned nextToken value.
+the returned \code{nextToken} value. This value can be between 5 and 500. If
+\code{maxResults} is given a larger value than 500, you receive an error.
 
 Valid range: Minimum value of 1. Maximum value of 1000.}
 
@@ -28,7 +29,7 @@ Gets usage information about a Capacity Reservation. If the Capacity
 Reservation is shared, it shows usage information for the Capacity
 Reservation owner and each AWS account that is currently using the
 shared capacity. If the Capacity Reservation is not shared, it shows
-only the Capacity Reservation owner\'s usage.
+only the Capacity Reservation owner's usage.
 }
 \section{Request syntax}{
 \preformatted{svc$get_capacity_reservation_usage(

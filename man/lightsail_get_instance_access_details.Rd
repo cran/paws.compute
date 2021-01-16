@@ -3,7 +3,7 @@
 \name{lightsail_get_instance_access_details}
 \alias{lightsail_get_instance_access_details}
 \title{Returns temporary SSH keys you can use to connect to a specific virtual
-private server, or \emph{instance}}
+private server, or instance}
 \usage{
 lightsail_get_instance_access_details(instanceName, protocol)
 }
@@ -15,11 +15,10 @@ lightsail_get_instance_access_details(instanceName, protocol)
 \description{
 Returns temporary SSH keys you can use to connect to a specific virtual
 private server, or \emph{instance}.
-}
-\details{
+
 The \verb{get instance access details} operation supports tag-based access
 control via resource tags applied to the resource identified by
-\verb{instance name}. For more information, see the \href{https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags}{Lightsail Dev Guide}.
+\verb{instance name}. For more information, see the Lightsail Dev Guide.
 }
 \section{Request syntax}{
 \preformatted{svc$get_instance_access_details(

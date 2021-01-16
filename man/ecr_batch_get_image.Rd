@@ -20,15 +20,14 @@ format of the \code{imageIds} reference is \code{imageTag=tag} or
 
 \item{acceptedMediaTypes}{The accepted media types for the request.
 
-Valid values: \code{application/vnd.docker.distribution.manifest.v1+json} \\|
-\code{application/vnd.docker.distribution.manifest.v2+json} \\|
+Valid values: \code{application/vnd.docker.distribution.manifest.v1+json} |
+\code{application/vnd.docker.distribution.manifest.v2+json} |
 \code{application/vnd.oci.image.manifest.v1+json}}
 }
 \description{
 Gets detailed information for an image. Images are specified with either
 an \code{imageTag} or \code{imageDigest}.
-}
-\details{
+
 When an image is pulled, the BatchGetImage API is called once to
 retrieve the image manifest.
 }

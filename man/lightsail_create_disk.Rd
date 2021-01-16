@@ -22,8 +22,7 @@ Lightsail is currently available.}
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-To tag a resource after it has been created, see the \verb{tag resource}
-operation.}
+Use the \code{TagResource} action to tag a resource after it's created.}
 
 \item{addOns}{An array of objects that represent the add-ons to enable for the new
 disk.}
@@ -31,10 +30,9 @@ disk.}
 \description{
 Creates a block storage disk that can be attached to an Amazon Lightsail
 instance in the same Availability Zone (e.g., \verb{us-east-2a}).
-}
-\details{
+
 The \verb{create disk} operation supports tag-based access control via
-request tags. For more information, see the \href{https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags}{Lightsail Dev Guide}.
+request tags. For more information, see the Lightsail Dev Guide.
 }
 \section{Request syntax}{
 \preformatted{svc$create_disk(

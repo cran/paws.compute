@@ -19,7 +19,7 @@ based on the source disk.}
 
 \item{instanceName}{The unique name of the source instance (e.g.,
 \verb{Amazon_Linux-512MB-Virginia-1}). When this is defined, a snapshot of
-the instance\'s system volume is created.
+the instance's system volume is created.
 
 This parameter cannot be defined together with the \verb{disk name}
 parameter. The \verb{instance name} and \verb{disk name} parameters are mutually
@@ -27,15 +27,13 @@ exclusive.}
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-To tag a resource after it has been created, see the \verb{tag resource}
-operation.}
+Use the \code{TagResource} action to tag a resource after it's created.}
 }
 \description{
 Creates a snapshot of a block storage disk. You can use snapshots for
 backups, to make copies of disks, and to save data before shutting down
 a Lightsail instance.
-}
-\details{
+
 You can take a snapshot of an attached disk that is in use; however,
 snapshots only capture data that has been written to your disk at the
 time the snapshot command is issued. This may exclude any data that has
@@ -47,18 +45,18 @@ Lightsail instance, issue the create disk snapshot command, and then
 remount the disk to ensure a consistent and complete snapshot. You may
 remount and use your disk while the snapshot status is pending.
 
-You can also use this operation to create a snapshot of an instance\'s
+You can also use this operation to create a snapshot of an instance's
 system volume. You might want to do this, for example, to recover data
 from the system volume of a botched instance or to create a backup of
 the system volume like you would for a block storage disk. To create a
 snapshot of a system volume, just define the \verb{instance name} parameter
 when issuing the snapshot command, and a snapshot of the defined
-instance\'s system volume will be created. After the snapshot is
+instance's system volume will be created. After the snapshot is
 available, you can create a block storage disk from the snapshot and
 attach it to a running instance to access the data on the disk.
 
 The \verb{create disk snapshot} operation supports tag-based access control
-via request tags. For more information, see the \href{https://lightsail.aws.amazon.com/ls/docs/en/articles/amazon-lightsail-controlling-access-using-tags}{Lightsail Dev Guide}.
+via request tags. For more information, see the Lightsail Dev Guide.
 }
 \section{Request syntax}{
 \preformatted{svc$create_disk_snapshot(

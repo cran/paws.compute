@@ -57,10 +57,9 @@ can create uses a /28 netmask (16 IPv4 addresses), and the largest uses
 a /16 netmask (65,536 IPv4 addresses). For more information about how
 large to make your VPC, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html}{Your VPC and Subnets}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
-}
-\details{
+
 You can optionally request an IPv6 CIDR block for the VPC. You can
-request an Amazon-provided IPv6 CIDR block from Amazon\'s pool of IPv6
+request an Amazon-provided IPv6 CIDR block from Amazon's pool of IPv6
 addresses, or an IPv6 CIDR block from an IPv6 address pool that you
 provisioned through bring your own IP addresses
 (\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html}{BYOIP}).
@@ -71,7 +70,7 @@ options, which include only a default DNS server that we provide
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 
 You can specify the instance tenancy value for the VPC when you create
-it. You can\'t change this value for the VPC after you create it. For
+it. You can't change this value for the VPC after you create it. For
 more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html}{Dedicated Instances}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
@@ -86,7 +85,7 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.
   Ipv6CidrBlockNetworkBorderGroup = "string",
   TagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
       Tags = list(
         list(
           Key = "string",

@@ -17,7 +17,7 @@ the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.}
+idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.}
 
 \item{DeliverLogsPermissionArn}{The ARN for the IAM role that permits Amazon EC2 to publish flow logs to
 a CloudWatch Logs log group in your account.
@@ -79,7 +79,7 @@ format. If you specify this parameter, you must specify at least one
 field.
 
 Specify the fields using the \verb{$\\\{field-id\\\}} format, separated by spaces.
-For the AWS CLI, use single quotation marks (\' \') to surround the
+For the AWS CLI, use single quotation marks (' ') to surround the
 parameter value.}
 
 \item{TagSpecifications}{The tags to apply to the flow logs.}
@@ -97,8 +97,7 @@ Default: 600}
 \description{
 Creates one or more flow logs to capture information about IP traffic
 for a specific network interface, subnet, or VPC.
-}
-\details{
+
 Flow log data for a monitored network interface is recorded as flow log
 records, which are log events consisting of fields that describe the
 traffic flow. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html#flow-log-records}{Flow Log Records}
@@ -129,7 +128,7 @@ in the \emph{Amazon Virtual Private Cloud User Guide}.
   LogFormat = "string",
   TagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
       Tags = list(
         list(
           Key = "string",

@@ -56,7 +56,7 @@ that Amazon ECS has set the desired status to \code{RUNNING}.
 
 Although you can filter results based on a desired status of \code{PENDING},
 this does not return any results. Amazon ECS never sets the desired
-status of a task to that value (only a task\'s \code{lastStatus} may have a
+status of a task to that value (only a task's \code{lastStatus} may have a
 value of \code{PENDING}).}
 
 \item{launchType}{The launch type for services to list.}
@@ -66,8 +66,7 @@ Returns a list of tasks for a specified cluster. You can filter the
 results by family name, by a particular container instance, or by the
 desired status of the task with the \code{family}, \code{containerInstance}, and
 \code{desiredStatus} parameters.
-}
-\details{
+
 Recently stopped tasks might appear in the returned results. Currently,
 stopped tasks appear in the returned results for at least one hour.
 }

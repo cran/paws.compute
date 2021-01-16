@@ -10,24 +10,23 @@ batch(config = list())
 \item{config}{Optional configuration of credentials, endpoint, and/or region.}
 }
 \description{
-AWS Batch enables you to run batch computing workloads on the AWS Cloud.
-Batch computing is a common way for developers, scientists, and
-engineers to access large amounts of compute resources, and AWS Batch
-removes the undifferentiated heavy lifting of configuring and managing
-the required infrastructure. AWS Batch will be familiar to users of
-traditional batch computing software. This service can efficiently
-provision resources in response to jobs submitted in order to eliminate
-capacity constraints, reduce compute costs, and deliver results quickly.
+Using AWS Batch, you can run batch computing workloads on the AWS Cloud.
+Batch computing is a common means for developers, scientists, and
+engineers to access large amounts of compute resources. AWS Batch
+utilizes the advantages of this computing workload to remove the
+undifferentiated heavy lifting of configuring and managing required
+infrastructure, while also adopting a familiar batch computing software
+approach. Given these advantages, AWS Batch can help you to efficiently
+provision resources in response to jobs submitted, thus effectively
+helping to eliminate capacity constraints, reduce compute costs, and
+deliver your results more quickly.
 
-As a fully managed service, AWS Batch enables developers, scientists,
-and engineers to run batch computing workloads of any scale. AWS Batch
-automatically provisions compute resources and optimizes the workload
-distribution based on the quantity and scale of the workloads. With AWS
-Batch, there is no need to install or manage batch computing software,
-which allows you to focus on analyzing results and solving problems. AWS
-Batch reduces operational complexities, saves time, and reduces costs,
-which makes it easy for developers, scientists, and engineers to run
-their batch jobs in the AWS Cloud.
+As a fully managed service, AWS Batch can run batch computing workloads
+of any scale. AWS Batch automatically provisions compute resources and
+optimizes workload distribution based on the quantity and scale of your
+specific workloads. With AWS Batch, there's no need to install or manage
+batch computing software. This means that you can focus your time and
+energy on analyzing results and solving your specific problems.
 }
 \section{Service syntax}{
 \preformatted{svc <- batch(
@@ -50,21 +49,24 @@ their batch jobs in the AWS Cloud.
 \section{Operations}{
 
 \tabular{ll}{
-\link[=batch_cancel_job]{cancel_job} \tab Cancels a job in an AWS Batch job queue \cr
-\link[=batch_create_compute_environment]{create_compute_environment} \tab Creates an AWS Batch compute environment \cr
-\link[=batch_create_job_queue]{create_job_queue} \tab Creates an AWS Batch job queue \cr
-\link[=batch_delete_compute_environment]{delete_compute_environment} \tab Deletes an AWS Batch compute environment \cr
-\link[=batch_delete_job_queue]{delete_job_queue} \tab Deletes the specified job queue \cr
-\link[=batch_deregister_job_definition]{deregister_job_definition} \tab Deregisters an AWS Batch job definition \cr
+\link[=batch_cancel_job]{cancel_job} \tab Cancels a job in an AWS Batch job queue\cr
+\link[=batch_create_compute_environment]{create_compute_environment} \tab Creates an AWS Batch compute environment\cr
+\link[=batch_create_job_queue]{create_job_queue} \tab Creates an AWS Batch job queue\cr
+\link[=batch_delete_compute_environment]{delete_compute_environment} \tab Deletes an AWS Batch compute environment\cr
+\link[=batch_delete_job_queue]{delete_job_queue} \tab Deletes the specified job queue\cr
+\link[=batch_deregister_job_definition]{deregister_job_definition} \tab Deregisters an AWS Batch job definition\cr
 \link[=batch_describe_compute_environments]{describe_compute_environments} \tab Describes one or more of your compute environments\cr
-\link[=batch_describe_job_definitions]{describe_job_definitions} \tab Describes a list of job definitions \cr
-\link[=batch_describe_job_queues]{describe_job_queues} \tab Describes one or more of your job queues \cr
-\link[=batch_describe_jobs]{describe_jobs} \tab Describes a list of AWS Batch jobs \cr
-\link[=batch_list_jobs]{list_jobs} \tab Returns a list of AWS Batch jobs \cr
-\link[=batch_register_job_definition]{register_job_definition} \tab Registers an AWS Batch job definition \cr
-\link[=batch_submit_job]{submit_job} \tab Submits an AWS Batch job from a job definition \cr
-\link[=batch_terminate_job]{terminate_job} \tab Terminates a job in a job queue \cr
-\link[=batch_update_compute_environment]{update_compute_environment} \tab Updates an AWS Batch compute environment \cr
+\link[=batch_describe_job_definitions]{describe_job_definitions} \tab Describes a list of job definitions\cr
+\link[=batch_describe_job_queues]{describe_job_queues} \tab Describes one or more of your job queues\cr
+\link[=batch_describe_jobs]{describe_jobs} \tab Describes a list of AWS Batch jobs\cr
+\link[=batch_list_jobs]{list_jobs} \tab Returns a list of AWS Batch jobs\cr
+\link[=batch_list_tags_for_resource]{list_tags_for_resource} \tab Lists the tags for an AWS Batch resource\cr
+\link[=batch_register_job_definition]{register_job_definition} \tab Registers an AWS Batch job definition\cr
+\link[=batch_submit_job]{submit_job} \tab Submits an AWS Batch job from a job definition\cr
+\link[=batch_tag_resource]{tag_resource} \tab Associates the specified tags to a resource with the specified resourceArn\cr
+\link[=batch_terminate_job]{terminate_job} \tab Terminates a job in a job queue\cr
+\link[=batch_untag_resource]{untag_resource} \tab Deletes specified tags from an AWS Batch resource\cr
+\link[=batch_update_compute_environment]{update_compute_environment} \tab Updates an AWS Batch compute environment\cr
 \link[=batch_update_job_queue]{update_job_queue} \tab Updates a job queue
 }
 }

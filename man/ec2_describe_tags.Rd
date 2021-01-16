@@ -16,19 +16,18 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \itemize{
 \item \code{key} - The tag key.
 \item \code{resource-id} - The ID of the resource.
-\item \code{resource-type} - The resource type (\code{customer-gateway} \\|
-\code{dedicated-host} \\| \code{dhcp-options} \\| \code{elastic-ip} \\| \code{fleet} \\|
-\code{fpga-image} \\| \code{host-reservation} \\| \code{image} \\| \code{instance} \\|
-\code{internet-gateway} \\| \code{key-pair} \\| \code{launch-template} \\|
-\code{natgateway} \\| \code{network-acl} \\| \code{network-interface} \\|
-\code{placement-group} \\| \code{reserved-instances} \\| \code{route-table} \\|
-\code{security-group} \\| \code{snapshot} \\| \code{spot-instances-request} \\|
-\code{subnet} \\| \code{volume} \\| \code{vpc} \\| \code{vpc-endpoint} \\|
-\code{vpc-endpoint-service} \\| \code{vpc-peering-connection} \\|
-\code{vpn-connection} \\| \code{vpn-gateway}).
-\item \code{tag}:\\<key\\> - The key/value combination of the tag. For example,
-specify \"tag:Owner\" for the filter name and \"TeamA\" for the
-filter value to find resources with the tag \"Owner=TeamA\".
+\item \code{resource-type} - The resource type (\code{customer-gateway} |
+\code{dedicated-host} | \code{dhcp-options} | \code{elastic-ip} | \code{fleet} |
+\code{fpga-image} | \code{host-reservation} | \code{image} | \code{instance} |
+\code{internet-gateway} | \code{key-pair} | \code{launch-template} | \code{natgateway} |
+\code{network-acl} | \code{network-interface} | \code{placement-group} |
+\code{reserved-instances} | \code{route-table} | \code{security-group} | \code{snapshot}
+| \code{spot-instances-request} | \code{subnet} | \code{volume} | \code{vpc} |
+\code{vpc-endpoint} | \code{vpc-endpoint-service} | \code{vpc-peering-connection} |
+\code{vpn-connection} | \code{vpn-gateway}).
+\item \code{tag}:<key> - The key/value combination of the tag. For
+example, specify "tag:Owner" for the filter name and "TeamA" for the
+filter value to find resources with the tag "Owner=TeamA".
 \item \code{value} - The tag value.
 }}
 
@@ -40,8 +39,7 @@ call with the returned \code{NextToken} value.}
 }
 \description{
 Describes the specified tags for your EC2 resources.
-}
-\details{
+
 For more information about tags, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html}{Tagging Your Resources}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }

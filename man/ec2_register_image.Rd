@@ -41,7 +41,7 @@ a PV AMI can make instances launched from the AMI unreachable.}
 
 Constraints: 3-128 alphanumeric characters, parentheses (()), square
 brackets ([]), spaces ( ), periods (.), slashes (/), dashes (-),
-single quotes (\'), at-signs (@), or underscores(\\_)}
+single quotes ('), at-signs (@), or underscores(\\_)}
 
 \item{BillingProducts}{The billing product codes. Your account must be authorized to specify
 billing product codes. Otherwise, you can use the AWS Marketplace to
@@ -60,24 +60,22 @@ There is no way to disable \code{sriovNetSupport} at this time.
 This option is supported only for HVM AMIs. Specifying this option with
 a PV AMI can make instances launched from the AMI unreachable.}
 
-\item{VirtualizationType}{The type of virtualization (\code{hvm} \\| \code{paravirtual}).
+\item{VirtualizationType}{The type of virtualization (\code{hvm} | \code{paravirtual}).
 
 Default: \code{paravirtual}}
 }
 \description{
-Registers an AMI. When you\'re creating an AMI, this is the final step
+Registers an AMI. When you're creating an AMI, this is the final step
 you must complete before you can launch an instance from the AMI. For
-more information about creating AMIs, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html}{Creating your own AMIs}
+more information about creating AMIs, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html#creating-an-ami}{Creating your own AMIs}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
-}
-\details{
+
 For Amazon EBS-backed instances, CreateImage creates and registers the
-AMI in a single request, so you don\'t have to register the AMI
-yourself.
+AMI in a single request, so you don't have to register the AMI yourself.
 
 You can also use \code{RegisterImage} to create an Amazon EBS-backed Linux
 AMI from a snapshot of a root device volume. You specify the snapshot
-using the block device mapping. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-launch-snapshot.html}{Launching a Linux instance from a backup}
+using the block device mapping. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html#creating-launching-ami-from-snapshot}{Launching a Linux instance from a backup}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 
 If any snapshots have AWS Marketplace product codes, they are copied to
@@ -123,8 +121,9 @@ image and register the new image.
         Iops = 123,
         SnapshotId = "string",
         VolumeSize = 123,
-        VolumeType = "standard"|"io1"|"gp2"|"sc1"|"st1",
+        VolumeType = "standard"|"io1"|"io2"|"gp2"|"sc1"|"st1"|"gp3",
         KmsKeyId = "string",
+        Throughput = 123,
         Encrypted = TRUE|FALSE
       ),
       NoDevice = "string"

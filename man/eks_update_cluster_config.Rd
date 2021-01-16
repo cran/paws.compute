@@ -14,11 +14,11 @@ eks_update_cluster_config(name, resourcesVpcConfig, logging,
 
 \item{logging}{Enable or disable exporting the Kubernetes control plane logs for your
 cluster to CloudWatch Logs. By default, cluster control plane logs
-aren\'t exported to CloudWatch Logs. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html}{Amazon EKS Cluster Control Plane Logs}
+aren't exported to CloudWatch Logs. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html}{Amazon EKS Cluster Control Plane Logs}
 in the \strong{Amazon EKS User Guide} .
 
 CloudWatch Logs ingestion, archive storage, and data scanning rates
-apply to exported control plane logs. For more information, see \href{http://aws.amazon.com/cloudwatch/pricing/}{Amazon CloudWatch Pricing}.}
+apply to exported control plane logs. For more information, see \href{https://aws.amazon.com/cloudwatch/pricing/}{Amazon CloudWatch Pricing}.}
 
 \item{clientRequestToken}{Unique, case-sensitive identifier that you provide to ensure the
 idempotency of the request.}
@@ -28,19 +28,18 @@ Updates an Amazon EKS cluster configuration. Your cluster continues to
 function during the update. The response output includes an update ID
 that you can use to track the status of your cluster update with the
 DescribeUpdate API operation.
-}
-\details{
+
 You can use this API operation to enable or disable exporting the
 Kubernetes control plane logs for your cluster to CloudWatch Logs. By
-default, cluster control plane logs aren\'t exported to CloudWatch Logs.
+default, cluster control plane logs aren't exported to CloudWatch Logs.
 For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html}{Amazon EKS Cluster Control Plane Logs}
 in the \strong{Amazon EKS User Guide} .
 
 CloudWatch Logs ingestion, archive storage, and data scanning rates
-apply to exported control plane logs. For more information, see \href{http://aws.amazon.com/cloudwatch/pricing/}{Amazon CloudWatch Pricing}.
+apply to exported control plane logs. For more information, see \href{https://aws.amazon.com/cloudwatch/pricing/}{Amazon CloudWatch Pricing}.
 
 You can also use this API operation to enable or disable public and
-private access to your cluster\'s Kubernetes API server endpoint. By
+private access to your cluster's Kubernetes API server endpoint. By
 default, public access is enabled, and private access is disabled. For
 more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/cluster-endpoint.html}{Amazon EKS Cluster Endpoint Access Control}
 in the \strong{Amazon EKS User Guide} .

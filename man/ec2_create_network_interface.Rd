@@ -21,17 +21,17 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Ipv6AddressCount}{The number of IPv6 addresses to assign to a network interface. Amazon
 EC2 automatically selects the IPv6 addresses from the subnet range. You
-can\'t use this option if specifying specific IPv6 addresses. If your
+can't use this option if specifying specific IPv6 addresses. If your
 subnet has the \code{AssignIpv6AddressOnCreation} attribute set to \code{true},
 you can specify \code{0} to override this setting.}
 
 \item{Ipv6Addresses}{One or more specific IPv6 addresses from the IPv6 CIDR block range of
-your subnet. You can\'t use this option if you\'re specifying a number
-of IPv6 addresses.}
+your subnet. You can't use this option if you're specifying a number of
+IPv6 addresses.}
 
-\item{PrivateIpAddress}{The primary private IPv4 address of the network interface. If you don\'t
+\item{PrivateIpAddress}{The primary private IPv4 address of the network interface. If you don't
 specify an IPv4 address, Amazon EC2 selects one for you from the
-subnet\'s IPv4 CIDR range. If you specify an IP address, you cannot
+subnet's IPv4 CIDR range. If you specify an IP address, you cannot
 indicate any IP addresses specified in \code{privateIpAddresses} as primary
 (only one IP address can be designated as primary).}
 
@@ -39,8 +39,8 @@ indicate any IP addresses specified in \code{privateIpAddresses} as primary
 
 \item{SecondaryPrivateIpAddressCount}{The number of secondary private IPv4 addresses to assign to a network
 interface. When you specify a number of secondary IPv4 addresses, Amazon
-EC2 selects these IP addresses within the subnet\'s IPv4 CIDR range. You
-can\'t specify this option and specify more than one private IP address
+EC2 selects these IP addresses within the subnet's IPv4 CIDR range. You
+can't specify this option and specify more than one private IP address
 using \code{privateIpAddresses}.
 
 The number of IP addresses you can assign to a network interface varies
@@ -57,8 +57,7 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.}
 }
 \description{
 Creates a network interface in the specified subnet.
-}
-\details{
+
 For more information about network interfaces, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-eni.html}{Elastic Network Interfaces}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 }
@@ -87,7 +86,7 @@ in the \emph{Amazon Virtual Private Cloud User Guide}.
   SubnetId = "string",
   TagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
       Tags = list(
         list(
           Key = "string",

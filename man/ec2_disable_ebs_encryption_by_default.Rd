@@ -16,15 +16,14 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Disables EBS encryption by default for your account in the current
 Region.
-}
-\details{
+
 After you disable encryption by default, you can still create encrypted
 volumes by enabling encryption when you create each volume.
 
 Disabling encryption by default does not change the encryption status of
 your existing volumes.
 
-For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html}{Amazon EBS Encryption}
+For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html}{Amazon EBS encryption}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{

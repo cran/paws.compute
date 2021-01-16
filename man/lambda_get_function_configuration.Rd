@@ -29,9 +29,8 @@ the function.}
 Returns the version-specific settings of a Lambda function or version.
 The output includes only options that can vary between versions of a
 function. To modify these settings, use UpdateFunctionConfiguration.
-}
-\details{
-To get all of a function\'s details, including function-level settings,
+
+To get all of a function's details, including function-level settings,
 use GetFunction.
 }
 \section{Request syntax}{

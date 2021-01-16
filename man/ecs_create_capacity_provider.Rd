@@ -9,8 +9,8 @@ ecs_create_capacity_provider(name, autoScalingGroupProvider, tags)
 \arguments{
 \item{name}{[required] The name of the capacity provider. Up to 255 characters are allowed,
 including letters (upper and lowercase), numbers, underscores, and
-hyphens. The name cannot be prefixed with \"\code{aws}\", \"\code{ecs}\", or
-\"\code{fargate}\".}
+hyphens. The name cannot be prefixed with "\code{aws}", "\code{ecs}", or
+"\code{fargate}".}
 
 \item{autoScalingGroupProvider}{[required] The details of the Auto Scaling group for the capacity provider.}
 
@@ -42,8 +42,7 @@ limit.
 Creates a new capacity provider. Capacity providers are associated with
 an Amazon ECS cluster and are used in capacity provider strategies to
 facilitate cluster auto scaling.
-}
-\details{
+
 Only capacity providers using an Auto Scaling group can be created.
 Amazon ECS tasks on AWS Fargate use the \code{FARGATE} and \code{FARGATE_SPOT}
 capacity providers which are already created and available to all
@@ -58,7 +57,8 @@ accounts in Regions supported by AWS Fargate.
       status = "ENABLED"|"DISABLED",
       targetCapacity = 123,
       minimumScalingStepSize = 123,
-      maximumScalingStepSize = 123
+      maximumScalingStepSize = 123,
+      instanceWarmupPeriod = 123
     ),
     managedTerminationProtection = "ENABLED"|"DISABLED"
   ),

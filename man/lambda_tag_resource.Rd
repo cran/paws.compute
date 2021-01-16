@@ -7,12 +7,13 @@
 lambda_tag_resource(Resource, Tags)
 }
 \arguments{
-\item{Resource}{[required] The function\'s Amazon Resource Name (ARN).}
+\item{Resource}{[required] The function's Amazon Resource Name (ARN).}
 
 \item{Tags}{[required] A list of tags to apply to the function.}
 }
 \description{
-Adds \href{https://docs.aws.amazon.com/lambda/latest/dg/tagging.html}{tags}
+Adds
+\href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html}{tags}
 to a function.
 }
 \section{Request syntax}{

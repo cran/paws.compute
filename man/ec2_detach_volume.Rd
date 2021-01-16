@@ -13,8 +13,8 @@ ec2_detach_volume(Device, Force, InstanceId, VolumeId, DryRun)
 cleanly (for example, logging into an instance, unmounting the volume,
 and detaching normally). This option can lead to data loss or a
 corrupted file system. Use this option only as a last resort to detach a
-volume from a failed instance. The instance won\'t have an opportunity
-to flush file system caches or file system metadata. If you use this
+volume from a failed instance. The instance won't have an opportunity to
+flush file system caches or file system metadata. If you use this
 option, you must perform file system check and repair procedures.}
 
 \item{InstanceId}{The ID of the instance. If you are detaching a Multi-Attach enabled
@@ -34,14 +34,13 @@ volume. Failure to do so can result in the volume becoming stuck in the
 \code{busy} state while detaching. If this happens, detachment can be delayed
 indefinitely until you unmount the volume, force detachment, reboot the
 instance, or all three. If an EBS volume is the root device of an
-instance, it can\'t be detached while the instance is running. To detach
+instance, it can't be detached while the instance is running. To detach
 the root volume, stop the instance first.
-}
-\details{
+
 When a volume with an AWS Marketplace product code is detached from an
 instance, the product code is no longer associated with the instance.
 
-For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html}{Detaching an Amazon EBS Volume}
+For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-detaching-volume.html}{Detaching an Amazon EBS volume}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{

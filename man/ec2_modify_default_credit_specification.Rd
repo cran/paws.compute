@@ -18,7 +18,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{CpuCredits}{[required] The credit option for CPU usage of the instance family.
 
-Valid Values: \code{standard} \\| \code{unlimited}}
+Valid Values: \code{standard} | \code{unlimited}}
 }
 \description{
 Modifies the default credit option for CPU usage of burstable
@@ -26,8 +26,7 @@ performance instances. The default credit option is set at the account
 level per AWS Region, and is specified per instance family. All new
 burstable performance instances in the account launch using the default
 credit option.
-}
-\details{
+
 \code{ModifyDefaultCreditSpecification} is an asynchronous operation, which
 works at an AWS Region level and modifies the credit option for each
 Availability Zone. All zones in a Region are updated within five
@@ -43,7 +42,7 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.
 \section{Request syntax}{
 \preformatted{svc$modify_default_credit_specification(
   DryRun = TRUE|FALSE,
-  InstanceFamily = "t2"|"t3"|"t3a",
+  InstanceFamily = "t2"|"t3"|"t3a"|"t4g",
   CpuCredits = "string"
 )
 }

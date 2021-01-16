@@ -45,26 +45,25 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a subnet in a specified VPC.
-}
-\details{
+
 You must specify an IPv4 CIDR block for the subnet. After you create a
-subnet, you can\'t change its CIDR block. The allowed block size is
+subnet, you can't change its CIDR block. The allowed block size is
 between a /16 netmask (65,536 IP addresses) and /28 netmask (16 IP
 addresses). The CIDR block must not overlap with the CIDR block of an
 existing subnet in the VPC.
 
-If you\'ve associated an IPv6 CIDR block with your VPC, you can create a
+If you've associated an IPv6 CIDR block with your VPC, you can create a
 subnet with an IPv6 CIDR block that uses a /64 prefix length.
 
 AWS reserves both the first four and the last IPv4 address in each
-subnet\'s CIDR block. They\'re not available for use.
+subnet's CIDR block. They're not available for use.
 
-If you add more than one subnet to a VPC, they\'re set up in a star
+If you add more than one subnet to a VPC, they're set up in a star
 topology with a logical router in the middle.
 
 When you stop an instance in a subnet, it retains its private IPv4
-address. It\'s therefore possible to have a subnet with no running
-instances (they\'re all stopped), but no remaining IP addresses
+address. It's therefore possible to have a subnet with no running
+instances (they're all stopped), but no remaining IP addresses
 available.
 
 For more information about subnets, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html}{Your VPC and Subnets}
@@ -74,7 +73,7 @@ in the \emph{Amazon Virtual Private Cloud User Guide}.
 \preformatted{svc$create_subnet(
   TagSpecifications = list(
     list(
-      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
       Tags = list(
         list(
           Key = "string",

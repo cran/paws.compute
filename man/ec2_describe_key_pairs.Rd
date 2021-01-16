@@ -15,11 +15,11 @@ ec2_describe_key_pairs(Filters, KeyNames, KeyPairIds, DryRun)
 \item \code{tag-key} - The key of a tag assigned to the resource. Use this
 filter to find all resources assigned a tag with a specific key,
 regardless of the tag value.
-\item \code{tag}:\\<key\\> - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
+\item \code{tag}:<key> - The key/value combination of a tag assigned to
+the resource. Use the tag key in the filter name and the tag value
+as the filter value. For example, to find all resources that have a
+tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner}
+for the filter name and \code{TeamA} for the filter value.
 }}
 
 \item{KeyNames}{The key pair names.
@@ -35,8 +35,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes the specified key pairs or all of your key pairs.
-}
-\details{
+
 For more information about key pairs, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html}{Key Pairs}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }

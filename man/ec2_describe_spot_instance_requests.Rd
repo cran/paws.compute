@@ -27,9 +27,9 @@ for the EBS volume.
 \item \code{launch.block-device-mapping.volume-size} - The size of the EBS
 volume, in GiB.
 \item \code{launch.block-device-mapping.volume-type} - The type of EBS volume:
-\code{gp2} for General Purpose SSD, \code{io1} for Provisioned IOPS SSD, \code{st1}
-for Throughput Optimized HDD, \code{sc1}for Cold HDD, or \code{standard} for
-Magnetic.
+\code{gp2} for General Purpose SSD, \code{io1} or \code{io2} for Provisioned IOPS
+SSD, \code{st1} for Throughput Optimized HDD, \code{sc1}for Cold HDD, or
+\code{standard} for Magnetic.
 \item \code{launch.group-id} - The ID of the security group for the instance.
 \item \code{launch.group-name} - The name of the security group for the
 instance.
@@ -61,28 +61,28 @@ address of the network interface.
 \item \code{network-interface.subnet-id} - The ID of the subnet for the
 instance.
 \item \code{product-description} - The product description associated with the
-instance (\code{Linux/UNIX} \\| \code{Windows}).
+instance (\code{Linux/UNIX} | \code{Windows}).
 \item \code{spot-instance-request-id} - The Spot Instance request ID.
 \item \code{spot-price} - The maximum hourly price for any Spot Instance
 launched to fulfill the request.
-\item \code{state} - The state of the Spot Instance request (\code{open} \\| \code{active}
-\\| \code{closed} \\| \code{cancelled} \\| \code{failed}). Spot request status
+\item \code{state} - The state of the Spot Instance request (\code{open} | \code{active}
+| \code{closed} | \code{cancelled} | \code{failed}). Spot request status
 information can help you track your Amazon EC2 Spot Instance
-requests. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html}{Spot request status}
+requests. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html}{Spot request status}
 in the \emph{Amazon EC2 User Guide for Linux Instances}.
 \item \code{status-code} - The short code describing the most recent evaluation
 of your Spot Instance request.
 \item \code{status-message} - The message explaining the status of the Spot
 Instance request.
-\item \code{tag}:\\<key\\> - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
+\item \code{tag}:<key> - The key/value combination of a tag assigned to
+the resource. Use the tag key in the filter name and the tag value
+as the filter value. For example, to find all resources that have a
+tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner}
+for the filter name and \code{TeamA} for the filter value.
 \item \code{tag-key} - The key of a tag assigned to the resource. Use this
 filter to find all resources assigned a tag with a specific key,
 regardless of the tag value.
-\item \code{type} - The type of Spot Instance request (\code{one-time} \\|
+\item \code{type} - The type of Spot Instance request (\code{one-time} |
 \code{persistent}).
 \item \code{valid-from} - The start date of the request.
 \item \code{valid-until} - The end date of the request.
@@ -104,13 +104,12 @@ another call with the returned \code{NextToken} value.}
 }
 \description{
 Describes the specified Spot Instance requests.
-}
-\details{
+
 You can use \code{DescribeSpotInstanceRequests} to find a running Spot
 Instance by examining the response. If the status of the Spot Instance
 is \code{fulfilled}, the instance ID appears in the response and contains the
 identifier of the instance. Alternatively, you can use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances}{DescribeInstances}
+\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html}{DescribeInstances}
 with a filter to look for instances where the instance lifecycle is
 \code{spot}.
 

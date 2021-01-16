@@ -21,14 +21,14 @@ lambda_list_versions_by_function(FunctionName, Marker, MaxItems)
 The length constraint applies only to the full ARN. If you specify only
 the function name, it is limited to 64 characters in length.}
 
-\item{Marker}{Specify the pagination token that\'s returned by a previous request to
+\item{Marker}{Specify the pagination token that's returned by a previous request to
 retrieve the next page of results.}
 
 \item{MaxItems}{The maximum number of versions to return.}
 }
 \description{
 Returns a list of
-\href{https://docs.aws.amazon.com/lambda/latest/dg/versioning-aliases.html}{versions},
+\href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html}{versions},
 with the version-specific configuration of each. Lambda returns up to 50
 versions per call.
 }

@@ -22,13 +22,11 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 Disassociates a target network from the specified Client VPN endpoint.
 When you disassociate the last target network from a Client VPN, the
 following happens:
-}
-\details{
 \itemize{
 \item The route that was automatically added for the VPC is deleted
 \item All active client connections are terminated
 \item New client connections are disallowed
-\item The Client VPN endpoint\'s status changes to \code{pending-associate}
+\item The Client VPN endpoint's status changes to \code{pending-associate}
 }
 }
 \section{Request syntax}{

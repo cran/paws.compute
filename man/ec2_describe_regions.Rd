@@ -12,7 +12,7 @@ ec2_describe_regions(Filters, RegionNames, DryRun, AllRegions)
 \item \code{endpoint} - The endpoint of the Region (for example,
 \verb{ec2.us-east-1.amazonaws.com}).
 \item \verb{opt-in-status} - The opt-in status of the Region
-(\verb{opt-in-not-required} \\| \verb{opted-in} \\| \verb{not-opted-in}).
+(\verb{opt-in-not-required} | \verb{opted-in} | \verb{not-opted-in}).
 \item \code{region-name} - The name of the Region (for example, \code{us-east-1}).
 }}
 
@@ -29,8 +29,7 @@ disabled for your account.}
 }
 \description{
 Describes the Regions that are enabled for your account, or all Regions.
-}
-\details{
+
 For a list of the Regions supported by Amazon EC2, see \href{https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region}{Regions and Endpoints}.
 
 For information about enabling and disabling Regions for your account,

@@ -17,7 +17,7 @@ the CIDR block.}
 \item{VpcId}{[required] The ID of the VPC.}
 
 \item{Ipv6CidrBlockNetworkBorderGroup}{The name of the location from which we advertise the IPV6 CIDR block.
-Use this parameter to limit the CiDR block to this location.
+Use this parameter to limit the CIDR block to this location.
 
 You must set \code{AmazonProvidedIpv6CidrBlock} to \code{true} to use this
 parameter.
@@ -39,8 +39,7 @@ block from an IPv6 address pool that you provisioned through bring your
 own IP addresses
 (\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html}{BYOIP}).
 The IPv6 CIDR block size is fixed at /56.
-}
-\details{
+
 You must specify one of the following in the request: an IPv4 CIDR
 block, an IPv6 pool, or an Amazon-provided IPv6 CIDR block.
 

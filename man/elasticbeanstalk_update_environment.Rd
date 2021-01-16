@@ -32,9 +32,9 @@ you do not specify either, AWS Elastic Beanstalk returns
 \code{MissingRequiredParameter} error.}
 
 \item{GroupName}{The name of the group to which the target environment belongs. Specify a
-group name only if the environment\'s name is specified in an
-environment manifest and not with the environment name or environment ID
-parameters. See \href{https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html}{Environment Manifest (env.yaml)}
+group name only if the environment's name is specified in an environment
+manifest and not with the environment name or environment ID parameters.
+See \href{https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/environment-cfg-manifest.html}{Environment Manifest (env.yaml)}
 for details.}
 
 \item{Description}{If this parameter is specified, AWS Elastic Beanstalk updates the
@@ -71,8 +71,7 @@ Updates the environment description, deploys a new application version,
 updates the configuration settings to an entirely new configuration
 template, or updates select configuration option values in the running
 environment.
-}
-\details{
+
 Attempting to update both the release and configuration is not allowed
 and AWS Elastic Beanstalk returns an \code{InvalidParameterCombination}
 error.

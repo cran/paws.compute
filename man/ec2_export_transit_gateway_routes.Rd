@@ -28,11 +28,9 @@ encompass the CIDR filter. For example, if you have 10.0.1.0/29 and
 10.0.1.0/31 routes in your route table and you specify
 supernet-of-match as 10.0.1.0/30, then the result returns
 10.0.1.0/29.
-\item \code{state} - The state of the attachment (\code{available} \\| \code{deleted} \\|
-\code{deleting} \\| \code{failed} \\| \code{modifying} \\| \code{pendingAcceptance} \\|
-\code{pending} \\| \code{rollingBack} \\| \code{rejected} \\| \code{rejecting}).
+\item \code{state} - The state of the route (\code{active} | \code{blackhole}).
 \item \code{transit-gateway-route-destination-cidr-block} - The CIDR range.
-\item \code{type} - The type of route (\code{active} \\| \code{blackhole}).
+\item \code{type} - The type of route (\code{propagated} | \code{static}).
 }}
 
 \item{S3Bucket}{[required] The name of the S3 bucket.}
@@ -46,8 +44,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 Exports routes from the specified transit gateway route table to the
 specified S3 bucket. By default, all routes are exported. Alternatively,
 you can filter by CIDR range.
-}
-\details{
+
 The routes are saved to the specified bucket in a JSON file. For more
 information, see \href{https://docs.aws.amazon.com/vpc/latest/tgw/tgw-route-tables.html#tgw-export-route-tables}{Export Route Tables to Amazon S3}
 in \emph{Transit Gateways}.

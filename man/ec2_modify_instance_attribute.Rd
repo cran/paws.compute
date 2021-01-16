@@ -27,7 +27,7 @@ add them when you launch the instance. For more information, see
 \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM}{Updating the block device mapping when launching an instance}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.}
 
-\item{DisableApiTermination}{If the value is \code{true}, you can\'t terminate the instance using the
+\item{DisableApiTermination}{If the value is \code{true}, you can't terminate the instance using the
 Amazon EC2 console, CLI, or API; otherwise, you can. You cannot use this
 parameter for Spot Instances.}
 
@@ -39,7 +39,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item{EbsOptimized}{Specifies whether the instance is optimized for Amazon EBS I/O. This
 optimization provides dedicated throughput to Amazon EBS and an
 optimized configuration stack to provide optimal EBS I/O performance.
-This optimization isn\'t available with all instance types. Additional
+This optimization isn't available with all instance types. Additional
 usage charges apply when using an EBS Optimized instance.}
 
 \item{EnaSupport}{Set to \code{true} to enable enhanced networking with ENA for the instance.
@@ -48,7 +48,7 @@ This option is supported only for HVM instances. Specifying this option
 with a PV instance can make it unreachable.}
 
 \item{Groups}{[EC2-VPC] Changes the security groups of the instance. You must
-specify at least one security group, even if it\'s just the default
+specify at least one security group, even if it's just the default
 security group for the VPC. You must specify the security group ID, not
 the security group name.}
 
@@ -63,12 +63,12 @@ see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.htm
 If the instance type is not valid, the error returned is
 \code{InvalidInstanceAttributeValue}.}
 
-\item{Kernel}{Changes the instance\'s kernel to the specified value. We recommend that
+\item{Kernel}{Changes the instance's kernel to the specified value. We recommend that
 you use PV-GRUB instead of kernels and RAM disks. For more information,
 see
 \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html}{PV-GRUB}.}
 
-\item{Ramdisk}{Changes the instance\'s RAM disk to the specified value. We recommend
+\item{Ramdisk}{Changes the instance's RAM disk to the specified value. We recommend
 that you use PV-GRUB instead of kernels and RAM disks. For more
 information, see
 \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html}{PV-GRUB}.}
@@ -82,7 +82,7 @@ Virtual Function interface at this time.
 This option is supported only for HVM instances. Specifying this option
 with a PV instance can make it unreachable.}
 
-\item{UserData}{Changes the instance\'s user data to the specified value. If you are
+\item{UserData}{Changes the instance's user data to the specified value. If you are
 using an AWS SDK or command line tool, base64-encoding is performed for
 you, and you can load the text from a file. Otherwise, you must provide
 base64-encoded text.}
@@ -94,8 +94,7 @@ base64-encoded text.}
 \description{
 Modifies the specified attribute of the specified instance. You can
 specify only one attribute at a time.
-}
-\details{
+
 \strong{Note:} Using this action to change the security groups associated
 with an elastic network interface (ENI) attached to an instance in a VPC
 can result in an error if the instance has more than one ENI. To change
@@ -104,7 +103,7 @@ has multiple ENIs, we recommend that you use the
 ModifyNetworkInterfaceAttribute action.
 
 To modify some attributes, the instance must be stopped. For more
-information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_ChangingAttributesWhileInstanceStopped.html}{Modifying attributes of a stopped instance}
+information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html}{Modifying attributes of a stopped instance}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{
@@ -112,7 +111,7 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.
   SourceDestCheck = list(
     Value = TRUE|FALSE
   ),
-  Attribute = "instanceType"|"kernel"|"ramdisk"|"userData"|"disableApiTermination"|"instanceInitiatedShutdownBehavior"|"rootDeviceName"|"blockDeviceMapping"|"productCodes"|"sourceDestCheck"|"groupSet"|"ebsOptimized"|"sriovNetSupport"|"enaSupport",
+  Attribute = "instanceType"|"kernel"|"ramdisk"|"userData"|"disableApiTermination"|"instanceInitiatedShutdownBehavior"|"rootDeviceName"|"blockDeviceMapping"|"productCodes"|"sourceDestCheck"|"groupSet"|"ebsOptimized"|"sriovNetSupport"|"enaSupport"|"enclaveOptions",
   BlockDeviceMappings = list(
     list(
       DeviceName = "string",

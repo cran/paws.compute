@@ -26,8 +26,8 @@ within a Region or across multiple Regions.}
 definition to run in your service. If a \code{revision} is not specified, the
 latest \code{ACTIVE} revision is used.
 
-A task definition must be specified if the service is using the \code{ECS}
-deployment controller.}
+A task definition must be specified if the service is using either the
+\code{ECS} or \code{CODE_DEPLOY} deployment controllers.}
 
 \item{loadBalancers}{A load balancer object representing the load balancers to use with your
 service. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html}{Service Load Balancing}
@@ -35,9 +35,9 @@ in the \emph{Amazon Elastic Container Service Developer Guide}.
 
 If the service is using the rolling update (\code{ECS}) deployment controller
 and using either an Application Load Balancer or Network Load Balancer,
-you can specify multiple target groups to attach to the service. The
-service-linked role is required for services that make use of multiple
-target groups. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html}{Using Service-Linked Roles for Amazon ECS}
+you must specify one or more target group ARNs to attach to the service.
+The service-linked role is required for services that make use of
+multiple target groups. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html}{Using Service-Linked Roles for Amazon ECS}
 in the \emph{Amazon Elastic Container Service Developer Guide}.
 
 If the service is using the \code{CODE_DEPLOY} deployment controller, the
@@ -61,15 +61,17 @@ when updating the service.
 For Application Load Balancers and Network Load Balancers, this object
 must contain the load balancer target group ARN, the container name (as
 it appears in a container definition), and the container port to access
-from the load balancer. When a task from this service is placed on a
-container instance, the container instance and port combination is
-registered as a target in the target group specified here.
+from the load balancer. The load balancer name parameter must be
+omitted. When a task from this service is placed on a container
+instance, the container instance and port combination is registered as a
+target in the target group specified here.
 
 For Classic Load Balancers, this object must contain the load balancer
 name, the container name (as it appears in a container definition), and
-the container port to access from the load balancer. When a task from
-this service is placed on a container instance, the container instance
-is registered with the load balancer specified here.
+the container port to access from the load balancer. The target group
+ARN parameter must be omitted. When a task from this service is placed
+on a container instance, the container instance is registered with the
+load balancer specified here.
 
 Services with tasks that use the \code{awsvpc} network mode (for example,
 those with the Fargate launch type) only support Application Load
@@ -131,7 +133,7 @@ created.}
 
 \item{platformVersion}{The platform version that your tasks in the service are running on. A
 platform version is specified only for tasks using the Fargate launch
-type. If one isn\'t specified, the \code{LATEST} platform version is used by
+type. If one isn't specified, the \code{LATEST} platform version is used by
 default. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform_versions.html}{AWS Fargate Platform Versions}
 in the \emph{Amazon Elastic Container Service Developer Guide}.}
 
@@ -179,10 +181,10 @@ in the \emph{Amazon Elastic Container Service Developer Guide}.}
 should ignore unhealthy Elastic Load Balancing target health checks
 after a task has first started. This is only used when your service is
 configured to use a load balancer. If your service has a load balancer
-defined and you don\'t specify a health check grace period value, the
+defined and you don't specify a health check grace period value, the
 default value of \code{0} is used.
 
-If your service\'s tasks take a while to start and respond to Elastic
+If your service's tasks take a while to start and respond to Elastic
 Load Balancing health checks, you can specify a health check grace
 period of up to 2,147,483,647 seconds. During that time, the Amazon ECS
 service scheduler ignores health check status. This grace period can
@@ -206,12 +208,12 @@ each active container instance that meets all of the task placement
 constraints that you specify in your cluster. The service scheduler
 also evaluates the task placement constraints for running tasks and
 will stop tasks that do not meet the placement constraints. When
-you\'re using this strategy, you don\'t need to specify a desired
+you're using this strategy, you don't need to specify a desired
 number of tasks, a task placement strategy, or use Service Auto
 Scaling policies.
 
 Tasks using the Fargate launch type or the \code{CODE_DEPLOY} or
-\code{EXTERNAL} deployment controller types don\'t support the \code{DAEMON}
+\code{EXTERNAL} deployment controller types don't support the \code{DAEMON}
 scheduling strategy.
 }}
 
@@ -258,8 +260,7 @@ definition. If the number of tasks running in a service drops below the
 \code{desiredCount}, Amazon ECS runs another copy of the task in the
 specified cluster. To update an existing service, see the UpdateService
 action.
-}
-\details{
+
 In addition to maintaining the desired count of tasks in your service,
 you can optionally run your service behind one or more load balancers.
 The load balancers distribute traffic across the tasks that are
@@ -267,9 +268,9 @@ associated with the service. For more information, see \href{https://docs.aws.am
 in the \emph{Amazon Elastic Container Service Developer Guide}.
 
 Tasks for services that \emph{do not} use a load balancer are considered
-healthy if they\'re in the \code{RUNNING} state. Tasks for services that \emph{do}
-use a load balancer are considered healthy if they\'re in the \code{RUNNING}
-state and the container instance that they\'re hosted on is reported as
+healthy if they're in the \code{RUNNING} state. Tasks for services that \emph{do}
+use a load balancer are considered healthy if they're in the \code{RUNNING}
+state and the container instance that they're hosted on is reported as
 healthy by the load balancer.
 
 There are two service scheduler strategies available:
@@ -285,7 +286,7 @@ on each active container instance that meets all of the task
 placement constraints that you specify in your cluster. The service
 scheduler also evaluates the task placement constraints for running
 tasks and will stop tasks that do not meet the placement
-constraints. When using this strategy, you don\'t need to specify a
+constraints. When using this strategy, you don't need to specify a
 desired number of tasks, a task placement strategy, or use Service
 Auto Scaling policies. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html}{Service Scheduler Concepts}
 in the \emph{Amazon Elastic Container Service Developer Guide}.
@@ -295,8 +296,8 @@ You can optionally specify a deployment configuration for your service.
 The deployment is triggered by changing properties, such as the task
 definition or the desired count of a service, with an UpdateService
 operation. The default value for a replica service for
-\code{minimumHealthyPercent} is 100\%. The default value for a daemon service
-for \code{minimumHealthyPercent} is 0\%.
+\code{minimumHealthyPercent} is 100\\%. The default value for a daemon service
+for \code{minimumHealthyPercent} is 0\\%.
 
 If a service is using the \code{ECS} deployment controller, the minimum
 healthy percent represents a lower limit on the number of tasks in a
@@ -306,13 +307,13 @@ integer), and while any container instances are in the \code{DRAINING} state
 if the service contains tasks using the EC2 launch type. This parameter
 enables you to deploy without using additional cluster capacity. For
 example, if your service has a desired number of four tasks and a
-minimum healthy percent of 50\%, the scheduler might stop two existing
+minimum healthy percent of 50\\%, the scheduler might stop two existing
 tasks to free up cluster capacity before starting two new tasks. Tasks
 for services that \emph{do not} use a load balancer are considered healthy if
-they\'re in the \code{RUNNING} state. Tasks for services that \emph{do} use a load
-balancer are considered healthy if they\'re in the \code{RUNNING} state and
-they\'re reported as healthy by the load balancer. The default value for
-minimum healthy percent is 100\%.
+they're in the \code{RUNNING} state. Tasks for services that \emph{do} use a load
+balancer are considered healthy if they're in the \code{RUNNING} state and
+they're reported as healthy by the load balancer. The default value for
+minimum healthy percent is 100\\%.
 
 If a service is using the \code{ECS} deployment controller, the \strong{maximum
 percent} parameter represents an upper limit on the number of tasks in
@@ -322,10 +323,10 @@ to the nearest integer), and while any container instances are in the
 \code{DRAINING} state if the service contains tasks using the EC2 launch
 type. This parameter enables you to define the deployment batch size.
 For example, if your service has a desired number of four tasks and a
-maximum percent value of 200\%, the scheduler may start four new tasks
+maximum percent value of 200\\%, the scheduler may start four new tasks
 before stopping the four older tasks (provided that the cluster
 resources required to do this are available). The default value for
-maximum percent is 200\%.
+maximum percent is 200\\%.
 
 If a service is using either the \code{CODE_DEPLOY} or \code{EXTERNAL} deployment
 controller types and tasks that use the EC2 launch type, the \strong{minimum
@@ -333,11 +334,11 @@ healthy percent} and \strong{maximum percent} values are used only to define
 the lower and upper limit on the number of the tasks in the service that
 remain in the \code{RUNNING} state while the container instances are in the
 \code{DRAINING} state. If the tasks in the service use the Fargate launch
-type, the minimum healthy percent and maximum percent values aren\'t
-used, although they\'re currently visible when describing your service.
+type, the minimum healthy percent and maximum percent values aren't
+used, although they're currently visible when describing your service.
 
 When creating a service that uses the \code{EXTERNAL} deployment controller,
-you can specify only parameters that aren\'t controlled at the task set
+you can specify only parameters that aren't controlled at the task set
 level. The only required parameter is the service name. You control your
 services using the CreateTaskSet operation. For more information, see
 \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html}{Amazon ECS Deployment Types}
@@ -347,7 +348,7 @@ When the service scheduler launches new tasks, it determines task
 placement in your cluster using the following logic:
 \itemize{
 \item Determine which of the container instances in your cluster can
-support your service\'s task definition (for example, they have the
+support your service's task definition (for example, they have the
 required CPU, memory, ports, and container instance attributes).
 \item By default, the service scheduler attempts to balance tasks across
 Availability Zones in this manner (although you can choose a
@@ -401,6 +402,10 @@ tasks for this service.
   platformVersion = "string",
   role = "string",
   deploymentConfiguration = list(
+    deploymentCircuitBreaker = list(
+      enable = TRUE|FALSE,
+      rollback = TRUE|FALSE
+    ),
     maximumPercent = 123,
     minimumHealthyPercent = 123
   ),

@@ -6,7 +6,7 @@
 is either running or stopped}
 \usage{
 ec2_create_image(BlockDeviceMappings, Description, DryRun, InstanceId,
-  Name, NoReboot)
+  Name, NoReboot, TagSpecifications)
 }
 \arguments{
 \item{BlockDeviceMappings}{The block device mappings. This parameter cannot be used to modify the
@@ -26,19 +26,33 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 Constraints: 3-128 alphanumeric characters, parentheses (()), square
 brackets ([]), spaces ( ), periods (.), slashes (/), dashes (-),
-single quotes (\'), at-signs (@), or underscores(\\_)}
+single quotes ('), at-signs (@), or underscores(\\_)}
 
 \item{NoReboot}{By default, Amazon EC2 attempts to shut down and reboot the instance
-before creating the image. If the \'No Reboot\' option is set, Amazon
-EC2 doesn\'t shut down the instance before creating the image. When this
-option is used, file system integrity on the created image can\'t be
+before creating the image. If the \verb{No Reboot} option is set, Amazon EC2
+doesn't shut down the instance before creating the image. When this
+option is used, file system integrity on the created image can't be
 guaranteed.}
+
+\item{TagSpecifications}{The tags to apply to the AMI and snapshots on creation. You can tag the
+AMI, the snapshots, or both.
+\itemize{
+\item To tag the AMI, the value for \code{ResourceType} must be \code{image}.
+\item To tag the snapshots that are created of the root volume and of
+other EBS volumes that are attached to the instance, the value for
+\code{ResourceType} must be \code{snapshot}. The same tag is applied to all of
+the snapshots that are created.
+}
+
+If you specify other values for \code{ResourceType}, the request fails.
+
+To tag an AMI or snapshot after it has been created, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html}{CreateTags}.}
 }
 \description{
 Creates an Amazon EBS-backed AMI from an Amazon EBS-backed instance that
 is either running or stopped.
-}
-\details{
+
 If you customized your instance with instance store volumes or EBS
 volumes in addition to the root device volume, the new AMI contains
 block device mapping information for those volumes. When you launch an
@@ -59,8 +73,9 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.
         Iops = 123,
         SnapshotId = "string",
         VolumeSize = 123,
-        VolumeType = "standard"|"io1"|"gp2"|"sc1"|"st1",
+        VolumeType = "standard"|"io1"|"io2"|"gp2"|"sc1"|"st1"|"gp3",
         KmsKeyId = "string",
+        Throughput = 123,
         Encrypted = TRUE|FALSE
       ),
       NoDevice = "string"
@@ -70,7 +85,18 @@ in the \emph{Amazon Elastic Compute Cloud User Guide}.
   DryRun = TRUE|FALSE,
   InstanceId = "string",
   Name = "string",
-  NoReboot = TRUE|FALSE
+  NoReboot = TRUE|FALSE,
+  TagSpecifications = list(
+    list(
+      ResourceType = "client-vpn-endpoint"|"customer-gateway"|"dedicated-host"|"dhcp-options"|"egress-only-internet-gateway"|"elastic-ip"|"elastic-gpu"|"export-image-task"|"export-instance-task"|"fleet"|"fpga-image"|"host-reservation"|"image"|"import-image-task"|"import-snapshot-task"|"instance"|"internet-gateway"|"key-pair"|"launch-template"|"local-gateway-route-table-vpc-association"|"natgateway"|"network-acl"|"network-interface"|"network-insights-analysis"|"network-insights-path"|"placement-group"|"reserved-instances"|"route-table"|"security-group"|"snapshot"|"spot-fleet-request"|"spot-instances-request"|"subnet"|"traffic-mirror-filter"|"traffic-mirror-session"|"traffic-mirror-target"|"transit-gateway"|"transit-gateway-attachment"|"transit-gateway-connect-peer"|"transit-gateway-multicast-domain"|"transit-gateway-route-table"|"volume"|"vpc"|"vpc-peering-connection"|"vpn-connection"|"vpn-gateway"|"vpc-flow-log",
+      Tags = list(
+        list(
+          Key = "string",
+          Value = "string"
+        )
+      )
+    )
+  )
 )
 }
 }

@@ -28,18 +28,17 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Adds or removes permission settings for the specified snapshot. You may
-add or remove specified AWS account IDs from a snapshot\'s list of
-create volume permissions, but you cannot do both in a single operation.
-If you need to both add and remove account IDs for a snapshot, you must
-use multiple operations. You can make up to 500 modifications to a
-snapshot in a single operation.
-}
-\details{
+add or remove specified AWS account IDs from a snapshot's list of create
+volume permissions, but you cannot do both in a single operation. If you
+need to both add and remove account IDs for a snapshot, you must use
+multiple operations. You can make up to 500 modifications to a snapshot
+in a single operation.
+
 Encrypted snapshots and snapshots with AWS Marketplace product codes
 cannot be made public. Snapshots encrypted with your default CMK cannot
 be shared with other accounts.
 
-For more information about modifying snapshot permissions, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html}{Sharing Snapshots}
+For more information about modifying snapshot permissions, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html}{Sharing snapshots}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{

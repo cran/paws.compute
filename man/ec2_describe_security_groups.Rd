@@ -26,7 +26,7 @@ outbound security group rule.
 \item \code{egress.ip-permission.prefix-list-id} - The ID of a prefix list to
 which a security group rule allows outbound access.
 \item \code{egress.ip-permission.protocol} - The IP protocol for an outbound
-security group rule (\code{tcp} \\| \code{udp} \\| \code{icmp} or a protocol number).
+security group rule (\code{tcp} | \code{udp} | \code{icmp} or a protocol number).
 \item \code{egress.ip-permission.to-port} - For an outbound rule, the end of
 port range for the TCP and UDP protocols, or an ICMP code.
 \item \code{egress.ip-permission.user-id} - The ID of an AWS account that has
@@ -46,17 +46,17 @@ security group rule.
 \item \code{ip-permission.prefix-list-id} - The ID of a prefix list from which
 a security group rule allows inbound access.
 \item \code{ip-permission.protocol} - The IP protocol for an inbound security
-group rule (\code{tcp} \\| \code{udp} \\| \code{icmp} or a protocol number).
+group rule (\code{tcp} | \code{udp} | \code{icmp} or a protocol number).
 \item \code{ip-permission.to-port} - For an inbound rule, the end of port range
 for the TCP and UDP protocols, or an ICMP code.
 \item \code{ip-permission.user-id} - The ID of an AWS account that has been
 referenced in an inbound security group rule.
 \item \code{owner-id} - The AWS account ID of the owner of the security group.
-\item \code{tag}:\\<key\\> - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
+\item \code{tag}:<key> - The key/value combination of a tag assigned to
+the resource. Use the tag key in the filter name and the tag value
+as the filter value. For example, to find all resources that have a
+tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner}
+for the filter name and \code{TeamA} for the filter value.
 \item \code{tag-key} - The key of a tag assigned to the resource. Use this
 filter to find all resources assigned a tag with a specific key,
 regardless of the tag value.
@@ -90,11 +90,10 @@ parameter is not specified, then all results are returned.}
 }
 \description{
 Describes the specified security groups or all of your security groups.
-}
-\details{
+
 A security group is for use with instances either in the EC2-Classic
-platform or in a specific VPC. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html}{Amazon EC2 Security Groups}
-in the \emph{Amazon Elastic Compute Cloud User Guide} and \href{https://docs.aws.amazon.com/AmazonVPC/latest/UserGuide/VPC_SecurityGroups.html}{Security Groups for Your VPC}
+platform or in a specific VPC. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html}{Amazon EC2 Security Groups}
+in the \emph{Amazon Elastic Compute Cloud User Guide} and \href{https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html}{Security Groups for Your VPC}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 }
 \section{Request syntax}{
