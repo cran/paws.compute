@@ -19,11 +19,37 @@ identical to the ones specified in the initial request.
 
 If no \code{NextToken} is specified, the first page is retrieved.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  PlatformSummaryList = list(
+    list(
+      PlatformArn = "string",
+      PlatformOwner = "string",
+      PlatformStatus = "Creating"|"Failed"|"Ready"|"Deleting"|"Deleted",
+      PlatformCategory = "string",
+      OperatingSystemName = "string",
+      OperatingSystemVersion = "string",
+      SupportedTierList = list(
+        "string"
+      ),
+      SupportedAddonList = list(
+        "string"
+      ),
+      PlatformLifecycleState = "string",
+      PlatformVersion = "string",
+      PlatformBranchName = "string",
+      PlatformBranchLifecycleState = "string"
+    )
+  ),
+  NextToken = "string"
+)
+}
+}
 \description{
 Lists the platform versions available for your account in an AWS Region.
 Provides summary information about each platform version. Compare to
-DescribePlatformVersion, which provides full details about a single
-platform version.
+\code{\link[=elasticbeanstalk_describe_platform_version]{describe_platform_version}},
+which provides full details about a single platform version.
 
 For definitions of platform version and other platform-related terms,
 see \href{https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-glossary.html}{AWS Elastic Beanstalk Platforms Glossary}.

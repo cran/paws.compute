@@ -17,24 +17,64 @@ registry, the default registry is assumed.}
 \item{imageIds}{The list of image IDs for the requested repository.}
 
 \item{nextToken}{The \code{nextToken} value returned from a previous paginated
-\code{DescribeImages} request where \code{maxResults} was used and the results
-exceeded the value of that parameter. Pagination continues from the end
-of the previous results that returned the \code{nextToken} value. This value
-is \code{null} when there are no more results to return. This option cannot
-be used when you specify images with \code{imageIds}.}
+\code{\link[=ecr_describe_images]{describe_images}} request where \code{maxResults} was
+used and the results exceeded the value of that parameter. Pagination
+continues from the end of the previous results that returned the
+\code{nextToken} value. This value is \code{null} when there are no more results
+to return. This option cannot be used when you specify images with
+\code{imageIds}.}
 
-\item{maxResults}{The maximum number of repository results returned by \code{DescribeImages} in
-paginated output. When this parameter is used, \code{DescribeImages} only
-returns \code{maxResults} results in a single page along with a \code{nextToken}
-response element. The remaining results of the initial request can be
-seen by sending another \code{DescribeImages} request with the returned
-\code{nextToken} value. This value can be between 1 and 1000. If this
-parameter is not used, then \code{DescribeImages} returns up to 100 results
-and a \code{nextToken} value, if applicable. This option cannot be used when
-you specify images with \code{imageIds}.}
+\item{maxResults}{The maximum number of repository results returned by
+\code{\link[=ecr_describe_images]{describe_images}} in paginated output. When this
+parameter is used, \code{\link[=ecr_describe_images]{describe_images}} only returns
+\code{maxResults} results in a single page along with a \code{nextToken} response
+element. The remaining results of the initial request can be seen by
+sending another \code{\link[=ecr_describe_images]{describe_images}} request with
+the returned \code{nextToken} value. This value can be between 1 and 1000. If
+this parameter is not used, then
+\code{\link[=ecr_describe_images]{describe_images}} returns up to 100 results and a
+\code{nextToken} value, if applicable. This option cannot be used when you
+specify images with \code{imageIds}.}
 
-\item{filter}{The filter key and value with which to filter your \code{DescribeImages}
-results.}
+\item{filter}{The filter key and value with which to filter your
+\code{\link[=ecr_describe_images]{describe_images}} results.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  imageDetails = list(
+    list(
+      registryId = "string",
+      repositoryName = "string",
+      imageDigest = "string",
+      imageTags = list(
+        "string"
+      ),
+      imageSizeInBytes = 123,
+      imagePushedAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      imageScanStatus = list(
+        status = "IN_PROGRESS"|"COMPLETE"|"FAILED",
+        description = "string"
+      ),
+      imageScanFindingsSummary = list(
+        imageScanCompletedAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        vulnerabilitySourceUpdatedAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        findingSeverityCounts = list(
+          123
+        )
+      ),
+      imageManifestMediaType = "string",
+      artifactMediaType = "string"
+    )
+  ),
+  nextToken = "string"
+)
+}
 }
 \description{
 Returns metadata about the images in a repository.
@@ -43,7 +83,7 @@ Beginning with Docker version 1.9, the Docker client compresses image
 layers before pushing them to a V2 Docker registry. The output of the
 \verb{docker images} command shows the uncompressed image size, so it may
 return a larger image size than the image sizes returned by
-DescribeImages.
+\code{\link[=ecr_describe_images]{describe_images}}.
 }
 \section{Request syntax}{
 \preformatted{svc$describe_images(

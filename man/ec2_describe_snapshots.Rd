@@ -21,7 +21,7 @@ parameter instead of this filter.
 \item \code{owner-id} - The AWS account ID of the owner. We recommend that you
 use the related parameter instead of this filter.
 \item \code{progress} - The progress of the snapshot, as a percentage (for
-example, 80\\%).
+example, 80\%).
 \item \code{snapshot-id} - The snapshot ID.
 \item \code{start-time} - The time stamp when the snapshot was initiated.
 \item \code{status} - The status of the snapshot (\code{pending} | \code{completed} |
@@ -38,22 +38,26 @@ regardless of the tag value.
 \item \code{volume-size} - The size of the volume, in GiB.
 }}
 
-\item{MaxResults}{The maximum number of snapshot results returned by \code{DescribeSnapshots}
-in paginated output. When this parameter is used, \code{DescribeSnapshots}
+\item{MaxResults}{The maximum number of snapshot results returned by
+\code{\link[=ec2_describe_snapshots]{describe_snapshots}} in paginated output. When
+this parameter is used, \code{\link[=ec2_describe_snapshots]{describe_snapshots}}
 only returns \code{MaxResults} results in a single page along with a
 \code{NextToken} response element. The remaining results of the initial
-request can be seen by sending another \code{DescribeSnapshots} request with
-the returned \code{NextToken} value. This value can be between 5 and 1,000;
-if \code{MaxResults} is given a value larger than 1,000, only 1,000 results
-are returned. If this parameter is not used, then \code{DescribeSnapshots}
-returns all results. You cannot specify this parameter and the snapshot
-IDs parameter in the same request.}
+request can be seen by sending another
+\code{\link[=ec2_describe_snapshots]{describe_snapshots}} request with the returned
+\code{NextToken} value. This value can be between 5 and 1,000; if
+\code{MaxResults} is given a value larger than 1,000, only 1,000 results are
+returned. If this parameter is not used, then
+\code{\link[=ec2_describe_snapshots]{describe_snapshots}} returns all results. You
+cannot specify this parameter and the snapshot IDs parameter in the same
+request.}
 
 \item{NextToken}{The \code{NextToken} value returned from a previous paginated
-\code{DescribeSnapshots} request where \code{MaxResults} was used and the results
-exceeded the value of that parameter. Pagination continues from the end
-of the previous results that returned the \code{NextToken} value. This value
-is \code{null} when there are no more results to return.}
+\code{\link[=ec2_describe_snapshots]{describe_snapshots}} request where
+\code{MaxResults} was used and the results exceeded the value of that
+parameter. Pagination continues from the end of the previous results
+that returned the \code{NextToken} value. This value is \code{null} when there are
+no more results to return.}
 
 \item{OwnerIds}{Scopes the results to snapshots with the specified owners. You can
 specify a combination of AWS account IDs, \code{self}, and \code{amazon}.}
@@ -69,6 +73,37 @@ permissions.}
 actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  Snapshots = list(
+    list(
+      DataEncryptionKeyId = "string",
+      Description = "string",
+      Encrypted = TRUE|FALSE,
+      KmsKeyId = "string",
+      OwnerId = "string",
+      Progress = "string",
+      SnapshotId = "string",
+      StartTime = as.POSIXct(
+        "2015-01-01"
+      ),
+      State = "pending"|"completed"|"error",
+      StateMessage = "string",
+      VolumeId = "string",
+      VolumeSize = 123,
+      OwnerAlias = "string",
+      Tags = list(
+        list(
+          Key = "string",
+          Value = "string"
+        )
+      )
+    )
+  ),
+  NextToken = "string"
+)
+}
 }
 \description{
 Describes the specified EBS snapshots available to you or all of the EBS
@@ -115,11 +150,11 @@ paginate the output to make the list more manageable. The \code{MaxResults}
 parameter sets the maximum number of results returned in a single page.
 If the list of results exceeds your \code{MaxResults} value, then that number
 of results is returned along with a \code{NextToken} value that can be passed
-to a subsequent \code{DescribeSnapshots} request to retrieve the remaining
-results.
+to a subsequent \code{\link[=ec2_describe_snapshots]{describe_snapshots}} request
+to retrieve the remaining results.
 
 To get the state of fast snapshot restores for a snapshot, use
-DescribeFastSnapshotRestores.
+\code{\link[=ec2_describe_fast_snapshot_restores]{describe_fast_snapshot_restores}}.
 
 For more information about EBS snapshots, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSSnapshots.html}{Amazon EBS snapshots}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.

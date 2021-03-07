@@ -16,11 +16,12 @@ service.
 Use a descriptive label that you can use to track the different versions
 of your registered container images.
 
-Use the \code{GetContainerImages} action to return the container images
-registered to a Lightsail container service. The label is the
-\verb{&lt;imagelabel&gt;} portion of the following image name example:
+Use the \code{\link[=lightsail_get_container_images]{get_container_images}} action
+to return the container images registered to a Lightsail container
+service. The label is the \verb{<imagelabel>} portion of the following image
+name example:
 \itemize{
-\item \verb{:container-service-1.&lt;imagelabel&gt;.1}
+\item \verb{:container-service-1.<imagelabel>.1}
 }
 
 If the name of your container service is \code{mycontainerservice}, and the
@@ -36,6 +37,18 @@ image will be \code{2}. If you push and register another container image, the
 version number will be \code{3}, and so on.}
 
 \item{digest}{[required] The digest of the container image to be registered.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  containerImage = list(
+    image = "string",
+    digest = "string",
+    createdAt = as.POSIXct(
+      "2015-01-01"
+    )
+  )
+)
+}
 }
 \description{
 Registers a container image to your Amazon Lightsail container service.

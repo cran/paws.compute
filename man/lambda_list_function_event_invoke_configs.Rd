@@ -27,12 +27,36 @@ retrieve the next page of results.}
 
 \item{MaxItems}{The maximum number of configurations to return.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  FunctionEventInvokeConfigs = list(
+    list(
+      LastModified = as.POSIXct(
+        "2015-01-01"
+      ),
+      FunctionArn = "string",
+      MaximumRetryAttempts = 123,
+      MaximumEventAgeInSeconds = 123,
+      DestinationConfig = list(
+        OnSuccess = list(
+          Destination = "string"
+        ),
+        OnFailure = list(
+          Destination = "string"
+        )
+      )
+    )
+  ),
+  NextMarker = "string"
+)
+}
+}
 \description{
 Retrieves a list of configurations for asynchronous invocation for a
 function.
 
 To configure options for asynchronous invocation, use
-PutFunctionEventInvokeConfig.
+\code{\link[=lambda_put_function_event_invoke_config]{put_function_event_invoke_config}}.
 }
 \section{Request syntax}{
 \preformatted{svc$list_function_event_invoke_configs(

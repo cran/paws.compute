@@ -22,10 +22,67 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Platform}{[required] The instance operating system.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  ConversionTask = list(
+    ConversionTaskId = "string",
+    ExpirationTime = "string",
+    ImportInstance = list(
+      Description = "string",
+      InstanceId = "string",
+      Platform = "Windows",
+      Volumes = list(
+        list(
+          AvailabilityZone = "string",
+          BytesConverted = 123,
+          Description = "string",
+          Image = list(
+            Checksum = "string",
+            Format = "VMDK"|"RAW"|"VHD",
+            ImportManifestUrl = "string",
+            Size = 123
+          ),
+          Status = "string",
+          StatusMessage = "string",
+          Volume = list(
+            Id = "string",
+            Size = 123
+          )
+        )
+      )
+    ),
+    ImportVolume = list(
+      AvailabilityZone = "string",
+      BytesConverted = 123,
+      Description = "string",
+      Image = list(
+        Checksum = "string",
+        Format = "VMDK"|"RAW"|"VHD",
+        ImportManifestUrl = "string",
+        Size = 123
+      ),
+      Volume = list(
+        Id = "string",
+        Size = 123
+      )
+    ),
+    State = "active"|"cancelling"|"cancelled"|"completed",
+    StatusMessage = "string",
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Creates an import instance task using metadata from the specified disk
-image. \code{ImportInstance} only supports single-volume VMs. To import
-multi-volume VMs, use ImportImage. For more information, see \href{http://awsdocs.s3.amazonaws.com/EC2/ec2-clt.pdf}{Importing a Virtual Machine Using the Amazon EC2 CLI}.
+image. \code{\link[=ec2_import_instance]{import_instance}} only supports
+single-volume VMs. To import multi-volume VMs, use
+\code{\link[=ec2_import_image]{import_image}}. For more information, see \href{http://awsdocs.s3.amazonaws.com/EC2/ec2-clt.pdf}{Importing a Virtual Machine Using the Amazon EC2 CLI}.
 
 For information about the import manifest referenced by this API action,
 see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/manifest.html}{VM Import Manifest}.

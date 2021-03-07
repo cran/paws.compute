@@ -32,9 +32,13 @@ version of the function.}
 specified. Use this option to avoid modifying a policy that has changed
 since you last read it.}
 }
+\value{
+An empty list.
+}
 \description{
 Revokes function-use permission from an AWS service or another account.
-You can get the ID of the statement from the output of GetPolicy.
+You can get the ID of the statement from the output of
+\code{\link[=lambda_get_policy]{get_policy}}.
 }
 \section{Request syntax}{
 \preformatted{svc$remove_permission(

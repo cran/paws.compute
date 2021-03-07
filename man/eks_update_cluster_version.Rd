@@ -14,11 +14,40 @@ eks_update_cluster_version(name, version, clientRequestToken)
 \item{clientRequestToken}{Unique, case-sensitive identifier that you provide to ensure the
 idempotency of the request.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  update = list(
+    id = "string",
+    status = "InProgress"|"Failed"|"Cancelled"|"Successful",
+    type = "VersionUpdate"|"EndpointAccessUpdate"|"LoggingUpdate"|"ConfigUpdate"|"AddonUpdate",
+    params = list(
+      list(
+        type = "Version"|"PlatformVersion"|"EndpointPrivateAccess"|"EndpointPublicAccess"|"ClusterLogging"|"DesiredSize"|"LabelsToAdd"|"LabelsToRemove"|"MaxSize"|"MinSize"|"ReleaseVersion"|"PublicAccessCidrs"|"AddonVersion"|"ServiceAccountRoleArn"|"ResolveConflicts",
+        value = "string"
+      )
+    ),
+    createdAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    errors = list(
+      list(
+        errorCode = "SubnetNotFound"|"SecurityGroupNotFound"|"EniLimitReached"|"IpNotAvailable"|"AccessDenied"|"OperationNotPermitted"|"VpcIdNotFound"|"Unknown"|"NodeCreationFailure"|"PodEvictionFailure"|"InsufficientFreeAddresses"|"ClusterUnreachable"|"InsufficientNumberOfReplicas"|"ConfigurationConflict",
+        errorMessage = "string",
+        resourceIds = list(
+          "string"
+        )
+      )
+    )
+  )
+)
+}
+}
 \description{
 Updates an Amazon EKS cluster to the specified Kubernetes version. Your
 cluster continues to function during the update. The response output
 includes an update ID that you can use to track the status of your
-cluster update with the DescribeUpdate API operation.
+cluster update with the \code{\link[=eks_describe_update]{describe_update}} API
+operation.
 
 Cluster updates are asynchronous, and they should finish within a few
 minutes. During an update, the cluster status moves to \code{UPDATING} (this

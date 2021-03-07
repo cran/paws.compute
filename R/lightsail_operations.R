@@ -13,6 +13,36 @@ NULL
 #'
 #' @param staticIpName &#91;required&#93; The name of the static IP address.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$allocate_static_ip(
@@ -50,8 +80,8 @@ lightsail_allocate_static_ip <- function(staticIpName) {
 #' After the certificate is attached, your distribution accepts HTTPS
 #' traffic for all of the domains that are associated with the certificate.
 #' 
-#' Use the `CreateCertificate` action to create a certificate that you can
-#' attach to your distribution.
+#' Use the [`create_certificate`][lightsail_create_certificate] action to
+#' create a certificate that you can attach to your distribution.
 #' 
 #' Only certificates created in the `us-east-1` AWS Region can be attached
 #' to Lightsail distributions. Lightsail distributions are global resources
@@ -65,21 +95,49 @@ lightsail_allocate_static_ip <- function(staticIpName) {
 #'
 #' @param distributionName &#91;required&#93; The name of the distribution that the certificate will be attached to.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
 #' @param certificateName &#91;required&#93; The name of the certificate to attach to a distribution.
 #' 
 #' Only certificates with a status of `ISSUED` can be attached to a
 #' distribution.
 #' 
-#' Use the `GetCertificates` action to get a list of certificate names that
-#' you can specify.
+#' Use the [`get_certificates`][lightsail_get_certificates] action to get a
+#' list of certificate names that you can specify.
 #' 
 #' This is the name of the certificate resource type and is used only to
 #' reference the certificate in other API actions. It can be different than
 #' the domain name of the certificate. For example, your certificate name
 #' might be `WordPress-Blog-Certificate` and the domain name of the
 #' certificate might be `example.com`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -127,6 +185,36 @@ lightsail_attach_certificate_to_distribution <- function(distributionName, certi
 #' @param instanceName &#91;required&#93; The name of the Lightsail instance where you want to utilize the storage
 #' disk.
 #' @param diskPath &#91;required&#93; The disk path to expose to the instance (e.g., `/dev/xvdf`).
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -184,6 +272,36 @@ lightsail_attach_disk <- function(diskName, instanceName, diskPath) {
 #' to your load balancer, aside from the limit of Lightsail instances you
 #' can create in your account (20).
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$attach_instances_to_load_balancer(
@@ -224,13 +342,16 @@ lightsail_attach_instances_to_load_balancer <- function(loadBalancerName, instan
 #' 
 #' Once you create and validate your certificate, you can attach it to your
 #' load balancer. You can also use this API to rotate the certificates on
-#' your account. Use the `AttachLoadBalancerTlsCertificate` action with the
-#' non-attached certificate, and it will replace the existing one and
-#' become the attached certificate.
+#' your account. Use the
+#' [`attach_load_balancer_tls_certificate`][lightsail_attach_load_balancer_tls_certificate]
+#' action with the non-attached certificate, and it will replace the
+#' existing one and become the attached certificate.
 #' 
-#' The `AttachLoadBalancerTlsCertificate` operation supports tag-based
-#' access control via resource tags applied to the resource identified by
-#' `load balancer name`. For more information, see the Lightsail Dev Guide.
+#' The
+#' [`attach_load_balancer_tls_certificate`][lightsail_attach_load_balancer_tls_certificate]
+#' operation supports tag-based access control via resource tags applied to
+#' the resource identified by `load balancer name`. For more information,
+#' see the Lightsail Dev Guide.
 #'
 #' @usage
 #' lightsail_attach_load_balancer_tls_certificate(loadBalancerName,
@@ -239,6 +360,36 @@ lightsail_attach_instances_to_load_balancer <- function(loadBalancerName, instan
 #' @param loadBalancerName &#91;required&#93; The name of the load balancer to which you want to associate the SSL/TLS
 #' certificate.
 #' @param certificateName &#91;required&#93; The name of your SSL/TLS certificate.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -279,6 +430,36 @@ lightsail_attach_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' @param staticIpName &#91;required&#93; The name of the static IP.
 #' @param instanceName &#91;required&#93; The instance name to which you want to attach the static IP address.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$attach_static_ip(
@@ -312,15 +493,45 @@ lightsail_attach_static_ip <- function(staticIpName, instanceName) {
 #' @description
 #' Closes ports for a specific Amazon Lightsail instance.
 #' 
-#' The `CloseInstancePublicPorts` action supports tag-based access control
-#' via resource tags applied to the resource identified by `instanceName`.
-#' For more information, see the Lightsail Dev Guide.
+#' The
+#' [`close_instance_public_ports`][lightsail_close_instance_public_ports]
+#' action supports tag-based access control via resource tags applied to
+#' the resource identified by `instanceName`. For more information, see the
+#' Lightsail Dev Guide.
 #'
 #' @usage
 #' lightsail_close_instance_public_ports(portInfo, instanceName)
 #'
 #' @param portInfo &#91;required&#93; An object to describe the ports to close for the specified instance.
 #' @param instanceName &#91;required&#93; The name of the instance for which to close ports.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -426,6 +637,36 @@ lightsail_close_instance_public_ports <- function(portInfo, instanceName) {
 #' @param targetSnapshotName &#91;required&#93; The name of the new manual snapshot to be created as a copy.
 #' @param sourceRegion &#91;required&#93; The AWS Region where the source manual or automatic snapshot is located.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$copy_snapshot(
@@ -466,8 +707,8 @@ lightsail_copy_snapshot <- function(sourceSnapshotName = NULL, sourceResourceNam
 #' network (CDN) distribution.
 #' 
 #' After the certificate is created, use the
-#' `AttachCertificateToDistribution` action to attach the certificate to
-#' your distribution.
+#' [`attach_certificate_to_distribution`][lightsail_attach_certificate_to_distribution]
+#' action to attach the certificate to your distribution.
 #' 
 #' Only certificates created in the `us-east-1` AWS Region can be attached
 #' to Lightsail distributions. Lightsail distributions are global resources
@@ -492,7 +733,114 @@ lightsail_copy_snapshot <- function(sourceSnapshotName = NULL, sourceResourceNam
 #' @param tags The tag keys and optional values to add to the certificate during
 #' create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   certificate = list(
+#'     certificateArn = "string",
+#'     certificateName = "string",
+#'     domainName = "string",
+#'     certificateDetail = list(
+#'       arn = "string",
+#'       name = "string",
+#'       domainName = "string",
+#'       status = "PENDING_VALIDATION"|"ISSUED"|"INACTIVE"|"EXPIRED"|"VALIDATION_TIMED_OUT"|"REVOKED"|"FAILED",
+#'       serialNumber = "string",
+#'       subjectAlternativeNames = list(
+#'         "string"
+#'       ),
+#'       domainValidationRecords = list(
+#'         list(
+#'           domainName = "string",
+#'           resourceRecord = list(
+#'             name = "string",
+#'             type = "string",
+#'             value = "string"
+#'           )
+#'         )
+#'       ),
+#'       requestFailureReason = "string",
+#'       inUseResourceCount = 123,
+#'       keyAlgorithm = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       issuedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       issuerCA = "string",
+#'       notBefore = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       notAfter = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       eligibleToRenew = "string",
+#'       renewalSummary = list(
+#'         domainValidationRecords = list(
+#'           list(
+#'             domainName = "string",
+#'             resourceRecord = list(
+#'               name = "string",
+#'               type = "string",
+#'               value = "string"
+#'             )
+#'           )
+#'         ),
+#'         renewalStatus = "PendingAutoRenewal"|"PendingValidation"|"Success"|"Failed",
+#'         renewalStatusReason = "string",
+#'         updatedAt = as.POSIXct(
+#'           "2015-01-01"
+#'         )
+#'       ),
+#'       revokedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       revocationReason = "string",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       supportCode = "string"
+#'     ),
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     )
+#'   ),
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -553,6 +901,36 @@ lightsail_create_certificate <- function(certificateName, domainName, subjectAlt
 #' instance. You can only pass one instance entry at a time in this array.
 #' You will get an invalid parameter error if you pass more than one
 #' instance entry in this array.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -640,6 +1018,36 @@ lightsail_create_cloud_formation_stack <- function(instances) {
 #' would be specified as +1XXX5550100. For more information, see
 #' [E.164](https://en.wikipedia.org/wiki/E.164) on *Wikipedia*.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_contact_method(
@@ -686,7 +1094,7 @@ lightsail_create_contact_method <- function(protocol, contactEndpoint) {
 #' The name that you specify for your container service will make up part
 #' of its default domain. The default domain of a container service is
 #' typically
-#' `https://&lt;ServiceName&gt;.&lt;RandomGUID&gt;.&lt;AWSRegion&gt;.cs.amazonlightsail.com`.
+#' `https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com`.
 #' If the name of your container service is `container-service-1`, and it's
 #' located in the US East (Ohio) AWS region (`us-east-2`), then the domain
 #' for your container service will be like the following example:
@@ -710,9 +1118,10 @@ lightsail_create_contact_method <- function(protocol, contactEndpoint) {
 #' monthly price of your container service, multiply the base price of the
 #' `power` with the `scale` (the number of nodes) of the service.
 #' 
-#' Use the `GetContainerServicePowers` action to get a list of power
-#' options that you can specify using this parameter, and their base
-#' monthly cost.
+#' Use the
+#' [`get_container_service_powers`][lightsail_get_container_service_powers]
+#' action to get a list of power options that you can specify using this
+#' parameter, and their base monthly cost.
 #' @param scale &#91;required&#93; The scale specification for the container service.
 #' 
 #' The scale specifies the allocated compute nodes of the container
@@ -737,8 +1146,9 @@ lightsail_create_contact_method <- function(protocol, contactEndpoint) {
 #' 
 #' You must create and validate an SSL/TLS certificate before you can use
 #' public domain names with your container service. Use the
-#' `CreateCertificate` action to create a certificate for the public domain
-#' names you want to use with your container service.
+#' [`create_certificate`][lightsail_create_certificate] action to create a
+#' certificate for the public domain names you want to use with your
+#' container service.
 #' 
 #' You can specify public domain names using a string to array map as shown
 #' in the example later on this page.
@@ -750,6 +1160,110 @@ lightsail_create_contact_method <- function(protocol, contactEndpoint) {
 #' specifies the container that will serve as the public endpoint of the
 #' deployment and its settings, such as the HTTP or HTTPS port to use, and
 #' the health check configuration.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   containerService = list(
+#'     containerServiceName = "string",
+#'     arn = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     power = "nano"|"micro"|"small"|"medium"|"large"|"xlarge",
+#'     powerId = "string",
+#'     state = "PENDING"|"READY"|"RUNNING"|"UPDATING"|"DELETING"|"DISABLED",
+#'     scale = 123,
+#'     currentDeployment = list(
+#'       version = 123,
+#'       state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'       containers = list(
+#'         list(
+#'           image = "string",
+#'           command = list(
+#'             "string"
+#'           ),
+#'           environment = list(
+#'             "string"
+#'           ),
+#'           ports = list(
+#'             "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'           )
+#'         )
+#'       ),
+#'       publicEndpoint = list(
+#'         containerName = "string",
+#'         containerPort = 123,
+#'         healthCheck = list(
+#'           healthyThreshold = 123,
+#'           unhealthyThreshold = 123,
+#'           timeoutSeconds = 123,
+#'           intervalSeconds = 123,
+#'           path = "string",
+#'           successCodes = "string"
+#'         )
+#'       ),
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     ),
+#'     nextDeployment = list(
+#'       version = 123,
+#'       state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'       containers = list(
+#'         list(
+#'           image = "string",
+#'           command = list(
+#'             "string"
+#'           ),
+#'           environment = list(
+#'             "string"
+#'           ),
+#'           ports = list(
+#'             "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'           )
+#'         )
+#'       ),
+#'       publicEndpoint = list(
+#'         containerName = "string",
+#'         containerPort = 123,
+#'         healthCheck = list(
+#'           healthyThreshold = 123,
+#'           unhealthyThreshold = 123,
+#'           timeoutSeconds = 123,
+#'           intervalSeconds = 123,
+#'           path = "string",
+#'           successCodes = "string"
+#'         )
+#'       ),
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     ),
+#'     isDisabled = TRUE|FALSE,
+#'     principalArn = "string",
+#'     privateDomainName = "string",
+#'     publicDomainNames = list(
+#'       list(
+#'         "string"
+#'       )
+#'     ),
+#'     url = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -846,6 +1360,110 @@ lightsail_create_container_service <- function(serviceName, power, scale, tags =
 #' @param publicEndpoint An object that describes the settings of the public endpoint for the
 #' container service.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   containerService = list(
+#'     containerServiceName = "string",
+#'     arn = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     power = "nano"|"micro"|"small"|"medium"|"large"|"xlarge",
+#'     powerId = "string",
+#'     state = "PENDING"|"READY"|"RUNNING"|"UPDATING"|"DELETING"|"DISABLED",
+#'     scale = 123,
+#'     currentDeployment = list(
+#'       version = 123,
+#'       state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'       containers = list(
+#'         list(
+#'           image = "string",
+#'           command = list(
+#'             "string"
+#'           ),
+#'           environment = list(
+#'             "string"
+#'           ),
+#'           ports = list(
+#'             "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'           )
+#'         )
+#'       ),
+#'       publicEndpoint = list(
+#'         containerName = "string",
+#'         containerPort = 123,
+#'         healthCheck = list(
+#'           healthyThreshold = 123,
+#'           unhealthyThreshold = 123,
+#'           timeoutSeconds = 123,
+#'           intervalSeconds = 123,
+#'           path = "string",
+#'           successCodes = "string"
+#'         )
+#'       ),
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     ),
+#'     nextDeployment = list(
+#'       version = 123,
+#'       state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'       containers = list(
+#'         list(
+#'           image = "string",
+#'           command = list(
+#'             "string"
+#'           ),
+#'           environment = list(
+#'             "string"
+#'           ),
+#'           ports = list(
+#'             "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'           )
+#'         )
+#'       ),
+#'       publicEndpoint = list(
+#'         containerName = "string",
+#'         containerPort = 123,
+#'         healthCheck = list(
+#'           healthyThreshold = 123,
+#'           unhealthyThreshold = 123,
+#'           timeoutSeconds = 123,
+#'           intervalSeconds = 123,
+#'           path = "string",
+#'           successCodes = "string"
+#'         )
+#'       ),
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     ),
+#'     isDisabled = TRUE|FALSE,
+#'     principalArn = "string",
+#'     privateDomainName = "string",
+#'     publicDomainNames = list(
+#'       list(
+#'         "string"
+#'       )
+#'     ),
+#'     url = "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_container_service_deployment(
@@ -917,8 +1535,9 @@ lightsail_create_container_service_deployment <- function(serviceName, container
 #' registry of your Lightsail account.
 #' 
 #' After you push your container images to the container image registry of
-#' your Lightsail account, use the `RegisterContainerImage` action to
-#' register the pushed images to a specific Lightsail container service.
+#' your Lightsail account, use the
+#' [`register_container_image`][lightsail_register_container_image] action
+#' to register the pushed images to a specific Lightsail container service.
 #' 
 #' This action is not required if you install and use the Lightsail Control
 #' (lightsailctl) plugin to push container images to your Lightsail
@@ -928,6 +1547,21 @@ lightsail_create_container_service_deployment <- function(serviceName, container
 #'
 #' @usage
 #' lightsail_create_container_service_registry_login()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryLogin = list(
+#'     username = "string",
+#'     password = "string",
+#'     expiresAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     registry = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -978,9 +1612,40 @@ lightsail_create_container_service_registry_login <- function() {
 #' @param sizeInGb &#91;required&#93; The size of the disk in GB (e.g., `32`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
 #' @param addOns An array of objects that represent the add-ons to enable for the new
 #' disk.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1061,7 +1726,8 @@ lightsail_create_disk <- function(diskName, availabilityZone, sizeInGb, tags = N
 #' @param sizeInGb &#91;required&#93; The size of the disk in GB (e.g., `32`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
 #' @param addOns An array of objects that represent the add-ons to enable for the new
 #' disk.
 #' @param sourceDiskName The name of the source disk from which the source automatic snapshot was
@@ -1104,6 +1770,36 @@ lightsail_create_disk <- function(diskName, availabilityZone, sizeInGb, tags = N
 #' -   Define this parameter only when creating a new disk from an
 #'     automatic snapshot. For more information, see the Lightsail Dev
 #'     Guide.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1203,7 +1899,38 @@ lightsail_create_disk_from_snapshot <- function(diskName, diskSnapshotName = NUL
 #' exclusive.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1271,12 +1998,110 @@ lightsail_create_disk_snapshot <- function(diskName = NULL, diskSnapshotName, in
 #' A distribution bundle describes the specifications of your distribution,
 #' such as the monthly cost and monthly network transfer quota.
 #' 
-#' Use the `GetDistributionBundles` action to get a list of distribution
-#' bundle IDs that you can specify.
+#' Use the [`get_distribution_bundles`][lightsail_get_distribution_bundles]
+#' action to get a list of distribution bundle IDs that you can specify.
 #' @param tags The tag keys and optional values to add to the distribution during
 #' create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   distribution = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     alternativeDomainNames = list(
+#'       "string"
+#'     ),
+#'     status = "string",
+#'     isEnabled = TRUE|FALSE,
+#'     domainName = "string",
+#'     bundleId = "string",
+#'     certificateName = "string",
+#'     origin = list(
+#'       name = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2",
+#'       protocolPolicy = "http-only"|"https-only"
+#'     ),
+#'     originPublicDNS = "string",
+#'     defaultCacheBehavior = list(
+#'       behavior = "dont-cache"|"cache"
+#'     ),
+#'     cacheBehaviorSettings = list(
+#'       defaultTTL = 123,
+#'       minimumTTL = 123,
+#'       maximumTTL = 123,
+#'       allowedHTTPMethods = "string",
+#'       cachedHTTPMethods = "string",
+#'       forwardedCookies = list(
+#'         option = "none"|"allow-list"|"all",
+#'         cookiesAllowList = list(
+#'           "string"
+#'         )
+#'       ),
+#'       forwardedHeaders = list(
+#'         option = "none"|"allow-list"|"all",
+#'         headersAllowList = list(
+#'           "Accept"|"Accept-Charset"|"Accept-Datetime"|"Accept-Encoding"|"Accept-Language"|"Authorization"|"CloudFront-Forwarded-Proto"|"CloudFront-Is-Desktop-Viewer"|"CloudFront-Is-Mobile-Viewer"|"CloudFront-Is-SmartTV-Viewer"|"CloudFront-Is-Tablet-Viewer"|"CloudFront-Viewer-Country"|"Host"|"Origin"|"Referer"
+#'         )
+#'       ),
+#'       forwardedQueryStrings = list(
+#'         option = TRUE|FALSE,
+#'         queryStringsAllowList = list(
+#'           "string"
+#'         )
+#'       )
+#'     ),
+#'     cacheBehaviors = list(
+#'       list(
+#'         path = "string",
+#'         behavior = "dont-cache"|"cache"
+#'       )
+#'     ),
+#'     ableToUpdateBundle = TRUE|FALSE,
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     )
+#'   ),
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1370,7 +2195,36 @@ lightsail_create_distribution <- function(distributionName, origin, defaultCache
 #' parameter to manage the DNS records for that domain.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1428,6 +2282,34 @@ lightsail_create_domain <- function(domainName, tags = NULL) {
 #' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about the domain
 #' entry request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_domain_entry(
@@ -1484,7 +2366,38 @@ lightsail_create_domain_entry <- function(domainName, domainEntry) {
 #' @param instanceName &#91;required&#93; The Lightsail instance on which to base your snapshot.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1535,7 +2448,7 @@ lightsail_create_instance_snapshot <- function(instanceSnapshotName, instanceNam
 #'
 #' @param instanceNames &#91;required&#93; The names to use for your new Lightsail instances. Separate multiple
 #' values using quotation marks and commas, for example:
-#' `\\["MyFirstInstance","MySecondInstance"\\]`
+#' `["MyFirstInstance","MySecondInstance"]`
 #' @param availabilityZone &#91;required&#93; The Availability Zone in which to create your instance. Use the
 #' following format: `us-east-2a` (case sensitive). You can get a list of
 #' Availability Zones by using the [get
@@ -1567,9 +2480,40 @@ lightsail_create_instance_snapshot <- function(instanceSnapshotName, instanceNam
 #' @param keyPairName The name of your key pair.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
 #' @param addOns An array of objects representing the add-ons to enable for the new
 #' instance.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1667,7 +2611,8 @@ lightsail_create_instances <- function(instanceNames, availabilityZone, customIm
 #' @param keyPairName The name for your key pair.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
 #' @param addOns An array of objects representing the add-ons to enable for the new
 #' instance.
 #' @param sourceInstanceName The name of the source instance from which the source automatic snapshot
@@ -1710,6 +2655,36 @@ lightsail_create_instances <- function(instanceNames, availabilityZone, customIm
 #' -   Define this parameter only when creating a new instance from an
 #'     automatic snapshot. For more information, see the Lightsail Dev
 #'     Guide.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1784,7 +2759,58 @@ lightsail_create_instances_from_snapshot <- function(instanceNames, attachedDisk
 #' @param keyPairName &#91;required&#93; The name for your new key pair.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   keyPair = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     fingerprint = "string"
+#'   ),
+#'   publicKeyBase64 = "string",
+#'   privateKeyBase64 = "string",
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1829,7 +2855,8 @@ lightsail_create_key_pair <- function(keyPairName, tags = NULL) {
 #' 
 #' When you create a load balancer, you can specify a unique name and port
 #' settings. To change additional load balancer settings, use the
-#' `UpdateLoadBalancerAttribute` operation.
+#' [`update_load_balancer_attribute`][lightsail_update_load_balancer_attribute]
+#' operation.
 #' 
 #' The `create load balancer` operation supports tag-based access control
 #' via request tags. For more information, see the Lightsail Dev Guide.
@@ -1862,7 +2889,38 @@ lightsail_create_key_pair <- function(keyPairName, tags = NULL) {
 #' `blog.example.com`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1912,9 +2970,11 @@ lightsail_create_load_balancer <- function(loadBalancerName, instancePort, healt
 #' TLS is just an updated, more secure version of Secure Socket Layer
 #' (SSL).
 #' 
-#' The `CreateLoadBalancerTlsCertificate` operation supports tag-based
-#' access control via resource tags applied to the resource identified by
-#' `load balancer name`. For more information, see the Lightsail Dev Guide.
+#' The
+#' [`create_load_balancer_tls_certificate`][lightsail_create_load_balancer_tls_certificate]
+#' operation supports tag-based access control via resource tags applied to
+#' the resource identified by `load balancer name`. For more information,
+#' see the Lightsail Dev Guide.
 #'
 #' @usage
 #' lightsail_create_load_balancer_tls_certificate(loadBalancerName,
@@ -1937,7 +2997,38 @@ lightsail_create_load_balancer <- function(loadBalancerName, instancePort, healt
 #' domain). We do not support wildcards (e.g., `*.example.com`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2093,7 +3184,38 @@ lightsail_create_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' database.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2214,7 +3336,38 @@ lightsail_create_relational_database <- function(relationalDatabaseName, availab
 #' provided.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2283,7 +3436,38 @@ lightsail_create_relational_database_from_snapshot <- function(relationalDatabas
 #' -   The first and last character must be a letter or number.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the `TagResource` action to tag a resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
+#' resource after it's created.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2334,6 +3518,36 @@ lightsail_create_relational_database_snapshot <- function(relationalDatabaseName
 #'
 #' @param alarmName &#91;required&#93; The name of the alarm to delete.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_alarm(
@@ -2376,6 +3590,36 @@ lightsail_delete_alarm <- function(alarmName) {
 #' the `get auto snapshots` operation to get the available automatic
 #' snapshots for a resource.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_auto_snapshot(
@@ -2412,16 +3656,47 @@ lightsail_delete_auto_snapshot <- function(resourceName, date) {
 #' delivery network (CDN) distribution.
 #' 
 #' Certificates that are currently attached to a distribution cannot be
-#' deleted. Use the `DetachCertificateFromDistribution` action to detach a
-#' certificate from a distribution.
+#' deleted. Use the
+#' [`detach_certificate_from_distribution`][lightsail_detach_certificate_from_distribution]
+#' action to detach a certificate from a distribution.
 #'
 #' @usage
 #' lightsail_delete_certificate(certificateName)
 #'
 #' @param certificateName &#91;required&#93; The name of the certificate to delete.
 #' 
-#' Use the `GetCertificates` action to get a list of certificate names that
-#' you can specify.
+#' Use the [`get_certificates`][lightsail_get_certificates] action to get a
+#' list of certificate names that you can specify.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2469,7 +3744,39 @@ lightsail_delete_certificate <- function(certificateName) {
 #' messaging).
 #' 
 #' To delete an `Email` and an `SMS` contact method if you added both, you
-#' must run separate `DeleteContactMethod` actions to delete each protocol.
+#' must run separate
+#' [`delete_contact_method`][lightsail_delete_contact_method] actions to
+#' delete each protocol.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2512,14 +3819,18 @@ lightsail_delete_contact_method <- function(protocol) {
 #' container image.
 #' @param image &#91;required&#93; The name of the container image to delete from the container service.
 #' 
-#' Use the `GetContainerImages` action to get the name of the container
-#' images that are registered to a container service.
+#' Use the [`get_container_images`][lightsail_get_container_images] action
+#' to get the name of the container images that are registered to a
+#' container service.
 #' 
 #' Container images sourced from your Lightsail container service, that are
 #' registered and stored on your service, start with a colon (`:`). For
 #' example, `:container-service-1.mystaticwebsite.1`. Container images
 #' sourced from a public registry like Docker Hub don't start with a colon.
 #' For example, `nginx:latest` or `nginx`.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -2558,6 +3869,9 @@ lightsail_delete_container_image <- function(serviceName, image) {
 #' lightsail_delete_container_service(serviceName)
 #'
 #' @param serviceName &#91;required&#93; The name of the container service to delete.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -2604,6 +3918,36 @@ lightsail_delete_container_service <- function(serviceName) {
 #' @param diskName &#91;required&#93; The unique name of the disk you want to delete (e.g., `my-disk`).
 #' @param forceDeleteAddOns A Boolean value to indicate whether to delete the enabled add-ons for
 #' the disk.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2656,6 +4000,36 @@ lightsail_delete_disk <- function(diskName, forceDeleteAddOns = NULL) {
 #' @param diskSnapshotName &#91;required&#93; The name of the disk snapshot you want to delete (e.g.,
 #' `my-disk-snapshot`).
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_disk_snapshot(
@@ -2695,8 +4069,36 @@ lightsail_delete_disk_snapshot <- function(diskSnapshotName) {
 #'
 #' @param distributionName The name of the distribution to delete.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2738,6 +4140,34 @@ lightsail_delete_distribution <- function(distributionName = NULL) {
 #' lightsail_delete_domain(domainName)
 #'
 #' @param domainName &#91;required&#93; The specific domain name to delete.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2781,6 +4211,34 @@ lightsail_delete_domain <- function(domainName) {
 #' @param domainName &#91;required&#93; The name of the domain entry to delete.
 #' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about your domain
 #' entries.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2835,6 +4293,36 @@ lightsail_delete_domain_entry <- function(domainName, domainEntry) {
 #' @param forceDeleteAddOns A Boolean value to indicate whether to delete the enabled add-ons for
 #' the disk.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_instance(
@@ -2878,6 +4366,36 @@ lightsail_delete_instance <- function(instanceName, forceDeleteAddOns = NULL) {
 #'
 #' @param instanceSnapshotName &#91;required&#93; The name of the snapshot to delete.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_instance_snapshot(
@@ -2918,6 +4436,34 @@ lightsail_delete_instance_snapshot <- function(instanceSnapshotName) {
 #' lightsail_delete_key_pair(keyPairName)
 #'
 #' @param keyPairName &#91;required&#93; The name of the key pair to delete.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2967,6 +4513,36 @@ lightsail_delete_key_pair <- function(keyPairName) {
 #' @param instanceName &#91;required&#93; The name of the instance for which you want to reset the host key or
 #' certificate.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_known_host_keys(
@@ -3012,6 +4588,36 @@ lightsail_delete_known_host_keys <- function(instanceName) {
 #'
 #' @param loadBalancerName &#91;required&#93; The name of the load balancer you want to delete.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_load_balancer(
@@ -3045,9 +4651,11 @@ lightsail_delete_load_balancer <- function(loadBalancerName) {
 #' Deletes an SSL/TLS certificate associated with a Lightsail load
 #' balancer.
 #' 
-#' The `DeleteLoadBalancerTlsCertificate` operation supports tag-based
-#' access control via resource tags applied to the resource identified by
-#' `load balancer name`. For more information, see the Lightsail Dev Guide.
+#' The
+#' [`delete_load_balancer_tls_certificate`][lightsail_delete_load_balancer_tls_certificate]
+#' operation supports tag-based access control via resource tags applied to
+#' the resource identified by `load balancer name`. For more information,
+#' see the Lightsail Dev Guide.
 #'
 #' @usage
 #' lightsail_delete_load_balancer_tls_certificate(loadBalancerName,
@@ -3061,6 +4669,36 @@ lightsail_delete_load_balancer <- function(loadBalancerName) {
 #' the primary and the backup. The `force` parameter is required when the
 #' primary SSL/TLS certificate is in use by an instance attached to the
 #' load balancer.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3127,6 +4765,36 @@ lightsail_delete_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' 
 #' -   The first and last character must be a letter or number.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_relational_database(
@@ -3172,6 +4840,36 @@ lightsail_delete_relational_database <- function(relationalDatabaseName, skipFin
 #'
 #' @param relationalDatabaseSnapshotName &#91;required&#93; The name of the database snapshot that you are deleting.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_relational_database_snapshot(
@@ -3214,8 +4912,36 @@ lightsail_delete_relational_database_snapshot <- function(relationalDatabaseSnap
 #'
 #' @param distributionName &#91;required&#93; The name of the distribution from which to detach the certificate.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3260,6 +4986,36 @@ lightsail_detach_certificate_from_distribution <- function(distributionName) {
 #'
 #' @param diskName &#91;required&#93; The unique name of the disk you want to detach from your instance (e.g.,
 #' `my-disk`).
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3308,6 +5064,36 @@ lightsail_detach_disk <- function(diskName) {
 #' @param instanceNames &#91;required&#93; An array of strings containing the names of the instances you want to
 #' detach from the load balancer.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$detach_instances_from_load_balancer(
@@ -3350,6 +5136,36 @@ lightsail_detach_instances_from_load_balancer <- function(loadBalancerName, inst
 #'
 #' @param staticIpName &#91;required&#93; The name of the static IP to detach from the instance.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$detach_static_ip(
@@ -3389,6 +5205,36 @@ lightsail_detach_static_ip <- function(staticIpName) {
 #' @param addOnType &#91;required&#93; The add-on type to disable.
 #' @param resourceName &#91;required&#93; The name of the source resource for which to disable the add-on.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$disable_add_on(
@@ -3424,6 +5270,15 @@ lightsail_disable_add_on <- function(addOnType, resourceName) {
 #'
 #' @usage
 #' lightsail_download_default_key_pair()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   publicKeyBase64 = "string",
+#'   privateKeyBase64 = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3462,6 +5317,36 @@ lightsail_download_default_key_pair <- function() {
 #' @param resourceName &#91;required&#93; The name of the source resource for which to enable or modify the
 #' add-on.
 #' @param addOnRequest &#91;required&#93; An array of strings representing the add-on to enable or modify.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3526,6 +5411,36 @@ lightsail_enable_add_on <- function(resourceName, addOnRequest) {
 #'
 #' @param sourceSnapshotName &#91;required&#93; The name of the instance or disk snapshot to be exported to Amazon EC2.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$export_snapshot(
@@ -3563,9 +5478,21 @@ lightsail_export_snapshot <- function(sourceSnapshotName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetActiveNames` request. If
-#' your results are paginated, the response will return a next page token
-#' that you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_active_names`][lightsail_get_active_names] request. If your
+#' results are paginated, the response will return a next page token that
+#' you can specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   activeNames = list(
+#'     "string"
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3615,13 +5542,59 @@ lightsail_get_active_names <- function(pageToken = NULL) {
 #' Specify an alarm name to return information about a specific alarm.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetAlarms` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_alarms`][lightsail_get_alarms] request. If your results are
+#' paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
 #' @param monitoredResourceName The name of the Lightsail resource being monitored by the alarm.
 #' 
 #' Specify a monitored resource name to return information about all alarms
 #' for a specific resource.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   alarms = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       supportCode = "string",
+#'       monitoredResourceInfo = list(
+#'         arn = "string",
+#'         name = "string",
+#'         resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate"
+#'       ),
+#'       comparisonOperator = "GreaterThanOrEqualToThreshold"|"GreaterThanThreshold"|"LessThanThreshold"|"LessThanOrEqualToThreshold",
+#'       evaluationPeriods = 123,
+#'       period = 123,
+#'       threshold = 123.0,
+#'       datapointsToAlarm = 123,
+#'       treatMissingData = "breaching"|"notBreaching"|"ignore"|"missing",
+#'       statistic = "Minimum"|"Maximum"|"Sum"|"Average"|"SampleCount",
+#'       metricName = "CPUUtilization"|"NetworkIn"|"NetworkOut"|"StatusCheckFailed"|"StatusCheckFailed_Instance"|"StatusCheckFailed_System"|"ClientTLSNegotiationErrorCount"|"HealthyHostCount"|"UnhealthyHostCount"|"HTTPCode_LB_4XX_Count"|"HTTPCode_LB_5XX_Count"|"HTTPCode_Instance_2XX_Count"|"HTTPCode_Instance_3XX_Count"|"HTTPCode_Instance_4XX_Count"|"HTTPCode_Instance_5XX_Count"|"InstanceResponseTime"|"RejectedConnectionCount"|"RequestCount"|"DatabaseConnections"|"DiskQueueDepth"|"FreeStorageSpace"|"NetworkReceiveThroughput"|"NetworkTransmitThroughput"|"BurstCapacityTime"|"BurstCapacityPercentage",
+#'       state = "OK"|"ALARM"|"INSUFFICIENT_DATA",
+#'       unit = "Seconds"|"Microseconds"|"Milliseconds"|"Bytes"|"Kilobytes"|"Megabytes"|"Gigabytes"|"Terabytes"|"Bits"|"Kilobits"|"Megabits"|"Gigabits"|"Terabits"|"Percent"|"Count"|"Bytes/Second"|"Kilobytes/Second"|"Megabytes/Second"|"Gigabytes/Second"|"Terabytes/Second"|"Bits/Second"|"Kilobits/Second"|"Megabits/Second"|"Gigabits/Second"|"Terabits/Second"|"Count/Second"|"None",
+#'       contactProtocols = list(
+#'         "Email"|"SMS"
+#'       ),
+#'       notificationTriggers = list(
+#'         "OK"|"ALARM"|"INSUFFICIENT_DATA"
+#'       ),
+#'       notificationEnabled = TRUE|FALSE
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3663,6 +5636,30 @@ lightsail_get_alarms <- function(alarmName = NULL, pageToken = NULL, monitoredRe
 #'
 #' @param resourceName &#91;required&#93; The name of the source instance or disk from which to get automatic
 #' snapshot information.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   resourceName = "string",
+#'   resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'   autoSnapshots = list(
+#'     list(
+#'       date = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       status = "Success"|"Failed"|"InProgress"|"NotFound",
+#'       fromAttachedDisks = list(
+#'         list(
+#'           path = "string",
+#'           sizeInGb = 123
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3713,9 +5710,34 @@ lightsail_get_auto_snapshots <- function(resourceName) {
 #' request.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetBlueprints` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_blueprints`][lightsail_get_blueprints] request. If your results
+#' are paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   blueprints = list(
+#'     list(
+#'       blueprintId = "string",
+#'       name = "string",
+#'       group = "string",
+#'       type = "os"|"app",
+#'       description = "string",
+#'       isActive = TRUE|FALSE,
+#'       minPower = 123,
+#'       version = "string",
+#'       versionCode = "string",
+#'       productUrl = "string",
+#'       licenseUrl = "string",
+#'       platform = "LINUX_UNIX"|"WINDOWS"
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3758,9 +5780,35 @@ lightsail_get_blueprints <- function(includeInactive = NULL, pageToken = NULL) {
 #' results in your request.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetBundles` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_bundles`][lightsail_get_bundles] request. If your results are
+#' paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   bundles = list(
+#'     list(
+#'       price = 123.0,
+#'       cpuCount = 123,
+#'       diskSizeInGb = 123,
+#'       bundleId = "string",
+#'       instanceType = "string",
+#'       isActive = TRUE|FALSE,
+#'       name = "string",
+#'       power = 123,
+#'       ramSizeInGb = 123.0,
+#'       transferPerMonthInGb = 123,
+#'       supportedPlatforms = list(
+#'         "LINUX_UNIX"|"WINDOWS"
+#'       )
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3822,6 +5870,91 @@ lightsail_get_bundles <- function(includeInactive = NULL, pageToken = NULL) {
 #' When omitted, the response includes all of your certificates in the AWS
 #' Region where the request is made.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   certificates = list(
+#'     list(
+#'       certificateArn = "string",
+#'       certificateName = "string",
+#'       domainName = "string",
+#'       certificateDetail = list(
+#'         arn = "string",
+#'         name = "string",
+#'         domainName = "string",
+#'         status = "PENDING_VALIDATION"|"ISSUED"|"INACTIVE"|"EXPIRED"|"VALIDATION_TIMED_OUT"|"REVOKED"|"FAILED",
+#'         serialNumber = "string",
+#'         subjectAlternativeNames = list(
+#'           "string"
+#'         ),
+#'         domainValidationRecords = list(
+#'           list(
+#'             domainName = "string",
+#'             resourceRecord = list(
+#'               name = "string",
+#'               type = "string",
+#'               value = "string"
+#'             )
+#'           )
+#'         ),
+#'         requestFailureReason = "string",
+#'         inUseResourceCount = 123,
+#'         keyAlgorithm = "string",
+#'         createdAt = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         issuedAt = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         issuerCA = "string",
+#'         notBefore = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         notAfter = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         eligibleToRenew = "string",
+#'         renewalSummary = list(
+#'           domainValidationRecords = list(
+#'             list(
+#'               domainName = "string",
+#'               resourceRecord = list(
+#'                 name = "string",
+#'                 type = "string",
+#'                 value = "string"
+#'               )
+#'             )
+#'           ),
+#'           renewalStatus = "PendingAutoRenewal"|"PendingValidation"|"Success"|"Failed",
+#'           renewalStatusReason = "string",
+#'           updatedAt = as.POSIXct(
+#'             "2015-01-01"
+#'           )
+#'         ),
+#'         revokedAt = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         revocationReason = "string",
+#'         tags = list(
+#'           list(
+#'             key = "string",
+#'             value = "string"
+#'           )
+#'         ),
+#'         supportCode = "string"
+#'       ),
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_certificates(
@@ -3873,6 +6006,40 @@ lightsail_get_certificates <- function(certificateStatuses = NULL, includeCertif
 #' page token that you can specify as the page token in a subsequent
 #' request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   cloudFormationStackRecords = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       state = "Started"|"Succeeded"|"Failed",
+#'       sourceInfo = list(
+#'         list(
+#'           resourceType = "ExportSnapshotRecord",
+#'           name = "string",
+#'           arn = "string"
+#'         )
+#'       ),
+#'       destinationInfo = list(
+#'         id = "string",
+#'         service = "string"
+#'       )
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_cloud_formation_stack_records(
@@ -3923,6 +6090,31 @@ lightsail_get_cloud_formation_stack_records <- function(pageToken = NULL) {
 #' Specify a protocol in your request to return information about a
 #' specific contact method protocol.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   contactMethods = list(
+#'     list(
+#'       contactEndpoint = "string",
+#'       status = "PendingVerification"|"Valid"|"Invalid",
+#'       protocol = "Email"|"SMS",
+#'       name = "string",
+#'       arn = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       supportCode = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_contact_methods(
@@ -3961,6 +6153,18 @@ lightsail_get_contact_methods <- function(protocols = NULL) {
 #'
 #' @usage
 #' lightsail_get_container_api_metadata()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   metadata = list(
+#'     list(
+#'       "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4004,6 +6208,22 @@ lightsail_get_container_api_metadata <- function() {
 #'
 #' @param serviceName &#91;required&#93; The name of the container service for which to return registered
 #' container images.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   containerImages = list(
+#'     list(
+#'       image = "string",
+#'       digest = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4101,9 +6321,26 @@ lightsail_get_container_images <- function(serviceName) {
 #'     term, specify a filter pattern of `"?ERROR ?Exception"`.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetContainerLog` request. If
-#' your results are paginated, the response will return a next page token
-#' that you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_container_log`][lightsail_get_container_log] request. If your
+#' results are paginated, the response will return a next page token that
+#' you can specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   logEvents = list(
+#'     list(
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       message = "string"
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4141,9 +6378,7 @@ lightsail_get_container_log <- function(serviceName, containerName, startTime = 
 }
 .lightsail$operations$get_container_log <- lightsail_get_container_log
 
-#' Returns the deployments for your Amazon Lightsail container service A
-#' deployment specifies the settings, such as the ports and launch command,
-#' of containers that are deployed to your container service
+#' Returns the deployments for your Amazon Lightsail container service
 #'
 #' @description
 #' Returns the deployments for your Amazon Lightsail container service
@@ -4164,6 +6399,48 @@ lightsail_get_container_log <- function(serviceName, containerName, startTime = 
 #' lightsail_get_container_service_deployments(serviceName)
 #'
 #' @param serviceName &#91;required&#93; The name of the container service for which to return deployments.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   deployments = list(
+#'     list(
+#'       version = 123,
+#'       state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'       containers = list(
+#'         list(
+#'           image = "string",
+#'           command = list(
+#'             "string"
+#'           ),
+#'           environment = list(
+#'             "string"
+#'           ),
+#'           ports = list(
+#'             "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'           )
+#'         )
+#'       ),
+#'       publicEndpoint = list(
+#'         containerName = "string",
+#'         containerPort = 123,
+#'         healthCheck = list(
+#'           healthyThreshold = 123,
+#'           unhealthyThreshold = 123,
+#'           timeoutSeconds = 123,
+#'           intervalSeconds = 123,
+#'           path = "string",
+#'           successCodes = "string"
+#'         )
+#'       ),
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4263,6 +6540,27 @@ lightsail_get_container_service_deployments <- function(serviceName) {
 #' -   `SampleCount` - The count, or number, of data points used for the
 #'     statistical calculation.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   metricName = "CPUUtilization"|"MemoryUtilization",
+#'   metricData = list(
+#'     list(
+#'       average = 123.0,
+#'       maximum = 123.0,
+#'       minimum = 123.0,
+#'       sampleCount = 123.0,
+#'       sum = 123.0,
+#'       timestamp = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       unit = "Seconds"|"Microseconds"|"Milliseconds"|"Bytes"|"Kilobytes"|"Megabytes"|"Gigabytes"|"Terabytes"|"Bits"|"Kilobits"|"Megabits"|"Gigabits"|"Terabits"|"Percent"|"Count"|"Bytes/Second"|"Kilobytes/Second"|"Megabytes/Second"|"Gigabytes/Second"|"Terabytes/Second"|"Bits/Second"|"Kilobits/Second"|"Megabits/Second"|"Gigabits/Second"|"Terabits/Second"|"Count/Second"|"None"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_container_service_metric_data(
@@ -4314,6 +6612,23 @@ lightsail_get_container_service_metric_data <- function(serviceName, metricName,
 #' @usage
 #' lightsail_get_container_service_powers()
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   powers = list(
+#'     list(
+#'       powerId = "string",
+#'       price = 123.0,
+#'       cpuCount = 123.0,
+#'       ramSizeInGb = 123.0,
+#'       name = "string",
+#'       isActive = TRUE|FALSE
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_container_service_powers()
@@ -4354,6 +6669,112 @@ lightsail_get_container_service_powers <- function() {
 #' When omitted, the response includes all of your container services in
 #' the AWS Region where the request is made.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   containerServices = list(
+#'     list(
+#'       containerServiceName = "string",
+#'       arn = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       power = "nano"|"micro"|"small"|"medium"|"large"|"xlarge",
+#'       powerId = "string",
+#'       state = "PENDING"|"READY"|"RUNNING"|"UPDATING"|"DELETING"|"DISABLED",
+#'       scale = 123,
+#'       currentDeployment = list(
+#'         version = 123,
+#'         state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'         containers = list(
+#'           list(
+#'             image = "string",
+#'             command = list(
+#'               "string"
+#'             ),
+#'             environment = list(
+#'               "string"
+#'             ),
+#'             ports = list(
+#'               "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'             )
+#'           )
+#'         ),
+#'         publicEndpoint = list(
+#'           containerName = "string",
+#'           containerPort = 123,
+#'           healthCheck = list(
+#'             healthyThreshold = 123,
+#'             unhealthyThreshold = 123,
+#'             timeoutSeconds = 123,
+#'             intervalSeconds = 123,
+#'             path = "string",
+#'             successCodes = "string"
+#'           )
+#'         ),
+#'         createdAt = as.POSIXct(
+#'           "2015-01-01"
+#'         )
+#'       ),
+#'       nextDeployment = list(
+#'         version = 123,
+#'         state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'         containers = list(
+#'           list(
+#'             image = "string",
+#'             command = list(
+#'               "string"
+#'             ),
+#'             environment = list(
+#'               "string"
+#'             ),
+#'             ports = list(
+#'               "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'             )
+#'           )
+#'         ),
+#'         publicEndpoint = list(
+#'           containerName = "string",
+#'           containerPort = 123,
+#'           healthCheck = list(
+#'             healthyThreshold = 123,
+#'             unhealthyThreshold = 123,
+#'             timeoutSeconds = 123,
+#'             intervalSeconds = 123,
+#'             path = "string",
+#'             successCodes = "string"
+#'           )
+#'         ),
+#'         createdAt = as.POSIXct(
+#'           "2015-01-01"
+#'         )
+#'       ),
+#'       isDisabled = TRUE|FALSE,
+#'       principalArn = "string",
+#'       privateDomainName = "string",
+#'       publicDomainNames = list(
+#'         list(
+#'           "string"
+#'         )
+#'       ),
+#'       url = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_container_services(
@@ -4391,6 +6812,49 @@ lightsail_get_container_services <- function(serviceName = NULL) {
 #'
 #' @param diskName &#91;required&#93; The name of the disk (e.g., `my-disk`).
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   disk = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     addOns = list(
+#'       list(
+#'         name = "string",
+#'         status = "string",
+#'         snapshotTimeOfDay = "string",
+#'         nextSnapshotTimeOfDay = "string"
+#'       )
+#'     ),
+#'     sizeInGb = 123,
+#'     isSystemDisk = TRUE|FALSE,
+#'     iops = 123,
+#'     path = "string",
+#'     state = "pending"|"error"|"available"|"in-use"|"unknown",
+#'     attachedTo = "string",
+#'     isAttached = TRUE|FALSE,
+#'     attachmentState = "string",
+#'     gbInUse = 123
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_disk(
@@ -4427,6 +6891,40 @@ lightsail_get_disk <- function(diskName) {
 #' lightsail_get_disk_snapshot(diskSnapshotName)
 #'
 #' @param diskSnapshotName &#91;required&#93; The name of the disk snapshot (e.g., `my-disk-snapshot`).
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   diskSnapshot = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     sizeInGb = 123,
+#'     state = "pending"|"completed"|"error"|"unknown",
+#'     progress = "string",
+#'     fromDiskName = "string",
+#'     fromDiskArn = "string",
+#'     fromInstanceName = "string",
+#'     fromInstanceArn = "string",
+#'     isFromAutoSnapshot = TRUE|FALSE
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4467,9 +6965,47 @@ lightsail_get_disk_snapshot <- function(diskSnapshotName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetDiskSnapshots` request. If
-#' your results are paginated, the response will return a next page token
-#' that you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_disk_snapshots`][lightsail_get_disk_snapshots] request. If your
+#' results are paginated, the response will return a next page token that
+#' you can specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   diskSnapshots = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       sizeInGb = 123,
+#'       state = "pending"|"completed"|"error"|"unknown",
+#'       progress = "string",
+#'       fromDiskName = "string",
+#'       fromDiskArn = "string",
+#'       fromInstanceName = "string",
+#'       fromInstanceArn = "string",
+#'       isFromAutoSnapshot = TRUE|FALSE
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4510,9 +7046,56 @@ lightsail_get_disk_snapshots <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetDisks` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_disks`][lightsail_get_disks] request. If your results are
+#' paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   disks = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       addOns = list(
+#'         list(
+#'           name = "string",
+#'           status = "string",
+#'           snapshotTimeOfDay = "string",
+#'           nextSnapshotTimeOfDay = "string"
+#'         )
+#'       ),
+#'       sizeInGb = 123,
+#'       isSystemDisk = TRUE|FALSE,
+#'       iops = 123,
+#'       path = "string",
+#'       state = "pending"|"error"|"available"|"in-use"|"unknown",
+#'       attachedTo = "string",
+#'       isAttached = TRUE|FALSE,
+#'       attachmentState = "string",
+#'       gbInUse = 123
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4554,6 +7137,22 @@ lightsail_get_disks <- function(pageToken = NULL) {
 #' @usage
 #' lightsail_get_distribution_bundles()
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   bundles = list(
+#'     list(
+#'       bundleId = "string",
+#'       name = "string",
+#'       price = 123.0,
+#'       transferPerMonthInGb = 123,
+#'       isActive = TRUE|FALSE
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_distribution_bundles()
@@ -4592,11 +7191,22 @@ lightsail_get_distribution_bundles <- function() {
 #' @param distributionName The name of the distribution for which to return the timestamp of the
 #' last cache reset.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
 #' 
 #' When omitted, the response includes the latest cache reset timestamp of
 #' all your distributions.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   status = "string",
+#'   createTime = as.POSIXct(
+#'     "2015-01-01"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4642,8 +7252,8 @@ lightsail_get_distribution_latest_cache_reset <- function(distributionName = NUL
 #'
 #' @param distributionName &#91;required&#93; The name of the distribution for which to get metric data.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
 #' @param metricName &#91;required&#93; The metric for which you want to return information.
 #' 
 #' Valid distribution metric names are listed below, along with the most
@@ -4756,6 +7366,27 @@ lightsail_get_distribution_latest_cache_reset <- function(distributionName = NUL
 #' -   `SampleCount` - The count, or number, of data points used for the
 #'     statistical calculation.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   metricName = "Requests"|"BytesDownloaded"|"BytesUploaded"|"TotalErrorRate"|"Http4xxErrorRate"|"Http5xxErrorRate",
+#'   metricData = list(
+#'     list(
+#'       average = 123.0,
+#'       maximum = 123.0,
+#'       minimum = 123.0,
+#'       sampleCount = 123.0,
+#'       sum = 123.0,
+#'       timestamp = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       unit = "Seconds"|"Microseconds"|"Milliseconds"|"Bytes"|"Kilobytes"|"Megabytes"|"Gigabytes"|"Terabytes"|"Bits"|"Kilobits"|"Megabits"|"Gigabits"|"Terabits"|"Percent"|"Count"|"Bytes/Second"|"Kilobytes/Second"|"Megabytes/Second"|"Gigabytes/Second"|"Terabytes/Second"|"Bits/Second"|"Kilobits/Second"|"Megabits/Second"|"Gigabits/Second"|"Terabits/Second"|"Count/Second"|"None"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_distribution_metric_data(
@@ -4807,16 +7438,96 @@ lightsail_get_distribution_metric_data <- function(distributionName, metricName,
 #'
 #' @param distributionName The name of the distribution for which to return information.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
 #' 
 #' When omitted, the response includes all of your distributions in the AWS
 #' Region where the request is made.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetDistributions` request. If
-#' your results are paginated, the response will return a next page token
-#' that you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_distributions`][lightsail_get_distributions] request. If your
+#' results are paginated, the response will return a next page token that
+#' you can specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   distributions = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       alternativeDomainNames = list(
+#'         "string"
+#'       ),
+#'       status = "string",
+#'       isEnabled = TRUE|FALSE,
+#'       domainName = "string",
+#'       bundleId = "string",
+#'       certificateName = "string",
+#'       origin = list(
+#'         name = "string",
+#'         resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2",
+#'         protocolPolicy = "http-only"|"https-only"
+#'       ),
+#'       originPublicDNS = "string",
+#'       defaultCacheBehavior = list(
+#'         behavior = "dont-cache"|"cache"
+#'       ),
+#'       cacheBehaviorSettings = list(
+#'         defaultTTL = 123,
+#'         minimumTTL = 123,
+#'         maximumTTL = 123,
+#'         allowedHTTPMethods = "string",
+#'         cachedHTTPMethods = "string",
+#'         forwardedCookies = list(
+#'           option = "none"|"allow-list"|"all",
+#'           cookiesAllowList = list(
+#'             "string"
+#'           )
+#'         ),
+#'         forwardedHeaders = list(
+#'           option = "none"|"allow-list"|"all",
+#'           headersAllowList = list(
+#'             "Accept"|"Accept-Charset"|"Accept-Datetime"|"Accept-Encoding"|"Accept-Language"|"Authorization"|"CloudFront-Forwarded-Proto"|"CloudFront-Is-Desktop-Viewer"|"CloudFront-Is-Mobile-Viewer"|"CloudFront-Is-SmartTV-Viewer"|"CloudFront-Is-Tablet-Viewer"|"CloudFront-Viewer-Country"|"Host"|"Origin"|"Referer"
+#'           )
+#'         ),
+#'         forwardedQueryStrings = list(
+#'           option = TRUE|FALSE,
+#'           queryStringsAllowList = list(
+#'             "string"
+#'           )
+#'         )
+#'       ),
+#'       cacheBehaviors = list(
+#'         list(
+#'           path = "string",
+#'           behavior = "dont-cache"|"cache"
+#'         )
+#'       ),
+#'       ableToUpdateBundle = TRUE|FALSE,
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4856,6 +7567,44 @@ lightsail_get_distributions <- function(distributionName = NULL, pageToken = NUL
 #'
 #' @param domainName &#91;required&#93; The domain name for which your want to return information about.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   domain = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     domainEntries = list(
+#'       list(
+#'         id = "string",
+#'         name = "string",
+#'         target = "string",
+#'         isAlias = TRUE|FALSE,
+#'         type = "string",
+#'         options = list(
+#'           "string"
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_domain(
@@ -4893,9 +7642,51 @@ lightsail_get_domain <- function(domainName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetDomains` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_domains`][lightsail_get_domains] request. If your results are
+#' paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   domains = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       domainEntries = list(
+#'         list(
+#'           id = "string",
+#'           name = "string",
+#'           target = "string",
+#'           isAlias = TRUE|FALSE,
+#'           type = "string",
+#'           options = list(
+#'             "string"
+#'           )
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4940,10 +7731,63 @@ lightsail_get_domains <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetExportSnapshotRecords`
+#' To get a page token, perform an initial
+#' [`get_export_snapshot_records`][lightsail_get_export_snapshot_records]
 #' request. If your results are paginated, the response will return a next
 #' page token that you can specify as the page token in a subsequent
 #' request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   exportSnapshotRecords = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       state = "Started"|"Succeeded"|"Failed",
+#'       sourceInfo = list(
+#'         resourceType = "InstanceSnapshot"|"DiskSnapshot",
+#'         createdAt = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         name = "string",
+#'         arn = "string",
+#'         fromResourceName = "string",
+#'         fromResourceArn = "string",
+#'         instanceSnapshotInfo = list(
+#'           fromBundleId = "string",
+#'           fromBlueprintId = "string",
+#'           fromDiskInfo = list(
+#'             list(
+#'               name = "string",
+#'               path = "string",
+#'               sizeInGb = 123,
+#'               isSystemDisk = TRUE|FALSE
+#'             )
+#'           )
+#'         ),
+#'         diskSnapshotInfo = list(
+#'           sizeInGb = 123
+#'         )
+#'       ),
+#'       destinationInfo = list(
+#'         id = "string",
+#'         service = "string"
+#'       )
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4983,6 +7827,117 @@ lightsail_get_export_snapshot_records <- function(pageToken = NULL) {
 #' lightsail_get_instance(instanceName)
 #'
 #' @param instanceName &#91;required&#93; The name of the instance.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   instance = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     blueprintId = "string",
+#'     blueprintName = "string",
+#'     bundleId = "string",
+#'     addOns = list(
+#'       list(
+#'         name = "string",
+#'         status = "string",
+#'         snapshotTimeOfDay = "string",
+#'         nextSnapshotTimeOfDay = "string"
+#'       )
+#'     ),
+#'     isStaticIp = TRUE|FALSE,
+#'     privateIpAddress = "string",
+#'     publicIpAddress = "string",
+#'     ipv6Address = "string",
+#'     hardware = list(
+#'       cpuCount = 123,
+#'       disks = list(
+#'         list(
+#'           name = "string",
+#'           arn = "string",
+#'           supportCode = "string",
+#'           createdAt = as.POSIXct(
+#'             "2015-01-01"
+#'           ),
+#'           location = list(
+#'             availabilityZone = "string",
+#'             regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'           ),
+#'           resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'           tags = list(
+#'             list(
+#'               key = "string",
+#'               value = "string"
+#'             )
+#'           ),
+#'           addOns = list(
+#'             list(
+#'               name = "string",
+#'               status = "string",
+#'               snapshotTimeOfDay = "string",
+#'               nextSnapshotTimeOfDay = "string"
+#'             )
+#'           ),
+#'           sizeInGb = 123,
+#'           isSystemDisk = TRUE|FALSE,
+#'           iops = 123,
+#'           path = "string",
+#'           state = "pending"|"error"|"available"|"in-use"|"unknown",
+#'           attachedTo = "string",
+#'           isAttached = TRUE|FALSE,
+#'           attachmentState = "string",
+#'           gbInUse = 123
+#'         )
+#'       ),
+#'       ramSizeInGb = 123.0
+#'     ),
+#'     networking = list(
+#'       monthlyTransfer = list(
+#'         gbPerMonthAllocated = 123
+#'       ),
+#'       ports = list(
+#'         list(
+#'           fromPort = 123,
+#'           toPort = 123,
+#'           protocol = "tcp"|"all"|"udp"|"icmp",
+#'           accessFrom = "string",
+#'           accessType = "Public"|"Private",
+#'           commonName = "string",
+#'           accessDirection = "inbound"|"outbound",
+#'           cidrs = list(
+#'             "string"
+#'           ),
+#'           cidrListAliases = list(
+#'             "string"
+#'           )
+#'         )
+#'       )
+#'     ),
+#'     state = list(
+#'       code = 123,
+#'       name = "string"
+#'     ),
+#'     username = "string",
+#'     sshKeyName = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5027,6 +7982,46 @@ lightsail_get_instance <- function(instanceName) {
 #'
 #' @param instanceName &#91;required&#93; The name of the instance to access.
 #' @param protocol The protocol to use to connect to your instance. Defaults to `ssh`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   accessDetails = list(
+#'     certKey = "string",
+#'     expiresAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     ipAddress = "string",
+#'     password = "string",
+#'     passwordData = list(
+#'       ciphertext = "string",
+#'       keyPairName = "string"
+#'     ),
+#'     privateKey = "string",
+#'     protocol = "ssh"|"rdp",
+#'     instanceName = "string",
+#'     username = "string",
+#'     hostKeys = list(
+#'       list(
+#'         algorithm = "string",
+#'         publicKey = "string",
+#'         witnessedAt = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         fingerprintSHA1 = "string",
+#'         fingerprintSHA256 = "string",
+#'         notValidBefore = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         notValidAfter = as.POSIXct(
+#'           "2015-01-01"
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5081,7 +8076,7 @@ lightsail_get_instance_access_details <- function(instanceName, protocol = NULL)
 #'     available for your instance to burst above its baseline. Your
 #'     instance continuously accrues and consumes burst capacity. Burst
 #'     capacity stops accruing when your instance's
-#'     `BurstCapacityPercentage` reaches 100\%. For more information, see
+#'     `BurstCapacityPercentage` reaches 100%. For more information, see
 #'     Viewing instance burst capacity in Amazon Lightsail.
 #' 
 #'     `Statistics`: The most useful statistics are `Maximum` and
@@ -5090,16 +8085,16 @@ lightsail_get_instance_access_details <- function(instanceName, protocol = NULL)
 #'     `Unit`: The published unit is `Percent`.
 #' 
 #' -   **`BurstCapacityTime`** - The available amount of time for your
-#'     instance to burst at 100\% CPU utilization. Your instance
+#'     instance to burst at 100% CPU utilization. Your instance
 #'     continuously accrues and consumes burst capacity. Burst capacity
 #'     time stops accruing when your instance's `BurstCapacityPercentage`
-#'     metric reaches 100\%.
+#'     metric reaches 100%.
 #' 
 #'     Burst capacity time is consumed at the full rate only when your
-#'     instance operates at 100\% CPU utilization. For example, if your
-#'     instance operates at 50\% CPU utilization in the burstable zone for a
+#'     instance operates at 100% CPU utilization. For example, if your
+#'     instance operates at 50% CPU utilization in the burstable zone for a
 #'     5-minute period, then it consumes CPU burst capacity minutes at a
-#'     50\% rate in that period. Your instance consumed 2 minutes and 30
+#'     50% rate in that period. Your instance consumed 2 minutes and 30
 #'     seconds of CPU burst capacity minutes in the 5-minute period. For
 #'     more information, see Viewing instance burst capacity in Amazon
 #'     Lightsail.
@@ -5205,6 +8200,27 @@ lightsail_get_instance_access_details <- function(instanceName, protocol = NULL)
 #' -   `SampleCount` - The count, or number, of data points used for the
 #'     statistical calculation.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   metricName = "CPUUtilization"|"NetworkIn"|"NetworkOut"|"StatusCheckFailed"|"StatusCheckFailed_Instance"|"StatusCheckFailed_System"|"BurstCapacityTime"|"BurstCapacityPercentage",
+#'   metricData = list(
+#'     list(
+#'       average = 123.0,
+#'       maximum = 123.0,
+#'       minimum = 123.0,
+#'       sampleCount = 123.0,
+#'       sum = 123.0,
+#'       timestamp = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       unit = "Seconds"|"Microseconds"|"Milliseconds"|"Bytes"|"Kilobytes"|"Megabytes"|"Gigabytes"|"Terabytes"|"Bits"|"Kilobits"|"Megabits"|"Gigabits"|"Terabits"|"Percent"|"Count"|"Bytes/Second"|"Kilobytes/Second"|"Megabytes/Second"|"Gigabytes/Second"|"Terabytes/Second"|"Bits/Second"|"Kilobits/Second"|"Megabits/Second"|"Gigabits/Second"|"Terabits/Second"|"Count/Second"|"None"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_instance_metric_data(
@@ -5258,6 +8274,27 @@ lightsail_get_instance_metric_data <- function(instanceName, metricName, period,
 #'
 #' @param instanceName &#91;required&#93; The name of the instance for which to return firewall port states.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   portStates = list(
+#'     list(
+#'       fromPort = 123,
+#'       toPort = 123,
+#'       protocol = "tcp"|"all"|"udp"|"icmp",
+#'       state = "open"|"closed",
+#'       cidrs = list(
+#'         "string"
+#'       ),
+#'       cidrListAliases = list(
+#'         "string"
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_instance_port_states(
@@ -5294,6 +8331,78 @@ lightsail_get_instance_port_states <- function(instanceName) {
 #' lightsail_get_instance_snapshot(instanceSnapshotName)
 #'
 #' @param instanceSnapshotName &#91;required&#93; The name of the snapshot for which you are requesting information.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   instanceSnapshot = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     state = "pending"|"error"|"available",
+#'     progress = "string",
+#'     fromAttachedDisks = list(
+#'       list(
+#'         name = "string",
+#'         arn = "string",
+#'         supportCode = "string",
+#'         createdAt = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         location = list(
+#'           availabilityZone = "string",
+#'           regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'         ),
+#'         resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'         tags = list(
+#'           list(
+#'             key = "string",
+#'             value = "string"
+#'           )
+#'         ),
+#'         addOns = list(
+#'           list(
+#'             name = "string",
+#'             status = "string",
+#'             snapshotTimeOfDay = "string",
+#'             nextSnapshotTimeOfDay = "string"
+#'           )
+#'         ),
+#'         sizeInGb = 123,
+#'         isSystemDisk = TRUE|FALSE,
+#'         iops = 123,
+#'         path = "string",
+#'         state = "pending"|"error"|"available"|"in-use"|"unknown",
+#'         attachedTo = "string",
+#'         isAttached = TRUE|FALSE,
+#'         attachmentState = "string",
+#'         gbInUse = 123
+#'       )
+#'     ),
+#'     fromInstanceName = "string",
+#'     fromInstanceArn = "string",
+#'     fromBlueprintId = "string",
+#'     fromBundleId = "string",
+#'     isFromAutoSnapshot = TRUE|FALSE,
+#'     sizeInGb = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5332,9 +8441,85 @@ lightsail_get_instance_snapshot <- function(instanceSnapshotName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetInstanceSnapshots` request.
-#' If your results are paginated, the response will return a next page
-#' token that you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_instance_snapshots`][lightsail_get_instance_snapshots] request. If
+#' your results are paginated, the response will return a next page token
+#' that you can specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   instanceSnapshots = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       state = "pending"|"error"|"available",
+#'       progress = "string",
+#'       fromAttachedDisks = list(
+#'         list(
+#'           name = "string",
+#'           arn = "string",
+#'           supportCode = "string",
+#'           createdAt = as.POSIXct(
+#'             "2015-01-01"
+#'           ),
+#'           location = list(
+#'             availabilityZone = "string",
+#'             regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'           ),
+#'           resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'           tags = list(
+#'             list(
+#'               key = "string",
+#'               value = "string"
+#'             )
+#'           ),
+#'           addOns = list(
+#'             list(
+#'               name = "string",
+#'               status = "string",
+#'               snapshotTimeOfDay = "string",
+#'               nextSnapshotTimeOfDay = "string"
+#'             )
+#'           ),
+#'           sizeInGb = 123,
+#'           isSystemDisk = TRUE|FALSE,
+#'           iops = 123,
+#'           path = "string",
+#'           state = "pending"|"error"|"available"|"in-use"|"unknown",
+#'           attachedTo = "string",
+#'           isAttached = TRUE|FALSE,
+#'           attachmentState = "string",
+#'           gbInUse = 123
+#'         )
+#'       ),
+#'       fromInstanceName = "string",
+#'       fromInstanceArn = "string",
+#'       fromBlueprintId = "string",
+#'       fromBundleId = "string",
+#'       isFromAutoSnapshot = TRUE|FALSE,
+#'       sizeInGb = 123
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5373,6 +8558,17 @@ lightsail_get_instance_snapshots <- function(pageToken = NULL) {
 #' lightsail_get_instance_state(instanceName)
 #'
 #' @param instanceName &#91;required&#93; The name of the instance to get state information about.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   state = list(
+#'     code = 123,
+#'     name = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5413,9 +8609,124 @@ lightsail_get_instance_state <- function(instanceName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetInstances` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_instances`][lightsail_get_instances] request. If your results are
+#' paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   instances = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       blueprintId = "string",
+#'       blueprintName = "string",
+#'       bundleId = "string",
+#'       addOns = list(
+#'         list(
+#'           name = "string",
+#'           status = "string",
+#'           snapshotTimeOfDay = "string",
+#'           nextSnapshotTimeOfDay = "string"
+#'         )
+#'       ),
+#'       isStaticIp = TRUE|FALSE,
+#'       privateIpAddress = "string",
+#'       publicIpAddress = "string",
+#'       ipv6Address = "string",
+#'       hardware = list(
+#'         cpuCount = 123,
+#'         disks = list(
+#'           list(
+#'             name = "string",
+#'             arn = "string",
+#'             supportCode = "string",
+#'             createdAt = as.POSIXct(
+#'               "2015-01-01"
+#'             ),
+#'             location = list(
+#'               availabilityZone = "string",
+#'               regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'             ),
+#'             resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'             tags = list(
+#'               list(
+#'                 key = "string",
+#'                 value = "string"
+#'               )
+#'             ),
+#'             addOns = list(
+#'               list(
+#'                 name = "string",
+#'                 status = "string",
+#'                 snapshotTimeOfDay = "string",
+#'                 nextSnapshotTimeOfDay = "string"
+#'               )
+#'             ),
+#'             sizeInGb = 123,
+#'             isSystemDisk = TRUE|FALSE,
+#'             iops = 123,
+#'             path = "string",
+#'             state = "pending"|"error"|"available"|"in-use"|"unknown",
+#'             attachedTo = "string",
+#'             isAttached = TRUE|FALSE,
+#'             attachmentState = "string",
+#'             gbInUse = 123
+#'           )
+#'         ),
+#'         ramSizeInGb = 123.0
+#'       ),
+#'       networking = list(
+#'         monthlyTransfer = list(
+#'           gbPerMonthAllocated = 123
+#'         ),
+#'         ports = list(
+#'           list(
+#'             fromPort = 123,
+#'             toPort = 123,
+#'             protocol = "tcp"|"all"|"udp"|"icmp",
+#'             accessFrom = "string",
+#'             accessType = "Public"|"Private",
+#'             commonName = "string",
+#'             accessDirection = "inbound"|"outbound",
+#'             cidrs = list(
+#'               "string"
+#'             ),
+#'             cidrListAliases = list(
+#'               "string"
+#'             )
+#'           )
+#'         )
+#'       ),
+#'       state = list(
+#'         code = 123,
+#'         name = "string"
+#'       ),
+#'       username = "string",
+#'       sshKeyName = "string"
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5454,6 +8765,33 @@ lightsail_get_instances <- function(pageToken = NULL) {
 #'
 #' @param keyPairName &#91;required&#93; The name of the key pair for which you are requesting information.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   keyPair = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     fingerprint = "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_key_pair(
@@ -5491,9 +8829,40 @@ lightsail_get_key_pair <- function(keyPairName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetKeyPairs` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_key_pairs`][lightsail_get_key_pairs] request. If your results are
+#' paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   keyPairs = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       fingerprint = "string"
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5531,6 +8900,56 @@ lightsail_get_key_pairs <- function(pageToken = NULL) {
 #' lightsail_get_load_balancer(loadBalancerName)
 #'
 #' @param loadBalancerName &#91;required&#93; The name of the load balancer.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   loadBalancer = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     dnsName = "string",
+#'     state = "active"|"provisioning"|"active_impaired"|"failed"|"unknown",
+#'     protocol = "HTTP_HTTPS"|"HTTP",
+#'     publicPorts = list(
+#'       123
+#'     ),
+#'     healthCheckPath = "string",
+#'     instancePort = 123,
+#'     instanceHealthSummary = list(
+#'       list(
+#'         instanceName = "string",
+#'         instanceHealth = "initial"|"healthy"|"unhealthy"|"unused"|"draining"|"unavailable",
+#'         instanceHealthReason = "Lb.RegistrationInProgress"|"Lb.InitialHealthChecking"|"Lb.InternalError"|"Instance.ResponseCodeMismatch"|"Instance.Timeout"|"Instance.FailedHealthChecks"|"Instance.NotRegistered"|"Instance.NotInUse"|"Instance.DeregistrationInProgress"|"Instance.InvalidState"|"Instance.IpUnusable"
+#'       )
+#'     ),
+#'     tlsCertificateSummaries = list(
+#'       list(
+#'         name = "string",
+#'         isAttached = TRUE|FALSE
+#'       )
+#'     ),
+#'     configurationOptions = list(
+#'       "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5721,6 +9140,27 @@ lightsail_get_load_balancer <- function(loadBalancerName) {
 #' -   `SampleCount` - The count, or number, of data points used for the
 #'     statistical calculation.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   metricName = "ClientTLSNegotiationErrorCount"|"HealthyHostCount"|"UnhealthyHostCount"|"HTTPCode_LB_4XX_Count"|"HTTPCode_LB_5XX_Count"|"HTTPCode_Instance_2XX_Count"|"HTTPCode_Instance_3XX_Count"|"HTTPCode_Instance_4XX_Count"|"HTTPCode_Instance_5XX_Count"|"InstanceResponseTime"|"RejectedConnectionCount"|"RequestCount",
+#'   metricData = list(
+#'     list(
+#'       average = 123.0,
+#'       maximum = 123.0,
+#'       minimum = 123.0,
+#'       sampleCount = 123.0,
+#'       sum = 123.0,
+#'       timestamp = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       unit = "Seconds"|"Microseconds"|"Milliseconds"|"Bytes"|"Kilobytes"|"Megabytes"|"Gigabytes"|"Terabytes"|"Bits"|"Kilobits"|"Megabits"|"Gigabits"|"Terabits"|"Percent"|"Count"|"Bytes/Second"|"Kilobytes/Second"|"Megabytes/Second"|"Gigabytes/Second"|"Terabytes/Second"|"Bits/Second"|"Kilobits/Second"|"Megabits/Second"|"Gigabits/Second"|"Terabits/Second"|"Count/Second"|"None"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_load_balancer_metric_data(
@@ -5779,6 +9219,78 @@ lightsail_get_load_balancer_metric_data <- function(loadBalancerName, metricName
 #' @param loadBalancerName &#91;required&#93; The name of the load balancer you associated with your SSL/TLS
 #' certificate.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   tlsCertificates = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       loadBalancerName = "string",
+#'       isAttached = TRUE|FALSE,
+#'       status = "PENDING_VALIDATION"|"ISSUED"|"INACTIVE"|"EXPIRED"|"VALIDATION_TIMED_OUT"|"REVOKED"|"FAILED"|"UNKNOWN",
+#'       domainName = "string",
+#'       domainValidationRecords = list(
+#'         list(
+#'           name = "string",
+#'           type = "string",
+#'           value = "string",
+#'           validationStatus = "PENDING_VALIDATION"|"FAILED"|"SUCCESS",
+#'           domainName = "string"
+#'         )
+#'       ),
+#'       failureReason = "NO_AVAILABLE_CONTACTS"|"ADDITIONAL_VERIFICATION_REQUIRED"|"DOMAIN_NOT_ALLOWED"|"INVALID_PUBLIC_DOMAIN"|"OTHER",
+#'       issuedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       issuer = "string",
+#'       keyAlgorithm = "string",
+#'       notAfter = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       notBefore = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       renewalSummary = list(
+#'         renewalStatus = "PENDING_AUTO_RENEWAL"|"PENDING_VALIDATION"|"SUCCESS"|"FAILED",
+#'         domainValidationOptions = list(
+#'           list(
+#'             domainName = "string",
+#'             validationStatus = "PENDING_VALIDATION"|"FAILED"|"SUCCESS"
+#'           )
+#'         )
+#'       ),
+#'       revocationReason = "UNSPECIFIED"|"KEY_COMPROMISE"|"CA_COMPROMISE"|"AFFILIATION_CHANGED"|"SUPERCEDED"|"CESSATION_OF_OPERATION"|"CERTIFICATE_HOLD"|"REMOVE_FROM_CRL"|"PRIVILEGE_WITHDRAWN"|"A_A_COMPROMISE",
+#'       revokedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       serial = "string",
+#'       signatureAlgorithm = "string",
+#'       subject = "string",
+#'       subjectAlternativeNames = list(
+#'         "string"
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_load_balancer_tls_certificates(
@@ -5816,9 +9328,63 @@ lightsail_get_load_balancer_tls_certificates <- function(loadBalancerName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetLoadBalancers` request. If
-#' your results are paginated, the response will return a next page token
-#' that you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_load_balancers`][lightsail_get_load_balancers] request. If your
+#' results are paginated, the response will return a next page token that
+#' you can specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   loadBalancers = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       dnsName = "string",
+#'       state = "active"|"provisioning"|"active_impaired"|"failed"|"unknown",
+#'       protocol = "HTTP_HTTPS"|"HTTP",
+#'       publicPorts = list(
+#'         123
+#'       ),
+#'       healthCheckPath = "string",
+#'       instancePort = 123,
+#'       instanceHealthSummary = list(
+#'         list(
+#'           instanceName = "string",
+#'           instanceHealth = "initial"|"healthy"|"unhealthy"|"unused"|"draining"|"unavailable",
+#'           instanceHealthReason = "Lb.RegistrationInProgress"|"Lb.InitialHealthChecking"|"Lb.InternalError"|"Instance.ResponseCodeMismatch"|"Instance.Timeout"|"Instance.FailedHealthChecks"|"Instance.NotRegistered"|"Instance.NotInUse"|"Instance.DeregistrationInProgress"|"Instance.InvalidState"|"Instance.IpUnusable"
+#'         )
+#'       ),
+#'       tlsCertificateSummaries = list(
+#'         list(
+#'           name = "string",
+#'           isAttached = TRUE|FALSE
+#'         )
+#'       ),
+#'       configurationOptions = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5859,6 +9425,34 @@ lightsail_get_load_balancers <- function(pageToken = NULL) {
 #'
 #' @param operationId &#91;required&#93; A GUID used to identify the operation.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_operation(
@@ -5892,18 +9486,50 @@ lightsail_get_operation <- function(operationId) {
 #' Returns information about all operations.
 #' 
 #' Results are returned from oldest to newest, up to a maximum of 200.
-#' Results can be paged by making each subsequent call to `GetOperations`
-#' use the maximum (last) `statusChangedAt` value from the previous
-#' request.
+#' Results can be paged by making each subsequent call to
+#' [`get_operations`][lightsail_get_operations] use the maximum (last)
+#' `statusChangedAt` value from the previous request.
 #'
 #' @usage
 #' lightsail_get_operations(pageToken)
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetOperations` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_operations`][lightsail_get_operations] request. If your results
+#' are paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5944,10 +9570,43 @@ lightsail_get_operations <- function(pageToken = NULL) {
 #' @param resourceName &#91;required&#93; The name of the resource for which you are requesting information.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetOperationsForResource`
+#' To get a page token, perform an initial
+#' [`get_operations_for_resource`][lightsail_get_operations_for_resource]
 #' request. If your results are paginated, the response will return a next
 #' page token that you can specify as the page token in a subsequent
 #' request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   ),
+#'   nextPageCount = "string",
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -5995,6 +9654,33 @@ lightsail_get_operations_for_resource <- function(resourceName, pageToken = NULL
 #' for databases in your get regions request. Availability Zones are
 #' indicated with a letter (e.g., `us-east-2a`).
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   regions = list(
+#'     list(
+#'       continentCode = "string",
+#'       description = "string",
+#'       displayName = "string",
+#'       name = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2",
+#'       availabilityZones = list(
+#'         list(
+#'           zoneName = "string",
+#'           state = "string"
+#'         )
+#'       ),
+#'       relationalDatabaseAvailabilityZones = list(
+#'         list(
+#'           zoneName = "string",
+#'           state = "string"
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_regions(
@@ -6032,6 +9718,72 @@ lightsail_get_regions <- function(includeAvailabilityZones = NULL, includeRelati
 #' lightsail_get_relational_database(relationalDatabaseName)
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of the database that you are looking up.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   relationalDatabase = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     relationalDatabaseBlueprintId = "string",
+#'     relationalDatabaseBundleId = "string",
+#'     masterDatabaseName = "string",
+#'     hardware = list(
+#'       cpuCount = 123,
+#'       diskSizeInGb = 123,
+#'       ramSizeInGb = 123.0
+#'     ),
+#'     state = "string",
+#'     secondaryAvailabilityZone = "string",
+#'     backupRetentionEnabled = TRUE|FALSE,
+#'     pendingModifiedValues = list(
+#'       masterUserPassword = "string",
+#'       engineVersion = "string",
+#'       backupRetentionEnabled = TRUE|FALSE
+#'     ),
+#'     engine = "string",
+#'     engineVersion = "string",
+#'     latestRestorableTime = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     masterUsername = "string",
+#'     parameterApplyStatus = "string",
+#'     preferredBackupWindow = "string",
+#'     preferredMaintenanceWindow = "string",
+#'     publiclyAccessible = TRUE|FALSE,
+#'     masterEndpoint = list(
+#'       port = 123,
+#'       address = "string"
+#'     ),
+#'     pendingMaintenanceActions = list(
+#'       list(
+#'         action = "string",
+#'         description = "string",
+#'         currentApplyDate = as.POSIXct(
+#'           "2015-01-01"
+#'         )
+#'       )
+#'     ),
+#'     caCertificateIdentifier = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6075,9 +9827,28 @@ lightsail_get_relational_database <- function(relationalDatabaseName) {
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
 #' To get a page token, perform an initial
-#' `GetRelationalDatabaseBlueprints` request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' [`get_relational_database_blueprints`][lightsail_get_relational_database_blueprints]
+#' request. If your results are paginated, the response will return a next
+#' page token that you can specify as the page token in a subsequent
+#' request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   blueprints = list(
+#'     list(
+#'       blueprintId = "string",
+#'       engine = "mysql",
+#'       engineVersion = "string",
+#'       engineDescription = "string",
+#'       engineVersionDescription = "string",
+#'       isEngineDefault = TRUE|FALSE
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6120,10 +9891,32 @@ lightsail_get_relational_database_blueprints <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetRelationalDatabaseBundles`
+#' To get a page token, perform an initial
+#' [`get_relational_database_bundles`][lightsail_get_relational_database_bundles]
 #' request. If your results are paginated, the response will return a next
 #' page token that you can specify as the page token in a subsequent
 #' request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   bundles = list(
+#'     list(
+#'       bundleId = "string",
+#'       name = "string",
+#'       price = 123.0,
+#'       ramSizeInGb = 123.0,
+#'       diskSizeInGb = 123,
+#'       transferPerMonthInGb = 123,
+#'       cpuCount = 123,
+#'       isEncrypted = TRUE|FALSE,
+#'       isActive = TRUE|FALSE
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6170,10 +9963,31 @@ lightsail_get_relational_database_bundles <- function(pageToken = NULL) {
 #' The minimum is 1 and the maximum is 14 days (20160 minutes).
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetRelationalDatabaseEvents`
+#' To get a page token, perform an initial
+#' [`get_relational_database_events`][lightsail_get_relational_database_events]
 #' request. If your results are paginated, the response will return a next
 #' page token that you can specify as the page token in a subsequent
 #' request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   relationalDatabaseEvents = list(
+#'     list(
+#'       resource = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       message = "string",
+#'       eventCategories = list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6247,10 +10061,28 @@ lightsail_get_relational_database_events <- function(relationalDatabaseName, dur
 #' @param pageToken The token to advance to the next or previous page of results from your
 #' request.
 #' 
-#' To get a page token, perform an initial `GetRelationalDatabaseLogEvents`
+#' To get a page token, perform an initial
+#' [`get_relational_database_log_events`][lightsail_get_relational_database_log_events]
 #' request. If your results are paginated, the response will return a next
 #' forward token and/or next backward token that you can specify as the
 #' page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   resourceLogEvents = list(
+#'     list(
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       message = "string"
+#'     )
+#'   ),
+#'   nextBackwardToken = "string",
+#'   nextForwardToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6300,6 +10132,16 @@ lightsail_get_relational_database_log_events <- function(relationalDatabaseName,
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of your database for which to get log streams.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   logStreams = list(
+#'     "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_relational_database_log_streams(
@@ -6334,9 +10176,10 @@ lightsail_get_relational_database_log_streams <- function(relationalDatabaseName
 #' Returns the current, previous, or pending versions of the master user
 #' password for a Lightsail database.
 #' 
-#' The `GetRelationalDatabaseMasterUserPassword` operation supports
-#' tag-based access control via resource tags applied to the resource
-#' identified by relationalDatabaseName.
+#' The
+#' [`get_relational_database_master_user_password`][lightsail_get_relational_database_master_user_password]
+#' operation supports tag-based access control via resource tags applied to
+#' the resource identified by relationalDatabaseName.
 #'
 #' @usage
 #' lightsail_get_relational_database_master_user_password(
@@ -6352,6 +10195,17 @@ lightsail_get_relational_database_log_streams <- function(relationalDatabaseName
 #' available.
 #' 
 #' Default: `CURRENT`
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   masterUserPassword = "string",
+#'   createdAt = as.POSIXct(
+#'     "2015-01-01"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6500,6 +10354,27 @@ lightsail_get_relational_database_master_user_password <- function(relationalDat
 #' -   `SampleCount` - The count, or number, of data points used for the
 #'     statistical calculation.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   metricName = "CPUUtilization"|"DatabaseConnections"|"DiskQueueDepth"|"FreeStorageSpace"|"NetworkReceiveThroughput"|"NetworkTransmitThroughput",
+#'   metricData = list(
+#'     list(
+#'       average = 123.0,
+#'       maximum = 123.0,
+#'       minimum = 123.0,
+#'       sampleCount = 123.0,
+#'       sum = 123.0,
+#'       timestamp = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       unit = "Seconds"|"Microseconds"|"Milliseconds"|"Bytes"|"Kilobytes"|"Megabytes"|"Gigabytes"|"Terabytes"|"Bits"|"Kilobits"|"Megabits"|"Gigabits"|"Terabits"|"Percent"|"Count"|"Bytes/Second"|"Kilobytes/Second"|"Megabytes/Second"|"Gigabytes/Second"|"Terabytes/Second"|"Bits/Second"|"Kilobits/Second"|"Megabits/Second"|"Gigabits/Second"|"Terabits/Second"|"Count/Second"|"None"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_relational_database_metric_data(
@@ -6559,9 +10434,30 @@ lightsail_get_relational_database_metric_data <- function(relationalDatabaseName
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
 #' To get a page token, perform an initial
-#' `GetRelationalDatabaseParameters` request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' [`get_relational_database_parameters`][lightsail_get_relational_database_parameters]
+#' request. If your results are paginated, the response will return a next
+#' page token that you can specify as the page token in a subsequent
+#' request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   parameters = list(
+#'     list(
+#'       allowedValues = "string",
+#'       applyMethod = "string",
+#'       applyType = "string",
+#'       dataType = "string",
+#'       description = "string",
+#'       isModifiable = TRUE|FALSE,
+#'       parameterName = "string",
+#'       parameterValue = "string"
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6604,6 +10500,40 @@ lightsail_get_relational_database_parameters <- function(relationalDatabaseName,
 #'
 #' @param relationalDatabaseSnapshotName &#91;required&#93; The name of the database snapshot for which to get information.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   relationalDatabaseSnapshot = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     engine = "string",
+#'     engineVersion = "string",
+#'     sizeInGb = 123,
+#'     state = "string",
+#'     fromRelationalDatabaseName = "string",
+#'     fromRelationalDatabaseArn = "string",
+#'     fromRelationalDatabaseBundleId = "string",
+#'     fromRelationalDatabaseBlueprintId = "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_relational_database_snapshot(
@@ -6643,10 +10573,48 @@ lightsail_get_relational_database_snapshot <- function(relationalDatabaseSnapsho
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetRelationalDatabaseSnapshots`
+#' To get a page token, perform an initial
+#' [`get_relational_database_snapshots`][lightsail_get_relational_database_snapshots]
 #' request. If your results are paginated, the response will return a next
 #' page token that you can specify as the page token in a subsequent
 #' request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   relationalDatabaseSnapshots = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       engine = "string",
+#'       engineVersion = "string",
+#'       sizeInGb = 123,
+#'       state = "string",
+#'       fromRelationalDatabaseName = "string",
+#'       fromRelationalDatabaseArn = "string",
+#'       fromRelationalDatabaseBundleId = "string",
+#'       fromRelationalDatabaseBlueprintId = "string"
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6685,10 +10653,80 @@ lightsail_get_relational_database_snapshots <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetRelationalDatabases`
+#' To get a page token, perform an initial
+#' [`get_relational_databases`][lightsail_get_relational_databases]
 #' request. If your results are paginated, the response will return a next
 #' page token that you can specify as the page token in a subsequent
 #' request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   relationalDatabases = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       tags = list(
+#'         list(
+#'           key = "string",
+#'           value = "string"
+#'         )
+#'       ),
+#'       relationalDatabaseBlueprintId = "string",
+#'       relationalDatabaseBundleId = "string",
+#'       masterDatabaseName = "string",
+#'       hardware = list(
+#'         cpuCount = 123,
+#'         diskSizeInGb = 123,
+#'         ramSizeInGb = 123.0
+#'       ),
+#'       state = "string",
+#'       secondaryAvailabilityZone = "string",
+#'       backupRetentionEnabled = TRUE|FALSE,
+#'       pendingModifiedValues = list(
+#'         masterUserPassword = "string",
+#'         engineVersion = "string",
+#'         backupRetentionEnabled = TRUE|FALSE
+#'       ),
+#'       engine = "string",
+#'       engineVersion = "string",
+#'       latestRestorableTime = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       masterUsername = "string",
+#'       parameterApplyStatus = "string",
+#'       preferredBackupWindow = "string",
+#'       preferredMaintenanceWindow = "string",
+#'       publiclyAccessible = TRUE|FALSE,
+#'       masterEndpoint = list(
+#'         port = 123,
+#'         address = "string"
+#'       ),
+#'       pendingMaintenanceActions = list(
+#'         list(
+#'           action = "string",
+#'           description = "string",
+#'           currentApplyDate = as.POSIXct(
+#'             "2015-01-01"
+#'           )
+#'         )
+#'       ),
+#'       caCertificateIdentifier = "string"
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6727,6 +10765,29 @@ lightsail_get_relational_databases <- function(pageToken = NULL) {
 #'
 #' @param staticIpName &#91;required&#93; The name of the static IP in Lightsail.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   staticIp = list(
+#'     name = "string",
+#'     arn = "string",
+#'     supportCode = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     ipAddress = "string",
+#'     attachedTo = "string",
+#'     isAttached = TRUE|FALSE
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_static_ip(
@@ -6764,9 +10825,36 @@ lightsail_get_static_ip <- function(staticIpName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetStaticIps` request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial
+#' [`get_static_ips`][lightsail_get_static_ips] request. If your results
+#' are paginated, the response will return a next page token that you can
+#' specify as the page token in a subsequent request.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   staticIps = list(
+#'     list(
+#'       name = "string",
+#'       arn = "string",
+#'       supportCode = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       ipAddress = "string",
+#'       attachedTo = "string",
+#'       isAttached = TRUE|FALSE
+#'     )
+#'   ),
+#'   nextPageToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6806,6 +10894,34 @@ lightsail_get_static_ips <- function(pageToken = NULL) {
 #' @param keyPairName &#91;required&#93; The name of the key pair for which you want to import the public key.
 #' @param publicKeyBase64 &#91;required&#93; A base64-encoded public key of the `ssh-rsa` type.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$import_key_pair(
@@ -6842,6 +10958,14 @@ lightsail_import_key_pair <- function(keyPairName, publicKeyBase64) {
 #' @usage
 #' lightsail_is_vpc_peered()
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   isPeered = TRUE|FALSE
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$is_vpc_peered()
@@ -6876,15 +11000,44 @@ lightsail_is_vpc_peered <- function() {
 #' IP addresses allowed to connect to the instance through the ports, and
 #' the protocol.
 #' 
-#' The `OpenInstancePublicPorts` action supports tag-based access control
-#' via resource tags applied to the resource identified by `instanceName`.
-#' For more information, see the Lightsail Dev Guide.
+#' The [`open_instance_public_ports`][lightsail_open_instance_public_ports]
+#' action supports tag-based access control via resource tags applied to
+#' the resource identified by `instanceName`. For more information, see the
+#' Lightsail Dev Guide.
 #'
 #' @usage
 #' lightsail_open_instance_public_ports(portInfo, instanceName)
 #'
 #' @param portInfo &#91;required&#93; An object to describe the ports to open for the specified instance.
 #' @param instanceName &#91;required&#93; The name of the instance for which to open ports.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -6931,6 +11084,34 @@ lightsail_open_instance_public_ports <- function(portInfo, instanceName) {
 #'
 #' @usage
 #' lightsail_peer_vpc()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7064,8 +11245,8 @@ lightsail_peer_vpc <- function() {
 #' if notifications are not enabled for the alarm using the
 #' `notificationEnabled` paramater.
 #' 
-#' Use the `CreateContactMethod` action to configure a contact protocol in
-#' an AWS Region.
+#' Use the [`create_contact_method`][lightsail_create_contact_method]
+#' action to configure a contact protocol in an AWS Region.
 #' @param notificationTriggers The alarm states that trigger a notification.
 #' 
 #' An alarm has the following possible states:
@@ -7097,6 +11278,36 @@ lightsail_peer_vpc <- function() {
 #' 
 #' Notifications are enabled by default if you don't specify this
 #' parameter.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7148,13 +11359,16 @@ lightsail_put_alarm <- function(alarmName, metricName, monitoredResourceName, co
 #' IP addresses allowed to connect to the instance through the ports, and
 #' the protocol. This action also closes all currently open ports that are
 #' not included in the request. Include all of the ports and the protocols
-#' you want to open in your `PutInstancePublicPorts`request. Or use the
-#' `OpenInstancePublicPorts` action to open ports without closing currently
-#' open ports.
+#' you want to open in your
+#' [`put_instance_public_ports`][lightsail_put_instance_public_ports]request.
+#' Or use the
+#' [`open_instance_public_ports`][lightsail_open_instance_public_ports]
+#' action to open ports without closing currently open ports.
 #' 
-#' The `PutInstancePublicPorts` action supports tag-based access control
-#' via resource tags applied to the resource identified by `instanceName`.
-#' For more information, see the Lightsail Dev Guide.
+#' The [`put_instance_public_ports`][lightsail_put_instance_public_ports]
+#' action supports tag-based access control via resource tags applied to
+#' the resource identified by `instanceName`. For more information, see the
+#' Lightsail Dev Guide.
 #'
 #' @usage
 #' lightsail_put_instance_public_ports(portInfos, instanceName)
@@ -7162,6 +11376,34 @@ lightsail_put_alarm <- function(alarmName, metricName, monitoredResourceName, co
 #' @param portInfos &#91;required&#93; An array of objects to describe the ports to open for the specified
 #' instance.
 #' @param instanceName &#91;required&#93; The name of the instance for which to open ports.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7217,6 +11459,36 @@ lightsail_put_instance_public_ports <- function(portInfos, instanceName) {
 #'
 #' @param instanceName &#91;required&#93; The name of the instance to reboot.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$reboot_instance(
@@ -7258,6 +11530,36 @@ lightsail_reboot_instance <- function(instanceName) {
 #' lightsail_reboot_relational_database(relationalDatabaseName)
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of your database to reboot.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7308,11 +11610,12 @@ lightsail_reboot_relational_database <- function(relationalDatabaseName) {
 #' Use a descriptive label that you can use to track the different versions
 #' of your registered container images.
 #' 
-#' Use the `GetContainerImages` action to return the container images
-#' registered to a Lightsail container service. The label is the
-#' `&lt;imagelabel&gt;` portion of the following image name example:
+#' Use the [`get_container_images`][lightsail_get_container_images] action
+#' to return the container images registered to a Lightsail container
+#' service. The label is the `<imagelabel>` portion of the following image
+#' name example:
 #' 
-#' -   `:container-service-1.&lt;imagelabel&gt;.1`
+#' -   `:container-service-1.<imagelabel>.1`
 #' 
 #' If the name of your container service is `mycontainerservice`, and the
 #' label that you specify is `mystaticwebsite`, then the name of the
@@ -7326,6 +11629,20 @@ lightsail_reboot_relational_database <- function(relationalDatabaseName) {
 #' image will be `2`. If you push and register another container image, the
 #' version number will be `3`, and so on.
 #' @param digest &#91;required&#93; The digest of the container image to be registered.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   containerImage = list(
+#'     image = "string",
+#'     digest = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7365,6 +11682,36 @@ lightsail_register_container_image <- function(serviceName, label, digest) {
 #' lightsail_release_static_ip(staticIpName)
 #'
 #' @param staticIpName &#91;required&#93; The name of the static IP to delete.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7408,8 +11755,40 @@ lightsail_release_static_ip <- function(staticIpName) {
 #'
 #' @param distributionName The name of the distribution for which to reset cache.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   status = "string",
+#'   createTime = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7464,6 +11843,36 @@ lightsail_reset_distribution_cache <- function(distributionName = NULL) {
 #'
 #' @param protocol &#91;required&#93; The protocol to verify, such as `Email` or `SMS` (text messaging).
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$send_contact_method_verification(
@@ -7511,6 +11920,36 @@ lightsail_send_contact_method_verification <- function(protocol) {
 #'
 #' @param instanceName &#91;required&#93; The name of the instance (a virtual private server) to start.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$start_instance(
@@ -7553,6 +11992,36 @@ lightsail_start_instance <- function(instanceName) {
 #' lightsail_start_relational_database(relationalDatabaseName)
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of your database to start.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7606,6 +12075,36 @@ lightsail_start_relational_database <- function(relationalDatabaseName) {
 #' `stopping` state. In any other state, your instance should stop normally
 #' without adding this parameter to your API request.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$stop_instance(
@@ -7651,6 +12150,36 @@ lightsail_stop_instance <- function(instanceName, force = NULL) {
 #' @param relationalDatabaseName &#91;required&#93; The name of your database to stop.
 #' @param relationalDatabaseSnapshotName The name of your new database snapshot to be created before stopping
 #' your database.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7699,6 +12228,36 @@ lightsail_stop_relational_database <- function(relationalDatabaseName, relationa
 #' @param resourceArn The Amazon Resource Name (ARN) of the resource to which you want to add
 #' a tag.
 #' @param tags &#91;required&#93; The tag key and optional value.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7763,6 +12322,36 @@ lightsail_tag_resource <- function(resourceName, resourceArn = NULL, tags) {
 #' 
 #' -   `OK` - The metric is within the defined threshold.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$test_alarm(
@@ -7798,6 +12387,34 @@ lightsail_test_alarm <- function(alarmName, state) {
 #'
 #' @usage
 #' lightsail_unpeer_vpc()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7842,6 +12459,36 @@ lightsail_unpeer_vpc <- function() {
 #' @param resourceArn The Amazon Resource Name (ARN) of the resource from which you want to
 #' remove a tag.
 #' @param tagKeys &#91;required&#93; The tag keys to delete from the specified resource.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7894,8 +12541,9 @@ lightsail_untag_resource <- function(resourceName, resourceArn = NULL, tagKeys) 
 #' monthly price of your container service, multiply the base price of the
 #' `power` with the `scale` (the number of nodes) of the service.
 #' 
-#' Use the `GetContainerServicePowers` action to view the specifications of
-#' each power option.
+#' Use the
+#' [`get_container_service_powers`][lightsail_get_container_service_powers]
+#' action to view the specifications of each power option.
 #' @param scale The scale for the container service.
 #' 
 #' The scale specifies the allocated compute nodes of the container
@@ -7917,11 +12565,116 @@ lightsail_untag_resource <- function(resourceName, resourceArn = NULL, tagKeys) 
 #' 
 #' You must create and validate an SSL/TLS certificate before you can use
 #' public domain names with your container service. Use the
-#' `CreateCertificate` action to create a certificate for the public domain
-#' names you want to use with your container service.
+#' [`create_certificate`][lightsail_create_certificate] action to create a
+#' certificate for the public domain names you want to use with your
+#' container service.
 #' 
 #' You can specify public domain names using a string to array map as shown
 #' in the example later on this page.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   containerService = list(
+#'     containerServiceName = "string",
+#'     arn = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     tags = list(
+#'       list(
+#'         key = "string",
+#'         value = "string"
+#'       )
+#'     ),
+#'     power = "nano"|"micro"|"small"|"medium"|"large"|"xlarge",
+#'     powerId = "string",
+#'     state = "PENDING"|"READY"|"RUNNING"|"UPDATING"|"DELETING"|"DISABLED",
+#'     scale = 123,
+#'     currentDeployment = list(
+#'       version = 123,
+#'       state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'       containers = list(
+#'         list(
+#'           image = "string",
+#'           command = list(
+#'             "string"
+#'           ),
+#'           environment = list(
+#'             "string"
+#'           ),
+#'           ports = list(
+#'             "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'           )
+#'         )
+#'       ),
+#'       publicEndpoint = list(
+#'         containerName = "string",
+#'         containerPort = 123,
+#'         healthCheck = list(
+#'           healthyThreshold = 123,
+#'           unhealthyThreshold = 123,
+#'           timeoutSeconds = 123,
+#'           intervalSeconds = 123,
+#'           path = "string",
+#'           successCodes = "string"
+#'         )
+#'       ),
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     ),
+#'     nextDeployment = list(
+#'       version = 123,
+#'       state = "ACTIVATING"|"ACTIVE"|"INACTIVE"|"FAILED",
+#'       containers = list(
+#'         list(
+#'           image = "string",
+#'           command = list(
+#'             "string"
+#'           ),
+#'           environment = list(
+#'             "string"
+#'           ),
+#'           ports = list(
+#'             "HTTP"|"HTTPS"|"TCP"|"UDP"
+#'           )
+#'         )
+#'       ),
+#'       publicEndpoint = list(
+#'         containerName = "string",
+#'         containerPort = 123,
+#'         healthCheck = list(
+#'           healthyThreshold = 123,
+#'           unhealthyThreshold = 123,
+#'           timeoutSeconds = 123,
+#'           intervalSeconds = 123,
+#'           path = "string",
+#'           successCodes = "string"
+#'         )
+#'       ),
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       )
+#'     ),
+#'     isDisabled = TRUE|FALSE,
+#'     principalArn = "string",
+#'     privateDomainName = "string",
+#'     publicDomainNames = list(
+#'       list(
+#'         "string"
+#'       )
+#'     ),
+#'     url = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -7974,8 +12727,8 @@ lightsail_update_container_service <- function(serviceName, power = NULL, scale 
 #'
 #' @param distributionName &#91;required&#93; The name of the distribution to update.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
 #' @param origin An object that describes the origin resource for the distribution, such
 #' as a Lightsail instance or load balancer.
 #' 
@@ -7991,6 +12744,34 @@ lightsail_update_container_service <- function(serviceName, power = NULL, scale 
 #' @param cacheBehaviors An array of objects that describe the per-path cache behavior for the
 #' distribution.
 #' @param isEnabled Indicates whether to enable the distribution.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -8074,7 +12855,8 @@ lightsail_update_distribution <- function(distributionName, origin = NULL, defau
 #' 
 #' You can update your distribution's bundle only one time within your
 #' monthly AWS billing cycle. To determine if you can update your
-#' distribution's bundle, use the `GetDistributions` action. The
+#' distribution's bundle, use the
+#' [`get_distributions`][lightsail_get_distributions] action. The
 #' `ableToUpdateBundle` parameter in the result will indicate whether you
 #' can currently update your distribution's bundle.
 #'
@@ -8083,12 +12865,40 @@ lightsail_update_distribution <- function(distributionName, origin = NULL, defau
 #'
 #' @param distributionName The name of the distribution for which to update the bundle.
 #' 
-#' Use the `GetDistributions` action to get a list of distribution names
-#' that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get
+#' a list of distribution names that you can specify.
 #' @param bundleId The bundle ID of the new bundle to apply to your distribution.
 #' 
-#' Use the `GetDistributionBundles` action to get a list of distribution
-#' bundle IDs that you can specify.
+#' Use the [`get_distribution_bundles`][lightsail_get_distribution_bundles]
+#' action to get a list of distribution bundle IDs that you can specify.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operation = list(
+#'     id = "string",
+#'     resourceName = "string",
+#'     resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     location = list(
+#'       availabilityZone = "string",
+#'       regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'     ),
+#'     isTerminal = TRUE|FALSE,
+#'     operationDetails = "string",
+#'     operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'     status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'     statusChangedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     errorCode = "string",
+#'     errorDetails = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -8133,6 +12943,36 @@ lightsail_update_distribution_bundle <- function(distributionName = NULL, bundle
 #' @param domainName &#91;required&#93; The name of the domain recordset to update.
 #' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about the domain
 #' entry.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -8189,6 +13029,36 @@ lightsail_update_domain_entry <- function(domainName, domainEntry) {
 #' `my-load-balancer`.
 #' @param attributeName &#91;required&#93; The name of the attribute you want to update. Valid values are below.
 #' @param attributeValue &#91;required&#93; The value that you want to specify for the attribute name.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -8308,6 +13178,36 @@ lightsail_update_load_balancer_attribute <- function(loadBalancerName, attribute
 #' Default: `false`
 #' @param caCertificateIdentifier Indicates the certificate that needs to be associated with the database.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_relational_database(
@@ -8370,6 +13270,36 @@ lightsail_update_relational_database <- function(relationalDatabaseName, masterU
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of your database for which to update parameters.
 #' @param parameters &#91;required&#93; The database parameters to update.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   operations = list(
+#'     list(
+#'       id = "string",
+#'       resourceName = "string",
+#'       resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       location = list(
+#'         availabilityZone = "string",
+#'         regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+#'       ),
+#'       isTerminal = TRUE|FALSE,
+#'       operationDetails = "string",
+#'       operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+#'       status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+#'       statusChangedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       errorCode = "string",
+#'       errorDetails = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```

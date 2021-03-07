@@ -11,8 +11,8 @@ lightsail_get_distribution_metric_data(distributionName, metricName,
 \arguments{
 \item{distributionName}{[required] The name of the distribution for which to get metric data.
 
-Use the \code{GetDistributions} action to get a list of distribution names
-that you can specify.}
+Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get
+a list of distribution names that you can specify.}
 
 \item{metricName}{[required] The metric for which you want to return information.
 
@@ -123,6 +123,25 @@ resources.
 \item \code{SampleCount} - The count, or number, of data points used for the
 statistical calculation.
 }}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  metricName = "Requests"|"BytesDownloaded"|"BytesUploaded"|"TotalErrorRate"|"Http4xxErrorRate"|"Http5xxErrorRate",
+  metricData = list(
+    list(
+      average = 123.0,
+      maximum = 123.0,
+      minimum = 123.0,
+      sampleCount = 123.0,
+      sum = 123.0,
+      timestamp = as.POSIXct(
+        "2015-01-01"
+      ),
+      unit = "Seconds"|"Microseconds"|"Milliseconds"|"Bytes"|"Kilobytes"|"Megabytes"|"Gigabytes"|"Terabytes"|"Bits"|"Kilobits"|"Megabits"|"Gigabits"|"Terabits"|"Percent"|"Count"|"Bytes/Second"|"Kilobytes/Second"|"Megabytes/Second"|"Gigabytes/Second"|"Terabytes/Second"|"Bits/Second"|"Kilobits/Second"|"Megabits/Second"|"Gigabits/Second"|"Terabits/Second"|"Count/Second"|"None"
+    )
+  )
+)
+}
 }
 \description{
 Returns the data points of a specific metric for an Amazon Lightsail

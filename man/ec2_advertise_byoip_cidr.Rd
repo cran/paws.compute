@@ -17,6 +17,17 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  ByoipCidr = list(
+    Cidr = "string",
+    Description = "string",
+    StatusMessage = "string",
+    State = "advertised"|"deprovisioned"|"failed-deprovision"|"failed-provision"|"pending-deprovision"|"pending-provision"|"provisioned"|"provisioned-not-publicly-advertisable"
+  )
+)
+}
+}
 \description{
 Advertises an IPv4 or IPv6 address range that is provisioned for use
 with your AWS resources through bring your own IP addresses (BYOIP).
@@ -33,7 +44,8 @@ current location and start advertising it through AWS.
 It can take a few minutes before traffic to the specified addresses
 starts routing to AWS because of BGP propagation delays.
 
-To stop advertising the BYOIP CIDR, use WithdrawByoipCidr.
+To stop advertising the BYOIP CIDR, use
+\code{\link[=ec2_withdraw_byoip_cidr]{withdraw_byoip_cidr}}.
 }
 \section{Request syntax}{
 \preformatted{svc$advertise_byoip_cidr(

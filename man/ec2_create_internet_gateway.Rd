@@ -14,9 +14,31 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  InternetGateway = list(
+    Attachments = list(
+      list(
+        State = "attaching"|"attached"|"detaching"|"detached",
+        VpcId = "string"
+      )
+    ),
+    InternetGatewayId = "string",
+    OwnerId = "string",
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Creates an internet gateway for use with a VPC. After creating the
-internet gateway, you attach it to a VPC using AttachInternetGateway.
+internet gateway, you attach it to a VPC using
+\code{\link[=ec2_attach_internet_gateway]{attach_internet_gateway}}.
 
 For more information about your VPC and internet gateway, see the
 \href{https://docs.aws.amazon.com/vpc/latest/userguide/}{Amazon Virtual Private Cloud User Guide}.

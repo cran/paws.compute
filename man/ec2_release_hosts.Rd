@@ -10,6 +10,23 @@ ec2_release_hosts(HostIds)
 \arguments{
 \item{HostIds}{[required] The IDs of the Dedicated Hosts to release.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Successful = list(
+    "string"
+  ),
+  Unsuccessful = list(
+    list(
+      Error = list(
+        Code = "string",
+        Message = "string"
+      ),
+      ResourceId = "string"
+    )
+  )
+)
+}
+}
 \description{
 When you no longer want to use an On-Demand Dedicated Host it can be
 released. On-Demand billing is stopped and the host goes into \code{released}
@@ -23,7 +40,8 @@ stop counting toward your limit and you may receive capacity errors when
 trying to allocate new Dedicated Hosts. Wait a few minutes and then try
 again.
 
-Released hosts still appear in a DescribeHosts response.
+Released hosts still appear in a \code{\link[=ec2_describe_hosts]{describe_hosts}}
+response.
 }
 \section{Request syntax}{
 \preformatted{svc$release_hosts(

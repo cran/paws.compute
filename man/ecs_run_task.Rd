@@ -15,9 +15,10 @@ ecs_run_task(capacityProviderStrategy, cluster, count,
 A capacity provider strategy consists of one or more capacity providers
 along with the \code{base} and \code{weight} to assign to them. A capacity
 provider must be associated with the cluster to be used in a capacity
-provider strategy. The PutClusterCapacityProviders API is used to
-associate a capacity provider with a cluster. Only capacity providers
-with an \code{ACTIVE} or \code{UPDATING} status can be used.
+provider strategy. The
+\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
+API is used to associate a capacity provider with a cluster. Only
+capacity providers with an \code{ACTIVE} or \code{UPDATING} status can be used.
 
 If a \code{capacityProviderStrategy} is specified, the \code{launchType} parameter
 must be omitted. If no \code{capacityProviderStrategy} or \code{launchType} is
@@ -26,16 +27,19 @@ used.
 
 If specifying a capacity provider that uses an Auto Scaling group, the
 capacity provider must already be created. New capacity providers can be
-created with the CreateCapacityProvider API operation.
+created with the
+\code{\link[=ecs_create_capacity_provider]{create_capacity_provider}} API
+operation.
 
 To use a AWS Fargate capacity provider, specify either the \code{FARGATE} or
 \code{FARGATE_SPOT} capacity providers. The AWS Fargate capacity providers
 are available to all accounts and only need to be associated with a
 cluster to be used.
 
-The PutClusterCapacityProviders API operation is used to update the list
-of available capacity providers for a cluster after the cluster is
-created.}
+The
+\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
+API operation is used to update the list of available capacity providers
+for a cluster after the cluster is created.}
 
 \item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster on
 which to run your task. If you do not specify a cluster, the default
@@ -92,7 +96,8 @@ in the \emph{Amazon Elastic Container Service Developer Guide}.}
 \item{propagateTags}{Specifies whether to propagate the tags from the task definition to the
 task. If no value is specified, the tags are not propagated. Tags can
 only be propagated to the task during task creation. To add tags to a
-task after task creation, use the TagResource API action.
+task after task creation, use the \code{\link[=ecs_tag_resource]{tag_resource}} API
+action.
 
 An error will be received if you specify the \code{SERVICE} option when
 running a task.}
@@ -103,9 +108,9 @@ running a task.}
 automatically trigger a task to run a batch process job, you could apply
 a unique identifier for that job to your task with the \code{startedBy}
 parameter. You can then identify which tasks belong to that job by
-filtering the results of a ListTasks call with the \code{startedBy} value. Up
-to 36 letters (uppercase and lowercase), numbers, hyphens, and
-underscores are allowed.
+filtering the results of a \code{\link[=ecs_list_tasks]{list_tasks}} call with the
+\code{startedBy} value. Up to 36 letters (uppercase and lowercase), numbers,
+hyphens, and underscores are allowed.
 
 If a task is started by an Amazon ECS service, then the \code{startedBy}
 parameter contains the deployment ID of the service that starts it.}
@@ -125,7 +130,7 @@ have only one value.
 resources, remember that other services may have restrictions on
 allowed characters. Generally allowed characters are: letters,
 numbers, and spaces representable in UTF-8, and the following
-characters: + - = . \\_ : / @.
+characters: + - = . _ : / @.
 \item Tag keys and values are case-sensitive.
 \item Do not use \verb{aws:}, \verb{AWS:}, or any upper or lowercase combination of
 such as a prefix for either keys or values as it is reserved for AWS
@@ -138,6 +143,174 @@ limit.
 definition to run. If a \code{revision} is not specified, the latest \code{ACTIVE}
 revision is used.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  tasks = list(
+    list(
+      attachments = list(
+        list(
+          id = "string",
+          type = "string",
+          status = "string",
+          details = list(
+            list(
+              name = "string",
+              value = "string"
+            )
+          )
+        )
+      ),
+      attributes = list(
+        list(
+          name = "string",
+          value = "string",
+          targetType = "container-instance",
+          targetId = "string"
+        )
+      ),
+      availabilityZone = "string",
+      capacityProviderName = "string",
+      clusterArn = "string",
+      connectivity = "CONNECTED"|"DISCONNECTED",
+      connectivityAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      containerInstanceArn = "string",
+      containers = list(
+        list(
+          containerArn = "string",
+          taskArn = "string",
+          name = "string",
+          image = "string",
+          imageDigest = "string",
+          runtimeId = "string",
+          lastStatus = "string",
+          exitCode = 123,
+          reason = "string",
+          networkBindings = list(
+            list(
+              bindIP = "string",
+              containerPort = 123,
+              hostPort = 123,
+              protocol = "tcp"|"udp"
+            )
+          ),
+          networkInterfaces = list(
+            list(
+              attachmentId = "string",
+              privateIpv4Address = "string",
+              ipv6Address = "string"
+            )
+          ),
+          healthStatus = "HEALTHY"|"UNHEALTHY"|"UNKNOWN",
+          cpu = "string",
+          memory = "string",
+          memoryReservation = "string",
+          gpuIds = list(
+            "string"
+          )
+        )
+      ),
+      cpu = "string",
+      createdAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      desiredStatus = "string",
+      executionStoppedAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      group = "string",
+      healthStatus = "HEALTHY"|"UNHEALTHY"|"UNKNOWN",
+      inferenceAccelerators = list(
+        list(
+          deviceName = "string",
+          deviceType = "string"
+        )
+      ),
+      lastStatus = "string",
+      launchType = "EC2"|"FARGATE",
+      memory = "string",
+      overrides = list(
+        containerOverrides = list(
+          list(
+            name = "string",
+            command = list(
+              "string"
+            ),
+            environment = list(
+              list(
+                name = "string",
+                value = "string"
+              )
+            ),
+            environmentFiles = list(
+              list(
+                value = "string",
+                type = "s3"
+              )
+            ),
+            cpu = 123,
+            memory = 123,
+            memoryReservation = 123,
+            resourceRequirements = list(
+              list(
+                value = "string",
+                type = "GPU"|"InferenceAccelerator"
+              )
+            )
+          )
+        ),
+        cpu = "string",
+        inferenceAcceleratorOverrides = list(
+          list(
+            deviceName = "string",
+            deviceType = "string"
+          )
+        ),
+        executionRoleArn = "string",
+        memory = "string",
+        taskRoleArn = "string"
+      ),
+      platformVersion = "string",
+      pullStartedAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      pullStoppedAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      startedAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      startedBy = "string",
+      stopCode = "TaskFailedToStart"|"EssentialContainerExited"|"UserInitiated",
+      stoppedAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      stoppedReason = "string",
+      stoppingAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      tags = list(
+        list(
+          key = "string",
+          value = "string"
+        )
+      ),
+      taskArn = "string",
+      taskDefinitionArn = "string",
+      version = 123
+    )
+  ),
+  failures = list(
+    list(
+      arn = "string",
+      reason = "string",
+      detail = "string"
+    )
+  )
+)
+}
+}
 \description{
 Starts a new task using the specified task definition.
 
@@ -146,8 +319,8 @@ how Amazon ECS places tasks using placement constraints and placement
 strategies. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/scheduling_tasks.html}{Scheduling Tasks}
 in the \emph{Amazon Elastic Container Service Developer Guide}.
 
-Alternatively, you can use StartTask to use your own scheduler or place
-tasks manually on specific container instances.
+Alternatively, you can use \code{\link[=ecs_start_task]{start_task}} to use your
+own scheduler or place tasks manually on specific container instances.
 
 The Amazon ECS API follows an eventual consistency model, due to the
 distributed nature of the system supporting the API. This means that the

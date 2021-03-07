@@ -86,6 +86,88 @@ code-signing configuration. A code-signing configuration includes a set
 of signing profiles, which define the trusted publishers for this
 function.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  FunctionName = "string",
+  FunctionArn = "string",
+  Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+  Role = "string",
+  Handler = "string",
+  CodeSize = 123,
+  Description = "string",
+  Timeout = 123,
+  MemorySize = 123,
+  LastModified = "string",
+  CodeSha256 = "string",
+  Version = "string",
+  VpcConfig = list(
+    SubnetIds = list(
+      "string"
+    ),
+    SecurityGroupIds = list(
+      "string"
+    ),
+    VpcId = "string"
+  ),
+  DeadLetterConfig = list(
+    TargetArn = "string"
+  ),
+  Environment = list(
+    Variables = list(
+      "string"
+    ),
+    Error = list(
+      ErrorCode = "string",
+      Message = "string"
+    )
+  ),
+  KMSKeyArn = "string",
+  TracingConfig = list(
+    Mode = "Active"|"PassThrough"
+  ),
+  MasterArn = "string",
+  RevisionId = "string",
+  Layers = list(
+    list(
+      Arn = "string",
+      CodeSize = 123,
+      SigningProfileVersionArn = "string",
+      SigningJobArn = "string"
+    )
+  ),
+  State = "Pending"|"Active"|"Inactive"|"Failed",
+  StateReason = "string",
+  StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+  LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+  LastUpdateStatusReason = "string",
+  LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+  FileSystemConfigs = list(
+    list(
+      Arn = "string",
+      LocalMountPath = "string"
+    )
+  ),
+  PackageType = "Zip"|"Image",
+  ImageConfigResponse = list(
+    ImageConfig = list(
+      EntryPoint = list(
+        "string"
+      ),
+      Command = list(
+        "string"
+      ),
+      WorkingDirectory = "string"
+    ),
+    Error = list(
+      ErrorCode = "string",
+      Message = "string"
+    )
+  ),
+  SigningProfileVersionArn = "string",
+  SigningJobArn = "string"
+)
+}
+}
 \description{
 Creates a Lambda function. To create a function, you need a \href{https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html}{deployment package}
 and an \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-permissions.html#lambda-intro-execution-role}{execution role}.
@@ -98,7 +180,8 @@ When you create a function, Lambda provisions an instance of the
 function and its supporting resources. If your function connects to a
 VPC, this process can take a minute or so. During this time, you can't
 invoke or modify the function. The \code{State}, \code{StateReason}, and
-\code{StateReasonCode} fields in the response from GetFunctionConfiguration
+\code{StateReasonCode} fields in the response from
+\code{\link[=lambda_get_function_configuration]{get_function_configuration}}
 indicate when the function is ready to invoke. For more information, see
 \href{https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html}{Function States}.
 
@@ -112,28 +195,32 @@ your function from its initial configuration.
 
 The other parameters let you configure version-specific and
 function-level settings. You can modify version-specific settings later
-with UpdateFunctionConfiguration. Function-level settings apply to both
-the unpublished and published versions of the function, and include tags
-(TagResource) and per-function concurrency limits
-(PutFunctionConcurrency).
+with
+\code{\link[=lambda_update_function_configuration]{update_function_configuration}}.
+Function-level settings apply to both the unpublished and published
+versions of the function, and include tags
+(\code{\link[=lambda_tag_resource]{tag_resource}}) and per-function concurrency
+limits (\code{\link[=lambda_put_function_concurrency]{put_function_concurrency}}).
 
 You can use code signing if your deployment package is a .zip file
 archive. To enable code signing for this function, specify the ARN of a
 code-signing configuration. When a user attempts to deploy a code
-package with UpdateFunctionCode, Lambda checks that the code package has
-a valid signature from a trusted publisher. The code-signing
-configuration includes set set of signing profiles, which define the
-trusted publishers for this function.
+package with \code{\link[=lambda_update_function_code]{update_function_code}},
+Lambda checks that the code package has a valid signature from a trusted
+publisher. The code-signing configuration includes set set of signing
+profiles, which define the trusted publishers for this function.
 
 If another account or an AWS service invokes your function, use
-AddPermission to grant permission by creating a resource-based IAM
-policy. You can grant permissions at the function level, on a version,
-or on an alias.
+\code{\link[=lambda_add_permission]{add_permission}} to grant permission by
+creating a resource-based IAM policy. You can grant permissions at the
+function level, on a version, or on an alias.
 
-To invoke your function directly, use Invoke. To invoke your function in
-response to events in other AWS services, create an event source mapping
-(CreateEventSourceMapping), or configure a function trigger in the other
-service. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html}{Invoking Functions}.
+To invoke your function directly, use \code{\link[=lambda_invoke]{invoke}}. To
+invoke your function in response to events in other AWS services, create
+an event source mapping
+(\code{\link[=lambda_create_event_source_mapping]{create_event_source_mapping}}),
+or configure a function trigger in the other service. For more
+information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html}{Invoking Functions}.
 }
 \section{Request syntax}{
 \preformatted{svc$create_function(

@@ -19,12 +19,37 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  TransitGatewayMulticastDomain = list(
+    TransitGatewayMulticastDomainId = "string",
+    TransitGatewayId = "string",
+    TransitGatewayMulticastDomainArn = "string",
+    OwnerId = "string",
+    Options = list(
+      Igmpv2Support = "enable"|"disable",
+      StaticSourcesSupport = "enable"|"disable",
+      AutoAcceptSharedAssociations = "enable"|"disable"
+    ),
+    State = "pending"|"available"|"deleting"|"deleted",
+    CreationTime = as.POSIXct(
+      "2015-01-01"
+    ),
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Creates a multicast domain using the specified transit gateway.
 
 The transit gateway must be in the available state before you create a
-domain. Use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeTransitGateways.html}{DescribeTransitGateways}
+domain. Use \code{\link[=ec2_describe_transit_gateways]{describe_transit_gateways}}
 to see the state of transit gateway.
 }
 \section{Request syntax}{

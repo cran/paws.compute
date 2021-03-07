@@ -8,12 +8,50 @@ elasticbeanstalk_update_application(ApplicationName, Description)
 }
 \arguments{
 \item{ApplicationName}{[required] The name of the application to update. If no such application is found,
-\code{UpdateApplication} returns an \code{InvalidParameterValue} error.}
+\code{\link[=elasticbeanstalk_update_application]{update_application}} returns an
+\code{InvalidParameterValue} error.}
 
 \item{Description}{A new description for the application.
 
 Default: If not specified, AWS Elastic Beanstalk does not update the
 description.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  Application = list(
+    ApplicationArn = "string",
+    ApplicationName = "string",
+    Description = "string",
+    DateCreated = as.POSIXct(
+      "2015-01-01"
+    ),
+    DateUpdated = as.POSIXct(
+      "2015-01-01"
+    ),
+    Versions = list(
+      "string"
+    ),
+    ConfigurationTemplates = list(
+      "string"
+    ),
+    ResourceLifecycleConfig = list(
+      ServiceRole = "string",
+      VersionLifecycleConfig = list(
+        MaxCountRule = list(
+          Enabled = TRUE|FALSE,
+          MaxCount = 123,
+          DeleteSourceFromS3 = TRUE|FALSE
+        ),
+        MaxAgeRule = list(
+          Enabled = TRUE|FALSE,
+          MaxAgeInDays = 123,
+          DeleteSourceFromS3 = TRUE|FALSE
+        )
+      )
+    )
+  )
+)
+}
 }
 \description{
 Updates the specified application to have the specified properties.

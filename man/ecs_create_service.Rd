@@ -109,9 +109,10 @@ must be omitted.}
 A capacity provider strategy consists of one or more capacity providers
 along with the \code{base} and \code{weight} to assign to them. A capacity
 provider must be associated with the cluster to be used in a capacity
-provider strategy. The PutClusterCapacityProviders API is used to
-associate a capacity provider with a cluster. Only capacity providers
-with an \code{ACTIVE} or \code{UPDATING} status can be used.
+provider strategy. The
+\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
+API is used to associate a capacity provider with a cluster. Only
+capacity providers with an \code{ACTIVE} or \code{UPDATING} status can be used.
 
 If a \code{capacityProviderStrategy} is specified, the \code{launchType} parameter
 must be omitted. If no \code{capacityProviderStrategy} or \code{launchType} is
@@ -120,16 +121,19 @@ used.
 
 If specifying a capacity provider that uses an Auto Scaling group, the
 capacity provider must already be created. New capacity providers can be
-created with the CreateCapacityProvider API operation.
+created with the
+\code{\link[=ecs_create_capacity_provider]{create_capacity_provider}} API
+operation.
 
 To use a AWS Fargate capacity provider, specify either the \code{FARGATE} or
 \code{FARGATE_SPOT} capacity providers. The AWS Fargate capacity providers
 are available to all accounts and only need to be associated with a
 cluster to be used.
 
-The PutClusterCapacityProviders API operation is used to update the list
-of available capacity providers for a cluster after the cluster is
-created.}
+The
+\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
+API operation is used to update the list of available capacity providers
+for a cluster after the cluster is created.}
 
 \item{platformVersion}{The platform version that your tasks in the service are running on. A
 platform version is specified only for tasks using the Fargate launch
@@ -235,7 +239,7 @@ have only one value.
 resources, remember that other services may have restrictions on
 allowed characters. Generally allowed characters are: letters,
 numbers, and spaces representable in UTF-8, and the following
-characters: + - = . \\_ : / @.
+characters: + - = . _ : / @.
 \item Tag keys and values are case-sensitive.
 \item Do not use \verb{aws:}, \verb{AWS:}, or any upper or lowercase combination of
 such as a prefix for either keys or values as it is reserved for AWS
@@ -252,7 +256,215 @@ in the \emph{Amazon Elastic Container Service Developer Guide}.}
 service to the tasks in the service. If no value is specified, the tags
 are not propagated. Tags can only be propagated to the tasks within the
 service during service creation. To add tags to a task after service
-creation, use the TagResource API action.}
+creation, use the \code{\link[=ecs_tag_resource]{tag_resource}} API action.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  service = list(
+    serviceArn = "string",
+    serviceName = "string",
+    clusterArn = "string",
+    loadBalancers = list(
+      list(
+        targetGroupArn = "string",
+        loadBalancerName = "string",
+        containerName = "string",
+        containerPort = 123
+      )
+    ),
+    serviceRegistries = list(
+      list(
+        registryArn = "string",
+        port = 123,
+        containerName = "string",
+        containerPort = 123
+      )
+    ),
+    status = "string",
+    desiredCount = 123,
+    runningCount = 123,
+    pendingCount = 123,
+    launchType = "EC2"|"FARGATE",
+    capacityProviderStrategy = list(
+      list(
+        capacityProvider = "string",
+        weight = 123,
+        base = 123
+      )
+    ),
+    platformVersion = "string",
+    taskDefinition = "string",
+    deploymentConfiguration = list(
+      deploymentCircuitBreaker = list(
+        enable = TRUE|FALSE,
+        rollback = TRUE|FALSE
+      ),
+      maximumPercent = 123,
+      minimumHealthyPercent = 123
+    ),
+    taskSets = list(
+      list(
+        id = "string",
+        taskSetArn = "string",
+        serviceArn = "string",
+        clusterArn = "string",
+        startedBy = "string",
+        externalId = "string",
+        status = "string",
+        taskDefinition = "string",
+        computedDesiredCount = 123,
+        pendingCount = 123,
+        runningCount = 123,
+        createdAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        updatedAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        launchType = "EC2"|"FARGATE",
+        capacityProviderStrategy = list(
+          list(
+            capacityProvider = "string",
+            weight = 123,
+            base = 123
+          )
+        ),
+        platformVersion = "string",
+        networkConfiguration = list(
+          awsvpcConfiguration = list(
+            subnets = list(
+              "string"
+            ),
+            securityGroups = list(
+              "string"
+            ),
+            assignPublicIp = "ENABLED"|"DISABLED"
+          )
+        ),
+        loadBalancers = list(
+          list(
+            targetGroupArn = "string",
+            loadBalancerName = "string",
+            containerName = "string",
+            containerPort = 123
+          )
+        ),
+        serviceRegistries = list(
+          list(
+            registryArn = "string",
+            port = 123,
+            containerName = "string",
+            containerPort = 123
+          )
+        ),
+        scale = list(
+          value = 123.0,
+          unit = "PERCENT"
+        ),
+        stabilityStatus = "STEADY_STATE"|"STABILIZING",
+        stabilityStatusAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        tags = list(
+          list(
+            key = "string",
+            value = "string"
+          )
+        )
+      )
+    ),
+    deployments = list(
+      list(
+        id = "string",
+        status = "string",
+        taskDefinition = "string",
+        desiredCount = 123,
+        pendingCount = 123,
+        runningCount = 123,
+        failedTasks = 123,
+        createdAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        updatedAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        capacityProviderStrategy = list(
+          list(
+            capacityProvider = "string",
+            weight = 123,
+            base = 123
+          )
+        ),
+        launchType = "EC2"|"FARGATE",
+        platformVersion = "string",
+        networkConfiguration = list(
+          awsvpcConfiguration = list(
+            subnets = list(
+              "string"
+            ),
+            securityGroups = list(
+              "string"
+            ),
+            assignPublicIp = "ENABLED"|"DISABLED"
+          )
+        ),
+        rolloutState = "COMPLETED"|"FAILED"|"IN_PROGRESS",
+        rolloutStateReason = "string"
+      )
+    ),
+    roleArn = "string",
+    events = list(
+      list(
+        id = "string",
+        createdAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        message = "string"
+      )
+    ),
+    createdAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    placementConstraints = list(
+      list(
+        type = "distinctInstance"|"memberOf",
+        expression = "string"
+      )
+    ),
+    placementStrategy = list(
+      list(
+        type = "random"|"spread"|"binpack",
+        field = "string"
+      )
+    ),
+    networkConfiguration = list(
+      awsvpcConfiguration = list(
+        subnets = list(
+          "string"
+        ),
+        securityGroups = list(
+          "string"
+        ),
+        assignPublicIp = "ENABLED"|"DISABLED"
+      )
+    ),
+    healthCheckGracePeriodSeconds = 123,
+    schedulingStrategy = "REPLICA"|"DAEMON",
+    deploymentController = list(
+      type = "ECS"|"CODE_DEPLOY"|"EXTERNAL"
+    ),
+    tags = list(
+      list(
+        key = "string",
+        value = "string"
+      )
+    ),
+    createdBy = "string",
+    enableECSManagedTags = TRUE|FALSE,
+    propagateTags = "TASK_DEFINITION"|"SERVICE"
+  )
+)
+}
 }
 \description{
 Runs and maintains a desired number of tasks from a specified task
@@ -294,10 +506,10 @@ in the \emph{Amazon Elastic Container Service Developer Guide}.
 
 You can optionally specify a deployment configuration for your service.
 The deployment is triggered by changing properties, such as the task
-definition or the desired count of a service, with an UpdateService
-operation. The default value for a replica service for
-\code{minimumHealthyPercent} is 100\\%. The default value for a daemon service
-for \code{minimumHealthyPercent} is 0\\%.
+definition or the desired count of a service, with an
+\code{\link[=ecs_update_service]{update_service}} operation. The default value for
+a replica service for \code{minimumHealthyPercent} is 100\%. The default value
+for a daemon service for \code{minimumHealthyPercent} is 0\%.
 
 If a service is using the \code{ECS} deployment controller, the minimum
 healthy percent represents a lower limit on the number of tasks in a
@@ -307,13 +519,13 @@ integer), and while any container instances are in the \code{DRAINING} state
 if the service contains tasks using the EC2 launch type. This parameter
 enables you to deploy without using additional cluster capacity. For
 example, if your service has a desired number of four tasks and a
-minimum healthy percent of 50\\%, the scheduler might stop two existing
+minimum healthy percent of 50\%, the scheduler might stop two existing
 tasks to free up cluster capacity before starting two new tasks. Tasks
 for services that \emph{do not} use a load balancer are considered healthy if
 they're in the \code{RUNNING} state. Tasks for services that \emph{do} use a load
 balancer are considered healthy if they're in the \code{RUNNING} state and
 they're reported as healthy by the load balancer. The default value for
-minimum healthy percent is 100\\%.
+minimum healthy percent is 100\%.
 
 If a service is using the \code{ECS} deployment controller, the \strong{maximum
 percent} parameter represents an upper limit on the number of tasks in
@@ -323,10 +535,10 @@ to the nearest integer), and while any container instances are in the
 \code{DRAINING} state if the service contains tasks using the EC2 launch
 type. This parameter enables you to define the deployment batch size.
 For example, if your service has a desired number of four tasks and a
-maximum percent value of 200\\%, the scheduler may start four new tasks
+maximum percent value of 200\%, the scheduler may start four new tasks
 before stopping the four older tasks (provided that the cluster
 resources required to do this are available). The default value for
-maximum percent is 200\\%.
+maximum percent is 200\%.
 
 If a service is using either the \code{CODE_DEPLOY} or \code{EXTERNAL} deployment
 controller types and tasks that use the EC2 launch type, the \strong{minimum
@@ -340,8 +552,8 @@ used, although they're currently visible when describing your service.
 When creating a service that uses the \code{EXTERNAL} deployment controller,
 you can specify only parameters that aren't controlled at the task set
 level. The only required parameter is the service name. You control your
-services using the CreateTaskSet operation. For more information, see
-\href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html}{Amazon ECS Deployment Types}
+services using the \code{\link[=ecs_create_task_set]{create_task_set}} operation.
+For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html}{Amazon ECS Deployment Types}
 in the \emph{Amazon Elastic Container Service Developer Guide}.
 
 When the service scheduler launches new tasks, it determines task

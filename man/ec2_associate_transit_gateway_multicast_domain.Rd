@@ -23,13 +23,31 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Associations = list(
+    TransitGatewayMulticastDomainId = "string",
+    TransitGatewayAttachmentId = "string",
+    ResourceId = "string",
+    ResourceType = "vpc"|"vpn"|"direct-connect-gateway"|"connect"|"peering"|"tgw-peering",
+    ResourceOwnerId = "string",
+    Subnets = list(
+      list(
+        SubnetId = "string",
+        State = "pendingAcceptance"|"associating"|"associated"|"disassociating"|"disassociated"|"rejected"|"failed"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Associates the specified subnets and transit gateway attachments with
 the specified transit gateway multicast domain.
 
 The transit gateway attachment must be in the available state before you
 can add a resource. Use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeTransitGatewayAttachments.html}{DescribeTransitGatewayAttachments}
+\code{\link[=ec2_describe_transit_gateway_attachments]{describe_transit_gateway_attachments}}
 to see the state of the attachment.
 }
 \section{Request syntax}{

@@ -22,8 +22,37 @@ to retrieve the next items in a list and not for other programmatic
 purposes.}
 
 \item{addonName}{The name of the add-on. The name must match one of the names returned by
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{ListAddons}}
+\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{list_addons}}
 .}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  addons = list(
+    list(
+      addonName = "string",
+      type = "string",
+      addonVersions = list(
+        list(
+          addonVersion = "string",
+          architecture = list(
+            "string"
+          ),
+          compatibilities = list(
+            list(
+              clusterVersion = "string",
+              platformVersions = list(
+                "string"
+              ),
+              defaultVersion = TRUE|FALSE
+            )
+          )
+        )
+      )
+    )
+  ),
+  nextToken = "string"
+)
+}
 }
 \description{
 Describes the Kubernetes versions that the add-on can be used with.

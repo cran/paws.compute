@@ -12,7 +12,7 @@ ec2_register_image(ImageLocation, Architecture, BlockDeviceMappings,
 \item{ImageLocation}{The full path to your AMI manifest in Amazon S3 storage. The specified
 bucket must have the \code{aws-exec-read} canned access control list (ACL) to
 ensure that it can be accessed by Amazon EC2. For more information, see
-\href{https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl}{Canned ACLs}
+\href{https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl}{Canned ACLs}
 in the \emph{Amazon S3 Service Developer Guide}.}
 
 \item{Architecture}{The architecture of the AMI.
@@ -41,7 +41,7 @@ a PV AMI can make instances launched from the AMI unreachable.}
 
 Constraints: 3-128 alphanumeric characters, parentheses (()), square
 brackets ([]), spaces ( ), periods (.), slashes (/), dashes (-),
-single quotes ('), at-signs (@), or underscores(\\_)}
+single quotes ('), at-signs (@), or underscores(_)}
 
 \item{BillingProducts}{The billing product codes. Your account must be authorized to specify
 billing product codes. Otherwise, you can use the AWS Marketplace to
@@ -64,18 +64,26 @@ a PV AMI can make instances launched from the AMI unreachable.}
 
 Default: \code{paravirtual}}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  ImageId = "string"
+)
+}
+}
 \description{
 Registers an AMI. When you're creating an AMI, this is the final step
 you must complete before you can launch an instance from the AMI. For
 more information about creating AMIs, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/AMIs.html#creating-an-ami}{Creating your own AMIs}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 
-For Amazon EBS-backed instances, CreateImage creates and registers the
-AMI in a single request, so you don't have to register the AMI yourself.
+For Amazon EBS-backed instances, \code{\link[=ec2_create_image]{create_image}}
+creates and registers the AMI in a single request, so you don't have to
+register the AMI yourself.
 
-You can also use \code{RegisterImage} to create an Amazon EBS-backed Linux
-AMI from a snapshot of a root device volume. You specify the snapshot
-using the block device mapping. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html#creating-launching-ami-from-snapshot}{Launching a Linux instance from a backup}
+You can also use \code{\link[=ec2_register_image]{register_image}} to create an
+Amazon EBS-backed Linux AMI from a snapshot of a root device volume. You
+specify the snapshot using the block device mapping. For more
+information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html#creating-launching-ami-from-snapshot}{Launching a Linux instance from a backup}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 
 If any snapshots have AWS Marketplace product codes, they are copied to
@@ -91,7 +99,8 @@ following to preserve the billing product code association:
 \item Launch an instance from an existing AMI with that billing product
 code.
 \item Customize the instance.
-\item Create an AMI from the instance using CreateImage.
+\item Create an AMI from the instance using
+\code{\link[=ec2_create_image]{create_image}}.
 }
 
 If you purchase a Reserved Instance to apply to an On-Demand Instance

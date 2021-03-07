@@ -26,11 +26,41 @@ Constraint: Maximum 128 ASCII characters.}
 
 \item{TagSpecifications}{The tags to apply to the launch template during creation.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  LaunchTemplate = list(
+    LaunchTemplateId = "string",
+    LaunchTemplateName = "string",
+    CreateTime = as.POSIXct(
+      "2015-01-01"
+    ),
+    CreatedBy = "string",
+    DefaultVersionNumber = 123,
+    LatestVersionNumber = 123,
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  ),
+  Warning = list(
+    Errors = list(
+      list(
+        Code = "string",
+        Message = "string"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Creates a launch template. A launch template contains the parameters to
-launch an instance. When you launch an instance using RunInstances, you
-can specify a launch template instead of providing the launch parameters
-in the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html}{Launching an instance from a launch template}in
+launch an instance. When you launch an instance using
+\code{\link[=ec2_run_instances]{run_instances}}, you can specify a launch template
+instead of providing the launch parameters in the request. For more
+information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html}{Launching an instance from a launch template}in
 the \emph{Amazon Elastic Compute Cloud User Guide}.
 }
 \section{Request syntax}{

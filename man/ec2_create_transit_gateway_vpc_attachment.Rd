@@ -26,6 +26,35 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  TransitGatewayVpcAttachment = list(
+    TransitGatewayAttachmentId = "string",
+    TransitGatewayId = "string",
+    VpcId = "string",
+    VpcOwnerId = "string",
+    State = "initiating"|"initiatingRequest"|"pendingAcceptance"|"rollingBack"|"pending"|"available"|"modifying"|"deleting"|"deleted"|"failed"|"rejected"|"rejecting"|"failing",
+    SubnetIds = list(
+      "string"
+    ),
+    CreationTime = as.POSIXct(
+      "2015-01-01"
+    ),
+    Options = list(
+      DnsSupport = "enable"|"disable",
+      Ipv6Support = "enable"|"disable",
+      ApplianceModeSupport = "enable"|"disable"
+    ),
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Attaches the specified VPC to the specified transit gateway.
 
@@ -34,7 +63,7 @@ VPC that is already attached, the new VPC CIDR range is not propagated
 to the default propagation route table.
 
 To send VPC traffic to an attached transit gateway, add a route to the
-VPC route table using CreateRoute.
+VPC route table using \code{\link[=ec2_create_route]{create_route}}.
 }
 \section{Request syntax}{
 \preformatted{svc$create_transit_gateway_vpc_attachment(

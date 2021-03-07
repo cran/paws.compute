@@ -19,10 +19,29 @@ The minimum is 1 and the maximum is 14 days (20160 minutes).}
 
 \item{pageToken}{The token to advance to the next page of results from your request.
 
-To get a page token, perform an initial \code{GetRelationalDatabaseEvents}
+To get a page token, perform an initial
+\code{\link[=lightsail_get_relational_database_events]{get_relational_database_events}}
 request. If your results are paginated, the response will return a next
 page token that you can specify as the page token in a subsequent
 request.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  relationalDatabaseEvents = list(
+    list(
+      resource = "string",
+      createdAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      message = "string",
+      eventCategories = list(
+        "string"
+      )
+    )
+  ),
+  nextPageToken = "string"
+)
+}
 }
 \description{
 Returns a list of events for a specific database in Amazon Lightsail.

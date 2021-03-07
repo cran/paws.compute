@@ -15,11 +15,24 @@ cluster, the default cluster is assumed.}
 custom attributes per resource. You can specify up to 10 attributes in a
 single call.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  attributes = list(
+    list(
+      name = "string",
+      value = "string",
+      targetType = "container-instance",
+      targetId = "string"
+    )
+  )
+)
+}
+}
 \description{
 Create or update an attribute on an Amazon ECS resource. If the
 attribute does not exist, it is created. If the attribute exists, its
 value is replaced with the specified value. To delete an attribute, use
-DeleteAttributes. For more information, see
+\code{\link[=ecs_delete_attributes]{delete_attributes}}. For more information, see
 \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes}{Attributes}
 in the \emph{Amazon Elastic Container Service Developer Guide}.
 }

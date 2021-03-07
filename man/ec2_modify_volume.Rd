@@ -61,6 +61,33 @@ in the same Availability Zone. This parameter is supported with \code{io1}
 and \code{io2} volumes only. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes-multi.html}{Amazon EBS Multi-Attach}
 in the \emph{Amazon Elastic Compute Cloud User Guide}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  VolumeModification = list(
+    VolumeId = "string",
+    ModificationState = "modifying"|"optimizing"|"completed"|"failed",
+    StatusMessage = "string",
+    TargetSize = 123,
+    TargetIops = 123,
+    TargetVolumeType = "standard"|"io1"|"io2"|"gp2"|"sc1"|"st1"|"gp3",
+    TargetThroughput = 123,
+    TargetMultiAttachEnabled = TRUE|FALSE,
+    OriginalSize = 123,
+    OriginalIops = 123,
+    OriginalVolumeType = "standard"|"io1"|"io2"|"gp2"|"sc1"|"st1"|"gp3",
+    OriginalThroughput = 123,
+    OriginalMultiAttachEnabled = TRUE|FALSE,
+    Progress = 123,
+    StartTime = as.POSIXct(
+      "2015-01-01"
+    ),
+    EndTime = as.POSIXct(
+      "2015-01-01"
+    )
+  )
+)
+}
+}
 \description{
 You can modify several parameters of an existing EBS volume, including
 volume size, volume type, and IOPS capacity. If your EBS volume is
@@ -80,8 +107,9 @@ For information about extending a Windows file system, see \href{https://docs.aw
 You can use CloudWatch Events to check the status of a modification to
 an EBS volume. For information about CloudWatch Events, see the \href{https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/}{Amazon CloudWatch Events User Guide}. You
 can also track the status of a modification using
-DescribeVolumesModifications. For information about tracking status
-changes using either method, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modify-volume.html#monitoring_mods}{Monitoring volume modifications}.
+\code{\link[=ec2_describe_volumes_modifications]{describe_volumes_modifications}}.
+For information about tracking status changes using either method, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modify-volume.html#monitoring_mods}{Monitoring volume modifications}.
 
 With previous-generation instance types, resizing an EBS volume might
 require detaching and reattaching the volume or stopping and restarting

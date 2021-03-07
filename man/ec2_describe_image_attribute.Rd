@@ -11,8 +11,8 @@ ec2_describe_image_attribute(Attribute, ImageId, DryRun)
 
 \strong{Note}: Depending on your account privileges, the \code{blockDeviceMapping}
 attribute may return a \code{Client.AuthFailure} error. If this happens, use
-DescribeImages to get information about the block device mapping for the
-AMI.}
+\code{\link[=ec2_describe_images]{describe_images}} to get information about the
+block device mapping for the AMI.}
 
 \item{ImageId}{[required] The ID of the AMI.}
 
@@ -20,6 +20,53 @@ AMI.}
 actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  BlockDeviceMappings = list(
+    list(
+      DeviceName = "string",
+      VirtualName = "string",
+      Ebs = list(
+        DeleteOnTermination = TRUE|FALSE,
+        Iops = 123,
+        SnapshotId = "string",
+        VolumeSize = 123,
+        VolumeType = "standard"|"io1"|"io2"|"gp2"|"sc1"|"st1"|"gp3",
+        KmsKeyId = "string",
+        Throughput = 123,
+        Encrypted = TRUE|FALSE
+      ),
+      NoDevice = "string"
+    )
+  ),
+  ImageId = "string",
+  LaunchPermissions = list(
+    list(
+      Group = "all",
+      UserId = "string"
+    )
+  ),
+  ProductCodes = list(
+    list(
+      ProductCodeId = "string",
+      ProductCodeType = "devpay"|"marketplace"
+    )
+  ),
+  Description = list(
+    Value = "string"
+  ),
+  KernelId = list(
+    Value = "string"
+  ),
+  RamdiskId = list(
+    Value = "string"
+  ),
+  SriovNetSupport = list(
+    Value = "string"
+  )
+)
+}
 }
 \description{
 Describes the specified attribute of the specified AMI. You can specify

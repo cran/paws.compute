@@ -19,9 +19,13 @@ lambda_remove_layer_version_permission(LayerName, VersionNumber,
 this option to avoid modifying a policy that has changed since you last
 read it.}
 }
+\value{
+An empty list.
+}
 \description{
 Removes a statement from the permissions policy for a version of an \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html}{AWS Lambda layer}.
-For more information, see AddLayerVersionPermission.
+For more information, see
+\code{\link[=lambda_add_layer_version_permission]{add_layer_version_permission}}.
 }
 \section{Request syntax}{
 \preformatted{svc$remove_layer_version_permission(

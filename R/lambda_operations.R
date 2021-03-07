@@ -14,8 +14,9 @@ NULL
 #' can grant permission to a single account, all AWS accounts, or all
 #' accounts in an organization.
 #' 
-#' To revoke permission, call RemoveLayerVersionPermission with the
-#' statement ID that you specified when you added it.
+#' To revoke permission, call
+#' [`remove_layer_version_permission`][lambda_remove_layer_version_permission]
+#' with the statement ID that you specified when you added it.
 #'
 #' @usage
 #' lambda_add_layer_version_permission(LayerName, VersionNumber,
@@ -33,6 +34,15 @@ NULL
 #' @param RevisionId Only update the policy if the revision ID matches the ID specified. Use
 #' this option to avoid modifying a policy that has changed since you last
 #' read it.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Statement = "string",
+#'   RevisionId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -143,6 +153,14 @@ lambda_add_layer_version_permission <- function(LayerName, VersionNumber, Statem
 #' specified. Use this option to avoid modifying a policy that has changed
 #' since you last read it.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Statement = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$add_permission(
@@ -238,6 +256,23 @@ lambda_add_permission <- function(FunctionName, StatementId, Action, Principal, 
 #' configuration](https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing)
 #' of the alias.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AliasArn = "string",
+#'   Name = "string",
+#'   FunctionVersion = "string",
+#'   Description = "string",
+#'   RoutingConfig = list(
+#'     AdditionalVersionWeights = list(
+#'       123.0
+#'     )
+#'   ),
+#'   RevisionId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_alias(
@@ -301,6 +336,27 @@ lambda_create_alias <- function(FunctionName, Name, FunctionVersion, Description
 #' @param AllowedPublishers &#91;required&#93; Signing profiles for this code signing configuration.
 #' @param CodeSigningPolicies The code signing policies define the actions to take if the validation
 #' checks fail.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   CodeSigningConfig = list(
+#'     CodeSigningConfigId = "string",
+#'     CodeSigningConfigArn = "string",
+#'     Description = "string",
+#'     AllowedPublishers = list(
+#'       SigningProfileVersionArns = list(
+#'         "string"
+#'       )
+#'     ),
+#'     CodeSigningPolicies = list(
+#'       UntrustedArtifactOnDeployment = "Warn"|"Enforce"
+#'     ),
+#'     LastModified = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -461,6 +517,63 @@ lambda_create_code_signing_config <- function(Description = NULL, AllowedPublish
 #' @param FunctionResponseTypes (Streams) A list of current response type enums applied to the event
 #' source mapping.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   UUID = "string",
+#'   StartingPosition = "TRIM_HORIZON"|"LATEST"|"AT_TIMESTAMP",
+#'   StartingPositionTimestamp = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   BatchSize = 123,
+#'   MaximumBatchingWindowInSeconds = 123,
+#'   ParallelizationFactor = 123,
+#'   EventSourceArn = "string",
+#'   FunctionArn = "string",
+#'   LastModified = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   LastProcessingResult = "string",
+#'   State = "string",
+#'   StateTransitionReason = "string",
+#'   DestinationConfig = list(
+#'     OnSuccess = list(
+#'       Destination = "string"
+#'     ),
+#'     OnFailure = list(
+#'       Destination = "string"
+#'     )
+#'   ),
+#'   Topics = list(
+#'     "string"
+#'   ),
+#'   Queues = list(
+#'     "string"
+#'   ),
+#'   SourceAccessConfigurations = list(
+#'     list(
+#'       Type = "BASIC_AUTH"|"VPC_SUBNET"|"VPC_SECURITY_GROUP"|"SASL_SCRAM_512_AUTH"|"SASL_SCRAM_256_AUTH",
+#'       URI = "string"
+#'     )
+#'   ),
+#'   SelfManagedEventSource = list(
+#'     Endpoints = list(
+#'       list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   MaximumRecordAgeInSeconds = 123,
+#'   BisectBatchOnFunctionError = TRUE|FALSE,
+#'   MaximumRetryAttempts = 123,
+#'   TumblingWindowInSeconds = 123,
+#'   FunctionResponseTypes = list(
+#'     "ReportBatchItemFailures"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$create_event_source_mapping(
@@ -558,7 +671,8 @@ lambda_create_event_source_mapping <- function(EventSourceArn = NULL, FunctionNa
 #' function and its supporting resources. If your function connects to a
 #' VPC, this process can take a minute or so. During this time, you can't
 #' invoke or modify the function. The `State`, `StateReason`, and
-#' `StateReasonCode` fields in the response from GetFunctionConfiguration
+#' `StateReasonCode` fields in the response from
+#' [`get_function_configuration`][lambda_get_function_configuration]
 #' indicate when the function is ready to invoke. For more information, see
 #' [Function
 #' States](https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html).
@@ -573,28 +687,32 @@ lambda_create_event_source_mapping <- function(EventSourceArn = NULL, FunctionNa
 #' 
 #' The other parameters let you configure version-specific and
 #' function-level settings. You can modify version-specific settings later
-#' with UpdateFunctionConfiguration. Function-level settings apply to both
-#' the unpublished and published versions of the function, and include tags
-#' (TagResource) and per-function concurrency limits
-#' (PutFunctionConcurrency).
+#' with
+#' [`update_function_configuration`][lambda_update_function_configuration].
+#' Function-level settings apply to both the unpublished and published
+#' versions of the function, and include tags
+#' ([`tag_resource`][lambda_tag_resource]) and per-function concurrency
+#' limits ([`put_function_concurrency`][lambda_put_function_concurrency]).
 #' 
 #' You can use code signing if your deployment package is a .zip file
 #' archive. To enable code signing for this function, specify the ARN of a
 #' code-signing configuration. When a user attempts to deploy a code
-#' package with UpdateFunctionCode, Lambda checks that the code package has
-#' a valid signature from a trusted publisher. The code-signing
-#' configuration includes set set of signing profiles, which define the
-#' trusted publishers for this function.
+#' package with [`update_function_code`][lambda_update_function_code],
+#' Lambda checks that the code package has a valid signature from a trusted
+#' publisher. The code-signing configuration includes set set of signing
+#' profiles, which define the trusted publishers for this function.
 #' 
 #' If another account or an AWS service invokes your function, use
-#' AddPermission to grant permission by creating a resource-based IAM
-#' policy. You can grant permissions at the function level, on a version,
-#' or on an alias.
+#' [`add_permission`][lambda_add_permission] to grant permission by
+#' creating a resource-based IAM policy. You can grant permissions at the
+#' function level, on a version, or on an alias.
 #' 
-#' To invoke your function directly, use Invoke. To invoke your function in
-#' response to events in other AWS services, create an event source mapping
-#' (CreateEventSourceMapping), or configure a function trigger in the other
-#' service. For more information, see [Invoking
+#' To invoke your function directly, use [`invoke`][lambda_invoke]. To
+#' invoke your function in response to events in other AWS services, create
+#' an event source mapping
+#' ([`create_event_source_mapping`][lambda_create_event_source_mapping]),
+#' or configure a function trigger in the other service. For more
+#' information, see [Invoking
 #' Functions](https://docs.aws.amazon.com/lambda/latest/dg/lambda-invocation.html).
 #'
 #' @usage
@@ -664,6 +782,90 @@ lambda_create_event_source_mapping <- function(EventSourceArn = NULL, FunctionNa
 #' code-signing configuration. A code-signing configuration includes a set
 #' of signing profiles, which define the trusted publishers for this
 #' function.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   FunctionName = "string",
+#'   FunctionArn = "string",
+#'   Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+#'   Role = "string",
+#'   Handler = "string",
+#'   CodeSize = 123,
+#'   Description = "string",
+#'   Timeout = 123,
+#'   MemorySize = 123,
+#'   LastModified = "string",
+#'   CodeSha256 = "string",
+#'   Version = "string",
+#'   VpcConfig = list(
+#'     SubnetIds = list(
+#'       "string"
+#'     ),
+#'     SecurityGroupIds = list(
+#'       "string"
+#'     ),
+#'     VpcId = "string"
+#'   ),
+#'   DeadLetterConfig = list(
+#'     TargetArn = "string"
+#'   ),
+#'   Environment = list(
+#'     Variables = list(
+#'       "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   KMSKeyArn = "string",
+#'   TracingConfig = list(
+#'     Mode = "Active"|"PassThrough"
+#'   ),
+#'   MasterArn = "string",
+#'   RevisionId = "string",
+#'   Layers = list(
+#'     list(
+#'       Arn = "string",
+#'       CodeSize = 123,
+#'       SigningProfileVersionArn = "string",
+#'       SigningJobArn = "string"
+#'     )
+#'   ),
+#'   State = "Pending"|"Active"|"Inactive"|"Failed",
+#'   StateReason = "string",
+#'   StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+#'   LastUpdateStatusReason = "string",
+#'   LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   FileSystemConfigs = list(
+#'     list(
+#'       Arn = "string",
+#'       LocalMountPath = "string"
+#'     )
+#'   ),
+#'   PackageType = "Zip"|"Image",
+#'   ImageConfigResponse = list(
+#'     ImageConfig = list(
+#'       EntryPoint = list(
+#'         "string"
+#'       ),
+#'       Command = list(
+#'         "string"
+#'       ),
+#'       WorkingDirectory = "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   SigningProfileVersionArn = "string",
+#'   SigningJobArn = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -806,6 +1008,9 @@ lambda_create_function <- function(FunctionName, Runtime = NULL, Role, Handler =
 #' the function name, it is limited to 64 characters in length.
 #' @param Name &#91;required&#93; The name of the alias.
 #'
+#' @return
+#' An empty list.
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_alias(
@@ -855,6 +1060,9 @@ lambda_delete_alias <- function(FunctionName, Name) {
 #'
 #' @param CodeSigningConfigArn &#91;required&#93; The The Amazon Resource Name (ARN) of the code signing configuration.
 #'
+#' @return
+#' An empty list.
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_code_signing_config(
@@ -888,7 +1096,7 @@ lambda_delete_code_signing_config <- function(CodeSigningConfigArn) {
 #' Deletes an [event source
 #' mapping](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html).
 #' You can get the identifier of a mapping from the output of
-#' ListEventSourceMappings.
+#' [`list_event_source_mappings`][lambda_list_event_source_mappings].
 #' 
 #' When you delete an event source mapping, it enters a `Deleting` state
 #' and might not be completely deleted for several seconds.
@@ -897,6 +1105,63 @@ lambda_delete_code_signing_config <- function(CodeSigningConfigArn) {
 #' lambda_delete_event_source_mapping(UUID)
 #'
 #' @param UUID &#91;required&#93; The identifier of the event source mapping.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   UUID = "string",
+#'   StartingPosition = "TRIM_HORIZON"|"LATEST"|"AT_TIMESTAMP",
+#'   StartingPositionTimestamp = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   BatchSize = 123,
+#'   MaximumBatchingWindowInSeconds = 123,
+#'   ParallelizationFactor = 123,
+#'   EventSourceArn = "string",
+#'   FunctionArn = "string",
+#'   LastModified = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   LastProcessingResult = "string",
+#'   State = "string",
+#'   StateTransitionReason = "string",
+#'   DestinationConfig = list(
+#'     OnSuccess = list(
+#'       Destination = "string"
+#'     ),
+#'     OnFailure = list(
+#'       Destination = "string"
+#'     )
+#'   ),
+#'   Topics = list(
+#'     "string"
+#'   ),
+#'   Queues = list(
+#'     "string"
+#'   ),
+#'   SourceAccessConfigurations = list(
+#'     list(
+#'       Type = "BASIC_AUTH"|"VPC_SUBNET"|"VPC_SECURITY_GROUP"|"SASL_SCRAM_512_AUTH"|"SASL_SCRAM_256_AUTH",
+#'       URI = "string"
+#'     )
+#'   ),
+#'   SelfManagedEventSource = list(
+#'     Endpoints = list(
+#'       list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   MaximumRecordAgeInSeconds = 123,
+#'   BisectBatchOnFunctionError = TRUE|FALSE,
+#'   MaximumRetryAttempts = 123,
+#'   TumblingWindowInSeconds = 123,
+#'   FunctionResponseTypes = list(
+#'     "ReportBatchItemFailures"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -942,9 +1207,9 @@ lambda_delete_event_source_mapping <- function(UUID) {
 #' deleted.
 #' 
 #' To delete Lambda event source mappings that invoke a function, use
-#' DeleteEventSourceMapping. For AWS services and resources that invoke
-#' your function directly, delete the trigger in the service where you
-#' originally configured it.
+#' [`delete_event_source_mapping`][lambda_delete_event_source_mapping]. For
+#' AWS services and resources that invoke your function directly, delete
+#' the trigger in the service where you originally configured it.
 #'
 #' @usage
 #' lambda_delete_function(FunctionName, Qualifier)
@@ -966,6 +1231,9 @@ lambda_delete_event_source_mapping <- function(UUID) {
 #' function name, it is limited to 64 characters in length.
 #' @param Qualifier Specify a version to delete. You can't delete a version that's
 #' referenced by an alias.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1027,6 +1295,9 @@ lambda_delete_function <- function(FunctionName, Qualifier = NULL) {
 #' The length constraint applies only to the full ARN. If you specify only
 #' the function name, it is limited to 64 characters in length.
 #'
+#' @return
+#' An empty list.
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_function_code_signing_config(
@@ -1076,6 +1347,9 @@ lambda_delete_function_code_signing_config <- function(FunctionName) {
 #' The length constraint applies only to the full ARN. If you specify only
 #' the function name, it is limited to 64 characters in length.
 #'
+#' @return
+#' An empty list.
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_function_concurrency(
@@ -1120,7 +1394,7 @@ lambda_delete_function_concurrency <- function(FunctionName) {
 #' version, or alias.
 #' 
 #' To configure options for asynchronous invocation, use
-#' PutFunctionEventInvokeConfig.
+#' [`put_function_event_invoke_config`][lambda_put_function_event_invoke_config].
 #'
 #' @usage
 #' lambda_delete_function_event_invoke_config(FunctionName, Qualifier)
@@ -1141,6 +1415,9 @@ lambda_delete_function_concurrency <- function(FunctionName) {
 #' length constraint applies only to the full ARN. If you specify only the
 #' function name, it is limited to 64 characters in length.
 #' @param Qualifier A version number or alias name.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1194,6 +1471,9 @@ lambda_delete_function_event_invoke_config <- function(FunctionName, Qualifier =
 #'
 #' @param LayerName &#91;required&#93; The name or Amazon Resource Name (ARN) of the layer.
 #' @param VersionNumber &#91;required&#93; The version number.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1255,6 +1535,9 @@ lambda_delete_layer_version <- function(LayerName, VersionNumber) {
 #' the function name, it is limited to 64 characters in length.
 #' @param Qualifier &#91;required&#93; The version number or alias name.
 #'
+#' @return
+#' An empty list.
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_provisioned_concurrency_config(
@@ -1302,6 +1585,24 @@ lambda_delete_provisioned_concurrency_config <- function(FunctionName, Qualifier
 #'
 #' @usage
 #' lambda_get_account_settings()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AccountLimit = list(
+#'     TotalCodeSize = 123,
+#'     CodeSizeUnzipped = 123,
+#'     CodeSizeZipped = 123,
+#'     ConcurrentExecutions = 123,
+#'     UnreservedConcurrentExecutions = 123
+#'   ),
+#'   AccountUsage = list(
+#'     TotalCodeSize = 123,
+#'     FunctionCount = 123
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1359,6 +1660,23 @@ lambda_get_account_settings <- function() {
 #' the function name, it is limited to 64 characters in length.
 #' @param Name &#91;required&#93; The name of the alias.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AliasArn = "string",
+#'   Name = "string",
+#'   FunctionVersion = "string",
+#'   Description = "string",
+#'   RoutingConfig = list(
+#'     AdditionalVersionWeights = list(
+#'       123.0
+#'     )
+#'   ),
+#'   RevisionId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_alias(
@@ -1407,6 +1725,27 @@ lambda_get_alias <- function(FunctionName, Name) {
 #'
 #' @param CodeSigningConfigArn &#91;required&#93; The The Amazon Resource Name (ARN) of the code signing configuration.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   CodeSigningConfig = list(
+#'     CodeSigningConfigId = "string",
+#'     CodeSigningConfigArn = "string",
+#'     Description = "string",
+#'     AllowedPublishers = list(
+#'       SigningProfileVersionArns = list(
+#'         "string"
+#'       )
+#'     ),
+#'     CodeSigningPolicies = list(
+#'       UntrustedArtifactOnDeployment = "Warn"|"Enforce"
+#'     ),
+#'     LastModified = "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_code_signing_config(
@@ -1438,12 +1777,70 @@ lambda_get_code_signing_config <- function(CodeSigningConfigArn) {
 #'
 #' @description
 #' Returns details about an event source mapping. You can get the
-#' identifier of a mapping from the output of ListEventSourceMappings.
+#' identifier of a mapping from the output of
+#' [`list_event_source_mappings`][lambda_list_event_source_mappings].
 #'
 #' @usage
 #' lambda_get_event_source_mapping(UUID)
 #'
 #' @param UUID &#91;required&#93; The identifier of the event source mapping.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   UUID = "string",
+#'   StartingPosition = "TRIM_HORIZON"|"LATEST"|"AT_TIMESTAMP",
+#'   StartingPositionTimestamp = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   BatchSize = 123,
+#'   MaximumBatchingWindowInSeconds = 123,
+#'   ParallelizationFactor = 123,
+#'   EventSourceArn = "string",
+#'   FunctionArn = "string",
+#'   LastModified = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   LastProcessingResult = "string",
+#'   State = "string",
+#'   StateTransitionReason = "string",
+#'   DestinationConfig = list(
+#'     OnSuccess = list(
+#'       Destination = "string"
+#'     ),
+#'     OnFailure = list(
+#'       Destination = "string"
+#'     )
+#'   ),
+#'   Topics = list(
+#'     "string"
+#'   ),
+#'   Queues = list(
+#'     "string"
+#'   ),
+#'   SourceAccessConfigurations = list(
+#'     list(
+#'       Type = "BASIC_AUTH"|"VPC_SUBNET"|"VPC_SECURITY_GROUP"|"SASL_SCRAM_512_AUTH"|"SASL_SCRAM_256_AUTH",
+#'       URI = "string"
+#'     )
+#'   ),
+#'   SelfManagedEventSource = list(
+#'     Endpoints = list(
+#'       list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   MaximumRecordAgeInSeconds = 123,
+#'   BisectBatchOnFunctionError = TRUE|FALSE,
+#'   MaximumRetryAttempts = 123,
+#'   TumblingWindowInSeconds = 123,
+#'   FunctionResponseTypes = list(
+#'     "ReportBatchItemFailures"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1511,6 +1908,104 @@ lambda_get_event_source_mapping <- function(UUID) {
 #' @param Qualifier Specify a version or alias to get details about a published version of
 #' the function.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Configuration = list(
+#'     FunctionName = "string",
+#'     FunctionArn = "string",
+#'     Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+#'     Role = "string",
+#'     Handler = "string",
+#'     CodeSize = 123,
+#'     Description = "string",
+#'     Timeout = 123,
+#'     MemorySize = 123,
+#'     LastModified = "string",
+#'     CodeSha256 = "string",
+#'     Version = "string",
+#'     VpcConfig = list(
+#'       SubnetIds = list(
+#'         "string"
+#'       ),
+#'       SecurityGroupIds = list(
+#'         "string"
+#'       ),
+#'       VpcId = "string"
+#'     ),
+#'     DeadLetterConfig = list(
+#'       TargetArn = "string"
+#'     ),
+#'     Environment = list(
+#'       Variables = list(
+#'         "string"
+#'       ),
+#'       Error = list(
+#'         ErrorCode = "string",
+#'         Message = "string"
+#'       )
+#'     ),
+#'     KMSKeyArn = "string",
+#'     TracingConfig = list(
+#'       Mode = "Active"|"PassThrough"
+#'     ),
+#'     MasterArn = "string",
+#'     RevisionId = "string",
+#'     Layers = list(
+#'       list(
+#'         Arn = "string",
+#'         CodeSize = 123,
+#'         SigningProfileVersionArn = "string",
+#'         SigningJobArn = "string"
+#'       )
+#'     ),
+#'     State = "Pending"|"Active"|"Inactive"|"Failed",
+#'     StateReason = "string",
+#'     StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'     LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+#'     LastUpdateStatusReason = "string",
+#'     LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'     FileSystemConfigs = list(
+#'       list(
+#'         Arn = "string",
+#'         LocalMountPath = "string"
+#'       )
+#'     ),
+#'     PackageType = "Zip"|"Image",
+#'     ImageConfigResponse = list(
+#'       ImageConfig = list(
+#'         EntryPoint = list(
+#'           "string"
+#'         ),
+#'         Command = list(
+#'           "string"
+#'         ),
+#'         WorkingDirectory = "string"
+#'       ),
+#'       Error = list(
+#'         ErrorCode = "string",
+#'         Message = "string"
+#'       )
+#'     ),
+#'     SigningProfileVersionArn = "string",
+#'     SigningJobArn = "string"
+#'   ),
+#'   Code = list(
+#'     RepositoryType = "string",
+#'     Location = "string",
+#'     ImageUri = "string",
+#'     ResolvedImageUri = "string"
+#'   ),
+#'   Tags = list(
+#'     "string"
+#'   ),
+#'   Concurrency = list(
+#'     ReservedConcurrentExecutions = 123
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_function(
@@ -1571,6 +2066,15 @@ lambda_get_function <- function(FunctionName, Qualifier = NULL) {
 #' The length constraint applies only to the full ARN. If you specify only
 #' the function name, it is limited to 64 characters in length.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   CodeSigningConfigArn = "string",
+#'   FunctionName = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_function_code_signing_config(
@@ -1604,7 +2108,7 @@ lambda_get_function_code_signing_config <- function(FunctionName) {
 #' @description
 #' Returns details about the reserved concurrency configuration for a
 #' function. To set a concurrency limit for a function, use
-#' PutFunctionConcurrency.
+#' [`put_function_concurrency`][lambda_put_function_concurrency].
 #'
 #' @usage
 #' lambda_get_function_concurrency(FunctionName)
@@ -1622,6 +2126,14 @@ lambda_get_function_code_signing_config <- function(FunctionName) {
 #' 
 #' The length constraint applies only to the full ARN. If you specify only
 #' the function name, it is limited to 64 characters in length.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ReservedConcurrentExecutions = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1664,10 +2176,11 @@ lambda_get_function_concurrency <- function(FunctionName) {
 #' @description
 #' Returns the version-specific settings of a Lambda function or version.
 #' The output includes only options that can vary between versions of a
-#' function. To modify these settings, use UpdateFunctionConfiguration.
+#' function. To modify these settings, use
+#' [`update_function_configuration`][lambda_update_function_configuration].
 #' 
 #' To get all of a function's details, including function-level settings,
-#' use GetFunction.
+#' use [`get_function`][lambda_get_function].
 #'
 #' @usage
 #' lambda_get_function_configuration(FunctionName, Qualifier)
@@ -1689,6 +2202,90 @@ lambda_get_function_concurrency <- function(FunctionName) {
 #' function name, it is limited to 64 characters in length.
 #' @param Qualifier Specify a version or alias to get details about a published version of
 #' the function.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   FunctionName = "string",
+#'   FunctionArn = "string",
+#'   Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+#'   Role = "string",
+#'   Handler = "string",
+#'   CodeSize = 123,
+#'   Description = "string",
+#'   Timeout = 123,
+#'   MemorySize = 123,
+#'   LastModified = "string",
+#'   CodeSha256 = "string",
+#'   Version = "string",
+#'   VpcConfig = list(
+#'     SubnetIds = list(
+#'       "string"
+#'     ),
+#'     SecurityGroupIds = list(
+#'       "string"
+#'     ),
+#'     VpcId = "string"
+#'   ),
+#'   DeadLetterConfig = list(
+#'     TargetArn = "string"
+#'   ),
+#'   Environment = list(
+#'     Variables = list(
+#'       "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   KMSKeyArn = "string",
+#'   TracingConfig = list(
+#'     Mode = "Active"|"PassThrough"
+#'   ),
+#'   MasterArn = "string",
+#'   RevisionId = "string",
+#'   Layers = list(
+#'     list(
+#'       Arn = "string",
+#'       CodeSize = 123,
+#'       SigningProfileVersionArn = "string",
+#'       SigningJobArn = "string"
+#'     )
+#'   ),
+#'   State = "Pending"|"Active"|"Inactive"|"Failed",
+#'   StateReason = "string",
+#'   StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+#'   LastUpdateStatusReason = "string",
+#'   LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   FileSystemConfigs = list(
+#'     list(
+#'       Arn = "string",
+#'       LocalMountPath = "string"
+#'     )
+#'   ),
+#'   PackageType = "Zip"|"Image",
+#'   ImageConfigResponse = list(
+#'     ImageConfig = list(
+#'       EntryPoint = list(
+#'         "string"
+#'       ),
+#'       Command = list(
+#'         "string"
+#'       ),
+#'       WorkingDirectory = "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   SigningProfileVersionArn = "string",
+#'   SigningJobArn = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1736,7 +2333,7 @@ lambda_get_function_configuration <- function(FunctionName, Qualifier = NULL) {
 #' version, or alias.
 #' 
 #' To configure options for asynchronous invocation, use
-#' PutFunctionEventInvokeConfig.
+#' [`put_function_event_invoke_config`][lambda_put_function_event_invoke_config].
 #'
 #' @usage
 #' lambda_get_function_event_invoke_config(FunctionName, Qualifier)
@@ -1757,6 +2354,27 @@ lambda_get_function_configuration <- function(FunctionName, Qualifier = NULL) {
 #' length constraint applies only to the full ARN. If you specify only the
 #' function name, it is limited to 64 characters in length.
 #' @param Qualifier A version number or alias name.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   LastModified = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   FunctionArn = "string",
+#'   MaximumRetryAttempts = 123,
+#'   MaximumEventAgeInSeconds = 123,
+#'   DestinationConfig = list(
+#'     OnSuccess = list(
+#'       Destination = "string"
+#'     ),
+#'     OnFailure = list(
+#'       Destination = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1810,6 +2428,29 @@ lambda_get_function_event_invoke_config <- function(FunctionName, Qualifier = NU
 #' @param LayerName &#91;required&#93; The name or Amazon Resource Name (ARN) of the layer.
 #' @param VersionNumber &#91;required&#93; The version number.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Content = list(
+#'     Location = "string",
+#'     CodeSha256 = "string",
+#'     CodeSize = 123,
+#'     SigningProfileVersionArn = "string",
+#'     SigningJobArn = "string"
+#'   ),
+#'   LayerArn = "string",
+#'   LayerVersionArn = "string",
+#'   Description = "string",
+#'   CreatedDate = "string",
+#'   Version = 123,
+#'   CompatibleRuntimes = list(
+#'     "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2"
+#'   ),
+#'   LicenseInfo = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_layer_version(
@@ -1861,6 +2502,29 @@ lambda_get_layer_version <- function(LayerName, VersionNumber) {
 #'
 #' @param Arn &#91;required&#93; The ARN of the layer version.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Content = list(
+#'     Location = "string",
+#'     CodeSha256 = "string",
+#'     CodeSize = 123,
+#'     SigningProfileVersionArn = "string",
+#'     SigningJobArn = "string"
+#'   ),
+#'   LayerArn = "string",
+#'   LayerVersionArn = "string",
+#'   Description = "string",
+#'   CreatedDate = "string",
+#'   Version = 123,
+#'   CompatibleRuntimes = list(
+#'     "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2"
+#'   ),
+#'   LicenseInfo = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_layer_version_by_arn(
@@ -1902,13 +2566,23 @@ lambda_get_layer_version_by_arn <- function(Arn) {
 #' @description
 #' Returns the permission policy for a version of an [AWS Lambda
 #' layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
-#' For more information, see AddLayerVersionPermission.
+#' For more information, see
+#' [`add_layer_version_permission`][lambda_add_layer_version_permission].
 #'
 #' @usage
 #' lambda_get_layer_version_policy(LayerName, VersionNumber)
 #'
 #' @param LayerName &#91;required&#93; The name or Amazon Resource Name (ARN) of the layer.
 #' @param VersionNumber &#91;required&#93; The version number.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Policy = "string",
+#'   RevisionId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1964,6 +2638,15 @@ lambda_get_layer_version_policy <- function(LayerName, VersionNumber) {
 #' length constraint applies only to the full ARN. If you specify only the
 #' function name, it is limited to 64 characters in length.
 #' @param Qualifier Specify a version or alias to get the policy for that resource.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Policy = "string",
+#'   RevisionId = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2027,6 +2710,19 @@ lambda_get_policy <- function(FunctionName, Qualifier = NULL) {
 #' The length constraint applies only to the full ARN. If you specify only
 #' the function name, it is limited to 64 characters in length.
 #' @param Qualifier &#91;required&#93; The version number or alias name.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestedProvisionedConcurrentExecutions = 123,
+#'   AvailableProvisionedConcurrentExecutions = 123,
+#'   AllocatedProvisionedConcurrentExecutions = 123,
+#'   Status = "IN_PROGRESS"|"READY"|"FAILED",
+#'   StatusReason = "string",
+#'   LastModified = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2163,6 +2859,18 @@ lambda_get_provisioned_concurrency_config <- function(FunctionName, Qualifier) {
 #' @param Qualifier Specify a version or alias to invoke a published version of the
 #' function.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   StatusCode = 123,
+#'   FunctionError = "string",
+#'   LogResult = "string",
+#'   Payload = raw,
+#'   ExecutedVersion = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$invoke(
@@ -2181,7 +2889,7 @@ lambda_get_provisioned_concurrency_config <- function(FunctionName, Qualifier) {
 #' # with an empty event payload.
 #' svc$invoke(
 #'   FunctionName = "my-function",
-#'   Payload = "\{\}",
+#'   Payload = "{}",
 #'   Qualifier = "1"
 #' )
 #' 
@@ -2190,7 +2898,7 @@ lambda_get_provisioned_concurrency_config <- function(FunctionName, Qualifier) {
 #' svc$invoke(
 #'   FunctionName = "my-function",
 #'   InvocationType = "Event",
-#'   Payload = "\{\}",
+#'   Payload = "{}",
 #'   Qualifier = "1"
 #' )
 #' }
@@ -2218,7 +2926,7 @@ lambda_invoke <- function(FunctionName, InvocationType = NULL, LogType = NULL, C
 #' For asynchronous function invocation, use Invoke
 #'
 #' @description
-#' For asynchronous function invocation, use Invoke.
+#' For asynchronous function invocation, use [`invoke`][lambda_invoke].
 #' 
 #' Invokes a function asynchronously.
 #'
@@ -2240,6 +2948,14 @@ lambda_invoke <- function(FunctionName, InvocationType = NULL, LogType = NULL, C
 #' the function name, it is limited to 64 characters in length.
 #' @param InvokeArgs &#91;required&#93; The JSON that you want to provide to your Lambda function as input.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Status = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$invoke_async(
@@ -2253,7 +2969,7 @@ lambda_invoke <- function(FunctionName, InvocationType = NULL, LogType = NULL, C
 #' # The following example invokes a Lambda function asynchronously
 #' svc$invoke_async(
 #'   FunctionName = "my-function",
-#'   InvokeArgs = "\{\}"
+#'   InvokeArgs = "{}"
 #' )
 #' }
 #'
@@ -2305,6 +3021,28 @@ lambda_invoke_async <- function(FunctionName, InvokeArgs) {
 #' @param Marker Specify the pagination token that's returned by a previous request to
 #' retrieve the next page of results.
 #' @param MaxItems Limit the number of aliases returned.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextMarker = "string",
+#'   Aliases = list(
+#'     list(
+#'       AliasArn = "string",
+#'       Name = "string",
+#'       FunctionVersion = "string",
+#'       Description = "string",
+#'       RoutingConfig = list(
+#'         AdditionalVersionWeights = list(
+#'           123.0
+#'         )
+#'       ),
+#'       RevisionId = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2359,6 +3097,30 @@ lambda_list_aliases <- function(FunctionName, FunctionVersion = NULL, Marker = N
 #' @param Marker Specify the pagination token that's returned by a previous request to
 #' retrieve the next page of results.
 #' @param MaxItems Maximum number of items to return.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextMarker = "string",
+#'   CodeSigningConfigs = list(
+#'     list(
+#'       CodeSigningConfigId = "string",
+#'       CodeSigningConfigArn = "string",
+#'       Description = "string",
+#'       AllowedPublishers = list(
+#'         SigningProfileVersionArns = list(
+#'           "string"
+#'         )
+#'       ),
+#'       CodeSigningPolicies = list(
+#'         UntrustedArtifactOnDeployment = "Warn"|"Enforce"
+#'       ),
+#'       LastModified = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2428,6 +3190,68 @@ lambda_list_code_signing_configs <- function(Marker = NULL, MaxItems = NULL) {
 #' @param Marker A pagination token returned by a previous call.
 #' @param MaxItems The maximum number of event source mappings to return.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextMarker = "string",
+#'   EventSourceMappings = list(
+#'     list(
+#'       UUID = "string",
+#'       StartingPosition = "TRIM_HORIZON"|"LATEST"|"AT_TIMESTAMP",
+#'       StartingPositionTimestamp = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       BatchSize = 123,
+#'       MaximumBatchingWindowInSeconds = 123,
+#'       ParallelizationFactor = 123,
+#'       EventSourceArn = "string",
+#'       FunctionArn = "string",
+#'       LastModified = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       LastProcessingResult = "string",
+#'       State = "string",
+#'       StateTransitionReason = "string",
+#'       DestinationConfig = list(
+#'         OnSuccess = list(
+#'           Destination = "string"
+#'         ),
+#'         OnFailure = list(
+#'           Destination = "string"
+#'         )
+#'       ),
+#'       Topics = list(
+#'         "string"
+#'       ),
+#'       Queues = list(
+#'         "string"
+#'       ),
+#'       SourceAccessConfigurations = list(
+#'         list(
+#'           Type = "BASIC_AUTH"|"VPC_SUBNET"|"VPC_SECURITY_GROUP"|"SASL_SCRAM_512_AUTH"|"SASL_SCRAM_256_AUTH",
+#'           URI = "string"
+#'         )
+#'       ),
+#'       SelfManagedEventSource = list(
+#'         Endpoints = list(
+#'           list(
+#'             "string"
+#'           )
+#'         )
+#'       ),
+#'       MaximumRecordAgeInSeconds = 123,
+#'       BisectBatchOnFunctionError = TRUE|FALSE,
+#'       MaximumRetryAttempts = 123,
+#'       TumblingWindowInSeconds = 123,
+#'       FunctionResponseTypes = list(
+#'         "ReportBatchItemFailures"
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_event_source_mappings(
@@ -2475,7 +3299,7 @@ lambda_list_event_source_mappings <- function(EventSourceArn = NULL, FunctionNam
 #' function.
 #' 
 #' To configure options for asynchronous invocation, use
-#' PutFunctionEventInvokeConfig.
+#' [`put_function_event_invoke_config`][lambda_put_function_event_invoke_config].
 #'
 #' @usage
 #' lambda_list_function_event_invoke_configs(FunctionName, Marker,
@@ -2497,6 +3321,32 @@ lambda_list_event_source_mappings <- function(EventSourceArn = NULL, FunctionNam
 #' @param Marker Specify the pagination token that's returned by a previous request to
 #' retrieve the next page of results.
 #' @param MaxItems The maximum number of configurations to return.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   FunctionEventInvokeConfigs = list(
+#'     list(
+#'       LastModified = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       FunctionArn = "string",
+#'       MaximumRetryAttempts = 123,
+#'       MaximumEventAgeInSeconds = 123,
+#'       DestinationConfig = list(
+#'         OnSuccess = list(
+#'           Destination = "string"
+#'         ),
+#'         OnFailure = list(
+#'           Destination = "string"
+#'         )
+#'       )
+#'     )
+#'   ),
+#'   NextMarker = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2545,7 +3395,7 @@ lambda_list_function_event_invoke_configs <- function(FunctionName, Marker = NUL
 #' 
 #' Set `FunctionVersion` to `ALL` to include all published versions of each
 #' function in addition to the unpublished version. To get more information
-#' about a function or version, use GetFunction.
+#' about a function or version, use [`get_function`][lambda_get_function].
 #'
 #' @usage
 #' lambda_list_functions(MasterRegion, FunctionVersion, Marker, MaxItems)
@@ -2559,6 +3409,95 @@ lambda_list_function_event_invoke_configs <- function(FunctionName, Marker = NUL
 #' @param Marker Specify the pagination token that's returned by a previous request to
 #' retrieve the next page of results.
 #' @param MaxItems The maximum number of functions to return.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextMarker = "string",
+#'   Functions = list(
+#'     list(
+#'       FunctionName = "string",
+#'       FunctionArn = "string",
+#'       Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+#'       Role = "string",
+#'       Handler = "string",
+#'       CodeSize = 123,
+#'       Description = "string",
+#'       Timeout = 123,
+#'       MemorySize = 123,
+#'       LastModified = "string",
+#'       CodeSha256 = "string",
+#'       Version = "string",
+#'       VpcConfig = list(
+#'         SubnetIds = list(
+#'           "string"
+#'         ),
+#'         SecurityGroupIds = list(
+#'           "string"
+#'         ),
+#'         VpcId = "string"
+#'       ),
+#'       DeadLetterConfig = list(
+#'         TargetArn = "string"
+#'       ),
+#'       Environment = list(
+#'         Variables = list(
+#'           "string"
+#'         ),
+#'         Error = list(
+#'           ErrorCode = "string",
+#'           Message = "string"
+#'         )
+#'       ),
+#'       KMSKeyArn = "string",
+#'       TracingConfig = list(
+#'         Mode = "Active"|"PassThrough"
+#'       ),
+#'       MasterArn = "string",
+#'       RevisionId = "string",
+#'       Layers = list(
+#'         list(
+#'           Arn = "string",
+#'           CodeSize = 123,
+#'           SigningProfileVersionArn = "string",
+#'           SigningJobArn = "string"
+#'         )
+#'       ),
+#'       State = "Pending"|"Active"|"Inactive"|"Failed",
+#'       StateReason = "string",
+#'       StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'       LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+#'       LastUpdateStatusReason = "string",
+#'       LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'       FileSystemConfigs = list(
+#'         list(
+#'           Arn = "string",
+#'           LocalMountPath = "string"
+#'         )
+#'       ),
+#'       PackageType = "Zip"|"Image",
+#'       ImageConfigResponse = list(
+#'         ImageConfig = list(
+#'           EntryPoint = list(
+#'             "string"
+#'           ),
+#'           Command = list(
+#'             "string"
+#'           ),
+#'           WorkingDirectory = "string"
+#'         ),
+#'         Error = list(
+#'           ErrorCode = "string",
+#'           Message = "string"
+#'         )
+#'       ),
+#'       SigningProfileVersionArn = "string",
+#'       SigningJobArn = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2612,6 +3551,17 @@ lambda_list_functions <- function(MasterRegion = NULL, FunctionVersion = NULL, M
 #' retrieve the next page of results.
 #' @param MaxItems Maximum number of items to return.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextMarker = "string",
+#'   FunctionArns = list(
+#'     "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_functions_by_code_signing_config(
@@ -2659,6 +3609,26 @@ lambda_list_functions_by_code_signing_config <- function(CodeSigningConfigArn, M
 #' @param LayerName &#91;required&#93; The name or Amazon Resource Name (ARN) of the layer.
 #' @param Marker A pagination token returned by a previous call.
 #' @param MaxItems The maximum number of versions to return.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextMarker = "string",
+#'   LayerVersions = list(
+#'     list(
+#'       LayerVersionArn = "string",
+#'       Version = 123,
+#'       Description = "string",
+#'       CreatedDate = "string",
+#'       CompatibleRuntimes = list(
+#'         "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2"
+#'       ),
+#'       LicenseInfo = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2717,6 +3687,30 @@ lambda_list_layer_versions <- function(CompatibleRuntime = NULL, LayerName, Mark
 #' @param CompatibleRuntime A runtime identifier. For example, `go1.x`.
 #' @param Marker A pagination token returned by a previous call.
 #' @param MaxItems The maximum number of layers to return.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextMarker = "string",
+#'   Layers = list(
+#'     list(
+#'       LayerName = "string",
+#'       LayerArn = "string",
+#'       LatestMatchingVersion = list(
+#'         LayerVersionArn = "string",
+#'         Version = 123,
+#'         Description = "string",
+#'         CreatedDate = "string",
+#'         CompatibleRuntimes = list(
+#'           "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2"
+#'         ),
+#'         LicenseInfo = "string"
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2784,6 +3778,25 @@ lambda_list_layers <- function(CompatibleRuntime = NULL, Marker = NULL, MaxItems
 #' retrieve the next page of results.
 #' @param MaxItems Specify a number to limit the number of configurations returned.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ProvisionedConcurrencyConfigs = list(
+#'     list(
+#'       FunctionArn = "string",
+#'       RequestedProvisionedConcurrentExecutions = 123,
+#'       AvailableProvisionedConcurrentExecutions = 123,
+#'       AllocatedProvisionedConcurrentExecutions = 123,
+#'       Status = "IN_PROGRESS"|"READY"|"FAILED",
+#'       StatusReason = "string",
+#'       LastModified = "string"
+#'     )
+#'   ),
+#'   NextMarker = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_provisioned_concurrency_configs(
@@ -2827,12 +3840,22 @@ lambda_list_provisioned_concurrency_configs <- function(FunctionName, Marker = N
 #' @description
 #' Returns a function's
 #' [tags](https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html).
-#' You can also view tags with GetFunction.
+#' You can also view tags with [`get_function`][lambda_get_function].
 #'
 #' @usage
 #' lambda_list_tags(Resource)
 #'
 #' @param Resource &#91;required&#93; The function's Amazon Resource Name (ARN).
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Tags = list(
+#'     "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -2899,6 +3922,95 @@ lambda_list_tags <- function(Resource) {
 #' retrieve the next page of results.
 #' @param MaxItems The maximum number of versions to return.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   NextMarker = "string",
+#'   Versions = list(
+#'     list(
+#'       FunctionName = "string",
+#'       FunctionArn = "string",
+#'       Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+#'       Role = "string",
+#'       Handler = "string",
+#'       CodeSize = 123,
+#'       Description = "string",
+#'       Timeout = 123,
+#'       MemorySize = 123,
+#'       LastModified = "string",
+#'       CodeSha256 = "string",
+#'       Version = "string",
+#'       VpcConfig = list(
+#'         SubnetIds = list(
+#'           "string"
+#'         ),
+#'         SecurityGroupIds = list(
+#'           "string"
+#'         ),
+#'         VpcId = "string"
+#'       ),
+#'       DeadLetterConfig = list(
+#'         TargetArn = "string"
+#'       ),
+#'       Environment = list(
+#'         Variables = list(
+#'           "string"
+#'         ),
+#'         Error = list(
+#'           ErrorCode = "string",
+#'           Message = "string"
+#'         )
+#'       ),
+#'       KMSKeyArn = "string",
+#'       TracingConfig = list(
+#'         Mode = "Active"|"PassThrough"
+#'       ),
+#'       MasterArn = "string",
+#'       RevisionId = "string",
+#'       Layers = list(
+#'         list(
+#'           Arn = "string",
+#'           CodeSize = 123,
+#'           SigningProfileVersionArn = "string",
+#'           SigningJobArn = "string"
+#'         )
+#'       ),
+#'       State = "Pending"|"Active"|"Inactive"|"Failed",
+#'       StateReason = "string",
+#'       StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'       LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+#'       LastUpdateStatusReason = "string",
+#'       LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'       FileSystemConfigs = list(
+#'         list(
+#'           Arn = "string",
+#'           LocalMountPath = "string"
+#'         )
+#'       ),
+#'       PackageType = "Zip"|"Image",
+#'       ImageConfigResponse = list(
+#'         ImageConfig = list(
+#'           EntryPoint = list(
+#'             "string"
+#'           ),
+#'           Command = list(
+#'             "string"
+#'           ),
+#'           WorkingDirectory = "string"
+#'         ),
+#'         Error = list(
+#'           ErrorCode = "string",
+#'           Message = "string"
+#'         )
+#'       ),
+#'       SigningProfileVersionArn = "string",
+#'       SigningJobArn = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$list_versions_by_function(
@@ -2942,11 +4054,13 @@ lambda_list_versions_by_function <- function(FunctionName, Marker = NULL, MaxIte
 #' @description
 #' Creates an [AWS Lambda
 #' layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
-#' from a ZIP archive. Each time you call `PublishLayerVersion` with the
-#' same layer name, a new version is created.
+#' from a ZIP archive. Each time you call
+#' [`publish_layer_version`][lambda_publish_layer_version] with the same
+#' layer name, a new version is created.
 #' 
-#' Add layers to your function with CreateFunction or
-#' UpdateFunctionConfiguration.
+#' Add layers to your function with
+#' [`create_function`][lambda_create_function] or
+#' [`update_function_configuration`][lambda_update_function_configuration].
 #'
 #' @usage
 #' lambda_publish_layer_version(LayerName, Description, Content,
@@ -2957,7 +4071,8 @@ lambda_list_versions_by_function <- function(FunctionName, Marker = NULL, MaxIte
 #' @param Content &#91;required&#93; The function layer archive.
 #' @param CompatibleRuntimes A list of compatible [function
 #' runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html).
-#' Used for filtering with ListLayers and ListLayerVersions.
+#' Used for filtering with [`list_layers`][lambda_list_layers] and
+#' [`list_layer_versions`][lambda_list_layer_versions].
 #' @param LicenseInfo The layer's software license. It can be any of the following:
 #' 
 #' -   An [SPDX license identifier](https://spdx.org/licenses/). For
@@ -2967,6 +4082,29 @@ lambda_list_versions_by_function <- function(FunctionName, Marker = NULL, MaxIte
 #'     `https://opensource.org/licenses/MIT`.
 #' 
 #' -   The full text of the license.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   Content = list(
+#'     Location = "string",
+#'     CodeSha256 = "string",
+#'     CodeSize = 123,
+#'     SigningProfileVersionArn = "string",
+#'     SigningJobArn = "string"
+#'   ),
+#'   LayerArn = "string",
+#'   LayerVersionArn = "string",
+#'   Description = "string",
+#'   CreatedDate = "string",
+#'   Version = 123,
+#'   CompatibleRuntimes = list(
+#'     "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2"
+#'   ),
+#'   LicenseInfo = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3036,12 +4174,13 @@ lambda_publish_layer_version <- function(LayerName, Description = NULL, Content,
 #' change.
 #' 
 #' AWS Lambda doesn't publish a version if the function's configuration and
-#' code haven't changed since the last version. Use UpdateFunctionCode or
-#' UpdateFunctionConfiguration to update the function before publishing a
-#' version.
+#' code haven't changed since the last version. Use
+#' [`update_function_code`][lambda_update_function_code] or
+#' [`update_function_configuration`][lambda_update_function_configuration]
+#' to update the function before publishing a version.
 #' 
 #' Clients can invoke versions directly or with an alias. To create an
-#' alias, use CreateAlias.
+#' alias, use [`create_alias`][lambda_create_alias].
 #'
 #' @usage
 #' lambda_publish_version(FunctionName, CodeSha256, Description,
@@ -3063,12 +4202,97 @@ lambda_publish_layer_version <- function(LayerName, Description = NULL, Content,
 #' @param CodeSha256 Only publish a version if the hash value matches the value that's
 #' specified. Use this option to avoid publishing a version if the function
 #' code has changed since you last updated it. You can get the hash for the
-#' version that you uploaded from the output of UpdateFunctionCode.
+#' version that you uploaded from the output of
+#' [`update_function_code`][lambda_update_function_code].
 #' @param Description A description for the version to override the description in the
 #' function configuration.
 #' @param RevisionId Only update the function if the revision ID matches the ID that's
 #' specified. Use this option to avoid publishing a version if the function
 #' configuration has changed since you last updated it.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   FunctionName = "string",
+#'   FunctionArn = "string",
+#'   Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+#'   Role = "string",
+#'   Handler = "string",
+#'   CodeSize = 123,
+#'   Description = "string",
+#'   Timeout = 123,
+#'   MemorySize = 123,
+#'   LastModified = "string",
+#'   CodeSha256 = "string",
+#'   Version = "string",
+#'   VpcConfig = list(
+#'     SubnetIds = list(
+#'       "string"
+#'     ),
+#'     SecurityGroupIds = list(
+#'       "string"
+#'     ),
+#'     VpcId = "string"
+#'   ),
+#'   DeadLetterConfig = list(
+#'     TargetArn = "string"
+#'   ),
+#'   Environment = list(
+#'     Variables = list(
+#'       "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   KMSKeyArn = "string",
+#'   TracingConfig = list(
+#'     Mode = "Active"|"PassThrough"
+#'   ),
+#'   MasterArn = "string",
+#'   RevisionId = "string",
+#'   Layers = list(
+#'     list(
+#'       Arn = "string",
+#'       CodeSize = 123,
+#'       SigningProfileVersionArn = "string",
+#'       SigningJobArn = "string"
+#'     )
+#'   ),
+#'   State = "Pending"|"Active"|"Inactive"|"Failed",
+#'   StateReason = "string",
+#'   StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+#'   LastUpdateStatusReason = "string",
+#'   LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   FileSystemConfigs = list(
+#'     list(
+#'       Arn = "string",
+#'       LocalMountPath = "string"
+#'     )
+#'   ),
+#'   PackageType = "Zip"|"Image",
+#'   ImageConfigResponse = list(
+#'     ImageConfig = list(
+#'       EntryPoint = list(
+#'         "string"
+#'       ),
+#'       Command = list(
+#'         "string"
+#'       ),
+#'       WorkingDirectory = "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   SigningProfileVersionArn = "string",
+#'   SigningJobArn = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3136,6 +4360,15 @@ lambda_publish_version <- function(FunctionName, CodeSha256 = NULL, Description 
 #' The length constraint applies only to the full ARN. If you specify only
 #' the function name, it is limited to 64 characters in length.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   CodeSigningConfigArn = "string",
+#'   FunctionName = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$put_function_code_signing_config(
@@ -3175,13 +4408,14 @@ lambda_put_function_code_signing_config <- function(CodeSigningConfigArn, Functi
 #' published versions and the unpublished version. Reserving concurrency
 #' both ensures that your function has capacity to process the specified
 #' number of events simultaneously, and prevents it from scaling beyond
-#' that level. Use GetFunction to see the current setting for a function.
+#' that level. Use [`get_function`][lambda_get_function] to see the current
+#' setting for a function.
 #' 
-#' Use GetAccountSettings to see your Regional concurrency limit. You can
-#' reserve concurrency for as many functions as you like, as long as you
-#' leave at least 100 simultaneous executions unreserved for functions that
-#' aren't configured with a per-function limit. For more information, see
-#' [Managing
+#' Use [`get_account_settings`][lambda_get_account_settings] to see your
+#' Regional concurrency limit. You can reserve concurrency for as many
+#' functions as you like, as long as you leave at least 100 simultaneous
+#' executions unreserved for functions that aren't configured with a
+#' per-function limit. For more information, see [Managing
 #' Concurrency](https://docs.aws.amazon.com/lambda/latest/dg/invocation-scaling.html).
 #'
 #' @usage
@@ -3202,6 +4436,14 @@ lambda_put_function_code_signing_config <- function(CodeSigningConfigArn, Functi
 #' The length constraint applies only to the full ARN. If you specify only
 #' the function name, it is limited to 64 characters in length.
 #' @param ReservedConcurrentExecutions &#91;required&#93; The number of simultaneous executions to reserve for the function.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   ReservedConcurrentExecutions = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3251,14 +4493,14 @@ lambda_put_function_concurrency <- function(FunctionName, ReservedConcurrentExec
 #' a function, version, or alias, this operation overwrites it. If you
 #' exclude any settings, they are removed. To set one option without
 #' affecting existing settings for other options, use
-#' UpdateFunctionEventInvokeConfig.
+#' [`update_function_event_invoke_config`][lambda_update_function_event_invoke_config].
 #' 
 #' By default, Lambda retries an asynchronous invocation twice if the
 #' function returns an error. It retains events in a queue for up to six
 #' hours. When an event fails all processing attempts or stays in the
 #' asynchronous invocation queue for too long, Lambda discards it. To
 #' retain discarded events, configure a dead-letter queue with
-#' UpdateFunctionConfiguration.
+#' [`update_function_configuration`][lambda_update_function_configuration].
 #' 
 #' To send an invocation record to a queue, topic, function, or event bus,
 #' specify a
@@ -3303,6 +4545,27 @@ lambda_put_function_concurrency <- function(FunctionName, ReservedConcurrentExec
 #' -   **Topic** - The ARN of an SNS topic.
 #' 
 #' -   **Event Bus** - The ARN of an Amazon EventBridge event bus.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   LastModified = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   FunctionArn = "string",
+#'   MaximumRetryAttempts = 123,
+#'   MaximumEventAgeInSeconds = 123,
+#'   DestinationConfig = list(
+#'     OnSuccess = list(
+#'       Destination = "string"
+#'     ),
+#'     OnFailure = list(
+#'       Destination = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3381,6 +4644,19 @@ lambda_put_function_event_invoke_config <- function(FunctionName, Qualifier = NU
 #' @param ProvisionedConcurrentExecutions &#91;required&#93; The amount of provisioned concurrency to allocate for the version or
 #' alias.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   RequestedProvisionedConcurrentExecutions = 123,
+#'   AvailableProvisionedConcurrentExecutions = 123,
+#'   AllocatedProvisionedConcurrentExecutions = 123,
+#'   Status = "IN_PROGRESS"|"READY"|"FAILED",
+#'   StatusReason = "string",
+#'   LastModified = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$put_provisioned_concurrency_config(
@@ -3428,7 +4704,8 @@ lambda_put_provisioned_concurrency_config <- function(FunctionName, Qualifier, P
 #' Removes a statement from the permissions policy for a version of an [AWS
 #' Lambda
 #' layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html).
-#' For more information, see AddLayerVersionPermission.
+#' For more information, see
+#' [`add_layer_version_permission`][lambda_add_layer_version_permission].
 #'
 #' @usage
 #' lambda_remove_layer_version_permission(LayerName, VersionNumber,
@@ -3440,6 +4717,9 @@ lambda_put_provisioned_concurrency_config <- function(FunctionName, Qualifier, P
 #' @param RevisionId Only update the policy if the revision ID matches the ID specified. Use
 #' this option to avoid modifying a policy that has changed since you last
 #' read it.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -3486,7 +4766,8 @@ lambda_remove_layer_version_permission <- function(LayerName, VersionNumber, Sta
 #'
 #' @description
 #' Revokes function-use permission from an AWS service or another account.
-#' You can get the ID of the statement from the output of GetPolicy.
+#' You can get the ID of the statement from the output of
+#' [`get_policy`][lambda_get_policy].
 #'
 #' @usage
 #' lambda_remove_permission(FunctionName, StatementId, Qualifier,
@@ -3513,6 +4794,9 @@ lambda_remove_layer_version_permission <- function(LayerName, VersionNumber, Sta
 #' @param RevisionId Only update the policy if the revision ID matches the ID that's
 #' specified. Use this option to avoid modifying a policy that has changed
 #' since you last read it.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -3568,6 +4852,9 @@ lambda_remove_permission <- function(FunctionName, StatementId, Qualifier = NULL
 #' @param Resource &#91;required&#93; The function's Amazon Resource Name (ARN).
 #' @param Tags &#91;required&#93; A list of tags to apply to the function.
 #'
+#' @return
+#' An empty list.
+#'
 #' @section Request syntax:
 #' ```
 #' svc$tag_resource(
@@ -3622,6 +4909,9 @@ lambda_tag_resource <- function(Resource, Tags) {
 #'
 #' @param Resource &#91;required&#93; The function's Amazon Resource Name (ARN).
 #' @param TagKeys &#91;required&#93; A list of tag keys to remove from the function.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -3698,6 +4988,23 @@ lambda_untag_resource <- function(Resource, TagKeys) {
 #' specified. Use this option to avoid modifying an alias that has changed
 #' since you last read it.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   AliasArn = "string",
+#'   Name = "string",
+#'   FunctionVersion = "string",
+#'   Description = "string",
+#'   RoutingConfig = list(
+#'     AdditionalVersionWeights = list(
+#'       123.0
+#'     )
+#'   ),
+#'   RevisionId = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_alias(
@@ -3765,6 +5072,27 @@ lambda_update_alias <- function(FunctionName, Name, FunctionVersion = NULL, Desc
 #' @param Description Descriptive name for this code signing configuration.
 #' @param AllowedPublishers Signing profiles for this code signing configuration.
 #' @param CodeSigningPolicies The code signing policy.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   CodeSigningConfig = list(
+#'     CodeSigningConfigId = "string",
+#'     CodeSigningConfigArn = "string",
+#'     Description = "string",
+#'     AllowedPublishers = list(
+#'       SigningProfileVersionArns = list(
+#'         "string"
+#'       )
+#'     ),
+#'     CodeSigningPolicies = list(
+#'       UntrustedArtifactOnDeployment = "Warn"|"Enforce"
+#'     ),
+#'     LastModified = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -3887,6 +5215,63 @@ lambda_update_code_signing_config <- function(CodeSigningConfigArn, Description 
 #' @param FunctionResponseTypes (Streams) A list of current response type enums applied to the event
 #' source mapping.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   UUID = "string",
+#'   StartingPosition = "TRIM_HORIZON"|"LATEST"|"AT_TIMESTAMP",
+#'   StartingPositionTimestamp = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   BatchSize = 123,
+#'   MaximumBatchingWindowInSeconds = 123,
+#'   ParallelizationFactor = 123,
+#'   EventSourceArn = "string",
+#'   FunctionArn = "string",
+#'   LastModified = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   LastProcessingResult = "string",
+#'   State = "string",
+#'   StateTransitionReason = "string",
+#'   DestinationConfig = list(
+#'     OnSuccess = list(
+#'       Destination = "string"
+#'     ),
+#'     OnFailure = list(
+#'       Destination = "string"
+#'     )
+#'   ),
+#'   Topics = list(
+#'     "string"
+#'   ),
+#'   Queues = list(
+#'     "string"
+#'   ),
+#'   SourceAccessConfigurations = list(
+#'     list(
+#'       Type = "BASIC_AUTH"|"VPC_SUBNET"|"VPC_SECURITY_GROUP"|"SASL_SCRAM_512_AUTH"|"SASL_SCRAM_256_AUTH",
+#'       URI = "string"
+#'     )
+#'   ),
+#'   SelfManagedEventSource = list(
+#'     Endpoints = list(
+#'       list(
+#'         "string"
+#'       )
+#'     )
+#'   ),
+#'   MaximumRecordAgeInSeconds = 123,
+#'   BisectBatchOnFunctionError = TRUE|FALSE,
+#'   MaximumRetryAttempts = 123,
+#'   TumblingWindowInSeconds = 123,
+#'   FunctionResponseTypes = list(
+#'     "ReportBatchItemFailures"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$update_event_source_mapping(
@@ -3992,12 +5377,97 @@ lambda_update_event_source_mapping <- function(UUID, FunctionName = NULL, Enable
 #' use.
 #' @param ImageUri URI of a container image in the Amazon ECR registry.
 #' @param Publish Set to true to publish a new version of the function after updating the
-#' code. This has the same effect as calling PublishVersion separately.
+#' code. This has the same effect as calling
+#' [`publish_version`][lambda_publish_version] separately.
 #' @param DryRun Set to true to validate the request parameters and access permissions
 #' without modifying the function code.
 #' @param RevisionId Only update the function if the revision ID matches the ID that's
 #' specified. Use this option to avoid modifying a function that has
 #' changed since you last read it.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   FunctionName = "string",
+#'   FunctionArn = "string",
+#'   Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+#'   Role = "string",
+#'   Handler = "string",
+#'   CodeSize = 123,
+#'   Description = "string",
+#'   Timeout = 123,
+#'   MemorySize = 123,
+#'   LastModified = "string",
+#'   CodeSha256 = "string",
+#'   Version = "string",
+#'   VpcConfig = list(
+#'     SubnetIds = list(
+#'       "string"
+#'     ),
+#'     SecurityGroupIds = list(
+#'       "string"
+#'     ),
+#'     VpcId = "string"
+#'   ),
+#'   DeadLetterConfig = list(
+#'     TargetArn = "string"
+#'   ),
+#'   Environment = list(
+#'     Variables = list(
+#'       "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   KMSKeyArn = "string",
+#'   TracingConfig = list(
+#'     Mode = "Active"|"PassThrough"
+#'   ),
+#'   MasterArn = "string",
+#'   RevisionId = "string",
+#'   Layers = list(
+#'     list(
+#'       Arn = "string",
+#'       CodeSize = 123,
+#'       SigningProfileVersionArn = "string",
+#'       SigningJobArn = "string"
+#'     )
+#'   ),
+#'   State = "Pending"|"Active"|"Inactive"|"Failed",
+#'   StateReason = "string",
+#'   StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+#'   LastUpdateStatusReason = "string",
+#'   LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   FileSystemConfigs = list(
+#'     list(
+#'       Arn = "string",
+#'       LocalMountPath = "string"
+#'     )
+#'   ),
+#'   PackageType = "Zip"|"Image",
+#'   ImageConfigResponse = list(
+#'     ImageConfig = list(
+#'       EntryPoint = list(
+#'         "string"
+#'       ),
+#'       Command = list(
+#'         "string"
+#'       ),
+#'       WorkingDirectory = "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   SigningProfileVersionArn = "string",
+#'   SigningJobArn = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4056,17 +5526,20 @@ lambda_update_function_code <- function(FunctionName, ZipFile = NULL, S3Bucket =
 #' VPC, this process can take a minute. During this time, you can't modify
 #' the function, but you can still invoke it. The `LastUpdateStatus`,
 #' `LastUpdateStatusReason`, and `LastUpdateStatusReasonCode` fields in the
-#' response from GetFunctionConfiguration indicate when the update is
-#' complete and the function is processing events with the new
-#' configuration. For more information, see [Function
+#' response from
+#' [`get_function_configuration`][lambda_get_function_configuration]
+#' indicate when the update is complete and the function is processing
+#' events with the new configuration. For more information, see [Function
 #' States](https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html).
 #' 
 #' These settings can vary between versions of a function and are locked
 #' when you publish a version. You can't modify the configuration of a
 #' published version, only the unpublished version.
 #' 
-#' To configure function concurrency, use PutFunctionConcurrency. To grant
-#' invoke permissions to an account or AWS service, use AddPermission.
+#' To configure function concurrency, use
+#' [`put_function_concurrency`][lambda_put_function_concurrency]. To grant
+#' invoke permissions to an account or AWS service, use
+#' [`add_permission`][lambda_add_permission].
 #'
 #' @usage
 #' lambda_update_function_configuration(FunctionName, Role, Handler,
@@ -4126,6 +5599,90 @@ lambda_update_function_code <- function(FunctionName, ZipFile = NULL, S3Bucket =
 #' its ARN, including the version.
 #' @param FileSystemConfigs Connection settings for an Amazon EFS file system.
 #' @param ImageConfig Configuration values that override the container image Dockerfile.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   FunctionName = "string",
+#'   FunctionArn = "string",
+#'   Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+#'   Role = "string",
+#'   Handler = "string",
+#'   CodeSize = 123,
+#'   Description = "string",
+#'   Timeout = 123,
+#'   MemorySize = 123,
+#'   LastModified = "string",
+#'   CodeSha256 = "string",
+#'   Version = "string",
+#'   VpcConfig = list(
+#'     SubnetIds = list(
+#'       "string"
+#'     ),
+#'     SecurityGroupIds = list(
+#'       "string"
+#'     ),
+#'     VpcId = "string"
+#'   ),
+#'   DeadLetterConfig = list(
+#'     TargetArn = "string"
+#'   ),
+#'   Environment = list(
+#'     Variables = list(
+#'       "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   KMSKeyArn = "string",
+#'   TracingConfig = list(
+#'     Mode = "Active"|"PassThrough"
+#'   ),
+#'   MasterArn = "string",
+#'   RevisionId = "string",
+#'   Layers = list(
+#'     list(
+#'       Arn = "string",
+#'       CodeSize = 123,
+#'       SigningProfileVersionArn = "string",
+#'       SigningJobArn = "string"
+#'     )
+#'   ),
+#'   State = "Pending"|"Active"|"Inactive"|"Failed",
+#'   StateReason = "string",
+#'   StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+#'   LastUpdateStatusReason = "string",
+#'   LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+#'   FileSystemConfigs = list(
+#'     list(
+#'       Arn = "string",
+#'       LocalMountPath = "string"
+#'     )
+#'   ),
+#'   PackageType = "Zip"|"Image",
+#'   ImageConfigResponse = list(
+#'     ImageConfig = list(
+#'       EntryPoint = list(
+#'         "string"
+#'       ),
+#'       Command = list(
+#'         "string"
+#'       ),
+#'       WorkingDirectory = "string"
+#'     ),
+#'     Error = list(
+#'       ErrorCode = "string",
+#'       Message = "string"
+#'     )
+#'   ),
+#'   SigningProfileVersionArn = "string",
+#'   SigningJobArn = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -4217,7 +5774,7 @@ lambda_update_function_configuration <- function(FunctionName, Role = NULL, Hand
 #' version, or alias.
 #' 
 #' To configure options for asynchronous invocation, use
-#' PutFunctionEventInvokeConfig.
+#' [`put_function_event_invoke_config`][lambda_put_function_event_invoke_config].
 #'
 #' @usage
 #' lambda_update_function_event_invoke_config(FunctionName, Qualifier,
@@ -4254,6 +5811,27 @@ lambda_update_function_configuration <- function(FunctionName, Role = NULL, Hand
 #' -   **Topic** - The ARN of an SNS topic.
 #' 
 #' -   **Event Bus** - The ARN of an Amazon EventBridge event bus.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   LastModified = as.POSIXct(
+#'     "2015-01-01"
+#'   ),
+#'   FunctionArn = "string",
+#'   MaximumRetryAttempts = 123,
+#'   MaximumEventAgeInSeconds = 123,
+#'   DestinationConfig = list(
+#'     OnSuccess = list(
+#'       Destination = "string"
+#'     ),
+#'     OnFailure = list(
+#'       Destination = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```

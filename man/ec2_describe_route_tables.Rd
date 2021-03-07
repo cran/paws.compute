@@ -36,11 +36,12 @@ the table.
 \item \code{route.nat-gateway-id} - The ID of a NAT gateway.
 \item \code{route.transit-gateway-id} - The ID of a transit gateway.
 \item \code{route.origin} - Describes how the route was created.
-\code{CreateRouteTable} indicates that the route was automatically
-created when the route table was created; \code{CreateRoute} indicates
-that the route was manually added to the route table;
-\code{EnableVgwRoutePropagation} indicates that the route was propagated
-by route propagation.
+\code{\link[=ec2_create_route_table]{create_route_table}} indicates that the
+route was automatically created when the route table was created;
+\code{\link[=ec2_create_route]{create_route}} indicates that the route was
+manually added to the route table;
+\code{\link[=ec2_enable_vgw_route_propagation]{enable_vgw_route_propagation}}
+indicates that the route was propagated by route propagation.
 \item \code{route.state} - The state of a route in the route table (\code{active} |
 \code{blackhole}). The blackhole state indicates that the route's target
 isn't available (for example, the specified gateway isn't attached
@@ -73,6 +74,62 @@ Default: Describes all your route tables.}
 \item{MaxResults}{The maximum number of results to return with a single call. To retrieve
 the remaining results, make another call with the returned \code{nextToken}
 value.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  RouteTables = list(
+    list(
+      Associations = list(
+        list(
+          Main = TRUE|FALSE,
+          RouteTableAssociationId = "string",
+          RouteTableId = "string",
+          SubnetId = "string",
+          GatewayId = "string",
+          AssociationState = list(
+            State = "associating"|"associated"|"disassociating"|"disassociated"|"failed",
+            StatusMessage = "string"
+          )
+        )
+      ),
+      PropagatingVgws = list(
+        list(
+          GatewayId = "string"
+        )
+      ),
+      RouteTableId = "string",
+      Routes = list(
+        list(
+          DestinationCidrBlock = "string",
+          DestinationIpv6CidrBlock = "string",
+          DestinationPrefixListId = "string",
+          EgressOnlyInternetGatewayId = "string",
+          GatewayId = "string",
+          InstanceId = "string",
+          InstanceOwnerId = "string",
+          NatGatewayId = "string",
+          TransitGatewayId = "string",
+          LocalGatewayId = "string",
+          CarrierGatewayId = "string",
+          NetworkInterfaceId = "string",
+          Origin = "CreateRouteTable"|"CreateRoute"|"EnableVgwRoutePropagation",
+          State = "active"|"blackhole",
+          VpcPeeringConnectionId = "string"
+        )
+      ),
+      Tags = list(
+        list(
+          Key = "string",
+          Value = "string"
+        )
+      ),
+      VpcId = "string",
+      OwnerId = "string"
+    )
+  ),
+  NextToken = "string"
+)
+}
 }
 \description{
 Describes one or more of your route tables.

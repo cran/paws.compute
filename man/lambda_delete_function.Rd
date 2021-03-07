@@ -25,15 +25,18 @@ function name, it is limited to 64 characters in length.}
 \item{Qualifier}{Specify a version to delete. You can't delete a version that's
 referenced by an alias.}
 }
+\value{
+An empty list.
+}
 \description{
 Deletes a Lambda function. To delete a specific function version, use
 the \code{Qualifier} parameter. Otherwise, all versions and aliases are
 deleted.
 
 To delete Lambda event source mappings that invoke a function, use
-DeleteEventSourceMapping. For AWS services and resources that invoke
-your function directly, delete the trigger in the service where you
-originally configured it.
+\code{\link[=lambda_delete_event_source_mapping]{delete_event_source_mapping}}. For
+AWS services and resources that invoke your function directly, delete
+the trigger in the service where you originally configured it.
 }
 \section{Request syntax}{
 \preformatted{svc$delete_function(

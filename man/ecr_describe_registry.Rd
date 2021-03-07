@@ -6,10 +6,29 @@
 \usage{
 ecr_describe_registry()
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  registryId = "string",
+  replicationConfiguration = list(
+    rules = list(
+      list(
+        destinations = list(
+          list(
+            region = "string",
+            registryId = "string"
+          )
+        )
+      )
+    )
+  )
+)
+}
+}
 \description{
 Describes the settings for a registry. The replication configuration for
 a repository can be created or updated with the
-PutReplicationConfiguration API action.
+\code{\link[=ecr_put_replication_configuration]{put_replication_configuration}} API
+action.
 }
 \section{Request syntax}{
 \preformatted{svc$describe_registry()

@@ -12,6 +12,12 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  EbsEncryptionByDefault = TRUE|FALSE
+)
+}
+}
 \description{
 Enables EBS encryption by default for your account in the current
 Region.
@@ -23,7 +29,8 @@ you specified when you created each volume. For more information, see
 in the \emph{Amazon Elastic Compute Cloud User Guide}.
 
 You can specify the default CMK for encryption by default using
-ModifyEbsDefaultKmsKeyId or ResetEbsDefaultKmsKeyId.
+\code{\link[=ec2_modify_ebs_default_kms_key_id]{modify_ebs_default_kms_key_id}} or
+\code{\link[=ec2_reset_ebs_default_kms_key_id]{reset_ebs_default_kms_key_id}}.
 
 Enabling encryption by default has no effect on the encryption status of
 your existing volumes.

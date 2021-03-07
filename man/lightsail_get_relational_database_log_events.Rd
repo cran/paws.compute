@@ -47,10 +47,26 @@ available.}
 \item{pageToken}{The token to advance to the next or previous page of results from your
 request.
 
-To get a page token, perform an initial \code{GetRelationalDatabaseLogEvents}
+To get a page token, perform an initial
+\code{\link[=lightsail_get_relational_database_log_events]{get_relational_database_log_events}}
 request. If your results are paginated, the response will return a next
 forward token and/or next backward token that you can specify as the
 page token in a subsequent request.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  resourceLogEvents = list(
+    list(
+      createdAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      message = "string"
+    )
+  ),
+  nextBackwardToken = "string",
+  nextForwardToken = "string"
+)
+}
 }
 \description{
 Returns a list of log events for a database in Amazon Lightsail.

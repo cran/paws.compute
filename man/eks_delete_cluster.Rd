@@ -9,6 +9,73 @@ eks_delete_cluster(name)
 \arguments{
 \item{name}{[required] The name of the cluster to delete.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  cluster = list(
+    name = "string",
+    arn = "string",
+    createdAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    version = "string",
+    endpoint = "string",
+    roleArn = "string",
+    resourcesVpcConfig = list(
+      subnetIds = list(
+        "string"
+      ),
+      securityGroupIds = list(
+        "string"
+      ),
+      clusterSecurityGroupId = "string",
+      vpcId = "string",
+      endpointPublicAccess = TRUE|FALSE,
+      endpointPrivateAccess = TRUE|FALSE,
+      publicAccessCidrs = list(
+        "string"
+      )
+    ),
+    kubernetesNetworkConfig = list(
+      serviceIpv4Cidr = "string"
+    ),
+    logging = list(
+      clusterLogging = list(
+        list(
+          types = list(
+            "api"|"audit"|"authenticator"|"controllerManager"|"scheduler"
+          ),
+          enabled = TRUE|FALSE
+        )
+      )
+    ),
+    identity = list(
+      oidc = list(
+        issuer = "string"
+      )
+    ),
+    status = "CREATING"|"ACTIVE"|"DELETING"|"FAILED"|"UPDATING",
+    certificateAuthority = list(
+      data = "string"
+    ),
+    clientRequestToken = "string",
+    platformVersion = "string",
+    tags = list(
+      "string"
+    ),
+    encryptionConfig = list(
+      list(
+        resources = list(
+          "string"
+        ),
+        provider = list(
+          keyArn = "string"
+        )
+      )
+    )
+  )
+)
+}
+}
 \description{
 Deletes the Amazon EKS cluster control plane.
 
@@ -21,7 +88,8 @@ in the \emph{Amazon EKS User Guide}.
 
 If you have managed node groups or Fargate profiles attached to the
 cluster, you must delete them first. For more information, see
-DeleteNodegroup and DeleteFargateProfile.
+\code{\link[=eks_delete_nodegroup]{delete_nodegroup}} and
+\code{\link[=eks_delete_fargate_profile]{delete_fargate_profile}}.
 }
 \section{Request syntax}{
 \preformatted{svc$delete_cluster(

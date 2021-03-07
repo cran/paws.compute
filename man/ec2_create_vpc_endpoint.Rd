@@ -21,8 +21,8 @@ Default: Gateway}
 \item{VpcId}{[required] The ID of the VPC in which the endpoint will be used.}
 
 \item{ServiceName}{[required] The service name. To get a list of available services, use the
-DescribeVpcEndpointServices request, or get the name from the service
-provider.}
+\code{\link[=ec2_describe_vpc_endpoint_services]{describe_vpc_endpoint_services}}
+request, or get the name from the service provider.}
 
 \item{PolicyDocument}{(Interface and gateway endpoints) A policy to attach to the endpoint
 that controls access to the service. The policy must be in valid JSON
@@ -52,17 +52,69 @@ by the VPC endpoint service.
 
 To use a private hosted zone, you must set the following VPC attributes
 to \code{true}: \code{enableDnsHostnames} and \code{enableDnsSupport}. Use
-ModifyVpcAttribute to set the VPC attributes.
+\code{\link[=ec2_modify_vpc_attribute]{modify_vpc_attribute}} to set the VPC
+attributes.
 
 Default: \code{true}}
 
 \item{TagSpecifications}{The tags to associate with the endpoint.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  VpcEndpoint = list(
+    VpcEndpointId = "string",
+    VpcEndpointType = "Interface"|"Gateway"|"GatewayLoadBalancer",
+    VpcId = "string",
+    ServiceName = "string",
+    State = "PendingAcceptance"|"Pending"|"Available"|"Deleting"|"Deleted"|"Rejected"|"Failed"|"Expired",
+    PolicyDocument = "string",
+    RouteTableIds = list(
+      "string"
+    ),
+    SubnetIds = list(
+      "string"
+    ),
+    Groups = list(
+      list(
+        GroupId = "string",
+        GroupName = "string"
+      )
+    ),
+    PrivateDnsEnabled = TRUE|FALSE,
+    RequesterManaged = TRUE|FALSE,
+    NetworkInterfaceIds = list(
+      "string"
+    ),
+    DnsEntries = list(
+      list(
+        DnsName = "string",
+        HostedZoneId = "string"
+      )
+    ),
+    CreationTimestamp = as.POSIXct(
+      "2015-01-01"
+    ),
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    ),
+    OwnerId = "string",
+    LastError = list(
+      Message = "string",
+      Code = "string"
+    )
+  ),
+  ClientToken = "string"
+)
+}
+}
 \description{
 Creates a VPC endpoint for a specified service. An endpoint enables you
 to create a private connection between your VPC and the service. The
 service may be provided by AWS, an AWS Marketplace Partner, or another
-AWS account. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/vpc-endpoints.html}{VPC Endpoints}
+AWS account. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html}{VPC Endpoints}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 
 A \code{gateway} endpoint serves as a target for a route in your route table
@@ -80,7 +132,9 @@ A \code{GatewayLoadBalancer} endpoint is a network interface in your subnet
 that serves an endpoint for communicating with a Gateway Load Balancer
 that you've configured as a VPC endpoint service.
 
-Use DescribeVpcEndpointServices to get a list of supported services.
+Use
+\code{\link[=ec2_describe_vpc_endpoint_services]{describe_vpc_endpoint_services}}
+to get a list of supported services.
 }
 \section{Request syntax}{
 \preformatted{svc$create_vpc_endpoint(

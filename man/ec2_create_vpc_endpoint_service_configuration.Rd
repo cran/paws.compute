@@ -17,7 +17,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{AcceptanceRequired}{Indicates whether requests from service consumers to create an endpoint
 to your service must be accepted. To accept a request, use
-AcceptVpcEndpointConnections.}
+\code{\link[=ec2_accept_vpc_endpoint_connections]{accept_vpc_endpoint_connections}}.}
 
 \item{PrivateDnsName}{(Interface endpoint configuration) The private DNS name to assign to the
 VPC endpoint service.}
@@ -31,6 +31,49 @@ for your service.}
 idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.}
 
 \item{TagSpecifications}{The tags to associate with the service.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  ServiceConfiguration = list(
+    ServiceType = list(
+      list(
+        ServiceType = "Interface"|"Gateway"|"GatewayLoadBalancer"
+      )
+    ),
+    ServiceId = "string",
+    ServiceName = "string",
+    ServiceState = "Pending"|"Available"|"Deleting"|"Deleted"|"Failed",
+    AvailabilityZones = list(
+      "string"
+    ),
+    AcceptanceRequired = TRUE|FALSE,
+    ManagesVpcEndpoints = TRUE|FALSE,
+    NetworkLoadBalancerArns = list(
+      "string"
+    ),
+    GatewayLoadBalancerArns = list(
+      "string"
+    ),
+    BaseEndpointDnsNames = list(
+      "string"
+    ),
+    PrivateDnsName = "string",
+    PrivateDnsNameConfiguration = list(
+      State = "pendingVerification"|"verified"|"failed",
+      Type = "string",
+      Value = "string",
+      Name = "string"
+    ),
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  ),
+  ClientToken = "string"
+)
+}
 }
 \description{
 Creates a VPC endpoint service configuration to which service consumers
@@ -47,11 +90,11 @@ Service consumers connect to your service using a Gateway Load
 Balancer endpoint.
 }
 
-For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-service.html}{VPC Endpoint Services}
+For more information, see \href{https://docs.aws.amazon.com/vpc/latest/privatelink/endpoint-service.html}{VPC Endpoint Services}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 
 If you set the private DNS name, you must prove that you own the private
-DNS domain name. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-services-dns-validation.html}{VPC Endpoint Service Private DNS Name Verification}
+DNS domain name. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/privatelink/endpoint-services-dns-validation.html}{VPC Endpoint Service Private DNS Name Verification}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 }
 \section{Request syntax}{

@@ -17,14 +17,58 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{PurchaseRequests}{[required] The purchase requests.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  ScheduledInstanceSet = list(
+    list(
+      AvailabilityZone = "string",
+      CreateDate = as.POSIXct(
+        "2015-01-01"
+      ),
+      HourlyPrice = "string",
+      InstanceCount = 123,
+      InstanceType = "string",
+      NetworkPlatform = "string",
+      NextSlotStartTime = as.POSIXct(
+        "2015-01-01"
+      ),
+      Platform = "string",
+      PreviousSlotEndTime = as.POSIXct(
+        "2015-01-01"
+      ),
+      Recurrence = list(
+        Frequency = "string",
+        Interval = 123,
+        OccurrenceDaySet = list(
+          123
+        ),
+        OccurrenceRelativeToEnd = TRUE|FALSE,
+        OccurrenceUnit = "string"
+      ),
+      ScheduledInstanceId = "string",
+      SlotDurationInHours = 123,
+      TermEndDate = as.POSIXct(
+        "2015-01-01"
+      ),
+      TermStartDate = as.POSIXct(
+        "2015-01-01"
+      ),
+      TotalScheduledInstanceHours = 123
+    )
+  )
+)
+}
+}
 \description{
 Purchases the Scheduled Instances with the specified schedule.
 
 Scheduled Instances enable you to purchase Amazon EC2 compute capacity
 by the hour for a one-year term. Before you can purchase a Scheduled
-Instance, you must call DescribeScheduledInstanceAvailability to check
-for available schedules and obtain a purchase token. After you purchase
-a Scheduled Instance, you must call RunScheduledInstances during each
+Instance, you must call
+\code{\link[=ec2_describe_scheduled_instance_availability]{describe_scheduled_instance_availability}}
+to check for available schedules and obtain a purchase token. After you
+purchase a Scheduled Instance, you must call
+\code{\link[=ec2_run_scheduled_instances]{run_scheduled_instances}} during each
 scheduled time period.
 
 After you purchase a Scheduled Instance, you can't cancel, modify, or

@@ -34,6 +34,12 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  KmsKeyId = "string"
+)
+}
+}
 \description{
 Changes the default customer master key (CMK) for EBS encryption by
 default for your account in this Region.
@@ -42,7 +48,8 @@ AWS creates a unique AWS managed CMK in each Region for use with
 encryption by default. If you change the default CMK to a symmetric
 customer managed CMK, it is used instead of the AWS managed CMK. To
 reset the default CMK to the AWS managed CMK for EBS, use
-ResetEbsDefaultKmsKeyId. Amazon EBS does not support asymmetric CMKs.
+\code{\link[=ec2_reset_ebs_default_kms_key_id]{reset_ebs_default_kms_key_id}}.
+Amazon EBS does not support asymmetric CMKs.
 
 If you delete or disable the customer managed CMK that you specified for
 use with encryption by default, your instances will fail to launch.

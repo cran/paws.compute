@@ -25,9 +25,9 @@ your service.}
 \item{taskDefinition}{The \code{family} and \code{revision} (\code{family:revision}) or full ARN of the task
 definition to run in your service. If a \code{revision} is not specified, the
 latest \code{ACTIVE} revision is used. If you modify the task definition with
-\code{UpdateService}, Amazon ECS spawns a task with the new version of the
-task definition and then stops an old task after the new version is
-running.}
+\code{\link[=ecs_update_service]{update_service}}, Amazon ECS spawns a task with
+the new version of the task definition and then stops an old task after
+the new version is running.}
 
 \item{capacityProviderStrategy}{The capacity provider strategy to update the service to use.
 
@@ -41,22 +41,26 @@ the cluster's default capacity provider strategy.
 A capacity provider strategy consists of one or more capacity providers
 along with the \code{base} and \code{weight} to assign to them. A capacity
 provider must be associated with the cluster to be used in a capacity
-provider strategy. The PutClusterCapacityProviders API is used to
-associate a capacity provider with a cluster. Only capacity providers
-with an \code{ACTIVE} or \code{UPDATING} status can be used.
+provider strategy. The
+\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
+API is used to associate a capacity provider with a cluster. Only
+capacity providers with an \code{ACTIVE} or \code{UPDATING} status can be used.
 
 If specifying a capacity provider that uses an Auto Scaling group, the
 capacity provider must already be created. New capacity providers can be
-created with the CreateCapacityProvider API operation.
+created with the
+\code{\link[=ecs_create_capacity_provider]{create_capacity_provider}} API
+operation.
 
 To use a AWS Fargate capacity provider, specify either the \code{FARGATE} or
 \code{FARGATE_SPOT} capacity providers. The AWS Fargate capacity providers
 are available to all accounts and only need to be associated with a
 cluster to be used.
 
-The PutClusterCapacityProviders API operation is used to update the list
-of available capacity providers for a cluster after the cluster is
-created.}
+The
+\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
+API operation is used to update the list of available capacity providers
+for a cluster after the cluster is created.}
 
 \item{deploymentConfiguration}{Optional deployment parameters that control how many tasks run during
 the deployment and the ordering of stopping and starting tasks.}
@@ -105,6 +109,214 @@ Load Balancing health check status. This grace period can prevent the
 ECS service scheduler from marking tasks as unhealthy and stopping them
 before they have time to come up.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  service = list(
+    serviceArn = "string",
+    serviceName = "string",
+    clusterArn = "string",
+    loadBalancers = list(
+      list(
+        targetGroupArn = "string",
+        loadBalancerName = "string",
+        containerName = "string",
+        containerPort = 123
+      )
+    ),
+    serviceRegistries = list(
+      list(
+        registryArn = "string",
+        port = 123,
+        containerName = "string",
+        containerPort = 123
+      )
+    ),
+    status = "string",
+    desiredCount = 123,
+    runningCount = 123,
+    pendingCount = 123,
+    launchType = "EC2"|"FARGATE",
+    capacityProviderStrategy = list(
+      list(
+        capacityProvider = "string",
+        weight = 123,
+        base = 123
+      )
+    ),
+    platformVersion = "string",
+    taskDefinition = "string",
+    deploymentConfiguration = list(
+      deploymentCircuitBreaker = list(
+        enable = TRUE|FALSE,
+        rollback = TRUE|FALSE
+      ),
+      maximumPercent = 123,
+      minimumHealthyPercent = 123
+    ),
+    taskSets = list(
+      list(
+        id = "string",
+        taskSetArn = "string",
+        serviceArn = "string",
+        clusterArn = "string",
+        startedBy = "string",
+        externalId = "string",
+        status = "string",
+        taskDefinition = "string",
+        computedDesiredCount = 123,
+        pendingCount = 123,
+        runningCount = 123,
+        createdAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        updatedAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        launchType = "EC2"|"FARGATE",
+        capacityProviderStrategy = list(
+          list(
+            capacityProvider = "string",
+            weight = 123,
+            base = 123
+          )
+        ),
+        platformVersion = "string",
+        networkConfiguration = list(
+          awsvpcConfiguration = list(
+            subnets = list(
+              "string"
+            ),
+            securityGroups = list(
+              "string"
+            ),
+            assignPublicIp = "ENABLED"|"DISABLED"
+          )
+        ),
+        loadBalancers = list(
+          list(
+            targetGroupArn = "string",
+            loadBalancerName = "string",
+            containerName = "string",
+            containerPort = 123
+          )
+        ),
+        serviceRegistries = list(
+          list(
+            registryArn = "string",
+            port = 123,
+            containerName = "string",
+            containerPort = 123
+          )
+        ),
+        scale = list(
+          value = 123.0,
+          unit = "PERCENT"
+        ),
+        stabilityStatus = "STEADY_STATE"|"STABILIZING",
+        stabilityStatusAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        tags = list(
+          list(
+            key = "string",
+            value = "string"
+          )
+        )
+      )
+    ),
+    deployments = list(
+      list(
+        id = "string",
+        status = "string",
+        taskDefinition = "string",
+        desiredCount = 123,
+        pendingCount = 123,
+        runningCount = 123,
+        failedTasks = 123,
+        createdAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        updatedAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        capacityProviderStrategy = list(
+          list(
+            capacityProvider = "string",
+            weight = 123,
+            base = 123
+          )
+        ),
+        launchType = "EC2"|"FARGATE",
+        platformVersion = "string",
+        networkConfiguration = list(
+          awsvpcConfiguration = list(
+            subnets = list(
+              "string"
+            ),
+            securityGroups = list(
+              "string"
+            ),
+            assignPublicIp = "ENABLED"|"DISABLED"
+          )
+        ),
+        rolloutState = "COMPLETED"|"FAILED"|"IN_PROGRESS",
+        rolloutStateReason = "string"
+      )
+    ),
+    roleArn = "string",
+    events = list(
+      list(
+        id = "string",
+        createdAt = as.POSIXct(
+          "2015-01-01"
+        ),
+        message = "string"
+      )
+    ),
+    createdAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    placementConstraints = list(
+      list(
+        type = "distinctInstance"|"memberOf",
+        expression = "string"
+      )
+    ),
+    placementStrategy = list(
+      list(
+        type = "random"|"spread"|"binpack",
+        field = "string"
+      )
+    ),
+    networkConfiguration = list(
+      awsvpcConfiguration = list(
+        subnets = list(
+          "string"
+        ),
+        securityGroups = list(
+          "string"
+        ),
+        assignPublicIp = "ENABLED"|"DISABLED"
+      )
+    ),
+    healthCheckGracePeriodSeconds = 123,
+    schedulingStrategy = "REPLICA"|"DAEMON",
+    deploymentController = list(
+      type = "ECS"|"CODE_DEPLOY"|"EXTERNAL"
+    ),
+    tags = list(
+      list(
+        key = "string",
+        value = "string"
+      )
+    ),
+    createdBy = "string",
+    enableECSManagedTags = TRUE|FALSE,
+    propagateTags = "TASK_DEFINITION"|"SERVICE"
+  )
+)
+}
+}
 \description{
 Updating the task placement strategies and constraints on an Amazon ECS
 service remains in preview and is a Beta Service as defined by and
@@ -134,7 +346,7 @@ only the desired count, task placement constraints and strategies, and
 health check grace period using this API. If the launch type, load
 balancer, network configuration, platform version, or task definition
 need to be updated, you should create a new task set. For more
-information, see CreateTaskSet.
+information, see \code{\link[=ecs_create_task_set]{create_task_set}}.
 
 You can add to or subtract from the number of instantiations of a task
 definition in a service by specifying the cluster that the service is
@@ -160,9 +372,9 @@ the service scheduler uses the deployment configuration parameters,
 \code{minimumHealthyPercent} and \code{maximumPercent}, to determine the
 deployment strategy.
 \itemize{
-\item If \code{minimumHealthyPercent} is below 100\\%, the scheduler can ignore
+\item If \code{minimumHealthyPercent} is below 100\%, the scheduler can ignore
 \code{desiredCount} temporarily during a deployment. For example, if
-\code{desiredCount} is four tasks, a minimum of 50\\% allows the scheduler
+\code{desiredCount} is four tasks, a minimum of 50\% allows the scheduler
 to stop two existing tasks before starting two new tasks. Tasks for
 services that do not use a load balancer are considered healthy if
 they are in the \code{RUNNING} state. Tasks for services that use a load
@@ -172,17 +384,17 @@ by the load balancer.
 \item The \code{maximumPercent} parameter represents an upper limit on the
 number of running tasks during a deployment, which enables you to
 define the deployment batch size. For example, if \code{desiredCount} is
-four tasks, a maximum of 200\\% starts four new tasks before stopping
+four tasks, a maximum of 200\% starts four new tasks before stopping
 the four older tasks (provided that the cluster resources required
 to do this are available).
 }
 
-When UpdateService stops a task during a deployment, the equivalent of
-\verb{docker stop} is issued to the containers running in the task. This
-results in a \code{SIGTERM} and a 30-second timeout, after which \code{SIGKILL} is
-sent and the containers are forcibly stopped. If the container handles
-the \code{SIGTERM} gracefully and exits within 30 seconds from receiving it,
-no \code{SIGKILL} is sent.
+When \code{\link[=ecs_update_service]{update_service}} stops a task during a
+deployment, the equivalent of \verb{docker stop} is issued to the containers
+running in the task. This results in a \code{SIGTERM} and a 30-second
+timeout, after which \code{SIGKILL} is sent and the containers are forcibly
+stopped. If the container handles the \code{SIGTERM} gracefully and exits
+within 30 seconds from receiving it, no \code{SIGKILL} is sent.
 
 When the service scheduler launches new tasks, it determines task
 placement in your cluster with the following logic:

@@ -49,6 +49,29 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
 idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  TrafficMirrorSession = list(
+    TrafficMirrorSessionId = "string",
+    TrafficMirrorTargetId = "string",
+    TrafficMirrorFilterId = "string",
+    NetworkInterfaceId = "string",
+    OwnerId = "string",
+    PacketLength = 123,
+    SessionNumber = 123,
+    VirtualNetworkId = 123,
+    Description = "string",
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  ),
+  ClientToken = "string"
+)
+}
+}
 \description{
 Creates a Traffic Mirror session.
 
@@ -62,8 +85,8 @@ appliances) can be in the same VPC, or in a different VPC connected via
 VPC peering or a transit gateway.
 
 By default, no traffic is mirrored. Use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/}{CreateTrafficMirrorFilter}
-to create filter rules that specify the traffic to mirror.
+\code{\link[=ec2_create_traffic_mirror_filter]{create_traffic_mirror_filter}} to
+create filter rules that specify the traffic to mirror.
 }
 \section{Request syntax}{
 \preformatted{svc$create_traffic_mirror_session(

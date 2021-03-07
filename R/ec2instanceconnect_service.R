@@ -41,7 +41,7 @@ NULL
 #'   AvailabilityZone = "us-west-2a",
 #'   InstanceId = "i-abcd1234",
 #'   InstanceOSUser = "ec2-user",
-#'   SSHPublicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3FlHqj2eqCdrGHuA6dRjfZXQ4HX5lXEIRHa..."
+#'   SSHPublicKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3FlHqj2eqCdrGHuA6d..."
 #' )
 #' }
 #'
@@ -65,7 +65,7 @@ ec2instanceconnect <- function(config = list()) {
 
 .ec2instanceconnect$metadata <- list(
   service_name = "ec2instanceconnect",
-  endpoints = list("*" = list(endpoint = "ec2instanceconnect.{region}.amazonaws.com", global = FALSE), "cn-*" = list(endpoint = "ec2instanceconnect.{region}.amazonaws.com.cn", global = FALSE), "us-iso-*" = list(endpoint = "ec2instanceconnect.{region}.c2s.ic.gov", global = FALSE), "us-isob-*" = list(endpoint = "ec2instanceconnect.{region}.sc2s.sgov.gov", global = FALSE)),
+  endpoints = list("*" = list(endpoint = "ec2-instance-connect.{region}.amazonaws.com", global = FALSE), "cn-*" = list(endpoint = "ec2-instance-connect.{region}.amazonaws.com.cn", global = FALSE), "us-iso-*" = list(endpoint = "ec2-instance-connect.{region}.c2s.ic.gov", global = FALSE), "us-isob-*" = list(endpoint = "ec2-instance-connect.{region}.sc2s.sgov.gov", global = FALSE)),
   service_id = "EC2 Instance Connect",
   api_version = "2018-04-02",
   signing_name = NULL,

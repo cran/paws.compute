@@ -20,7 +20,7 @@ Valid instance metric names are listed below, along with the most useful
 available for your instance to burst above its baseline. Your
 instance continuously accrues and consumes burst capacity. Burst
 capacity stops accruing when your instance's
-\code{BurstCapacityPercentage} reaches 100\\%. For more information, see
+\code{BurstCapacityPercentage} reaches 100\%. For more information, see
 Viewing instance burst capacity in Amazon Lightsail.
 
 \code{Statistics}: The most useful statistics are \code{Maximum} and
@@ -28,16 +28,16 @@ Viewing instance burst capacity in Amazon Lightsail.
 
 \code{Unit}: The published unit is \code{Percent}.
 \item \strong{\code{BurstCapacityTime}} - The available amount of time for your
-instance to burst at 100\\% CPU utilization. Your instance
+instance to burst at 100\% CPU utilization. Your instance
 continuously accrues and consumes burst capacity. Burst capacity
 time stops accruing when your instance's \code{BurstCapacityPercentage}
-metric reaches 100\\%.
+metric reaches 100\%.
 
 Burst capacity time is consumed at the full rate only when your
-instance operates at 100\\% CPU utilization. For example, if your
-instance operates at 50\\% CPU utilization in the burstable zone for a
+instance operates at 100\% CPU utilization. For example, if your
+instance operates at 50\% CPU utilization in the burstable zone for a
 5-minute period, then it consumes CPU burst capacity minutes at a
-50\\% rate in that period. Your instance consumed 2 minutes and 30
+50\% rate in that period. Your instance consumed 2 minutes and 30
 seconds of CPU burst capacity minutes in the 5-minute period. For
 more information, see Viewing instance burst capacity in Amazon
 Lightsail.
@@ -139,6 +139,25 @@ resources.
 \item \code{SampleCount} - The count, or number, of data points used for the
 statistical calculation.
 }}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  metricName = "CPUUtilization"|"NetworkIn"|"NetworkOut"|"StatusCheckFailed"|"StatusCheckFailed_Instance"|"StatusCheckFailed_System"|"BurstCapacityTime"|"BurstCapacityPercentage",
+  metricData = list(
+    list(
+      average = 123.0,
+      maximum = 123.0,
+      minimum = 123.0,
+      sampleCount = 123.0,
+      sum = 123.0,
+      timestamp = as.POSIXct(
+        "2015-01-01"
+      ),
+      unit = "Seconds"|"Microseconds"|"Milliseconds"|"Bytes"|"Kilobytes"|"Megabytes"|"Gigabytes"|"Terabytes"|"Bits"|"Kilobits"|"Megabits"|"Gigabits"|"Terabits"|"Percent"|"Count"|"Bytes/Second"|"Kilobytes/Second"|"Megabytes/Second"|"Gigabytes/Second"|"Terabytes/Second"|"Bits/Second"|"Kilobits/Second"|"Megabits/Second"|"Gigabits/Second"|"Terabits/Second"|"Count/Second"|"None"
+    )
+  )
+)
+}
 }
 \description{
 Returns the data points for the specified Amazon Lightsail instance

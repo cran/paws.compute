@@ -22,6 +22,18 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  RegisteredMulticastGroupMembers = list(
+    TransitGatewayMulticastDomainId = "string",
+    RegisteredNetworkInterfaceIds = list(
+      "string"
+    ),
+    GroupIpAddress = "string"
+  )
+)
+}
+}
 \description{
 Registers members (network interfaces) with the transit gateway
 multicast group. A member is a network interface associated with a
@@ -30,7 +42,7 @@ about supported instances, see \href{https://docs.aws.amazon.com/vpc/latest/tgw/
 in \emph{Amazon VPC Transit Gateways}.
 
 After you add the members, use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_SearchTransitGatewayMulticastGroups.html}{SearchTransitGatewayMulticastGroups}
+\code{\link[=ec2_search_transit_gateway_multicast_groups]{search_transit_gateway_multicast_groups}}
 to verify that the members were added to the transit gateway multicast
 group.
 }

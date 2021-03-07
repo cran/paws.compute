@@ -12,13 +12,15 @@ elasticbeanstalk_update_configuration_template(ApplicationName,
 \item{ApplicationName}{[required] The name of the application associated with the configuration template
 to update.
 
-If no application is found with this name, \code{UpdateConfigurationTemplate}
+If no application is found with this name,
+\code{\link[=elasticbeanstalk_update_configuration_template]{update_configuration_template}}
 returns an \code{InvalidParameterValue} error.}
 
 \item{TemplateName}{[required] The name of the configuration template to update.
 
 If no configuration template is found with this name,
-\code{UpdateConfigurationTemplate} returns an \code{InvalidParameterValue} error.}
+\code{\link[=elasticbeanstalk_update_configuration_template]{update_configuration_template}}
+returns an \code{InvalidParameterValue} error.}
 
 \item{Description}{A new description for the configuration.}
 
@@ -28,6 +30,32 @@ option value.}
 \item{OptionsToRemove}{A list of configuration options to remove from the configuration set.
 
 Constraint: You can remove only \code{UserDefined} configuration options.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  SolutionStackName = "string",
+  PlatformArn = "string",
+  ApplicationName = "string",
+  TemplateName = "string",
+  Description = "string",
+  EnvironmentName = "string",
+  DeploymentStatus = "deployed"|"pending"|"failed",
+  DateCreated = as.POSIXct(
+    "2015-01-01"
+  ),
+  DateUpdated = as.POSIXct(
+    "2015-01-01"
+  ),
+  OptionSettings = list(
+    list(
+      ResourceName = "string",
+      Namespace = "string",
+      OptionName = "string",
+      Value = "string"
+    )
+  )
+)
+}
 }
 \description{
 Updates the specified configuration template to have the specified
@@ -39,7 +67,7 @@ string.
 
 Related Topics
 \itemize{
-\item DescribeConfigurationOptions
+\item \code{\link[=elasticbeanstalk_describe_configuration_options]{describe_configuration_options}}
 }
 }
 \section{Request syntax}{

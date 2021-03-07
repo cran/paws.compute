@@ -26,6 +26,26 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
 idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  TrafficMirrorTarget = list(
+    TrafficMirrorTargetId = "string",
+    NetworkInterfaceId = "string",
+    NetworkLoadBalancerArn = "string",
+    Type = "network-interface"|"network-load-balancer",
+    Description = "string",
+    OwnerId = "string",
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  ),
+  ClientToken = "string"
+)
+}
+}
 \description{
 Creates a target for your Traffic Mirror session.
 
@@ -38,7 +58,7 @@ A Traffic Mirror target can be a network interface, or a Network Load
 Balancer.
 
 To use the target in a Traffic Mirror session, use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/}{CreateTrafficMirrorSession}.
+\code{\link[=ec2_create_traffic_mirror_session]{create_traffic_mirror_session}}.
 }
 \section{Request syntax}{
 \preformatted{svc$create_traffic_mirror_target(

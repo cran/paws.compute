@@ -28,11 +28,36 @@ value.}
 
 \item{PrefixListIds}{One or more prefix list IDs.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  NextToken = "string",
+  PrefixLists = list(
+    list(
+      PrefixListId = "string",
+      AddressFamily = "string",
+      State = "create-in-progress"|"create-complete"|"create-failed"|"modify-in-progress"|"modify-complete"|"modify-failed"|"restore-in-progress"|"restore-complete"|"restore-failed"|"delete-in-progress"|"delete-complete"|"delete-failed",
+      StateMessage = "string",
+      PrefixListArn = "string",
+      PrefixListName = "string",
+      MaxEntries = 123,
+      Version = 123,
+      Tags = list(
+        list(
+          Key = "string",
+          Value = "string"
+        )
+      ),
+      OwnerId = "string"
+    )
+  )
+)
+}
+}
 \description{
 Describes your managed prefix lists and any AWS-managed prefix lists.
 
 To view the entries for your prefix list, use
-GetManagedPrefixListEntries.
+\code{\link[=ec2_get_managed_prefix_list_entries]{get_managed_prefix_list_entries}}.
 }
 \section{Request syntax}{
 \preformatted{svc$describe_managed_prefix_lists(

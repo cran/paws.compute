@@ -44,9 +44,10 @@ must be omitted.}
 A capacity provider strategy consists of one or more capacity providers
 along with the \code{base} and \code{weight} to assign to them. A capacity
 provider must be associated with the cluster to be used in a capacity
-provider strategy. The PutClusterCapacityProviders API is used to
-associate a capacity provider with a cluster. Only capacity providers
-with an \code{ACTIVE} or \code{UPDATING} status can be used.
+provider strategy. The
+\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
+API is used to associate a capacity provider with a cluster. Only
+capacity providers with an \code{ACTIVE} or \code{UPDATING} status can be used.
 
 If a \code{capacityProviderStrategy} is specified, the \code{launchType} parameter
 must be omitted. If no \code{capacityProviderStrategy} or \code{launchType} is
@@ -55,16 +56,19 @@ used.
 
 If specifying a capacity provider that uses an Auto Scaling group, the
 capacity provider must already be created. New capacity providers can be
-created with the CreateCapacityProvider API operation.
+created with the
+\code{\link[=ecs_create_capacity_provider]{create_capacity_provider}} API
+operation.
 
 To use a AWS Fargate capacity provider, specify either the \code{FARGATE} or
 \code{FARGATE_SPOT} capacity providers. The AWS Fargate capacity providers
 are available to all accounts and only need to be associated with a
 cluster to be used.
 
-The PutClusterCapacityProviders API operation is used to update the list
-of available capacity providers for a cluster after the cluster is
-created.}
+The
+\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
+API operation is used to update the list of available capacity providers
+for a cluster after the cluster is created.}
 
 \item{platformVersion}{The platform version that the tasks in the task set should use. A
 platform version is specified only for tasks using the Fargate launch
@@ -92,7 +96,7 @@ have only one value.
 resources, remember that other services may have restrictions on
 allowed characters. Generally allowed characters are: letters,
 numbers, and spaces representable in UTF-8, and the following
-characters: + - = . \\_ : / @.
+characters: + - = . _ : / @.
 \item Tag keys and values are case-sensitive.
 \item Do not use \verb{aws:}, \verb{AWS:}, or any upper or lowercase combination of
 such as a prefix for either keys or values as it is reserved for AWS
@@ -100,6 +104,80 @@ use. You cannot edit or delete tag keys or values with this prefix.
 Tags with this prefix do not count against your tags per resource
 limit.
 }}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  taskSet = list(
+    id = "string",
+    taskSetArn = "string",
+    serviceArn = "string",
+    clusterArn = "string",
+    startedBy = "string",
+    externalId = "string",
+    status = "string",
+    taskDefinition = "string",
+    computedDesiredCount = 123,
+    pendingCount = 123,
+    runningCount = 123,
+    createdAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    updatedAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    launchType = "EC2"|"FARGATE",
+    capacityProviderStrategy = list(
+      list(
+        capacityProvider = "string",
+        weight = 123,
+        base = 123
+      )
+    ),
+    platformVersion = "string",
+    networkConfiguration = list(
+      awsvpcConfiguration = list(
+        subnets = list(
+          "string"
+        ),
+        securityGroups = list(
+          "string"
+        ),
+        assignPublicIp = "ENABLED"|"DISABLED"
+      )
+    ),
+    loadBalancers = list(
+      list(
+        targetGroupArn = "string",
+        loadBalancerName = "string",
+        containerName = "string",
+        containerPort = 123
+      )
+    ),
+    serviceRegistries = list(
+      list(
+        registryArn = "string",
+        port = 123,
+        containerName = "string",
+        containerPort = 123
+      )
+    ),
+    scale = list(
+      value = 123.0,
+      unit = "PERCENT"
+    ),
+    stabilityStatus = "STEADY_STATE"|"STABILIZING",
+    stabilityStatusAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    tags = list(
+      list(
+        key = "string",
+        value = "string"
+      )
+    )
+  )
+)
+}
 }
 \description{
 Create a task set in the specified cluster and service. This is used

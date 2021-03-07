@@ -7,6 +7,19 @@ to the Docker process on your local machine}
 \usage{
 lightsail_create_container_service_registry_login()
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  registryLogin = list(
+    username = "string",
+    password = "string",
+    expiresAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    registry = "string"
+  )
+)
+}
+}
 \description{
 Creates a temporary set of log in credentials that you can use to log in
 to the Docker process on your local machine. After you're logged in, you
@@ -22,8 +35,9 @@ other container image management actions on the container service
 registry of your Lightsail account.
 
 After you push your container images to the container image registry of
-your Lightsail account, use the \code{RegisterContainerImage} action to
-register the pushed images to a specific Lightsail container service.
+your Lightsail account, use the
+\code{\link[=lightsail_register_container_image]{register_container_image}} action
+to register the pushed images to a specific Lightsail container service.
 
 This action is not required if you install and use the Lightsail Control
 (lightsailctl) plugin to push container images to your Lightsail

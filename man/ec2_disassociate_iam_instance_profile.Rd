@@ -9,11 +9,30 @@ ec2_disassociate_iam_instance_profile(AssociationId)
 \arguments{
 \item{AssociationId}{[required] The ID of the IAM instance profile association.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  IamInstanceProfileAssociation = list(
+    AssociationId = "string",
+    InstanceId = "string",
+    IamInstanceProfile = list(
+      Arn = "string",
+      Id = "string"
+    ),
+    State = "associating"|"associated"|"disassociating"|"disassociated",
+    Timestamp = as.POSIXct(
+      "2015-01-01"
+    )
+  )
+)
+}
+}
 \description{
 Disassociates an IAM instance profile from a running or stopped
 instance.
 
-Use DescribeIamInstanceProfileAssociations to get the association ID.
+Use
+\code{\link[=ec2_describe_iam_instance_profile_associations]{describe_iam_instance_profile_associations}}
+to get the association ID.
 }
 \section{Request syntax}{
 \preformatted{svc$disassociate_iam_instance_profile(

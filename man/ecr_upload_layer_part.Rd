@@ -14,8 +14,9 @@ registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository to which you are uploading layer parts.}
 
-\item{uploadId}{[required] The upload ID from a previous InitiateLayerUpload operation to associate
-with the layer part upload.}
+\item{uploadId}{[required] The upload ID from a previous
+\code{\link[=ecr_initiate_layer_upload]{initiate_layer_upload}} operation to
+associate with the layer part upload.}
 
 \item{partFirstByte}{[required] The position of the first byte of the layer part witin the overall image
 layer.}
@@ -24,6 +25,15 @@ layer.}
 layer.}
 
 \item{layerPartBlob}{[required] The base64-encoded layer part payload.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  registryId = "string",
+  repositoryName = "string",
+  uploadId = "string",
+  lastByteReceived = 123
+)
+}
 }
 \description{
 Uploads an image layer part to Amazon ECR.

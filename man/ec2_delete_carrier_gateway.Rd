@@ -14,13 +14,29 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  CarrierGateway = list(
+    CarrierGatewayId = "string",
+    VpcId = "string",
+    State = "pending"|"available"|"deleting"|"deleted",
+    OwnerId = "string",
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Deletes a carrier gateway.
 
 If you do not delete the route that contains the carrier gateway as the
 Target, the route is a blackhole route. For information about how to
-delete a route, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DeleteRoute.html}{DeleteRoute}.
+delete a route, see \code{\link[=ec2_delete_route]{delete_route}}.
 }
 \section{Request syntax}{
 \preformatted{svc$delete_carrier_gateway(

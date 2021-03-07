@@ -29,7 +29,36 @@ domain). We do not support wildcards (e.g., \verb{*.example.com}).}
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-Use the \code{TagResource} action to tag a resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
+resource after it's created.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  operations = list(
+    list(
+      id = "string",
+      resourceName = "string",
+      resourceType = "ContainerService"|"Instance"|"StaticIp"|"KeyPair"|"InstanceSnapshot"|"Domain"|"PeeredVpc"|"LoadBalancer"|"LoadBalancerTlsCertificate"|"Disk"|"DiskSnapshot"|"RelationalDatabase"|"RelationalDatabaseSnapshot"|"ExportSnapshotRecord"|"CloudFormationStackRecord"|"Alarm"|"ContactMethod"|"Distribution"|"Certificate",
+      createdAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      location = list(
+        availabilityZone = "string",
+        regionName = "us-east-1"|"us-east-2"|"us-west-1"|"us-west-2"|"eu-west-1"|"eu-west-2"|"eu-west-3"|"eu-central-1"|"ca-central-1"|"ap-south-1"|"ap-southeast-1"|"ap-southeast-2"|"ap-northeast-1"|"ap-northeast-2"
+      ),
+      isTerminal = TRUE|FALSE,
+      operationDetails = "string",
+      operationType = "DeleteKnownHostKeys"|"DeleteInstance"|"CreateInstance"|"StopInstance"|"StartInstance"|"RebootInstance"|"OpenInstancePublicPorts"|"PutInstancePublicPorts"|"CloseInstancePublicPorts"|"AllocateStaticIp"|"ReleaseStaticIp"|"AttachStaticIp"|"DetachStaticIp"|"UpdateDomainEntry"|"DeleteDomainEntry"|"CreateDomain"|"DeleteDomain"|"CreateInstanceSnapshot"|"DeleteInstanceSnapshot"|"CreateInstancesFromSnapshot"|"CreateLoadBalancer"|"DeleteLoadBalancer"|"AttachInstancesToLoadBalancer"|"DetachInstancesFromLoadBalancer"|"UpdateLoadBalancerAttribute"|"CreateLoadBalancerTlsCertificate"|"DeleteLoadBalancerTlsCertificate"|"AttachLoadBalancerTlsCertificate"|"CreateDisk"|"DeleteDisk"|"AttachDisk"|"DetachDisk"|"CreateDiskSnapshot"|"DeleteDiskSnapshot"|"CreateDiskFromSnapshot"|"CreateRelationalDatabase"|"UpdateRelationalDatabase"|"DeleteRelationalDatabase"|"CreateRelationalDatabaseFromSnapshot"|"CreateRelationalDatabaseSnapshot"|"DeleteRelationalDatabaseSnapshot"|"UpdateRelationalDatabaseParameters"|"StartRelationalDatabase"|"RebootRelationalDatabase"|"StopRelationalDatabase"|"EnableAddOn"|"DisableAddOn"|"PutAlarm"|"GetAlarms"|"DeleteAlarm"|"TestAlarm"|"CreateContactMethod"|"GetContactMethods"|"SendContactMethodVerification"|"DeleteContactMethod"|"CreateDistribution"|"UpdateDistribution"|"DeleteDistribution"|"ResetDistributionCache"|"AttachCertificateToDistribution"|"DetachCertificateFromDistribution"|"UpdateDistributionBundle"|"CreateCertificate"|"DeleteCertificate"|"CreateContainerService"|"UpdateContainerService"|"DeleteContainerService"|"CreateContainerServiceDeployment"|"CreateContainerServiceRegistryLogin"|"RegisterContainerImage"|"DeleteContainerImage",
+      status = "NotStarted"|"Started"|"Failed"|"Completed"|"Succeeded",
+      statusChangedAt = as.POSIXct(
+        "2015-01-01"
+      ),
+      errorCode = "string",
+      errorDetails = "string"
+    )
+  )
+)
+}
 }
 \description{
 Creates a Lightsail load balancer TLS certificate.
@@ -37,9 +66,11 @@ Creates a Lightsail load balancer TLS certificate.
 TLS is just an updated, more secure version of Secure Socket Layer
 (SSL).
 
-The \code{CreateLoadBalancerTlsCertificate} operation supports tag-based
-access control via resource tags applied to the resource identified by
-\verb{load balancer name}. For more information, see the Lightsail Dev Guide.
+The
+\code{\link[=lightsail_create_load_balancer_tls_certificate]{create_load_balancer_tls_certificate}}
+operation supports tag-based access control via resource tags applied to
+the resource identified by \verb{load balancer name}. For more information,
+see the Lightsail Dev Guide.
 }
 \section{Request syntax}{
 \preformatted{svc$create_load_balancer_tls_certificate(

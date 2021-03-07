@@ -11,12 +11,12 @@ eks_update_addon(clusterName, addonName, addonVersion,
 \item{clusterName}{[required] The name of the cluster.}
 
 \item{addonName}{[required] The name of the add-on. The name must match one of the names returned by
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{ListAddons}}
+\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{list_addons}}
 .}
 
 \item{addonVersion}{The version of the add-on. The version must match one of the versions
 returned by
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html}{\code{DescribeAddonVersions}}
+\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html}{\code{describe_addon_versions}}
 .}
 
 \item{serviceAccountRoleArn}{The Amazon Resource Name (ARN) of an existing IAM role to bind to the
@@ -36,6 +36,34 @@ of the add-on to the cluster.}
 
 \item{clientRequestToken}{Unique, case-sensitive identifier that you provide to ensure the
 idempotency of the request.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  update = list(
+    id = "string",
+    status = "InProgress"|"Failed"|"Cancelled"|"Successful",
+    type = "VersionUpdate"|"EndpointAccessUpdate"|"LoggingUpdate"|"ConfigUpdate"|"AddonUpdate",
+    params = list(
+      list(
+        type = "Version"|"PlatformVersion"|"EndpointPrivateAccess"|"EndpointPublicAccess"|"ClusterLogging"|"DesiredSize"|"LabelsToAdd"|"LabelsToRemove"|"MaxSize"|"MinSize"|"ReleaseVersion"|"PublicAccessCidrs"|"AddonVersion"|"ServiceAccountRoleArn"|"ResolveConflicts",
+        value = "string"
+      )
+    ),
+    createdAt = as.POSIXct(
+      "2015-01-01"
+    ),
+    errors = list(
+      list(
+        errorCode = "SubnetNotFound"|"SecurityGroupNotFound"|"EniLimitReached"|"IpNotAvailable"|"AccessDenied"|"OperationNotPermitted"|"VpcIdNotFound"|"Unknown"|"NodeCreationFailure"|"PodEvictionFailure"|"InsufficientFreeAddresses"|"ClusterUnreachable"|"InsufficientNumberOfReplicas"|"ConfigurationConflict",
+        errorMessage = "string",
+        resourceIds = list(
+          "string"
+        )
+      )
+    )
+  )
+)
+}
 }
 \description{
 Updates an Amazon EKS add-on.

@@ -11,7 +11,7 @@ ec2_reset_instance_attribute(Attribute, DryRun, InstanceId)
 
 You can only reset the following attributes: \code{kernel} | \code{ramdisk} |
 \code{sourceDestCheck}. To change an instance attribute, use
-ModifyInstanceAttribute.}
+\code{\link[=ec2_modify_instance_attribute]{modify_instance_attribute}}.}
 
 \item{DryRun}{Checks whether you have the required permissions for the action, without
 actually making the request, and provides an error response. If you have
@@ -19,6 +19,9 @@ the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{InstanceId}{[required] The ID of the instance.}
+}
+\value{
+An empty list.
 }
 \description{
 Resets an attribute of an instance to its default value. To reset the

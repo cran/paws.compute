@@ -24,15 +24,23 @@ unexpected prices.}
 \item{PurchaseTime}{The time at which to purchase the Reserved Instance, in UTC format (for
 example, \emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z).}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  ReservedInstancesId = "string"
+)
+}
+}
 \description{
 Purchases a Reserved Instance for use with your account. With Reserved
 Instances, you pay a lower hourly rate compared to On-Demand instance
 pricing.
 
-Use DescribeReservedInstancesOfferings to get a list of Reserved
-Instance offerings that match your specifications. After you've
-purchased a Reserved Instance, you can check for your new Reserved
-Instance with DescribeReservedInstances.
+Use
+\code{\link[=ec2_describe_reserved_instances_offerings]{describe_reserved_instances_offerings}}
+to get a list of Reserved Instance offerings that match your
+specifications. After you've purchased a Reserved Instance, you can
+check for your new Reserved Instance with
+\code{\link[=ec2_describe_reserved_instances]{describe_reserved_instances}}.
 
 To queue a purchase for a future date and time, specify a purchase time.
 If you do not specify a purchase time, the default is the current time.

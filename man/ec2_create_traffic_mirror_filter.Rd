@@ -20,6 +20,67 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
 idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html}{How to Ensure Idempotency}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  TrafficMirrorFilter = list(
+    TrafficMirrorFilterId = "string",
+    IngressFilterRules = list(
+      list(
+        TrafficMirrorFilterRuleId = "string",
+        TrafficMirrorFilterId = "string",
+        TrafficDirection = "ingress"|"egress",
+        RuleNumber = 123,
+        RuleAction = "accept"|"reject",
+        Protocol = 123,
+        DestinationPortRange = list(
+          FromPort = 123,
+          ToPort = 123
+        ),
+        SourcePortRange = list(
+          FromPort = 123,
+          ToPort = 123
+        ),
+        DestinationCidrBlock = "string",
+        SourceCidrBlock = "string",
+        Description = "string"
+      )
+    ),
+    EgressFilterRules = list(
+      list(
+        TrafficMirrorFilterRuleId = "string",
+        TrafficMirrorFilterId = "string",
+        TrafficDirection = "ingress"|"egress",
+        RuleNumber = 123,
+        RuleAction = "accept"|"reject",
+        Protocol = 123,
+        DestinationPortRange = list(
+          FromPort = 123,
+          ToPort = 123
+        ),
+        SourcePortRange = list(
+          FromPort = 123,
+          ToPort = 123
+        ),
+        DestinationCidrBlock = "string",
+        SourceCidrBlock = "string",
+        Description = "string"
+      )
+    ),
+    NetworkServices = list(
+      "amazon-dns"
+    ),
+    Description = "string",
+    Tags = list(
+      list(
+        Key = "string",
+        Value = "string"
+      )
+    )
+  ),
+  ClientToken = "string"
+)
+}
+}
 \description{
 Creates a Traffic Mirror filter.
 
@@ -27,10 +88,10 @@ A Traffic Mirror filter is a set of rules that defines the traffic to
 mirror.
 
 By default, no traffic is mirrored. To mirror traffic, use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/}{CreateTrafficMirrorFilterRule}
+\code{\link[=ec2_create_traffic_mirror_filter_rule]{create_traffic_mirror_filter_rule}}
 to add Traffic Mirror rules to the filter. The rules you add define what
 traffic gets mirrored. You can also use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyTrafficMirrorFilterNetworkServices.html}{ModifyTrafficMirrorFilterNetworkServices}
+\code{\link[=ec2_modify_traffic_mirror_filter_network_services]{modify_traffic_mirror_filter_network_services}}
 to mirror supported network services.
 }
 \section{Request syntax}{

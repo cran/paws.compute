@@ -12,15 +12,19 @@ elasticbeanstalk_delete_environment_configuration(ApplicationName,
 
 \item{EnvironmentName}{[required] The name of the environment to delete the draft configuration from.}
 }
+\value{
+An empty list.
+}
 \description{
 Deletes the draft configuration associated with the running environment.
 
 Updating a running environment with any configuration changes creates a
 draft configuration set. You can get the draft configuration using
-DescribeConfigurationSettings while the update is in progress or if the
-update fails. The \code{DeploymentStatus} for the draft configuration
-indicates whether the deployment is in process or has failed. The draft
-configuration remains in existence until it is deleted with this action.
+\code{\link[=elasticbeanstalk_describe_configuration_settings]{describe_configuration_settings}}
+while the update is in progress or if the update fails. The
+\code{DeploymentStatus} for the draft configuration indicates whether the
+deployment is in process or has failed. The draft configuration remains
+in existence until it is deleted with this action.
 }
 \section{Request syntax}{
 \preformatted{svc$delete_environment_configuration(

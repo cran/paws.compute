@@ -38,6 +38,12 @@ your service configuration.}
 \item{RemoveGatewayLoadBalancerArns}{The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove
 from your service configuration.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Return = TRUE|FALSE
+)
+}
+}
 \description{
 Modifies the attributes of your VPC endpoint service configuration. You
 can change the Network Load Balancers or Gateway Load Balancers for your
@@ -45,7 +51,7 @@ service, and you can specify whether acceptance is required for requests
 to connect to your endpoint service through an interface VPC endpoint.
 
 If you set or modify the private DNS name, you must prove that you own
-the private DNS domain name. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/endpoint-services-dns-validation.html}{VPC Endpoint Service Private DNS Name Verification}
+the private DNS domain name. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/privatelink/endpoint-services-dns-validation.html}{VPC Endpoint Service Private DNS Name Verification}
 in the \emph{Amazon Virtual Private Cloud User Guide}.
 }
 \section{Request syntax}{

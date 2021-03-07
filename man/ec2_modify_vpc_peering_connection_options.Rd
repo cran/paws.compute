@@ -21,6 +21,21 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{VpcPeeringConnectionId}{[required] The ID of the VPC peering connection.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  AccepterPeeringConnectionOptions = list(
+    AllowDnsResolutionFromRemoteVpc = TRUE|FALSE,
+    AllowEgressFromLocalClassicLinkToRemoteVpc = TRUE|FALSE,
+    AllowEgressFromLocalVpcToRemoteClassicLink = TRUE|FALSE
+  ),
+  RequesterPeeringConnectionOptions = list(
+    AllowDnsResolutionFromRemoteVpc = TRUE|FALSE,
+    AllowEgressFromLocalClassicLinkToRemoteVpc = TRUE|FALSE,
+    AllowEgressFromLocalVpcToRemoteClassicLink = TRUE|FALSE
+  )
+)
+}
+}
 \description{
 Modifies the VPC peering connection options on one side of a VPC peering
 connection. You can do the following:
@@ -45,7 +60,8 @@ connection options. For inter-region peering connections, you must use
 the Region for the requester VPC to modify the requester VPC peering
 options and the Region for the accepter VPC to modify the accepter VPC
 peering options. To verify which VPCs are the accepter and the requester
-for a VPC peering connection, use the DescribeVpcPeeringConnections
+for a VPC peering connection, use the
+\code{\link[=ec2_describe_vpc_peering_connections]{describe_vpc_peering_connections}}
 command.
 }
 \section{Request syntax}{

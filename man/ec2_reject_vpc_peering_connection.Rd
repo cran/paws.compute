@@ -14,13 +14,20 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{VpcPeeringConnectionId}{[required] The ID of the VPC peering connection.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Return = TRUE|FALSE
+)
+}
+}
 \description{
 Rejects a VPC peering connection request. The VPC peering connection
 must be in the \code{pending-acceptance} state. Use the
-DescribeVpcPeeringConnections request to view your outstanding VPC
-peering connection requests. To delete an active VPC peering connection,
-or to delete a VPC peering connection request that you initiated, use
-DeleteVpcPeeringConnection.
+\code{\link[=ec2_describe_vpc_peering_connections]{describe_vpc_peering_connections}}
+request to view your outstanding VPC peering connection requests. To
+delete an active VPC peering connection, or to delete a VPC peering
+connection request that you initiated, use
+\code{\link[=ec2_delete_vpc_peering_connection]{delete_vpc_peering_connection}}.
 }
 \section{Request syntax}{
 \preformatted{svc$reject_vpc_peering_connection(

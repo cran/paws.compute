@@ -35,6 +35,48 @@ security group.}
 \item{SourceSecurityGroupOwnerId}{Not supported. Use a set of IP permissions to specify a destination
 security group.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  Return = TRUE|FALSE,
+  UnknownIpPermissions = list(
+    list(
+      FromPort = 123,
+      IpProtocol = "string",
+      IpRanges = list(
+        list(
+          CidrIp = "string",
+          Description = "string"
+        )
+      ),
+      Ipv6Ranges = list(
+        list(
+          CidrIpv6 = "string",
+          Description = "string"
+        )
+      ),
+      PrefixListIds = list(
+        list(
+          Description = "string",
+          PrefixListId = "string"
+        )
+      ),
+      ToPort = 123,
+      UserIdGroupPairs = list(
+        list(
+          Description = "string",
+          GroupId = "string",
+          GroupName = "string",
+          PeeringStatus = "string",
+          UserId = "string",
+          VpcId = "string",
+          VpcPeeringConnectionId = "string"
+        )
+      )
+    )
+  )
+)
+}
+}
 \description{
 [VPC only] Removes the specified egress rules from a security group
 for EC2-VPC. This action does not apply to security groups for use in
@@ -45,8 +87,9 @@ ports) must match the existing rule's values exactly.
 rule's values, no error is returned, and the output describes the
 security group rules that were not revoked.
 
-AWS recommends that you use DescribeSecurityGroups to verify that the
-rule has been removed.
+AWS recommends that you use
+\code{\link[=ec2_describe_security_groups]{describe_security_groups}} to verify
+that the rule has been removed.
 
 Each rule consists of the protocol and the IPv4 or IPv6 CIDR range or
 source security group. For the TCP and UDP protocols, you must also

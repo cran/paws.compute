@@ -27,6 +27,28 @@ NULL
 #' check.
 #' @param layerDigests &#91;required&#93; The digests of the image layers to check.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   layers = list(
+#'     list(
+#'       layerDigest = "string",
+#'       layerAvailability = "AVAILABLE"|"UNAVAILABLE",
+#'       layerSize = 123,
+#'       mediaType = "string"
+#'     )
+#'   ),
+#'   failures = list(
+#'     list(
+#'       layerDigest = "string",
+#'       failureCode = "InvalidLayerDigest"|"MissingLayerDigest",
+#'       failureReason = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$batch_check_layer_availability(
@@ -81,6 +103,29 @@ ecr_batch_check_layer_availability <- function(registryId = NULL, repositoryName
 #' @param imageIds &#91;required&#93; A list of image ID references that correspond to images to delete. The
 #' format of the `imageIds` reference is `imageTag=tag` or
 #' `imageDigest=digest`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   imageIds = list(
+#'     list(
+#'       imageDigest = "string",
+#'       imageTag = "string"
+#'     )
+#'   ),
+#'   failures = list(
+#'     list(
+#'       imageId = list(
+#'         imageDigest = "string",
+#'         imageTag = "string"
+#'       ),
+#'       failureCode = "InvalidImageDigest"|"InvalidImageTag"|"ImageTagDoesNotMatchDigest"|"ImageNotFound"|"MissingDigestAndTag"|"ImageReferencedByManifestList"|"KmsError",
+#'       failureReason = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -155,6 +200,35 @@ ecr_batch_delete_image <- function(registryId = NULL, repositoryName, imageIds) 
 #' Valid values: `application/vnd.docker.distribution.manifest.v1+json` |
 #' `application/vnd.docker.distribution.manifest.v2+json` |
 #' `application/vnd.oci.image.manifest.v1+json`
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   images = list(
+#'     list(
+#'       registryId = "string",
+#'       repositoryName = "string",
+#'       imageId = list(
+#'         imageDigest = "string",
+#'         imageTag = "string"
+#'       ),
+#'       imageManifest = "string",
+#'       imageManifestMediaType = "string"
+#'     )
+#'   ),
+#'   failures = list(
+#'     list(
+#'       imageId = list(
+#'         imageDigest = "string",
+#'         imageTag = "string"
+#'       ),
+#'       failureCode = "InvalidImageDigest"|"InvalidImageTag"|"ImageTagDoesNotMatchDigest"|"ImageNotFound"|"MissingDigestAndTag"|"ImageReferencedByManifestList"|"KmsError",
+#'       failureReason = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -231,9 +305,21 @@ ecr_batch_get_image <- function(registryId = NULL, repositoryName, imageIds, acc
 #' layers. If you do not specify a registry, the default registry is
 #' assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository to associate with the image layer.
-#' @param uploadId &#91;required&#93; The upload ID from a previous InitiateLayerUpload operation to associate
-#' with the image layer.
+#' @param uploadId &#91;required&#93; The upload ID from a previous
+#' [`initiate_layer_upload`][ecr_initiate_layer_upload] operation to
+#' associate with the image layer.
 #' @param layerDigests &#91;required&#93; The `sha256` digest of the image layer.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   uploadId = "string",
+#'   layerDigest = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -296,6 +382,30 @@ ecr_complete_layer_upload <- function(registryId = NULL, repositoryName, uploadI
 #' to the repository.
 #' @param encryptionConfiguration The encryption configuration for the repository. This determines how the
 #' contents of your repository are encrypted at rest.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   repository = list(
+#'     repositoryArn = "string",
+#'     registryId = "string",
+#'     repositoryName = "string",
+#'     repositoryUri = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     imageTagMutability = "MUTABLE"|"IMMUTABLE",
+#'     imageScanningConfiguration = list(
+#'       scanOnPush = TRUE|FALSE
+#'     ),
+#'     encryptionConfiguration = list(
+#'       encryptionType = "AES256"|"KMS",
+#'       kmsKey = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -360,6 +470,19 @@ ecr_create_repository <- function(repositoryName, tags = NULL, imageTagMutabilit
 #' assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   lifecyclePolicyText = "string",
+#'   lastEvaluatedAt = as.POSIXct(
+#'     "2015-01-01"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_lifecycle_policy(
@@ -395,6 +518,15 @@ ecr_delete_lifecycle_policy <- function(registryId = NULL, repositoryName) {
 #'
 #' @usage
 #' ecr_delete_registry_policy()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   policyText = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -436,6 +568,30 @@ ecr_delete_registry_policy <- function() {
 #' registry is assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository to delete.
 #' @param force If a repository contains images, forces the deletion.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   repository = list(
+#'     repositoryArn = "string",
+#'     registryId = "string",
+#'     repositoryName = "string",
+#'     repositoryUri = "string",
+#'     createdAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     imageTagMutability = "MUTABLE"|"IMMUTABLE",
+#'     imageScanningConfiguration = list(
+#'       scanOnPush = TRUE|FALSE
+#'     ),
+#'     encryptionConfiguration = list(
+#'       encryptionType = "AES256"|"KMS",
+#'       kmsKey = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -491,6 +647,16 @@ ecr_delete_repository <- function(registryId = NULL, repositoryName, force = NUL
 #' @param repositoryName &#91;required&#93; The name of the repository that is associated with the repository policy
 #' to delete.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   policyText = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$delete_repository_policy(
@@ -543,19 +709,66 @@ ecr_delete_repository_policy <- function(registryId = NULL, repositoryName) {
 #' @param repositoryName &#91;required&#93; The repository for the image for which to describe the scan findings.
 #' @param imageId &#91;required&#93; 
 #' @param nextToken The `nextToken` value returned from a previous paginated
-#' `DescribeImageScanFindings` request where `maxResults` was used and the
-#' results exceeded the value of that parameter. Pagination continues from
-#' the end of the previous results that returned the `nextToken` value.
-#' This value is null when there are no more results to return.
+#' [`describe_image_scan_findings`][ecr_describe_image_scan_findings]
+#' request where `maxResults` was used and the results exceeded the value
+#' of that parameter. Pagination continues from the end of the previous
+#' results that returned the `nextToken` value. This value is null when
+#' there are no more results to return.
 #' @param maxResults The maximum number of image scan results returned by
-#' `DescribeImageScanFindings` in paginated output. When this parameter is
-#' used, `DescribeImageScanFindings` only returns `maxResults` results in a
-#' single page along with a `nextToken` response element. The remaining
-#' results of the initial request can be seen by sending another
-#' `DescribeImageScanFindings` request with the returned `nextToken` value.
-#' This value can be between 1 and 1000. If this parameter is not used,
-#' then `DescribeImageScanFindings` returns up to 100 results and a
-#' `nextToken` value, if applicable.
+#' [`describe_image_scan_findings`][ecr_describe_image_scan_findings] in
+#' paginated output. When this parameter is used,
+#' [`describe_image_scan_findings`][ecr_describe_image_scan_findings] only
+#' returns `maxResults` results in a single page along with a `nextToken`
+#' response element. The remaining results of the initial request can be
+#' seen by sending another
+#' [`describe_image_scan_findings`][ecr_describe_image_scan_findings]
+#' request with the returned `nextToken` value. This value can be between 1
+#' and 1000. If this parameter is not used, then
+#' [`describe_image_scan_findings`][ecr_describe_image_scan_findings]
+#' returns up to 100 results and a `nextToken` value, if applicable.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   imageId = list(
+#'     imageDigest = "string",
+#'     imageTag = "string"
+#'   ),
+#'   imageScanStatus = list(
+#'     status = "IN_PROGRESS"|"COMPLETE"|"FAILED",
+#'     description = "string"
+#'   ),
+#'   imageScanFindings = list(
+#'     imageScanCompletedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     vulnerabilitySourceUpdatedAt = as.POSIXct(
+#'       "2015-01-01"
+#'     ),
+#'     findings = list(
+#'       list(
+#'         name = "string",
+#'         description = "string",
+#'         uri = "string",
+#'         severity = "INFORMATIONAL"|"LOW"|"MEDIUM"|"HIGH"|"CRITICAL"|"UNDEFINED",
+#'         attributes = list(
+#'           list(
+#'             key = "string",
+#'             value = "string"
+#'           )
+#'         )
+#'       )
+#'     ),
+#'     findingSeverityCounts = list(
+#'       123
+#'     )
+#'   ),
+#'   nextToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -600,7 +813,7 @@ ecr_describe_image_scan_findings <- function(registryId = NULL, repositoryName, 
 #' layers before pushing them to a V2 Docker registry. The output of the
 #' `docker images` command shows the uncompressed image size, so it may
 #' return a larger image size than the image sizes returned by
-#' DescribeImages.
+#' [`describe_images`][ecr_describe_images].
 #'
 #' @usage
 #' ecr_describe_images(registryId, repositoryName, imageIds, nextToken,
@@ -612,22 +825,64 @@ ecr_describe_image_scan_findings <- function(registryId = NULL, repositoryName, 
 #' @param repositoryName &#91;required&#93; The repository that contains the images to describe.
 #' @param imageIds The list of image IDs for the requested repository.
 #' @param nextToken The `nextToken` value returned from a previous paginated
-#' `DescribeImages` request where `maxResults` was used and the results
-#' exceeded the value of that parameter. Pagination continues from the end
-#' of the previous results that returned the `nextToken` value. This value
-#' is `null` when there are no more results to return. This option cannot
-#' be used when you specify images with `imageIds`.
-#' @param maxResults The maximum number of repository results returned by `DescribeImages` in
-#' paginated output. When this parameter is used, `DescribeImages` only
-#' returns `maxResults` results in a single page along with a `nextToken`
-#' response element. The remaining results of the initial request can be
-#' seen by sending another `DescribeImages` request with the returned
-#' `nextToken` value. This value can be between 1 and 1000. If this
-#' parameter is not used, then `DescribeImages` returns up to 100 results
-#' and a `nextToken` value, if applicable. This option cannot be used when
-#' you specify images with `imageIds`.
-#' @param filter The filter key and value with which to filter your `DescribeImages`
-#' results.
+#' [`describe_images`][ecr_describe_images] request where `maxResults` was
+#' used and the results exceeded the value of that parameter. Pagination
+#' continues from the end of the previous results that returned the
+#' `nextToken` value. This value is `null` when there are no more results
+#' to return. This option cannot be used when you specify images with
+#' `imageIds`.
+#' @param maxResults The maximum number of repository results returned by
+#' [`describe_images`][ecr_describe_images] in paginated output. When this
+#' parameter is used, [`describe_images`][ecr_describe_images] only returns
+#' `maxResults` results in a single page along with a `nextToken` response
+#' element. The remaining results of the initial request can be seen by
+#' sending another [`describe_images`][ecr_describe_images] request with
+#' the returned `nextToken` value. This value can be between 1 and 1000. If
+#' this parameter is not used, then
+#' [`describe_images`][ecr_describe_images] returns up to 100 results and a
+#' `nextToken` value, if applicable. This option cannot be used when you
+#' specify images with `imageIds`.
+#' @param filter The filter key and value with which to filter your
+#' [`describe_images`][ecr_describe_images] results.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   imageDetails = list(
+#'     list(
+#'       registryId = "string",
+#'       repositoryName = "string",
+#'       imageDigest = "string",
+#'       imageTags = list(
+#'         "string"
+#'       ),
+#'       imageSizeInBytes = 123,
+#'       imagePushedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       imageScanStatus = list(
+#'         status = "IN_PROGRESS"|"COMPLETE"|"FAILED",
+#'         description = "string"
+#'       ),
+#'       imageScanFindingsSummary = list(
+#'         imageScanCompletedAt = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         vulnerabilitySourceUpdatedAt = as.POSIXct(
+#'           "2015-01-01"
+#'         ),
+#'         findingSeverityCounts = list(
+#'           123
+#'         )
+#'       ),
+#'       imageManifestMediaType = "string",
+#'       artifactMediaType = "string"
+#'     )
+#'   ),
+#'   nextToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -673,10 +928,31 @@ ecr_describe_images <- function(registryId = NULL, repositoryName, imageIds = NU
 #' @description
 #' Describes the settings for a registry. The replication configuration for
 #' a repository can be created or updated with the
-#' PutReplicationConfiguration API action.
+#' [`put_replication_configuration`][ecr_put_replication_configuration] API
+#' action.
 #'
 #' @usage
 #' ecr_describe_registry()
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   replicationConfiguration = list(
+#'     rules = list(
+#'       list(
+#'         destinations = list(
+#'           list(
+#'             region = "string",
+#'             registryId = "string"
+#'           )
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -718,26 +994,55 @@ ecr_describe_registry <- function() {
 #' @param repositoryNames A list of repositories to describe. If this parameter is omitted, then
 #' all repositories in a registry are described.
 #' @param nextToken The `nextToken` value returned from a previous paginated
-#' `DescribeRepositories` request where `maxResults` was used and the
-#' results exceeded the value of that parameter. Pagination continues from
-#' the end of the previous results that returned the `nextToken` value.
-#' This value is `null` when there are no more results to return. This
-#' option cannot be used when you specify repositories with
-#' `repositoryNames`.
+#' [`describe_repositories`][ecr_describe_repositories] request where
+#' `maxResults` was used and the results exceeded the value of that
+#' parameter. Pagination continues from the end of the previous results
+#' that returned the `nextToken` value. This value is `null` when there are
+#' no more results to return. This option cannot be used when you specify
+#' repositories with `repositoryNames`.
 #' 
 #' This token should be treated as an opaque identifier that is only used
 #' to retrieve the next items in a list and not for other programmatic
 #' purposes.
 #' @param maxResults The maximum number of repository results returned by
-#' `DescribeRepositories` in paginated output. When this parameter is used,
-#' `DescribeRepositories` only returns `maxResults` results in a single
-#' page along with a `nextToken` response element. The remaining results of
-#' the initial request can be seen by sending another
-#' `DescribeRepositories` request with the returned `nextToken` value. This
-#' value can be between 1 and 1000. If this parameter is not used, then
-#' `DescribeRepositories` returns up to 100 results and a `nextToken`
-#' value, if applicable. This option cannot be used when you specify
-#' repositories with `repositoryNames`.
+#' [`describe_repositories`][ecr_describe_repositories] in paginated
+#' output. When this parameter is used,
+#' [`describe_repositories`][ecr_describe_repositories] only returns
+#' `maxResults` results in a single page along with a `nextToken` response
+#' element. The remaining results of the initial request can be seen by
+#' sending another [`describe_repositories`][ecr_describe_repositories]
+#' request with the returned `nextToken` value. This value can be between 1
+#' and 1000. If this parameter is not used, then
+#' [`describe_repositories`][ecr_describe_repositories] returns up to 100
+#' results and a `nextToken` value, if applicable. This option cannot be
+#' used when you specify repositories with `repositoryNames`.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   repositories = list(
+#'     list(
+#'       repositoryArn = "string",
+#'       registryId = "string",
+#'       repositoryName = "string",
+#'       repositoryUri = "string",
+#'       createdAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       imageTagMutability = "MUTABLE"|"IMMUTABLE",
+#'       imageScanningConfiguration = list(
+#'         scanOnPush = TRUE|FALSE
+#'       ),
+#'       encryptionConfiguration = list(
+#'         encryptionType = "AES256"|"KMS",
+#'         kmsKey = "string"
+#'       )
+#'     )
+#'   ),
+#'   nextToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -800,6 +1105,22 @@ ecr_describe_repositories <- function(registryId = NULL, repositoryNames = NULL,
 #' which to get AuthorizationData objects. If you do not specify a
 #' registry, the default registry is assumed.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   authorizationData = list(
+#'     list(
+#'       authorizationToken = "string",
+#'       expiresAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       proxyEndpoint = "string"
+#'     )
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_authorization_token(
@@ -860,6 +1181,15 @@ ecr_get_authorization_token <- function(registryIds = NULL) {
 #' download.
 #' @param layerDigest &#91;required&#93; The digest of the image layer to download.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   downloadUrl = "string",
+#'   layerDigest = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_download_url_for_layer(
@@ -901,6 +1231,19 @@ ecr_get_download_url_for_layer <- function(registryId = NULL, repositoryName, la
 #' repository. If you do not specify a registry, the default registry is
 #' assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   lifecyclePolicyText = "string",
+#'   lastEvaluatedAt = as.POSIXct(
+#'     "2015-01-01"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -966,6 +1309,36 @@ ecr_get_lifecycle_policy <- function(registryId = NULL, repositoryName) {
 #' @param filter An optional parameter that filters results based on image tag status and
 #' all tags, if tagged.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   lifecyclePolicyText = "string",
+#'   status = "IN_PROGRESS"|"COMPLETE"|"EXPIRED"|"FAILED",
+#'   nextToken = "string",
+#'   previewResults = list(
+#'     list(
+#'       imageTags = list(
+#'         "string"
+#'       ),
+#'       imageDigest = "string",
+#'       imagePushedAt = as.POSIXct(
+#'         "2015-01-01"
+#'       ),
+#'       action = list(
+#'         type = "EXPIRE"
+#'       ),
+#'       appliedRulePriority = 123
+#'     )
+#'   ),
+#'   summary = list(
+#'     expiringImageTotalCount = 123
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_lifecycle_policy_preview(
@@ -1013,6 +1386,15 @@ ecr_get_lifecycle_policy_preview <- function(registryId = NULL, repositoryName, 
 #' @usage
 #' ecr_get_registry_policy()
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   policyText = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$get_registry_policy()
@@ -1050,6 +1432,16 @@ ecr_get_registry_policy <- function() {
 #' repository. If you do not specify a registry, the default registry is
 #' assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository with the policy to retrieve.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   policyText = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1110,6 +1502,15 @@ ecr_get_repository_policy <- function(registryId = NULL, repositoryName) {
 #' assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository to which you intend to upload layers.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   uploadId = "string",
+#'   partSize = 123
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$initiate_layer_upload(
@@ -1146,9 +1547,10 @@ ecr_initiate_layer_upload <- function(registryId = NULL, repositoryName) {
 #' You can filter images based on whether or not they are tagged by using
 #' the `tagStatus` filter and specifying either `TAGGED`, `UNTAGGED` or
 #' `ANY`. For example, you can filter your results to return only
-#' `UNTAGGED` images and then pipe that result to a BatchDeleteImage
-#' operation to delete them. Or, you can filter your results to return only
-#' `TAGGED` images to list all of the tags in your repository.
+#' `UNTAGGED` images and then pipe that result to a
+#' [`batch_delete_image`][ecr_batch_delete_image] operation to delete them.
+#' Or, you can filter your results to return only `TAGGED` images to list
+#' all of the tags in your repository.
 #'
 #' @usage
 #' ecr_list_images(registryId, repositoryName, nextToken, maxResults,
@@ -1158,24 +1560,40 @@ ecr_initiate_layer_upload <- function(registryId = NULL, repositoryName) {
 #' repository in which to list images. If you do not specify a registry,
 #' the default registry is assumed.
 #' @param repositoryName &#91;required&#93; The repository with image IDs to be listed.
-#' @param nextToken The `nextToken` value returned from a previous paginated `ListImages`
-#' request where `maxResults` was used and the results exceeded the value
-#' of that parameter. Pagination continues from the end of the previous
-#' results that returned the `nextToken` value. This value is `null` when
-#' there are no more results to return.
+#' @param nextToken The `nextToken` value returned from a previous paginated
+#' [`list_images`][ecr_list_images] request where `maxResults` was used and
+#' the results exceeded the value of that parameter. Pagination continues
+#' from the end of the previous results that returned the `nextToken`
+#' value. This value is `null` when there are no more results to return.
 #' 
 #' This token should be treated as an opaque identifier that is only used
 #' to retrieve the next items in a list and not for other programmatic
 #' purposes.
-#' @param maxResults The maximum number of image results returned by `ListImages` in
-#' paginated output. When this parameter is used, `ListImages` only returns
+#' @param maxResults The maximum number of image results returned by
+#' [`list_images`][ecr_list_images] in paginated output. When this
+#' parameter is used, [`list_images`][ecr_list_images] only returns
 #' `maxResults` results in a single page along with a `nextToken` response
 #' element. The remaining results of the initial request can be seen by
-#' sending another `ListImages` request with the returned `nextToken`
-#' value. This value can be between 1 and 1000. If this parameter is not
-#' used, then `ListImages` returns up to 100 results and a `nextToken`
-#' value, if applicable.
-#' @param filter The filter key and value with which to filter your `ListImages` results.
+#' sending another [`list_images`][ecr_list_images] request with the
+#' returned `nextToken` value. This value can be between 1 and 1000. If
+#' this parameter is not used, then [`list_images`][ecr_list_images]
+#' returns up to 100 results and a `nextToken` value, if applicable.
+#' @param filter The filter key and value with which to filter your
+#' [`list_images`][ecr_list_images] results.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   imageIds = list(
+#'     list(
+#'       imageDigest = "string",
+#'       imageTag = "string"
+#'     )
+#'   ),
+#'   nextToken = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1230,6 +1648,19 @@ ecr_list_images <- function(registryId = NULL, repositoryName, nextToken = NULL,
 #' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource for which to
 #' list the tags. Currently, the only supported resource is an Amazon ECR
 #' repository.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   tags = list(
+#'     list(
+#'       Key = "string",
+#'       Value = "string"
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1288,6 +1719,23 @@ ecr_list_tags_for_resource <- function(resourceArn) {
 #' Initiative (OCI) formats.
 #' @param imageDigest The image digest of the image manifest corresponding to the image.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   image = list(
+#'     registryId = "string",
+#'     repositoryName = "string",
+#'     imageId = list(
+#'       imageDigest = "string",
+#'       imageTag = "string"
+#'     ),
+#'     imageManifest = "string",
+#'     imageManifestMediaType = "string"
+#'   )
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$put_image(
@@ -1337,6 +1785,18 @@ ecr_put_image <- function(registryId = NULL, repositoryName, imageManifest, imag
 #' @param imageScanningConfiguration &#91;required&#93; The image scanning configuration for the repository. This setting
 #' determines whether images are scanned for known vulnerabilities after
 #' being pushed to the repository.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   imageScanningConfiguration = list(
+#'     scanOnPush = TRUE|FALSE
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1391,6 +1851,16 @@ ecr_put_image_scanning_configuration <- function(registryId = NULL, repositoryNa
 #' all image tags within the repository will be immutable which will
 #' prevent them from being overwritten.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   imageTagMutability = "MUTABLE"|"IMMUTABLE"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$put_image_tag_mutability(
@@ -1436,6 +1906,16 @@ ecr_put_image_tag_mutability <- function(registryId = NULL, repositoryName, imag
 #' assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository to receive the policy.
 #' @param lifecyclePolicyText &#91;required&#93; The JSON repository policy text to apply to the repository.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   lifecyclePolicyText = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1485,6 +1965,15 @@ ecr_put_lifecycle_policy <- function(registryId = NULL, repositoryName, lifecycl
 #' permissions](https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html)
 #' in the *Amazon Elastic Container Registry User Guide*.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   policyText = "string"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$put_registry_policy(
@@ -1517,22 +2006,42 @@ ecr_put_registry_policy <- function(policyText) {
 #' @description
 #' Creates or updates the replication configuration for a registry. The
 #' existing replication configuration for a repository can be retrieved
-#' with the DescribeRegistry API action. The first time the
-#' PutReplicationConfiguration API is called, a service-linked IAM role is
-#' created in your account for the replication process. For more
-#' information, see [Using Service-Linked Roles for Amazon
+#' with the [`describe_registry`][ecr_describe_registry] API action. The
+#' first time the PutReplicationConfiguration API is called, a
+#' service-linked IAM role is created in your account for the replication
+#' process. For more information, see [Using Service-Linked Roles for
+#' Amazon
 #' ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html)
 #' in the *Amazon Elastic Container Registry User Guide*.
 #' 
 #' When configuring cross-account replication, the destination account must
 #' grant the source account permission to replicate. This permission is
 #' controlled using a registry permissions policy. For more information,
-#' see PutRegistryPolicy.
+#' see [`put_registry_policy`][ecr_put_registry_policy].
 #'
 #' @usage
 #' ecr_put_replication_configuration(replicationConfiguration)
 #'
 #' @param replicationConfiguration &#91;required&#93; An object representing the replication configuration for a registry.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   replicationConfiguration = list(
+#'     rules = list(
+#'       list(
+#'         destinations = list(
+#'           list(
+#'             region = "string",
+#'             registryId = "string"
+#'           )
+#'         )
+#'       )
+#'     )
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1594,8 +2103,18 @@ ecr_put_replication_configuration <- function(replicationConfiguration) {
 #' in the *Amazon Elastic Container Registry User Guide*.
 #' @param force If the policy you are attempting to set on a repository policy would
 #' prevent you from setting another policy in the future, you must force
-#' the SetRepositoryPolicy operation. This is intended to prevent
-#' accidental repository lock outs.
+#' the [`set_repository_policy`][ecr_set_repository_policy] operation. This
+#' is intended to prevent accidental repository lock outs.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   policyText = "string"
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1644,6 +2163,23 @@ ecr_set_repository_policy <- function(registryId = NULL, repositoryName, policyT
 #' specify a registry, the default registry is assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository that contains the images to scan.
 #' @param imageId &#91;required&#93; 
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   imageId = list(
+#'     imageDigest = "string",
+#'     imageTag = "string"
+#'   ),
+#'   imageScanStatus = list(
+#'     status = "IN_PROGRESS"|"COMPLETE"|"FAILED",
+#'     description = "string"
+#'   )
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```
@@ -1695,6 +2231,17 @@ ecr_start_image_scan <- function(registryId = NULL, repositoryName, imageId) {
 #' @param lifecyclePolicyText The policy to be evaluated against. If you do not specify a policy, the
 #' current policy for the repository is used.
 #'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   lifecyclePolicyText = "string",
+#'   status = "IN_PROGRESS"|"COMPLETE"|"EXPIRED"|"FAILED"
+#' )
+#' ```
+#'
 #' @section Request syntax:
 #' ```
 #' svc$start_lifecycle_policy_preview(
@@ -1739,6 +2286,9 @@ ecr_start_lifecycle_policy_preview <- function(registryId = NULL, repositoryName
 #' @param tags &#91;required&#93; The tags to add to the resource. A tag is an array of key-value pairs.
 #' Tag keys can have a maximum character length of 128 characters, and tag
 #' values can have a maximum length of 256 characters.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1785,6 +2335,9 @@ ecr_tag_resource <- function(resourceArn, tags) {
 #' tags. Currently, the only supported resource is an Amazon ECR
 #' repository.
 #' @param tagKeys &#91;required&#93; The keys of the tags to be removed.
+#'
+#' @return
+#' An empty list.
 #'
 #' @section Request syntax:
 #' ```
@@ -1838,13 +2391,25 @@ ecr_untag_resource <- function(resourceArn, tagKeys) {
 #' uploading layer parts. If you do not specify a registry, the default
 #' registry is assumed.
 #' @param repositoryName &#91;required&#93; The name of the repository to which you are uploading layer parts.
-#' @param uploadId &#91;required&#93; The upload ID from a previous InitiateLayerUpload operation to associate
-#' with the layer part upload.
+#' @param uploadId &#91;required&#93; The upload ID from a previous
+#' [`initiate_layer_upload`][ecr_initiate_layer_upload] operation to
+#' associate with the layer part upload.
 #' @param partFirstByte &#91;required&#93; The position of the first byte of the layer part witin the overall image
 #' layer.
 #' @param partLastByte &#91;required&#93; The position of the last byte of the layer part within the overall image
 #' layer.
 #' @param layerPartBlob &#91;required&#93; The base64-encoded layer part payload.
+#'
+#' @return
+#' A list with the following syntax:
+#' ```
+#' list(
+#'   registryId = "string",
+#'   repositoryName = "string",
+#'   uploadId = "string",
+#'   lastByteReceived = 123
+#' )
+#' ```
 #'
 #' @section Request syntax:
 #' ```

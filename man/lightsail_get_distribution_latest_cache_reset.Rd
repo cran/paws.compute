@@ -11,11 +11,20 @@ lightsail_get_distribution_latest_cache_reset(distributionName)
 \item{distributionName}{The name of the distribution for which to return the timestamp of the
 last cache reset.
 
-Use the \code{GetDistributions} action to get a list of distribution names
-that you can specify.
+Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get
+a list of distribution names that you can specify.
 
 When omitted, the response includes the latest cache reset timestamp of
 all your distributions.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  status = "string",
+  createTime = as.POSIXct(
+    "2015-01-01"
+  )
+)
+}
 }
 \description{
 Returns the timestamp and status of the last cache reset of a specific

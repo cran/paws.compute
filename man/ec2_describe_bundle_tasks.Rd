@@ -18,7 +18,7 @@ Default: Describes all your bundle tasks.}
 \item \code{error-message} - If the task failed, the error message returned.
 \item \code{instance-id} - The ID of the instance.
 \item \code{progress} - The level of task completion, as a percentage (for
-example, 20\\%).
+example, 20\%).
 \item \code{s3-bucket} - The Amazon S3 bucket to store the AMI.
 \item \code{s3-prefix} - The beginning of the AMI name.
 \item \code{start-time} - The time the task started (for example,
@@ -33,13 +33,45 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  BundleTasks = list(
+    list(
+      BundleId = "string",
+      BundleTaskError = list(
+        Code = "string",
+        Message = "string"
+      ),
+      InstanceId = "string",
+      Progress = "string",
+      StartTime = as.POSIXct(
+        "2015-01-01"
+      ),
+      State = "pending"|"waiting-for-shutdown"|"bundling"|"storing"|"cancelling"|"complete"|"failed",
+      Storage = list(
+        S3 = list(
+          AWSAccessKeyId = "string",
+          Bucket = "string",
+          Prefix = "string",
+          UploadPolicy = raw,
+          UploadPolicySignature = "string"
+        )
+      ),
+      UpdateTime = as.POSIXct(
+        "2015-01-01"
+      )
+    )
+  )
+)
+}
+}
 \description{
 Describes the specified bundle tasks or all of your bundle tasks.
 
 Completed bundle tasks are listed for only a limited time. If your
 bundle task is no longer in the list, you can still register an AMI from
-it. Just use \code{RegisterImage} with the Amazon S3 bucket name and image
-manifest name you provided to the bundle task.
+it. Just use \code{\link[=ec2_register_image]{register_image}} with the Amazon S3
+bucket name and image manifest name you provided to the bundle task.
 }
 \section{Request syntax}{
 \preformatted{svc$describe_bundle_tasks(

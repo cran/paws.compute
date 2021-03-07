@@ -20,6 +20,16 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  AssociationId = "string",
+  Status = list(
+    Code = "associating"|"associated"|"association-failed"|"disassociating"|"disassociated",
+    Message = "string"
+  )
+)
+}
+}
 \description{
 Associates a target network with a Client VPN endpoint. A target network
 is a subnet in a VPC. You can associate multiple subnets from the same
@@ -30,7 +40,8 @@ subnets to provide Availability Zone redundancy.
 If you specified a VPC when you created the Client VPN endpoint or if
 you have previous subnet associations, the specified subnet must be in
 the same VPC. To specify a subnet that's in a different VPC, you must
-first modify the Client VPN endpoint (ModifyClientVpnEndpoint) and
+first modify the Client VPN endpoint
+(\code{\link[=ec2_modify_client_vpn_endpoint]{modify_client_vpn_endpoint}}) and
 change the VPC that's associated with it.
 }
 \section{Request syntax}{

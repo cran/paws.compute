@@ -21,13 +21,23 @@ available.
 
 Default: \code{CURRENT}}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  masterUserPassword = "string",
+  createdAt = as.POSIXct(
+    "2015-01-01"
+  )
+)
+}
+}
 \description{
 Returns the current, previous, or pending versions of the master user
 password for a Lightsail database.
 
-The \code{GetRelationalDatabaseMasterUserPassword} operation supports
-tag-based access control via resource tags applied to the resource
-identified by relationalDatabaseName.
+The
+\code{\link[=lightsail_get_relational_database_master_user_password]{get_relational_database_master_user_password}}
+operation supports tag-based access control via resource tags applied to
+the resource identified by relationalDatabaseName.
 }
 \section{Request syntax}{
 \preformatted{svc$get_relational_database_master_user_password(

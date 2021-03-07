@@ -73,6 +73,88 @@ its ARN, including the version.}
 
 \item{ImageConfig}{Configuration values that override the container image Dockerfile.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  FunctionName = "string",
+  FunctionArn = "string",
+  Runtime = "nodejs"|"nodejs4.3"|"nodejs6.10"|"nodejs8.10"|"nodejs10.x"|"nodejs12.x"|"java8"|"java8.al2"|"java11"|"python2.7"|"python3.6"|"python3.7"|"python3.8"|"dotnetcore1.0"|"dotnetcore2.0"|"dotnetcore2.1"|"dotnetcore3.1"|"nodejs4.3-edge"|"go1.x"|"ruby2.5"|"ruby2.7"|"provided"|"provided.al2",
+  Role = "string",
+  Handler = "string",
+  CodeSize = 123,
+  Description = "string",
+  Timeout = 123,
+  MemorySize = 123,
+  LastModified = "string",
+  CodeSha256 = "string",
+  Version = "string",
+  VpcConfig = list(
+    SubnetIds = list(
+      "string"
+    ),
+    SecurityGroupIds = list(
+      "string"
+    ),
+    VpcId = "string"
+  ),
+  DeadLetterConfig = list(
+    TargetArn = "string"
+  ),
+  Environment = list(
+    Variables = list(
+      "string"
+    ),
+    Error = list(
+      ErrorCode = "string",
+      Message = "string"
+    )
+  ),
+  KMSKeyArn = "string",
+  TracingConfig = list(
+    Mode = "Active"|"PassThrough"
+  ),
+  MasterArn = "string",
+  RevisionId = "string",
+  Layers = list(
+    list(
+      Arn = "string",
+      CodeSize = 123,
+      SigningProfileVersionArn = "string",
+      SigningJobArn = "string"
+    )
+  ),
+  State = "Pending"|"Active"|"Inactive"|"Failed",
+  StateReason = "string",
+  StateReasonCode = "Idle"|"Creating"|"Restoring"|"EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+  LastUpdateStatus = "Successful"|"Failed"|"InProgress",
+  LastUpdateStatusReason = "string",
+  LastUpdateStatusReasonCode = "EniLimitExceeded"|"InsufficientRolePermissions"|"InvalidConfiguration"|"InternalError"|"SubnetOutOfIPAddresses"|"InvalidSubnet"|"InvalidSecurityGroup"|"ImageDeleted"|"ImageAccessDenied"|"InvalidImage",
+  FileSystemConfigs = list(
+    list(
+      Arn = "string",
+      LocalMountPath = "string"
+    )
+  ),
+  PackageType = "Zip"|"Image",
+  ImageConfigResponse = list(
+    ImageConfig = list(
+      EntryPoint = list(
+        "string"
+      ),
+      Command = list(
+        "string"
+      ),
+      WorkingDirectory = "string"
+    ),
+    Error = list(
+      ErrorCode = "string",
+      Message = "string"
+    )
+  ),
+  SigningProfileVersionArn = "string",
+  SigningJobArn = "string"
+)
+}
+}
 \description{
 Modify the version-specific settings of a Lambda function.
 
@@ -81,16 +163,19 @@ function and its supporting resources. If your function connects to a
 VPC, this process can take a minute. During this time, you can't modify
 the function, but you can still invoke it. The \code{LastUpdateStatus},
 \code{LastUpdateStatusReason}, and \code{LastUpdateStatusReasonCode} fields in the
-response from GetFunctionConfiguration indicate when the update is
-complete and the function is processing events with the new
-configuration. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html}{Function States}.
+response from
+\code{\link[=lambda_get_function_configuration]{get_function_configuration}}
+indicate when the update is complete and the function is processing
+events with the new configuration. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html}{Function States}.
 
 These settings can vary between versions of a function and are locked
 when you publish a version. You can't modify the configuration of a
 published version, only the unpublished version.
 
-To configure function concurrency, use PutFunctionConcurrency. To grant
-invoke permissions to an account or AWS service, use AddPermission.
+To configure function concurrency, use
+\code{\link[=lambda_put_function_concurrency]{put_function_concurrency}}. To grant
+invoke permissions to an account or AWS service, use
+\code{\link[=lambda_add_permission]{add_permission}}.
 }
 \section{Request syntax}{
 \preformatted{svc$update_function_configuration(

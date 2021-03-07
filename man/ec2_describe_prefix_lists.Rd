@@ -29,12 +29,29 @@ value.}
 
 \item{PrefixListIds}{One or more prefix list IDs.}
 }
+\value{
+A list with the following syntax:\preformatted{list(
+  NextToken = "string",
+  PrefixLists = list(
+    list(
+      Cidrs = list(
+        "string"
+      ),
+      PrefixListId = "string",
+      PrefixListName = "string"
+    )
+  )
+)
+}
+}
 \description{
 Describes available AWS services in a prefix list format, which includes
 the prefix list name and prefix list ID of the service and the IP
 address range for the service.
 
-We recommend that you use DescribeManagedPrefixLists instead.
+We recommend that you use
+\code{\link[=ec2_describe_managed_prefix_lists]{describe_managed_prefix_lists}}
+instead.
 }
 \section{Request syntax}{
 \preformatted{svc$describe_prefix_lists(

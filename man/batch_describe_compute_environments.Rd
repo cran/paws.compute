@@ -12,24 +12,85 @@ batch_describe_compute_environments(computeEnvironments, maxResults,
 Name (ARN) entries.}
 
 \item{maxResults}{The maximum number of cluster results returned by
-\code{DescribeComputeEnvironments} in paginated output. When this parameter
-is used, \code{DescribeComputeEnvironments} only returns \code{maxResults} results
-in a single page along with a \code{nextToken} response element. The
-remaining results of the initial request can be seen by sending another
-\code{DescribeComputeEnvironments} request with the returned \code{nextToken}
-value. This value can be between 1 and 100. If this parameter isn't
-used, then \code{DescribeComputeEnvironments} returns up to 100 results and a
-\code{nextToken} value if applicable.}
+\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
+in paginated output. When this parameter is used,
+\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
+only returns \code{maxResults} results in a single page along with a
+\code{nextToken} response element. The remaining results of the initial
+request can be seen by sending another
+\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
+request with the returned \code{nextToken} value. This value can be between 1
+and 100. If this parameter isn't used, then
+\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
+returns up to 100 results and a \code{nextToken} value if applicable.}
 
 \item{nextToken}{The \code{nextToken} value returned from a previous paginated
-\code{DescribeComputeEnvironments} request where \code{maxResults} was used and
-the results exceeded the value of that parameter. Pagination continues
-from the end of the previous results that returned the \code{nextToken}
-value. This value is \code{null} when there are no more results to return.
+\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
+request where \code{maxResults} was used and the results exceeded the value
+of that parameter. Pagination continues from the end of the previous
+results that returned the \code{nextToken} value. This value is \code{null} when
+there are no more results to return.
 
 This token should be treated as an opaque identifier that's only used to
 retrieve the next items in a list and not for other programmatic
 purposes.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  computeEnvironments = list(
+    list(
+      computeEnvironmentName = "string",
+      computeEnvironmentArn = "string",
+      ecsClusterArn = "string",
+      tags = list(
+        "string"
+      ),
+      type = "MANAGED"|"UNMANAGED",
+      state = "ENABLED"|"DISABLED",
+      status = "CREATING"|"UPDATING"|"DELETING"|"DELETED"|"VALID"|"INVALID",
+      statusReason = "string",
+      computeResources = list(
+        type = "EC2"|"SPOT"|"FARGATE"|"FARGATE_SPOT",
+        allocationStrategy = "BEST_FIT"|"BEST_FIT_PROGRESSIVE"|"SPOT_CAPACITY_OPTIMIZED",
+        minvCpus = 123,
+        maxvCpus = 123,
+        desiredvCpus = 123,
+        instanceTypes = list(
+          "string"
+        ),
+        imageId = "string",
+        subnets = list(
+          "string"
+        ),
+        securityGroupIds = list(
+          "string"
+        ),
+        ec2KeyPair = "string",
+        instanceRole = "string",
+        tags = list(
+          "string"
+        ),
+        placementGroup = "string",
+        bidPercentage = 123,
+        spotIamFleetRole = "string",
+        launchTemplate = list(
+          launchTemplateId = "string",
+          launchTemplateName = "string",
+          version = "string"
+        ),
+        ec2Configuration = list(
+          list(
+            imageType = "string",
+            imageIdOverride = "string"
+          )
+        )
+      ),
+      serviceRole = "string"
+    )
+  ),
+  nextToken = "string"
+)
+}
 }
 \description{
 Describes one or more of your compute environments.

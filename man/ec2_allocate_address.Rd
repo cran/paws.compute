@@ -26,9 +26,8 @@ from which AWS advertises IP addresses. Use this parameter to limit the
 IP address to this location. IP addresses cannot move between network
 border groups.
 
-Use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeAvailabilityZones.html}{DescribeAvailabilityZones}
-to view the network border groups.
+Use \code{\link[=ec2_describe_availability_zones]{describe_availability_zones}} to
+view the network border groups.
 
 You cannot use a network border group with EC2 Classic. If you attempt
 this operation on EC2 classic, you will receive an
@@ -44,6 +43,19 @@ the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{TagSpecifications}{The tags to assign to the Elastic IP address.}
+}
+\value{
+A list with the following syntax:\preformatted{list(
+  PublicIp = "string",
+  AllocationId = "string",
+  PublicIpv4Pool = "string",
+  NetworkBorderGroup = "string",
+  Domain = "vpc"|"standard",
+  CustomerOwnedIp = "string",
+  CustomerOwnedIpv4Pool = "string",
+  CarrierIp = "string"
+)
+}
 }
 \description{
 Allocates an Elastic IP address to your AWS account. After you allocate

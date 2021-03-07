@@ -91,6 +91,9 @@ base64-encoded text.}
 \code{userData}, \code{disableApiTermination}, or
 \code{instanceInitiatedShutdownBehavior} attribute.}
 }
+\value{
+An empty list.
+}
 \description{
 Modifies the specified attribute of the specified instance. You can
 specify only one attribute at a time.
@@ -100,7 +103,8 @@ with an elastic network interface (ENI) attached to an instance in a VPC
 can result in an error if the instance has more than one ENI. To change
 the security groups associated with an ENI attached to an instance that
 has multiple ENIs, we recommend that you use the
-ModifyNetworkInterfaceAttribute action.
+\code{\link[=ec2_modify_network_interface_attribute]{modify_network_interface_attribute}}
+action.
 
 To modify some attributes, the instance must be stopped. For more
 information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html}{Modifying attributes of a stopped instance}
