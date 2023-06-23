@@ -13,11 +13,18 @@ ecs_update_cluster_settings(cluster, settings)
 turn on CloudWatch Container Insights for a cluster. If this value is
 specified, it overrides the \code{containerInsights} value set with
 \code{\link[=ecs_put_account_setting]{put_account_setting}} or
-\code{\link[=ecs_put_account_setting_default]{put_account_setting_default}}.}
+\code{\link[=ecs_put_account_setting_default]{put_account_setting_default}}.
+
+Currently, if you delete an existing cluster that does not have
+Container Insights turned on, and then create a new cluster with the
+same name with Container Insights tuned on, Container Insights will not
+actually be turned on. If you want to preserve the same name for your
+existing cluster and turn on Container Insights, you must wait 7 days
+before you can re-create it.}
 }
 \description{
 Modifies the settings to use for a cluster.
 
-See \url{https://paws-r.github.io/docs/ecs/update_cluster_settings.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ecs_update_cluster_settings/} for full documentation.
 }
 \keyword{internal}

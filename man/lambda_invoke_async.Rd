@@ -11,10 +11,10 @@ lambda_invoke_async(FunctionName, InvokeArgs)
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} - \verb{my-function}.
-\item \strong{Function ARN} -
+\item \strong{Function name} – \verb{my-function}.
+\item \strong{Function ARN} –
 \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
-\item \strong{Partial ARN} - \verb{123456789012:function:my-function}.
+\item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
 The length constraint applies only to the full ARN. If you specify only
@@ -25,6 +25,6 @@ the function name, it is limited to 64 characters in length.}
 \description{
 For asynchronous function invocation, use \code{\link[=lambda_invoke]{invoke}}.
 
-See \url{https://paws-r.github.io/docs/lambda/invoke_async.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_invoke_async/} for full documentation.
 }
 \keyword{internal}

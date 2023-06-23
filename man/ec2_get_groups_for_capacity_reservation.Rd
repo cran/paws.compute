@@ -12,7 +12,9 @@ ec2_get_groups_for_capacity_reservation(
 )
 }
 \arguments{
-\item{CapacityReservationId}{[required] The ID of the Capacity Reservation.}
+\item{CapacityReservationId}{[required] The ID of the Capacity Reservation. If you specify a Capacity
+Reservation that is shared with you, the operation returns only Capacity
+Reservation groups that you own.}
 
 \item{NextToken}{The token to use to retrieve the next page of results.}
 
@@ -29,6 +31,6 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Lists the resource groups to which a Capacity Reservation has been added.
 
-See \url{https://paws-r.github.io/docs/ec2/get_groups_for_capacity_reservation.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_get_groups_for_capacity_reservation/} for full documentation.
 }
 \keyword{internal}

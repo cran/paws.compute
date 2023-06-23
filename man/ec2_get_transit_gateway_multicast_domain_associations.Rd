@@ -6,7 +6,7 @@
 multicast domain}
 \usage{
 ec2_get_transit_gateway_multicast_domain_associations(
-  TransitGatewayMulticastDomainId = NULL,
+  TransitGatewayMulticastDomainId,
   Filters = NULL,
   MaxResults = NULL,
   NextToken = NULL,
@@ -14,7 +14,7 @@ ec2_get_transit_gateway_multicast_domain_associations(
 )
 }
 \arguments{
-\item{TransitGatewayMulticastDomainId}{The ID of the transit gateway multicast domain.}
+\item{TransitGatewayMulticastDomainId}{[required] The ID of the transit gateway multicast domain.}
 
 \item{Filters}{One or more filters. The possible values are:
 \itemize{
@@ -41,6 +41,6 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Gets information about the associations for the transit gateway multicast domain.
 
-See \url{https://paws-r.github.io/docs/ec2/get_transit_gateway_multicast_domain_associations.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_get_transit_gateway_multicast_domain_associations/} for full documentation.
 }
 \keyword{internal}

@@ -7,7 +7,8 @@
 ec2_modify_vpc_attribute(
   EnableDnsHostnames = NULL,
   EnableDnsSupport = NULL,
-  VpcId
+  VpcId,
+  EnableNetworkAddressUsageMetrics = NULL
 )
 }
 \arguments{
@@ -30,10 +31,13 @@ You cannot modify the DNS resolution and DNS hostnames attributes in the
 same request. Use separate requests for each attribute.}
 
 \item{VpcId}{[required] The ID of the VPC.}
+
+\item{EnableNetworkAddressUsageMetrics}{Indicates whether Network Address Usage metrics are enabled for your
+VPC.}
 }
 \description{
 Modifies the specified attribute of the specified VPC.
 
-See \url{https://paws-r.github.io/docs/ec2/modify_vpc_attribute.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_modify_vpc_attribute/} for full documentation.
 }
 \keyword{internal}

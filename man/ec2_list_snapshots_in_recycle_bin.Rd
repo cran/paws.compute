@@ -12,11 +12,13 @@ ec2_list_snapshots_in_recycle_bin(
 )
 }
 \arguments{
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next
+page of items, make another request with the token returned in the
+output. For more information, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token for the next page of results.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination
+continues from the end of the items returned by the previous request.}
 
 \item{SnapshotIds}{The IDs of the snapshots to list. Omit this parameter to list all of the
 snapshots that are in the Recycle Bin.}
@@ -29,6 +31,6 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Lists one or more snapshots that are currently in the Recycle Bin.
 
-See \url{https://paws-r.github.io/docs/ec2/list_snapshots_in_recycle_bin.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_list_snapshots_in_recycle_bin/} for full documentation.
 }
 \keyword{internal}

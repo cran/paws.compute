@@ -16,7 +16,8 @@ in the response. If this field is omitted, this information isn't
 included.
 
 If \code{ATTACHMENTS} is specified, the attachments for the container
-instances or tasks within the cluster are included.
+instances or tasks within the cluster are included, for example the
+capacity providers.
 
 If \code{SETTINGS} is specified, the settings for the cluster are included.
 
@@ -32,6 +33,6 @@ are included.}
 \description{
 Describes one or more of your clusters.
 
-See \url{https://paws-r.github.io/docs/ecs/describe_clusters.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ecs_describe_clusters/} for full documentation.
 }
 \keyword{internal}

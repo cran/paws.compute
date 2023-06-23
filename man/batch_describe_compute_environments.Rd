@@ -34,13 +34,12 @@ of that parameter. Pagination continues from the end of the previous
 results that returned the \code{nextToken} value. This value is \code{null} when
 there are no more results to return.
 
-This token should be treated as an opaque identifier that's only used to
-retrieve the next items in a list and not for other programmatic
-purposes.}
+Treat this token as an opaque identifier that's only used to retrieve
+the next items in a list and not for other programmatic purposes.}
 }
 \description{
 Describes one or more of your compute environments.
 
-See \url{https://paws-r.github.io/docs/batch/describe_compute_environments.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/batch_describe_compute_environments/} for full documentation.
 }
 \keyword{internal}

@@ -9,7 +9,7 @@ proton_notify_resource_deployment_status_change(
   deploymentId = NULL,
   outputs = NULL,
   resourceArn,
-  status,
+  status = NULL,
   statusMessage = NULL
 )
 }
@@ -21,13 +21,13 @@ Proton.}
 
 \item{resourceArn}{[required] The provisioned resource Amazon Resource Name (ARN).}
 
-\item{status}{[required] The status of your provisioned resource.}
+\item{status}{The status of your provisioned resource.}
 
 \item{statusMessage}{The deployment status message for your provisioned resource.}
 }
 \description{
 Notify Proton of status changes to a provisioned resource when you use self-managed provisioning.
 
-See \url{https://paws-r.github.io/docs/proton/notify_resource_deployment_status_change.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/proton_notify_resource_deployment_status_change/} for full documentation.
 }
 \keyword{internal}

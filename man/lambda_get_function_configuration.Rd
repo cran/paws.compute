@@ -11,11 +11,11 @@ lambda_get_function_configuration(FunctionName, Qualifier = NULL)
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} - \verb{my-function} (name-only), \verb{my-function:v1}
+\item \strong{Function name} – \verb{my-function} (name-only), \verb{my-function:v1}
 (with alias).
-\item \strong{Function ARN} -
+\item \strong{Function ARN} –
 \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
-\item \strong{Partial ARN} - \verb{123456789012:function:my-function}.
+\item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
 You can append a version number or alias to any of the formats. The
@@ -28,6 +28,6 @@ the function.}
 \description{
 Returns the version-specific settings of a Lambda function or version. The output includes only options that can vary between versions of a function. To modify these settings, use \code{\link[=lambda_update_function_configuration]{update_function_configuration}}.
 
-See \url{https://paws-r.github.io/docs/lambda/get_function_configuration.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_get_function_configuration/} for full documentation.
 }
 \keyword{internal}

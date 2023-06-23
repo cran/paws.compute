@@ -17,20 +17,23 @@ ec2_modify_instance_metadata_options(
 \arguments{
 \item{InstanceId}{[required] The ID of the instance.}
 
-\item{HttpTokens}{The state of token usage for your instance metadata requests. If the
-parameter is not specified in the request, the default state is
-\code{optional}.
+\item{HttpTokens}{IMDSv2 uses token-backed sessions. Set the use of HTTP tokens to
+\code{optional} (in other words, set the use of IMDSv2 to \code{optional}) or
+\code{required} (in other words, set the use of IMDSv2 to \code{required}).
+\itemize{
+\item \code{optional} - When IMDSv2 is optional, you can choose to retrieve
+instance metadata with or without a session token in your request.
+If you retrieve the IAM role credentials without a token, the IMDSv1
+role credentials are returned. If you retrieve the IAM role
+credentials using a valid session token, the IMDSv2 role credentials
+are returned.
+\item \code{required} - When IMDSv2 is required, you must send a session token
+with any instance metadata retrieval requests. In this state,
+retrieving the IAM role credentials always returns IMDSv2
+credentials; IMDSv1 credentials are not available.
+}
 
-If the state is \code{optional}, you can choose to retrieve instance metadata
-with or without a signed token header on your request. If you retrieve
-the IAM role credentials without a token, the version 1.0 role
-credentials are returned. If you retrieve the IAM role credentials using
-a valid signed token, the version 2.0 role credentials are returned.
-
-If the state is \code{required}, you must send a signed token header with any
-instance metadata retrieval requests. In this state, retrieving the IAM
-role credential always returns the version 2.0 credentials; the version
-1.0 credentials are not available.}
+Default: \code{optional}}
 
 \item{HttpPutResponseHopLimit}{The desired HTTP PUT response hop limit for instance metadata requests.
 The larger the number, the further instance metadata requests can
@@ -62,6 +65,6 @@ Default: \code{disabled}}
 \description{
 Modify the instance metadata parameters on a running or stopped instance. When you modify the parameters on a stopped instance, they are applied when the instance is started. When you modify the parameters on a running instance, the API responds with a state of “pending”. After the parameter modifications are successfully applied to the instance, the state of the modifications changes from “pending” to “applied” in subsequent describe-instances API calls. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html}{Instance metadata and user data} in the \emph{Amazon EC2 User Guide}.
 
-See \url{https://paws-r.github.io/docs/ec2/modify_instance_metadata_options.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_modify_instance_metadata_options/} for full documentation.
 }
 \keyword{internal}

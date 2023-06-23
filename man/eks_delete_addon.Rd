@@ -15,11 +15,11 @@ eks_delete_addon(clusterName, addonName, preserve = NULL)
 
 \item{preserve}{Specifying this option preserves the add-on software on your cluster but
 Amazon EKS stops managing any settings for the add-on. If an IAM account
-is associated with the add-on, it is not removed.}
+is associated with the add-on, it isn't removed.}
 }
 \description{
 Delete an Amazon EKS add-on.
 
-See \url{https://paws-r.github.io/docs/eks/delete_addon.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/eks_delete_addon/} for full documentation.
 }
 \keyword{internal}

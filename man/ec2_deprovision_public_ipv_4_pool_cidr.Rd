@@ -14,11 +14,15 @@ you have the required permissions, the error response is
 
 \item{PoolId}{[required] The ID of the pool that you want to deprovision the CIDR from.}
 
-\item{Cidr}{[required] The CIDR you want to deprovision from the pool.}
+\item{Cidr}{[required] The CIDR you want to deprovision from the pool. Enter the CIDR you want
+to deprovision with a netmask of \verb{/32}. You must rerun this command for
+each IP address in the CIDR range. If your CIDR is a \verb{/24}, you will
+have to run this command to deprovision each of the 256 IP addresses in
+the \verb{/24} CIDR.}
 }
 \description{
 Deprovision a CIDR from a public IPv4 pool.
 
-See \url{https://paws-r.github.io/docs/ec2/deprovision_public_ipv_4_pool_cidr.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_deprovision_public_ipv_4_pool_cidr/} for full documentation.
 }
 \keyword{internal}

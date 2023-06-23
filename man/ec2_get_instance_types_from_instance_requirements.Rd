@@ -25,16 +25,17 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{InstanceRequirements}{[required] The attributes required for the instance types.}
 
-\item{MaxResults}{The maximum number of results to return in a single call. Specify a
-value between 1 and 1000. The default value is 1000. To retrieve the
-remaining results, make another call with the returned \code{NextToken}
-value.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next
+page of items, make another request with the token returned in the
+output. For more information, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token for the next set of results.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination
+continues from the end of the items returned by the previous request.}
 }
 \description{
 Returns a list of instance types with the specified instance attributes. You can use the response to preview the instance types without launching instances. Note that the response does not consider capacity.
 
-See \url{https://paws-r.github.io/docs/ec2/get_instance_types_from_instance_requirements.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_get_instance_types_from_instance_requirements/} for full documentation.
 }
 \keyword{internal}

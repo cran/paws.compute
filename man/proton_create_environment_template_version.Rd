@@ -32,14 +32,14 @@ the new version of an template.}
 \item{tags}{An optional list of metadata items that you can associate with the
 Proton environment template version. A tag is a key-value pair.
 
-For more information, see \emph{Proton resources and tagging} in the \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton Administrator Guide}
-or \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging}
+in the \emph{Proton User Guide}.}
 
 \item{templateName}{[required] The name of the environment template.}
 }
 \description{
 Create a new major or minor version of an environment template. A major version of an environment template is a version that \emph{isn't} backwards compatible. A minor version of an environment template is a version that's backwards compatible within its major version.
 
-See \url{https://paws-r.github.io/docs/proton/create_environment_template_version.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/proton_create_environment_template_version/} for full documentation.
 }
 \keyword{internal}

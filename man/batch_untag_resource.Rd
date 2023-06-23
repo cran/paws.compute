@@ -10,13 +10,13 @@ batch_untag_resource(resourceArn, tagKeys)
 \item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource from which to delete
 tags. Batch resources that support tags are compute environments, jobs,
 job definitions, job queues, and scheduling policies. ARNs for child
-jobs of array and multi-node parallel (MNP) jobs are not supported.}
+jobs of array and multi-node parallel (MNP) jobs aren't supported.}
 
 \item{tagKeys}{[required] The keys of the tags to be removed.}
 }
 \description{
 Deletes specified tags from an Batch resource.
 
-See \url{https://paws-r.github.io/docs/batch/untag_resource.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/batch_untag_resource/} for full documentation.
 }
 \keyword{internal}

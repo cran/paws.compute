@@ -12,8 +12,8 @@ emrcontainers_describe_managed_endpoint(id, virtualClusterId)
 \item{virtualClusterId}{[required] The ID of the endpoint's virtual cluster.}
 }
 \description{
-Displays detailed information about a managed endpoint. A managed endpoint is a gateway that connects EMR Studio to Amazon EMR on EKS so that EMR Studio can communicate with your virtual cluster.
+Displays detailed information about a managed endpoint. A managed endpoint is a gateway that connects Amazon EMR Studio to Amazon EMR on EKS so that Amazon EMR Studio can communicate with your virtual cluster.
 
-See \url{https://paws-r.github.io/docs/emrcontainers/describe_managed_endpoint.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/emrcontainers_describe_managed_endpoint/} for full documentation.
 }
 \keyword{internal}

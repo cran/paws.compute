@@ -7,15 +7,14 @@
 ecrpublic_untag_resource(resourceArn, tagKeys)
 }
 \arguments{
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource from which to delete
-tags. Currently, the supported resource is an Amazon ECR Public
-repository.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource to delete tags from.
+Currently, the supported resource is an Amazon ECR Public repository.}
 
 \item{tagKeys}{[required] The keys of the tags to be removed.}
 }
 \description{
 Deletes specified tags from a resource.
 
-See \url{https://paws-r.github.io/docs/ecrpublic/untag_resource.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ecrpublic_untag_resource/} for full documentation.
 }
 \keyword{internal}

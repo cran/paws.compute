@@ -6,6 +6,7 @@
 \usage{
 ec2_start_network_insights_analysis(
   NetworkInsightsPathId,
+  AdditionalAccounts = NULL,
   FilterInArns = NULL,
   DryRun = NULL,
   TagSpecifications = NULL,
@@ -14,6 +15,8 @@ ec2_start_network_insights_analysis(
 }
 \arguments{
 \item{NetworkInsightsPathId}{[required] The ID of the path.}
+
+\item{AdditionalAccounts}{The member accounts that contain resources that the path can traverse.}
 
 \item{FilterInArns}{The Amazon Resource Names (ARN) of the resources that the path must
 traverse.}
@@ -31,6 +34,6 @@ idempotency of the request. For more information, see \href{https://docs.aws.ama
 \description{
 Starts analyzing the specified path. If the path is reachable, the operation returns the shortest feasible path.
 
-See \url{https://paws-r.github.io/docs/ec2/start_network_insights_analysis.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_start_network_insights_analysis/} for full documentation.
 }
 \keyword{internal}

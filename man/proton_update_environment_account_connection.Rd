@@ -6,12 +6,18 @@
 use a new IAM role}
 \usage{
 proton_update_environment_account_connection(
+  codebuildRoleArn = NULL,
   componentRoleArn = NULL,
   id,
   roleArn = NULL
 )
 }
 \arguments{
+\item{codebuildRoleArn}{The Amazon Resource Name (ARN) of an IAM service role in the environment
+account. Proton uses this role to provision infrastructure resources
+using CodeBuild-based provisioning in the associated environment
+account.}
+
 \item{componentRoleArn}{The Amazon Resource Name (ARN) of the IAM service role that Proton uses
 when provisioning directly defined components in the associated
 environment account. It determines the scope of infrastructure that a
@@ -22,7 +28,7 @@ allow directly defined components to be associated with any environments
 running in the account.
 
 For more information about components, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html}{Proton components}
-in the \emph{Proton Administrator Guide}.}
+in the \emph{Proton User Guide}.}
 
 \item{id}{[required] The ID of the environment account connection to update.}
 
@@ -32,6 +38,6 @@ with the environment account connection to update.}
 \description{
 In an environment account, update an environment account connection to use a new IAM role.
 
-See \url{https://paws-r.github.io/docs/proton/update_environment_account_connection.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/proton_update_environment_account_connection/} for full documentation.
 }
 \keyword{internal}

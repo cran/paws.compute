@@ -16,10 +16,10 @@ lambda_list_provisioned_concurrency_configs(
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} - \verb{my-function}.
-\item \strong{Function ARN} -
+\item \strong{Function name} – \verb{my-function}.
+\item \strong{Function ARN} –
 \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
-\item \strong{Partial ARN} - \verb{123456789012:function:my-function}.
+\item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
 The length constraint applies only to the full ARN. If you specify only
@@ -33,6 +33,6 @@ retrieve the next page of results.}
 \description{
 Retrieves a list of provisioned concurrency configurations for a function.
 
-See \url{https://paws-r.github.io/docs/lambda/list_provisioned_concurrency_configs.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_list_provisioned_concurrency_configs/} for full documentation.
 }
 \keyword{internal}

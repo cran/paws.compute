@@ -9,12 +9,12 @@ lightsail_delete_instance(instanceName, forceDeleteAddOns = NULL)
 \arguments{
 \item{instanceName}{[required] The name of the instance to delete.}
 
-\item{forceDeleteAddOns}{A Boolean value to indicate whether to delete the enabled add-ons for
-the disk.}
+\item{forceDeleteAddOns}{A Boolean value to indicate whether to delete all add-ons for the
+instance.}
 }
 \description{
 Deletes an Amazon Lightsail instance.
 
-See \url{https://paws-r.github.io/docs/lightsail/delete_instance.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lightsail_delete_instance/} for full documentation.
 }
 \keyword{internal}

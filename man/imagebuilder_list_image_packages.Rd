@@ -16,8 +16,7 @@ imagebuilder_list_image_packages(
 \item{imageBuildVersionArn}{[required] Filter results for the ListImagePackages request by the Image Build
 Version ARN}
 
-\item{maxResults}{The maxiumum number of results to return from the ListImagePackages
-request.}
+\item{maxResults}{The maximum items to return in a request.}
 
 \item{nextToken}{A token to specify where to start paginating. This is the NextToken from
 a previously truncated response.}
@@ -25,6 +24,6 @@ a previously truncated response.}
 \description{
 List the Packages that are associated with an Image Build Version, as determined by Amazon Web Services Systems Manager Inventory at build time.
 
-See \url{https://paws-r.github.io/docs/imagebuilder/list_image_packages.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/imagebuilder_list_image_packages/} for full documentation.
 }
 \keyword{internal}

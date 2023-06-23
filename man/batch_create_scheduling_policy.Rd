@@ -15,7 +15,7 @@ underscores (_).}
 
 \item{tags}{The tags that you apply to the scheduling policy to help you categorize
 and organize your resources. Each tag consists of a key and an optional
-value. For more information, see \href{https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html}{Tagging Amazon Web Services Resources}
+value. For more information, see \href{https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html}{Tagging Amazon Web Services Resources}
 in \emph{Amazon Web Services General Reference}.
 
 These tags can be updated or removed using the
@@ -25,6 +25,6 @@ These tags can be updated or removed using the
 \description{
 Creates an Batch scheduling policy.
 
-See \url{https://paws-r.github.io/docs/batch/create_scheduling_policy.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/batch_create_scheduling_policy/} for full documentation.
 }
 \keyword{internal}

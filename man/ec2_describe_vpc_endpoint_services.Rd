@@ -18,12 +18,15 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ServiceNames}{One or more service names.}
+\item{ServiceNames}{The service names.}
 
-\item{Filters}{One or more filters.
+\item{Filters}{The filters.
 \itemize{
+\item \code{owner} - The ID or alias of the Amazon Web Services account that
+owns the service.
 \item \code{service-name} - The name of the service.
-\item \code{service-type} - The type of service (\code{Interface} | \code{Gateway}).
+\item \code{service-type} - The type of service (\code{Interface} | \code{Gateway} |
+\code{GatewayLoadBalancer}).
 \item \code{supported-ip-address-types} - The IP address type (\code{ipv4} |
 \code{ipv6}).
 \item \code{tag}:\<key\> - The key/value combination of a tag assigned to the
@@ -49,6 +52,6 @@ from a prior call.)}
 \description{
 Describes available services to which you can create a VPC endpoint.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_vpc_endpoint_services.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_vpc_endpoint_services/} for full documentation.
 }
 \keyword{internal}

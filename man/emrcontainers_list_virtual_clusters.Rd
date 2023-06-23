@@ -17,8 +17,8 @@ emrcontainers_list_virtual_clusters(
 \arguments{
 \item{containerProviderId}{The container provider ID of the virtual cluster.}
 
-\item{containerProviderType}{The container provider type of the virtual cluster. EKS is the only
-supported type as of now.}
+\item{containerProviderType}{The container provider type of the virtual cluster. Amazon EKS is the
+only supported type as of now.}
 
 \item{createdAfter}{The date and time after which the virtual clusters are created.}
 
@@ -33,6 +33,6 @@ supported type as of now.}
 \description{
 Lists information about the specified virtual cluster. Virtual cluster is a managed entity on Amazon EMR on EKS. You can create, describe, list and delete virtual clusters. They do not consume any additional resource in your system. A single virtual cluster maps to a single Kubernetes namespace. Given this relationship, you can model virtual clusters the same way you model Kubernetes namespaces to meet your requirements.
 
-See \url{https://paws-r.github.io/docs/emrcontainers/list_virtual_clusters.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/emrcontainers_list_virtual_clusters/} for full documentation.
 }
 \keyword{internal}

@@ -18,12 +18,13 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{MaxResults}{The maximum number of results to return in a single call. Specify a
-value between 1 and 1000. The default value is 1000. To retrieve the
-remaining results, make another call with the returned \code{NextToken}
-value.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next
+page of items, make another request with the token returned in the
+output. For more information, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token for the next set of results.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination
+continues from the end of the items returned by the previous request.}
 
 \item{FleetIds}{The IDs of the EC2 Fleets.
 
@@ -48,6 +49,6 @@ replace unhealthy instances (\code{true} | \code{false}).
 \description{
 Describes the specified EC2 Fleets or all of your EC2 Fleets.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_fleets.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_fleets/} for full documentation.
 }
 \keyword{internal}

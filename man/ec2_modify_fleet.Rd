@@ -21,7 +21,9 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ExcessCapacityTerminationPolicy}{Indicates whether running instances should be terminated if the total
 target capacity of the EC2 Fleet is decreased below the current size of
-the EC2 Fleet.}
+the EC2 Fleet.
+
+Supported only for fleets of type \code{maintain}.}
 
 \item{LaunchTemplateConfigs}{The launch template and overrides.}
 
@@ -34,6 +36,6 @@ the EC2 Fleet.}
 \description{
 Modifies the specified EC2 Fleet.
 
-See \url{https://paws-r.github.io/docs/ec2/modify_fleet.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_modify_fleet/} for full documentation.
 }
 \keyword{internal}

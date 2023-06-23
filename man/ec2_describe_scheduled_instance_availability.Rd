@@ -26,8 +26,6 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item \code{availability-zone} - The Availability Zone (for example,
 \verb{us-west-2a}).
 \item \code{instance-type} - The instance type (for example, \code{c4.large}).
-\item \code{network-platform} - The network platform (\code{EC2-Classic} or
-\code{EC2-VPC}).
 \item \code{platform} - The platform (\code{Linux/UNIX} or \code{Windows}).
 }}
 
@@ -53,6 +51,6 @@ schedule is 100 hours.}
 \description{
 Finds available schedules that meet the specified criteria.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_scheduled_instance_availability.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_scheduled_instance_availability/} for full documentation.
 }
 \keyword{internal}

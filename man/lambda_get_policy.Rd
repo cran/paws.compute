@@ -11,11 +11,11 @@ lambda_get_policy(FunctionName, Qualifier = NULL)
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} - \verb{my-function} (name-only), \verb{my-function:v1}
+\item \strong{Function name} – \verb{my-function} (name-only), \verb{my-function:v1}
 (with alias).
-\item \strong{Function ARN} -
+\item \strong{Function ARN} –
 \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
-\item \strong{Partial ARN} - \verb{123456789012:function:my-function}.
+\item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
 You can append a version number or alias to any of the formats. The
@@ -27,6 +27,6 @@ function name, it is limited to 64 characters in length.}
 \description{
 Returns the \href{https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html}{resource-based IAM policy} for a function, version, or alias.
 
-See \url{https://paws-r.github.io/docs/lambda/get_policy.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_get_policy/} for full documentation.
 }
 \keyword{internal}

@@ -9,12 +9,11 @@ lightsail_delete_disk(diskName, forceDeleteAddOns = NULL)
 \arguments{
 \item{diskName}{[required] The unique name of the disk you want to delete (e.g., \code{my-disk}).}
 
-\item{forceDeleteAddOns}{A Boolean value to indicate whether to delete the enabled add-ons for
-the disk.}
+\item{forceDeleteAddOns}{A Boolean value to indicate whether to delete all add-ons for the disk.}
 }
 \description{
 Deletes the specified block storage disk. The disk must be in the \code{available} state (not attached to a Lightsail instance).
 
-See \url{https://paws-r.github.io/docs/lightsail/delete_disk.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lightsail_delete_disk/} for full documentation.
 }
 \keyword{internal}

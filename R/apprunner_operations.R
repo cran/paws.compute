@@ -9,7 +9,7 @@ NULL
 #' @description
 #' Associate your own domain name with the App Runner subdomain URL of your App Runner service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/associate_custom_domain.html](https://paws-r.github.io/docs/apprunner/associate_custom_domain.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_associate_custom_domain/](https://www.paws-r-sdk.com/docs/apprunner_associate_custom_domain/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
 #' to associate a custom domain name with.
@@ -47,7 +47,7 @@ apprunner_associate_custom_domain <- function(ServiceArn, DomainName, EnableWWWS
 #' @description
 #' Create an App Runner automatic scaling configuration resource. App Runner requires this resource when you create or update App Runner services and you require non-default auto scaling settings. You can share an auto scaling configuration across multiple services.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/create_auto_scaling_configuration.html](https://paws-r.github.io/docs/apprunner/create_auto_scaling_configuration.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_create_auto_scaling_configuration/](https://www.paws-r-sdk.com/docs/apprunner_create_auto_scaling_configuration/) for full documentation.
 #'
 #' @param AutoScalingConfigurationName &#91;required&#93; A name for the auto scaling configuration. When you use it for the first
 #' time in an Amazon Web Services Region, App Runner creates revision
@@ -112,7 +112,7 @@ apprunner_create_auto_scaling_configuration <- function(AutoScalingConfiguration
 #' @description
 #' Create an App Runner connection resource. App Runner requires a connection resource when you create App Runner services that access private repositories from certain third-party providers. You can share a connection across multiple services.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/create_connection.html](https://paws-r.github.io/docs/apprunner/create_connection.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_create_connection/](https://www.paws-r-sdk.com/docs/apprunner_create_connection/) for full documentation.
 #'
 #' @param ConnectionName &#91;required&#93; A name for the new connection. It must be unique across all App Runner
 #' connections for the Amazon Web Services account in the Amazon Web
@@ -146,7 +146,7 @@ apprunner_create_connection <- function(ConnectionName, ProviderType, Tags = NUL
 #' @description
 #' Create an App Runner observability configuration resource. App Runner requires this resource when you create or update App Runner services and you want to enable non-default observability features. You can share an observability configuration across multiple services.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/create_observability_configuration.html](https://paws-r.github.io/docs/apprunner/create_observability_configuration.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_create_observability_configuration/](https://www.paws-r-sdk.com/docs/apprunner_create_observability_configuration/) for full documentation.
 #'
 #' @param ObservabilityConfigurationName &#91;required&#93; A name for the observability configuration. When you use it for the
 #' first time in an Amazon Web Services Region, App Runner creates revision
@@ -191,7 +191,7 @@ apprunner_create_observability_configuration <- function(ObservabilityConfigurat
 #' @description
 #' Create an App Runner service. After the service is created, the action also automatically starts a deployment.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/create_service.html](https://paws-r.github.io/docs/apprunner/create_service.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_create_service/](https://www.paws-r-sdk.com/docs/apprunner_create_service/) for full documentation.
 #'
 #' @param ServiceName &#91;required&#93; A name for the App Runner service. It must be unique across all the
 #' running App Runner services in your Amazon Web Services account in the
@@ -246,7 +246,7 @@ apprunner_create_service <- function(ServiceName, SourceConfiguration, InstanceC
 #' @description
 #' Create an App Runner VPC connector resource. App Runner requires this resource when you want to associate your App Runner service to a custom Amazon Virtual Private Cloud (Amazon VPC).
 #'
-#' See [https://paws-r.github.io/docs/apprunner/create_vpc_connector.html](https://paws-r.github.io/docs/apprunner/create_vpc_connector.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_create_vpc_connector/](https://www.paws-r-sdk.com/docs/apprunner_create_vpc_connector/) for full documentation.
 #'
 #' @param VpcConnectorName &#91;required&#93; A name for the VPC connector.
 #' @param Subnets &#91;required&#93; A list of IDs of subnets that App Runner should use when it associates
@@ -282,12 +282,50 @@ apprunner_create_vpc_connector <- function(VpcConnectorName, Subnets, SecurityGr
 }
 .apprunner$operations$create_vpc_connector <- apprunner_create_vpc_connector
 
+#' Create an App Runner VPC Ingress Connection resource
+#'
+#' @description
+#' Create an App Runner VPC Ingress Connection resource. App Runner requires this resource when you want to associate your App Runner service with an Amazon VPC endpoint.
+#'
+#' See [https://www.paws-r-sdk.com/docs/apprunner_create_vpc_ingress_connection/](https://www.paws-r-sdk.com/docs/apprunner_create_vpc_ingress_connection/) for full documentation.
+#'
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) for this App Runner service that is used
+#' to create the VPC Ingress Connection resource.
+#' @param VpcIngressConnectionName &#91;required&#93; A name for the VPC Ingress Connection resource. It must be unique across
+#' all the active VPC Ingress Connections in your Amazon Web Services
+#' account in the Amazon Web Services Region.
+#' @param IngressVpcConfiguration &#91;required&#93; Specifications for the customer’s Amazon VPC and the related Amazon Web
+#' Services PrivateLink VPC endpoint that are used to create the VPC
+#' Ingress Connection resource.
+#' @param Tags An optional list of metadata items that you can associate with the VPC
+#' Ingress Connection resource. A tag is a key-value pair.
+#'
+#' @keywords internal
+#'
+#' @rdname apprunner_create_vpc_ingress_connection
+apprunner_create_vpc_ingress_connection <- function(ServiceArn, VpcIngressConnectionName, IngressVpcConfiguration, Tags = NULL) {
+  op <- new_operation(
+    name = "CreateVpcIngressConnection",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .apprunner$create_vpc_ingress_connection_input(ServiceArn = ServiceArn, VpcIngressConnectionName = VpcIngressConnectionName, IngressVpcConfiguration = IngressVpcConfiguration, Tags = Tags)
+  output <- .apprunner$create_vpc_ingress_connection_output()
+  config <- get_config()
+  svc <- .apprunner$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.apprunner$operations$create_vpc_ingress_connection <- apprunner_create_vpc_ingress_connection
+
 #' Delete an App Runner automatic scaling configuration resource
 #'
 #' @description
 #' Delete an App Runner automatic scaling configuration resource. You can delete a specific revision or the latest active revision. You can't delete a configuration that's used by one or more App Runner services.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/delete_auto_scaling_configuration.html](https://paws-r.github.io/docs/apprunner/delete_auto_scaling_configuration.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_delete_auto_scaling_configuration/](https://www.paws-r-sdk.com/docs/apprunner_delete_auto_scaling_configuration/) for full documentation.
 #'
 #' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling
 #' configuration that you want to delete.
@@ -321,7 +359,7 @@ apprunner_delete_auto_scaling_configuration <- function(AutoScalingConfiguration
 #' @description
 #' Delete an App Runner connection. You must first ensure that there are no running App Runner services that use this connection. If there are any, the [`delete_connection`][apprunner_delete_connection] action fails.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/delete_connection.html](https://paws-r.github.io/docs/apprunner/delete_connection.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_delete_connection/](https://www.paws-r-sdk.com/docs/apprunner_delete_connection/) for full documentation.
 #'
 #' @param ConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner connection that you
 #' want to delete.
@@ -351,7 +389,7 @@ apprunner_delete_connection <- function(ConnectionArn) {
 #' @description
 #' Delete an App Runner observability configuration resource. You can delete a specific revision or the latest active revision. You can't delete a configuration that's used by one or more App Runner services.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/delete_observability_configuration.html](https://paws-r.github.io/docs/apprunner/delete_observability_configuration.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_delete_observability_configuration/](https://www.paws-r-sdk.com/docs/apprunner_delete_observability_configuration/) for full documentation.
 #'
 #' @param ObservabilityConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner observability
 #' configuration that you want to delete.
@@ -385,7 +423,7 @@ apprunner_delete_observability_configuration <- function(ObservabilityConfigurat
 #' @description
 #' Delete an App Runner service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/delete_service.html](https://paws-r.github.io/docs/apprunner/delete_service.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_delete_service/](https://www.paws-r-sdk.com/docs/apprunner_delete_service/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
 #' to delete.
@@ -415,7 +453,7 @@ apprunner_delete_service <- function(ServiceArn) {
 #' @description
 #' Delete an App Runner VPC connector resource. You can't delete a connector that's used by one or more App Runner services.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/delete_vpc_connector.html](https://paws-r.github.io/docs/apprunner/delete_vpc_connector.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_delete_vpc_connector/](https://www.paws-r-sdk.com/docs/apprunner_delete_vpc_connector/) for full documentation.
 #'
 #' @param VpcConnectorArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC connector that you
 #' want to delete.
@@ -442,13 +480,44 @@ apprunner_delete_vpc_connector <- function(VpcConnectorArn) {
 }
 .apprunner$operations$delete_vpc_connector <- apprunner_delete_vpc_connector
 
+#' Delete an App Runner VPC Ingress Connection resource that's associated
+#' with an App Runner service
+#'
+#' @description
+#' Delete an App Runner VPC Ingress Connection resource that's associated with an App Runner service. The VPC Ingress Connection must be in one of the following states to be deleted:
+#'
+#' See [https://www.paws-r-sdk.com/docs/apprunner_delete_vpc_ingress_connection/](https://www.paws-r-sdk.com/docs/apprunner_delete_vpc_ingress_connection/) for full documentation.
+#'
+#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection
+#' that you want to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname apprunner_delete_vpc_ingress_connection
+apprunner_delete_vpc_ingress_connection <- function(VpcIngressConnectionArn) {
+  op <- new_operation(
+    name = "DeleteVpcIngressConnection",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .apprunner$delete_vpc_ingress_connection_input(VpcIngressConnectionArn = VpcIngressConnectionArn)
+  output <- .apprunner$delete_vpc_ingress_connection_output()
+  config <- get_config()
+  svc <- .apprunner$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.apprunner$operations$delete_vpc_ingress_connection <- apprunner_delete_vpc_ingress_connection
+
 #' Return a full description of an App Runner automatic scaling
 #' configuration resource
 #'
 #' @description
 #' Return a full description of an App Runner automatic scaling configuration resource.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/describe_auto_scaling_configuration.html](https://paws-r.github.io/docs/apprunner/describe_auto_scaling_configuration.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_describe_auto_scaling_configuration/](https://www.paws-r-sdk.com/docs/apprunner_describe_auto_scaling_configuration/) for full documentation.
 #'
 #' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling
 #' configuration that you want a description for.
@@ -483,7 +552,7 @@ apprunner_describe_auto_scaling_configuration <- function(AutoScalingConfigurati
 #' @description
 #' Return a description of custom domain names that are associated with an App Runner service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/describe_custom_domains.html](https://paws-r.github.io/docs/apprunner/describe_custom_domains.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_describe_custom_domains/](https://www.paws-r-sdk.com/docs/apprunner_describe_custom_domains/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
 #' associated custom domain names to be described for.
@@ -525,7 +594,7 @@ apprunner_describe_custom_domains <- function(ServiceArn, NextToken = NULL, MaxR
 #' @description
 #' Return a full description of an App Runner observability configuration resource.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/describe_observability_configuration.html](https://paws-r.github.io/docs/apprunner/describe_observability_configuration.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_describe_observability_configuration/](https://www.paws-r-sdk.com/docs/apprunner_describe_observability_configuration/) for full documentation.
 #'
 #' @param ObservabilityConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner observability
 #' configuration that you want a description for.
@@ -559,7 +628,7 @@ apprunner_describe_observability_configuration <- function(ObservabilityConfigur
 #' @description
 #' Return a full description of an App Runner service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/describe_service.html](https://paws-r.github.io/docs/apprunner/describe_service.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_describe_service/](https://www.paws-r-sdk.com/docs/apprunner_describe_service/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want a
 #' description for.
@@ -589,7 +658,7 @@ apprunner_describe_service <- function(ServiceArn) {
 #' @description
 #' Return a description of an App Runner VPC connector resource.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/describe_vpc_connector.html](https://paws-r.github.io/docs/apprunner/describe_vpc_connector.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_describe_vpc_connector/](https://www.paws-r-sdk.com/docs/apprunner_describe_vpc_connector/) for full documentation.
 #'
 #' @param VpcConnectorArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC connector that you
 #' want a description for.
@@ -616,12 +685,43 @@ apprunner_describe_vpc_connector <- function(VpcConnectorArn) {
 }
 .apprunner$operations$describe_vpc_connector <- apprunner_describe_vpc_connector
 
+#' Return a full description of an App Runner VPC Ingress Connection
+#' resource
+#'
+#' @description
+#' Return a full description of an App Runner VPC Ingress Connection resource.
+#'
+#' See [https://www.paws-r-sdk.com/docs/apprunner_describe_vpc_ingress_connection/](https://www.paws-r-sdk.com/docs/apprunner_describe_vpc_ingress_connection/) for full documentation.
+#'
+#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection
+#' that you want a description for.
+#'
+#' @keywords internal
+#'
+#' @rdname apprunner_describe_vpc_ingress_connection
+apprunner_describe_vpc_ingress_connection <- function(VpcIngressConnectionArn) {
+  op <- new_operation(
+    name = "DescribeVpcIngressConnection",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .apprunner$describe_vpc_ingress_connection_input(VpcIngressConnectionArn = VpcIngressConnectionArn)
+  output <- .apprunner$describe_vpc_ingress_connection_output()
+  config <- get_config()
+  svc <- .apprunner$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.apprunner$operations$describe_vpc_ingress_connection <- apprunner_describe_vpc_ingress_connection
+
 #' Disassociate a custom domain name from an App Runner service
 #'
 #' @description
 #' Disassociate a custom domain name from an App Runner service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/disassociate_custom_domain.html](https://paws-r.github.io/docs/apprunner/disassociate_custom_domain.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_disassociate_custom_domain/](https://www.paws-r-sdk.com/docs/apprunner_disassociate_custom_domain/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
 #' to disassociate a custom domain name from.
@@ -654,7 +754,7 @@ apprunner_disassociate_custom_domain <- function(ServiceArn, DomainName) {
 #' @description
 #' Returns a list of active App Runner automatic scaling configurations in your Amazon Web Services account. You can query the revisions for a specific configuration name or the revisions for all active configurations in your account. You can optionally query only the latest revision of each requested name.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/list_auto_scaling_configurations.html](https://paws-r.github.io/docs/apprunner/list_auto_scaling_configurations.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_list_auto_scaling_configurations/](https://www.paws-r-sdk.com/docs/apprunner_list_auto_scaling_configurations/) for full documentation.
 #'
 #' @param AutoScalingConfigurationName The name of the App Runner auto scaling configuration that you want to
 #' list. If specified, App Runner lists revisions that share this name. If
@@ -705,7 +805,7 @@ apprunner_list_auto_scaling_configurations <- function(AutoScalingConfigurationN
 #' @description
 #' Returns a list of App Runner connections that are associated with your Amazon Web Services account.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/list_connections.html](https://paws-r.github.io/docs/apprunner/list_connections.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_list_connections/](https://www.paws-r-sdk.com/docs/apprunner_list_connections/) for full documentation.
 #'
 #' @param ConnectionName If specified, only this connection is returned. If not specified, the
 #' result isn't filtered by name.
@@ -747,7 +847,7 @@ apprunner_list_connections <- function(ConnectionName = NULL, MaxResults = NULL,
 #' @description
 #' Returns a list of active App Runner observability configurations in your Amazon Web Services account. You can query the revisions for a specific configuration name or the revisions for all active configurations in your account. You can optionally query only the latest revision of each requested name.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/list_observability_configurations.html](https://paws-r.github.io/docs/apprunner/list_observability_configurations.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_list_observability_configurations/](https://www.paws-r-sdk.com/docs/apprunner_list_observability_configurations/) for full documentation.
 #'
 #' @param ObservabilityConfigurationName The name of the App Runner observability configuration that you want to
 #' list. If specified, App Runner lists revisions that share this name. If
@@ -797,7 +897,7 @@ apprunner_list_observability_configurations <- function(ObservabilityConfigurati
 #' @description
 #' Return a list of operations that occurred on an App Runner service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/list_operations.html](https://paws-r.github.io/docs/apprunner/list_operations.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_list_operations/](https://www.paws-r-sdk.com/docs/apprunner_list_operations/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want a
 #' list of operations for.
@@ -839,7 +939,7 @@ apprunner_list_operations <- function(ServiceArn, NextToken = NULL, MaxResults =
 #' @description
 #' Returns a list of running App Runner services in your Amazon Web Services account.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/list_services.html](https://paws-r.github.io/docs/apprunner/list_services.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_list_services/](https://www.paws-r-sdk.com/docs/apprunner_list_services/) for full documentation.
 #'
 #' @param NextToken A token from a previous result page. Used for a paginated request. The
 #' request retrieves the next result page. All other parameter values must
@@ -878,7 +978,7 @@ apprunner_list_services <- function(NextToken = NULL, MaxResults = NULL) {
 #' @description
 #' List tags that are associated with for an App Runner resource. The response contains a list of tag key-value pairs.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/list_tags_for_resource.html](https://paws-r.github.io/docs/apprunner/list_tags_for_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/apprunner_list_tags_for_resource/) for full documentation.
 #'
 #' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that a tag list is
 #' requested for.
@@ -911,7 +1011,7 @@ apprunner_list_tags_for_resource <- function(ResourceArn) {
 #' @description
 #' Returns a list of App Runner VPC connectors in your Amazon Web Services account.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/list_vpc_connectors.html](https://paws-r.github.io/docs/apprunner/list_vpc_connectors.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_list_vpc_connectors/](https://www.paws-r-sdk.com/docs/apprunner_list_vpc_connectors/) for full documentation.
 #'
 #' @param MaxResults The maximum number of results to include in each response (result page).
 #' It's used for a paginated request.
@@ -945,12 +1045,54 @@ apprunner_list_vpc_connectors <- function(MaxResults = NULL, NextToken = NULL) {
 }
 .apprunner$operations$list_vpc_connectors <- apprunner_list_vpc_connectors
 
+#' Return a list of App Runner VPC Ingress Connections in your Amazon Web
+#' Services account
+#'
+#' @description
+#' Return a list of App Runner VPC Ingress Connections in your Amazon Web Services account.
+#'
+#' See [https://www.paws-r-sdk.com/docs/apprunner_list_vpc_ingress_connections/](https://www.paws-r-sdk.com/docs/apprunner_list_vpc_ingress_connections/) for full documentation.
+#'
+#' @param Filter The VPC Ingress Connections to be listed based on either the Service Arn
+#' or Vpc Endpoint Id, or both.
+#' @param MaxResults The maximum number of results to include in each response (result page).
+#' It's used for a paginated request.
+#' 
+#' If you don't specify `MaxResults`, the request retrieves all available
+#' results in a single response.
+#' @param NextToken A token from a previous result page. It's used for a paginated request.
+#' The request retrieves the next result page. All other parameter values
+#' must be identical to the ones that are specified in the initial request.
+#' 
+#' If you don't specify `NextToken`, the request retrieves the first result
+#' page.
+#'
+#' @keywords internal
+#'
+#' @rdname apprunner_list_vpc_ingress_connections
+apprunner_list_vpc_ingress_connections <- function(Filter = NULL, MaxResults = NULL, NextToken = NULL) {
+  op <- new_operation(
+    name = "ListVpcIngressConnections",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .apprunner$list_vpc_ingress_connections_input(Filter = Filter, MaxResults = MaxResults, NextToken = NextToken)
+  output <- .apprunner$list_vpc_ingress_connections_output()
+  config <- get_config()
+  svc <- .apprunner$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.apprunner$operations$list_vpc_ingress_connections <- apprunner_list_vpc_ingress_connections
+
 #' Pause an active App Runner service
 #'
 #' @description
 #' Pause an active App Runner service. App Runner reduces compute capacity for the service to zero and loses state (for example, ephemeral storage is removed).
 #'
-#' See [https://paws-r.github.io/docs/apprunner/pause_service.html](https://paws-r.github.io/docs/apprunner/pause_service.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_pause_service/](https://www.paws-r-sdk.com/docs/apprunner_pause_service/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
 #' to pause.
@@ -980,7 +1122,7 @@ apprunner_pause_service <- function(ServiceArn) {
 #' @description
 #' Resume an active App Runner service. App Runner provisions compute capacity for the service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/resume_service.html](https://paws-r.github.io/docs/apprunner/resume_service.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_resume_service/](https://www.paws-r-sdk.com/docs/apprunner_resume_service/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
 #' to resume.
@@ -1012,7 +1154,7 @@ apprunner_resume_service <- function(ServiceArn) {
 #' @description
 #' Initiate a manual deployment of the latest commit in a source code repository or the latest image in a source image repository to an App Runner service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/start_deployment.html](https://paws-r.github.io/docs/apprunner/start_deployment.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_start_deployment/](https://www.paws-r-sdk.com/docs/apprunner_start_deployment/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
 #' to manually deploy to.
@@ -1042,7 +1184,7 @@ apprunner_start_deployment <- function(ServiceArn) {
 #' @description
 #' Add tags to, or update the tag values of, an App Runner resource. A tag is a key-value pair.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/tag_resource.html](https://paws-r.github.io/docs/apprunner/tag_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_tag_resource/](https://www.paws-r-sdk.com/docs/apprunner_tag_resource/) for full documentation.
 #'
 #' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that you want to update
 #' tags for.
@@ -1077,7 +1219,7 @@ apprunner_tag_resource <- function(ResourceArn, Tags) {
 #' @description
 #' Remove tags from an App Runner resource.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/untag_resource.html](https://paws-r.github.io/docs/apprunner/untag_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_untag_resource/](https://www.paws-r-sdk.com/docs/apprunner_untag_resource/) for full documentation.
 #'
 #' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that you want to remove
 #' tags from.
@@ -1110,7 +1252,7 @@ apprunner_untag_resource <- function(ResourceArn, TagKeys) {
 #' @description
 #' Update an App Runner service. You can update the source configuration and instance configuration of the service. You can also update the ARN of the auto scaling configuration resource that's associated with the service. However, you can't change the name or the encryption configuration of the service. These can be set only when you create the service.
 #'
-#' See [https://paws-r.github.io/docs/apprunner/update_service.html](https://paws-r.github.io/docs/apprunner/update_service.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/apprunner_update_service/](https://www.paws-r-sdk.com/docs/apprunner_update_service/) for full documentation.
 #'
 #' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
 #' to update.
@@ -1154,3 +1296,36 @@ apprunner_update_service <- function(ServiceArn, SourceConfiguration = NULL, Ins
   return(response)
 }
 .apprunner$operations$update_service <- apprunner_update_service
+
+#' Update an existing App Runner VPC Ingress Connection resource
+#'
+#' @description
+#' Update an existing App Runner VPC Ingress Connection resource. The VPC Ingress Connection must be in one of the following states to be updated:
+#'
+#' See [https://www.paws-r-sdk.com/docs/apprunner_update_vpc_ingress_connection/](https://www.paws-r-sdk.com/docs/apprunner_update_vpc_ingress_connection/) for full documentation.
+#'
+#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (Arn) for the App Runner VPC Ingress Connection
+#' resource that you want to update.
+#' @param IngressVpcConfiguration &#91;required&#93; Specifications for the customer’s Amazon VPC and the related Amazon Web
+#' Services PrivateLink VPC endpoint that are used to update the VPC
+#' Ingress Connection resource.
+#'
+#' @keywords internal
+#'
+#' @rdname apprunner_update_vpc_ingress_connection
+apprunner_update_vpc_ingress_connection <- function(VpcIngressConnectionArn, IngressVpcConfiguration) {
+  op <- new_operation(
+    name = "UpdateVpcIngressConnection",
+    http_method = "POST",
+    http_path = "/",
+    paginator = list()
+  )
+  input <- .apprunner$update_vpc_ingress_connection_input(VpcIngressConnectionArn = VpcIngressConnectionArn, IngressVpcConfiguration = IngressVpcConfiguration)
+  output <- .apprunner$update_vpc_ingress_connection_output()
+  config <- get_config()
+  svc <- .apprunner$service(config)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.apprunner$operations$update_vpc_ingress_connection <- apprunner_update_vpc_ingress_connection

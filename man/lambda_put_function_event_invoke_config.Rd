@@ -42,14 +42,14 @@ processing.
 \strong{Destinations}
 \itemize{
 \item \strong{Function} - The Amazon Resource Name (ARN) of a Lambda function.
-\item \strong{Queue} - The ARN of an SQS queue.
-\item \strong{Topic} - The ARN of an SNS topic.
+\item \strong{Queue} - The ARN of a standard SQS queue.
+\item \strong{Topic} - The ARN of a standard SNS topic.
 \item \strong{Event Bus} - The ARN of an Amazon EventBridge event bus.
 }}
 }
 \description{
 Configures options for \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html}{asynchronous invocation} on a function, version, or alias. If a configuration already exists for a function, version, or alias, this operation overwrites it. If you exclude any settings, they are removed. To set one option without affecting existing settings for other options, use \code{\link[=lambda_update_function_event_invoke_config]{update_function_event_invoke_config}}.
 
-See \url{https://paws-r.github.io/docs/lambda/put_function_event_invoke_config.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_put_function_event_invoke_config/} for full documentation.
 }
 \keyword{internal}

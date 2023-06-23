@@ -5,6 +5,7 @@
 \title{Update a component}
 \usage{
 proton_update_component(
+  clientToken = NULL,
   deploymentType,
   description = NULL,
   name,
@@ -15,6 +16,8 @@ proton_update_component(
 )
 }
 \arguments{
+\item{clientToken}{The client token for the updated component.}
+
 \item{deploymentType}{[required] The deployment type. It defines the mode for updating a component, as
 follows:
 
@@ -58,6 +61,6 @@ template language.}
 \description{
 Update a component.
 
-See \url{https://paws-r.github.io/docs/proton/update_component.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/proton_update_component/} for full documentation.
 }
 \keyword{internal}

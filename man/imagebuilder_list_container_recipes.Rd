@@ -24,15 +24,14 @@ recipes belonging to your account.}
 \item \code{platform}
 }}
 
-\item{maxResults}{The maximum number of results to return in the list.}
+\item{maxResults}{The maximum items to return in a request.}
 
-\item{nextToken}{Provides a token for pagination, which determines where to begin the
-next set of results when the current set reaches the maximum for one
-request.}
+\item{nextToken}{A token to specify where to start paginating. This is the NextToken from
+a previously truncated response.}
 }
 \description{
 Returns a list of container recipes.
 
-See \url{https://paws-r.github.io/docs/imagebuilder/list_container_recipes.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/imagebuilder_list_container_recipes/} for full documentation.
 }
 \keyword{internal}

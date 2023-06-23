@@ -14,9 +14,9 @@ lambda_list_functions(
 }
 \arguments{
 \item{MasterRegion}{For Lambda@Edge functions, the Amazon Web Services Region of the master
-function. For example, \code{us-east-1} filters the list of functions to only
-include Lambda@Edge functions replicated from a master function in US
-East (N. Virginia). If specified, you must set \code{FunctionVersion} to
+function. For example, \code{us-east-1} filters the list of functions to
+include only Lambda@Edge functions replicated from a master function in
+US East (N. Virginia). If specified, you must set \code{FunctionVersion} to
 \code{ALL}.}
 
 \item{FunctionVersion}{Set to \code{ALL} to include entries for all published versions of each
@@ -32,6 +32,6 @@ in each response, even if you set the number higher.}
 \description{
 Returns a list of Lambda functions, with the version-specific configuration of each. Lambda returns up to 50 functions per call.
 
-See \url{https://paws-r.github.io/docs/lambda/list_functions.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_list_functions/} for full documentation.
 }
 \keyword{internal}

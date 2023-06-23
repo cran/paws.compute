@@ -12,11 +12,11 @@ lambda_get_function(FunctionName, Qualifier = NULL)
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} - \verb{my-function} (name-only), \verb{my-function:v1}
+\item \strong{Function name} – \verb{my-function} (name-only), \verb{my-function:v1}
 (with alias).
-\item \strong{Function ARN} -
+\item \strong{Function ARN} –
 \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
-\item \strong{Partial ARN} - \verb{123456789012:function:my-function}.
+\item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
 You can append a version number or alias to any of the formats. The
@@ -29,6 +29,6 @@ the function.}
 \description{
 Returns information about the function or function version, with a link to download the deployment package that's valid for 10 minutes. If you specify a function version, only details that are specific to that version are returned.
 
-See \url{https://paws-r.github.io/docs/lambda/get_function.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_get_function/} for full documentation.
 }
 \keyword{internal}

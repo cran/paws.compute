@@ -16,7 +16,8 @@ imagebuilder_create_image_pipeline(
   schedule = NULL,
   status = NULL,
   tags = NULL,
-  clientToken
+  clientToken,
+  imageScanningConfiguration = NULL
 )
 }
 \arguments{
@@ -51,10 +52,12 @@ Enabled by default.}
 \item{tags}{The tags of the image pipeline.}
 
 \item{clientToken}{[required] The idempotency token used to make this request idempotent.}
+
+\item{imageScanningConfiguration}{Contains settings for vulnerability scans.}
 }
 \description{
 Creates a new image pipeline. Image pipelines enable you to automate the creation and distribution of images.
 
-See \url{https://paws-r.github.io/docs/imagebuilder/create_image_pipeline.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/imagebuilder_create_image_pipeline/} for full documentation.
 }
 \keyword{internal}

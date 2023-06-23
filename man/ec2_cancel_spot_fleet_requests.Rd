@@ -18,12 +18,15 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{SpotFleetRequestIds}{[required] The IDs of the Spot Fleet requests.}
 
-\item{TerminateInstances}{[required] Indicates whether to terminate instances for a Spot Fleet request if it
-is canceled successfully.}
+\item{TerminateInstances}{[required] Indicates whether to terminate the associated instances when the Spot
+Fleet request is canceled. The default is to terminate the instances.
+
+To let the instances continue to run after the Spot Fleet request is
+canceled, specify \code{no-terminate-instances}.}
 }
 \description{
 Cancels the specified Spot Fleet requests.
 
-See \url{https://paws-r.github.io/docs/ec2/cancel_spot_fleet_requests.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_cancel_spot_fleet_requests/} for full documentation.
 }
 \keyword{internal}

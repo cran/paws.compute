@@ -51,7 +51,10 @@ a \code{nextToken} value if applicable.}
 
 \item{startedBy}{The \code{startedBy} value to filter the task results with. Specifying a
 \code{startedBy} value limits the results to tasks that were started with
-that value.}
+that value.
+
+When you specify \code{startedBy} as the filter, it must be the only filter
+that you use.}
 
 \item{serviceName}{The name of the service to use when filtering the
 \code{\link[=ecs_list_tasks]{list_tasks}} results. Specifying a \code{serviceName}
@@ -76,6 +79,6 @@ results.}
 \description{
 Returns a list of tasks. You can filter the results by cluster, task definition family, container instance, launch type, what IAM principal started the task, or by the desired status of the task.
 
-See \url{https://paws-r.github.io/docs/ecs/list_tasks.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ecs_list_tasks/} for full documentation.
 }
 \keyword{internal}

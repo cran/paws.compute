@@ -55,8 +55,8 @@ Example: \code{16:00-16:30}
 database.
 
 The default is a 30-minute window selected at random from an 8-hour
-block of time for each AWS Region, occurring on a random day of the
-week.
+block of time for each Amazon Web Services Region, occurring on a random
+day of the week.
 
 Constraints:
 \itemize{
@@ -98,6 +98,6 @@ Default: \code{false}}
 \description{
 Allows the update of one or more attributes of a database in Amazon Lightsail.
 
-See \url{https://paws-r.github.io/docs/lightsail/update_relational_database.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lightsail_update_relational_database/} for full documentation.
 }
 \keyword{internal}

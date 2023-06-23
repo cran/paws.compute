@@ -30,8 +30,8 @@ emrcontainers_list_managed_endpoints(
 \item{nextToken}{The token for the next set of managed endpoints to return.}
 }
 \description{
-Lists managed endpoints based on a set of parameters. A managed endpoint is a gateway that connects EMR Studio to Amazon EMR on EKS so that EMR Studio can communicate with your virtual cluster.
+Lists managed endpoints based on a set of parameters. A managed endpoint is a gateway that connects Amazon EMR Studio to Amazon EMR on EKS so that Amazon EMR Studio can communicate with your virtual cluster.
 
-See \url{https://paws-r.github.io/docs/emrcontainers/list_managed_endpoints.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/emrcontainers_list_managed_endpoints/} for full documentation.
 }
 \keyword{internal}

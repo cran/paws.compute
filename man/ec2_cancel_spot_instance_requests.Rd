@@ -12,11 +12,11 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{SpotInstanceRequestIds}{[required] One or more Spot Instance request IDs.}
+\item{SpotInstanceRequestIds}{[required] The IDs of the Spot Instance requests.}
 }
 \description{
 Cancels one or more Spot Instance requests.
 
-See \url{https://paws-r.github.io/docs/ec2/cancel_spot_instance_requests.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_cancel_spot_instance_requests/} for full documentation.
 }
 \keyword{internal}

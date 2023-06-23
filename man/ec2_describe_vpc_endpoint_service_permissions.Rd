@@ -21,7 +21,7 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ServiceId}{[required] The ID of the service.}
 
-\item{Filters}{One or more filters.
+\item{Filters}{The filters.
 \itemize{
 \item \code{principal} - The ARN of the principal.
 \item \code{principal-type} - The principal type (\code{All} | \code{Service} |
@@ -39,6 +39,6 @@ can be between 5 and 1,000; if \code{MaxResults} is given a value larger than
 \description{
 Describes the principals (service consumers) that are permitted to discover your VPC endpoint service.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_vpc_endpoint_service_permissions.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_vpc_endpoint_service_permissions/} for full documentation.
 }
 \keyword{internal}

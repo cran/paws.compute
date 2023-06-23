@@ -36,7 +36,9 @@ idempotency of the request. For more information, see \href{https://docs.aws.ama
 
 \item{ExcessCapacityTerminationPolicy}{Indicates whether running instances should be terminated if the total
 target capacity of the EC2 Fleet is decreased below the current size of
-the EC2 Fleet.}
+the EC2 Fleet.
+
+Supported only for fleets of type \code{maintain}.}
 
 \item{LaunchTemplateConfigs}{[required] The configuration for the EC2 Fleet.}
 
@@ -91,6 +93,6 @@ If the fleet type is \code{maintain} or \code{request}, specify a resource type 
 \description{
 Launches an EC2 Fleet.
 
-See \url{https://paws-r.github.io/docs/ec2/create_fleet.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_create_fleet/} for full documentation.
 }
 \keyword{internal}

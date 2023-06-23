@@ -14,7 +14,8 @@ ec2_enable_image_deprecation(ImageId, DeprecateAt, DryRun = NULL)
 Amazon EC2 rounds the seconds to the nearest minute.
 
 You can’t specify a date in the past. The upper limit for \code{DeprecateAt}
-is 10 years from now.}
+is 10 years from now, except for public AMIs, where the upper limit is 2
+years from the creation date.}
 
 \item{DryRun}{Checks whether you have the required permissions for the action, without
 actually making the request, and provides an error response. If you have
@@ -24,6 +25,6 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Enables deprecation of the specified AMI at the specified date and time.
 
-See \url{https://paws-r.github.io/docs/ec2/enable_image_deprecation.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_enable_image_deprecation/} for full documentation.
 }
 \keyword{internal}

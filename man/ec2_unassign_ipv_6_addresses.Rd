@@ -14,13 +14,13 @@ ec2_unassign_ipv_6_addresses(
 \arguments{
 \item{Ipv6Addresses}{The IPv6 addresses to unassign from the network interface.}
 
-\item{Ipv6Prefixes}{One or more IPv6 prefixes to unassign from the network interface.}
+\item{Ipv6Prefixes}{The IPv6 prefixes to unassign from the network interface.}
 
 \item{NetworkInterfaceId}{[required] The ID of the network interface.}
 }
 \description{
 Unassigns one or more IPv6 addresses IPv4 Prefix Delegation prefixes from a network interface.
 
-See \url{https://paws-r.github.io/docs/ec2/unassign_ipv_6_addresses.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_unassign_ipv_6_addresses/} for full documentation.
 }
 \keyword{internal}

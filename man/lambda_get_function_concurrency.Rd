@@ -12,10 +12,10 @@ lambda_get_function_concurrency(FunctionName)
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} - \verb{my-function}.
-\item \strong{Function ARN} -
+\item \strong{Function name} – \verb{my-function}.
+\item \strong{Function ARN} –
 \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
-\item \strong{Partial ARN} - \verb{123456789012:function:my-function}.
+\item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
 The length constraint applies only to the full ARN. If you specify only
@@ -24,6 +24,6 @@ the function name, it is limited to 64 characters in length.}
 \description{
 Returns details about the reserved concurrency configuration for a function. To set a concurrency limit for a function, use \code{\link[=lambda_put_function_concurrency]{put_function_concurrency}}.
 
-See \url{https://paws-r.github.io/docs/lambda/get_function_concurrency.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_get_function_concurrency/} for full documentation.
 }
 \keyword{internal}

@@ -29,16 +29,20 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 specific bucket. For the filter value, specify the bucket name.
 }}
 
-\item{NextToken}{The token for the next page of results.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination
+continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of results to return in a single call. To retrieve
-the remaining results, make another call with the returned \code{NextToken}
-value. This value can be between 1 and 200. You cannot specify this
-parameter and the \code{ImageIDs} parameter in the same call.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next
+page of items, make another request with the token returned in the
+output. For more information, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.
+
+You cannot specify this parameter and the \code{ImageIDs} parameter in the
+same call.}
 }
 \description{
 Describes the progress of the AMI store tasks. You can describe the store tasks for specified AMIs. If you don't specify the AMIs, you get a paginated list of store tasks from the last 31 days.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_store_image_tasks.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_store_image_tasks/} for full documentation.
 }
 \keyword{internal}

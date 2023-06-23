@@ -18,7 +18,7 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{Filters}{One or more filters.
+\item{Filters}{The filters.
 \itemize{
 \item \code{ip-address-type} - The IP address type (\code{ipv4} | \code{ipv6}).
 \item \code{service-id} - The ID of the service.
@@ -41,6 +41,6 @@ can be between 5 and 1,000; if \code{MaxResults} is given a value larger than
 \description{
 Describes the VPC endpoint connections to your VPC endpoint services, including any endpoints that are pending your acceptance.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_vpc_endpoint_connections.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_vpc_endpoint_connections/} for full documentation.
 }
 \keyword{internal}

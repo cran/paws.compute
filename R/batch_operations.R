@@ -6,9 +6,9 @@ NULL
 #' Cancels a job in an Batch job queue
 #'
 #' @description
-#' Cancels a job in an Batch job queue. Jobs that are in the `SUBMITTED`, `PENDING`, or `RUNNABLE` state are canceled. Jobs that have progressed to `STARTING` or `RUNNING` aren't canceled, but the API operation still succeeds, even if no job is canceled. These jobs must be terminated with the [`terminate_job`][batch_terminate_job] operation.
+#' Cancels a job in an Batch job queue. Jobs that are in the `SUBMITTED` or `PENDING` are canceled. A job in`RUNNABLE` remains in `RUNNABLE` until it reaches the head of the job queue. Then the job status is updated to `FAILED`.
 #'
-#' See [https://paws-r.github.io/docs/batch/cancel_job.html](https://paws-r.github.io/docs/batch/cancel_job.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_cancel_job/](https://www.paws-r-sdk.com/docs/batch_cancel_job/) for full documentation.
 #'
 #' @param jobId &#91;required&#93; The Batch job ID of the job to cancel.
 #' @param reason &#91;required&#93; A message to attach to the job that explains the reason for canceling
@@ -41,11 +41,11 @@ batch_cancel_job <- function(jobId, reason) {
 #' @description
 #' Creates an Batch compute environment. You can create `MANAGED` or `UNMANAGED` compute environments. `MANAGED` compute environments can use Amazon EC2 or Fargate resources. `UNMANAGED` compute environments can only use EC2 resources.
 #'
-#' See [https://paws-r.github.io/docs/batch/create_compute_environment.html](https://paws-r.github.io/docs/batch/create_compute_environment.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_create_compute_environment/](https://www.paws-r-sdk.com/docs/batch_create_compute_environment/) for full documentation.
 #'
-#' @param computeEnvironmentName &#91;required&#93; The name for your compute environment. It can be up to 128 letters long.
-#' It can contain uppercase and lowercase letters, numbers, hyphens (-),
-#' and underscores (_).
+#' @param computeEnvironmentName &#91;required&#93; The name for your compute environment. It can be up to 128 characters
+#' long. It can contain uppercase and lowercase letters, numbers, hyphens
+#' (-), and underscores (_).
 #' @param type &#91;required&#93; The type of the compute environment: `MANAGED` or `UNMANAGED`. For more
 #' information, see [Compute
 #' Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
@@ -62,8 +62,19 @@ batch_cancel_job <- function(jobId, reason) {
 #' If the state is `DISABLED`, then the Batch scheduler doesn't attempt to
 #' place jobs within the environment. Jobs in a `STARTING` or `RUNNING`
 #' state continue to progress normally. Managed compute environments in the
-#' `DISABLED` state don't scale out. However, they scale in to `minvCpus`
-#' value after instances become idle.
+#' `DISABLED` state don't scale out.
+#' 
+#' Compute environments in a `DISABLED` state may continue to incur billing
+#' charges. To prevent additional charges, turn off and then delete the
+#' compute environment. For more information, see
+#' [State](https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state)
+#' in the *Batch User Guide*.
+#' 
+#' When an instance is idle, the instance scales down to the `minvCpus`
+#' value. However, the instance size doesn't change. For example, consider
+#' a `c5.8xlarge` instance with a `minvCpus` value of `4` and a
+#' `desiredvCpus` value of `36`. This instance doesn't scale down to a
+#' `c5.large` instance.
 #' @param unmanagedvCpus The maximum number of vCPUs for an unmanaged compute environment. This
 #' parameter is only used for fair share scheduling to reserve vCPU
 #' capacity for new share identifiers. If this parameter isn't provided for
@@ -90,9 +101,9 @@ batch_cancel_job <- function(jobId, reason) {
 #' 
 #' If your specified role has a path other than `/`, then you must specify
 #' either the full role ARN (recommended) or prefix the role name with the
-#' path. For example, if a role with the name `bar` has a path of `/foo/`
-#' then you would specify `/foo/bar` as the role name. For more
-#' information, see [Friendly names and
+#' path. For example, if a role with the name `bar` has a path of `/foo/`,
+#' specify `/foo/bar` as the role name. For more information, see [Friendly
+#' names and
 #' paths](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names)
 #' in the *IAM User Guide*.
 #' 
@@ -106,25 +117,27 @@ batch_cancel_job <- function(jobId, reason) {
 #' categorize and organize your resources. Each tag consists of a key and
 #' an optional value. For more information, see [Tagging Amazon Web
 #' Services
-#' Resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html)
+#' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
 #' in *Amazon Web Services General Reference*.
 #' 
 #' These tags can be updated or removed using the
 #' [`tag_resource`][batch_tag_resource] and
 #' [`untag_resource`][batch_untag_resource] API operations. These tags
 #' don't propagate to the underlying compute resources.
+#' @param eksConfiguration The details for the Amazon EKS cluster that supports the compute
+#' environment.
 #'
 #' @keywords internal
 #'
 #' @rdname batch_create_compute_environment
-batch_create_compute_environment <- function(computeEnvironmentName, type, state = NULL, unmanagedvCpus = NULL, computeResources = NULL, serviceRole = NULL, tags = NULL) {
+batch_create_compute_environment <- function(computeEnvironmentName, type, state = NULL, unmanagedvCpus = NULL, computeResources = NULL, serviceRole = NULL, tags = NULL, eksConfiguration = NULL) {
   op <- new_operation(
     name = "CreateComputeEnvironment",
     http_method = "POST",
     http_path = "/v1/createcomputeenvironment",
     paginator = list()
   )
-  input <- .batch$create_compute_environment_input(computeEnvironmentName = computeEnvironmentName, type = type, state = state, unmanagedvCpus = unmanagedvCpus, computeResources = computeResources, serviceRole = serviceRole, tags = tags)
+  input <- .batch$create_compute_environment_input(computeEnvironmentName = computeEnvironmentName, type = type, state = state, unmanagedvCpus = unmanagedvCpus, computeResources = computeResources, serviceRole = serviceRole, tags = tags, eksConfiguration = eksConfiguration)
   output <- .batch$create_compute_environment_output()
   config <- get_config()
   svc <- .batch$service(config)
@@ -139,7 +152,7 @@ batch_create_compute_environment <- function(computeEnvironmentName, type, state
 #' @description
 #' Creates an Batch job queue. When you create a job queue, you associate one or more compute environments to the queue and assign an order of preference for the compute environments.
 #'
-#' See [https://paws-r.github.io/docs/batch/create_job_queue.html](https://paws-r.github.io/docs/batch/create_job_queue.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_create_job_queue/](https://www.paws-r-sdk.com/docs/batch_create_job_queue/) for full documentation.
 #'
 #' @param jobQueueName &#91;required&#93; The name of the job queue. It can be up to 128 letters long. It can
 #' contain uppercase and lowercase letters, numbers, hyphens (-), and
@@ -154,7 +167,7 @@ batch_create_compute_environment <- function(computeEnvironmentName, type, state
 #' you can replace but can't remove the fair share scheduling policy. The
 #' format is `aws:Partition:batch:Region:Account:scheduling-policy/Name `.
 #' An example is
-#' `aws:aws:batch:us-west-2:012345678910:scheduling-policy/MySchedulingPolicy`.
+#' `aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy`.
 #' @param priority &#91;required&#93; The priority of the job queue. Job queues with a higher priority (or a
 #' higher integer value for the `priority` parameter) are evaluated first
 #' when associated with the same compute environment. Priority is
@@ -206,7 +219,7 @@ batch_create_job_queue <- function(jobQueueName, state = NULL, schedulingPolicyA
 #' @description
 #' Creates an Batch scheduling policy.
 #'
-#' See [https://paws-r.github.io/docs/batch/create_scheduling_policy.html](https://paws-r.github.io/docs/batch/create_scheduling_policy.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_create_scheduling_policy/](https://www.paws-r-sdk.com/docs/batch_create_scheduling_policy/) for full documentation.
 #'
 #' @param name &#91;required&#93; The name of the scheduling policy. It can be up to 128 letters long. It
 #' can contain uppercase and lowercase letters, numbers, hyphens (-), and
@@ -215,7 +228,7 @@ batch_create_job_queue <- function(jobQueueName, state = NULL, schedulingPolicyA
 #' @param tags The tags that you apply to the scheduling policy to help you categorize
 #' and organize your resources. Each tag consists of a key and an optional
 #' value. For more information, see [Tagging Amazon Web Services
-#' Resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html)
+#' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
 #' in *Amazon Web Services General Reference*.
 #' 
 #' These tags can be updated or removed using the
@@ -247,7 +260,7 @@ batch_create_scheduling_policy <- function(name, fairsharePolicy = NULL, tags = 
 #' @description
 #' Deletes an Batch compute environment.
 #'
-#' See [https://paws-r.github.io/docs/batch/delete_compute_environment.html](https://paws-r.github.io/docs/batch/delete_compute_environment.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_delete_compute_environment/](https://www.paws-r-sdk.com/docs/batch_delete_compute_environment/) for full documentation.
 #'
 #' @param computeEnvironment &#91;required&#93; The name or Amazon Resource Name (ARN) of the compute environment to
 #' delete.
@@ -277,7 +290,7 @@ batch_delete_compute_environment <- function(computeEnvironment) {
 #' @description
 #' Deletes the specified job queue. You must first disable submissions for a queue with the [`update_job_queue`][batch_update_job_queue] operation. All jobs in the queue are eventually terminated when you delete a job queue. The jobs are terminated at a rate of about 16 jobs each second.
 #'
-#' See [https://paws-r.github.io/docs/batch/delete_job_queue.html](https://paws-r.github.io/docs/batch/delete_job_queue.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_delete_job_queue/](https://www.paws-r-sdk.com/docs/batch_delete_job_queue/) for full documentation.
 #'
 #' @param jobQueue &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the queue to
 #' delete.
@@ -307,7 +320,7 @@ batch_delete_job_queue <- function(jobQueue) {
 #' @description
 #' Deletes the specified scheduling policy.
 #'
-#' See [https://paws-r.github.io/docs/batch/delete_scheduling_policy.html](https://paws-r.github.io/docs/batch/delete_scheduling_policy.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_delete_scheduling_policy/](https://www.paws-r-sdk.com/docs/batch_delete_scheduling_policy/) for full documentation.
 #'
 #' @param arn &#91;required&#93; The Amazon Resource Name (ARN) of the scheduling policy to delete.
 #'
@@ -336,7 +349,7 @@ batch_delete_scheduling_policy <- function(arn) {
 #' @description
 #' Deregisters an Batch job definition. Job definitions are permanently deleted after 180 days.
 #'
-#' See [https://paws-r.github.io/docs/batch/deregister_job_definition.html](https://paws-r.github.io/docs/batch/deregister_job_definition.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_deregister_job_definition/](https://www.paws-r-sdk.com/docs/batch_deregister_job_definition/) for full documentation.
 #'
 #' @param jobDefinition &#91;required&#93; The name and revision (`name:revision`) or full Amazon Resource Name
 #' (ARN) of the job definition to deregister.
@@ -366,7 +379,7 @@ batch_deregister_job_definition <- function(jobDefinition) {
 #' @description
 #' Describes one or more of your compute environments.
 #'
-#' See [https://paws-r.github.io/docs/batch/describe_compute_environments.html](https://paws-r.github.io/docs/batch/describe_compute_environments.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_compute_environments/](https://www.paws-r-sdk.com/docs/batch_describe_compute_environments/) for full documentation.
 #'
 #' @param computeEnvironments A list of up to 100 compute environment names or full Amazon Resource
 #' Name (ARN) entries.
@@ -389,9 +402,8 @@ batch_deregister_job_definition <- function(jobDefinition) {
 #' results that returned the `nextToken` value. This value is `null` when
 #' there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that's only used to
-#' retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve
+#' the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -418,7 +430,7 @@ batch_describe_compute_environments <- function(computeEnvironments = NULL, maxR
 #' @description
 #' Describes a list of job definitions. You can specify a `status` (such as `ACTIVE`) to only return job definitions that match that status.
 #'
-#' See [https://paws-r.github.io/docs/batch/describe_job_definitions.html](https://paws-r.github.io/docs/batch/describe_job_definitions.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_job_definitions/](https://www.paws-r-sdk.com/docs/batch_describe_job_definitions/) for full documentation.
 #'
 #' @param jobDefinitions A list of up to 100 job definitions. Each entry in the list can either
 #' be an ARN in the format
@@ -445,9 +457,8 @@ batch_describe_compute_environments <- function(computeEnvironments = NULL, maxR
 #' that returned the `nextToken` value. This value is `null` when there are
 #' no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that's only used to
-#' retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve
+#' the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -474,7 +485,7 @@ batch_describe_job_definitions <- function(jobDefinitions = NULL, maxResults = N
 #' @description
 #' Describes one or more of your job queues.
 #'
-#' See [https://paws-r.github.io/docs/batch/describe_job_queues.html](https://paws-r.github.io/docs/batch/describe_job_queues.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_job_queues/](https://www.paws-r-sdk.com/docs/batch_describe_job_queues/) for full documentation.
 #'
 #' @param jobQueues A list of up to 100 queue names or full queue Amazon Resource Name (ARN)
 #' entries.
@@ -496,9 +507,8 @@ batch_describe_job_definitions <- function(jobDefinitions = NULL, maxResults = N
 #' that returned the `nextToken` value. This value is `null` when there are
 #' no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that's only used to
-#' retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve
+#' the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -525,7 +535,7 @@ batch_describe_job_queues <- function(jobQueues = NULL, maxResults = NULL, nextT
 #' @description
 #' Describes a list of Batch jobs.
 #'
-#' See [https://paws-r.github.io/docs/batch/describe_jobs.html](https://paws-r.github.io/docs/batch/describe_jobs.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_jobs/](https://www.paws-r-sdk.com/docs/batch_describe_jobs/) for full documentation.
 #'
 #' @param jobs &#91;required&#93; A list of up to 100 job IDs.
 #'
@@ -554,7 +564,7 @@ batch_describe_jobs <- function(jobs) {
 #' @description
 #' Describes one or more of your scheduling policies.
 #'
-#' See [https://paws-r.github.io/docs/batch/describe_scheduling_policies.html](https://paws-r.github.io/docs/batch/describe_scheduling_policies.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_scheduling_policies/](https://www.paws-r-sdk.com/docs/batch_describe_scheduling_policies/) for full documentation.
 #'
 #' @param arns &#91;required&#93; A list of up to 100 scheduling policy Amazon Resource Name (ARN)
 #' entries.
@@ -584,7 +594,7 @@ batch_describe_scheduling_policies <- function(arns) {
 #' @description
 #' Returns a list of Batch jobs.
 #'
-#' See [https://paws-r.github.io/docs/batch/list_jobs.html](https://paws-r.github.io/docs/batch/list_jobs.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_list_jobs/](https://www.paws-r-sdk.com/docs/batch_list_jobs/) for full documentation.
 #'
 #' @param jobQueue The name or full Amazon Resource Name (ARN) of the job queue used to
 #' list jobs.
@@ -612,9 +622,8 @@ batch_describe_scheduling_policies <- function(arns) {
 #' from the end of the previous results that returned the `nextToken`
 #' value. This value is `null` when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that's only used to
-#' retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve
+#' the next items in a list and not for other programmatic purposes.
 #' @param filters The filter to apply to the query. Only one filter can be used at a time.
 #' When the filter is used, `jobStatus` is ignored. The filter doesn't
 #' apply to child jobs in an array or multi-node parallel (MNP) jobs. The
@@ -624,7 +633,7 @@ batch_describe_scheduling_policies <- function(arns) {
 #' **JOB_NAME**
 #' 
 #' The value of the filter is a case-insensitive match for the job name. If
-#' the value ends with an asterisk (*), the filter will match any job name
+#' the value ends with an asterisk (*), the filter matches any job name
 #' that begins with the string before the '*'. This corresponds to the
 #' `jobName` value. For example, `test1` matches both `Test1` and `test1`,
 #' and `test1*` matches both `test1` and `Test10`. When the `JOB_NAME`
@@ -637,14 +646,14 @@ batch_describe_scheduling_policies <- function(arns) {
 #' value is case sensitive. When the value for the filter is the job
 #' definition name, the results include all the jobs that used any revision
 #' of that job definition name. If the value ends with an asterisk (*),
-#' the filter will match any job definition name that begins with the
-#' string before the '*'. For example, `jd1` matches only `jd1`, and
-#' `jd1*` matches both `jd1` and `jd1A`. The version of the job definition
-#' that's used doesn't affect the sort order. When the `JOB_DEFINITION`
-#' filter is used and the ARN is used (which is in the form
+#' the filter matches any job definition name that begins with the string
+#' before the '*'. For example, `jd1` matches only `jd1`, and `jd1*`
+#' matches both `jd1` and `jd1A`. The version of the job definition that's
+#' used doesn't affect the sort order. When the `JOB_DEFINITION` filter is
+#' used and the ARN is used (which is in the form
 #' `arn:${Partition}:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}`),
 #' the results include jobs that used the specified revision of the job
-#' definition. Asterisk (*) is not supported when the ARN is used.
+#' definition. Asterisk (*) isn't supported when the ARN is used.
 #' 
 #' **BEFORE_CREATED_AT**
 #' 
@@ -685,7 +694,7 @@ batch_list_jobs <- function(jobQueue = NULL, arrayJobId = NULL, multiNodeJobId =
 #' @description
 #' Returns a list of Batch scheduling policies.
 #'
-#' See [https://paws-r.github.io/docs/batch/list_scheduling_policies.html](https://paws-r.github.io/docs/batch/list_scheduling_policies.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_list_scheduling_policies/](https://www.paws-r-sdk.com/docs/batch_list_scheduling_policies/) for full documentation.
 #'
 #' @param maxResults The maximum number of results that's returned by
 #' [`list_scheduling_policies`][batch_list_scheduling_policies] in
@@ -706,9 +715,8 @@ batch_list_jobs <- function(jobQueue = NULL, arrayJobId = NULL, multiNodeJobId =
 #' that returned the `nextToken` value. This value is `null` when there are
 #' no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that's only used to
-#' retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve
+#' the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -733,15 +741,15 @@ batch_list_scheduling_policies <- function(maxResults = NULL, nextToken = NULL) 
 #' Lists the tags for an Batch resource
 #'
 #' @description
-#' Lists the tags for an Batch resource. Batch resources that support tags are compute environments, jobs, job definitions, job queues, and scheduling policies. ARNs for child jobs of array and multi-node parallel (MNP) jobs are not supported.
+#' Lists the tags for an Batch resource. Batch resources that support tags are compute environments, jobs, job definitions, job queues, and scheduling policies. ARNs for child jobs of array and multi-node parallel (MNP) jobs aren't supported.
 #'
-#' See [https://paws-r.github.io/docs/batch/list_tags_for_resource.html](https://paws-r.github.io/docs/batch/list_tags_for_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/batch_list_tags_for_resource/) for full documentation.
 #'
 #' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource that tags
 #' are listed for. Batch resources that support tags are compute
 #' environments, jobs, job definitions, job queues, and scheduling
 #' policies. ARNs for child jobs of array and multi-node parallel (MNP)
-#' jobs are not supported.
+#' jobs aren't supported.
 #'
 #' @keywords internal
 #'
@@ -768,7 +776,7 @@ batch_list_tags_for_resource <- function(resourceArn) {
 #' @description
 #' Registers an Batch job definition.
 #'
-#' See [https://paws-r.github.io/docs/batch/register_job_definition.html](https://paws-r.github.io/docs/batch/register_job_definition.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_register_job_definition/](https://www.paws-r-sdk.com/docs/batch_register_job_definition/) for full documentation.
 #'
 #' @param jobDefinitionName &#91;required&#93; The name of the job definition to register. It can be up to 128 letters
 #' long. It can contain uppercase and lowercase letters, numbers, hyphens
@@ -785,16 +793,17 @@ batch_list_tags_for_resource <- function(resourceArn) {
 #' Parameters in a [`submit_job`][batch_submit_job] request override any
 #' corresponding parameter defaults from the job definition.
 #' @param schedulingPriority The scheduling priority for jobs that are submitted with this job
-#' definition. This will only affect jobs in job queues with a fair share
-#' policy. Jobs with a higher scheduling priority will be scheduled before
-#' jobs with a lower scheduling priority.
+#' definition. This only affects jobs in job queues with a fair share
+#' policy. Jobs with a higher scheduling priority are scheduled before jobs
+#' with a lower scheduling priority.
 #' 
 #' The minimum supported value is 0 and the maximum supported value is
 #' 9999.
-#' @param containerProperties An object with various properties specific to single-node
-#' container-based jobs. If the job definition's `type` parameter is
-#' `container`, then you must specify either `containerProperties` or
-#' `nodeProperties`.
+#' @param containerProperties An object with various properties specific to Amazon ECS based
+#' single-node container-based jobs. If the job definition's `type`
+#' parameter is `container`, then you must specify either
+#' `containerProperties` or `nodeProperties`. This must not be specified
+#' for Amazon EKS based job definitions.
 #' 
 #' If the job runs on Fargate resources, then you must not specify
 #' `nodeProperties`; use only `containerProperties`.
@@ -808,6 +817,9 @@ batch_list_tags_for_resource <- function(resourceArn) {
 #' 
 #' If the job runs on Fargate resources, then you must not specify
 #' `nodeProperties`; use `containerProperties` instead.
+#' 
+#' If the job runs on Amazon EKS resources, then you must not specify
+#' `nodeProperties`.
 #' @param retryStrategy The retry strategy to use for failed jobs that are submitted with this
 #' job definition. Any retry strategy that's specified during a
 #' [`submit_job`][batch_submit_job] operation overrides the retry strategy
@@ -818,6 +830,9 @@ batch_list_tags_for_resource <- function(resourceArn) {
 #' creation. For tags with the same name, job tags are given priority over
 #' job definitions tags. If the total number of combined tags from the job
 #' and job definition is over 50, the job is moved to the `FAILED` state.
+#' 
+#' If the job runs on Amazon EKS resources, then you must not specify
+#' `propagateTags`.
 #' @param timeout The timeout configuration for jobs that are submitted with this job
 #' definition, after which Batch terminates your jobs if they have not
 #' finished. If a job is terminated due to a timeout, it isn't retried. The
@@ -835,18 +850,23 @@ batch_list_tags_for_resource <- function(resourceArn) {
 #' @param platformCapabilities The platform capabilities required by the job definition. If no value is
 #' specified, it defaults to `EC2`. To run the job on Fargate resources,
 #' specify `FARGATE`.
+#' 
+#' If the job runs on Amazon EKS resources, then you must not specify
+#' `platformCapabilities`.
+#' @param eksProperties An object with various properties that are specific to Amazon EKS based
+#' jobs. This must not be specified for Amazon ECS based job definitions.
 #'
 #' @keywords internal
 #'
 #' @rdname batch_register_job_definition
-batch_register_job_definition <- function(jobDefinitionName, type, parameters = NULL, schedulingPriority = NULL, containerProperties = NULL, nodeProperties = NULL, retryStrategy = NULL, propagateTags = NULL, timeout = NULL, tags = NULL, platformCapabilities = NULL) {
+batch_register_job_definition <- function(jobDefinitionName, type, parameters = NULL, schedulingPriority = NULL, containerProperties = NULL, nodeProperties = NULL, retryStrategy = NULL, propagateTags = NULL, timeout = NULL, tags = NULL, platformCapabilities = NULL, eksProperties = NULL) {
   op <- new_operation(
     name = "RegisterJobDefinition",
     http_method = "POST",
     http_path = "/v1/registerjobdefinition",
     paginator = list()
   )
-  input <- .batch$register_job_definition_input(jobDefinitionName = jobDefinitionName, type = type, parameters = parameters, schedulingPriority = schedulingPriority, containerProperties = containerProperties, nodeProperties = nodeProperties, retryStrategy = retryStrategy, propagateTags = propagateTags, timeout = timeout, tags = tags, platformCapabilities = platformCapabilities)
+  input <- .batch$register_job_definition_input(jobDefinitionName = jobDefinitionName, type = type, parameters = parameters, schedulingPriority = schedulingPriority, containerProperties = containerProperties, nodeProperties = nodeProperties, retryStrategy = retryStrategy, propagateTags = propagateTags, timeout = timeout, tags = tags, platformCapabilities = platformCapabilities, eksProperties = eksProperties)
   output <- .batch$register_job_definition_output()
   config <- get_config()
   svc <- .batch$service(config)
@@ -861,20 +881,20 @@ batch_register_job_definition <- function(jobDefinitionName, type, parameters = 
 #' @description
 #' Submits an Batch job from a job definition. Parameters that are specified during [`submit_job`][batch_submit_job] override parameters defined in the job definition. vCPU and memory requirements that are specified in the `resourceRequirements` objects in the job definition are the exception. They can't be overridden this way using the `memory` and `vcpus` parameters. Rather, you must specify updates to job definition parameters in a `resourceRequirements` object that's included in the `containerOverrides` parameter.
 #'
-#' See [https://paws-r.github.io/docs/batch/submit_job.html](https://paws-r.github.io/docs/batch/submit_job.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_submit_job/](https://www.paws-r-sdk.com/docs/batch_submit_job/) for full documentation.
 #'
 #' @param jobName &#91;required&#93; The name of the job. It can be up to 128 letters long. The first
 #' character must be alphanumeric, can contain uppercase and lowercase
 #' letters, numbers, hyphens (-), and underscores (_).
 #' @param jobQueue &#91;required&#93; The job queue where the job is submitted. You can specify either the
 #' name or the Amazon Resource Name (ARN) of the queue.
-#' @param shareIdentifier The share identifier for the job. If the job queue does not have a
+#' @param shareIdentifier The share identifier for the job. If the job queue doesn't have a
 #' scheduling policy, then this parameter must not be specified. If the job
 #' queue has a scheduling policy, then this parameter must be specified.
-#' @param schedulingPriorityOverride The scheduling priority for the job. This will only affect jobs in job
+#' @param schedulingPriorityOverride The scheduling priority for the job. This only affects jobs in job
 #' queues with a fair share policy. Jobs with a higher scheduling priority
-#' will be scheduled before jobs with a lower scheduling priority. This
-#' will override any scheduling priority in the job definition.
+#' are scheduled before jobs with a lower scheduling priority. This
+#' overrides any scheduling priority in the job definition.
 #' 
 #' The minimum supported value is 0 and the maximum supported value is
 #' 9999.
@@ -891,22 +911,26 @@ batch_register_job_definition <- function(jobDefinitionName, type, parameters = 
 #' `N_TO_N` type dependency with a job ID for array jobs. In that case,
 #' each index child of this job must wait for the corresponding index child
 #' of each dependency to complete before it can begin.
-#' @param jobDefinition &#91;required&#93; The job definition used by this job. This value can be one of `name`,
-#' `name:revision`, or the Amazon Resource Name (ARN) for the job
-#' definition. If `name` is specified without a revision then the latest
-#' active revision is used.
+#' @param jobDefinition &#91;required&#93; The job definition used by this job. This value can be one of
+#' `definition-name`, `definition-name:revision`, or the Amazon Resource
+#' Name (ARN) for the job definition, with or without the revision
+#' (`arn:aws:batch:region:account:job-definition/definition-name:revision `,
+#' or `arn:aws:batch:region:account:job-definition/definition-name `).
+#' 
+#' If the revision is not specified, then the latest active revision is
+#' used.
 #' @param parameters Additional parameters passed to the job that replace parameter
 #' substitution placeholders that are set in the job definition. Parameters
 #' are specified as a key and value pair mapping. Parameters in a
 #' [`submit_job`][batch_submit_job] request override any corresponding
 #' parameter defaults from the job definition.
-#' @param containerOverrides A list of container overrides in the JSON format that specify the name
-#' of a container in the specified job definition and the overrides it
-#' receives. You can override the default command for a container, which is
-#' specified in the job definition or the Docker image, with a `command`
-#' override. You can also override existing environment variables on a
-#' container or add new environment variables to it with an `environment`
-#' override.
+#' @param containerOverrides An object with various properties that override the defaults for the job
+#' definition that specify the name of a container in the specified job
+#' definition and the overrides it should receive. You can override the
+#' default command for a container, which is specified in the job
+#' definition or the Docker image, with a `command` override. You can also
+#' override existing environment variables on a container or add new
+#' environment variables to it with an `environment` override.
 #' @param nodeOverrides A list of node overrides in JSON format that specify the node range to
 #' target and the container overrides for that node range.
 #' 
@@ -937,20 +961,23 @@ batch_register_job_definition <- function(jobDefinitionName, type, parameters = 
 #' @param tags The tags that you apply to the job request to help you categorize and
 #' organize your resources. Each tag consists of a key and an optional
 #' value. For more information, see [Tagging Amazon Web Services
-#' Resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html)
+#' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
 #' in *Amazon Web Services General Reference*.
+#' @param eksPropertiesOverride An object that can only be specified for jobs that are run on Amazon EKS
+#' resources with various properties that override defaults for the job
+#' definition.
 #'
 #' @keywords internal
 #'
 #' @rdname batch_submit_job
-batch_submit_job <- function(jobName, jobQueue, shareIdentifier = NULL, schedulingPriorityOverride = NULL, arrayProperties = NULL, dependsOn = NULL, jobDefinition, parameters = NULL, containerOverrides = NULL, nodeOverrides = NULL, retryStrategy = NULL, propagateTags = NULL, timeout = NULL, tags = NULL) {
+batch_submit_job <- function(jobName, jobQueue, shareIdentifier = NULL, schedulingPriorityOverride = NULL, arrayProperties = NULL, dependsOn = NULL, jobDefinition, parameters = NULL, containerOverrides = NULL, nodeOverrides = NULL, retryStrategy = NULL, propagateTags = NULL, timeout = NULL, tags = NULL, eksPropertiesOverride = NULL) {
   op <- new_operation(
     name = "SubmitJob",
     http_method = "POST",
     http_path = "/v1/submitjob",
     paginator = list()
   )
-  input <- .batch$submit_job_input(jobName = jobName, jobQueue = jobQueue, shareIdentifier = shareIdentifier, schedulingPriorityOverride = schedulingPriorityOverride, arrayProperties = arrayProperties, dependsOn = dependsOn, jobDefinition = jobDefinition, parameters = parameters, containerOverrides = containerOverrides, nodeOverrides = nodeOverrides, retryStrategy = retryStrategy, propagateTags = propagateTags, timeout = timeout, tags = tags)
+  input <- .batch$submit_job_input(jobName = jobName, jobQueue = jobQueue, shareIdentifier = shareIdentifier, schedulingPriorityOverride = schedulingPriorityOverride, arrayProperties = arrayProperties, dependsOn = dependsOn, jobDefinition = jobDefinition, parameters = parameters, containerOverrides = containerOverrides, nodeOverrides = nodeOverrides, retryStrategy = retryStrategy, propagateTags = propagateTags, timeout = timeout, tags = tags, eksPropertiesOverride = eksPropertiesOverride)
   output <- .batch$submit_job_output()
   config <- get_config()
   svc <- .batch$service(config)
@@ -964,18 +991,18 @@ batch_submit_job <- function(jobName, jobQueue, shareIdentifier = NULL, scheduli
 #' resourceArn
 #'
 #' @description
-#' Associates the specified tags to a resource with the specified `resourceArn`. If existing tags on a resource aren't specified in the request parameters, they aren't changed. When a resource is deleted, the tags that are associated with that resource are deleted as well. Batch resources that support tags are compute environments, jobs, job definitions, job queues, and scheduling policies. ARNs for child jobs of array and multi-node parallel (MNP) jobs are not supported.
+#' Associates the specified tags to a resource with the specified `resourceArn`. If existing tags on a resource aren't specified in the request parameters, they aren't changed. When a resource is deleted, the tags that are associated with that resource are deleted as well. Batch resources that support tags are compute environments, jobs, job definitions, job queues, and scheduling policies. ARNs for child jobs of array and multi-node parallel (MNP) jobs aren't supported.
 #'
-#' See [https://paws-r.github.io/docs/batch/tag_resource.html](https://paws-r.github.io/docs/batch/tag_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_tag_resource/](https://www.paws-r-sdk.com/docs/batch_tag_resource/) for full documentation.
 #'
 #' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that tags are added to.
 #' Batch resources that support tags are compute environments, jobs, job
 #' definitions, job queues, and scheduling policies. ARNs for child jobs of
-#' array and multi-node parallel (MNP) jobs are not supported.
+#' array and multi-node parallel (MNP) jobs aren't supported.
 #' @param tags &#91;required&#93; The tags that you apply to the resource to help you categorize and
 #' organize your resources. Each tag consists of a key and an optional
 #' value. For more information, see [Tagging Amazon Web Services
-#' Resources](https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html)
+#' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
 #' in *Amazon Web Services General Reference*.
 #'
 #' @keywords internal
@@ -1003,7 +1030,7 @@ batch_tag_resource <- function(resourceArn, tags) {
 #' @description
 #' Terminates a job in a job queue. Jobs that are in the `STARTING` or `RUNNING` state are terminated, which causes them to transition to `FAILED`. Jobs that have not progressed to the `STARTING` state are cancelled.
 #'
-#' See [https://paws-r.github.io/docs/batch/terminate_job.html](https://paws-r.github.io/docs/batch/terminate_job.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_terminate_job/](https://www.paws-r-sdk.com/docs/batch_terminate_job/) for full documentation.
 #'
 #' @param jobId &#91;required&#93; The Batch job ID of the job to terminate.
 #' @param reason &#91;required&#93; A message to attach to the job that explains the reason for canceling
@@ -1036,12 +1063,12 @@ batch_terminate_job <- function(jobId, reason) {
 #' @description
 #' Deletes specified tags from an Batch resource.
 #'
-#' See [https://paws-r.github.io/docs/batch/untag_resource.html](https://paws-r.github.io/docs/batch/untag_resource.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_untag_resource/](https://www.paws-r-sdk.com/docs/batch_untag_resource/) for full documentation.
 #'
 #' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource from which to delete
 #' tags. Batch resources that support tags are compute environments, jobs,
 #' job definitions, job queues, and scheduling policies. ARNs for child
-#' jobs of array and multi-node parallel (MNP) jobs are not supported.
+#' jobs of array and multi-node parallel (MNP) jobs aren't supported.
 #' @param tagKeys &#91;required&#93; The keys of the tags to be removed.
 #'
 #' @keywords internal
@@ -1069,7 +1096,7 @@ batch_untag_resource <- function(resourceArn, tagKeys) {
 #' @description
 #' Updates an Batch compute environment.
 #'
-#' See [https://paws-r.github.io/docs/batch/update_compute_environment.html](https://paws-r.github.io/docs/batch/update_compute_environment.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_update_compute_environment/](https://www.paws-r-sdk.com/docs/batch_update_compute_environment/) for full documentation.
 #'
 #' @param computeEnvironment &#91;required&#93; The name or full Amazon Resource Name (ARN) of the compute environment
 #' to update.
@@ -1085,14 +1112,24 @@ batch_untag_resource <- function(resourceArn, tagKeys) {
 #' If the state is `DISABLED`, then the Batch scheduler doesn't attempt to
 #' place jobs within the environment. Jobs in a `STARTING` or `RUNNING`
 #' state continue to progress normally. Managed compute environments in the
-#' `DISABLED` state don't scale out. However, they scale in to `minvCpus`
-#' value after instances become idle.
+#' `DISABLED` state don't scale out.
+#' 
+#' Compute environments in a `DISABLED` state may continue to incur billing
+#' charges. To prevent additional charges, turn off and then delete the
+#' compute environment. For more information, see
+#' [State](https://docs.aws.amazon.com/batch/latest/userguide/compute_environment_parameters.html#compute_environment_state)
+#' in the *Batch User Guide*.
+#' 
+#' When an instance is idle, the instance scales down to the `minvCpus`
+#' value. However, the instance size doesn't change. For example, consider
+#' a `c5.8xlarge` instance with a `minvCpus` value of `4` and a
+#' `desiredvCpus` value of `36`. This instance doesn't scale down to a
+#' `c5.large` instance.
 #' @param unmanagedvCpus The maximum number of vCPUs expected to be used for an unmanaged compute
-#' environment. Do not specify this parameter for a managed compute
+#' environment. Don't specify this parameter for a managed compute
 #' environment. This parameter is only used for fair share scheduling to
-#' reserve vCPU capacity for new share identifiers. If this parameter is
-#' not provided for a fair share job queue, no vCPU capacity will be
-#' reserved.
+#' reserve vCPU capacity for new share identifiers. If this parameter isn't
+#' provided for a fair share job queue, no vCPU capacity is reserved.
 #' @param computeResources Details of the compute resources managed by the compute environment.
 #' Required for a managed compute environment. For more information, see
 #' [Compute
@@ -1155,7 +1192,7 @@ batch_update_compute_environment <- function(computeEnvironment, state = NULL, u
 #' @description
 #' Updates a job queue.
 #'
-#' See [https://paws-r.github.io/docs/batch/update_job_queue.html](https://paws-r.github.io/docs/batch/update_job_queue.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_update_job_queue/](https://www.paws-r-sdk.com/docs/batch_update_job_queue/) for full documentation.
 #'
 #' @param jobQueue &#91;required&#93; The name or the Amazon Resource Name (ARN) of the job queue.
 #' @param state Describes the queue's ability to accept new jobs. If the job queue state
@@ -1167,7 +1204,7 @@ batch_update_compute_environment <- function(computeEnvironment, state = NULL, u
 #' but not removed. The format is
 #' `aws:Partition:batch:Region:Account:scheduling-policy/Name `. For
 #' example,
-#' `aws:aws:batch:us-west-2:012345678910:scheduling-policy/MySchedulingPolicy`.
+#' `aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy`.
 #' @param priority The priority of the job queue. Job queues with a higher priority (or a
 #' higher integer value for the `priority` parameter) are evaluated first
 #' when associated with the same compute environment. Priority is
@@ -1213,7 +1250,7 @@ batch_update_job_queue <- function(jobQueue, state = NULL, schedulingPolicyArn =
 #' @description
 #' Updates a scheduling policy.
 #'
-#' See [https://paws-r.github.io/docs/batch/update_scheduling_policy.html](https://paws-r.github.io/docs/batch/update_scheduling_policy.html) for full documentation.
+#' See [https://www.paws-r-sdk.com/docs/batch_update_scheduling_policy/](https://www.paws-r-sdk.com/docs/batch_update_scheduling_policy/) for full documentation.
 #'
 #' @param arn &#91;required&#93; The Amazon Resource Name (ARN) of the scheduling policy to update.
 #' @param fairsharePolicy The fair share policy.

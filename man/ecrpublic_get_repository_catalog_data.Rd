@@ -7,15 +7,15 @@
 ecrpublic_get_repository_catalog_data(registryId = NULL, repositoryName)
 }
 \arguments{
-\item{registryId}{The AWS account ID associated with the registry that contains the
-repositories to be described. If you do not specify a registry, the
-default public registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID that's associated with the registry
+that contains the repositories to be described. If you do not specify a
+registry, the default public registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository to retrieve the catalog metadata for.}
 }
 \description{
 Retrieve catalog metadata for a repository in a public registry. This metadata is displayed publicly in the Amazon ECR Public Gallery.
 
-See \url{https://paws-r.github.io/docs/ecrpublic/get_repository_catalog_data.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ecrpublic_get_repository_catalog_data/} for full documentation.
 }
 \keyword{internal}

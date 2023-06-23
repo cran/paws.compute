@@ -4,7 +4,11 @@
 \alias{lightsail_get_blueprints}
 \title{Returns the list of available instance images, or blueprints}
 \usage{
-lightsail_get_blueprints(includeInactive = NULL, pageToken = NULL)
+lightsail_get_blueprints(
+  includeInactive = NULL,
+  pageToken = NULL,
+  appCategory = NULL
+)
 }
 \arguments{
 \item{includeInactive}{A Boolean value that indicates whether to include inactive (unavailable)
@@ -16,10 +20,15 @@ To get a page token, perform an initial
 \code{\link[=lightsail_get_blueprints]{get_blueprints}} request. If your results
 are paginated, the response will return a next page token that you can
 specify as the page token in a subsequent request.}
+
+\item{appCategory}{Returns a list of blueprints that are specific to Lightsail for
+Research.
+
+You must use this parameter to view Lightsail for Research blueprints.}
 }
 \description{
 Returns the list of available instance images, or \emph{blueprints}. You can use a blueprint to create a new instance already running a specific operating system, as well as a preinstalled app or development stack. The software each instance is running depends on the blueprint image you choose.
 
-See \url{https://paws-r.github.io/docs/lightsail/get_blueprints.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lightsail_get_blueprints/} for full documentation.
 }
 \keyword{internal}

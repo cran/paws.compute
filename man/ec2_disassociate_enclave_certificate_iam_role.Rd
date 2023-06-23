@@ -5,15 +5,15 @@
 \title{Disassociates an IAM role from an Certificate Manager (ACM) certificate}
 \usage{
 ec2_disassociate_enclave_certificate_iam_role(
-  CertificateArn = NULL,
-  RoleArn = NULL,
+  CertificateArn,
+  RoleArn,
   DryRun = NULL
 )
 }
 \arguments{
-\item{CertificateArn}{The ARN of the ACM certificate from which to disassociate the IAM role.}
+\item{CertificateArn}{[required] The ARN of the ACM certificate from which to disassociate the IAM role.}
 
-\item{RoleArn}{The ARN of the IAM role to disassociate.}
+\item{RoleArn}{[required] The ARN of the IAM role to disassociate.}
 
 \item{DryRun}{Checks whether you have the required permissions for the action, without
 actually making the request, and provides an error response. If you have
@@ -23,6 +23,6 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Disassociates an IAM role from an Certificate Manager (ACM) certificate. Disassociating an IAM role from an ACM certificate removes the Amazon S3 object that contains the certificate, certificate chain, and encrypted private key from the Amazon S3 bucket. It also revokes the IAM role's permission to use the KMS key used to encrypt the private key. This effectively revokes the role's permission to use the certificate.
 
-See \url{https://paws-r.github.io/docs/ec2/disassociate_enclave_certificate_iam_role.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_disassociate_enclave_certificate_iam_role/} for full documentation.
 }
 \keyword{internal}

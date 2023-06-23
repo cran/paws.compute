@@ -5,6 +5,7 @@
 \title{Update a service instance}
 \usage{
 proton_update_service_instance(
+  clientToken = NULL,
   deploymentType,
   name,
   serviceName,
@@ -14,6 +15,8 @@ proton_update_service_instance(
 )
 }
 \arguments{
+\item{clientToken}{The client token of the service instance to update.}
+
 \item{deploymentType}{[required] The deployment type. It defines the mode for updating a service
 instance, as follows:
 
@@ -56,6 +59,6 @@ higher than the major version in use and a minor version.}
 \description{
 Update a service instance.
 
-See \url{https://paws-r.github.io/docs/proton/update_service_instance.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/proton_update_service_instance/} for full documentation.
 }
 \keyword{internal}

@@ -11,10 +11,10 @@ lambda_delete_function_url_config(FunctionName, Qualifier = NULL)
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} - \verb{my-function}.
-\item \strong{Function ARN} -
+\item \strong{Function name} – \verb{my-function}.
+\item \strong{Function ARN} –
 \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
-\item \strong{Partial ARN} - \verb{123456789012:function:my-function}.
+\item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
 The length constraint applies only to the full ARN. If you specify only
@@ -25,6 +25,6 @@ the function name, it is limited to 64 characters in length.}
 \description{
 Deletes a Lambda function URL. When you delete a function URL, you can't recover it. Creating a new function URL results in a different URL address.
 
-See \url{https://paws-r.github.io/docs/lambda/delete_function_url_config.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_delete_function_url_config/} for full documentation.
 }
 \keyword{internal}

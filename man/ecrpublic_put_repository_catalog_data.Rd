@@ -12,9 +12,9 @@ ecrpublic_put_repository_catalog_data(
 )
 }
 \arguments{
-\item{registryId}{The AWS account ID associated with the public registry the repository is
-in. If you do not specify a registry, the default public registry is
-assumed.}
+\item{registryId}{The Amazon Web Services account ID that's associated with the public
+registry the repository is in. If you do not specify a registry, the
+default public registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository to create or update the catalog data for.}
 
@@ -24,6 +24,6 @@ publicly visible in the Amazon ECR Public Gallery.}
 \description{
 Creates or updates the catalog data for a repository in a public registry.
 
-See \url{https://paws-r.github.io/docs/ecrpublic/put_repository_catalog_data.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ecrpublic_put_repository_catalog_data/} for full documentation.
 }
 \keyword{internal}

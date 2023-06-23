@@ -42,14 +42,14 @@ processing.
 \strong{Destinations}
 \itemize{
 \item \strong{Function} - The Amazon Resource Name (ARN) of a Lambda function.
-\item \strong{Queue} - The ARN of an SQS queue.
-\item \strong{Topic} - The ARN of an SNS topic.
+\item \strong{Queue} - The ARN of a standard SQS queue.
+\item \strong{Topic} - The ARN of a standard SNS topic.
 \item \strong{Event Bus} - The ARN of an Amazon EventBridge event bus.
 }}
 }
 \description{
 Updates the configuration for asynchronous invocation for a function, version, or alias.
 
-See \url{https://paws-r.github.io/docs/lambda/update_function_event_invoke_config.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lambda_update_function_event_invoke_config/} for full documentation.
 }
 \keyword{internal}

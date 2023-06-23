@@ -17,11 +17,25 @@ ec2_describe_network_insights_paths(
 
 \item{Filters}{The filters. The following are the possible values:
 \itemize{
-\item Destination - The ID of the resource.
-\item DestinationPort - The destination port.
-\item Name - The path name.
-\item Protocol - The protocol.
-\item Source - The ID of the resource.
+\item destination - The ID of the resource.
+\item filter-at-source.source-address - The source IPv4 address at the
+source.
+\item filter-at-source.source-port-range - The source port range at the
+source.
+\item filter-at-source.destination-address - The destination IPv4 address
+at the source.
+\item filter-at-source.destination-port-range - The destination port range
+at the source.
+\item filter-at-destination.source-address - The source IPv4 address at
+the destination.
+\item filter-at-destination.source-port-range - The source port range at
+the destination.
+\item filter-at-destination.destination-address - The destination IPv4
+address at the destination.
+\item filter-at-destination.destination-port-range - The destination port
+range at the destination.
+\item protocol - The protocol.
+\item source - The ID of the resource.
 }}
 
 \item{MaxResults}{The maximum number of results to return with a single call. To retrieve
@@ -38,6 +52,6 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Describes one or more of your paths.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_network_insights_paths.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_network_insights_paths/} for full documentation.
 }
 \keyword{internal}

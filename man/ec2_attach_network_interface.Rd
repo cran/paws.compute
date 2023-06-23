@@ -9,7 +9,8 @@ ec2_attach_network_interface(
   DryRun = NULL,
   InstanceId,
   NetworkInterfaceId,
-  NetworkCardIndex = NULL
+  NetworkCardIndex = NULL,
+  EnaSrdSpecification = NULL
 )
 }
 \arguments{
@@ -27,10 +28,13 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item{NetworkCardIndex}{The index of the network card. Some instance types support multiple
 network cards. The primary network interface must be assigned to network
 card index 0. The default is network card index 0.}
+
+\item{EnaSrdSpecification}{Configures ENA Express for the network interface that this action
+attaches to the instance.}
 }
 \description{
 Attaches a network interface to an instance.
 
-See \url{https://paws-r.github.io/docs/ec2/attach_network_interface.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_attach_network_interface/} for full documentation.
 }
 \keyword{internal}

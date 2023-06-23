@@ -164,11 +164,11 @@ your tags per resource limit.
 definition to run. If a \code{revision} isn't specified, the latest \code{ACTIVE}
 revision is used.
 
-When you create an IAM policy for run-task, you can set the resource to
-be the latest task definition revision, or a specific revision.
+When you create a policy for run-task, you can set the resource to be
+the latest task definition revision, or a specific revision.
 
 The full ARN value must match the value that you specified as the
-\code{Resource} of the IAM principal's permissions policy.
+\code{Resource} of the principal's permissions policy.
 
 When you specify the policy resource as the latest task definition
 version (by setting the \code{Resource} in the policy to
@@ -189,6 +189,6 @@ in the Amazon Elastic Container Service developer Guide.}
 \description{
 Starts a new task using the specified task definition.
 
-See \url{https://paws-r.github.io/docs/ecs/run_task.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ecs_run_task/} for full documentation.
 }
 \keyword{internal}

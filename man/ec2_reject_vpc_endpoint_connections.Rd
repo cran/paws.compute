@@ -2,8 +2,7 @@
 % Please edit documentation in R/ec2_operations.R
 \name{ec2_reject_vpc_endpoint_connections}
 \alias{ec2_reject_vpc_endpoint_connections}
-\title{Rejects one or more VPC endpoint connection requests to your VPC
-endpoint service}
+\title{Rejects VPC endpoint connection requests to your VPC endpoint service}
 \usage{
 ec2_reject_vpc_endpoint_connections(DryRun = NULL, ServiceId, VpcEndpointIds)
 }
@@ -15,11 +14,11 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ServiceId}{[required] The ID of the service.}
 
-\item{VpcEndpointIds}{[required] The IDs of one or more VPC endpoints.}
+\item{VpcEndpointIds}{[required] The IDs of the VPC endpoints.}
 }
 \description{
-Rejects one or more VPC endpoint connection requests to your VPC endpoint service.
+Rejects VPC endpoint connection requests to your VPC endpoint service.
 
-See \url{https://paws-r.github.io/docs/ec2/reject_vpc_endpoint_connections.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_reject_vpc_endpoint_connections/} for full documentation.
 }
 \keyword{internal}

@@ -57,12 +57,16 @@ Default: Describes all your instances.
 
 Constraints: Maximum 100 explicitly specified instance IDs.}
 
-\item{MaxResults}{The maximum number of results to return in a single call. To retrieve
-the remaining results, make another call with the returned \code{NextToken}
-value. This value can be between 5 and 1000. You cannot specify this
-parameter and the instance IDs parameter in the same call.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next
+page of items, make another request with the token returned in the
+output. For more information, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.
 
-\item{NextToken}{The token to retrieve the next page of results.}
+You cannot specify this parameter and the instance IDs parameter in the
+same request.}
+
+\item{NextToken}{The token returned from a previous paginated request. Pagination
+continues from the end of the items returned by the previous request.}
 
 \item{DryRun}{Checks whether you have the required permissions for the action, without
 actually making the request, and provides an error response. If you have
@@ -77,6 +81,6 @@ Default: \code{false}}
 \description{
 Describes the status of the specified instances or all of your instances. By default, only running instances are described, unless you specifically indicate to return the status of all instances.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_instance_status.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_instance_status/} for full documentation.
 }
 \keyword{internal}

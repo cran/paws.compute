@@ -21,9 +21,9 @@ network interface.}
 
 \item{NetworkInterfaceId}{[required] The ID of the network interface.}
 
-\item{PrivateIpAddresses}{One or more IP addresses to be assigned as a secondary private IP
-address to the network interface. You can't specify this parameter when
-also specifying a number of secondary IP addresses.
+\item{PrivateIpAddresses}{The IP addresses to be assigned as a secondary private IP address to the
+network interface. You can't specify this parameter when also specifying
+a number of secondary IP addresses.
 
 If you don't specify an IP address, Amazon EC2 automatically selects an
 IP address within the subnet range.}
@@ -42,6 +42,6 @@ the \verb{Ipv4 Prefixes} option.}
 \description{
 Assigns one or more secondary private IP addresses to the specified network interface.
 
-See \url{https://paws-r.github.io/docs/ec2/assign_private_ip_addresses.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_assign_private_ip_addresses/} for full documentation.
 }
 \keyword{internal}

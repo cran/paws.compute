@@ -19,9 +19,9 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ServiceIds}{The IDs of one or more services.}
+\item{ServiceIds}{The IDs of the endpoint services.}
 
-\item{Filters}{One or more filters.
+\item{Filters}{The filters.
 \itemize{
 \item \code{service-name} - The name of the service.
 \item \code{service-id} - The ID of the service.
@@ -50,6 +50,6 @@ can be between 5 and 1,000; if \code{MaxResults} is given a value larger than
 \description{
 Describes the VPC endpoint service configurations in your account (your services).
 
-See \url{https://paws-r.github.io/docs/ec2/describe_vpc_endpoint_service_configurations.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_vpc_endpoint_service_configurations/} for full documentation.
 }
 \keyword{internal}

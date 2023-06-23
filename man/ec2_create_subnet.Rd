@@ -2,7 +2,7 @@
 % Please edit documentation in R/ec2_operations.R
 \name{ec2_create_subnet}
 \alias{ec2_create_subnet}
-\title{Creates a subnet in a specified VPC}
+\title{Creates a subnet in the specified VPC}
 \usage{
 ec2_create_subnet(
   TagSpecifications = NULL,
@@ -60,8 +60,8 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item{Ipv6Native}{Indicates whether to create an IPv6 only subnet.}
 }
 \description{
-Creates a subnet in a specified VPC.
+Creates a subnet in the specified VPC. For an IPv4 only subnet, specify an IPv4 CIDR block. If the VPC has an IPv6 CIDR block, you can create an IPv6 only subnet or a dual stack subnet instead. For an IPv6 only subnet, specify an IPv6 CIDR block. For a dual stack subnet, specify both an IPv4 CIDR block and an IPv6 CIDR block.
 
-See \url{https://paws-r.github.io/docs/ec2/create_subnet.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_create_subnet/} for full documentation.
 }
 \keyword{internal}

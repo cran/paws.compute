@@ -19,9 +19,9 @@ ecs_list_account_settings(
 \item{value}{The value of the account settings to filter results with. You must also
 specify an account setting name to use this parameter.}
 
-\item{principalArn}{The ARN of the principal, which can be an IAM user, IAM role, or the
-root user. If this field is omitted, the account settings are listed
-only for the authenticated user.
+\item{principalArn}{The ARN of the principal, which can be a user, role, or the root user.
+If this field is omitted, the account settings are listed only for the
+authenticated user.
 
 Federated users assume the account setting of the root user and can't
 have explicit account settings set for them.}
@@ -57,6 +57,6 @@ results and a \code{nextToken} value if applicable.}
 \description{
 Lists the account settings for a specified principal.
 
-See \url{https://paws-r.github.io/docs/ecs/list_account_settings.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ecs_list_account_settings/} for full documentation.
 }
 \keyword{internal}

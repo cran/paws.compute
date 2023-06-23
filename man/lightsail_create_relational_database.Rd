@@ -64,7 +64,7 @@ underscores, or digits (0- 9).
 \item Can't be a word reserved by the specified database engine.
 
 For more information about reserved words in MySQL, see the Keywords
-and Reserved Words articles for \href{https://dev.mysql.com/doc/refman/5.6/en/keywords.html}{MySQL 5.6}, \href{https://dev.mysql.com/doc/refman/5.7/en/keywords.html}{MySQL 5.7}, and
+and Reserved Words articles for \href{https://dev.mysql.com/doc/refman/8.0/en/keywords.html}{MySQL 5.6}, \href{https://dev.mysql.com/doc/refman/5.7/en/keywords.html}{MySQL 5.7}, and
 \href{https://dev.mysql.com/doc/refman/8.0/en/keywords.html}{MySQL 8.0}.
 }
 
@@ -100,7 +100,7 @@ Constraints:
 \item Can't be a reserved word for the chosen database engine.
 
 For more information about reserved words in MySQL 5.6 or 5.7, see
-the Keywords and Reserved Words articles for \href{https://dev.mysql.com/doc/refman/5.6/en/keywords.html}{MySQL 5.6}, \href{https://dev.mysql.com/doc/refman/5.7/en/keywords.html}{MySQL 5.7}, or
+the Keywords and Reserved Words articles for \href{https://dev.mysql.com/doc/refman/8.0/en/keywords.html}{MySQL 5.6}, \href{https://dev.mysql.com/doc/refman/5.7/en/keywords.html}{MySQL 5.7}, or
 \href{https://dev.mysql.com/doc/refman/8.0/en/keywords.html}{MySQL 8.0}.
 }
 
@@ -137,8 +137,7 @@ new database if automated backups are enabled.
 The default is a 30-minute window selected at random from an 8-hour
 block of time for each AWS Region. For more information about the
 preferred backup window time blocks for each region, see the \href{https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow}{Working With Backups}
-guide in the Amazon Relational Database Service (Amazon RDS)
-documentation.
+guide in the Amazon Relational Database Service documentation.
 
 Constraints:
 \itemize{
@@ -180,6 +179,6 @@ resource after it's created.}
 \description{
 Creates a new database in Amazon Lightsail.
 
-See \url{https://paws-r.github.io/docs/lightsail/create_relational_database.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lightsail_create_relational_database/} for full documentation.
 }
 \keyword{internal}

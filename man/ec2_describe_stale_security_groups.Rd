@@ -18,18 +18,19 @@ actually making the request, and provides an error response. If you have
 the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{MaxResults}{The maximum number of items to return for this request. The request
-returns a token that you can specify in a subsequent call to get the
-next set of results.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next
+page of items, make another request with the token returned in the
+output. For more information, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token for the next set of items to return. (You received this token
-from a prior call.)}
+\item{NextToken}{The token returned from a previous paginated request. Pagination
+continues from the end of the items returned by the previous request.}
 
 \item{VpcId}{[required] The ID of the VPC.}
 }
 \description{
 [VPC only] Describes the stale security group rules for security groups in a specified VPC. Rules are stale when they reference a deleted security group in the same VPC or in a peer VPC, or if they reference a security group in a peer VPC for which the VPC peering connection has been deleted.
 
-See \url{https://paws-r.github.io/docs/ec2/describe_stale_security_groups.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_describe_stale_security_groups/} for full documentation.
 }
 \keyword{internal}

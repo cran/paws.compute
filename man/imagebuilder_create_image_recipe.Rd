@@ -39,7 +39,7 @@ assignment requirements for the nodes that you can assign. For example,
 you might choose a software version pattern, such as 1.0.0, or a date,
 such as 2021.01.01.}
 
-\item{components}{[required] The components of the image recipe.}
+\item{components}{[required] The components included in the image recipe.}
 
 \item{parentImage}{[required] The base image of the image recipe. The value of the string can be the
 ARN of the base image or an AMI ID. The format for the ARN follows this
@@ -63,6 +63,6 @@ the same Region in which you are using Image Builder.}
 \description{
 Creates a new image recipe. Image recipes define how images are configured, tested, and assessed.
 
-See \url{https://paws-r.github.io/docs/imagebuilder/create_image_recipe.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/imagebuilder_create_image_recipe/} for full documentation.
 }
 \keyword{internal}

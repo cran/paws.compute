@@ -55,11 +55,13 @@ idempotency of the request. For more information, see \href{https://docs.aws.ama
 
 \item{PreviewNextCidr}{A preview of the next available CIDR in a pool.}
 
-\item{DisallowedCidrs}{Exclude a particular CIDR range from being returned by the pool.}
+\item{DisallowedCidrs}{Exclude a particular CIDR range from being returned by the pool.
+Disallowed CIDRs are only allowed if using netmask length for
+allocation.}
 }
 \description{
-Allocate a CIDR from an IPAM pool. In IPAM, an allocation is a CIDR assignment from an IPAM pool to another resource or IPAM pool. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/allocate-cidrs-ipam.html}{Allocate CIDRs} in the \emph{Amazon VPC IPAM User Guide}.
+Allocate a CIDR from an IPAM pool. The Region you use should be the IPAM pool locale. The locale is the Amazon Web Services Region where this IPAM pool is available for allocations.
 
-See \url{https://paws-r.github.io/docs/ec2/allocate_ipam_pool_cidr.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_allocate_ipam_pool_cidr/} for full documentation.
 }
 \keyword{internal}

@@ -17,6 +17,7 @@ ec2_search_local_gateway_routes(
 
 \item{Filters}{One or more filters.
 \itemize{
+\item \code{prefix-list-id} - The ID of the prefix list.
 \item \code{route-search.exact-match} - The exact match of the specified
 filter.
 \item \code{route-search.longest-prefix-match} - The longest prefix that
@@ -46,6 +47,6 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \description{
 Searches for routes in the specified local gateway route table.
 
-See \url{https://paws-r.github.io/docs/ec2/search_local_gateway_routes.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/ec2_search_local_gateway_routes/} for full documentation.
 }
 \keyword{internal}

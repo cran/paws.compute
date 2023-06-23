@@ -22,8 +22,9 @@ of its default domain. The default domain of a container service is
 typically
 \verb{https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com}.
 If the name of your container service is \code{container-service-1}, and it's
-located in the US East (Ohio) AWS region (\code{us-east-2}), then the domain
-for your container service will be like the following example:
+located in the US East (Ohio) Amazon Web Services Region (\code{us-east-2}),
+then the domain for your container service will be like the following
+example:
 \verb{https://container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com}
 
 The following are the requirements for container service names:
@@ -106,6 +107,6 @@ Lightsail Developer Guide}.}
 \description{
 Creates an Amazon Lightsail container service.
 
-See \url{https://paws-r.github.io/docs/lightsail/create_container_service.html} for full documentation.
+See \url{https://www.paws-r-sdk.com/docs/lightsail_create_container_service/} for full documentation.
 }
 \keyword{internal}
