@@ -7,7 +7,7 @@ NULL
 #' layer
 #'
 #' @description
-#' Adds permissions to the resource-based policy of a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html). Use this action to grant layer usage permission to other accounts. You can grant permission to a single account, all accounts in an organization, or all Amazon Web Services accounts.
+#' Adds permissions to the resource-based policy of a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html). Use this action to grant layer usage permission to other accounts. You can grant permission to a single account, all accounts in an organization, or all Amazon Web Services accounts.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_add_layer_version_permission/](https://www.paws-r-sdk.com/docs/lambda_add_layer_version_permission/) for full documentation.
 #'
@@ -287,11 +287,11 @@ lambda_create_code_signing_config <- function(Description = NULL, AllowedPublish
 #' @param ParallelizationFactor (Kinesis and DynamoDB Streams only) The number of batches to process
 #' from each shard concurrently.
 #' @param StartingPosition The position in a stream from which to start reading. Required for
-#' Amazon Kinesis, Amazon DynamoDB, and Amazon MSK Streams sources.
-#' `AT_TIMESTAMP` is supported only for Amazon Kinesis streams and Amazon
-#' DocumentDB.
+#' Amazon Kinesis and Amazon DynamoDB Stream event sources. `AT_TIMESTAMP`
+#' is supported only for Amazon Kinesis streams, Amazon DocumentDB, Amazon
+#' MSK, and self-managed Apache Kafka.
 #' @param StartingPositionTimestamp With `StartingPosition` set to `AT_TIMESTAMP`, the time from which to
-#' start reading.
+#' start reading. `StartingPositionTimestamp` cannot be in the future.
 #' @param DestinationConfig (Kinesis and DynamoDB Streams only) A standard Amazon SQS queue or
 #' standard Amazon SNS topic destination for discarded records.
 #' @param MaximumRecordAgeInSeconds (Kinesis and DynamoDB Streams only) Discard records older than the
@@ -420,12 +420,12 @@ lambda_create_event_source_mapping <- function(EventSourceArn = NULL, FunctionNa
 #' [tags](https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html)
 #' to apply to the function.
 #' @param Layers A list of [function
-#' layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
+#' layers](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html)
 #' to add to the function's execution environment. Specify each layer by
 #' its ARN, including the version.
 #' @param FileSystemConfigs Connection settings for an Amazon EFS file system.
 #' @param ImageConfig Container image [configuration
-#' values](https://docs.aws.amazon.com/lambda/latest/dg/#configuration-images-settings)
+#' values](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#configuration-images-settings)
 #' that override the values in the container image Dockerfile.
 #' @param CodeSigningConfigArn To enable code signing for this function, specify the ARN of a
 #' code-signing configuration. A code-signing configuration includes a set
@@ -628,7 +628,7 @@ lambda_delete_event_source_mapping <- function(UUID) {
 #' Deletes a Lambda function
 #'
 #' @description
-#' Deletes a Lambda function. To delete a specific function version, use the `Qualifier` parameter. Otherwise, all versions and aliases are deleted.
+#' Deletes a Lambda function. To delete a specific function version, use the `Qualifier` parameter. Otherwise, all versions and aliases are deleted. This doesn't require the user to have explicit permissions for [`delete_alias`][lambda_delete_alias].
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_delete_function/](https://www.paws-r-sdk.com/docs/lambda_delete_function/) for full documentation.
 #'
@@ -842,7 +842,7 @@ lambda_delete_function_url_config <- function(FunctionName, Qualifier = NULL) {
 #' Deletes a version of an Lambda layer
 #'
 #' @description
-#' Deletes a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html). Deleted versions can no longer be viewed or added to functions. To avoid breaking functions, a copy of the version remains in Lambda until no functions refer to it.
+#' Deletes a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html). Deleted versions can no longer be viewed or added to functions. To avoid breaking functions, a copy of the version remains in Lambda until no functions refer to it.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_delete_layer_version/](https://www.paws-r-sdk.com/docs/lambda_delete_layer_version/) for full documentation.
 #'
@@ -1304,7 +1304,7 @@ lambda_get_function_url_config <- function(FunctionName, Qualifier = NULL) {
 #' download the layer archive that's valid for 10 minutes
 #'
 #' @description
-#' Returns information about a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html), with a link to download the layer archive that's valid for 10 minutes.
+#' Returns information about a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html), with a link to download the layer archive that's valid for 10 minutes.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_get_layer_version/](https://www.paws-r-sdk.com/docs/lambda_get_layer_version/) for full documentation.
 #'
@@ -1335,7 +1335,7 @@ lambda_get_layer_version <- function(LayerName, VersionNumber) {
 #' download the layer archive that's valid for 10 minutes
 #'
 #' @description
-#' Returns information about a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html), with a link to download the layer archive that's valid for 10 minutes.
+#' Returns information about a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html), with a link to download the layer archive that's valid for 10 minutes.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_get_layer_version_by_arn/](https://www.paws-r-sdk.com/docs/lambda_get_layer_version_by_arn/) for full documentation.
 #'
@@ -1364,7 +1364,7 @@ lambda_get_layer_version_by_arn <- function(Arn) {
 #' Returns the permission policy for a version of an Lambda layer
 #'
 #' @description
-#' Returns the permission policy for a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html). For more information, see [`add_layer_version_permission`][lambda_add_layer_version_permission].
+#' Returns the permission policy for a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html). For more information, see [`add_layer_version_permission`][lambda_add_layer_version_permission].
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_get_layer_version_policy/](https://www.paws-r-sdk.com/docs/lambda_get_layer_version_policy/) for full documentation.
 #'
@@ -1726,7 +1726,7 @@ lambda_list_aliases <- function(FunctionName, FunctionVersion = NULL, Marker = N
     name = "ListAliases",
     http_method = "GET",
     http_path = "/2015-03-31/functions/{FunctionName}/aliases",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Aliases")
   )
   input <- .lambda$list_aliases_input(FunctionName = FunctionName, FunctionVersion = FunctionVersion, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_aliases_output()
@@ -1757,7 +1757,7 @@ lambda_list_code_signing_configs <- function(Marker = NULL, MaxItems = NULL) {
     name = "ListCodeSigningConfigs",
     http_method = "GET",
     http_path = "/2020-04-22/code-signing-configs/",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "CodeSigningConfigs")
   )
   input <- .lambda$list_code_signing_configs_input(Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_code_signing_configs_output()
@@ -1820,7 +1820,7 @@ lambda_list_event_source_mappings <- function(EventSourceArn = NULL, FunctionNam
     name = "ListEventSourceMappings",
     http_method = "GET",
     http_path = "/2015-03-31/event-source-mappings/",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "EventSourceMappings")
   )
   input <- .lambda$list_event_source_mappings_input(EventSourceArn = EventSourceArn, FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_event_source_mappings_output()
@@ -1865,7 +1865,7 @@ lambda_list_function_event_invoke_configs <- function(FunctionName, Marker = NUL
     name = "ListFunctionEventInvokeConfigs",
     http_method = "GET",
     http_path = "/2019-09-25/functions/{FunctionName}/event-invoke-config/list",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionEventInvokeConfigs")
   )
   input <- .lambda$list_function_event_invoke_configs_input(FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_function_event_invoke_configs_output()
@@ -1912,7 +1912,7 @@ lambda_list_function_url_configs <- function(FunctionName, Marker = NULL, MaxIte
     name = "ListFunctionUrlConfigs",
     http_method = "GET",
     http_path = "/2021-10-31/functions/{FunctionName}/urls",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionUrlConfigs")
   )
   input <- .lambda$list_function_url_configs_input(FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_function_url_configs_output()
@@ -1953,7 +1953,7 @@ lambda_list_functions <- function(MasterRegion = NULL, FunctionVersion = NULL, M
     name = "ListFunctions",
     http_method = "GET",
     http_path = "/2015-03-31/functions/",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Functions")
   )
   input <- .lambda$list_functions_input(MasterRegion = MasterRegion, FunctionVersion = FunctionVersion, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_functions_output()
@@ -1985,7 +1985,7 @@ lambda_list_functions_by_code_signing_config <- function(CodeSigningConfigArn, M
     name = "ListFunctionsByCodeSigningConfig",
     http_method = "GET",
     http_path = "/2020-04-22/code-signing-configs/{CodeSigningConfigArn}/functions",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionArns")
   )
   input <- .lambda$list_functions_by_code_signing_config_input(CodeSigningConfigArn = CodeSigningConfigArn, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_functions_by_code_signing_config_output()
@@ -2000,7 +2000,7 @@ lambda_list_functions_by_code_signing_config <- function(CodeSigningConfigArn, M
 #' Lists the versions of an Lambda layer
 #'
 #' @description
-#' Lists the versions of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html). Versions that have been deleted aren't listed. Specify a [runtime identifier](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html) to list only versions that indicate that they're compatible with that runtime. Specify a compatible architecture to include only layer versions that are compatible with that architecture.
+#' Lists the versions of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html). Versions that have been deleted aren't listed. Specify a [runtime identifier](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html) to list only versions that indicate that they're compatible with that runtime. Specify a compatible architecture to include only layer versions that are compatible with that architecture.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_list_layer_versions/](https://www.paws-r-sdk.com/docs/lambda_list_layer_versions/) for full documentation.
 #'
@@ -2023,7 +2023,7 @@ lambda_list_layer_versions <- function(CompatibleRuntime = NULL, LayerName, Mark
     name = "ListLayerVersions",
     http_method = "GET",
     http_path = "/2018-10-31/layers/{LayerName}/versions",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "LayerVersions")
   )
   input <- .lambda$list_layer_versions_input(CompatibleRuntime = CompatibleRuntime, LayerName = LayerName, Marker = Marker, MaxItems = MaxItems, CompatibleArchitecture = CompatibleArchitecture)
   output <- .lambda$list_layer_versions_output()
@@ -2039,7 +2039,7 @@ lambda_list_layer_versions <- function(CompatibleRuntime = NULL, LayerName, Mark
 #' each
 #'
 #' @description
-#' Lists [Lambda layers](https://docs.aws.amazon.com/lambda/latest/dg/invocation-layers.html) and shows information about the latest version of each. Specify a [runtime identifier](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html) to list only layers that indicate that they're compatible with that runtime. Specify a compatible architecture to include only layers that are compatible with that [instruction set architecture](https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html).
+#' Lists [Lambda layers](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html) and shows information about the latest version of each. Specify a [runtime identifier](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html) to list only layers that indicate that they're compatible with that runtime. Specify a compatible architecture to include only layers that are compatible with that [instruction set architecture](https://docs.aws.amazon.com/lambda/latest/dg/foundation-arch.html).
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_list_layers/](https://www.paws-r-sdk.com/docs/lambda_list_layers/) for full documentation.
 #'
@@ -2061,7 +2061,7 @@ lambda_list_layers <- function(CompatibleRuntime = NULL, Marker = NULL, MaxItems
     name = "ListLayers",
     http_method = "GET",
     http_path = "/2018-10-31/layers",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Layers")
   )
   input <- .lambda$list_layers_input(CompatibleRuntime = CompatibleRuntime, Marker = Marker, MaxItems = MaxItems, CompatibleArchitecture = CompatibleArchitecture)
   output <- .lambda$list_layers_output()
@@ -2106,7 +2106,7 @@ lambda_list_provisioned_concurrency_configs <- function(FunctionName, Marker = N
     name = "ListProvisionedConcurrencyConfigs",
     http_method = "GET",
     http_path = "/2019-09-30/functions/{FunctionName}/provisioned-concurrency?List=ALL",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "ProvisionedConcurrencyConfigs")
   )
   input <- .lambda$list_provisioned_concurrency_configs_input(FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_provisioned_concurrency_configs_output()
@@ -2184,7 +2184,7 @@ lambda_list_versions_by_function <- function(FunctionName, Marker = NULL, MaxIte
     name = "ListVersionsByFunction",
     http_method = "GET",
     http_path = "/2015-03-31/functions/{FunctionName}/versions",
-    paginator = list()
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Versions")
   )
   input <- .lambda$list_versions_by_function_input(FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_versions_by_function_output()
@@ -2199,7 +2199,7 @@ lambda_list_versions_by_function <- function(FunctionName, Marker = NULL, MaxIte
 #' Creates an Lambda layer from a ZIP archive
 #'
 #' @description
-#' Creates an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html) from a ZIP archive. Each time you call [`publish_layer_version`][lambda_publish_layer_version] with the same layer name, a new version is created.
+#' Creates an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html) from a ZIP archive. Each time you call [`publish_layer_version`][lambda_publish_layer_version] with the same layer name, a new version is created.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_publish_layer_version/](https://www.paws-r-sdk.com/docs/lambda_publish_layer_version/) for full documentation.
 #'
@@ -2562,7 +2562,7 @@ lambda_put_runtime_management_config <- function(FunctionName, Qualifier = NULL,
 #' Lambda layer
 #'
 #' @description
-#' Removes a statement from the permissions policy for a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html). For more information, see [`add_layer_version_permission`][lambda_add_layer_version_permission].
+#' Removes a statement from the permissions policy for a version of an [Lambda layer](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html). For more information, see [`add_layer_version_permission`][lambda_add_layer_version_permission].
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_remove_layer_version_permission/](https://www.paws-r-sdk.com/docs/lambda_remove_layer_version_permission/) for full documentation.
 #'
@@ -3035,7 +3035,7 @@ lambda_update_function_code <- function(FunctionName, ZipFile = NULL, S3Bucket =
 #' specified. Use this option to avoid modifying a function that has
 #' changed since you last read it.
 #' @param Layers A list of [function
-#' layers](https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html)
+#' layers](https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html)
 #' to add to the function's execution environment. Specify each layer by
 #' its ARN, including the version.
 #' @param FileSystemConfigs Connection settings for an Amazon EFS file system.

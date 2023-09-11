@@ -2,7 +2,7 @@
 % Please edit documentation in R/ec2_operations.R
 \name{ec2_create_vpc_endpoint}
 \alias{ec2_create_vpc_endpoint}
-\title{Creates a VPC endpoint for a specified service}
+\title{Creates a VPC endpoint}
 \usage{
 ec2_create_vpc_endpoint(
   DryRun = NULL,
@@ -17,7 +17,8 @@ ec2_create_vpc_endpoint(
   DnsOptions = NULL,
   ClientToken = NULL,
   PrivateDnsEnabled = NULL,
-  TagSpecifications = NULL
+  TagSpecifications = NULL,
+  SubnetConfigurations = NULL
 )
 }
 \arguments{
@@ -30,9 +31,9 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 Default: Gateway}
 
-\item{VpcId}{[required] The ID of the VPC for the endpoint.}
+\item{VpcId}{[required] The ID of the VPC.}
 
-\item{ServiceName}{[required] The service name.}
+\item{ServiceName}{[required] The name of the endpoint service.}
 
 \item{PolicyDocument}{(Interface and gateway endpoints) A policy to attach to the endpoint
 that controls access to the service. The policy must be in valid JSON
@@ -42,11 +43,11 @@ that allows full access to the service.}
 \item{RouteTableIds}{(Gateway endpoint) The route table IDs.}
 
 \item{SubnetIds}{(Interface and Gateway Load Balancer endpoints) The IDs of the subnets
-in which to create an endpoint network interface. For a Gateway Load
+in which to create endpoint network interfaces. For a Gateway Load
 Balancer endpoint, you can specify only one subnet.}
 
 \item{SecurityGroupIds}{(Interface endpoint) The IDs of the security groups to associate with
-the endpoint network interface. If this parameter is not specified, we
+the endpoint network interfaces. If this parameter is not specified, we
 use the default security group for the VPC.}
 
 \item{IpAddressType}{The IP address type for the endpoint.}
@@ -73,9 +74,11 @@ attributes.
 Default: \code{true}}
 
 \item{TagSpecifications}{The tags to associate with the endpoint.}
+
+\item{SubnetConfigurations}{The subnet configurations for the endpoint.}
 }
 \description{
-Creates a VPC endpoint for a specified service. An endpoint enables you to create a private connection between your VPC and the service. The service may be provided by Amazon Web Services, an Amazon Web Services Marketplace Partner, or another Amazon Web Services account. For more information, see the \href{https://docs.aws.amazon.com/vpc/latest/privatelink/}{Amazon Web Services PrivateLink Guide}.
+Creates a VPC endpoint. A VPC endpoint provides a private connection between the specified VPC and the specified endpoint service. You can use an endpoint service provided by Amazon Web Services, an Amazon Web Services Marketplace Partner, or another Amazon Web Services account. For more information, see the \href{https://docs.aws.amazon.com/vpc/latest/privatelink/}{Amazon Web Services PrivateLink User Guide}.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_create_vpc_endpoint/} for full documentation.
 }

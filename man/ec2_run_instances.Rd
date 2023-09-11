@@ -45,7 +45,8 @@ ec2_run_instances(
   EnclaveOptions = NULL,
   PrivateDnsNameOptions = NULL,
   MaintenanceOptions = NULL,
-  DisableApiStop = NULL
+  DisableApiStop = NULL,
+  EnablePrimaryIpv6 = NULL
 )
 }
 \arguments{
@@ -58,9 +59,7 @@ in the \emph{Amazon EC2 User Guide}.}
 be specified here or in a launch template.}
 
 \item{InstanceType}{The instance type. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html}{Instance types}
-in the \emph{Amazon EC2 User Guide}.
-
-Default: \code{m1.small}}
+in the \emph{Amazon EC2 User Guide}.}
 
 \item{Ipv6AddressCount}{The number of IPv6 addresses to associate with the primary network
 interface. Amazon EC2 chooses the IPv6 addresses from the range of your
@@ -277,8 +276,9 @@ preference defaults to \code{open}, which enables it to run in any open
 Capacity Reservation that has matching attributes (instance type,
 platform, Availability Zone).}
 
-\item{HibernationOptions}{Indicates whether an instance is enabled for hibernation. For more
-information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html}{Hibernate your instance}
+\item{HibernationOptions}{Indicates whether an instance is enabled for hibernation. This parameter
+is valid only if the instance meets the \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html}{hibernation prerequisites}.
+For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html}{Hibernate your instance}
 in the \emph{Amazon EC2 User Guide}.
 
 You can't enable hibernation and Amazon Web Services Nitro Enclaves on
@@ -297,12 +297,28 @@ You can't enable Amazon Web Services Nitro Enclaves and hibernation on
 the same instance.}
 
 \item{PrivateDnsNameOptions}{The options for the instance hostname. The default values are inherited
-from the subnet.}
+from the subnet. Applies only if creating a network interface, not
+attaching an existing one.}
 
 \item{MaintenanceOptions}{The maintenance and recovery options for the instance.}
 
 \item{DisableApiStop}{Indicates whether an instance is enabled for stop protection. For more
 information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html#Using_StopProtection}{Stop protection}.}
+
+\item{EnablePrimaryIpv6}{If you’re launching an instance into a dual-stack or IPv6-only subnet,
+you can enable assigning a primary IPv6 address. A primary IPv6 address
+is an IPv6 GUA address associated with an ENI that you have enabled to
+use a primary IPv6 address. Use this option if an instance relies on its
+IPv6 address not changing. When you launch the instance, Amazon Web
+Services will automatically assign an IPv6 address associated with the
+ENI attached to your instance to be the primary IPv6 address. Once you
+enable an IPv6 GUA address to be a primary IPv6, you cannot disable it.
+When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6
+GUA will be made the primary IPv6 address until the instance is
+terminated or the network interface is detached. If you have multiple
+IPv6 addresses associated with an ENI attached to your instance and you
+enable a primary IPv6 address, the first IPv6 GUA address associated
+with the ENI becomes the primary IPv6 address.}
 }
 \description{
 Launches the specified number of instances using an AMI for which you have permissions.

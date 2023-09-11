@@ -421,11 +421,16 @@ ecs_create_cluster <- function(clusterName = NULL, tags = NULL, settings = NULL,
 #' within the service. For more information, see [Tagging your Amazon ECS
 #' resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
 #' in the *Amazon Elastic Container Service Developer Guide*.
+#' 
+#' When you use Amazon ECS managed tags, you need to set the
+#' `propagateTags` request parameter.
 #' @param propagateTags Specifies whether to propagate the tags from the task definition to the
 #' task. If no value is specified, the tags aren't propagated. Tags can
 #' only be propagated to the task during task creation. To add tags to a
 #' task after task creation, use the [`tag_resource`][ecs_tag_resource] API
 #' action.
+#' 
+#' The default is `NONE`.
 #' @param enableExecuteCommand Determines whether the execute command functionality is turned on for
 #' the service. If `true`, this enables execute command functionality on
 #' all containers in the service tasks.
@@ -478,7 +483,8 @@ ecs_create_service <- function(cluster = NULL, serviceName, taskDefinition = NUL
 #' registry, the tasks in this task set will have the
 #' `ECS_TASK_SET_EXTERNAL_ID` Cloud Map attribute set to the provided
 #' value.
-#' @param taskDefinition &#91;required&#93; The task definition for the tasks in the task set to use.
+#' @param taskDefinition &#91;required&#93; The task definition for the tasks in the task set to use. If a revision
+#' isn't specified, the latest `ACTIVE` revision is used.
 #' @param networkConfiguration An object representing the network configuration for a task set.
 #' @param loadBalancers A load balancer object representing the load balancer to use with the
 #' task set. The supported load balancer types are either an Application
@@ -1345,7 +1351,7 @@ ecs_list_account_settings <- function(name = NULL, value = NULL, principalArn = 
     name = "ListAccountSettings",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "settings")
   )
   input <- .ecs$list_account_settings_input(name = name, value = value, principalArn = principalArn, effectiveSettings = effectiveSettings, nextToken = nextToken, maxResults = maxResults)
   output <- .ecs$list_account_settings_output()
@@ -1400,7 +1406,7 @@ ecs_list_attributes <- function(cluster = NULL, targetType, attributeName = NULL
     name = "ListAttributes",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "attributes")
   )
   input <- .ecs$list_attributes_input(cluster = cluster, targetType = targetType, attributeName = attributeName, attributeValue = attributeValue, nextToken = nextToken, maxResults = maxResults)
   output <- .ecs$list_attributes_output()
@@ -1447,7 +1453,7 @@ ecs_list_clusters <- function(nextToken = NULL, maxResults = NULL) {
     name = "ListClusters",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "clusterArns")
   )
   input <- .ecs$list_clusters_input(nextToken = nextToken, maxResults = maxResults)
   output <- .ecs$list_clusters_output()
@@ -1511,7 +1517,7 @@ ecs_list_container_instances <- function(cluster = NULL, filter = NULL, nextToke
     name = "ListContainerInstances",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "containerInstanceArns")
   )
   input <- .ecs$list_container_instances_input(cluster = cluster, filter = filter, nextToken = nextToken, maxResults = maxResults, status = status)
   output <- .ecs$list_container_instances_output()
@@ -1565,7 +1571,7 @@ ecs_list_services <- function(cluster = NULL, nextToken = NULL, maxResults = NUL
     name = "ListServices",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "serviceArns")
   )
   input <- .ecs$list_services_input(cluster = cluster, nextToken = nextToken, maxResults = maxResults, launchType = launchType, schedulingStrategy = schedulingStrategy)
   output <- .ecs$list_services_output()
@@ -1622,7 +1628,7 @@ ecs_list_services_by_namespace <- function(namespace, nextToken = NULL, maxResul
     name = "ListServicesByNamespace",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "serviceArns")
   )
   input <- .ecs$list_services_by_namespace_input(namespace = namespace, nextToken = nextToken, maxResults = maxResults)
   output <- .ecs$list_services_by_namespace_output()
@@ -1716,7 +1722,7 @@ ecs_list_task_definition_families <- function(familyPrefix = NULL, status = NULL
     name = "ListTaskDefinitionFamilies",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "families")
   )
   input <- .ecs$list_task_definition_families_input(familyPrefix = familyPrefix, status = status, nextToken = nextToken, maxResults = maxResults)
   output <- .ecs$list_task_definition_families_output()
@@ -1781,7 +1787,7 @@ ecs_list_task_definitions <- function(familyPrefix = NULL, status = NULL, sort =
     name = "ListTaskDefinitions",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "taskDefinitionArns")
   )
   input <- .ecs$list_task_definitions_input(familyPrefix = familyPrefix, status = status, sort = sort, nextToken = nextToken, maxResults = maxResults)
   output <- .ecs$list_task_definitions_output()
@@ -1859,7 +1865,7 @@ ecs_list_tasks <- function(cluster = NULL, containerInstance = NULL, family = NU
     name = "ListTasks",
     http_method = "POST",
     http_path = "/",
-    paginator = list()
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "taskArns")
   )
   input <- .ecs$list_tasks_input(cluster = cluster, containerInstance = containerInstance, family = family, nextToken = nextToken, maxResults = maxResults, startedBy = startedBy, serviceName = serviceName, desiredStatus = desiredStatus, launchType = launchType)
   output <- .ecs$list_tasks_output()
@@ -1879,28 +1885,45 @@ ecs_list_tasks <- function(cluster = NULL, containerInstance = NULL, family = NU
 #' See [https://www.paws-r-sdk.com/docs/ecs_put_account_setting/](https://www.paws-r-sdk.com/docs/ecs_put_account_setting/) for full documentation.
 #'
 #' @param name &#91;required&#93; The Amazon ECS resource name for which to modify the account setting. If
-#' `serviceLongArnFormat` is specified, the ARN for your Amazon ECS
-#' services is affected. If `taskLongArnFormat` is specified, the ARN and
-#' resource ID for your Amazon ECS tasks is affected. If
-#' `containerInstanceLongArnFormat` is specified, the ARN and resource ID
-#' for your Amazon ECS container instances is affected. If `awsvpcTrunking`
-#' is specified, the elastic network interface (ENI) limit for your Amazon
-#' ECS container instances is affected. If `containerInsights` is
-#' specified, the default setting for Amazon Web Services CloudWatch
-#' Container Insights for your clusters is affected. If `fargateFIPSMode`
-#' is specified, Fargate FIPS 140 compliance is affected. If
-#' `tagResourceAuthorization` is specified, the opt-in option for tagging
+#' you specify `serviceLongArnFormat`, the ARN for your Amazon ECS services
+#' is affected. If you specify `taskLongArnFormat`, the ARN and resource ID
+#' for your Amazon ECS tasks is affected. If you specify
+#' `containerInstanceLongArnFormat`, the ARN and resource ID for your
+#' Amazon ECS container instances is affected. If you specify
+#' `awsvpcTrunking`, the elastic network interface (ENI) limit for your
+#' Amazon ECS container instances is affected. If you specify
+#' `containerInsights`, the default setting for Amazon Web Services
+#' CloudWatch Container Insights for your clusters is affected. If you
+#' specify `fargateFIPSMode`, Fargate FIPS 140 compliance is affected. If
+#' you specify `tagResourceAuthorization`, the opt-in option for tagging
 #' resources on creation is affected. For information about the opt-in
 #' timeline, see [Tagging authorization
 #' timeline](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#tag-resources)
-#' in the *Amazon ECS Developer Guide*.
+#' in the *Amazon ECS Developer Guide*. If you specify
+#' `fargateTaskRetirementWaitPeriod`, the wait time to retire a Fargate
+#' task is affected.
 #' @param value &#91;required&#93; The account setting value for the specified principal ARN. Accepted
 #' values are `enabled`, `disabled`, `on`, and `off`.
+#' 
+#' When you specify `fargateTaskRetirementWaitPeriod` for the `name`, the
+#' following are the valid values:
+#' 
+#' -   `0` - immediately retire the tasks and patch Fargate
+#' 
+#'     There is no advanced notification. Your tasks are retired
+#'     immediately, and Fargate is patched without any notification.
+#' 
+#' -   `7` -wait 7 calendar days to retire the tasks and patch Fargate
+#' 
+#' -   `14` - wait 14 calendar days to retire the tasks and patch Fargate
 #' @param principalArn The ARN of the principal, which can be a user, role, or the root user.
 #' If you specify the root user, it modifies the account setting for all
 #' users, roles, and the root user of the account unless a user or role
 #' explicitly overrides these settings. If this field is omitted, the
 #' setting is changed only for the authenticated user.
+#' 
+#' You must use the root user when you set the Fargate wait time
+#' (`fargateTaskRetirementWaitPeriod`).
 #' 
 #' Federated users assume the account setting of the root user and can't
 #' have explicit account settings set for them.
@@ -1933,20 +1956,22 @@ ecs_put_account_setting <- function(name, value, principalArn = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_put_account_setting_default/](https://www.paws-r-sdk.com/docs/ecs_put_account_setting_default/) for full documentation.
 #'
-#' @param name &#91;required&#93; The resource name for which to modify the account setting. If
-#' `serviceLongArnFormat` is specified, the ARN for your Amazon ECS
-#' services is affected. If `taskLongArnFormat` is specified, the ARN and
-#' resource ID for your Amazon ECS tasks is affected. If
-#' `containerInstanceLongArnFormat` is specified, the ARN and resource ID
-#' for your Amazon ECS container instances is affected. If `awsvpcTrunking`
-#' is specified, the ENI limit for your Amazon ECS container instances is
-#' affected. If `containerInsights` is specified, the default setting for
+#' @param name &#91;required&#93; The resource name for which to modify the account setting. If you
+#' specify `serviceLongArnFormat`, the ARN for your Amazon ECS services is
+#' affected. If you specify `taskLongArnFormat`, the ARN and resource ID
+#' for your Amazon ECS tasks is affected. If you specify
+#' `containerInstanceLongArnFormat`, the ARN and resource ID for your
+#' Amazon ECS container instances is affected. If you specify
+#' `awsvpcTrunking`, the ENI limit for your Amazon ECS container instances
+#' is affected. If you specify `containerInsights`, the default setting for
 #' Amazon Web Services CloudWatch Container Insights for your clusters is
-#' affected. If `tagResourceAuthorization` is specified, the opt-in option
+#' affected. If you specify `tagResourceAuthorization`, the opt-in option
 #' for tagging resources on creation is affected. For information about the
 #' opt-in timeline, see [Tagging authorization
 #' timeline](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#tag-resources)
-#' in the *Amazon ECS Developer Guide*.
+#' in the *Amazon ECS Developer Guide*. If you specify
+#' `fargateTaskRetirementWaitPeriod`, the default wait time to retire a
+#' Fargate task due to required maintenance is affected.
 #' 
 #' When you specify `fargateFIPSMode` for the `name` and `enabled` for the
 #' `value`, Fargate uses FIPS-140 compliant cryptographic algorithms on
@@ -1955,8 +1980,29 @@ ecs_put_account_setting <- function(name, value, principalArn = NULL) {
 #' (FIPS) 140-2
 #' compliance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-fips-compliance.html)
 #' in the *Amazon Elastic Container Service Developer Guide*.
+#' 
+#' When Amazon Web Services determines that a security or infrastructure
+#' update is needed for an Amazon ECS task hosted on Fargate, the tasks
+#' need to be stopped and new tasks launched to replace them. Use
+#' `fargateTaskRetirementWaitPeriod` to set the wait time to retire a
+#' Fargate task to the default. For information about the Fargate tasks
+#' maintenance, see [Amazon Web Services Fargate task
+#' maintenance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-maintenance.html)
+#' in the *Amazon ECS Developer Guide*.
 #' @param value &#91;required&#93; The account setting value for the specified principal ARN. Accepted
 #' values are `enabled`, `disabled`, `on`, and `off`.
+#' 
+#' When you specify `fargateTaskRetirementWaitPeriod` for the `name`, the
+#' following are the valid values:
+#' 
+#' -   `0` - immediately retire the tasks and patch Fargate
+#' 
+#'     There is no advanced notification. Your tasks are retired
+#'     immediately, and Fargate is patched without any notification.
+#' 
+#' -   `7` -wait 7 calendar days to retire the tasks and patch Fargate
+#' 
+#' -   `14` - wait 14 calendar days to retire the tasks and patch Fargate
 #'
 #' @keywords internal
 #'
@@ -2347,22 +2393,32 @@ ecs_register_container_instance <- function(cluster = NULL, instanceIdentityDocu
 #'     values with this prefix. Tags with this prefix do not count against
 #'     your tags per resource limit.
 #' @param pidMode The process namespace to use for the containers in the task. The valid
-#' values are `host` or `task`. If `host` is specified, then all containers
-#' within the tasks that specified the `host` PID mode on the same
-#' container instance share the same process namespace with the host Amazon
-#' EC2 instance. If `task` is specified, all containers within the
-#' specified task share the same process namespace. If no value is
-#' specified, the default is a private namespace. For more information, see
-#' [PID
+#' values are `host` or `task`. On Fargate for Linux containers, the only
+#' valid value is `task`. For example, monitoring sidecars might need
+#' `pidMode` to access information about other containers running in the
+#' same task.
+#' 
+#' If `host` is specified, all containers within the tasks that specified
+#' the `host` PID mode on the same container instance share the same
+#' process namespace with the host Amazon EC2 instance.
+#' 
+#' If `task` is specified, all containers within the specified task share
+#' the same process namespace.
+#' 
+#' If no value is specified, the default is a private namespace for each
+#' container. For more information, see [PID
 #' settings](https://docs.docker.com/engine/reference/run/#pid-settings---pid)
 #' in the *Docker run reference*.
 #' 
-#' If the `host` PID mode is used, be aware that there is a heightened risk
-#' of undesired process namespace expose. For more information, see [Docker
+#' If the `host` PID mode is used, there's a heightened risk of undesired
+#' process namespace exposure. For more information, see [Docker
 #' security](https://docs.docker.com/engine/security/).
 #' 
-#' This parameter is not supported for Windows containers or tasks run on
-#' Fargate.
+#' This parameter is not supported for Windows containers.
+#' 
+#' This parameter is only supported for tasks that are hosted on Fargate if
+#' the tasks are using platform version `1.4.0` or later (Linux). This
+#' isn't supported for Windows containers on Fargate.
 #' @param ipcMode The IPC resource namespace to use for the containers in the task. The
 #' valid values are `host`, `task`, or `none`. If `host` is specified, then
 #' all containers within the tasks that specified the `host` IPC mode on
