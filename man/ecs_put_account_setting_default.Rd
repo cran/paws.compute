@@ -36,7 +36,13 @@ need to be stopped and new tasks launched to replace them. Use
 \code{fargateTaskRetirementWaitPeriod} to set the wait time to retire a
 Fargate task to the default. For information about the Fargate tasks
 maintenance, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-maintenance.html}{Amazon Web Services Fargate task maintenance}
-in the \emph{Amazon ECS Developer Guide}.}
+in the \emph{Amazon ECS Developer Guide}.
+
+The \code{guardDutyActivate} parameter is read-only in Amazon ECS and
+indicates whether Amazon ECS Runtime Monitoring is enabled or disabled
+by your security administrator in your Amazon ECS account. Amazon
+GuardDuty controls this account setting on your behalf. For more
+information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-guard-duty-integration.html}{Protecting Amazon ECS workloads with Amazon ECS Runtime Monitoring}.}
 
 \item{value}{[required] The account setting value for the specified principal ARN. Accepted
 values are \code{enabled}, \code{disabled}, \code{on}, and \code{off}.
@@ -44,12 +50,12 @@ values are \code{enabled}, \code{disabled}, \code{on}, and \code{off}.
 When you specify \code{fargateTaskRetirementWaitPeriod} for the \code{name}, the
 following are the valid values:
 \itemize{
-\item \code{0} - immediately retire the tasks and patch Fargate
-
-There is no advanced notification. Your tasks are retired
-immediately, and Fargate is patched without any notification.
-\item \code{7} -wait 7 calendar days to retire the tasks and patch Fargate
-\item \code{14} - wait 14 calendar days to retire the tasks and patch Fargate
+\item \code{0} - Amazon Web Services sends the notification, and immediately
+retires the affected tasks.
+\item \code{7} - Amazon Web Services sends the notification, and waits 7
+calendar days to retire the tasks.
+\item \code{14} - Amazon Web Services sends the notification, and waits 14
+calendar days to retire the tasks.
 }}
 }
 \description{

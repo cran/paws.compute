@@ -14,32 +14,32 @@ imagebuilder(
 \arguments{
 \item{config}{Optional configuration of credentials, endpoint, and/or region.
 \itemize{
-\item{\strong{credentials}:} {\itemize{
-\item{\strong{creds}:} {\itemize{
-\item{\strong{access_key_id}:} {AWS access key ID}
-\item{\strong{secret_access_key}:} {AWS secret access key}
-\item{\strong{session_token}:} {AWS temporary session token}
+\item{\strong{credentials}: \itemize{
+\item{\strong{creds}: \itemize{
+\item{\strong{access_key_id}: AWS access key ID}
+\item{\strong{secret_access_key}: AWS secret access key}
+\item{\strong{session_token}: AWS temporary session token}
 }}
-\item{\strong{profile}:} {The name of a profile to use. If not given, then the default profile is used.}
-\item{\strong{anonymous}:} {Set anonymous credentials.}
-\item{\strong{endpoint}:} {The complete URL to use for the constructed client.}
-\item{\strong{region}:} {The AWS Region used in instantiating the client.}
+\item{\strong{profile}: The name of a profile to use. If not given, then the default profile is used.}
+\item{\strong{anonymous}: Set anonymous credentials.}
 }}
-\item{\strong{close_connection}:} {Immediately close all HTTP connections.}
-\item{\strong{timeout}:} {The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
-\item{\strong{s3_force_path_style}:} {Set this to \code{true} to force the request to use path-style addressing, i.e. \verb{http://s3.amazonaws.com/BUCKET/KEY}.}
-\item{\strong{sts_regional_endpoint}:} {Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
+\item{\strong{endpoint}: The complete URL to use for the constructed client.}
+\item{\strong{region}: The AWS Region used in instantiating the client.}
+\item{\strong{close_connection}: Immediately close all HTTP connections.}
+\item{\strong{timeout}: The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
+\item{\strong{s3_force_path_style}: Set this to \code{true} to force the request to use path-style addressing, i.e. \verb{http://s3.amazonaws.com/BUCKET/KEY}.}
+\item{\strong{sts_regional_endpoint}: Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
 }}
 
 \item{credentials}{Optional credentials shorthand for the config parameter
 \itemize{
-\item{\strong{creds}:} {\itemize{
-\item{\strong{access_key_id}:} {AWS access key ID}
-\item{\strong{secret_access_key}:} {AWS secret access key}
-\item{\strong{session_token}:} {AWS temporary session token}
+\item{\strong{creds}: \itemize{
+\item{\strong{access_key_id}: AWS access key ID}
+\item{\strong{secret_access_key}: AWS secret access key}
+\item{\strong{session_token}: AWS temporary session token}
 }}
-\item{\strong{profile}:} {The name of a profile to use. If not given, then the default profile is used.}
-\item{\strong{anonymous}:} {Set anonymous credentials.}
+\item{\strong{profile}: The name of a profile to use. If not given, then the default profile is used.}
+\item{\strong{anonymous}: Set anonymous credentials.}
 }}
 
 \item{endpoint}{Optional shorthand for complete URL to use for the constructed client.}
@@ -99,6 +99,7 @@ specific IT standards.
 
 \tabular{ll}{
 \link[=imagebuilder_cancel_image_creation]{cancel_image_creation} \tab CancelImageCreation cancels the creation of Image\cr
+\link[=imagebuilder_cancel_lifecycle_execution]{cancel_lifecycle_execution} \tab Cancel a specific image lifecycle policy runtime instance\cr
 \link[=imagebuilder_create_component]{create_component} \tab Creates a new component that can be used to build, validate, test, and assess your image\cr
 \link[=imagebuilder_create_container_recipe]{create_container_recipe} \tab Creates a new container recipe\cr
 \link[=imagebuilder_create_distribution_configuration]{create_distribution_configuration} \tab Creates a new distribution configuration\cr
@@ -106,6 +107,8 @@ specific IT standards.
 \link[=imagebuilder_create_image_pipeline]{create_image_pipeline} \tab Creates a new image pipeline\cr
 \link[=imagebuilder_create_image_recipe]{create_image_recipe} \tab Creates a new image recipe\cr
 \link[=imagebuilder_create_infrastructure_configuration]{create_infrastructure_configuration} \tab Creates a new infrastructure configuration\cr
+\link[=imagebuilder_create_lifecycle_policy]{create_lifecycle_policy} \tab Create a lifecycle policy resource\cr
+\link[=imagebuilder_create_workflow]{create_workflow} \tab Create a new workflow or a new version of an existing workflow\cr
 \link[=imagebuilder_delete_component]{delete_component} \tab Deletes a component build version\cr
 \link[=imagebuilder_delete_container_recipe]{delete_container_recipe} \tab Deletes a container recipe\cr
 \link[=imagebuilder_delete_distribution_configuration]{delete_distribution_configuration} \tab Deletes a distribution configuration\cr
@@ -113,6 +116,8 @@ specific IT standards.
 \link[=imagebuilder_delete_image_pipeline]{delete_image_pipeline} \tab Deletes an image pipeline\cr
 \link[=imagebuilder_delete_image_recipe]{delete_image_recipe} \tab Deletes an image recipe\cr
 \link[=imagebuilder_delete_infrastructure_configuration]{delete_infrastructure_configuration} \tab Deletes an infrastructure configuration\cr
+\link[=imagebuilder_delete_lifecycle_policy]{delete_lifecycle_policy} \tab Delete the specified lifecycle policy resource\cr
+\link[=imagebuilder_delete_workflow]{delete_workflow} \tab Deletes a specific workflow resource\cr
 \link[=imagebuilder_get_component]{get_component} \tab Gets a component object\cr
 \link[=imagebuilder_get_component_policy]{get_component_policy} \tab Gets a component policy\cr
 \link[=imagebuilder_get_container_recipe]{get_container_recipe} \tab Retrieves a container recipe\cr
@@ -124,6 +129,9 @@ specific IT standards.
 \link[=imagebuilder_get_image_recipe]{get_image_recipe} \tab Gets an image recipe\cr
 \link[=imagebuilder_get_image_recipe_policy]{get_image_recipe_policy} \tab Gets an image recipe policy\cr
 \link[=imagebuilder_get_infrastructure_configuration]{get_infrastructure_configuration} \tab Gets an infrastructure configuration\cr
+\link[=imagebuilder_get_lifecycle_execution]{get_lifecycle_execution} \tab Get the runtime information that was logged for a specific runtime instance of the lifecycle policy\cr
+\link[=imagebuilder_get_lifecycle_policy]{get_lifecycle_policy} \tab Get details for the specified image lifecycle policy\cr
+\link[=imagebuilder_get_workflow]{get_workflow} \tab Get a workflow resource object\cr
 \link[=imagebuilder_get_workflow_execution]{get_workflow_execution} \tab Get the runtime information that was logged for a specific runtime instance of the workflow\cr
 \link[=imagebuilder_get_workflow_step_execution]{get_workflow_step_execution} \tab Get the runtime information that was logged for a specific runtime instance of the workflow step\cr
 \link[=imagebuilder_import_component]{import_component} \tab Imports a component and transforms its data into a component document\cr
@@ -141,19 +149,28 @@ specific IT standards.
 \link[=imagebuilder_list_image_scan_finding_aggregations]{list_image_scan_finding_aggregations} \tab Returns a list of image scan aggregations for your account\cr
 \link[=imagebuilder_list_image_scan_findings]{list_image_scan_findings} \tab Returns a list of image scan findings for your account\cr
 \link[=imagebuilder_list_infrastructure_configurations]{list_infrastructure_configurations} \tab Returns a list of infrastructure configurations\cr
+\link[=imagebuilder_list_lifecycle_execution_resources]{list_lifecycle_execution_resources} \tab List resources that the runtime instance of the image lifecycle identified for lifecycle actions\cr
+\link[=imagebuilder_list_lifecycle_executions]{list_lifecycle_executions} \tab Get the lifecycle runtime history for the specified resource\cr
+\link[=imagebuilder_list_lifecycle_policies]{list_lifecycle_policies} \tab Get a list of lifecycle policies in your Amazon Web Services account\cr
 \link[=imagebuilder_list_tags_for_resource]{list_tags_for_resource} \tab Returns the list of tags for the specified resource\cr
+\link[=imagebuilder_list_waiting_workflow_steps]{list_waiting_workflow_steps} \tab Get a list of workflow steps that are waiting for action for workflows in your Amazon Web Services account\cr
+\link[=imagebuilder_list_workflow_build_versions]{list_workflow_build_versions} \tab Returns a list of build versions for a specific workflow resource\cr
 \link[=imagebuilder_list_workflow_executions]{list_workflow_executions} \tab Returns a list of workflow runtime instance metadata objects for a specific image build version\cr
-\link[=imagebuilder_list_workflow_step_executions]{list_workflow_step_executions} \tab Shows runtime data for each step in a runtime instance of the workflow that you specify in the request\cr
+\link[=imagebuilder_list_workflows]{list_workflows} \tab Lists workflow build versions based on filtering parameters\cr
+\link[=imagebuilder_list_workflow_step_executions]{list_workflow_step_executions} \tab Returns runtime data for each step in a runtime instance of the workflow that you specify in the request\cr
 \link[=imagebuilder_put_component_policy]{put_component_policy} \tab Applies a policy to a component\cr
 \link[=imagebuilder_put_container_recipe_policy]{put_container_recipe_policy} \tab Applies a policy to a container image\cr
 \link[=imagebuilder_put_image_policy]{put_image_policy} \tab Applies a policy to an image\cr
 \link[=imagebuilder_put_image_recipe_policy]{put_image_recipe_policy} \tab Applies a policy to an image recipe\cr
+\link[=imagebuilder_send_workflow_step_action]{send_workflow_step_action} \tab Pauses or resumes image creation when the associated workflow runs a WaitForAction step\cr
 \link[=imagebuilder_start_image_pipeline_execution]{start_image_pipeline_execution} \tab Manually triggers a pipeline to create an image\cr
+\link[=imagebuilder_start_resource_state_update]{start_resource_state_update} \tab Begin asynchronous resource state update for lifecycle changes to the specified image resources\cr
 \link[=imagebuilder_tag_resource]{tag_resource} \tab Adds a tag to a resource\cr
 \link[=imagebuilder_untag_resource]{untag_resource} \tab Removes a tag from a resource\cr
 \link[=imagebuilder_update_distribution_configuration]{update_distribution_configuration} \tab Updates a new distribution configuration\cr
 \link[=imagebuilder_update_image_pipeline]{update_image_pipeline} \tab Updates an image pipeline\cr
-\link[=imagebuilder_update_infrastructure_configuration]{update_infrastructure_configuration} \tab Updates a new infrastructure configuration
+\link[=imagebuilder_update_infrastructure_configuration]{update_infrastructure_configuration} \tab Updates a new infrastructure configuration\cr
+\link[=imagebuilder_update_lifecycle_policy]{update_lifecycle_policy} \tab Update the specified lifecycle policy
 }
 }
 

@@ -27,7 +27,8 @@ lambda_create_function(
   CodeSigningConfigArn = NULL,
   Architectures = NULL,
   EphemeralStorage = NULL,
-  SnapStart = NULL
+  SnapStart = NULL,
+  LoggingConfig = NULL
 )
 }
 \arguments{
@@ -132,6 +133,8 @@ value is \code{x86_64}.}
 \item{SnapStart}{The function's
 \href{https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html}{SnapStart}
 setting.}
+
+\item{LoggingConfig}{The function's Amazon CloudWatch Logs configuration settings.}
 }
 \description{
 Creates a Lambda function. To create a function, you need a \href{https://docs.aws.amazon.com/lambda/latest/dg/gettingstarted-package.html}{deployment package} and an \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-permissions.html#lambda-intro-execution-role}{execution role}. The deployment package is a .zip file archive or container image that contains your function code. The execution role grants the function permission to use Amazon Web Services, such as Amazon CloudWatch Logs for log streaming and X-Ray for request tracing.

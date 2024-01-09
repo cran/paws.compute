@@ -22,7 +22,8 @@ lambda_update_function_configuration(
   FileSystemConfigs = NULL,
   ImageConfig = NULL,
   EphemeralStorage = NULL,
-  SnapStart = NULL
+  SnapStart = NULL,
+  LoggingConfig = NULL
 )
 }
 \arguments{
@@ -110,6 +111,8 @@ values in the container image Docker file.}
 \item{SnapStart}{The function's
 \href{https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html}{SnapStart}
 setting.}
+
+\item{LoggingConfig}{The function's Amazon CloudWatch Logs configuration settings.}
 }
 \description{
 Modify the version-specific settings of a Lambda function.

@@ -16,11 +16,10 @@ eks_create_addon(
 )
 }
 \arguments{
-\item{clusterName}{[required] The name of the cluster to create the add-on for.}
+\item{clusterName}{[required] The name of your cluster.}
 
-\item{addonName}{[required] The name of the add-on. The name must match one of the names that
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html}{\code{describe_addon_versions}}
-returns.}
+\item{addonName}{[required] The name of the add-on. The name must match one of the names returned by
+\code{\link[=eks_describe_addon_versions]{describe_addon_versions}}.}
 
 \item{addonVersion}{The version of the add-on. The version must match one of the versions
 returned by
@@ -49,9 +48,12 @@ add-on might fail.
 installed on your cluster and the Amazon EKS default value is
 different than the existing value, Amazon EKS changes the value to
 the Amazon EKS default value.
-\item \strong{Preserve} – Not supported. You can set this value when updating
-an add-on though. For more information, see
-\code{\link[=eks_update_addon]{update_addon}}.
+\item \strong{Preserve} – This is similar to the NONE option. If the
+self-managed version of the add-on is installed on your cluster
+Amazon EKS doesn't change the add-on resource properties. Creation
+of the add-on might fail if conflicts are detected. This option
+works differently during the update operation. For more information,
+see \code{\link[=eks_update_addon]{update_addon}}.
 }
 
 If you don't currently have the self-managed version of the add-on
@@ -62,14 +64,13 @@ specify.}
 \item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
 idempotency of the request.}
 
-\item{tags}{The metadata to apply to the cluster to assist with categorization and
-organization. Each tag consists of a key and an optional value. You
-define both.}
+\item{tags}{Metadata that assists with categorization and organization. Each tag
+consists of a key and an optional value. You define both. Tags don't
+propagate to any other cluster or Amazon Web Services resources.}
 
 \item{configurationValues}{The set of configuration values for the add-on that's created. The
-values that you provide are validated against the schema in
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonConfiguration.html}{\code{describe_addon_configuration}}
-.}
+values that you provide are validated against the schema returned by
+\code{\link[=eks_describe_addon_configuration]{describe_addon_configuration}}.}
 }
 \description{
 Creates an Amazon EKS add-on.
