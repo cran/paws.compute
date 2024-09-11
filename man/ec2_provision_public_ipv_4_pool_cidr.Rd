@@ -8,7 +8,8 @@ ec2_provision_public_ipv_4_pool_cidr(
   DryRun = NULL,
   IpamPoolId,
   PoolId,
-  NetmaskLength
+  NetmaskLength,
+  NetworkBorderGroup = NULL
 )
 }
 \arguments{
@@ -22,7 +23,13 @@ you have the required permissions, the error response is
 \item{PoolId}{[required] The ID of the public IPv4 pool you would like to use for this CIDR.}
 
 \item{NetmaskLength}{[required] The netmask length of the CIDR you would like to allocate to the public
-IPv4 pool.}
+IPv4 pool. The least specific netmask length you can define is 24.}
+
+\item{NetworkBorderGroup}{The Availability Zone (AZ) or Local Zone (LZ) network border group that
+the resource that the IP address is assigned to is in. Defaults to an AZ
+network border group. For more information on available Local Zones, see
+\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html#byoip-zone-avail}{Local Zone availability}
+in the \emph{Amazon EC2 User Guide}.}
 }
 \description{
 Provision a CIDR to a public IPv4 pool.

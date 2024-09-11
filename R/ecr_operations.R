@@ -25,12 +25,13 @@ ecr_batch_check_layer_availability <- function(registryId = NULL, repositoryName
     name = "BatchCheckLayerAvailability",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$batch_check_layer_availability_input(registryId = registryId, repositoryName = repositoryName, layerDigests = layerDigests)
   output <- .ecr$batch_check_layer_availability_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -60,12 +61,13 @@ ecr_batch_delete_image <- function(registryId = NULL, repositoryName, imageIds) 
     name = "BatchDeleteImage",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$batch_delete_image_input(registryId = registryId, repositoryName = repositoryName, imageIds = imageIds)
   output <- .ecr$batch_delete_image_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -100,12 +102,13 @@ ecr_batch_get_image <- function(registryId = NULL, repositoryName, imageIds, acc
     name = "BatchGetImage",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$batch_get_image_input(registryId = registryId, repositoryName = repositoryName, imageIds = imageIds, acceptedMediaTypes = acceptedMediaTypes)
   output <- .ecr$batch_get_image_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -129,12 +132,13 @@ ecr_batch_get_repository_scanning_configuration <- function(repositoryNames) {
     name = "BatchGetRepositoryScanningConfiguration",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$batch_get_repository_scanning_configuration_input(repositoryNames = repositoryNames)
   output <- .ecr$batch_get_repository_scanning_configuration_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -166,12 +170,13 @@ ecr_complete_layer_upload <- function(registryId = NULL, repositoryName, uploadI
     name = "CompleteLayerUpload",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$complete_layer_upload_input(registryId = registryId, repositoryName = repositoryName, uploadId = uploadId, layerDigests = layerDigests)
   output <- .ecr$complete_layer_upload_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -219,12 +224,13 @@ ecr_create_pull_through_cache_rule <- function(ecrRepositoryPrefix, upstreamRegi
     name = "CreatePullThroughCacheRule",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$create_pull_through_cache_rule_input(ecrRepositoryPrefix = ecrRepositoryPrefix, upstreamRegistryUrl = upstreamRegistryUrl, registryId = registryId, upstreamRegistry = upstreamRegistry, credentialArn = credentialArn)
   output <- .ecr$create_pull_through_cache_rule_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -271,17 +277,85 @@ ecr_create_repository <- function(registryId = NULL, repositoryName, tags = NULL
     name = "CreateRepository",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$create_repository_input(registryId = registryId, repositoryName = repositoryName, tags = tags, imageTagMutability = imageTagMutability, imageScanningConfiguration = imageScanningConfiguration, encryptionConfiguration = encryptionConfiguration)
   output <- .ecr$create_repository_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
 }
 .ecr$operations$create_repository <- ecr_create_repository
+
+#' Creates a repository creation template
+#'
+#' @description
+#' Creates a repository creation template. This template is used to define the settings for repositories created by Amazon ECR on your behalf. For example, repositories created through pull through cache actions. For more information, see [Private repository creation templates](https://docs.aws.amazon.com/AmazonECR/latest/userguide/repository-creation-templates.html) in the *Amazon Elastic Container Registry User Guide*.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecr_create_repository_creation_template/](https://www.paws-r-sdk.com/docs/ecr_create_repository_creation_template/) for full documentation.
+#'
+#' @param prefix &#91;required&#93; The repository namespace prefix to associate with the template. All
+#' repositories created using this namespace prefix will have the settings
+#' defined in this template applied. For example, a prefix of `prod` would
+#' apply to all repositories beginning with `prod/`. Similarly, a prefix of
+#' `prod/team` would apply to all repositories beginning with `prod/team/`.
+#' 
+#' To apply a template to all repositories in your registry that don't have
+#' an associated creation template, you can use `ROOT` as the prefix.
+#' 
+#' There is always an assumed `/` applied to the end of the prefix. If you
+#' specify `ecr-public` as the prefix, Amazon ECR treats that as
+#' `ecr-public/`. When using a pull through cache rule, the repository
+#' prefix you specify during rule creation is what you should specify as
+#' your repository creation template prefix as well.
+#' @param description A description for the repository creation template.
+#' @param encryptionConfiguration The encryption configuration to use for repositories created using the
+#' template.
+#' @param resourceTags The metadata to apply to the repository to help you categorize and
+#' organize. Each tag consists of a key and an optional value, both of
+#' which you define. Tag keys can have a maximum character length of 128
+#' characters, and tag values can have a maximum length of 256 characters.
+#' @param imageTagMutability The tag mutability setting for the repository. If this parameter is
+#' omitted, the default setting of `MUTABLE` will be used which will allow
+#' image tags to be overwritten. If `IMMUTABLE` is specified, all image
+#' tags within the repository will be immutable which will prevent them
+#' from being overwritten.
+#' @param repositoryPolicy The repository policy to apply to repositories created using the
+#' template. A repository policy is a permissions policy associated with a
+#' repository to control access permissions.
+#' @param lifecyclePolicy The lifecycle policy to use for repositories created using the template.
+#' @param appliedFor &#91;required&#93; A list of enumerable strings representing the Amazon ECR repository
+#' creation scenarios that this template will apply towards. The two
+#' supported scenarios are `PULL_THROUGH_CACHE` and `REPLICATION`
+#' @param customRoleArn The ARN of the role to be assumed by Amazon ECR. This role must be in
+#' the same account as the registry that you are configuring. Amazon ECR
+#' will assume your supplied role when the customRoleArn is specified. When
+#' this field isn't specified, Amazon ECR will use the service-linked role
+#' for the repository creation template.
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_create_repository_creation_template
+ecr_create_repository_creation_template <- function(prefix, description = NULL, encryptionConfiguration = NULL, resourceTags = NULL, imageTagMutability = NULL, repositoryPolicy = NULL, lifecyclePolicy = NULL, appliedFor, customRoleArn = NULL) {
+  op <- new_operation(
+    name = "CreateRepositoryCreationTemplate",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list()
+  )
+  input <- .ecr$create_repository_creation_template_input(prefix = prefix, description = description, encryptionConfiguration = encryptionConfiguration, resourceTags = resourceTags, imageTagMutability = imageTagMutability, repositoryPolicy = repositoryPolicy, lifecyclePolicy = lifecyclePolicy, appliedFor = appliedFor, customRoleArn = customRoleArn)
+  output <- .ecr$create_repository_creation_template_output()
+  config <- get_config()
+  svc <- .ecr$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$create_repository_creation_template <- ecr_create_repository_creation_template
 
 #' Deletes the lifecycle policy associated with the specified repository
 #'
@@ -303,12 +377,13 @@ ecr_delete_lifecycle_policy <- function(registryId = NULL, repositoryName) {
     name = "DeleteLifecyclePolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$delete_lifecycle_policy_input(registryId = registryId, repositoryName = repositoryName)
   output <- .ecr$delete_lifecycle_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -336,12 +411,13 @@ ecr_delete_pull_through_cache_rule <- function(ecrRepositoryPrefix, registryId =
     name = "DeletePullThroughCacheRule",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$delete_pull_through_cache_rule_input(ecrRepositoryPrefix = ecrRepositoryPrefix, registryId = registryId)
   output <- .ecr$delete_pull_through_cache_rule_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -365,12 +441,13 @@ ecr_delete_registry_policy <- function() {
     name = "DeleteRegistryPolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$delete_registry_policy_input()
   output <- .ecr$delete_registry_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -400,17 +477,49 @@ ecr_delete_repository <- function(registryId = NULL, repositoryName, force = NUL
     name = "DeleteRepository",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$delete_repository_input(registryId = registryId, repositoryName = repositoryName, force = force)
   output <- .ecr$delete_repository_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
 }
 .ecr$operations$delete_repository <- ecr_delete_repository
+
+#' Deletes a repository creation template
+#'
+#' @description
+#' Deletes a repository creation template.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecr_delete_repository_creation_template/](https://www.paws-r-sdk.com/docs/ecr_delete_repository_creation_template/) for full documentation.
+#'
+#' @param prefix &#91;required&#93; The repository namespace prefix associated with the repository creation
+#' template.
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_delete_repository_creation_template
+ecr_delete_repository_creation_template <- function(prefix) {
+  op <- new_operation(
+    name = "DeleteRepositoryCreationTemplate",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list()
+  )
+  input <- .ecr$delete_repository_creation_template_input(prefix = prefix)
+  output <- .ecr$delete_repository_creation_template_output()
+  config <- get_config()
+  svc <- .ecr$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$delete_repository_creation_template <- ecr_delete_repository_creation_template
 
 #' Deletes the repository policy associated with the specified repository
 #'
@@ -433,12 +542,13 @@ ecr_delete_repository_policy <- function(registryId = NULL, repositoryName) {
     name = "DeleteRepositoryPolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$delete_repository_policy_input(registryId = registryId, repositoryName = repositoryName)
   output <- .ecr$delete_repository_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -465,12 +575,13 @@ ecr_describe_image_replication_status <- function(repositoryName, imageId, regis
     name = "DescribeImageReplicationStatus",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$describe_image_replication_status_input(repositoryName = repositoryName, imageId = imageId, registryId = registryId)
   output <- .ecr$describe_image_replication_status_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -516,12 +627,13 @@ ecr_describe_image_scan_findings <- function(registryId = NULL, repositoryName, 
     name = "DescribeImageScanFindings",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", non_aggregate_keys = list( "registryId", "repositoryName", "imageId", "imageScanStatus", "imageScanFindings"), output_token = "nextToken", result_key = list( "imageScanFindings.findings", "imageScanFindings.enhancedFindings"))
   )
   input <- .ecr$describe_image_scan_findings_input(registryId = registryId, repositoryName = repositoryName, imageId = imageId, nextToken = nextToken, maxResults = maxResults)
   output <- .ecr$describe_image_scan_findings_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -569,12 +681,13 @@ ecr_describe_images <- function(registryId = NULL, repositoryName, imageIds = NU
     name = "DescribeImages",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "imageDetails")
   )
   input <- .ecr$describe_images_input(registryId = registryId, repositoryName = repositoryName, imageIds = imageIds, nextToken = nextToken, maxResults = maxResults, filter = filter)
   output <- .ecr$describe_images_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -618,12 +731,13 @@ ecr_describe_pull_through_cache_rules <- function(registryId = NULL, ecrReposito
     name = "DescribePullThroughCacheRules",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "pullThroughCacheRules")
   )
   input <- .ecr$describe_pull_through_cache_rules_input(registryId = registryId, ecrRepositoryPrefixes = ecrRepositoryPrefixes, nextToken = nextToken, maxResults = maxResults)
   output <- .ecr$describe_pull_through_cache_rules_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -647,12 +761,13 @@ ecr_describe_registry <- function() {
     name = "DescribeRegistry",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$describe_registry_input()
   output <- .ecr$describe_registry_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -703,17 +818,100 @@ ecr_describe_repositories <- function(registryId = NULL, repositoryNames = NULL,
     name = "DescribeRepositories",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "repositories")
   )
   input <- .ecr$describe_repositories_input(registryId = registryId, repositoryNames = repositoryNames, nextToken = nextToken, maxResults = maxResults)
   output <- .ecr$describe_repositories_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
 }
 .ecr$operations$describe_repositories <- ecr_describe_repositories
+
+#' Returns details about the repository creation templates in a registry
+#'
+#' @description
+#' Returns details about the repository creation templates in a registry. The `prefixes` request parameter can be used to return the details for a specific repository creation template.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecr_describe_repository_creation_templates/](https://www.paws-r-sdk.com/docs/ecr_describe_repository_creation_templates/) for full documentation.
+#'
+#' @param prefixes The repository namespace prefixes associated with the repository
+#' creation templates to describe. If this value is not specified, all
+#' repository creation templates are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated
+#' [`describe_repository_creation_templates`][ecr_describe_repository_creation_templates]
+#' request where `maxResults` was used and the results exceeded the value
+#' of that parameter. Pagination continues from the end of the previous
+#' results that returned the `nextToken` value. This value is `null` when
+#' there are no more results to return.
+#' 
+#' This token should be treated as an opaque identifier that is only used
+#' to retrieve the next items in a list and not for other programmatic
+#' purposes.
+#' @param maxResults The maximum number of repository results returned by
+#' `DescribeRepositoryCreationTemplatesRequest` in paginated output. When
+#' this parameter is used, `DescribeRepositoryCreationTemplatesRequest`
+#' only returns `maxResults` results in a single page along with a
+#' `nextToken` response element. The remaining results of the initial
+#' request can be seen by sending another
+#' `DescribeRepositoryCreationTemplatesRequest` request with the returned
+#' `nextToken` value. This value can be between 1 and 1000. If this
+#' parameter is not used, then `DescribeRepositoryCreationTemplatesRequest`
+#' returns up to 100 results and a `nextToken` value, if applicable.
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_describe_repository_creation_templates
+ecr_describe_repository_creation_templates <- function(prefixes = NULL, nextToken = NULL, maxResults = NULL) {
+  op <- new_operation(
+    name = "DescribeRepositoryCreationTemplates",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", non_aggregate_keys = list( "registryId"), output_token = "nextToken", result_key = "repositoryCreationTemplates")
+  )
+  input <- .ecr$describe_repository_creation_templates_input(prefixes = prefixes, nextToken = nextToken, maxResults = maxResults)
+  output <- .ecr$describe_repository_creation_templates_output()
+  config <- get_config()
+  svc <- .ecr$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$describe_repository_creation_templates <- ecr_describe_repository_creation_templates
+
+#' Retrieves the basic scan type version name
+#'
+#' @description
+#' Retrieves the basic scan type version name.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecr_get_account_setting/](https://www.paws-r-sdk.com/docs/ecr_get_account_setting/) for full documentation.
+#'
+#' @param name &#91;required&#93; Basic scan type version name.
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_get_account_setting
+ecr_get_account_setting <- function(name) {
+  op <- new_operation(
+    name = "GetAccountSetting",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list()
+  )
+  input <- .ecr$get_account_setting_input(name = name)
+  output <- .ecr$get_account_setting_output()
+  config <- get_config()
+  svc <- .ecr$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$get_account_setting <- ecr_get_account_setting
 
 #' Retrieves an authorization token
 #'
@@ -734,12 +932,13 @@ ecr_get_authorization_token <- function(registryIds = NULL) {
     name = "GetAuthorizationToken",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$get_authorization_token_input(registryIds = registryIds)
   output <- .ecr$get_authorization_token_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -769,12 +968,13 @@ ecr_get_download_url_for_layer <- function(registryId = NULL, repositoryName, la
     name = "GetDownloadUrlForLayer",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$get_download_url_for_layer_input(registryId = registryId, repositoryName = repositoryName, layerDigest = layerDigest)
   output <- .ecr$get_download_url_for_layer_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -801,12 +1001,13 @@ ecr_get_lifecycle_policy <- function(registryId = NULL, repositoryName) {
     name = "GetLifecyclePolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$get_lifecycle_policy_input(registryId = registryId, repositoryName = repositoryName)
   output <- .ecr$get_lifecycle_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -854,12 +1055,13 @@ ecr_get_lifecycle_policy_preview <- function(registryId = NULL, repositoryName, 
     name = "GetLifecyclePolicyPreview",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", non_aggregate_keys = list( "registryId", "repositoryName", "lifecyclePolicyText", "status", "summary"), output_token = "nextToken", result_key = "previewResults")
   )
   input <- .ecr$get_lifecycle_policy_preview_input(registryId = registryId, repositoryName = repositoryName, imageIds = imageIds, nextToken = nextToken, maxResults = maxResults, filter = filter)
   output <- .ecr$get_lifecycle_policy_preview_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -883,12 +1085,13 @@ ecr_get_registry_policy <- function() {
     name = "GetRegistryPolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$get_registry_policy_input()
   output <- .ecr$get_registry_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -912,12 +1115,13 @@ ecr_get_registry_scanning_configuration <- function() {
     name = "GetRegistryScanningConfiguration",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$get_registry_scanning_configuration_input()
   output <- .ecr$get_registry_scanning_configuration_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -944,12 +1148,13 @@ ecr_get_repository_policy <- function(registryId = NULL, repositoryName) {
     name = "GetRepositoryPolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$get_repository_policy_input(registryId = registryId, repositoryName = repositoryName)
   output <- .ecr$get_repository_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -976,12 +1181,13 @@ ecr_initiate_layer_upload <- function(registryId = NULL, repositoryName) {
     name = "InitiateLayerUpload",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$initiate_layer_upload_input(registryId = registryId, repositoryName = repositoryName)
   output <- .ecr$initiate_layer_upload_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1028,12 +1234,13 @@ ecr_list_images <- function(registryId = NULL, repositoryName, nextToken = NULL,
     name = "ListImages",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "imageIds")
   )
   input <- .ecr$list_images_input(registryId = registryId, repositoryName = repositoryName, nextToken = nextToken, maxResults = maxResults, filter = filter)
   output <- .ecr$list_images_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1059,17 +1266,51 @@ ecr_list_tags_for_resource <- function(resourceArn) {
     name = "ListTagsForResource",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$list_tags_for_resource_input(resourceArn = resourceArn)
   output <- .ecr$list_tags_for_resource_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
 }
 .ecr$operations$list_tags_for_resource <- ecr_list_tags_for_resource
+
+#' Allows you to change the basic scan type version by setting the name
+#' parameter to either CLAIR to AWS_NATIVE
+#'
+#' @description
+#' Allows you to change the basic scan type version by setting the `name` parameter to either `CLAIR` to `AWS_NATIVE`.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecr_put_account_setting/](https://www.paws-r-sdk.com/docs/ecr_put_account_setting/) for full documentation.
+#'
+#' @param name &#91;required&#93; Basic scan type version name.
+#' @param value &#91;required&#93; Setting value that determines what basic scan type is being used:
+#' `AWS_NATIVE` or `CLAIR`.
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_put_account_setting
+ecr_put_account_setting <- function(name, value) {
+  op <- new_operation(
+    name = "PutAccountSetting",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list()
+  )
+  input <- .ecr$put_account_setting_input(name = name, value = value)
+  output <- .ecr$put_account_setting_output()
+  config <- get_config()
+  svc <- .ecr$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$put_account_setting <- ecr_put_account_setting
 
 #' Creates or updates the image manifest and tags associated with an image
 #'
@@ -1099,12 +1340,13 @@ ecr_put_image <- function(registryId = NULL, repositoryName, imageManifest, imag
     name = "PutImage",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$put_image_input(registryId = registryId, repositoryName = repositoryName, imageManifest = imageManifest, imageManifestMediaType = imageManifestMediaType, imageTag = imageTag, imageDigest = imageDigest)
   output <- .ecr$put_image_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1137,12 +1379,13 @@ ecr_put_image_scanning_configuration <- function(registryId = NULL, repositoryNa
     name = "PutImageScanningConfiguration",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$put_image_scanning_configuration_input(registryId = registryId, repositoryName = repositoryName, imageScanningConfiguration = imageScanningConfiguration)
   output <- .ecr$put_image_scanning_configuration_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1175,12 +1418,13 @@ ecr_put_image_tag_mutability <- function(registryId = NULL, repositoryName, imag
     name = "PutImageTagMutability",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$put_image_tag_mutability_input(registryId = registryId, repositoryName = repositoryName, imageTagMutability = imageTagMutability)
   output <- .ecr$put_image_tag_mutability_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1208,12 +1452,13 @@ ecr_put_lifecycle_policy <- function(registryId = NULL, repositoryName, lifecycl
     name = "PutLifecyclePolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$put_lifecycle_policy_input(registryId = registryId, repositoryName = repositoryName, lifecyclePolicyText = lifecyclePolicyText)
   output <- .ecr$put_lifecycle_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1240,12 +1485,13 @@ ecr_put_registry_policy <- function(policyText) {
     name = "PutRegistryPolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$put_registry_policy_input(policyText = policyText)
   output <- .ecr$put_registry_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1283,12 +1529,13 @@ ecr_put_registry_scanning_configuration <- function(scanType = NULL, rules = NUL
     name = "PutRegistryScanningConfiguration",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$put_registry_scanning_configuration_input(scanType = scanType, rules = rules)
   output <- .ecr$put_registry_scanning_configuration_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1298,7 +1545,7 @@ ecr_put_registry_scanning_configuration <- function(scanType = NULL, rules = NUL
 #' Creates or updates the replication configuration for a registry
 #'
 #' @description
-#' Creates or updates the replication configuration for a registry. The existing replication configuration for a repository can be retrieved with the [`describe_registry`][ecr_describe_registry] API action. The first time the PutReplicationConfiguration API is called, a service-linked IAM role is created in your account for the replication process. For more information, see [Using service-linked roles for Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html) in the *Amazon Elastic Container Registry User Guide*.
+#' Creates or updates the replication configuration for a registry. The existing replication configuration for a repository can be retrieved with the [`describe_registry`][ecr_describe_registry] API action. The first time the PutReplicationConfiguration API is called, a service-linked IAM role is created in your account for the replication process. For more information, see [Using service-linked roles for Amazon ECR](https://docs.aws.amazon.com/AmazonECR/latest/userguide/using-service-linked-roles.html) in the *Amazon Elastic Container Registry User Guide*. For more information on the custom role for replication, see [Creating an IAM role for replication](https://docs.aws.amazon.com/AmazonECR/latest/userguide/#roles-creatingrole-user-console).
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecr_put_replication_configuration/](https://www.paws-r-sdk.com/docs/ecr_put_replication_configuration/) for full documentation.
 #'
@@ -1312,12 +1559,13 @@ ecr_put_replication_configuration <- function(replicationConfiguration) {
     name = "PutReplicationConfiguration",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$put_replication_configuration_input(replicationConfiguration = replicationConfiguration)
   output <- .ecr$put_replication_configuration_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1353,12 +1601,13 @@ ecr_set_repository_policy <- function(registryId = NULL, repositoryName, policyT
     name = "SetRepositoryPolicy",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$set_repository_policy_input(registryId = registryId, repositoryName = repositoryName, policyText = policyText, force = force)
   output <- .ecr$set_repository_policy_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1386,12 +1635,13 @@ ecr_start_image_scan <- function(registryId = NULL, repositoryName, imageId) {
     name = "StartImageScan",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$start_image_scan_input(registryId = registryId, repositoryName = repositoryName, imageId = imageId)
   output <- .ecr$start_image_scan_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1420,12 +1670,13 @@ ecr_start_lifecycle_policy_preview <- function(registryId = NULL, repositoryName
     name = "StartLifecyclePolicyPreview",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$start_lifecycle_policy_preview_input(registryId = registryId, repositoryName = repositoryName, lifecyclePolicyText = lifecyclePolicyText)
   output <- .ecr$start_lifecycle_policy_preview_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1453,12 +1704,13 @@ ecr_tag_resource <- function(resourceArn, tags) {
     name = "TagResource",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$tag_resource_input(resourceArn = resourceArn, tags = tags)
   output <- .ecr$tag_resource_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1485,12 +1737,13 @@ ecr_untag_resource <- function(resourceArn, tagKeys) {
     name = "UntagResource",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$untag_resource_input(resourceArn = resourceArn, tagKeys = tagKeys)
   output <- .ecr$untag_resource_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1521,17 +1774,80 @@ ecr_update_pull_through_cache_rule <- function(registryId = NULL, ecrRepositoryP
     name = "UpdatePullThroughCacheRule",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$update_pull_through_cache_rule_input(registryId = registryId, ecrRepositoryPrefix = ecrRepositoryPrefix, credentialArn = credentialArn)
   output <- .ecr$update_pull_through_cache_rule_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
 }
 .ecr$operations$update_pull_through_cache_rule <- ecr_update_pull_through_cache_rule
+
+#' Updates an existing repository creation template
+#'
+#' @description
+#' Updates an existing repository creation template.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecr_update_repository_creation_template/](https://www.paws-r-sdk.com/docs/ecr_update_repository_creation_template/) for full documentation.
+#'
+#' @param prefix &#91;required&#93; The repository namespace prefix that matches an existing repository
+#' creation template in the registry. All repositories created using this
+#' namespace prefix will have the settings defined in this template
+#' applied. For example, a prefix of `prod` would apply to all repositories
+#' beginning with `prod/`. This includes a repository named `prod/team1` as
+#' well as a repository named `prod/repository1`.
+#' 
+#' To apply a template to all repositories in your registry that don't have
+#' an associated creation template, you can use `ROOT` as the prefix.
+#' @param description A description for the repository creation template.
+#' @param encryptionConfiguration 
+#' @param resourceTags The metadata to apply to the repository to help you categorize and
+#' organize. Each tag consists of a key and an optional value, both of
+#' which you define. Tag keys can have a maximum character length of 128
+#' characters, and tag values can have a maximum length of 256 characters.
+#' @param imageTagMutability Updates the tag mutability setting for the repository. If this parameter
+#' is omitted, the default setting of `MUTABLE` will be used which will
+#' allow image tags to be overwritten. If `IMMUTABLE` is specified, all
+#' image tags within the repository will be immutable which will prevent
+#' them from being overwritten.
+#' @param repositoryPolicy Updates the repository policy created using the template. A repository
+#' policy is a permissions policy associated with a repository to control
+#' access permissions.
+#' @param lifecyclePolicy Updates the lifecycle policy associated with the specified repository
+#' creation template.
+#' @param appliedFor Updates the list of enumerable strings representing the Amazon ECR
+#' repository creation scenarios that this template will apply towards. The
+#' two supported scenarios are `PULL_THROUGH_CACHE` and `REPLICATION`
+#' @param customRoleArn The ARN of the role to be assumed by Amazon ECR. This role must be in
+#' the same account as the registry that you are configuring. Amazon ECR
+#' will assume your supplied role when the customRoleArn is specified. When
+#' this field isn't specified, Amazon ECR will use the service-linked role
+#' for the repository creation template.
+#'
+#' @keywords internal
+#'
+#' @rdname ecr_update_repository_creation_template
+ecr_update_repository_creation_template <- function(prefix, description = NULL, encryptionConfiguration = NULL, resourceTags = NULL, imageTagMutability = NULL, repositoryPolicy = NULL, lifecyclePolicy = NULL, appliedFor = NULL, customRoleArn = NULL) {
+  op <- new_operation(
+    name = "UpdateRepositoryCreationTemplate",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list()
+  )
+  input <- .ecr$update_repository_creation_template_input(prefix = prefix, description = description, encryptionConfiguration = encryptionConfiguration, resourceTags = resourceTags, imageTagMutability = imageTagMutability, repositoryPolicy = repositoryPolicy, lifecyclePolicy = lifecyclePolicy, appliedFor = appliedFor, customRoleArn = customRoleArn)
+  output <- .ecr$update_repository_creation_template_output()
+  config <- get_config()
+  svc <- .ecr$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecr$operations$update_repository_creation_template <- ecr_update_repository_creation_template
 
 #' Uploads an image layer part to Amazon ECR
 #'
@@ -1561,12 +1877,13 @@ ecr_upload_layer_part <- function(registryId = NULL, repositoryName, uploadId, p
     name = "UploadLayerPart",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$upload_layer_part_input(registryId = registryId, repositoryName = repositoryName, uploadId = uploadId, partFirstByte = partFirstByte, partLastByte = partLastByte, layerPartBlob = layerPartBlob)
   output <- .ecr$upload_layer_part_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)
@@ -1593,12 +1910,13 @@ ecr_validate_pull_through_cache_rule <- function(ecrRepositoryPrefix, registryId
     name = "ValidatePullThroughCacheRule",
     http_method = "POST",
     http_path = "/",
+    host_prefix = "",
     paginator = list()
   )
   input <- .ecr$validate_pull_through_cache_rule_input(ecrRepositoryPrefix = ecrRepositoryPrefix, registryId = registryId)
   output <- .ecr$validate_pull_through_cache_rule_output()
   config <- get_config()
-  svc <- .ecr$service(config)
+  svc <- .ecr$service(config, op)
   request <- new_request(svc, op, input, output)
   response <- send_request(request)
   return(response)

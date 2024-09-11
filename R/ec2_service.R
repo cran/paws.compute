@@ -105,7 +105,7 @@ NULL
 #'  \link[=ec2_apply_security_groups_to_client_vpn_target_network]{apply_security_groups_to_client_vpn_target_network} \tab Applies a security group to the association between the target network and the Client VPN endpoint\cr
 #'  \link[=ec2_assign_ipv_6_addresses]{assign_ipv_6_addresses} \tab Assigns one or more IPv6 addresses to the specified network interface\cr
 #'  \link[=ec2_assign_private_ip_addresses]{assign_private_ip_addresses} \tab Assigns one or more secondary private IP addresses to the specified network interface\cr
-#'  \link[=ec2_assign_private_nat_gateway_address]{assign_private_nat_gateway_address} \tab Assigns one or more private IPv4 addresses to a private NAT gateway\cr
+#'  \link[=ec2_assign_private_nat_gateway_address]{assign_private_nat_gateway_address} \tab Assigns private IPv4 addresses to a private NAT gateway\cr
 #'  \link[=ec2_associate_address]{associate_address} \tab Associates an Elastic IP address, or carrier IP address (for instances that are in subnets in Wavelength Zones) with an instance or a network interface\cr
 #'  \link[=ec2_associate_client_vpn_target_network]{associate_client_vpn_target_network} \tab Associates a target network with a Client VPN endpoint\cr
 #'  \link[=ec2_associate_dhcp_options]{associate_dhcp_options} \tab Associates a set of DHCP options (that you've previously created) with the specified VPC, or associates no DHCP options with the VPC\cr
@@ -144,9 +144,10 @@ NULL
 #'  \link[=ec2_cancel_spot_instance_requests]{cancel_spot_instance_requests} \tab Cancels one or more Spot Instance requests\cr
 #'  \link[=ec2_confirm_product_instance]{confirm_product_instance} \tab Determines whether a product code is associated with an instance\cr
 #'  \link[=ec2_copy_fpga_image]{copy_fpga_image} \tab Copies the specified Amazon FPGA Image (AFI) to the current Region\cr
-#'  \link[=ec2_copy_image]{copy_image} \tab Initiates the copy of an AMI\cr
+#'  \link[=ec2_copy_image]{copy_image} \tab Initiates an AMI copy operation\cr
 #'  \link[=ec2_copy_snapshot]{copy_snapshot} \tab Copies a point-in-time snapshot of an EBS volume and stores it in Amazon S3\cr
 #'  \link[=ec2_create_capacity_reservation]{create_capacity_reservation} \tab Creates a new Capacity Reservation with the specified attributes\cr
+#'  \link[=ec2_create_capacity_reservation_by_splitting]{create_capacity_reservation_by_splitting} \tab Create a new Capacity Reservation by splitting the available capacity of the source Capacity Reservation\cr
 #'  \link[=ec2_create_capacity_reservation_fleet]{create_capacity_reservation_fleet} \tab Creates a Capacity Reservation Fleet\cr
 #'  \link[=ec2_create_carrier_gateway]{create_carrier_gateway} \tab Creates a carrier gateway\cr
 #'  \link[=ec2_create_client_vpn_endpoint]{create_client_vpn_endpoint} \tab Creates a Client VPN endpoint\cr
@@ -167,6 +168,7 @@ NULL
 #'  \link[=ec2_create_instance_export_task]{create_instance_export_task} \tab Exports a running or stopped instance to an Amazon S3 bucket\cr
 #'  \link[=ec2_create_internet_gateway]{create_internet_gateway} \tab Creates an internet gateway for use with a VPC\cr
 #'  \link[=ec2_create_ipam]{create_ipam} \tab Create an IPAM\cr
+#'  \link[=ec2_create_ipam_external_resource_verification_token]{create_ipam_external_resource_verification_token} \tab Create a verification token\cr
 #'  \link[=ec2_create_ipam_pool]{create_ipam_pool} \tab Create an IP address pool for Amazon VPC IP Address Manager (IPAM)\cr
 #'  \link[=ec2_create_ipam_resource_discovery]{create_ipam_resource_discovery} \tab Creates an IPAM resource discovery\cr
 #'  \link[=ec2_create_ipam_scope]{create_ipam_scope} \tab Create an IPAM scope\cr
@@ -243,6 +245,7 @@ NULL
 #'  \link[=ec2_delete_instance_event_window]{delete_instance_event_window} \tab Deletes the specified event window\cr
 #'  \link[=ec2_delete_internet_gateway]{delete_internet_gateway} \tab Deletes the specified internet gateway\cr
 #'  \link[=ec2_delete_ipam]{delete_ipam} \tab Delete an IPAM\cr
+#'  \link[=ec2_delete_ipam_external_resource_verification_token]{delete_ipam_external_resource_verification_token} \tab Delete a verification token\cr
 #'  \link[=ec2_delete_ipam_pool]{delete_ipam_pool} \tab Delete an IPAM pool\cr
 #'  \link[=ec2_delete_ipam_resource_discovery]{delete_ipam_resource_discovery} \tab Deletes an IPAM resource discovery\cr
 #'  \link[=ec2_delete_ipam_scope]{delete_ipam_scope} \tab Delete the scope for an IPAM\cr
@@ -332,8 +335,8 @@ NULL
 #'  \link[=ec2_describe_coip_pools]{describe_coip_pools} \tab Describes the specified customer-owned address pools or all of your customer-owned address pools\cr
 #'  \link[=ec2_describe_conversion_tasks]{describe_conversion_tasks} \tab Describes the specified conversion tasks or all your conversion tasks\cr
 #'  \link[=ec2_describe_customer_gateways]{describe_customer_gateways} \tab Describes one or more of your VPN customer gateways\cr
-#'  \link[=ec2_describe_dhcp_options]{describe_dhcp_options} \tab Describes one or more of your DHCP options sets\cr
-#'  \link[=ec2_describe_egress_only_internet_gateways]{describe_egress_only_internet_gateways} \tab Describes one or more of your egress-only internet gateways\cr
+#'  \link[=ec2_describe_dhcp_options]{describe_dhcp_options} \tab Describes your DHCP option sets\cr
+#'  \link[=ec2_describe_egress_only_internet_gateways]{describe_egress_only_internet_gateways} \tab Describes your egress-only internet gateways\cr
 #'  \link[=ec2_describe_elastic_gpus]{describe_elastic_gpus} \tab Amazon Elastic Graphics reached end of life on January 8, 2024\cr
 #'  \link[=ec2_describe_export_image_tasks]{describe_export_image_tasks} \tab Describes the specified export image tasks or all of your export image tasks\cr
 #'  \link[=ec2_describe_export_tasks]{describe_export_tasks} \tab Describes the specified export instance tasks or all of your export instance tasks\cr
@@ -365,8 +368,9 @@ NULL
 #'  \link[=ec2_describe_instance_topology]{describe_instance_topology} \tab Describes a tree-based hierarchy that represents the physical host placement of your EC2 instances within an Availability Zone or Local Zone\cr
 #'  \link[=ec2_describe_instance_type_offerings]{describe_instance_type_offerings} \tab Lists the instance types that are offered for the specified location\cr
 #'  \link[=ec2_describe_instance_types]{describe_instance_types} \tab Describes the specified instance types\cr
-#'  \link[=ec2_describe_internet_gateways]{describe_internet_gateways} \tab Describes one or more of your internet gateways\cr
+#'  \link[=ec2_describe_internet_gateways]{describe_internet_gateways} \tab Describes your internet gateways\cr
 #'  \link[=ec2_describe_ipam_byoasn]{describe_ipam_byoasn} \tab Describes your Autonomous System Numbers (ASNs), their provisioning statuses, and the BYOIP CIDRs with which they are associated\cr
+#'  \link[=ec2_describe_ipam_external_resource_verification_tokens]{describe_ipam_external_resource_verification_tokens} \tab Describe verification tokens\cr
 #'  \link[=ec2_describe_ipam_pools]{describe_ipam_pools} \tab Get information about your IPAM pools\cr
 #'  \link[=ec2_describe_ipam_resource_discoveries]{describe_ipam_resource_discoveries} \tab Describes IPAM resource discoveries\cr
 #'  \link[=ec2_describe_ipam_resource_discovery_associations]{describe_ipam_resource_discovery_associations} \tab Describes resource discovery association with an Amazon VPC IPAM\cr
@@ -386,8 +390,8 @@ NULL
 #'  \link[=ec2_describe_mac_hosts]{describe_mac_hosts} \tab Describes the specified EC2 Mac Dedicated Host or all of your EC2 Mac Dedicated Hosts\cr
 #'  \link[=ec2_describe_managed_prefix_lists]{describe_managed_prefix_lists} \tab Describes your managed prefix lists and any Amazon Web Services-managed prefix lists\cr
 #'  \link[=ec2_describe_moving_addresses]{describe_moving_addresses} \tab This action is deprecated\cr
-#'  \link[=ec2_describe_nat_gateways]{describe_nat_gateways} \tab Describes one or more of your NAT gateways\cr
-#'  \link[=ec2_describe_network_acls]{describe_network_acls} \tab Describes one or more of your network ACLs\cr
+#'  \link[=ec2_describe_nat_gateways]{describe_nat_gateways} \tab Describes your NAT gateways\cr
+#'  \link[=ec2_describe_network_acls]{describe_network_acls} \tab Describes your network ACLs\cr
 #'  \link[=ec2_describe_network_insights_access_scope_analyses]{describe_network_insights_access_scope_analyses} \tab Describes the specified Network Access Scope analyses\cr
 #'  \link[=ec2_describe_network_insights_access_scopes]{describe_network_insights_access_scopes} \tab Describes the specified Network Access Scopes\cr
 #'  \link[=ec2_describe_network_insights_analyses]{describe_network_insights_analyses} \tab Describes one or more of your network insights analyses\cr
@@ -405,7 +409,7 @@ NULL
 #'  \link[=ec2_describe_reserved_instances_listings]{describe_reserved_instances_listings} \tab Describes your account's Reserved Instance listings in the Reserved Instance Marketplace\cr
 #'  \link[=ec2_describe_reserved_instances_modifications]{describe_reserved_instances_modifications} \tab Describes the modifications made to your Reserved Instances\cr
 #'  \link[=ec2_describe_reserved_instances_offerings]{describe_reserved_instances_offerings} \tab Describes Reserved Instance offerings that are available for purchase\cr
-#'  \link[=ec2_describe_route_tables]{describe_route_tables} \tab Describes one or more of your route tables\cr
+#'  \link[=ec2_describe_route_tables]{describe_route_tables} \tab Describes your route tables\cr
 #'  \link[=ec2_describe_scheduled_instance_availability]{describe_scheduled_instance_availability} \tab Finds available schedules that meet the specified criteria\cr
 #'  \link[=ec2_describe_scheduled_instances]{describe_scheduled_instances} \tab Describes the specified Scheduled Instances or all your Scheduled Instances\cr
 #'  \link[=ec2_describe_security_group_references]{describe_security_group_references} \tab Describes the VPCs on the other side of a VPC peering connection that are referencing the security groups you've specified in this request\cr
@@ -422,8 +426,9 @@ NULL
 #'  \link[=ec2_describe_spot_price_history]{describe_spot_price_history} \tab Describes the Spot price history\cr
 #'  \link[=ec2_describe_stale_security_groups]{describe_stale_security_groups} \tab Describes the stale security group rules for security groups in a specified VPC\cr
 #'  \link[=ec2_describe_store_image_tasks]{describe_store_image_tasks} \tab Describes the progress of the AMI store tasks\cr
-#'  \link[=ec2_describe_subnets]{describe_subnets} \tab Describes one or more of your subnets\cr
+#'  \link[=ec2_describe_subnets]{describe_subnets} \tab Describes your subnets\cr
 #'  \link[=ec2_describe_tags]{describe_tags} \tab Describes the specified tags for your EC2 resources\cr
+#'  \link[=ec2_describe_traffic_mirror_filter_rules]{describe_traffic_mirror_filter_rules} \tab Describe traffic mirror filters that determine the traffic that is mirrored\cr
 #'  \link[=ec2_describe_traffic_mirror_filters]{describe_traffic_mirror_filters} \tab Describes one or more Traffic Mirror filters\cr
 #'  \link[=ec2_describe_traffic_mirror_sessions]{describe_traffic_mirror_sessions} \tab Describes one or more Traffic Mirror sessions\cr
 #'  \link[=ec2_describe_traffic_mirror_targets]{describe_traffic_mirror_targets} \tab Information about one or more Traffic Mirror targets\cr
@@ -456,8 +461,8 @@ NULL
 #'  \link[=ec2_describe_vpc_endpoint_service_configurations]{describe_vpc_endpoint_service_configurations} \tab Describes the VPC endpoint service configurations in your account (your services)\cr
 #'  \link[=ec2_describe_vpc_endpoint_service_permissions]{describe_vpc_endpoint_service_permissions} \tab Describes the principals (service consumers) that are permitted to discover your VPC endpoint service\cr
 #'  \link[=ec2_describe_vpc_endpoint_services]{describe_vpc_endpoint_services} \tab Describes available services to which you can create a VPC endpoint\cr
-#'  \link[=ec2_describe_vpc_peering_connections]{describe_vpc_peering_connections} \tab Describes one or more of your VPC peering connections\cr
-#'  \link[=ec2_describe_vpcs]{describe_vpcs} \tab Describes one or more of your VPCs\cr
+#'  \link[=ec2_describe_vpc_peering_connections]{describe_vpc_peering_connections} \tab Describes your VPC peering connections\cr
+#'  \link[=ec2_describe_vpcs]{describe_vpcs} \tab Describes your VPCs\cr
 #'  \link[=ec2_describe_vpn_connections]{describe_vpn_connections} \tab Describes one or more of your VPN connections\cr
 #'  \link[=ec2_describe_vpn_gateways]{describe_vpn_gateways} \tab Describes one or more of your virtual private gateways\cr
 #'  \link[=ec2_detach_classic_link_vpc]{detach_classic_link_vpc} \tab This action is deprecated\cr
@@ -534,6 +539,7 @@ NULL
 #'  \link[=ec2_get_host_reservation_purchase_preview]{get_host_reservation_purchase_preview} \tab Preview a reservation purchase with configurations that match those of your Dedicated Host\cr
 #'  \link[=ec2_get_image_block_public_access_state]{get_image_block_public_access_state} \tab Gets the current state of block public access for AMIs at the account level in the specified Amazon Web Services Region\cr
 #'  \link[=ec2_get_instance_metadata_defaults]{get_instance_metadata_defaults} \tab Gets the default instance metadata service (IMDS) settings that are set at the account level in the specified Amazon Web Services Region\cr
+#'  \link[=ec2_get_instance_tpm_ek_pub]{get_instance_tpm_ek_pub} \tab Gets the public endorsement key associated with the Nitro Trusted Platform Module (NitroTPM) for the specified instance\cr
 #'  \link[=ec2_get_instance_types_from_instance_requirements]{get_instance_types_from_instance_requirements} \tab Returns a list of instance types with the specified instance attributes\cr
 #'  \link[=ec2_get_instance_uefi_data]{get_instance_uefi_data} \tab A binary representation of the UEFI variable store\cr
 #'  \link[=ec2_get_ipam_address_history]{get_ipam_address_history} \tab Retrieve historical information about a CIDR within an IPAM scope\cr
@@ -577,8 +583,8 @@ NULL
 #'  \link[=ec2_list_snapshots_in_recycle_bin]{list_snapshots_in_recycle_bin} \tab Lists one or more snapshots that are currently in the Recycle Bin\cr
 #'  \link[=ec2_lock_snapshot]{lock_snapshot} \tab Locks an Amazon EBS snapshot in either governance or compliance mode to protect it against accidental or malicious deletions for a specific duration\cr
 #'  \link[=ec2_modify_address_attribute]{modify_address_attribute} \tab Modifies an attribute of the specified Elastic IP address\cr
-#'  \link[=ec2_modify_availability_zone_group]{modify_availability_zone_group} \tab Changes the opt-in status of the Local Zone and Wavelength Zone group for your account\cr
-#'  \link[=ec2_modify_capacity_reservation]{modify_capacity_reservation} \tab Modifies a Capacity Reservation's capacity and the conditions under which it is to be released\cr
+#'  \link[=ec2_modify_availability_zone_group]{modify_availability_zone_group} \tab Changes the opt-in status of the specified zone group for your account\cr
+#'  \link[=ec2_modify_capacity_reservation]{modify_capacity_reservation} \tab Modifies a Capacity Reservation's capacity, instance eligibility, and the conditions under which it is to be released\cr
 #'  \link[=ec2_modify_capacity_reservation_fleet]{modify_capacity_reservation_fleet} \tab Modifies a Capacity Reservation Fleet\cr
 #'  \link[=ec2_modify_client_vpn_endpoint]{modify_client_vpn_endpoint} \tab Modifies the specified Client VPN endpoint\cr
 #'  \link[=ec2_modify_default_credit_specification]{modify_default_credit_specification} \tab Modifies the default credit option for CPU usage of burstable performance instances\cr
@@ -644,6 +650,7 @@ NULL
 #'  \link[=ec2_monitor_instances]{monitor_instances} \tab Enables detailed monitoring for a running instance\cr
 #'  \link[=ec2_move_address_to_vpc]{move_address_to_vpc} \tab This action is deprecated\cr
 #'  \link[=ec2_move_byoip_cidr_to_ipam]{move_byoip_cidr_to_ipam} \tab Move a BYOIPv4 CIDR to IPAM from a public IPv4 pool\cr
+#'  \link[=ec2_move_capacity_reservation_instances]{move_capacity_reservation_instances} \tab Move available capacity from a source Capacity Reservation to a destination Capacity Reservation\cr
 #'  \link[=ec2_provision_byoip_cidr]{provision_byoip_cidr} \tab Provisions an IPv4 or IPv6 address range for use with your Amazon Web Services resources through bring your own IP addresses (BYOIP) and creates a corresponding address pool\cr
 #'  \link[=ec2_provision_ipam_byoasn]{provision_ipam_byoasn} \tab Provisions your Autonomous System Number (ASN) for use in your Amazon Web Services account\cr
 #'  \link[=ec2_provision_ipam_pool_cidr]{provision_ipam_pool_cidr} \tab Provision a CIDR to an IPAM pool\cr
@@ -750,7 +757,7 @@ ec2 <- function(config = list(), credentials = list(), endpoint = NULL, region =
   target_prefix = ""
 )
 
-.ec2$service <- function(config = list()) {
+.ec2$service <- function(config = list(), op = NULL) {
   handlers <- new_handlers("ec2query", "v4")
-  new_service(.ec2$metadata, handlers, config)
+  new_service(.ec2$metadata, handlers, config, op)
 }

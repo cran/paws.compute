@@ -1,6 +1,6 @@
 Package: paws.compute
 Title: 'Amazon Web Services' Compute Services
-Version: 0.6.1
+Version: 0.7.0
 Authors@R: c(
     person("David", "Kretch", , "david.kretch@gmail.com", role = "aut"),
     person("Adam", "Banker", , "adam.banker39@gmail.com", role = "aut"),
@@ -14,10 +14,10 @@ Description: Interface to 'Amazon Web Services' compute services,
 License: Apache License (>= 2.0)
 URL: https://github.com/paws-r/paws
 BugReports: https://github.com/paws-r/paws/issues
-Imports: paws.common (>= 0.6.0)
+Imports: paws.common (>= 0.7.5)
 Suggests: testthat
 Encoding: UTF-8
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Collate: 'apprunner_service.R' 'apprunner_interfaces.R'
         'apprunner_operations.R' 'batch_service.R' 'batch_interfaces.R'
         'batch_operations.R' 'braket_service.R' 'braket_interfaces.R'
@@ -46,11 +46,11 @@ Collate: 'apprunner_service.R' 'apprunner_interfaces.R'
         'serverlessapplicationrepository_interfaces.R'
         'serverlessapplicationrepository_operations.R'
 NeedsCompilation: no
-Packaged: 2024-05-15 15:02:38 UTC; dyfanjones
+Packaged: 2024-09-11 08:28:19 UTC; dyfanjones
 Author: David Kretch [aut],
   Adam Banker [aut],
   Dyfan Jones [cre],
   Amazon.com, Inc. [cph]
 Maintainer: Dyfan Jones <dyfan.r.jones@gmail.com>
 Repository: CRAN
-Date/Publication: 2024-05-16 08:10:02 UTC
+Date/Publication: 2024-09-11 22:51:59 UTC

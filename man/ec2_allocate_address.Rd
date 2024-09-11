@@ -11,7 +11,8 @@ ec2_allocate_address(
   NetworkBorderGroup = NULL,
   CustomerOwnedIpv4Pool = NULL,
   DryRun = NULL,
-  TagSpecifications = NULL
+  TagSpecifications = NULL,
+  IpamPoolId = NULL
 )
 }
 \arguments{
@@ -27,10 +28,7 @@ address from the address pool, use the \code{Address} parameter instead.}
 \item{NetworkBorderGroup}{A unique set of Availability Zones, Local Zones, or Wavelength Zones
 from which Amazon Web Services advertises IP addresses. Use this
 parameter to limit the IP address to this location. IP addresses cannot
-move between network border groups.
-
-Use \code{\link[=ec2_describe_availability_zones]{describe_availability_zones}} to
-view the network border groups.}
+move between network border groups.}
 
 \item{CustomerOwnedIpv4Pool}{The ID of a customer-owned address pool. Use this parameter to let
 Amazon EC2 select an address from the address pool. Alternatively,
@@ -42,6 +40,8 @@ the required permissions, the error response is \code{DryRunOperation}.
 Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{TagSpecifications}{The tags to assign to the Elastic IP address.}
+
+\item{IpamPoolId}{The ID of an IPAM pool.}
 }
 \description{
 Allocates an Elastic IP address to your Amazon Web Services account. After you allocate the Elastic IP address you can associate it with an instance or network interface. After you release an Elastic IP address, it is released to the IP address pool and can be allocated to a different Amazon Web Services account.

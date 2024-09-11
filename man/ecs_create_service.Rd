@@ -49,7 +49,7 @@ latest \code{ACTIVE} revision is used.
 A task definition must be specified if the service uses either the \code{ECS}
 or \code{CODE_DEPLOY} deployment controllers.
 
-For more information about deployment types, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/deployment-types.html}{Amazon ECS deployment types}.}
+For more information about deployment types, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/}{Amazon ECS deployment types}.}
 
 \item{loadBalancers}{A load balancer object representing the load balancers to use with your
 service. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html}{Service load balancing}
@@ -305,7 +305,7 @@ volume that is configured at launch time. Currently, the only supported
 volume type is an Amazon EBS volume.}
 }
 \description{
-Runs and maintains your desired number of tasks from a specified task definition. If the number of tasks running in a service drops below the \code{desiredCount}, Amazon ECS runs another copy of the task in the specified cluster. To update an existing service, see the \code{\link[=ecs_update_service]{update_service}} action.
+Runs and maintains your desired number of tasks from a specified task definition. If the number of tasks running in a service drops below the \code{desiredCount}, Amazon ECS runs another copy of the task in the specified cluster. To update an existing service, use \code{\link[=ecs_update_service]{update_service}}.
 
 See \url{https://www.paws-r-sdk.com/docs/ecs_create_service/} for full documentation.
 }
