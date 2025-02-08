@@ -37,7 +37,8 @@ lambda_add_layer_version_permission <- function(LayerName, VersionNumber, Statem
     http_method = "POST",
     http_path = "/2018-10-31/layers/{LayerName}/versions/{VersionNumber}/policy",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$add_layer_version_permission_input(LayerName = LayerName, VersionNumber = VersionNumber, StatementId = StatementId, Action = Action, Principal = Principal, OrganizationId = OrganizationId, RevisionId = RevisionId)
   output <- .lambda$add_layer_version_permission_output()
@@ -49,11 +50,10 @@ lambda_add_layer_version_permission <- function(LayerName, VersionNumber, Statem
 }
 .lambda$operations$add_layer_version_permission <- lambda_add_layer_version_permission
 
-#' Grants an Amazon Web Servicesservice, Amazon Web Services account, or
-#' Amazon Web Services organization permission to use a function
+#' Grants a principal permission to use a function
 #'
 #' @description
-#' Grants an Amazon Web Servicesservice, Amazon Web Services account, or Amazon Web Services organization permission to use a function. You can apply the policy at the function level, or specify a qualifier to restrict access to a single version or alias. If you use a qualifier, the invoker must use the full Amazon Resource Name (ARN) of that version or alias to invoke the function. Note: Lambda does not support adding policies to version $LATEST.
+#' Grants a [principal](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying) permission to use a function. You can apply the policy at the function level, or specify a qualifier to restrict access to a single version or alias. If you use a qualifier, the invoker must use the full Amazon Resource Name (ARN) of that version or alias to invoke the function. Note: Lambda does not support adding policies to version $LATEST.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_add_permission/](https://www.paws-r-sdk.com/docs/lambda_add_permission/) for full documentation.
 #'
@@ -76,17 +76,17 @@ lambda_add_layer_version_permission <- function(LayerName, VersionNumber, Statem
 #' the same policy.
 #' @param Action &#91;required&#93; The action that the principal can use on the function. For example,
 #' `lambda:InvokeFunction` or `lambda:GetFunction`.
-#' @param Principal &#91;required&#93; The Amazon Web Servicesservice or Amazon Web Services account that
-#' invokes the function. If you specify a service, use `SourceArn` or
-#' `SourceAccount` to limit who can invoke the function through that
-#' service.
-#' @param SourceArn For Amazon Web Servicesservices, the ARN of the Amazon Web Services
+#' @param Principal &#91;required&#93; The Amazon Web Services service, Amazon Web Services account, IAM user,
+#' or IAM role that invokes the function. If you specify a service, use
+#' `SourceArn` or `SourceAccount` to limit who can invoke the function
+#' through that service.
+#' @param SourceArn For Amazon Web Services services, the ARN of the Amazon Web Services
 #' resource that invokes the function. For example, an Amazon S3 bucket or
 #' Amazon SNS topic.
 #' 
 #' Note that Lambda configures the comparison using the `StringLike`
 #' operator.
-#' @param SourceAccount For Amazon Web Servicesservice, the ID of the Amazon Web Services
+#' @param SourceAccount For Amazon Web Services service, the ID of the Amazon Web Services
 #' account that owns the resource. Use this together with `SourceArn` to
 #' ensure that the specified account owns the resource. It is possible for
 #' an Amazon S3 bucket to be deleted by its owner and recreated by another
@@ -116,7 +116,8 @@ lambda_add_permission <- function(FunctionName, StatementId, Action, Principal, 
     http_method = "POST",
     http_path = "/2015-03-31/functions/{FunctionName}/policy",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$add_permission_input(FunctionName = FunctionName, StatementId = StatementId, Action = Action, Principal = Principal, SourceArn = SourceArn, SourceAccount = SourceAccount, EventSourceToken = EventSourceToken, Qualifier = Qualifier, RevisionId = RevisionId, PrincipalOrgID = PrincipalOrgID, FunctionUrlAuthType = FunctionUrlAuthType)
   output <- .lambda$add_permission_output()
@@ -164,7 +165,8 @@ lambda_create_alias <- function(FunctionName, Name, FunctionVersion, Description
     http_method = "POST",
     http_path = "/2015-03-31/functions/{FunctionName}/aliases",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$create_alias_input(FunctionName = FunctionName, Name = Name, FunctionVersion = FunctionVersion, Description = Description, RoutingConfig = RoutingConfig)
   output <- .lambda$create_alias_output()
@@ -187,19 +189,21 @@ lambda_create_alias <- function(FunctionName, Name, FunctionVersion, Description
 #' @param AllowedPublishers &#91;required&#93; Signing profiles for this code signing configuration.
 #' @param CodeSigningPolicies The code signing policies define the actions to take if the validation
 #' checks fail.
+#' @param Tags A list of tags to add to the code signing configuration.
 #'
 #' @keywords internal
 #'
 #' @rdname lambda_create_code_signing_config
-lambda_create_code_signing_config <- function(Description = NULL, AllowedPublishers, CodeSigningPolicies = NULL) {
+lambda_create_code_signing_config <- function(Description = NULL, AllowedPublishers, CodeSigningPolicies = NULL, Tags = NULL) {
   op <- new_operation(
     name = "CreateCodeSigningConfig",
     http_method = "POST",
     http_path = "/2020-04-22/code-signing-configs/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .lambda$create_code_signing_config_input(Description = Description, AllowedPublishers = AllowedPublishers, CodeSigningPolicies = CodeSigningPolicies)
+  input <- .lambda$create_code_signing_config_input(Description = Description, AllowedPublishers = AllowedPublishers, CodeSigningPolicies = CodeSigningPolicies, Tags = Tags)
   output <- .lambda$create_code_signing_config_output()
   config <- get_config()
   svc <- .lambda$service(config, op)
@@ -311,6 +315,7 @@ lambda_create_code_signing_config <- function(Description = NULL, AllowedPublish
 #' @param MaximumRetryAttempts (Kinesis and DynamoDB Streams only) Discard records after the specified
 #' number of retries. The default value is infinite (-1). When set to
 #' infinite (-1), failed records are retried until the record expires.
+#' @param Tags A list of tags to apply to the event source mapping.
 #' @param TumblingWindowInSeconds (Kinesis and DynamoDB Streams only) The duration in seconds of a
 #' processing window for DynamoDB and Kinesis Streams event sources. A
 #' value of 0 seconds indicates no tumbling window.
@@ -335,19 +340,27 @@ lambda_create_code_signing_config <- function(Description = NULL, AllowedPublish
 #' criteria](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics).
 #' By default, Lambda does not encrypt your filter criteria object. Specify
 #' this property to encrypt data using your own customer managed key.
+#' @param MetricsConfig The metrics configuration for your event source. For more information,
+#' see [Event source mapping
+#' metrics](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics).
+#' @param ProvisionedPollerConfig (Amazon MSK and self-managed Apache Kafka only) The Provisioned Mode
+#' configuration for the event source. For more information, see
+#' [Provisioned
+#' Mode](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode).
 #'
 #' @keywords internal
 #'
 #' @rdname lambda_create_event_source_mapping
-lambda_create_event_source_mapping <- function(EventSourceArn = NULL, FunctionName, Enabled = NULL, BatchSize = NULL, FilterCriteria = NULL, MaximumBatchingWindowInSeconds = NULL, ParallelizationFactor = NULL, StartingPosition = NULL, StartingPositionTimestamp = NULL, DestinationConfig = NULL, MaximumRecordAgeInSeconds = NULL, BisectBatchOnFunctionError = NULL, MaximumRetryAttempts = NULL, TumblingWindowInSeconds = NULL, Topics = NULL, Queues = NULL, SourceAccessConfigurations = NULL, SelfManagedEventSource = NULL, FunctionResponseTypes = NULL, AmazonManagedKafkaEventSourceConfig = NULL, SelfManagedKafkaEventSourceConfig = NULL, ScalingConfig = NULL, DocumentDBEventSourceConfig = NULL, KMSKeyArn = NULL) {
+lambda_create_event_source_mapping <- function(EventSourceArn = NULL, FunctionName, Enabled = NULL, BatchSize = NULL, FilterCriteria = NULL, MaximumBatchingWindowInSeconds = NULL, ParallelizationFactor = NULL, StartingPosition = NULL, StartingPositionTimestamp = NULL, DestinationConfig = NULL, MaximumRecordAgeInSeconds = NULL, BisectBatchOnFunctionError = NULL, MaximumRetryAttempts = NULL, Tags = NULL, TumblingWindowInSeconds = NULL, Topics = NULL, Queues = NULL, SourceAccessConfigurations = NULL, SelfManagedEventSource = NULL, FunctionResponseTypes = NULL, AmazonManagedKafkaEventSourceConfig = NULL, SelfManagedKafkaEventSourceConfig = NULL, ScalingConfig = NULL, DocumentDBEventSourceConfig = NULL, KMSKeyArn = NULL, MetricsConfig = NULL, ProvisionedPollerConfig = NULL) {
   op <- new_operation(
     name = "CreateEventSourceMapping",
     http_method = "POST",
     http_path = "/2015-03-31/event-source-mappings/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .lambda$create_event_source_mapping_input(EventSourceArn = EventSourceArn, FunctionName = FunctionName, Enabled = Enabled, BatchSize = BatchSize, FilterCriteria = FilterCriteria, MaximumBatchingWindowInSeconds = MaximumBatchingWindowInSeconds, ParallelizationFactor = ParallelizationFactor, StartingPosition = StartingPosition, StartingPositionTimestamp = StartingPositionTimestamp, DestinationConfig = DestinationConfig, MaximumRecordAgeInSeconds = MaximumRecordAgeInSeconds, BisectBatchOnFunctionError = BisectBatchOnFunctionError, MaximumRetryAttempts = MaximumRetryAttempts, TumblingWindowInSeconds = TumblingWindowInSeconds, Topics = Topics, Queues = Queues, SourceAccessConfigurations = SourceAccessConfigurations, SelfManagedEventSource = SelfManagedEventSource, FunctionResponseTypes = FunctionResponseTypes, AmazonManagedKafkaEventSourceConfig = AmazonManagedKafkaEventSourceConfig, SelfManagedKafkaEventSourceConfig = SelfManagedKafkaEventSourceConfig, ScalingConfig = ScalingConfig, DocumentDBEventSourceConfig = DocumentDBEventSourceConfig, KMSKeyArn = KMSKeyArn)
+  input <- .lambda$create_event_source_mapping_input(EventSourceArn = EventSourceArn, FunctionName = FunctionName, Enabled = Enabled, BatchSize = BatchSize, FilterCriteria = FilterCriteria, MaximumBatchingWindowInSeconds = MaximumBatchingWindowInSeconds, ParallelizationFactor = ParallelizationFactor, StartingPosition = StartingPosition, StartingPositionTimestamp = StartingPositionTimestamp, DestinationConfig = DestinationConfig, MaximumRecordAgeInSeconds = MaximumRecordAgeInSeconds, BisectBatchOnFunctionError = BisectBatchOnFunctionError, MaximumRetryAttempts = MaximumRetryAttempts, Tags = Tags, TumblingWindowInSeconds = TumblingWindowInSeconds, Topics = Topics, Queues = Queues, SourceAccessConfigurations = SourceAccessConfigurations, SelfManagedEventSource = SelfManagedEventSource, FunctionResponseTypes = FunctionResponseTypes, AmazonManagedKafkaEventSourceConfig = AmazonManagedKafkaEventSourceConfig, SelfManagedKafkaEventSourceConfig = SelfManagedKafkaEventSourceConfig, ScalingConfig = ScalingConfig, DocumentDBEventSourceConfig = DocumentDBEventSourceConfig, KMSKeyArn = KMSKeyArn, MetricsConfig = MetricsConfig, ProvisionedPollerConfig = ProvisionedPollerConfig)
   output <- .lambda$create_event_source_mapping_output()
   config <- get_config()
   svc <- .lambda$service(config, op)
@@ -360,7 +373,7 @@ lambda_create_event_source_mapping <- function(EventSourceArn = NULL, FunctionNa
 #' Creates a Lambda function
 #'
 #' @description
-#' Creates a Lambda function. To create a function, you need a [deployment package](https://docs.aws.amazon.com/lambda/latest/dg/) and an [execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-permissions.html#lambda-intro-execution-role). The deployment package is a .zip file archive or container image that contains your function code. The execution role grants the function permission to use Amazon Web Servicesservices, such as Amazon CloudWatch Logs for log streaming and X-Ray for request tracing.
+#' Creates a Lambda function. To create a function, you need a [deployment package](https://docs.aws.amazon.com/lambda/latest/dg/) and an [execution role](https://docs.aws.amazon.com/lambda/latest/dg/lambda-permissions.html#lambda-intro-execution-role). The deployment package is a .zip file archive or container image that contains your function code. The execution role grants the function permission to use Amazon Web Services services, such as Amazon CloudWatch Logs for log streaming and X-Ray for request tracing.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_create_function/](https://www.paws-r-sdk.com/docs/lambda_create_function/) for full documentation.
 #'
@@ -425,16 +438,31 @@ lambda_create_event_source_mapping <- function(EventSourceArn = NULL, FunctionNa
 #' @param Environment Environment variables that are accessible from function code during
 #' execution.
 #' @param KMSKeyArn The ARN of the Key Management Service (KMS) customer managed key that's
-#' used to encrypt your function's [environment
-#' variables](https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption).
-#' When [Lambda
-#' SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html)
-#' is activated, Lambda also uses this key is to encrypt your function's
-#' snapshot. If you deploy your function using a container image, Lambda
-#' also uses this key to encrypt your function when it's deployed. Note
-#' that this is not the same key that's used to protect your container
-#' image in the Amazon Elastic Container Registry (Amazon ECR). If you
-#' don't provide a customer managed key, Lambda uses a default service key.
+#' used to encrypt the following resources:
+#' 
+#' -   The function's [environment
+#'     variables](https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption).
+#' 
+#' -   The function's [Lambda
+#'     SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html)
+#'     snapshots.
+#' 
+#' -   When used with `SourceKMSKeyArn`, the unzipped version of the .zip
+#'     deployment package that's used for function invocations. For more
+#'     information, see [Specifying a customer managed key for
+#'     Lambda](https://docs.aws.amazon.com/lambda/latest/dg/encrypt-zip-package.html#enable-zip-custom-encryption).
+#' 
+#' -   The optimized version of the container image that's used for
+#'     function invocations. Note that this is not the same key that's used
+#'     to protect your container image in the Amazon Elastic Container
+#'     Registry (Amazon ECR). For more information, see [Function
+#'     lifecycle](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-lifecycle).
+#' 
+#' If you don't provide a customer managed key, Lambda uses an [Amazon Web
+#' Services owned
+#' key](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk)
+#' or an [Amazon Web Services managed
+#' key](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk).
 #' @param TracingConfig Set `Mode` to `Active` to sample and trace a subset of incoming requests
 #' with
 #' [X-Ray](https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html).
@@ -474,7 +502,8 @@ lambda_create_function <- function(FunctionName, Runtime = NULL, Role, Handler =
     http_method = "POST",
     http_path = "/2015-03-31/functions",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$create_function_input(FunctionName = FunctionName, Runtime = Runtime, Role = Role, Handler = Handler, Code = Code, Description = Description, Timeout = Timeout, MemorySize = MemorySize, Publish = Publish, VpcConfig = VpcConfig, PackageType = PackageType, DeadLetterConfig = DeadLetterConfig, Environment = Environment, KMSKeyArn = KMSKeyArn, TracingConfig = TracingConfig, Tags = Tags, Layers = Layers, FileSystemConfigs = FileSystemConfigs, ImageConfig = ImageConfig, CodeSigningConfigArn = CodeSigningConfigArn, Architectures = Architectures, EphemeralStorage = EphemeralStorage, SnapStart = SnapStart, LoggingConfig = LoggingConfig)
   output <- .lambda$create_function_output()
@@ -540,7 +569,8 @@ lambda_create_function_url_config <- function(FunctionName, Qualifier = NULL, Au
     http_method = "POST",
     http_path = "/2021-10-31/functions/{FunctionName}/url",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$create_function_url_config_input(FunctionName = FunctionName, Qualifier = Qualifier, AuthType = AuthType, Cors = Cors, InvokeMode = InvokeMode)
   output <- .lambda$create_function_url_config_output()
@@ -583,7 +613,8 @@ lambda_delete_alias <- function(FunctionName, Name) {
     http_method = "DELETE",
     http_path = "/2015-03-31/functions/{FunctionName}/aliases/{Name}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_alias_input(FunctionName = FunctionName, Name = Name)
   output <- .lambda$delete_alias_output()
@@ -613,7 +644,8 @@ lambda_delete_code_signing_config <- function(CodeSigningConfigArn) {
     http_method = "DELETE",
     http_path = "/2020-04-22/code-signing-configs/{CodeSigningConfigArn}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_code_signing_config_input(CodeSigningConfigArn = CodeSigningConfigArn)
   output <- .lambda$delete_code_signing_config_output()
@@ -643,7 +675,8 @@ lambda_delete_event_source_mapping <- function(UUID) {
     http_method = "DELETE",
     http_path = "/2015-03-31/event-source-mappings/{UUID}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_event_source_mapping_input(UUID = UUID)
   output <- .lambda$delete_event_source_mapping_output()
@@ -689,7 +722,8 @@ lambda_delete_function <- function(FunctionName, Qualifier = NULL) {
     http_method = "DELETE",
     http_path = "/2015-03-31/functions/{FunctionName}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_function_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$delete_function_output()
@@ -731,7 +765,8 @@ lambda_delete_function_code_signing_config <- function(FunctionName) {
     http_method = "DELETE",
     http_path = "/2020-06-30/functions/{FunctionName}/code-signing-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_function_code_signing_config_input(FunctionName = FunctionName)
   output <- .lambda$delete_function_code_signing_config_output()
@@ -773,7 +808,8 @@ lambda_delete_function_concurrency <- function(FunctionName) {
     http_method = "DELETE",
     http_path = "/2017-10-31/functions/{FunctionName}/concurrency",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_function_concurrency_input(FunctionName = FunctionName)
   output <- .lambda$delete_function_concurrency_output()
@@ -819,7 +855,8 @@ lambda_delete_function_event_invoke_config <- function(FunctionName, Qualifier =
     http_method = "DELETE",
     http_path = "/2019-09-25/functions/{FunctionName}/event-invoke-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_function_event_invoke_config_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$delete_function_event_invoke_config_output()
@@ -862,7 +899,8 @@ lambda_delete_function_url_config <- function(FunctionName, Qualifier = NULL) {
     http_method = "DELETE",
     http_path = "/2021-10-31/functions/{FunctionName}/url",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_function_url_config_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$delete_function_url_config_output()
@@ -893,7 +931,8 @@ lambda_delete_layer_version <- function(LayerName, VersionNumber) {
     http_method = "DELETE",
     http_path = "/2018-10-31/layers/{LayerName}/versions/{VersionNumber}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_layer_version_input(LayerName = LayerName, VersionNumber = VersionNumber)
   output <- .lambda$delete_layer_version_output()
@@ -936,7 +975,8 @@ lambda_delete_provisioned_concurrency_config <- function(FunctionName, Qualifier
     http_method = "DELETE",
     http_path = "/2019-09-30/functions/{FunctionName}/provisioned-concurrency",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$delete_provisioned_concurrency_config_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$delete_provisioned_concurrency_config_output()
@@ -967,7 +1007,8 @@ lambda_get_account_settings <- function() {
     http_method = "GET",
     http_path = "/2016-08-19/account-settings/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_account_settings_input()
   output <- .lambda$get_account_settings_output()
@@ -1010,7 +1051,8 @@ lambda_get_alias <- function(FunctionName, Name) {
     http_method = "GET",
     http_path = "/2015-03-31/functions/{FunctionName}/aliases/{Name}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_alias_input(FunctionName = FunctionName, Name = Name)
   output <- .lambda$get_alias_output()
@@ -1040,7 +1082,8 @@ lambda_get_code_signing_config <- function(CodeSigningConfigArn) {
     http_method = "GET",
     http_path = "/2020-04-22/code-signing-configs/{CodeSigningConfigArn}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_code_signing_config_input(CodeSigningConfigArn = CodeSigningConfigArn)
   output <- .lambda$get_code_signing_config_output()
@@ -1070,7 +1113,8 @@ lambda_get_event_source_mapping <- function(UUID) {
     http_method = "GET",
     http_path = "/2015-03-31/event-source-mappings/{UUID}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_event_source_mapping_input(UUID = UUID)
   output <- .lambda$get_event_source_mapping_output()
@@ -1117,7 +1161,8 @@ lambda_get_function <- function(FunctionName, Qualifier = NULL) {
     http_method = "GET",
     http_path = "/2015-03-31/functions/{FunctionName}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_function_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$get_function_output()
@@ -1159,7 +1204,8 @@ lambda_get_function_code_signing_config <- function(FunctionName) {
     http_method = "GET",
     http_path = "/2020-06-30/functions/{FunctionName}/code-signing-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_function_code_signing_config_input(FunctionName = FunctionName)
   output <- .lambda$get_function_code_signing_config_output()
@@ -1202,7 +1248,8 @@ lambda_get_function_concurrency <- function(FunctionName) {
     http_method = "GET",
     http_path = "/2019-09-30/functions/{FunctionName}/concurrency",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_function_concurrency_input(FunctionName = FunctionName)
   output <- .lambda$get_function_concurrency_output()
@@ -1248,7 +1295,8 @@ lambda_get_function_configuration <- function(FunctionName, Qualifier = NULL) {
     http_method = "GET",
     http_path = "/2015-03-31/functions/{FunctionName}/configuration",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_function_configuration_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$get_function_configuration_output()
@@ -1294,7 +1342,8 @@ lambda_get_function_event_invoke_config <- function(FunctionName, Qualifier = NU
     http_method = "GET",
     http_path = "/2019-09-25/functions/{FunctionName}/event-invoke-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_function_event_invoke_config_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$get_function_event_invoke_config_output()
@@ -1324,7 +1373,8 @@ lambda_get_function_recursion_config <- function(FunctionName) {
     http_method = "GET",
     http_path = "/2024-08-31/functions/{FunctionName}/recursion-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_function_recursion_config_input(FunctionName = FunctionName)
   output <- .lambda$get_function_recursion_config_output()
@@ -1367,7 +1417,8 @@ lambda_get_function_url_config <- function(FunctionName, Qualifier = NULL) {
     http_method = "GET",
     http_path = "/2021-10-31/functions/{FunctionName}/url",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_function_url_config_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$get_function_url_config_output()
@@ -1399,7 +1450,8 @@ lambda_get_layer_version <- function(LayerName, VersionNumber) {
     http_method = "GET",
     http_path = "/2018-10-31/layers/{LayerName}/versions/{VersionNumber}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_layer_version_input(LayerName = LayerName, VersionNumber = VersionNumber)
   output <- .lambda$get_layer_version_output()
@@ -1430,7 +1482,8 @@ lambda_get_layer_version_by_arn <- function(Arn) {
     http_method = "GET",
     http_path = "/2018-10-31/layers?find=LayerVersion",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_layer_version_by_arn_input(Arn = Arn)
   output <- .lambda$get_layer_version_by_arn_output()
@@ -1461,7 +1514,8 @@ lambda_get_layer_version_policy <- function(LayerName, VersionNumber) {
     http_method = "GET",
     http_path = "/2018-10-31/layers/{LayerName}/versions/{VersionNumber}/policy",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_layer_version_policy_input(LayerName = LayerName, VersionNumber = VersionNumber)
   output <- .lambda$get_layer_version_policy_output()
@@ -1506,7 +1560,8 @@ lambda_get_policy <- function(FunctionName, Qualifier = NULL) {
     http_method = "GET",
     http_path = "/2015-03-31/functions/{FunctionName}/policy",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_policy_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$get_policy_output()
@@ -1550,7 +1605,8 @@ lambda_get_provisioned_concurrency_config <- function(FunctionName, Qualifier) {
     http_method = "GET",
     http_path = "/2019-09-30/functions/{FunctionName}/provisioned-concurrency",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_provisioned_concurrency_config_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$get_provisioned_concurrency_config_output()
@@ -1595,7 +1651,8 @@ lambda_get_runtime_management_config <- function(FunctionName, Qualifier = NULL)
     http_method = "GET",
     http_path = "/2021-07-20/functions/{FunctionName}/runtime-management-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$get_runtime_management_config_input(FunctionName = FunctionName, Qualifier = Qualifier)
   output <- .lambda$get_runtime_management_config_output()
@@ -1665,7 +1722,8 @@ lambda_invoke <- function(FunctionName, InvocationType = NULL, LogType = NULL, C
     http_method = "POST",
     http_path = "/2015-03-31/functions/{FunctionName}/invocations",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$invoke_input(FunctionName = FunctionName, InvocationType = InvocationType, LogType = LogType, ClientContext = ClientContext, Payload = Payload, Qualifier = Qualifier)
   output <- .lambda$invoke_output()
@@ -1708,7 +1766,8 @@ lambda_invoke_async <- function(FunctionName, InvokeArgs) {
     http_method = "POST",
     http_path = "/2014-11-13/functions/{FunctionName}/invoke-async/",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$invoke_async_input(FunctionName = FunctionName, InvokeArgs = InvokeArgs)
   output <- .lambda$invoke_async_output()
@@ -1770,7 +1829,8 @@ lambda_invoke_with_response_stream <- function(FunctionName, InvocationType = NU
     http_method = "POST",
     http_path = "/2021-11-15/functions/{FunctionName}/response-streaming-invocations",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = TRUE
   )
   input <- .lambda$invoke_with_response_stream_input(FunctionName = FunctionName, InvocationType = InvocationType, LogType = LogType, ClientContext = ClientContext, Qualifier = Qualifier, Payload = Payload)
   output <- .lambda$invoke_with_response_stream_output()
@@ -1817,7 +1877,8 @@ lambda_list_aliases <- function(FunctionName, FunctionVersion = NULL, Marker = N
     http_method = "GET",
     http_path = "/2015-03-31/functions/{FunctionName}/aliases",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Aliases")
+    paginator = list(input_token = "Marker", output_token = "NextMarker", limit_key = "MaxItems", result_key = "Aliases"),
+    stream_api = FALSE
   )
   input <- .lambda$list_aliases_input(FunctionName = FunctionName, FunctionVersion = FunctionVersion, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_aliases_output()
@@ -1849,7 +1910,8 @@ lambda_list_code_signing_configs <- function(Marker = NULL, MaxItems = NULL) {
     http_method = "GET",
     http_path = "/2020-04-22/code-signing-configs/",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "CodeSigningConfigs")
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "CodeSigningConfigs"),
+    stream_api = FALSE
   )
   input <- .lambda$list_code_signing_configs_input(Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_code_signing_configs_output()
@@ -1915,7 +1977,8 @@ lambda_list_event_source_mappings <- function(EventSourceArn = NULL, FunctionNam
     http_method = "GET",
     http_path = "/2015-03-31/event-source-mappings/",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "EventSourceMappings")
+    paginator = list(input_token = "Marker", output_token = "NextMarker", limit_key = "MaxItems", result_key = "EventSourceMappings"),
+    stream_api = FALSE
   )
   input <- .lambda$list_event_source_mappings_input(EventSourceArn = EventSourceArn, FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_event_source_mappings_output()
@@ -1961,7 +2024,8 @@ lambda_list_function_event_invoke_configs <- function(FunctionName, Marker = NUL
     http_method = "GET",
     http_path = "/2019-09-25/functions/{FunctionName}/event-invoke-config/list",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionEventInvokeConfigs")
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionEventInvokeConfigs"),
+    stream_api = FALSE
   )
   input <- .lambda$list_function_event_invoke_configs_input(FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_function_event_invoke_configs_output()
@@ -2009,7 +2073,8 @@ lambda_list_function_url_configs <- function(FunctionName, Marker = NULL, MaxIte
     http_method = "GET",
     http_path = "/2021-10-31/functions/{FunctionName}/urls",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionUrlConfigs")
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionUrlConfigs"),
+    stream_api = FALSE
   )
   input <- .lambda$list_function_url_configs_input(FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_function_url_configs_output()
@@ -2051,7 +2116,8 @@ lambda_list_functions <- function(MasterRegion = NULL, FunctionVersion = NULL, M
     http_method = "GET",
     http_path = "/2015-03-31/functions/",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Functions")
+    paginator = list(input_token = "Marker", output_token = "NextMarker", limit_key = "MaxItems", result_key = "Functions"),
+    stream_api = FALSE
   )
   input <- .lambda$list_functions_input(MasterRegion = MasterRegion, FunctionVersion = FunctionVersion, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_functions_output()
@@ -2084,7 +2150,8 @@ lambda_list_functions_by_code_signing_config <- function(CodeSigningConfigArn, M
     http_method = "GET",
     http_path = "/2020-04-22/code-signing-configs/{CodeSigningConfigArn}/functions",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionArns")
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "FunctionArns"),
+    stream_api = FALSE
   )
   input <- .lambda$list_functions_by_code_signing_config_input(CodeSigningConfigArn = CodeSigningConfigArn, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_functions_by_code_signing_config_output()
@@ -2126,7 +2193,8 @@ lambda_list_layer_versions <- function(CompatibleRuntime = NULL, LayerName, Mark
     http_method = "GET",
     http_path = "/2018-10-31/layers/{LayerName}/versions",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "LayerVersions")
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "LayerVersions"),
+    stream_api = FALSE
   )
   input <- .lambda$list_layer_versions_input(CompatibleRuntime = CompatibleRuntime, LayerName = LayerName, Marker = Marker, MaxItems = MaxItems, CompatibleArchitecture = CompatibleArchitecture)
   output <- .lambda$list_layer_versions_output()
@@ -2168,7 +2236,8 @@ lambda_list_layers <- function(CompatibleRuntime = NULL, Marker = NULL, MaxItems
     http_method = "GET",
     http_path = "/2018-10-31/layers",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Layers")
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Layers"),
+    stream_api = FALSE
   )
   input <- .lambda$list_layers_input(CompatibleRuntime = CompatibleRuntime, Marker = Marker, MaxItems = MaxItems, CompatibleArchitecture = CompatibleArchitecture)
   output <- .lambda$list_layers_output()
@@ -2214,7 +2283,8 @@ lambda_list_provisioned_concurrency_configs <- function(FunctionName, Marker = N
     http_method = "GET",
     http_path = "/2019-09-30/functions/{FunctionName}/provisioned-concurrency?List=ALL",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "ProvisionedConcurrencyConfigs")
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "ProvisionedConcurrencyConfigs"),
+    stream_api = FALSE
   )
   input <- .lambda$list_provisioned_concurrency_configs_input(FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_provisioned_concurrency_configs_output()
@@ -2226,15 +2296,16 @@ lambda_list_provisioned_concurrency_configs <- function(FunctionName, Marker = N
 }
 .lambda$operations$list_provisioned_concurrency_configs <- lambda_list_provisioned_concurrency_configs
 
-#' Returns a function's tags
+#' Returns a function, event source mapping, or code signing
+#' configuration's tags
 #'
 #' @description
-#' Returns a function's [tags](https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html). You can also view tags with [`get_function`][lambda_get_function].
+#' Returns a function, event source mapping, or code signing configuration's [tags](https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html). You can also view function tags with [`get_function`][lambda_get_function].
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_list_tags/](https://www.paws-r-sdk.com/docs/lambda_list_tags/) for full documentation.
 #'
-#' @param Resource &#91;required&#93; The function's Amazon Resource Name (ARN). Note: Lambda does not support
-#' adding tags to aliases or versions.
+#' @param Resource &#91;required&#93; The resource's Amazon Resource Name (ARN). Note: Lambda does not support
+#' adding tags to function aliases or versions.
 #'
 #' @keywords internal
 #'
@@ -2245,7 +2316,8 @@ lambda_list_tags <- function(Resource) {
     http_method = "GET",
     http_path = "/2017-03-31/tags/{ARN}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$list_tags_input(Resource = Resource)
   output <- .lambda$list_tags_output()
@@ -2294,7 +2366,8 @@ lambda_list_versions_by_function <- function(FunctionName, Marker = NULL, MaxIte
     http_method = "GET",
     http_path = "/2015-03-31/functions/{FunctionName}/versions",
     host_prefix = "",
-    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Versions")
+    paginator = list(input_token = "Marker", limit_key = "MaxItems", output_token = "NextMarker", result_key = "Versions"),
+    stream_api = FALSE
   )
   input <- .lambda$list_versions_by_function_input(FunctionName = FunctionName, Marker = Marker, MaxItems = MaxItems)
   output <- .lambda$list_versions_by_function_output()
@@ -2345,7 +2418,8 @@ lambda_publish_layer_version <- function(LayerName, Description = NULL, Content,
     http_method = "POST",
     http_path = "/2018-10-31/layers/{LayerName}/versions",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$publish_layer_version_input(LayerName = LayerName, Description = Description, Content = Content, CompatibleRuntimes = CompatibleRuntimes, LicenseInfo = LicenseInfo, CompatibleArchitectures = CompatibleArchitectures)
   output <- .lambda$publish_layer_version_output()
@@ -2397,7 +2471,8 @@ lambda_publish_version <- function(FunctionName, CodeSha256 = NULL, Description 
     http_method = "POST",
     http_path = "/2015-03-31/functions/{FunctionName}/versions",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$publish_version_input(FunctionName = FunctionName, CodeSha256 = CodeSha256, Description = Description, RevisionId = RevisionId)
   output <- .lambda$publish_version_output()
@@ -2440,7 +2515,8 @@ lambda_put_function_code_signing_config <- function(CodeSigningConfigArn, Functi
     http_method = "PUT",
     http_path = "/2020-06-30/functions/{FunctionName}/code-signing-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$put_function_code_signing_config_input(CodeSigningConfigArn = CodeSigningConfigArn, FunctionName = FunctionName)
   output <- .lambda$put_function_code_signing_config_output()
@@ -2484,7 +2560,8 @@ lambda_put_function_concurrency <- function(FunctionName, ReservedConcurrentExec
     http_method = "PUT",
     http_path = "/2017-10-31/functions/{FunctionName}/concurrency",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$put_function_concurrency_input(FunctionName = FunctionName, ReservedConcurrentExecutions = ReservedConcurrentExecutions)
   output <- .lambda$put_function_concurrency_output()
@@ -2532,9 +2609,14 @@ lambda_put_function_concurrency <- function(FunctionName, ReservedConcurrentExec
 #' 
 #' -   **Queue** - The ARN of a standard SQS queue.
 #' 
+#' -   **Bucket** - The ARN of an Amazon S3 bucket.
+#' 
 #' -   **Topic** - The ARN of a standard SNS topic.
 #' 
 #' -   **Event Bus** - The ARN of an Amazon EventBridge event bus.
+#' 
+#' S3 buckets are supported only for on-failure destinations. To retain
+#' records of successful invocations, use another destination type.
 #'
 #' @keywords internal
 #'
@@ -2545,7 +2627,8 @@ lambda_put_function_event_invoke_config <- function(FunctionName, Qualifier = NU
     http_method = "PUT",
     http_path = "/2019-09-25/functions/{FunctionName}/event-invoke-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$put_function_event_invoke_config_input(FunctionName = FunctionName, Qualifier = Qualifier, MaximumRetryAttempts = MaximumRetryAttempts, MaximumEventAgeInSeconds = MaximumEventAgeInSeconds, DestinationConfig = DestinationConfig)
   output <- .lambda$put_function_event_invoke_config_output()
@@ -2608,7 +2691,8 @@ lambda_put_function_recursion_config <- function(FunctionName, RecursiveLoop) {
     http_method = "PUT",
     http_path = "/2024-08-31/functions/{FunctionName}/recursion-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$put_function_recursion_config_input(FunctionName = FunctionName, RecursiveLoop = RecursiveLoop)
   output <- .lambda$put_function_recursion_config_output()
@@ -2654,7 +2738,8 @@ lambda_put_provisioned_concurrency_config <- function(FunctionName, Qualifier, P
     http_method = "PUT",
     http_path = "/2019-09-30/functions/{FunctionName}/provisioned-concurrency",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$put_provisioned_concurrency_config_input(FunctionName = FunctionName, Qualifier = Qualifier, ProvisionedConcurrentExecutions = ProvisionedConcurrentExecutions)
   output <- .lambda$put_provisioned_concurrency_config_output()
@@ -2726,7 +2811,8 @@ lambda_put_runtime_management_config <- function(FunctionName, Qualifier = NULL,
     http_method = "PUT",
     http_path = "/2021-07-20/functions/{FunctionName}/runtime-management-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$put_runtime_management_config_input(FunctionName = FunctionName, Qualifier = Qualifier, UpdateRuntimeOn = UpdateRuntimeOn, RuntimeVersionArn = RuntimeVersionArn)
   output <- .lambda$put_runtime_management_config_output()
@@ -2762,7 +2848,8 @@ lambda_remove_layer_version_permission <- function(LayerName, VersionNumber, Sta
     http_method = "DELETE",
     http_path = "/2018-10-31/layers/{LayerName}/versions/{VersionNumber}/policy/{StatementId}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$remove_layer_version_permission_input(LayerName = LayerName, VersionNumber = VersionNumber, StatementId = StatementId, RevisionId = RevisionId)
   output <- .lambda$remove_layer_version_permission_output()
@@ -2774,11 +2861,11 @@ lambda_remove_layer_version_permission <- function(LayerName, VersionNumber, Sta
 }
 .lambda$operations$remove_layer_version_permission <- lambda_remove_layer_version_permission
 
-#' Revokes function-use permission from an Amazon Web Servicesservice or
+#' Revokes function-use permission from an Amazon Web Services service or
 #' another Amazon Web Services account
 #'
 #' @description
-#' Revokes function-use permission from an Amazon Web Servicesservice or another Amazon Web Services account. You can get the ID of the statement from the output of [`get_policy`][lambda_get_policy].
+#' Revokes function-use permission from an Amazon Web Services service or another Amazon Web Services account. You can get the ID of the statement from the output of [`get_policy`][lambda_get_policy].
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_remove_permission/](https://www.paws-r-sdk.com/docs/lambda_remove_permission/) for full documentation.
 #'
@@ -2813,7 +2900,8 @@ lambda_remove_permission <- function(FunctionName, StatementId, Qualifier = NULL
     http_method = "DELETE",
     http_path = "/2015-03-31/functions/{FunctionName}/policy/{StatementId}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$remove_permission_input(FunctionName = FunctionName, StatementId = StatementId, Qualifier = Qualifier, RevisionId = RevisionId)
   output <- .lambda$remove_permission_output()
@@ -2825,15 +2913,16 @@ lambda_remove_permission <- function(FunctionName, StatementId, Qualifier = NULL
 }
 .lambda$operations$remove_permission <- lambda_remove_permission
 
-#' Adds tags to a function
+#' Adds tags to a function, event source mapping, or code signing
+#' configuration
 #'
 #' @description
-#' Adds [tags](https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html) to a function.
+#' Adds [tags](https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html) to a function, event source mapping, or code signing configuration.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_tag_resource/](https://www.paws-r-sdk.com/docs/lambda_tag_resource/) for full documentation.
 #'
-#' @param Resource &#91;required&#93; The function's Amazon Resource Name (ARN).
-#' @param Tags &#91;required&#93; A list of tags to apply to the function.
+#' @param Resource &#91;required&#93; The resource's Amazon Resource Name (ARN).
+#' @param Tags &#91;required&#93; A list of tags to apply to the resource.
 #'
 #' @keywords internal
 #'
@@ -2844,7 +2933,8 @@ lambda_tag_resource <- function(Resource, Tags) {
     http_method = "POST",
     http_path = "/2017-03-31/tags/{ARN}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$tag_resource_input(Resource = Resource, Tags = Tags)
   output <- .lambda$tag_resource_output()
@@ -2856,15 +2946,16 @@ lambda_tag_resource <- function(Resource, Tags) {
 }
 .lambda$operations$tag_resource <- lambda_tag_resource
 
-#' Removes tags from a function
+#' Removes tags from a function, event source mapping, or code signing
+#' configuration
 #'
 #' @description
-#' Removes [tags](https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html) from a function.
+#' Removes [tags](https://docs.aws.amazon.com/lambda/latest/dg/configuration-tags.html) from a function, event source mapping, or code signing configuration.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lambda_untag_resource/](https://www.paws-r-sdk.com/docs/lambda_untag_resource/) for full documentation.
 #'
-#' @param Resource &#91;required&#93; The function's Amazon Resource Name (ARN).
-#' @param TagKeys &#91;required&#93; A list of tag keys to remove from the function.
+#' @param Resource &#91;required&#93; The resource's Amazon Resource Name (ARN).
+#' @param TagKeys &#91;required&#93; A list of tag keys to remove from the resource.
 #'
 #' @keywords internal
 #'
@@ -2875,7 +2966,8 @@ lambda_untag_resource <- function(Resource, TagKeys) {
     http_method = "DELETE",
     http_path = "/2017-03-31/tags/{ARN}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$untag_resource_input(Resource = Resource, TagKeys = TagKeys)
   output <- .lambda$untag_resource_output()
@@ -2926,7 +3018,8 @@ lambda_update_alias <- function(FunctionName, Name, FunctionVersion = NULL, Desc
     http_method = "PUT",
     http_path = "/2015-03-31/functions/{FunctionName}/aliases/{Name}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$update_alias_input(FunctionName = FunctionName, Name = Name, FunctionVersion = FunctionVersion, Description = Description, RoutingConfig = RoutingConfig, RevisionId = RevisionId)
   output <- .lambda$update_alias_output()
@@ -2959,7 +3052,8 @@ lambda_update_code_signing_config <- function(CodeSigningConfigArn, Description 
     http_method = "PUT",
     http_path = "/2020-04-22/code-signing-configs/{CodeSigningConfigArn}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$update_code_signing_config_input(CodeSigningConfigArn = CodeSigningConfigArn, Description = Description, AllowedPublishers = AllowedPublishers, CodeSigningPolicies = CodeSigningPolicies)
   output <- .lambda$update_code_signing_config_output()
@@ -3068,19 +3162,27 @@ lambda_update_code_signing_config <- function(CodeSigningConfigArn, Description 
 #' criteria](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics).
 #' By default, Lambda does not encrypt your filter criteria object. Specify
 #' this property to encrypt data using your own customer managed key.
+#' @param MetricsConfig The metrics configuration for your event source. For more information,
+#' see [Event source mapping
+#' metrics](https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics).
+#' @param ProvisionedPollerConfig (Amazon MSK and self-managed Apache Kafka only) The Provisioned Mode
+#' configuration for the event source. For more information, see
+#' [Provisioned
+#' Mode](https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode).
 #'
 #' @keywords internal
 #'
 #' @rdname lambda_update_event_source_mapping
-lambda_update_event_source_mapping <- function(UUID, FunctionName = NULL, Enabled = NULL, BatchSize = NULL, FilterCriteria = NULL, MaximumBatchingWindowInSeconds = NULL, DestinationConfig = NULL, MaximumRecordAgeInSeconds = NULL, BisectBatchOnFunctionError = NULL, MaximumRetryAttempts = NULL, ParallelizationFactor = NULL, SourceAccessConfigurations = NULL, TumblingWindowInSeconds = NULL, FunctionResponseTypes = NULL, ScalingConfig = NULL, DocumentDBEventSourceConfig = NULL, KMSKeyArn = NULL) {
+lambda_update_event_source_mapping <- function(UUID, FunctionName = NULL, Enabled = NULL, BatchSize = NULL, FilterCriteria = NULL, MaximumBatchingWindowInSeconds = NULL, DestinationConfig = NULL, MaximumRecordAgeInSeconds = NULL, BisectBatchOnFunctionError = NULL, MaximumRetryAttempts = NULL, ParallelizationFactor = NULL, SourceAccessConfigurations = NULL, TumblingWindowInSeconds = NULL, FunctionResponseTypes = NULL, ScalingConfig = NULL, DocumentDBEventSourceConfig = NULL, KMSKeyArn = NULL, MetricsConfig = NULL, ProvisionedPollerConfig = NULL) {
   op <- new_operation(
     name = "UpdateEventSourceMapping",
     http_method = "PUT",
     http_path = "/2015-03-31/event-source-mappings/{UUID}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .lambda$update_event_source_mapping_input(UUID = UUID, FunctionName = FunctionName, Enabled = Enabled, BatchSize = BatchSize, FilterCriteria = FilterCriteria, MaximumBatchingWindowInSeconds = MaximumBatchingWindowInSeconds, DestinationConfig = DestinationConfig, MaximumRecordAgeInSeconds = MaximumRecordAgeInSeconds, BisectBatchOnFunctionError = BisectBatchOnFunctionError, MaximumRetryAttempts = MaximumRetryAttempts, ParallelizationFactor = ParallelizationFactor, SourceAccessConfigurations = SourceAccessConfigurations, TumblingWindowInSeconds = TumblingWindowInSeconds, FunctionResponseTypes = FunctionResponseTypes, ScalingConfig = ScalingConfig, DocumentDBEventSourceConfig = DocumentDBEventSourceConfig, KMSKeyArn = KMSKeyArn)
+  input <- .lambda$update_event_source_mapping_input(UUID = UUID, FunctionName = FunctionName, Enabled = Enabled, BatchSize = BatchSize, FilterCriteria = FilterCriteria, MaximumBatchingWindowInSeconds = MaximumBatchingWindowInSeconds, DestinationConfig = DestinationConfig, MaximumRecordAgeInSeconds = MaximumRecordAgeInSeconds, BisectBatchOnFunctionError = BisectBatchOnFunctionError, MaximumRetryAttempts = MaximumRetryAttempts, ParallelizationFactor = ParallelizationFactor, SourceAccessConfigurations = SourceAccessConfigurations, TumblingWindowInSeconds = TumblingWindowInSeconds, FunctionResponseTypes = FunctionResponseTypes, ScalingConfig = ScalingConfig, DocumentDBEventSourceConfig = DocumentDBEventSourceConfig, KMSKeyArn = KMSKeyArn, MetricsConfig = MetricsConfig, ProvisionedPollerConfig = ProvisionedPollerConfig)
   output <- .lambda$update_event_source_mapping_output()
   config <- get_config()
   svc <- .lambda$service(config, op)
@@ -3134,19 +3236,24 @@ lambda_update_event_source_mapping <- function(UUID, FunctionName = NULL, Enable
 #' @param Architectures The instruction set architecture that the function supports. Enter a
 #' string array with one of the valid values (arm64 or x86_64). The default
 #' value is `x86_64`.
+#' @param SourceKMSKeyArn The ARN of the Key Management Service (KMS) customer managed key that's
+#' used to encrypt your function's .zip deployment package. If you don't
+#' provide a customer managed key, Lambda uses an Amazon Web Services
+#' managed key.
 #'
 #' @keywords internal
 #'
 #' @rdname lambda_update_function_code
-lambda_update_function_code <- function(FunctionName, ZipFile = NULL, S3Bucket = NULL, S3Key = NULL, S3ObjectVersion = NULL, ImageUri = NULL, Publish = NULL, DryRun = NULL, RevisionId = NULL, Architectures = NULL) {
+lambda_update_function_code <- function(FunctionName, ZipFile = NULL, S3Bucket = NULL, S3Key = NULL, S3ObjectVersion = NULL, ImageUri = NULL, Publish = NULL, DryRun = NULL, RevisionId = NULL, Architectures = NULL, SourceKMSKeyArn = NULL) {
   op <- new_operation(
     name = "UpdateFunctionCode",
     http_method = "PUT",
     http_path = "/2015-03-31/functions/{FunctionName}/code",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .lambda$update_function_code_input(FunctionName = FunctionName, ZipFile = ZipFile, S3Bucket = S3Bucket, S3Key = S3Key, S3ObjectVersion = S3ObjectVersion, ImageUri = ImageUri, Publish = Publish, DryRun = DryRun, RevisionId = RevisionId, Architectures = Architectures)
+  input <- .lambda$update_function_code_input(FunctionName = FunctionName, ZipFile = ZipFile, S3Bucket = S3Bucket, S3Key = S3Key, S3ObjectVersion = S3ObjectVersion, ImageUri = ImageUri, Publish = Publish, DryRun = DryRun, RevisionId = RevisionId, Architectures = Architectures, SourceKMSKeyArn = SourceKMSKeyArn)
   output <- .lambda$update_function_code_output()
   config <- get_config()
   svc <- .lambda$service(config, op)
@@ -3219,16 +3326,31 @@ lambda_update_function_code <- function(FunctionName, ZipFile = NULL, S3Bucket =
 #' more information, see [Dead-letter
 #' queues](https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-dlq).
 #' @param KMSKeyArn The ARN of the Key Management Service (KMS) customer managed key that's
-#' used to encrypt your function's [environment
-#' variables](https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption).
-#' When [Lambda
-#' SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html)
-#' is activated, Lambda also uses this key is to encrypt your function's
-#' snapshot. If you deploy your function using a container image, Lambda
-#' also uses this key to encrypt your function when it's deployed. Note
-#' that this is not the same key that's used to protect your container
-#' image in the Amazon Elastic Container Registry (Amazon ECR). If you
-#' don't provide a customer managed key, Lambda uses a default service key.
+#' used to encrypt the following resources:
+#' 
+#' -   The function's [environment
+#'     variables](https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption).
+#' 
+#' -   The function's [Lambda
+#'     SnapStart](https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html)
+#'     snapshots.
+#' 
+#' -   When used with `SourceKMSKeyArn`, the unzipped version of the .zip
+#'     deployment package that's used for function invocations. For more
+#'     information, see [Specifying a customer managed key for
+#'     Lambda](https://docs.aws.amazon.com/lambda/latest/dg/encrypt-zip-package.html#enable-zip-custom-encryption).
+#' 
+#' -   The optimized version of the container image that's used for
+#'     function invocations. Note that this is not the same key that's used
+#'     to protect your container image in the Amazon Elastic Container
+#'     Registry (Amazon ECR). For more information, see [Function
+#'     lifecycle](https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-lifecycle).
+#' 
+#' If you don't provide a customer managed key, Lambda uses an [Amazon Web
+#' Services owned
+#' key](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk)
+#' or an [Amazon Web Services managed
+#' key](https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk).
 #' @param TracingConfig Set `Mode` to `Active` to sample and trace a subset of incoming requests
 #' with
 #' [X-Ray](https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html).
@@ -3261,7 +3383,8 @@ lambda_update_function_configuration <- function(FunctionName, Role = NULL, Hand
     http_method = "PUT",
     http_path = "/2015-03-31/functions/{FunctionName}/configuration",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$update_function_configuration_input(FunctionName = FunctionName, Role = Role, Handler = Handler, Description = Description, Timeout = Timeout, MemorySize = MemorySize, VpcConfig = VpcConfig, Environment = Environment, Runtime = Runtime, DeadLetterConfig = DeadLetterConfig, KMSKeyArn = KMSKeyArn, TracingConfig = TracingConfig, RevisionId = RevisionId, Layers = Layers, FileSystemConfigs = FileSystemConfigs, ImageConfig = ImageConfig, EphemeralStorage = EphemeralStorage, SnapStart = SnapStart, LoggingConfig = LoggingConfig)
   output <- .lambda$update_function_configuration_output()
@@ -3309,9 +3432,14 @@ lambda_update_function_configuration <- function(FunctionName, Role = NULL, Hand
 #' 
 #' -   **Queue** - The ARN of a standard SQS queue.
 #' 
+#' -   **Bucket** - The ARN of an Amazon S3 bucket.
+#' 
 #' -   **Topic** - The ARN of a standard SNS topic.
 #' 
 #' -   **Event Bus** - The ARN of an Amazon EventBridge event bus.
+#' 
+#' S3 buckets are supported only for on-failure destinations. To retain
+#' records of successful invocations, use another destination type.
 #'
 #' @keywords internal
 #'
@@ -3322,7 +3450,8 @@ lambda_update_function_event_invoke_config <- function(FunctionName, Qualifier =
     http_method = "POST",
     http_path = "/2019-09-25/functions/{FunctionName}/event-invoke-config",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$update_function_event_invoke_config_input(FunctionName = FunctionName, Qualifier = Qualifier, MaximumRetryAttempts = MaximumRetryAttempts, MaximumEventAgeInSeconds = MaximumEventAgeInSeconds, DestinationConfig = DestinationConfig)
   output <- .lambda$update_function_event_invoke_config_output()
@@ -3387,7 +3516,8 @@ lambda_update_function_url_config <- function(FunctionName, Qualifier = NULL, Au
     http_method = "PUT",
     http_path = "/2021-10-31/functions/{FunctionName}/url",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
   input <- .lambda$update_function_url_config_input(FunctionName = FunctionName, Qualifier = Qualifier, AuthType = AuthType, Cors = Cors, InvokeMode = InvokeMode)
   output <- .lambda$update_function_url_config_output()

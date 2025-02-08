@@ -85,15 +85,48 @@ NULL
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_create_application
-serverlessapplicationrepository_create_application <- function(Author, Description, HomePageUrl = NULL, Labels = NULL, LicenseBody = NULL, LicenseUrl = NULL, Name, ReadmeBody = NULL, ReadmeUrl = NULL, SemanticVersion = NULL, SourceCodeArchiveUrl = NULL, SourceCodeUrl = NULL, SpdxLicenseId = NULL, TemplateBody = NULL, TemplateUrl = NULL) {
+serverlessapplicationrepository_create_application <- function(
+  Author,
+  Description,
+  HomePageUrl = NULL,
+  Labels = NULL,
+  LicenseBody = NULL,
+  LicenseUrl = NULL,
+  Name,
+  ReadmeBody = NULL,
+  ReadmeUrl = NULL,
+  SemanticVersion = NULL,
+  SourceCodeArchiveUrl = NULL,
+  SourceCodeUrl = NULL,
+  SpdxLicenseId = NULL,
+  TemplateBody = NULL,
+  TemplateUrl = NULL
+) {
   op <- new_operation(
     name = "CreateApplication",
     http_method = "POST",
     http_path = "/applications",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$create_application_input(Author = Author, Description = Description, HomePageUrl = HomePageUrl, Labels = Labels, LicenseBody = LicenseBody, LicenseUrl = LicenseUrl, Name = Name, ReadmeBody = ReadmeBody, ReadmeUrl = ReadmeUrl, SemanticVersion = SemanticVersion, SourceCodeArchiveUrl = SourceCodeArchiveUrl, SourceCodeUrl = SourceCodeUrl, SpdxLicenseId = SpdxLicenseId, TemplateBody = TemplateBody, TemplateUrl = TemplateUrl)
+  input <- .serverlessapplicationrepository$create_application_input(
+    Author = Author,
+    Description = Description,
+    HomePageUrl = HomePageUrl,
+    Labels = Labels,
+    LicenseBody = LicenseBody,
+    LicenseUrl = LicenseUrl,
+    Name = Name,
+    ReadmeBody = ReadmeBody,
+    ReadmeUrl = ReadmeUrl,
+    SemanticVersion = SemanticVersion,
+    SourceCodeArchiveUrl = SourceCodeArchiveUrl,
+    SourceCodeUrl = SourceCodeUrl,
+    SpdxLicenseId = SpdxLicenseId,
+    TemplateBody = TemplateBody,
+    TemplateUrl = TemplateUrl
+  )
   output <- .serverlessapplicationrepository$create_application_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -124,15 +157,30 @@ serverlessapplicationrepository_create_application <- function(Author, Descripti
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_create_application_version
-serverlessapplicationrepository_create_application_version <- function(ApplicationId, SemanticVersion, SourceCodeArchiveUrl = NULL, SourceCodeUrl = NULL, TemplateBody = NULL, TemplateUrl = NULL) {
+serverlessapplicationrepository_create_application_version <- function(
+  ApplicationId,
+  SemanticVersion,
+  SourceCodeArchiveUrl = NULL,
+  SourceCodeUrl = NULL,
+  TemplateBody = NULL,
+  TemplateUrl = NULL
+) {
   op <- new_operation(
     name = "CreateApplicationVersion",
     http_method = "PUT",
     http_path = "/applications/{applicationId}/versions/{semanticVersion}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$create_application_version_input(ApplicationId = ApplicationId, SemanticVersion = SemanticVersion, SourceCodeArchiveUrl = SourceCodeArchiveUrl, SourceCodeUrl = SourceCodeUrl, TemplateBody = TemplateBody, TemplateUrl = TemplateUrl)
+  input <- .serverlessapplicationrepository$create_application_version_input(
+    ApplicationId = ApplicationId,
+    SemanticVersion = SemanticVersion,
+    SourceCodeArchiveUrl = SourceCodeArchiveUrl,
+    SourceCodeUrl = SourceCodeUrl,
+    TemplateBody = TemplateBody,
+    TemplateUrl = TemplateUrl
+  )
   output <- .serverlessapplicationrepository$create_application_version_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -224,15 +272,44 @@ serverlessapplicationrepository_create_application_version <- function(Applicati
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_cre_clo_for_cha_set
-serverlessapplicationrepository_create_cloud_formation_change_set <- function(ApplicationId, Capabilities = NULL, ChangeSetName = NULL, ClientToken = NULL, Description = NULL, NotificationArns = NULL, ParameterOverrides = NULL, ResourceTypes = NULL, RollbackConfiguration = NULL, SemanticVersion = NULL, StackName, Tags = NULL, TemplateId = NULL) {
+serverlessapplicationrepository_create_cloud_formation_change_set <- function(
+  ApplicationId,
+  Capabilities = NULL,
+  ChangeSetName = NULL,
+  ClientToken = NULL,
+  Description = NULL,
+  NotificationArns = NULL,
+  ParameterOverrides = NULL,
+  ResourceTypes = NULL,
+  RollbackConfiguration = NULL,
+  SemanticVersion = NULL,
+  StackName,
+  Tags = NULL,
+  TemplateId = NULL
+) {
   op <- new_operation(
     name = "CreateCloudFormationChangeSet",
     http_method = "POST",
     http_path = "/applications/{applicationId}/changesets",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$create_cloud_formation_change_set_input(ApplicationId = ApplicationId, Capabilities = Capabilities, ChangeSetName = ChangeSetName, ClientToken = ClientToken, Description = Description, NotificationArns = NotificationArns, ParameterOverrides = ParameterOverrides, ResourceTypes = ResourceTypes, RollbackConfiguration = RollbackConfiguration, SemanticVersion = SemanticVersion, StackName = StackName, Tags = Tags, TemplateId = TemplateId)
+  input <- .serverlessapplicationrepository$create_cloud_formation_change_set_input(
+    ApplicationId = ApplicationId,
+    Capabilities = Capabilities,
+    ChangeSetName = ChangeSetName,
+    ClientToken = ClientToken,
+    Description = Description,
+    NotificationArns = NotificationArns,
+    ParameterOverrides = ParameterOverrides,
+    ResourceTypes = ResourceTypes,
+    RollbackConfiguration = RollbackConfiguration,
+    SemanticVersion = SemanticVersion,
+    StackName = StackName,
+    Tags = Tags,
+    TemplateId = TemplateId
+  )
   output <- .serverlessapplicationrepository$create_cloud_formation_change_set_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -257,15 +334,22 @@ serverlessapplicationrepository_create_cloud_formation_change_set <- function(Ap
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_cre_clo_for_tem
-serverlessapplicationrepository_create_cloud_formation_template <- function(ApplicationId, SemanticVersion = NULL) {
+serverlessapplicationrepository_create_cloud_formation_template <- function(
+  ApplicationId,
+  SemanticVersion = NULL
+) {
   op <- new_operation(
     name = "CreateCloudFormationTemplate",
     http_method = "POST",
     http_path = "/applications/{applicationId}/templates",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$create_cloud_formation_template_input(ApplicationId = ApplicationId, SemanticVersion = SemanticVersion)
+  input <- .serverlessapplicationrepository$create_cloud_formation_template_input(
+    ApplicationId = ApplicationId,
+    SemanticVersion = SemanticVersion
+  )
   output <- .serverlessapplicationrepository$create_cloud_formation_template_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -293,9 +377,12 @@ serverlessapplicationrepository_delete_application <- function(ApplicationId) {
     http_method = "DELETE",
     http_path = "/applications/{applicationId}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$delete_application_input(ApplicationId = ApplicationId)
+  input <- .serverlessapplicationrepository$delete_application_input(
+    ApplicationId = ApplicationId
+  )
   output <- .serverlessapplicationrepository$delete_application_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -318,15 +405,22 @@ serverlessapplicationrepository_delete_application <- function(ApplicationId) {
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_get_application
-serverlessapplicationrepository_get_application <- function(ApplicationId, SemanticVersion = NULL) {
+serverlessapplicationrepository_get_application <- function(
+  ApplicationId,
+  SemanticVersion = NULL
+) {
   op <- new_operation(
     name = "GetApplication",
     http_method = "GET",
     http_path = "/applications/{applicationId}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$get_application_input(ApplicationId = ApplicationId, SemanticVersion = SemanticVersion)
+  input <- .serverlessapplicationrepository$get_application_input(
+    ApplicationId = ApplicationId,
+    SemanticVersion = SemanticVersion
+  )
   output <- .serverlessapplicationrepository$get_application_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -348,15 +442,20 @@ serverlessapplicationrepository_get_application <- function(ApplicationId, Seman
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_get_application_policy
-serverlessapplicationrepository_get_application_policy <- function(ApplicationId) {
+serverlessapplicationrepository_get_application_policy <- function(
+  ApplicationId
+) {
   op <- new_operation(
     name = "GetApplicationPolicy",
     http_method = "GET",
     http_path = "/applications/{applicationId}/policy",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$get_application_policy_input(ApplicationId = ApplicationId)
+  input <- .serverlessapplicationrepository$get_application_policy_input(
+    ApplicationId = ApplicationId
+  )
   output <- .serverlessapplicationrepository$get_application_policy_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -382,15 +481,22 @@ serverlessapplicationrepository_get_application_policy <- function(ApplicationId
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_get_cloud_formation_template
-serverlessapplicationrepository_get_cloud_formation_template <- function(ApplicationId, TemplateId) {
+serverlessapplicationrepository_get_cloud_formation_template <- function(
+  ApplicationId,
+  TemplateId
+) {
   op <- new_operation(
     name = "GetCloudFormationTemplate",
     http_method = "GET",
     http_path = "/applications/{applicationId}/templates/{templateId}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$get_cloud_formation_template_input(ApplicationId = ApplicationId, TemplateId = TemplateId)
+  input <- .serverlessapplicationrepository$get_cloud_formation_template_input(
+    ApplicationId = ApplicationId,
+    TemplateId = TemplateId
+  )
   output <- .serverlessapplicationrepository$get_cloud_formation_template_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -415,15 +521,31 @@ serverlessapplicationrepository_get_cloud_formation_template <- function(Applica
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_lis_app_dep
-serverlessapplicationrepository_list_application_dependencies <- function(ApplicationId, MaxItems = NULL, NextToken = NULL, SemanticVersion = NULL) {
+serverlessapplicationrepository_list_application_dependencies <- function(
+  ApplicationId,
+  MaxItems = NULL,
+  NextToken = NULL,
+  SemanticVersion = NULL
+) {
   op <- new_operation(
     name = "ListApplicationDependencies",
     http_method = "GET",
     http_path = "/applications/{applicationId}/dependencies",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxItems")
+    paginator = list(
+      input_token = "NextToken",
+      limit_key = "MaxItems",
+      output_token = "NextToken",
+      result_key = "Dependencies"
+    ),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$list_application_dependencies_input(ApplicationId = ApplicationId, MaxItems = MaxItems, NextToken = NextToken, SemanticVersion = SemanticVersion)
+  input <- .serverlessapplicationrepository$list_application_dependencies_input(
+    ApplicationId = ApplicationId,
+    MaxItems = MaxItems,
+    NextToken = NextToken,
+    SemanticVersion = SemanticVersion
+  )
   output <- .serverlessapplicationrepository$list_application_dependencies_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -447,15 +569,29 @@ serverlessapplicationrepository_list_application_dependencies <- function(Applic
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_list_application_versions
-serverlessapplicationrepository_list_application_versions <- function(ApplicationId, MaxItems = NULL, NextToken = NULL) {
+serverlessapplicationrepository_list_application_versions <- function(
+  ApplicationId,
+  MaxItems = NULL,
+  NextToken = NULL
+) {
   op <- new_operation(
     name = "ListApplicationVersions",
     http_method = "GET",
     http_path = "/applications/{applicationId}/versions",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxItems")
+    paginator = list(
+      input_token = "NextToken",
+      limit_key = "MaxItems",
+      output_token = "NextToken",
+      result_key = "Versions"
+    ),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$list_application_versions_input(ApplicationId = ApplicationId, MaxItems = MaxItems, NextToken = NextToken)
+  input <- .serverlessapplicationrepository$list_application_versions_input(
+    ApplicationId = ApplicationId,
+    MaxItems = MaxItems,
+    NextToken = NextToken
+  )
   output <- .serverlessapplicationrepository$list_application_versions_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -478,15 +614,27 @@ serverlessapplicationrepository_list_application_versions <- function(Applicatio
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_list_applications
-serverlessapplicationrepository_list_applications <- function(MaxItems = NULL, NextToken = NULL) {
+serverlessapplicationrepository_list_applications <- function(
+  MaxItems = NULL,
+  NextToken = NULL
+) {
   op <- new_operation(
     name = "ListApplications",
     http_method = "GET",
     http_path = "/applications",
     host_prefix = "",
-    paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxItems")
+    paginator = list(
+      input_token = "NextToken",
+      limit_key = "MaxItems",
+      output_token = "NextToken",
+      result_key = "Applications"
+    ),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$list_applications_input(MaxItems = MaxItems, NextToken = NextToken)
+  input <- .serverlessapplicationrepository$list_applications_input(
+    MaxItems = MaxItems,
+    NextToken = NextToken
+  )
   output <- .serverlessapplicationrepository$list_applications_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -509,15 +657,22 @@ serverlessapplicationrepository_list_applications <- function(MaxItems = NULL, N
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_put_application_policy
-serverlessapplicationrepository_put_application_policy <- function(ApplicationId, Statements) {
+serverlessapplicationrepository_put_application_policy <- function(
+  ApplicationId,
+  Statements
+) {
   op <- new_operation(
     name = "PutApplicationPolicy",
     http_method = "PUT",
     http_path = "/applications/{applicationId}/policy",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$put_application_policy_input(ApplicationId = ApplicationId, Statements = Statements)
+  input <- .serverlessapplicationrepository$put_application_policy_input(
+    ApplicationId = ApplicationId,
+    Statements = Statements
+  )
   output <- .serverlessapplicationrepository$put_application_policy_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -540,15 +695,22 @@ serverlessapplicationrepository_put_application_policy <- function(ApplicationId
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_unshare_application
-serverlessapplicationrepository_unshare_application <- function(ApplicationId, OrganizationId) {
+serverlessapplicationrepository_unshare_application <- function(
+  ApplicationId,
+  OrganizationId
+) {
   op <- new_operation(
     name = "UnshareApplication",
     http_method = "POST",
     http_path = "/applications/{applicationId}/unshare",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$unshare_application_input(ApplicationId = ApplicationId, OrganizationId = OrganizationId)
+  input <- .serverlessapplicationrepository$unshare_application_input(
+    ApplicationId = ApplicationId,
+    OrganizationId = OrganizationId
+  )
   output <- .serverlessapplicationrepository$unshare_application_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)
@@ -593,15 +755,32 @@ serverlessapplicationrepository_unshare_application <- function(ApplicationId, O
 #' @keywords internal
 #'
 #' @rdname serverlessapplicationrepository_update_application
-serverlessapplicationrepository_update_application <- function(ApplicationId, Author = NULL, Description = NULL, HomePageUrl = NULL, Labels = NULL, ReadmeBody = NULL, ReadmeUrl = NULL) {
+serverlessapplicationrepository_update_application <- function(
+  ApplicationId,
+  Author = NULL,
+  Description = NULL,
+  HomePageUrl = NULL,
+  Labels = NULL,
+  ReadmeBody = NULL,
+  ReadmeUrl = NULL
+) {
   op <- new_operation(
     name = "UpdateApplication",
     http_method = "PATCH",
     http_path = "/applications/{applicationId}",
     host_prefix = "",
-    paginator = list()
+    paginator = list(),
+    stream_api = FALSE
   )
-  input <- .serverlessapplicationrepository$update_application_input(ApplicationId = ApplicationId, Author = Author, Description = Description, HomePageUrl = HomePageUrl, Labels = Labels, ReadmeBody = ReadmeBody, ReadmeUrl = ReadmeUrl)
+  input <- .serverlessapplicationrepository$update_application_input(
+    ApplicationId = ApplicationId,
+    Author = Author,
+    Description = Description,
+    HomePageUrl = HomePageUrl,
+    Labels = Labels,
+    ReadmeBody = ReadmeBody,
+    ReadmeUrl = ReadmeUrl
+  )
   output <- .serverlessapplicationrepository$update_application_output()
   config <- get_config()
   svc <- .serverlessapplicationrepository$service(config, op)

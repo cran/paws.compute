@@ -37,7 +37,7 @@ used.
 When you use cluster auto scaling, you must specify
 \code{capacityProviderStrategy} and not \code{launchType}.
 
-A capacity provider strategy may contain a maximum of 6 capacity
+A capacity provider strategy can contain a maximum of 20 capacity
 providers.}
 
 \item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster to run
@@ -112,7 +112,7 @@ maximum of 5 strategy rules for each task.}
 
 \item{platformVersion}{The platform version the task uses. A platform version is only specified
 for tasks hosted on Fargate. If one isn't specified, the \code{LATEST}
-platform version is used. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/}{Fargate platform versions}
+platform version is used. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform-fargate.html}{Fargate platform versions}
 in the \emph{Amazon Elastic Container Service Developer Guide}.}
 
 \item{propagateTags}{Specifies whether to propagate the tags from the task definition to the
@@ -124,8 +124,8 @@ action.
 An error will be received if you specify the \code{SERVICE} option when
 running a task.}
 
-\item{referenceId}{The reference ID to use for the task. The reference ID can have a
-maximum length of 1024 characters.}
+\item{referenceId}{This parameter is only used by Amazon ECS. It is not intended for use by
+customers.}
 
 \item{startedBy}{An optional tag specified when a task is started. For example, if you
 automatically trigger a task to run a batch process job, you could apply

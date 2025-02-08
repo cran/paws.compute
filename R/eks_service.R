@@ -138,6 +138,7 @@ NULL
 #'  \link[=eks_describe_addon_configuration]{describe_addon_configuration} \tab Returns configuration options\cr
 #'  \link[=eks_describe_addon_versions]{describe_addon_versions} \tab Describes the versions for an add-on\cr
 #'  \link[=eks_describe_cluster]{describe_cluster} \tab Describes an Amazon EKS cluster\cr
+#'  \link[=eks_describe_cluster_versions]{describe_cluster_versions} \tab Lists available Kubernetes versions for Amazon EKS clusters\cr
 #'  \link[=eks_describe_eks_anywhere_subscription]{describe_eks_anywhere_subscription} \tab Returns descriptive information about a subscription\cr
 #'  \link[=eks_describe_fargate_profile]{describe_fargate_profile} \tab Describes an Fargate profile\cr
 #'  \link[=eks_describe_identity_provider_config]{describe_identity_provider_config} \tab Describes an identity provider configuration\cr
@@ -202,7 +203,7 @@ eks <- function(config = list(), credentials = list(), endpoint = NULL, region =
 
 .eks$metadata <- list(
   service_name = "eks",
-  endpoints = list("*" = list(endpoint = "eks.{region}.amazonaws.com", global = FALSE), "cn-*" = list(endpoint = "eks.{region}.amazonaws.com.cn", global = FALSE), "eu-isoe-*" = list(endpoint = "eks.{region}.cloud.adc-e.uk", global = FALSE), "us-iso-*" = list(endpoint = "eks.{region}.c2s.ic.gov", global = FALSE), "us-isob-*" = list(endpoint = "eks.{region}.sc2s.sgov.gov", global = FALSE), "us-isof-*" = list(endpoint = "eks.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "eks.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "eks.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "eks.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "eks.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "eks.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "eks.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "eks.{region}.csp.hci.ic.gov", global = FALSE)),
   service_id = "EKS",
   api_version = "2017-11-01",
   signing_name = "eks",

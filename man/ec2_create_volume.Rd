@@ -14,11 +14,12 @@ ec2_create_volume(
   Size = NULL,
   SnapshotId = NULL,
   VolumeType = NULL,
-  DryRun = NULL,
   TagSpecifications = NULL,
   MultiAttachEnabled = NULL,
   Throughput = NULL,
-  ClientToken = NULL
+  ClientToken = NULL,
+  Operator = NULL,
+  DryRun = NULL
 )
 }
 \arguments{
@@ -28,7 +29,7 @@ example, \verb{us-east-1a}.}
 \item{Encrypted}{Indicates whether the volume should be encrypted. The effect of setting
 the encryption state to \code{true} depends on the volume origin (new or from
 a snapshot), starting encryption state, ownership, and whether
-encryption by default is enabled. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/work-with-ebs-encr.html#encryption-by-default}{Encryption by default}
+encryption by default is enabled. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/#encryption-by-default}{Encryption by default}
 in the \emph{Amazon EBS User Guide}.
 
 Encrypted Amazon EBS volumes must be attached to instances that support
@@ -114,11 +115,6 @@ in the \emph{Amazon EBS User Guide}.
 
 Default: \code{gp2}}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
-
 \item{TagSpecifications}{The tags to apply to the volume during creation.}
 
 \item{MultiAttachEnabled}{Indicates whether to enable Amazon EBS Multi-Attach. If you enable
@@ -135,6 +131,13 @@ Valid Range: Minimum value of 125. Maximum value of 1000.}
 
 \item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
 idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensure Idempotency}.}
+
+\item{Operator}{Reserved for internal use.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without
+actually making the request, and provides an error response. If you have
+the required permissions, the error response is \code{DryRunOperation}.
+Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates an EBS volume that can be attached to an instance in the same Availability Zone.
