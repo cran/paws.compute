@@ -1,6 +1,6 @@
 Package: paws.compute
 Title: 'Amazon Web Services' Compute Services
-Version: 0.8.0
+Version: 0.9.0
 Authors@R: c(
     person("David", "Kretch", , "david.kretch@gmail.com", role = "aut"),
     person("Adam", "Banker", , "adam.banker39@gmail.com", role = "aut"),
@@ -47,11 +47,11 @@ Collate: 'apprunner_service.R' 'apprunner_interfaces.R'
         'serverlessapplicationrepository_interfaces.R'
         'serverlessapplicationrepository_operations.R'
 NeedsCompilation: no
-Packaged: 2025-02-08 18:36:26 UTC; dyfanjones
+Packaged: 2025-03-14 09:20:04 UTC; dyfanjones
 Author: David Kretch [aut],
   Adam Banker [aut],
   Dyfan Jones [cre],
   Amazon.com, Inc. [cph]
 Maintainer: Dyfan Jones <dyfan.r.jones@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-02-08 21:30:02 UTC
+Date/Publication: 2025-03-14 14:00:02 UTC
