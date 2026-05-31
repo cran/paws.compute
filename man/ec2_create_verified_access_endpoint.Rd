@@ -32,24 +32,17 @@ ec2_create_verified_access_endpoint(
 
 \item{AttachmentType}{[required] The type of attachment.}
 
-\item{DomainCertificateArn}{The ARN of the public TLS/SSL certificate in Amazon Web Services
-Certificate Manager to associate with the endpoint. The CN in the
-certificate must match the DNS name your end users will use to reach
-your application.}
+\item{DomainCertificateArn}{The ARN of the public TLS/SSL certificate in Amazon Web Services Certificate Manager to associate with the endpoint. The CN in the certificate must match the DNS name your end users will use to reach your application.}
 
 \item{ApplicationDomain}{The DNS name for users to reach your application.}
 
-\item{EndpointDomainPrefix}{A custom identifier that is prepended to the DNS name that is generated
-for the endpoint.}
+\item{EndpointDomainPrefix}{A custom identifier that is prepended to the DNS name that is generated for the endpoint.}
 
-\item{SecurityGroupIds}{The IDs of the security groups to associate with the Verified Access
-endpoint. Required if \code{AttachmentType} is set to \code{vpc}.}
+\item{SecurityGroupIds}{The IDs of the security groups to associate with the Verified Access endpoint. Required if \code{AttachmentType} is set to \code{vpc}.}
 
-\item{LoadBalancerOptions}{The load balancer details. This parameter is required if the endpoint
-type is \code{load-balancer}.}
+\item{LoadBalancerOptions}{The load balancer details. This parameter is required if the endpoint type is \code{load-balancer}.}
 
-\item{NetworkInterfaceOptions}{The network interface details. This parameter is required if the
-endpoint type is \code{network-interface}.}
+\item{NetworkInterfaceOptions}{The network interface details. This parameter is required if the endpoint type is \code{network-interface}.}
 
 \item{Description}{A description for the Verified Access endpoint.}
 
@@ -57,21 +50,15 @@ endpoint type is \code{network-interface}.}
 
 \item{TagSpecifications}{The tags to assign to the Verified Access endpoint.}
 
-\item{ClientToken}{A unique, case-sensitive token that you provide to ensure idempotency of
-your modification request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{A unique, case-sensitive token that you provide to ensure idempotency of your modification request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{SseSpecification}{The options for server side encryption.}
 
-\item{RdsOptions}{The RDS details. This parameter is required if the endpoint type is
-\code{rds}.}
+\item{RdsOptions}{The RDS details. This parameter is required if the endpoint type is \code{rds}.}
 
-\item{CidrOptions}{The CIDR options. This parameter is required if the endpoint type is
-\code{cidr}.}
+\item{CidrOptions}{The CIDR options. This parameter is required if the endpoint type is \code{cidr}.}
 }
 \description{
 An Amazon Web Services Verified Access endpoint is where you define your application along with an optional endpoint-level access policy.

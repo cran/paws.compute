@@ -7,8 +7,7 @@
 batch_delete_compute_environment(computeEnvironment)
 }
 \arguments{
-\item{computeEnvironment}{[required] The name or Amazon Resource Name (ARN) of the compute environment to
-delete.}
+\item{computeEnvironment}{[required] The name or Amazon Resource Name (ARN) of the compute environment to delete.}
 }
 \description{
 Deletes an Batch compute environment.

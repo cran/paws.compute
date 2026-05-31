@@ -5,6 +5,7 @@
 \title{Describes the Spot price history}
 \usage{
 ec2_describe_spot_price_history(
+  AvailabilityZoneId = NULL,
   DryRun = NULL,
   StartTime = NULL,
   EndTime = NULL,
@@ -17,18 +18,15 @@ ec2_describe_spot_price_history(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{AvailabilityZoneId}{Filters the results by the specified ID of the Availability Zone.
 
-\item{StartTime}{The date and time, up to the past 90 days, from which to start
-retrieving the price history data, in UTC format (for example,
-\emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z).}
+Either \code{AvailabilityZone} or \code{AvailabilityZoneId} can be specified, but not both}
 
-\item{EndTime}{The date and time, up to the current date, from which to stop retrieving
-the price history data, in UTC format (for example,
-\emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z).}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+
+\item{StartTime}{The date and time, up to the past 90 days, from which to start retrieving the price history data, in UTC format (for example, \emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z).}
+
+\item{EndTime}{The date and time, up to the current date, from which to stop retrieving the price history data, in UTC format (for example, \emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z).}
 
 \item{InstanceTypes}{Filters the results by the specified instance types.}
 
@@ -36,31 +34,21 @@ the price history data, in UTC format (for example,
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{availability-zone} - The Availability Zone for which prices should
-be returned.
+\item \code{availability-zone} - The Availability Zone for which prices should be returned.
+\item \code{availability-zone-id} - The ID of the Availability Zone for which prices should be returned.
 \item \code{instance-type} - The type of instance (for example, \code{m3.medium}).
-\item \code{product-description} - The product description for the Spot price
-(\code{Linux/UNIX} | \verb{Red Hat Enterprise Linux} | \verb{SUSE Linux} |
-\code{Windows} | \verb{Linux/UNIX (Amazon VPC)} |
-\verb{Red Hat Enterprise Linux (Amazon VPC)} | \verb{SUSE Linux (Amazon VPC)}
-| \verb{Windows (Amazon VPC)}).
-\item \code{spot-price} - The Spot price. The value must match exactly (or use
-wildcards; greater than or less than comparison is not supported).
-\item \code{timestamp} - The time stamp of the Spot price history, in UTC
-format (for example, \emph{ddd MMM dd HH}:\emph{mm}:\emph{ss} UTC \emph{YYYY}). You can
-use wildcards (\code{*} and \verb{?}). Greater than or less than comparison is
-not supported.
+\item \code{product-description} - The product description for the Spot price (\code{Linux/UNIX} | \verb{Red Hat Enterprise Linux} | \verb{SUSE Linux} | \code{Windows} | \verb{Linux/UNIX (Amazon VPC)} | \verb{Red Hat Enterprise Linux (Amazon VPC)} | \verb{SUSE Linux (Amazon VPC)} | \verb{Windows (Amazon VPC)}).
+\item \code{spot-price} - The Spot price. The value must match exactly (or use wildcards; greater than or less than comparison is not supported).
+\item \code{timestamp} - The time stamp of the Spot price history, in UTC format (for example, \emph{ddd MMM dd HH}:\emph{mm}:\emph{ss} UTC \emph{YYYY}). You can use wildcards (\code{*} and \verb{?}). Greater than or less than comparison is not supported.
 }}
 
-\item{AvailabilityZone}{Filters the results by the specified Availability Zone.}
+\item{AvailabilityZone}{Filters the results by the specified Availability Zone.
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+Either \code{AvailabilityZone} or \code{AvailabilityZoneId} can be specified, but not both}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
+
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 }
 \description{
 Describes the Spot price history. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances-history.html}{Spot Instance pricing history} in the \emph{Amazon EC2 User Guide}.

@@ -17,39 +17,25 @@ apprunner_create_service(
 )
 }
 \arguments{
-\item{ServiceName}{[required] A name for the App Runner service. It must be unique across all the
-running App Runner services in your Amazon Web Services account in the
-Amazon Web Services Region.}
+\item{ServiceName}{[required] A name for the App Runner service. It must be unique across all the running App Runner services in your Amazon Web Services account in the Amazon Web Services Region.}
 
-\item{SourceConfiguration}{[required] The source to deploy to the App Runner service. It can be a code or an
-image repository.}
+\item{SourceConfiguration}{[required] The source to deploy to the App Runner service. It can be a code or an image repository.}
 
 \item{InstanceConfiguration}{The runtime configuration of instances (scaling units) of your service.}
 
-\item{Tags}{An optional list of metadata items that you can associate with the App
-Runner service resource. A tag is a key-value pair.}
+\item{Tags}{An optional list of metadata items that you can associate with the App Runner service resource. A tag is a key-value pair.}
 
-\item{EncryptionConfiguration}{An optional custom encryption key that App Runner uses to encrypt the
-copy of your source repository that it maintains and your service logs.
-By default, App Runner uses an Amazon Web Services managed key.}
+\item{EncryptionConfiguration}{An optional custom encryption key that App Runner uses to encrypt the copy of your source repository that it maintains and your service logs. By default, App Runner uses an Amazon Web Services managed key.}
 
-\item{HealthCheckConfiguration}{The settings for the health check that App Runner performs to monitor
-the health of the App Runner service.}
+\item{HealthCheckConfiguration}{The settings for the health check that App Runner performs to monitor the health of the App Runner service.}
 
-\item{AutoScalingConfigurationArn}{The Amazon Resource Name (ARN) of an App Runner automatic scaling
-configuration resource that you want to associate with your service. If
-not provided, App Runner associates the latest revision of a default
-auto scaling configuration.
+\item{AutoScalingConfigurationArn}{The Amazon Resource Name (ARN) of an App Runner automatic scaling configuration resource that you want to associate with your service. If not provided, App Runner associates the latest revision of a default auto scaling configuration.
 
-Specify an ARN with a name and a revision number to associate that
-revision. For example:
-\code{arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration/high-availability/3}
+Specify an ARN with a name and a revision number to associate that revision. For example: \code{arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration/high-availability/3}
 
-Specify just the name to associate the latest revision. For example:
-\code{arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration/high-availability}}
+Specify just the name to associate the latest revision. For example: \code{arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration/high-availability}}
 
-\item{NetworkConfiguration}{Configuration settings related to network traffic of the web application
-that the App Runner service runs.}
+\item{NetworkConfiguration}{Configuration settings related to network traffic of the web application that the App Runner service runs.}
 
 \item{ObservabilityConfiguration}{The observability configuration of your service.}
 }

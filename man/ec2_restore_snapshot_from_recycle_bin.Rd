@@ -9,10 +9,7 @@ ec2_restore_snapshot_from_recycle_bin(SnapshotId, DryRun = NULL)
 \arguments{
 \item{SnapshotId}{[required] The ID of the snapshot to restore.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Restores a snapshot from the Recycle Bin. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/recycle-bin-working-with-snaps.html#recycle-bin-restore-snaps}{Restore snapshots from the Recycle Bin} in the \emph{Amazon EBS User Guide}.

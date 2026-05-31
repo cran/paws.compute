@@ -12,9 +12,7 @@ proton_list_repository_sync_definitions(
 )
 }
 \arguments{
-\item{nextToken}{A token that indicates the location of the next repository sync
-definition in the array of repository sync definitions, after the list
-of repository sync definitions previously requested.}
+\item{nextToken}{A token that indicates the location of the next repository sync definition in the array of repository sync definitions, after the list of repository sync definitions previously requested.}
 
 \item{repositoryName}{[required] The repository name.}
 

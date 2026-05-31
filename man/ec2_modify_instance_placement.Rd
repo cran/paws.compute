@@ -16,34 +16,23 @@ ec2_modify_instance_placement(
 )
 }
 \arguments{
-\item{GroupName}{The name of the placement group in which to place the instance. For
-spread placement groups, the instance must have a tenancy of \code{default}.
-For cluster and partition placement groups, the instance must have a
-tenancy of \code{default} or \code{dedicated}.
+\item{GroupName}{The name of the placement group in which to place the instance. For spread placement groups, the instance must have a tenancy of \code{default}. For cluster and partition placement groups, the instance must have a tenancy of \code{default} or \code{dedicated}.
 
-To remove an instance from a placement group, specify an empty string
-("").}
+To remove an instance from a placement group, specify an empty string ("").}
 
-\item{PartitionNumber}{The number of the partition in which to place the instance. Valid only
-if the placement group strategy is set to \code{partition}.}
+\item{PartitionNumber}{The number of the partition in which to place the instance. Valid only if the placement group strategy is set to \code{partition}.}
 
-\item{HostResourceGroupArn}{The ARN of the host resource group in which to place the instance. The
-instance must have a tenancy of \code{host} to specify this parameter.}
+\item{HostResourceGroupArn}{The ARN of the host resource group in which to place the instance. The instance must have a tenancy of \code{host} to specify this parameter.}
 
-\item{GroupId}{The Group Id of a placement group. You must specify the Placement Group
-\strong{Group Id} to launch an instance in a shared placement group.}
+\item{GroupId}{The Group Id of a placement group. You must specify the Placement Group \strong{Group Id} to launch an instance in a shared placement group.}
 
 \item{InstanceId}{[required] The ID of the instance that you are modifying.}
 
 \item{Tenancy}{The tenancy for the instance.
 
-For T3 instances, you must launch the instance on a Dedicated Host to
-use a tenancy of \code{host}. You can't change the tenancy from \code{host} to
-\code{dedicated} or \code{default}. Attempting to make one of these unsupported
-tenancy changes results in an \code{InvalidRequest} error code.}
+For T3 instances, you must launch the instance on a Dedicated Host to use a tenancy of \code{host}. You can't change the tenancy from \code{host} to \code{dedicated} or \code{default}. Attempting to make one of these unsupported tenancy changes results in an \code{InvalidRequest} error code.}
 
-\item{Affinity}{The affinity setting for the instance. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/#dedicated-hosts-affinity}{Host affinity}
-in the \emph{Amazon EC2 User Guide}.}
+\item{Affinity}{The affinity setting for the instance. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/#dedicated-hosts-affinity}{Host affinity} in the \emph{Amazon EC2 User Guide}.}
 
 \item{HostId}{The ID of the Dedicated Host with which to associate the instance.}
 }

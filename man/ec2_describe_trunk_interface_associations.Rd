@@ -15,23 +15,17 @@ ec2_describe_trunk_interface_associations(
 \arguments{
 \item{AssociationIds}{The IDs of the associations.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{One or more filters.
 \itemize{
 \item \code{gre-key} - The ID of a trunk interface association.
-\item \code{interface-protocol} - The interface protocol. Valid values are
-\code{VLAN} and \code{GRE}.
+\item \code{interface-protocol} - The interface protocol. Valid values are \code{VLAN} and \code{GRE}.
 }}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 }
 \description{
 Describes one or more network interface trunk associations.

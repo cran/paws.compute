@@ -7,14 +7,11 @@
 apprunner_create_connection(ConnectionName, ProviderType, Tags = NULL)
 }
 \arguments{
-\item{ConnectionName}{[required] A name for the new connection. It must be unique across all App Runner
-connections for the Amazon Web Services account in the Amazon Web
-Services Region.}
+\item{ConnectionName}{[required] A name for the new connection. It must be unique across all App Runner connections for the Amazon Web Services account in the Amazon Web Services Region.}
 
 \item{ProviderType}{[required] The source repository provider.}
 
-\item{Tags}{A list of metadata items that you can associate with your connection
-resource. A tag is a key-value pair.}
+\item{Tags}{A list of metadata items that you can associate with your connection resource. A tag is a key-value pair.}
 }
 \description{
 Create an App Runner connection resource. App Runner requires a connection resource when you create App Runner services that access private repositories from certain third-party providers. You can share a connection across multiple services.

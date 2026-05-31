@@ -14,28 +14,21 @@ ec2_modify_instance_network_performance_options(
 \arguments{
 \item{InstanceId}{[required] The ID of the instance to update.}
 
-\item{BandwidthWeighting}{[required] Specify the bandwidth weighting option to boost the associated type of
-baseline bandwidth, as follows:
+\item{BandwidthWeighting}{[required] Specify the bandwidth weighting option to boost the associated type of baseline bandwidth, as follows:
 
 \strong{default}
 
-This option uses the standard bandwidth configuration for your instance
-type.
+This option uses the standard bandwidth configuration for your instance type.
 
 \strong{vpc-1}
 
-This option boosts your networking baseline bandwidth and reduces your
-EBS baseline bandwidth.
+This option boosts your networking baseline bandwidth and reduces your EBS baseline bandwidth.
 
 \strong{ebs-1}
 
-This option boosts your EBS baseline bandwidth and reduces your
-networking baseline bandwidth.}
+This option boosts your EBS baseline bandwidth and reduces your networking baseline bandwidth.}
 
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Change the configuration of the network performance options for an existing instance.

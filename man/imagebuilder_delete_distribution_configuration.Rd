@@ -7,8 +7,7 @@
 imagebuilder_delete_distribution_configuration(distributionConfigurationArn)
 }
 \arguments{
-\item{distributionConfigurationArn}{[required] The Amazon Resource Name (ARN) of the distribution configuration to
-delete.}
+\item{distributionConfigurationArn}{[required] The Amazon Resource Name (ARN) of the distribution configuration to delete.}
 }
 \description{
 Deletes a distribution configuration.

@@ -22,10 +22,7 @@ ec2_create_network_interface_permission(
 
 \item{Permission}{[required] The type of permission to grant.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Grants an Amazon Web Services-authorized account permission to attach the specified network interface to an instance in their account.

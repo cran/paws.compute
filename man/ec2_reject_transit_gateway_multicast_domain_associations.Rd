@@ -17,13 +17,9 @@ ec2_reject_transit_gateway_multicast_domain_associations(
 
 \item{TransitGatewayAttachmentId}{The ID of the transit gateway attachment.}
 
-\item{SubnetIds}{The IDs of the subnets to associate with the transit gateway multicast
-domain.}
+\item{SubnetIds}{The IDs of the subnets to associate with the transit gateway multicast domain.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Rejects a request to associate cross-account subnets with a transit gateway multicast domain.

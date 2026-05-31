@@ -14,48 +14,35 @@ computeoptimizer_export_license_recommendations(
 )
 }
 \arguments{
-\item{accountIds}{The IDs of the Amazon Web Services accounts for which to export license
-recommendations.
+\item{accountIds}{The IDs of the Amazon Web Services accounts for which to export license recommendations.
 
-If your account is the management account of an organization, use this
-parameter to specify the member account for which you want to export
-recommendations.
+If your account is the management account of an organization, use this parameter to specify the member account for which you want to export recommendations.
 
-This parameter can't be specified together with the include member
-accounts parameter. The parameters are mutually exclusive.
+This parameter can't be specified together with the include member accounts parameter. The parameters are mutually exclusive.
 
-If this parameter is omitted, recommendations for member accounts aren't
-included in the export.
+If this parameter is omitted, recommendations for member accounts aren't included in the export.
 
 You can specify multiple account IDs per request.}
 
-\item{filters}{An array of objects to specify a filter that exports a more specific set
-of license recommendations.}
+\item{filters}{An array of objects to specify a filter that exports a more specific set of license recommendations.}
 
-\item{fieldsToExport}{The recommendations data to include in the export file. For more
-information about the fields that can be exported, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files}{Exported files}
-in the \emph{Compute Optimizer User Guide}.}
+\item{fieldsToExport}{The recommendations data to include in the export file. For more information about the fields that can be exported, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files}{Exported files} in the \emph{Compute Optimizer User Guide}.}
 
-\item{s3DestinationConfig}{[required]}
+\item{s3DestinationConfig}{[required] Describes the destination Amazon Simple Storage Service (Amazon S3) bucket name and key prefix for a recommendations export job.
+
+You must create the destination Amazon S3 bucket for your recommendations export before you create the export job. Compute Optimizer does not create the S3 bucket for you. After you create the S3 bucket, ensure that it has the required permission policy to allow Compute Optimizer to write the export file to it. If you plan to specify an object prefix when you create the export job, you must include the object prefix in the policy that you add to the S3 bucket. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/create-s3-bucket-policy-for-compute-optimizer.html}{Amazon S3 Bucket Policy for Compute Optimizer} in the \emph{Compute Optimizer User Guide}.}
 
 \item{fileFormat}{The format of the export file.
 
 A CSV file is the only export format currently supported.}
 
-\item{includeMemberAccounts}{Indicates whether to include recommendations for resources in all member
-accounts of the organization if your account is the management account
-of an organization.
+\item{includeMemberAccounts}{Indicates whether to include recommendations for resources in all member accounts of the organization if your account is the management account of an organization.
 
-The member accounts must also be opted in to Compute Optimizer, and
-trusted access for Compute Optimizer must be enabled in the organization
-account. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/security-iam.html#trusted-service-access}{Compute Optimizer and Amazon Web Services Organizations trusted access}
-in the \emph{Compute Optimizer User Guide}.
+The member accounts must also be opted in to Compute Optimizer, and trusted access for Compute Optimizer must be enabled in the organization account. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/security-iam.html#trusted-service-access}{Compute Optimizer and Amazon Web Services Organizations trusted access} in the \emph{Compute Optimizer User Guide}.
 
-If this parameter is omitted, recommendations for member accounts of the
-organization aren't included in the export file .
+If this parameter is omitted, recommendations for member accounts of the organization aren't included in the export file .
 
-This parameter cannot be specified together with the account IDs
-parameter. The parameters are mutually exclusive.}
+This parameter cannot be specified together with the account IDs parameter. The parameters are mutually exclusive.}
 }
 \description{
 Export optimization recommendations for your licenses.

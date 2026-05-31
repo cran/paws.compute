@@ -7,26 +7,15 @@
 ec2_detach_network_interface(DryRun = NULL, AttachmentId, Force = NULL)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{AttachmentId}{[required] The ID of the attachment.}
 
 \item{Force}{Specifies whether to force a detachment.
 \itemize{
-\item Use the \code{Force} parameter only as a last resort to detach a network
-interface from a failed instance.
-\item If you use the \code{Force} parameter to detach a network interface, you
-might not be able to attach a different network interface to the
-same index on the instance without first stopping and starting the
-instance.
-\item If you force the detachment of a network interface, the \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html}{instance metadata}
-might not get updated. This means that the attributes associated
-with the detached network interface might still be visible. The
-instance metadata will get updated when you stop and start the
-instance.
+\item Use the \code{Force} parameter only as a last resort to detach a network interface from a failed instance.
+\item If you use the \code{Force} parameter to detach a network interface, you might not be able to attach a different network interface to the same index on the instance without first stopping and starting the instance.
+\item If you force the detachment of a network interface, the \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html}{instance metadata} might not get updated. This means that the attributes associated with the detached network interface might still be visible. The instance metadata will get updated when you stop and start the instance.
 }}
 }
 \description{

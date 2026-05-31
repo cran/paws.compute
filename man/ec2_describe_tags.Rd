@@ -12,31 +12,20 @@ ec2_describe_tags(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
 \item \code{key} - The tag key.
 \item \code{resource-id} - The ID of the resource.
-\item \code{resource-type} - The resource type. For a list of possible values,
-see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_TagSpecification.html}{TagSpecification}.
-\item \code{tag}:\<key\> - The key/value combination of the tag. For example,
-specify "tag:Owner" for the filter name and "TeamA" for the filter
-value to find resources with the tag "Owner=TeamA".
+\item \code{resource-type} - The resource type. For a list of possible values, see \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_TagSpecification.html}{TagSpecification}.
+\item \code{tag}:\<key\> - The key/value combination of the tag. For example, specify "tag:Owner" for the filter name and "TeamA" for the filter value to find resources with the tag "Owner=TeamA".
 \item \code{value} - The tag value.
 }}
 
-\item{MaxResults}{The maximum number of items to return for this request. This value can
-be between 5 and 1000. To get the next page of items, make another
-request with the token returned in the output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. This value can be between 5 and 1000. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 }
 \description{
 Describes the specified tags for your EC2 resources.

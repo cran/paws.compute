@@ -16,26 +16,16 @@ ec2_describe_network_interface_permissions(
 
 \item{Filters}{One or more filters.
 \itemize{
-\item \code{network-interface-permission.network-interface-permission-id} - The
-ID of the permission.
-\item \code{network-interface-permission.network-interface-id} - The ID of the
-network interface.
-\item \code{network-interface-permission.aws-account-id} - The Amazon Web
-Services account ID.
-\item \code{network-interface-permission.aws-service} - The Amazon Web Services
-service.
-\item \code{network-interface-permission.permission} - The type of permission
-(\code{INSTANCE-ATTACH} | \code{EIP-ASSOCIATE}).
+\item \code{network-interface-permission.network-interface-permission-id} - The ID of the permission.
+\item \code{network-interface-permission.network-interface-id} - The ID of the network interface.
+\item \code{network-interface-permission.aws-account-id} - The Amazon Web Services account ID.
+\item \code{network-interface-permission.aws-service} - The Amazon Web Services service.
+\item \code{network-interface-permission.permission} - The type of permission (\code{INSTANCE-ATTACH} | \code{EIP-ASSOCIATE}).
 }}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. If this parameter is not specified, up to 50 results are
-returned by default. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. If this parameter is not specified, up to 50 results are returned by default. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 }
 \description{
 Describes the permissions for your network interfaces.

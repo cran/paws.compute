@@ -7,8 +7,7 @@
 imagebuilder_put_container_recipe_policy(containerRecipeArn, policy)
 }
 \arguments{
-\item{containerRecipeArn}{[required] The Amazon Resource Name (ARN) of the container recipe that this policy
-should be applied to.}
+\item{containerRecipeArn}{[required] The Amazon Resource Name (ARN) of the container recipe that this policy should be applied to.}
 
 \item{policy}{[required] The policy to apply to the container recipe.}
 }

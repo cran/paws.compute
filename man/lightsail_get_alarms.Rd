@@ -17,15 +17,11 @@ Specify an alarm name to return information about a specific alarm.}
 
 \item{pageToken}{The token to advance to the next page of results from your request.
 
-To get a page token, perform an initial
-\code{\link[=lightsail_get_alarms]{get_alarms}} request. If your results are
-paginated, the response will return a next page token that you can
-specify as the page token in a subsequent request.}
+To get a page token, perform an initial \code{\link[=lightsail_get_alarms]{get_alarms}} request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.}
 
 \item{monitoredResourceName}{The name of the Lightsail resource being monitored by the alarm.
 
-Specify a monitored resource name to return information about all alarms
-for a specific resource.}
+Specify a monitored resource name to return information about all alarms for a specific resource.}
 }
 \description{
 Returns information about the configured alarms. Specify an alarm name in your request to return information about a specific alarm, or specify a monitored resource name to return information about all alarms for a specific resource.

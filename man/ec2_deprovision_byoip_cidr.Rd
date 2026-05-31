@@ -9,13 +9,9 @@ your Amazon Web Services resources through bring your own IP addresses
 ec2_deprovision_byoip_cidr(Cidr, DryRun = NULL)
 }
 \arguments{
-\item{Cidr}{[required] The address range, in CIDR notation. The prefix must be the same prefix
-that you specified when you provisioned the address range.}
+\item{Cidr}{[required] The address range, in CIDR notation. The prefix must be the same prefix that you specified when you provisioned the address range.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Releases the specified address range that you provisioned for use with your Amazon Web Services resources through bring your own IP addresses (BYOIP) and deletes the corresponding address pool.

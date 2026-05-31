@@ -15,30 +15,22 @@ ec2_describe_traffic_mirror_sessions(
 \arguments{
 \item{TrafficMirrorSessionIds}{The ID of the Traffic Mirror session.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{One or more filters. The possible values are:
 \itemize{
 \item \code{description}: The Traffic Mirror session description.
-\item \code{network-interface-id}: The ID of the Traffic Mirror session network
-interface.
-\item \code{owner-id}: The ID of the account that owns the Traffic Mirror
-session.
+\item \code{network-interface-id}: The ID of the Traffic Mirror session network interface.
+\item \code{owner-id}: The ID of the account that owns the Traffic Mirror session.
 \item \code{packet-length}: The assigned number of packets to mirror.
 \item \code{session-number}: The assigned session number.
 \item \code{traffic-mirror-filter-id}: The ID of the Traffic Mirror filter.
 \item \code{traffic-mirror-session-id}: The ID of the Traffic Mirror session.
 \item \code{traffic-mirror-target-id}: The ID of the Traffic Mirror target.
-\item \code{virtual-network-id}: The virtual network ID of the Traffic Mirror
-session.
+\item \code{virtual-network-id}: The virtual network ID of the Traffic Mirror session.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 }

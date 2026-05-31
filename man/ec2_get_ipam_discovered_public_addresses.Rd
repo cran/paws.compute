@@ -14,10 +14,7 @@ ec2_get_ipam_discovered_public_addresses(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamResourceDiscoveryId}{[required] An IPAM resource discovery ID.}
 
@@ -27,8 +24,7 @@ you have the required permissions, the error response is
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{MaxResults}{The maximum number of IPAM discovered public addresses to return in one
-page of results.}
+\item{MaxResults}{The maximum number of IPAM discovered public addresses to return in one page of results.}
 }
 \description{
 Gets the public IP addresses that have been discovered by IPAM.

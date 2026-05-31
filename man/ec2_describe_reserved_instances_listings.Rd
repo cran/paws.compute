@@ -19,10 +19,8 @@ ec2_describe_reserved_instances_listings(
 \item{Filters}{One or more filters.
 \itemize{
 \item \code{reserved-instances-id} - The ID of the Reserved Instances.
-\item \code{reserved-instances-listing-id} - The ID of the Reserved Instances
-listing.
-\item \code{status} - The status of the Reserved Instance listing (\code{pending} |
-\code{active} | \code{cancelled} | \code{closed}).
+\item \code{reserved-instances-listing-id} - The ID of the Reserved Instances listing.
+\item \code{status} - The status of the Reserved Instance listing (\code{pending} | \code{active} | \code{cancelled} | \code{closed}).
 \item \code{status-message} - The reason for the status.
 }}
 }

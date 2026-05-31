@@ -7,15 +7,11 @@
 ecr_delete_repository(registryId = NULL, repositoryName, force = NULL)
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the repository to delete. If you do not specify a registry, the
-default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the repository to delete. If you do not specify a registry, the default registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository to delete.}
 
-\item{force}{If true, deleting the repository force deletes the contents of the
-repository. If false, the repository must be empty before attempting to
-delete it.}
+\item{force}{If true, deleting the repository force deletes the contents of the repository. If false, the repository must be empty before attempting to delete it.}
 }
 \description{
 Deletes a repository. If the repository isn't empty, you must either delete the contents of the repository or use the \code{force} option to delete the repository and have Amazon ECR delete all of its contents on your behalf.

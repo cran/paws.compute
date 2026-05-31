@@ -13,10 +13,7 @@ ec2_get_console_output(InstanceId, Latest = NULL, DryRun = NULL)
 
 Default: disabled (\code{false})}
 
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Gets the console output for the specified instance. For Linux instances, the instance console output displays the exact console output that would normally be displayed on a physical monitor attached to a computer. For Windows instances, the instance console output includes the last three system event log errors.

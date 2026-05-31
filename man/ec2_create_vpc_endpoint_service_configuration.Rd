@@ -18,28 +18,21 @@ ec2_create_vpc_endpoint_service_configuration(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{AcceptanceRequired}{Indicates whether requests from service consumers to create an endpoint
-to your service must be accepted manually.}
+\item{AcceptanceRequired}{Indicates whether requests from service consumers to create an endpoint to your service must be accepted manually.}
 
-\item{PrivateDnsName}{(Interface endpoint configuration) The private DNS name to assign to the
-VPC endpoint service.}
+\item{PrivateDnsName}{(Interface endpoint configuration) The private DNS name to assign to the VPC endpoint service.}
 
 \item{NetworkLoadBalancerArns}{The Amazon Resource Names (ARNs) of the Network Load Balancers.}
 
 \item{GatewayLoadBalancerArns}{The Amazon Resource Names (ARNs) of the Gateway Load Balancers.}
 
-\item{SupportedIpAddressTypes}{The supported IP address types. The possible values are \code{ipv4} and
-\code{ipv6}.}
+\item{SupportedIpAddressTypes}{The supported IP address types. The possible values are \code{ipv4} and \code{ipv6}.}
 
 \item{SupportedRegions}{The Regions from which service consumers can access the service.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
 
 \item{TagSpecifications}{The tags to associate with the service.}
 }

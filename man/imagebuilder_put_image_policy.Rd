@@ -7,8 +7,7 @@
 imagebuilder_put_image_policy(imageArn, policy)
 }
 \arguments{
-\item{imageArn}{[required] The Amazon Resource Name (ARN) of the image that this policy should be
-applied to.}
+\item{imageArn}{[required] The Amazon Resource Name (ARN) of the image that this policy should be applied to.}
 
 \item{policy}{[required] The policy to apply.}
 }

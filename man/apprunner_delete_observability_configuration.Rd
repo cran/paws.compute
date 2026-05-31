@@ -7,12 +7,9 @@
 apprunner_delete_observability_configuration(ObservabilityConfigurationArn)
 }
 \arguments{
-\item{ObservabilityConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner observability
-configuration that you want to delete.
+\item{ObservabilityConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner observability configuration that you want to delete.
 
-The ARN can be a full observability configuration ARN, or a partial ARN
-ending with either \code{.../name } or \code{.../name/revision }. If a revision
-isn't specified, the latest active revision is deleted.}
+The ARN can be a full observability configuration ARN, or a partial ARN ending with either \code{.../name } or \code{.../name/revision }. If a revision isn't specified, the latest active revision is deleted.}
 }
 \description{
 Delete an App Runner observability configuration resource. You can delete a specific revision or the latest active revision. You can't delete a configuration that's used by one or more App Runner services.

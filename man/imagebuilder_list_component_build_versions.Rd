@@ -6,19 +6,17 @@
 version Amazon Resource Name (ARN)}
 \usage{
 imagebuilder_list_component_build_versions(
-  componentVersionArn,
+  componentVersionArn = NULL,
   maxResults = NULL,
   nextToken = NULL
 )
 }
 \arguments{
-\item{componentVersionArn}{[required] The component version Amazon Resource Name (ARN) whose versions you want
-to list.}
+\item{componentVersionArn}{The component version Amazon Resource Name (ARN) whose versions you want to list.}
 
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 }
 \description{
 Returns the list of component build versions for the specified component version Amazon Resource Name (ARN).

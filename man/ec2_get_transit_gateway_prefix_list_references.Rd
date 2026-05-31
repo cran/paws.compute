@@ -18,31 +18,20 @@ ec2_get_transit_gateway_prefix_list_references(
 
 \item{Filters}{One or more filters. The possible values are:
 \itemize{
-\item \code{attachment.resource-id} - The ID of the resource for the
-attachment.
-\item \code{attachment.resource-type} - The type of resource for the
-attachment. Valid values are \code{vpc} | \code{vpn} |
-\code{direct-connect-gateway} | \code{peering}.
-\item \code{attachment.transit-gateway-attachment-id} - The ID of the
-attachment.
-\item \code{is-blackhole} - Whether traffic matching the route is blocked
-(\code{true} | \code{false}).
+\item \code{attachment.resource-id} - The ID of the resource for the attachment.
+\item \code{attachment.resource-type} - The type of resource for the attachment. Valid values are \code{vpc} | \code{vpn} | \code{direct-connect-gateway} | \code{peering}.
+\item \code{attachment.transit-gateway-attachment-id} - The ID of the attachment.
+\item \code{is-blackhole} - Whether traffic matching the route is blocked (\code{true} | \code{false}).
 \item \code{prefix-list-id} - The ID of the prefix list.
 \item \code{prefix-list-owner-id} - The ID of the owner of the prefix list.
-\item \code{state} - The state of the prefix list reference (\code{pending} |
-\code{available} | \code{modifying} | \code{deleting}).
+\item \code{state} - The state of the prefix list reference (\code{pending} | \code{available} | \code{modifying} | \code{deleting}).
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Gets information about the prefix list references in a specified transit gateway route table.

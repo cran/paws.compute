@@ -12,21 +12,15 @@ lambda_list_function_url_configs(FunctionName, Marker = NULL, MaxItems = NULL)
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} – \verb{my-function}.
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
 \item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it is limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
-\item{Marker}{Specify the pagination token that's returned by a previous request to
-retrieve the next page of results.}
+\item{Marker}{Specify the pagination token that's returned by a previous request to retrieve the next page of results.}
 
-\item{MaxItems}{The maximum number of function URLs to return in the response. Note that
-\code{\link[=lambda_list_function_url_configs]{list_function_url_configs}} returns
-a maximum of 50 items in each response, even if you set the number
-higher.}
+\item{MaxItems}{The maximum number of function URLs to return in the response. Note that \code{\link[=lambda_list_function_url_configs]{list_function_url_configs}} returns a maximum of 50 items in each response, even if you set the number higher.}
 }
 \description{
 Returns a list of Lambda function URLs for the specified function.

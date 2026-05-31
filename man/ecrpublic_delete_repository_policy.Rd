@@ -8,12 +8,9 @@ repository}
 ecrpublic_delete_repository_policy(registryId = NULL, repositoryName)
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID that's associated with the public
-registry that contains the repository policy to delete. If you do not
-specify a registry, the default public registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID that's associated with the public registry that contains the repository policy to delete. If you do not specify a registry, the default public registry is assumed.}
 
-\item{repositoryName}{[required] The name of the repository that's associated with the repository policy
-to delete.}
+\item{repositoryName}{[required] The name of the repository that's associated with the repository policy to delete.}
 }
 \description{
 Deletes the repository policy that's associated with the specified repository.

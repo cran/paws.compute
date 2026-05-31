@@ -11,8 +11,7 @@ imagebuilder_list_image_scan_findings(
 )
 }
 \arguments{
-\item{filters}{An array of name value pairs that you can use to filter your results.
-You can use the following filters to streamline results:
+\item{filters}{An array of name value pairs that you can use to filter your results. You can use the following filters to streamline results:
 \itemize{
 \item \code{imageBuildVersionArn}
 \item \code{imagePipelineArn}
@@ -20,13 +19,11 @@ You can use the following filters to streamline results:
 \item \code{severity}
 }
 
-If you don't request a filter, then all findings in your account are
-listed.}
+If you don't request a filter, then all findings in your account are listed.}
 
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 }
 \description{
 Returns a list of image scan findings for your account.

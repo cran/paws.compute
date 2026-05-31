@@ -15,23 +15,13 @@ ec2_purchase_host_reservation(
 )
 }
 \arguments{
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
 
-\item{CurrencyCode}{The currency in which the \code{totalUpfrontPrice}, \code{LimitPrice}, and
-\code{totalHourlyPrice} amounts are specified. At this time, the only
-supported currency is \code{USD}.}
+\item{CurrencyCode}{The currency in which the \code{totalUpfrontPrice}, \code{LimitPrice}, and \code{totalHourlyPrice} amounts are specified. At this time, the only supported currency is \code{USD}.}
 
-\item{HostIdSet}{[required] The IDs of the Dedicated Hosts with which the reservation will be
-associated.}
+\item{HostIdSet}{[required] The IDs of the Dedicated Hosts with which the reservation will be associated.}
 
-\item{LimitPrice}{The specified limit is checked against the total upfront cost of the
-reservation (calculated as the offering's upfront cost multiplied by the
-host count). If the total upfront cost is greater than the specified
-price limit, the request fails. This is used to ensure that the purchase
-does not exceed the expected upfront cost of the purchase. At this time,
-the only supported currency is \code{USD}. For example, to indicate a limit
-price of USD 100, specify 100.00.}
+\item{LimitPrice}{The specified limit is checked against the total upfront cost of the reservation (calculated as the offering's upfront cost multiplied by the host count). If the total upfront cost is greater than the specified price limit, the request fails. This is used to ensure that the purchase does not exceed the expected upfront cost of the purchase. At this time, the only supported currency is \code{USD}. For example, to indicate a limit price of USD 100, specify 100.00.}
 
 \item{OfferingId}{[required] The ID of the offering.}
 

@@ -11,9 +11,7 @@ eks_disassociate_access_policy(clusterName, principalArn, policyArn)
 
 \item{principalArn}{[required] The ARN of the IAM principal for the \code{AccessEntry}.}
 
-\item{policyArn}{[required] The ARN of the policy to disassociate from the access entry. For a list
-of associated policies ARNs, use
-\code{\link[=eks_list_associated_access_policies]{list_associated_access_policies}}.}
+\item{policyArn}{[required] The ARN of the policy to disassociate from the access entry. For a list of associated policies ARNs, use \code{\link[=eks_list_associated_access_policies]{list_associated_access_policies}}.}
 }
 \description{
 Disassociates an access policy from an access entry.

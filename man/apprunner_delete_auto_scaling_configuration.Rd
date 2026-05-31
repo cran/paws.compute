@@ -10,18 +10,13 @@ apprunner_delete_auto_scaling_configuration(
 )
 }
 \arguments{
-\item{AutoScalingConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner auto scaling
-configuration that you want to delete.
+\item{AutoScalingConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner auto scaling configuration that you want to delete.
 
-The ARN can be a full auto scaling configuration ARN, or a partial ARN
-ending with either \code{.../name } or \code{.../name/revision }. If a revision
-isn't specified, the latest active revision is deleted.}
+The ARN can be a full auto scaling configuration ARN, or a partial ARN ending with either \code{.../name } or \code{.../name/revision }. If a revision isn't specified, the latest active revision is deleted.}
 
-\item{DeleteAllRevisions}{Set to \code{true} to delete all of the revisions associated with the
-\code{AutoScalingConfigurationArn} parameter value.
+\item{DeleteAllRevisions}{Set to \code{true} to delete all of the revisions associated with the \code{AutoScalingConfigurationArn} parameter value.
 
-When \code{DeleteAllRevisions} is set to \code{true}, the only valid value for the
-Amazon Resource Name (ARN) is a partial ARN ending with: \code{.../name}.}
+When \code{DeleteAllRevisions} is set to \code{true}, the only valid value for the Amazon Resource Name (ARN) is a partial ARN ending with: \code{.../name}.}
 }
 \description{
 Delete an App Runner automatic scaling configuration resource. You can delete a top level auto scaling configuration, a specific revision of one, or all revisions associated with the top level configuration. You can't delete the default auto scaling configuration or a configuration that's used by one or more App Runner services.

@@ -9,8 +9,7 @@ imagebuilder_delete_infrastructure_configuration(
 )
 }
 \arguments{
-\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration to
-delete.}
+\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration to delete.}
 }
 \description{
 Deletes an infrastructure configuration.

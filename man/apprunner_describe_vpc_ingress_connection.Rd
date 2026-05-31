@@ -8,8 +8,7 @@ resource}
 apprunner_describe_vpc_ingress_connection(VpcIngressConnectionArn)
 }
 \arguments{
-\item{VpcIngressConnectionArn}{[required] The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection
-that you want a description for.}
+\item{VpcIngressConnectionArn}{[required] The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection that you want a description for.}
 }
 \description{
 Return a full description of an App Runner VPC Ingress Connection resource.

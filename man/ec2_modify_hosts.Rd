@@ -14,31 +14,17 @@ ec2_modify_hosts(
 )
 }
 \arguments{
-\item{HostRecovery}{Indicates whether to enable or disable host recovery for the Dedicated
-Host. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html}{Host recovery}
-in the \emph{Amazon EC2 User Guide}.}
+\item{HostRecovery}{Indicates whether to enable or disable host recovery for the Dedicated Host. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html}{Host recovery} in the \emph{Amazon EC2 User Guide}.}
 
-\item{InstanceType}{Specifies the instance type to be supported by the Dedicated Host.
-Specify this parameter to modify a Dedicated Host to support only a
-specific instance type.
+\item{InstanceType}{Specifies the instance type to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated Host to support only a specific instance type.
 
-If you want to modify a Dedicated Host to support multiple instance
-types in its current instance family, omit this parameter and specify
-\strong{InstanceFamily} instead. You cannot specify \strong{InstanceType} and
-\strong{InstanceFamily} in the same request.}
+If you want to modify a Dedicated Host to support multiple instance types in its current instance family, omit this parameter and specify \strong{InstanceFamily} instead. You cannot specify \strong{InstanceType} and \strong{InstanceFamily} in the same request.}
 
-\item{InstanceFamily}{Specifies the instance family to be supported by the Dedicated Host.
-Specify this parameter to modify a Dedicated Host to support multiple
-instance types within its current instance family.
+\item{InstanceFamily}{Specifies the instance family to be supported by the Dedicated Host. Specify this parameter to modify a Dedicated Host to support multiple instance types within its current instance family.
 
-If you want to modify a Dedicated Host to support a specific instance
-type only, omit this parameter and specify \strong{InstanceType} instead. You
-cannot specify \strong{InstanceFamily} and \strong{InstanceType} in the same
-request.}
+If you want to modify a Dedicated Host to support a specific instance type only, omit this parameter and specify \strong{InstanceType} instead. You cannot specify \strong{InstanceFamily} and \strong{InstanceType} in the same request.}
 
-\item{HostMaintenance}{Indicates whether to enable or disable host maintenance for the
-Dedicated Host. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html}{Host maintenance}
-in the \emph{Amazon EC2 User Guide}.}
+\item{HostMaintenance}{Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html}{Host maintenance} in the \emph{Amazon EC2 User Guide}.}
 
 \item{HostIds}{[required] The IDs of the Dedicated Hosts to modify.}
 

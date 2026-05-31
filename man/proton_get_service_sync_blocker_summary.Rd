@@ -10,12 +10,9 @@ proton_get_service_sync_blocker_summary(
 )
 }
 \arguments{
-\item{serviceInstanceName}{The name of the service instance that you want to get the service sync
-blocker summary for. If given bothe the instance name and the service
-name, only the instance is blocked.}
+\item{serviceInstanceName}{The name of the service instance that you want to get the service sync blocker summary for. If given bothe the instance name and the service name, only the instance is blocked.}
 
-\item{serviceName}{[required] The name of the service that you want to get the service sync blocker
-summary for. If given only the service name, all instances are blocked.}
+\item{serviceName}{[required] The name of the service that you want to get the service sync blocker summary for. If given only the service name, all instances are blocked.}
 }
 \description{
 Get detailed data for the service sync blocker summary.

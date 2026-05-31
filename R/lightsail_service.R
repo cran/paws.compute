@@ -5,28 +5,11 @@ NULL
 #' Amazon Lightsail
 #'
 #' @description
-#' Amazon Lightsail is the easiest way to get started with Amazon Web
-#' Services (Amazon Web Services) for developers who need to build websites
-#' or web applications. It includes everything you need to launch your
-#' project quickly - instances (virtual private servers), container
-#' services, storage buckets, managed databases, SSD-based block storage,
-#' static IP addresses, load balancers, content delivery network (CDN)
-#' distributions, DNS management of registered domains, and resource
-#' snapshots (backups) - for a low, predictable monthly price.
+#' Amazon Lightsail is the easiest way to get started with Amazon Web Services (Amazon Web Services) for developers who need to build websites or web applications. It includes everything you need to launch your project quickly - instances (virtual private servers), container services, storage buckets, managed databases, SSD-based block storage, static IP addresses, load balancers, content delivery network (CDN) distributions, DNS management of registered domains, and resource snapshots (backups) - for a low, predictable monthly price.
 #' 
-#' You can manage your Lightsail resources using the Lightsail console,
-#' Lightsail API, Command Line Interface (CLI), or SDKs. For more
-#' information about Lightsail concepts and tasks, see the [Amazon
-#' Lightsail Developer
-#' Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/lightsail-how-to-set-up-access-keys-to-use-sdk-api-cli.html).
+#' You can manage your Lightsail resources using the Lightsail console, Lightsail API, Command Line Interface (CLI), or SDKs. For more information about Lightsail concepts and tasks, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/lightsail-how-to-set-up-and-configure-aws-cli.html).
 #' 
-#' This API Reference provides detailed information about the actions, data
-#' types, parameters, and errors of the Lightsail service. For more
-#' information about the supported Amazon Web Services Regions, endpoints,
-#' and service quotas of the Lightsail service, see [Amazon Lightsail
-#' Endpoints and
-#' Quotas](https://docs.aws.amazon.com/general/latest/gr/lightsail.html) in
-#' the *Amazon Web Services General Reference*.
+#' This API Reference provides detailed information about the actions, data types, parameters, and errors of the Lightsail service. For more information about the supported Amazon Web Services Regions, endpoints, and service quotas of the Lightsail service, see [Amazon Lightsail Endpoints and Quotas](https://docs.aws.amazon.com/general/latest/gr/lightsail.html) in the *Amazon Web Services General Reference*.
 #'
 #' @param
 #' config
@@ -303,7 +286,7 @@ lightsail <- function(config = list(), credentials = list(), endpoint = NULL, re
 
 .lightsail$metadata <- list(
   service_name = "lightsail",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "lightsail.{region}.amazonaws.eu", global = FALSE)),
   service_id = "Lightsail",
   api_version = "2016-11-28",
   signing_name = "lightsail",

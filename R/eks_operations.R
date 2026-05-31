@@ -11,12 +11,9 @@ NULL
 #' See [https://www.paws-r-sdk.com/docs/eks_associate_access_policy/](https://www.paws-r-sdk.com/docs/eks_associate_access_policy/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param principalArn &#91;required&#93; The Amazon Resource Name (ARN) of the IAM user or role for the
-#' `AccessEntry` that you're associating the access policy to.
-#' @param policyArn &#91;required&#93; The ARN of the `AccessPolicy` that you're associating. For a list of
-#' ARNs, use [`list_access_policies`][eks_list_access_policies].
-#' @param accessScope &#91;required&#93; The scope for the `AccessPolicy`. You can scope access policies to an
-#' entire cluster or to specific Kubernetes namespaces.
+#' @param principalArn &#91;required&#93; The Amazon Resource Name (ARN) of the IAM user or role for the `AccessEntry` that you're associating the access policy to.
+#' @param policyArn &#91;required&#93; The ARN of the `AccessPolicy` that you're associating. For a list of ARNs, use [`list_access_policies`][eks_list_access_policies].
+#' @param accessScope &#91;required&#93; The scope for the `AccessPolicy`. You can scope access policies to an entire cluster or to specific Kubernetes namespaces.
 #'
 #' @keywords internal
 #'
@@ -49,8 +46,7 @@ eks_associate_access_policy <- function(clusterName, principalArn, policyArn, ac
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
 #' @param encryptionConfig &#91;required&#93; The configuration you are using for encryption.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
 #'
 #' @keywords internal
 #'
@@ -82,13 +78,9 @@ eks_associate_encryption_config <- function(clusterName, encryptionConfig, clien
 #' See [https://www.paws-r-sdk.com/docs/eks_associate_identity_provider_config/](https://www.paws-r-sdk.com/docs/eks_associate_identity_provider_config/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param oidc &#91;required&#93; An object representing an OpenID Connect (OIDC) identity provider
-#' configuration.
-#' @param tags Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
+#' @param oidc &#91;required&#93; An object representing an OpenID Connect (OIDC) identity provider configuration.
+#' @param tags Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
 #'
 #' @keywords internal
 #'
@@ -120,73 +112,24 @@ eks_associate_identity_provider_config <- function(clusterName, oidc, tags = NUL
 #' See [https://www.paws-r-sdk.com/docs/eks_create_access_entry/](https://www.paws-r-sdk.com/docs/eks_create_access_entry/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param principalArn &#91;required&#93; The ARN of the IAM principal for the `AccessEntry`. You can specify one
-#' ARN for each access entry. You can't specify the same ARN in more than
-#' one access entry. This value can't be changed after access entry
-#' creation.
+#' @param principalArn &#91;required&#93; The ARN of the IAM principal for the `AccessEntry`. You can specify one ARN for each access entry. You can't specify the same ARN in more than one access entry. This value can't be changed after access entry creation.
 #' 
-#' The valid principals differ depending on the type of the access entry in
-#' the `type` field. For `STANDARD` access entries, you can use every IAM
-#' principal type. For nodes (`EC2` (for EKS Auto Mode), `EC2_LINUX`,
-#' `EC2_WINDOWS`, `FARGATE_LINUX`, and `HYBRID_LINUX`), the only valid ARN
-#' is IAM roles. You can't use the STS session principal type with access
-#' entries because this is a temporary principal for each session and not a
-#' permanent identity that can be assigned permissions.
+#' The valid principals differ depending on the type of the access entry in the `type` field. For `STANDARD` access entries, you can use every IAM principal type. For nodes (`EC2` (for EKS Auto Mode), `EC2_LINUX`, `EC2_WINDOWS`, `FARGATE_LINUX`, and `HYBRID_LINUX`), the only valid ARN is IAM roles. You can't use the STS session principal type with access entries because this is a temporary principal for each session and not a permanent identity that can be assigned permissions.
 #' 
-#' [IAM best
-#' practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-users-federation-idp)
-#' recommend using IAM roles with temporary credentials, rather than IAM
-#' users with long-term credentials.
-#' @param kubernetesGroups The value for `name` that you've specified for `kind: Group` as a
-#' `subject` in a Kubernetes `RoleBinding` or `ClusterRoleBinding` object.
-#' Amazon EKS doesn't confirm that the value for `name` exists in any
-#' bindings on your cluster. You can specify one or more names.
+#' [IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#bp-users-federation-idp) recommend using IAM roles with temporary credentials, rather than IAM users with long-term credentials.
+#' @param kubernetesGroups The value for `name` that you've specified for `kind: Group` as a `subject` in a Kubernetes `RoleBinding` or `ClusterRoleBinding` object. Amazon EKS doesn't confirm that the value for `name` exists in any bindings on your cluster. You can specify one or more names.
 #' 
-#' Kubernetes authorizes the `principalArn` of the access entry to access
-#' any cluster objects that you've specified in a Kubernetes `Role` or
-#' `ClusterRole` object that is also specified in a binding's `roleRef`.
-#' For more information about creating Kubernetes `RoleBinding`,
-#' `ClusterRoleBinding`, `Role`, or `ClusterRole` objects, see [Using RBAC
-#' Authorization in the Kubernetes
-#' documentation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
+#' Kubernetes authorizes the `principalArn` of the access entry to access any cluster objects that you've specified in a Kubernetes `Role` or `ClusterRole` object that is also specified in a binding's `roleRef`. For more information about creating Kubernetes `RoleBinding`, `ClusterRoleBinding`, `Role`, or `ClusterRole` objects, see [Using RBAC Authorization in the Kubernetes documentation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
 #' 
-#' If you want Amazon EKS to authorize the `principalArn` (instead of, or
-#' in addition to Kubernetes authorizing the `principalArn`), you can
-#' associate one or more access policies to the access entry using
-#' [`associate_access_policy`][eks_associate_access_policy]. If you
-#' associate any access policies, the `principalARN` has all permissions
-#' assigned in the associated access policies and all permissions in any
-#' Kubernetes `Role` or `ClusterRole` objects that the group names are
-#' bound to.
-#' @param tags Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param username The username to authenticate to Kubernetes with. We recommend not
-#' specifying a username and letting Amazon EKS specify it for you. For
-#' more information about the value Amazon EKS specifies for you, or
-#' constraints before specifying your own username, see [Creating access
-#' entries](https://docs.aws.amazon.com/eks/latest/userguide/access-entries.html#creating-access-entries)
-#' in the *Amazon EKS User Guide*.
-#' @param type The type of the new access entry. Valid values are `STANDARD`,
-#' `FARGATE_LINUX`, `EC2_LINUX`, `EC2_WINDOWS`, `EC2` (for EKS Auto Mode),
-#' `HYBRID_LINUX`, and `HYPERPOD_LINUX`.
+#' If you want Amazon EKS to authorize the `principalArn` (instead of, or in addition to Kubernetes authorizing the `principalArn`), you can associate one or more access policies to the access entry using [`associate_access_policy`][eks_associate_access_policy]. If you associate any access policies, the `principalARN` has all permissions assigned in the associated access policies and all permissions in any Kubernetes `Role` or `ClusterRole` objects that the group names are bound to.
+#' @param tags Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param username The username to authenticate to Kubernetes with. We recommend not specifying a username and letting Amazon EKS specify it for you. For more information about the value Amazon EKS specifies for you, or constraints before specifying your own username, see [Creating access entries](https://docs.aws.amazon.com/eks/latest/userguide/access-entries.html#creating-access-entries) in the *Amazon EKS User Guide*.
+#' @param type The type of the new access entry. Valid values are `STANDARD`, `FARGATE_LINUX`, `EC2_LINUX`, `EC2_WINDOWS`, `EC2` (for EKS Auto Mode), `HYBRID_LINUX`, and `HYPERPOD_LINUX`.
 #' 
-#' If the `principalArn` is for an IAM role that's used for self-managed
-#' Amazon EC2 nodes, specify `EC2_LINUX` or `EC2_WINDOWS`. Amazon EKS
-#' grants the necessary permissions to the node for you. If the
-#' `principalArn` is for any other purpose, specify `STANDARD`. If you
-#' don't specify a value, Amazon EKS sets the value to `STANDARD`. If you
-#' have the access mode of the cluster set to `API_AND_CONFIG_MAP`, it's
-#' unnecessary to create access entries for IAM roles used with Fargate
-#' profiles or managed Amazon EC2 nodes, because Amazon EKS creates entries
-#' in the `aws-auth` `ConfigMap` for the roles. You can't change this value
-#' once you've created the access entry.
+#' If the `principalArn` is for an IAM role that's used for self-managed Amazon EC2 nodes, specify `EC2_LINUX` or `EC2_WINDOWS`. Amazon EKS grants the necessary permissions to the node for you. If the `principalArn` is for any other purpose, specify `STANDARD`. If you don't specify a value, Amazon EKS sets the value to `STANDARD`. If you have the access mode of the cluster set to `API_AND_CONFIG_MAP`, it's unnecessary to create access entries for IAM roles used with Fargate profiles or managed Amazon EC2 nodes, because Amazon EKS creates entries in the `aws-auth` `ConfigMap` for the roles. You can't change this value once you've created the access entry.
 #' 
-#' If you set the value to `EC2_LINUX` or `EC2_WINDOWS`, you can't specify
-#' values for `kubernetesGroups`, or associate an `AccessPolicy` to the
-#' access entry.
+#' If you set the value to `EC2_LINUX` or `EC2_WINDOWS`, you can't specify values for `kubernetesGroups`, or associate an `AccessPolicy` to the access entry.
 #'
 #' @keywords internal
 #'
@@ -218,70 +161,32 @@ eks_create_access_entry <- function(clusterName, principalArn, kubernetesGroups 
 #' See [https://www.paws-r-sdk.com/docs/eks_create_addon/](https://www.paws-r-sdk.com/docs/eks_create_addon/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by
-#' [`describe_addon_versions`][eks_describe_addon_versions].
-#' @param addonVersion The version of the add-on. The version must match one of the versions
-#' returned by
-#' [`describe_addon_versions`](https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html)
-#' .
-#' @param serviceAccountRoleArn The Amazon Resource Name (ARN) of an existing IAM role to bind to the
-#' add-on's service account. The role must be assigned the IAM permissions
-#' required by the add-on. If you don't specify an existing IAM role, then
-#' the add-on uses the permissions assigned to the node IAM role. For more
-#' information, see [Amazon EKS node IAM
-#' role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html)
-#' in the *Amazon EKS User Guide*.
+#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by [`describe_addon_versions`][eks_describe_addon_versions].
+#' @param addonVersion The version of the add-on. The version must match one of the versions returned by [`describe_addon_versions`](https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html) .
+#' @param serviceAccountRoleArn The Amazon Resource Name (ARN) of an existing IAM role to bind to the add-on's service account. The role must be assigned the IAM permissions required by the add-on. If you don't specify an existing IAM role, then the add-on uses the permissions assigned to the node IAM role. For more information, see [Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html) in the *Amazon EKS User Guide*.
 #' 
-#' To specify an existing IAM role, you must have an IAM OpenID Connect
-#' (OIDC) provider created for your cluster. For more information, see
-#' [Enabling IAM roles for service accounts on your
-#' cluster](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html)
-#' in the *Amazon EKS User Guide*.
-#' @param resolveConflicts How to resolve field value conflicts for an Amazon EKS add-on. Conflicts
-#' are handled based on the value you choose:
+#' To specify an existing IAM role, you must have an IAM OpenID Connect (OIDC) provider created for your cluster. For more information, see [Enabling IAM roles for service accounts on your cluster](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) in the *Amazon EKS User Guide*.
+#' @param resolveConflicts How to resolve field value conflicts for an Amazon EKS add-on. Conflicts are handled based on the value you choose:
 #' 
-#' -   **None** – If the self-managed version of the add-on is installed on
-#'     your cluster, Amazon EKS doesn't change the value. Creation of the
-#'     add-on might fail.
+#' -   **None** – If the self-managed version of the add-on is installed on your cluster, Amazon EKS doesn't change the value. Creation of the add-on might fail.
 #' 
-#' -   **Overwrite** – If the self-managed version of the add-on is
-#'     installed on your cluster and the Amazon EKS default value is
-#'     different than the existing value, Amazon EKS changes the value to
-#'     the Amazon EKS default value.
+#' -   **Overwrite** – If the self-managed version of the add-on is installed on your cluster and the Amazon EKS default value is different than the existing value, Amazon EKS changes the value to the Amazon EKS default value.
 #' 
-#' -   **Preserve** – This is similar to the NONE option. If the
-#'     self-managed version of the add-on is installed on your cluster
-#'     Amazon EKS doesn't change the add-on resource properties. Creation
-#'     of the add-on might fail if conflicts are detected. This option
-#'     works differently during the update operation. For more information,
-#'     see
-#'     [`update_addon`](https://docs.aws.amazon.com/eks/latest/APIReference/API_UpdateAddon.html)
-#'     .
+#' -   **Preserve** – This is similar to the NONE option. If the self-managed version of the add-on is installed on your cluster Amazon EKS doesn't change the add-on resource properties. Creation of the add-on might fail if conflicts are detected. This option works differently during the update operation. For more information, see [`update_addon`](https://docs.aws.amazon.com/eks/latest/APIReference/API_UpdateAddon.html) .
 #' 
-#' If you don't currently have the self-managed version of the add-on
-#' installed on your cluster, the Amazon EKS add-on is installed. Amazon
-#' EKS sets all values to default values, regardless of the option that you
-#' specify.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param tags Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
-#' @param configurationValues The set of configuration values for the add-on that's created. The
-#' values that you provide are validated against the schema returned by
-#' [`describe_addon_configuration`][eks_describe_addon_configuration].
-#' @param podIdentityAssociations An array of Pod Identity Assocations to be created. Each EKS Pod
-#' Identity association maps a Kubernetes service account to an IAM Role.
+#' If you don't currently have the self-managed version of the add-on installed on your cluster, the Amazon EKS add-on is installed. Amazon EKS sets all values to default values, regardless of the option that you specify.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param tags Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+#' @param configurationValues The set of configuration values for the add-on that's created. The values that you provide are validated against the schema returned by [`describe_addon_configuration`][eks_describe_addon_configuration].
+#' @param podIdentityAssociations An array of EKS Pod Identity associations to be created. Each association maps a Kubernetes service account to an IAM role.
 #' 
-#' For more information, see [Attach an IAM Role to an Amazon EKS add-on
-#' using Pod
-#' Identity](https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html)
-#' in the *Amazon EKS User Guide*.
+#' For more information, see [Attach an IAM Role to an Amazon EKS add-on using EKS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html) in the *Amazon EKS User Guide*.
+#' @param namespaceConfig The namespace configuration for the addon. If specified, this will override the default namespace for the addon.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_create_addon
-eks_create_addon <- function(clusterName, addonName, addonVersion = NULL, serviceAccountRoleArn = NULL, resolveConflicts = NULL, clientRequestToken = NULL, tags = NULL, configurationValues = NULL, podIdentityAssociations = NULL) {
+eks_create_addon <- function(clusterName, addonName, addonVersion = NULL, serviceAccountRoleArn = NULL, resolveConflicts = NULL, clientRequestToken = NULL, tags = NULL, configurationValues = NULL, podIdentityAssociations = NULL, namespaceConfig = NULL) {
   op <- new_operation(
     name = "CreateAddon",
     http_method = "POST",
@@ -290,7 +195,7 @@ eks_create_addon <- function(clusterName, addonName, addonVersion = NULL, servic
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$create_addon_input(clusterName = clusterName, addonName = addonName, addonVersion = addonVersion, serviceAccountRoleArn = serviceAccountRoleArn, resolveConflicts = resolveConflicts, clientRequestToken = clientRequestToken, tags = tags, configurationValues = configurationValues, podIdentityAssociations = podIdentityAssociations)
+  input <- .eks$create_addon_input(clusterName = clusterName, addonName = addonName, addonVersion = addonVersion, serviceAccountRoleArn = serviceAccountRoleArn, resolveConflicts = resolveConflicts, clientRequestToken = clientRequestToken, tags = tags, configurationValues = configurationValues, podIdentityAssociations = podIdentityAssociations, namespaceConfig = namespaceConfig)
   output <- .eks$create_addon_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -300,6 +205,70 @@ eks_create_addon <- function(clusterName, addonName, addonVersion = NULL, servic
 }
 .eks$operations$create_addon <- eks_create_addon
 
+#' Creates a managed capability resource for an Amazon EKS cluster
+#'
+#' @description
+#' Creates a managed capability resource for an Amazon EKS cluster.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_create_capability/](https://www.paws-r-sdk.com/docs/eks_create_capability/) for full documentation.
+#'
+#' @param capabilityName &#91;required&#93; A unique name for the capability. The name must be unique within your cluster and can contain alphanumeric characters, hyphens, and underscores.
+#' @param clusterName &#91;required&#93; The name of the Amazon EKS cluster where you want to create the capability.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This token is valid for 24 hours after creation. If you retry a request with the same client request token and the same parameters after the original request has completed successfully, the result of the original request is returned.
+#' @param type &#91;required&#93; The type of capability to create. Valid values are:
+#' 
+#' -   `ACK` – Amazon Web Services Controllers for Kubernetes (ACK), which lets you manage resources directly from Kubernetes.
+#' 
+#' -   `ARGOCD` – Argo CD for GitOps-based continuous delivery.
+#' 
+#' -   `KRO` – Kube Resource Orchestrator (KRO) for composing and managing custom Kubernetes resources.
+#' @param roleArn &#91;required&#93; The Amazon Resource Name (ARN) of the IAM role that the capability uses to interact with Amazon Web Services services. This role must have a trust policy that allows the EKS service principal to assume it, and it must have the necessary permissions for the capability type you're creating.
+#' 
+#' For ACK capabilities, the role needs permissions to manage the resources you want to control through Kubernetes. For Argo CD capabilities, the role needs permissions to access Git repositories and Secrets Manager. For KRO capabilities, the role needs permissions based on the resources you'll be orchestrating.
+#' @param configuration The configuration settings for the capability. The structure of this object varies depending on the capability type. For Argo CD capabilities, you can configure IAM Identity CenterIAM; Identity Center integration, RBAC role mappings, and network access settings.
+#' @param tags The metadata that you apply to a resource to help you categorize and organize them. Each tag consists of a key and an optional value. You define them.
+#' 
+#' The following basic restrictions apply to tags:
+#' 
+#' -   Maximum number of tags per resource – 50
+#' 
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
+#' 
+#' -   Maximum key length – 128 Unicode characters in UTF-8
+#' 
+#' -   Maximum value length – 256 Unicode characters in UTF-8
+#' 
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
+#' 
+#' -   Tag keys and values are case-sensitive.
+#' 
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#' @param deletePropagationPolicy &#91;required&#93; Specifies how Kubernetes resources managed by the capability should be handled when the capability is deleted. Currently, the only supported value is `RETAIN` which retains all Kubernetes resources managed by the capability when the capability is deleted.
+#' 
+#' Because resources are retained, all Kubernetes resources created by the capability should be deleted from the cluster before deleting the capability itself. After the capability is deleted, these resources become difficult to manage because the controller is no longer available.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_create_capability
+eks_create_capability <- function(capabilityName, clusterName, clientRequestToken = NULL, type, roleArn, configuration = NULL, tags = NULL, deletePropagationPolicy) {
+  op <- new_operation(
+    name = "CreateCapability",
+    http_method = "POST",
+    http_path = "/clusters/{name}/capabilities",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .eks$create_capability_input(capabilityName = capabilityName, clusterName = clusterName, clientRequestToken = clientRequestToken, type = type, roleArn = roleArn, configuration = configuration, tags = tags, deletePropagationPolicy = deletePropagationPolicy)
+  output <- .eks$create_capability_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$create_capability <- eks_create_capability
+
 #' Creates an Amazon EKS control plane
 #'
 #' @description
@@ -307,101 +276,42 @@ eks_create_addon <- function(clusterName, addonName, addonVersion = NULL, servic
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_create_cluster/](https://www.paws-r-sdk.com/docs/eks_create_cluster/) for full documentation.
 #'
-#' @param name &#91;required&#93; The unique name to give to your cluster. The name can contain only
-#' alphanumeric characters (case-sensitive), hyphens, and underscores. It
-#' must start with an alphanumeric character and can't be longer than 100
-#' characters. The name must be unique within the Amazon Web Services
-#' Region and Amazon Web Services account that you're creating the cluster
-#' in.
-#' @param version The desired Kubernetes version for your cluster. If you don't specify a
-#' value here, the default version available in Amazon EKS is used.
+#' @param name &#91;required&#93; The unique name to give to your cluster. The name can contain only alphanumeric characters (case-sensitive), hyphens, and underscores. It must start with an alphanumeric character and can't be longer than 100 characters. The name must be unique within the Amazon Web Services Region and Amazon Web Services account that you're creating the cluster in.
+#' @param version The desired Kubernetes version for your cluster. If you don't specify a value here, the default version available in Amazon EKS is used.
 #' 
 #' The default version might not be the latest version available.
-#' @param roleArn &#91;required&#93; The Amazon Resource Name (ARN) of the IAM role that provides permissions
-#' for the Kubernetes control plane to make calls to Amazon Web Services
-#' API operations on your behalf. For more information, see [Amazon EKS
-#' Service IAM
-#' Role](https://docs.aws.amazon.com/eks/latest/userguide/cluster-iam-role.html)
-#' in the *Amazon EKS User Guide* .
-#' @param resourcesVpcConfig &#91;required&#93; The VPC configuration that's used by the cluster control plane. Amazon
-#' EKS VPC resources have specific requirements to work properly with
-#' Kubernetes. For more information, see [Cluster VPC
-#' Considerations](https://docs.aws.amazon.com/eks/latest/userguide/network-reqs.html)
-#' and [Cluster Security Group
-#' Considerations](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html)
-#' in the *Amazon EKS User Guide*. You must specify at least two subnets.
-#' You can specify up to five security groups. However, we recommend that
-#' you use a dedicated security group for your cluster control plane.
+#' @param roleArn &#91;required&#93; The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to Amazon Web Services API operations on your behalf. For more information, see [Amazon EKS Service IAM Role](https://docs.aws.amazon.com/eks/latest/userguide/cluster-iam-role.html) in the *Amazon EKS User Guide* .
+#' @param resourcesVpcConfig &#91;required&#93; The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific requirements to work properly with Kubernetes. For more information, see [Cluster VPC Considerations](https://docs.aws.amazon.com/eks/latest/userguide/network-reqs.html) and [Cluster Security Group Considerations](https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html) in the *Amazon EKS User Guide*. You must specify at least two subnets. You can specify up to five security groups. However, we recommend that you use a dedicated security group for your cluster control plane.
 #' @param kubernetesNetworkConfig The Kubernetes network configuration for the cluster.
-#' @param logging Enable or disable exporting the Kubernetes control plane logs for your
-#' cluster to CloudWatch Logs . By default, cluster control plane logs
-#' aren't exported to CloudWatch Logs . For more information, see [Amazon
-#' EKS Cluster control plane
-#' logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
-#' in the *Amazon EKS User Guide* .
+#' @param logging Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs . By default, cluster control plane logs aren't exported to CloudWatch Logs . For more information, see [Amazon EKS Cluster control plane logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html) in the *Amazon EKS User Guide* .
 #' 
-#' CloudWatch Logs ingestion, archive storage, and data scanning rates
-#' apply to exported control plane logs. For more information, see
-#' [CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/).
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param tags Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
+#' CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see [CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/).
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param tags Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
 #' @param encryptionConfig The encryption configuration for the cluster.
-#' @param outpostConfig An object representing the configuration of your local Amazon EKS
-#' cluster on an Amazon Web Services Outpost. Before creating a local
-#' cluster on an Outpost, review [Local clusters for Amazon EKS on Amazon
-#' Web Services
-#' Outposts](https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html)
-#' in the *Amazon EKS User Guide*. This object isn't available for creating
-#' Amazon EKS clusters on the Amazon Web Services cloud.
+#' @param outpostConfig An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost. Before creating a local cluster on an Outpost, review [Local clusters for Amazon EKS on Amazon Web Services Outposts](https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html) in the *Amazon EKS User Guide*. This object isn't available for creating Amazon EKS clusters on the Amazon Web Services cloud.
 #' @param accessConfig The access configuration for the cluster.
-#' @param bootstrapSelfManagedAddons If you set this value to `False` when creating a cluster, the default
-#' networking add-ons will not be installed.
+#' @param bootstrapSelfManagedAddons If you set this value to `False` when creating a cluster, the default networking add-ons will not be installed.
 #' 
-#' The default networking addons include vpc-cni, coredns, and kube-proxy.
+#' The default networking add-ons include `vpc-cni`, `coredns`, and `kube-proxy`.
 #' 
-#' Use this option when you plan to install third-party alternative add-ons
-#' or self-manage the default networking add-ons.
-#' @param upgradePolicy New clusters, by default, have extended support enabled. You can disable
-#' extended support when creating a cluster by setting this value to
-#' `STANDARD`.
-#' @param zonalShiftConfig Enable or disable ARC zonal shift for the cluster. If zonal shift is
-#' enabled, Amazon Web Services configures zonal autoshift for the cluster.
+#' Use this option when you plan to install third-party alternative add-ons or self-manage the default networking add-ons.
+#' @param upgradePolicy New clusters, by default, have extended support enabled. You can disable extended support when creating a cluster by setting this value to `STANDARD`.
+#' @param zonalShiftConfig Enable or disable ARC zonal shift for the cluster. If zonal shift is enabled, Amazon Web Services configures zonal autoshift for the cluster.
 #' 
-#' Zonal shift is a feature of Amazon Application Recovery Controller
-#' (ARC). ARC zonal shift is designed to be a temporary measure that allows
-#' you to move traffic for a resource away from an impaired AZ until the
-#' zonal shift expires or you cancel it. You can extend the zonal shift if
-#' necessary.
+#' Zonal shift is a feature of Amazon Application Recovery Controller (ARC). ARC zonal shift is designed to be a temporary measure that allows you to move traffic for a resource away from an impaired AZ until the zonal shift expires or you cancel it. You can extend the zonal shift if necessary.
 #' 
-#' You can start a zonal shift for an Amazon EKS cluster, or you can allow
-#' Amazon Web Services to do it for you by enabling *zonal autoshift*. This
-#' shift updates the flow of east-to-west network traffic in your cluster
-#' to only consider network endpoints for Pods running on worker nodes in
-#' healthy AZs. Additionally, any ALB or NLB handling ingress traffic for
-#' applications in your Amazon EKS cluster will automatically route traffic
-#' to targets in the healthy AZs. For more information about zonal shift in
-#' EKS, see [Learn about Amazon Application Recovery Controller (ARC) Zonal
-#' Shift in Amazon
-#' EKS](https://docs.aws.amazon.com/eks/latest/userguide/zone-shift.html)
-#' in the *Amazon EKS User Guide* .
-#' @param remoteNetworkConfig The configuration in the cluster for EKS Hybrid Nodes. You can't change
-#' or update this configuration after the cluster is created.
-#' @param computeConfig Enable or disable the compute capability of EKS Auto Mode when creating
-#' your EKS Auto Mode cluster. If the compute capability is enabled, EKS
-#' Auto Mode will create and delete EC2 Managed Instances in your Amazon
-#' Web Services account
-#' @param storageConfig Enable or disable the block storage capability of EKS Auto Mode when
-#' creating your EKS Auto Mode cluster. If the block storage capability is
-#' enabled, EKS Auto Mode will create and delete EBS volumes in your Amazon
-#' Web Services account.
+#' You can start a zonal shift for an Amazon EKS cluster, or you can allow Amazon Web Services to do it for you by enabling *zonal autoshift*. This shift updates the flow of east-to-west network traffic in your cluster to only consider network endpoints for Pods running on worker nodes in healthy AZs. Additionally, any ALB or NLB handling ingress traffic for applications in your Amazon EKS cluster will automatically route traffic to targets in the healthy AZs. For more information about zonal shift in EKS, see [Learn about Amazon Application Recovery Controller (ARC) Zonal Shift in Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/zone-shift.html) in the *Amazon EKS User Guide* .
+#' @param remoteNetworkConfig The configuration in the cluster for EKS Hybrid Nodes. You can add, change, or remove this configuration after the cluster is created.
+#' @param computeConfig Enable or disable the compute capability of EKS Auto Mode when creating your EKS Auto Mode cluster. If the compute capability is enabled, EKS Auto Mode will create and delete EC2 Managed Instances in your Amazon Web Services account
+#' @param storageConfig Enable or disable the block storage capability of EKS Auto Mode when creating your EKS Auto Mode cluster. If the block storage capability is enabled, EKS Auto Mode will create and delete EBS volumes in your Amazon Web Services account.
+#' @param deletionProtection Indicates whether to enable deletion protection for the cluster. When enabled, the cluster cannot be deleted unless deletion protection is first disabled. This helps prevent accidental cluster deletion. Default value is `false`.
+#' @param controlPlaneScalingConfig The control plane scaling tier configuration. For more information, see EKS Provisioned Control Plane in the Amazon EKS User Guide.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_create_cluster
-eks_create_cluster <- function(name, version = NULL, roleArn, resourcesVpcConfig, kubernetesNetworkConfig = NULL, logging = NULL, clientRequestToken = NULL, tags = NULL, encryptionConfig = NULL, outpostConfig = NULL, accessConfig = NULL, bootstrapSelfManagedAddons = NULL, upgradePolicy = NULL, zonalShiftConfig = NULL, remoteNetworkConfig = NULL, computeConfig = NULL, storageConfig = NULL) {
+eks_create_cluster <- function(name, version = NULL, roleArn, resourcesVpcConfig, kubernetesNetworkConfig = NULL, logging = NULL, clientRequestToken = NULL, tags = NULL, encryptionConfig = NULL, outpostConfig = NULL, accessConfig = NULL, bootstrapSelfManagedAddons = NULL, upgradePolicy = NULL, zonalShiftConfig = NULL, remoteNetworkConfig = NULL, computeConfig = NULL, storageConfig = NULL, deletionProtection = NULL, controlPlaneScalingConfig = NULL) {
   op <- new_operation(
     name = "CreateCluster",
     http_method = "POST",
@@ -410,7 +320,7 @@ eks_create_cluster <- function(name, version = NULL, roleArn, resourcesVpcConfig
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$create_cluster_input(name = name, version = version, roleArn = roleArn, resourcesVpcConfig = resourcesVpcConfig, kubernetesNetworkConfig = kubernetesNetworkConfig, logging = logging, clientRequestToken = clientRequestToken, tags = tags, encryptionConfig = encryptionConfig, outpostConfig = outpostConfig, accessConfig = accessConfig, bootstrapSelfManagedAddons = bootstrapSelfManagedAddons, upgradePolicy = upgradePolicy, zonalShiftConfig = zonalShiftConfig, remoteNetworkConfig = remoteNetworkConfig, computeConfig = computeConfig, storageConfig = storageConfig)
+  input <- .eks$create_cluster_input(name = name, version = version, roleArn = roleArn, resourcesVpcConfig = resourcesVpcConfig, kubernetesNetworkConfig = kubernetesNetworkConfig, logging = logging, clientRequestToken = clientRequestToken, tags = tags, encryptionConfig = encryptionConfig, outpostConfig = outpostConfig, accessConfig = accessConfig, bootstrapSelfManagedAddons = bootstrapSelfManagedAddons, upgradePolicy = upgradePolicy, zonalShiftConfig = zonalShiftConfig, remoteNetworkConfig = remoteNetworkConfig, computeConfig = computeConfig, storageConfig = storageConfig, deletionProtection = deletionProtection, controlPlaneScalingConfig = controlPlaneScalingConfig)
   output <- .eks$create_cluster_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -427,30 +337,13 @@ eks_create_cluster <- function(name, version = NULL, roleArn, resourcesVpcConfig
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_create_eks_anywhere_subscription/](https://www.paws-r-sdk.com/docs/eks_create_eks_anywhere_subscription/) for full documentation.
 #'
-#' @param name &#91;required&#93; The unique name for your subscription. It must be unique in your Amazon
-#' Web Services account in the Amazon Web Services Region you're creating
-#' the subscription in. The name can contain only alphanumeric characters
-#' (case-sensitive), hyphens, and underscores. It must start with an
-#' alphabetic character and can't be longer than 100 characters.
-#' @param term &#91;required&#93; An object representing the term duration and term unit type of your
-#' subscription. This determines the term length of your subscription.
-#' Valid values are MONTHS for term unit and 12 or 36 for term duration,
-#' indicating a 12 month or 36 month subscription. This value cannot be
-#' changed after creating the subscription.
-#' @param licenseQuantity The number of licenses to purchase with the subscription. Valid values
-#' are between 1 and 100. This value can't be changed after creating the
-#' subscription.
-#' @param licenseType The license type for all licenses in the subscription. Valid value is
-#' CLUSTER. With the CLUSTER license type, each license covers support for
-#' a single EKS Anywhere cluster.
-#' @param autoRenew A boolean indicating whether the subscription auto renews at the end of
-#' the term.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param tags The metadata for a subscription to assist with categorization and
-#' organization. Each tag consists of a key and an optional value.
-#' Subscription tags don't propagate to any other resources associated with
-#' the subscription.
+#' @param name &#91;required&#93; The unique name for your subscription. It must be unique in your Amazon Web Services account in the Amazon Web Services Region you're creating the subscription in. The name can contain only alphanumeric characters (case-sensitive), hyphens, and underscores. It must start with an alphabetic character and can't be longer than 100 characters.
+#' @param term &#91;required&#93; An object representing the term duration and term unit type of your subscription. This determines the term length of your subscription. Valid values are MONTHS for term unit and 12 or 36 for term duration, indicating a 12 month or 36 month subscription. This value cannot be changed after creating the subscription.
+#' @param licenseQuantity The number of licenses to purchase with the subscription. Valid values are between 1 and 100. This value can't be changed after creating the subscription.
+#' @param licenseType The license type for all licenses in the subscription. Valid value is CLUSTER. With the CLUSTER license type, each license covers support for a single EKS Anywhere cluster.
+#' @param autoRenew A boolean indicating whether the subscription auto renews at the end of the term.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param tags The metadata for a subscription to assist with categorization and organization. Each tag consists of a key and an optional value. Subscription tags don't propagate to any other resources associated with the subscription.
 #'
 #' @keywords internal
 #'
@@ -483,25 +376,11 @@ eks_create_eks_anywhere_subscription <- function(name, term, licenseQuantity = N
 #'
 #' @param fargateProfileName &#91;required&#93; The name of the Fargate profile.
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param podExecutionRoleArn &#91;required&#93; The Amazon Resource Name (ARN) of the `Pod` execution role to use for a
-#' `Pod` that matches the selectors in the Fargate profile. The `Pod`
-#' execution role allows Fargate infrastructure to register with your
-#' cluster as a node, and it provides read access to Amazon ECR image
-#' repositories. For more information, see [`Pod` execution
-#' role](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html)
-#' in the *Amazon EKS User Guide*.
-#' @param subnets The IDs of subnets to launch a `Pod` into. A `Pod` running on Fargate
-#' isn't assigned a public IP address, so only private subnets (with no
-#' direct route to an Internet Gateway) are accepted for this parameter.
-#' @param selectors The selectors to match for a `Pod` to use this Fargate profile. Each
-#' selector must have an associated Kubernetes `namespace`. Optionally, you
-#' can also specify `labels` for a `namespace`. You may specify up to five
-#' selectors in a Fargate profile.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param tags Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
+#' @param podExecutionRoleArn &#91;required&#93; The Amazon Resource Name (ARN) of the `Pod` execution role to use for a `Pod` that matches the selectors in the Fargate profile. The `Pod` execution role allows Fargate infrastructure to register with your cluster as a node, and it provides read access to Amazon ECR image repositories. For more information, see [`Pod` execution role](https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html) in the *Amazon EKS User Guide*.
+#' @param subnets The IDs of subnets to launch a `Pod` into. A `Pod` running on Fargate isn't assigned a public IP address, so only private subnets (with no direct route to an Internet Gateway) are accepted for this parameter.
+#' @param selectors The selectors to match for a `Pod` to use this Fargate profile. Each selector must have an associated Kubernetes `namespace`. Optionally, you can also specify `labels` for a `namespace`. You may specify up to five selectors in a Fargate profile.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param tags Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
 #'
 #' @keywords internal
 #'
@@ -534,119 +413,33 @@ eks_create_fargate_profile <- function(fargateProfileName, clusterName, podExecu
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
 #' @param nodegroupName &#91;required&#93; The unique name to give your node group.
-#' @param scalingConfig The scaling configuration details for the Auto Scaling group that is
-#' created for your node group.
-#' @param diskSize The root device disk size (in GiB) for your node group instances. The
-#' default disk size is 20 GiB for Linux and Bottlerocket. The default disk
-#' size is 50 GiB for Windows. If you specify `launchTemplate`, then don't
-#' specify `diskSize`, or the node group deployment will fail. For more
-#' information about using launch templates with Amazon EKS, see
-#' [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param subnets &#91;required&#93; The subnets to use for the Auto Scaling group that is created for your
-#' node group. If you specify `launchTemplate`, then don't specify
-#' ` SubnetId ` in your launch template, or the node group deployment will
-#' fail. For more information about using launch templates with Amazon EKS,
-#' see [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param instanceTypes Specify the instance types for a node group. If you specify a GPU
-#' instance type, make sure to also specify an applicable GPU AMI type with
-#' the `amiType` parameter. If you specify `launchTemplate`, then you can
-#' specify zero or one instance type in your launch template *or* you can
-#' specify 0-20 instance types for `instanceTypes`. If however, you specify
-#' an instance type in your launch template *and* specify any
-#' `instanceTypes`, the node group deployment will fail. If you don't
-#' specify an instance type in a launch template or for `instanceTypes`,
-#' then `t3.medium` is used, by default. If you specify `Spot` for
-#' `capacityType`, then we recommend specifying multiple values for
-#' `instanceTypes`. For more information, see [Managed node group capacity
-#' types](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html#managed-node-group-capacity-types)
-#' and [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param amiType The AMI type for your node group. If you specify `launchTemplate`, and
-#' your launch template uses a custom AMI, then don't specify `amiType`, or
-#' the node group deployment will fail. If your launch template uses a
-#' Windows custom AMI, then add `eks:kube-proxy-windows` to your Windows
-#' nodes `rolearn` in the `aws-auth` `ConfigMap`. For more information
-#' about using launch templates with Amazon EKS, see [Customizing managed
-#' nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param remoteAccess The remote access configuration to use with your node group. For Linux,
-#' the protocol is SSH. For Windows, the protocol is RDP. If you specify
-#' `launchTemplate`, then don't specify `remoteAccess`, or the node group
-#' deployment will fail. For more information about using launch templates
-#' with Amazon EKS, see [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param nodeRole &#91;required&#93; The Amazon Resource Name (ARN) of the IAM role to associate with your
-#' node group. The Amazon EKS worker node `kubelet` daemon makes calls to
-#' Amazon Web Services APIs on your behalf. Nodes receive permissions for
-#' these API calls through an IAM instance profile and associated policies.
-#' Before you can launch nodes and register them into a cluster, you must
-#' create an IAM role for those nodes to use when they are launched. For
-#' more information, see [Amazon EKS node IAM
-#' role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html)
-#' in the *Amazon EKS User Guide* . If you specify `launchTemplate`, then
-#' don't specify ` IamInstanceProfile ` in your launch template, or the
-#' node group deployment will fail. For more information about using launch
-#' templates with Amazon EKS, see [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param labels The Kubernetes `labels` to apply to the nodes in the node group when
-#' they are created.
-#' @param taints The Kubernetes taints to be applied to the nodes in the node group. For
-#' more information, see [Node taints on managed node
-#' groups](https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html).
-#' @param tags Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param launchTemplate An object representing a node group's launch template specification.
-#' When using this object, don't directly specify `instanceTypes`,
-#' `diskSize`, or `remoteAccess`. Make sure that the launch template meets
-#' the requirements in `launchTemplateSpecification`. Also refer to
-#' [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
+#' @param scalingConfig The scaling configuration details for the Auto Scaling group that is created for your node group.
+#' @param diskSize The root device disk size (in GiB) for your node group instances. The default disk size is 20 GiB for Linux and Bottlerocket. The default disk size is 50 GiB for Windows. If you specify `launchTemplate`, then don't specify `diskSize`, or the node group deployment will fail. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param subnets &#91;required&#93; The subnets to use for the Auto Scaling group that is created for your node group. If you specify `launchTemplate`, then don't specify ` SubnetId ` in your launch template, or the node group deployment will fail. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param instanceTypes Specify the instance types for a node group. If you specify a GPU instance type, make sure to also specify an applicable GPU AMI type with the `amiType` parameter. If you specify `launchTemplate`, then you can specify zero or one instance type in your launch template *or* you can specify 0-20 instance types for `instanceTypes`. If however, you specify an instance type in your launch template *and* specify any `instanceTypes`, the node group deployment will fail. If you don't specify an instance type in a launch template or for `instanceTypes`, then `t3.medium` is used, by default. If you specify `Spot` for `capacityType`, then we recommend specifying multiple values for `instanceTypes`. For more information, see [Managed node group capacity types](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html#managed-node-group-capacity-types) and [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param amiType The AMI type for your node group. If you specify `launchTemplate`, and your launch template uses a custom AMI, then don't specify `amiType`, or the node group deployment will fail. If your launch template uses a Windows custom AMI, then add `eks:kube-proxy-windows` to your Windows nodes `rolearn` in the `aws-auth` `ConfigMap`. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param remoteAccess The remote access configuration to use with your node group. For Linux, the protocol is SSH. For Windows, the protocol is RDP. If you specify `launchTemplate`, then don't specify `remoteAccess`, or the node group deployment will fail. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param nodeRole &#91;required&#93; The Amazon Resource Name (ARN) of the IAM role to associate with your node group. The Amazon EKS worker node `kubelet` daemon makes calls to Amazon Web Services APIs on your behalf. Nodes receive permissions for these API calls through an IAM instance profile and associated policies. Before you can launch nodes and register them into a cluster, you must create an IAM role for those nodes to use when they are launched. For more information, see [Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html) in the *Amazon EKS User Guide* . If you specify `launchTemplate`, then don't specify ` IamInstanceProfile ` in your launch template, or the node group deployment will fail. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param labels The Kubernetes `labels` to apply to the nodes in the node group when they are created.
+#' @param taints The Kubernetes taints to be applied to the nodes in the node group. For more information, see [Node taints on managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html).
+#' @param tags Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param launchTemplate An object representing a node group's launch template specification. When using this object, don't directly specify `instanceTypes`, `diskSize`, or `remoteAccess`. You cannot later specify a different launch template ID or name than what was used to create the node group.
+#' 
+#' Make sure that the launch template meets the requirements in `launchTemplateSpecification`. Also refer to [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
 #' @param updateConfig The node group update configuration.
 #' @param nodeRepairConfig The node auto repair configuration for the node group.
 #' @param capacityType The capacity type for your node group.
-#' @param version The Kubernetes version to use for your managed nodes. By default, the
-#' Kubernetes version of the cluster is used, and this is the only accepted
-#' specified value. If you specify `launchTemplate`, and your launch
-#' template uses a custom AMI, then don't specify `version`, or the node
-#' group deployment will fail. For more information about using launch
-#' templates with Amazon EKS, see [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param releaseVersion The AMI version of the Amazon EKS optimized AMI to use with your node
-#' group. By default, the latest available AMI version for the node group's
-#' current Kubernetes version is used. For information about Linux
-#' versions, see [Amazon EKS optimized Amazon Linux AMI
-#' versions](https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html)
-#' in the *Amazon EKS User Guide*. Amazon EKS managed node groups support
-#' the November 2022 and later releases of the Windows AMIs. For
-#' information about Windows versions, see [Amazon EKS optimized Windows
-#' AMI
-#' versions](https://docs.aws.amazon.com/eks/latest/userguide/eks-ami-versions-windows.html)
-#' in the *Amazon EKS User Guide*.
+#' @param version The Kubernetes version to use for your managed nodes. By default, the Kubernetes version of the cluster is used, and this is the only accepted specified value. If you specify `launchTemplate`, and your launch template uses a custom AMI, then don't specify `version`, or the node group deployment will fail. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param releaseVersion The AMI version of the Amazon EKS optimized AMI to use with your node group. By default, the latest available AMI version for the node group's current Kubernetes version is used. For information about Linux versions, see [Amazon EKS optimized Amazon Linux AMI versions](https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html) in the *Amazon EKS User Guide*. Amazon EKS managed node groups support the November 2022 and later releases of the Windows AMIs. For information about Windows versions, see [Amazon EKS optimized Windows AMI versions](https://docs.aws.amazon.com/eks/latest/userguide/eks-ami-versions-windows.html) in the *Amazon EKS User Guide*.
 #' 
-#' If you specify `launchTemplate`, and your launch template uses a custom
-#' AMI, then don't specify `releaseVersion`, or the node group deployment
-#' will fail. For more information about using launch templates with Amazon
-#' EKS, see [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
+#' If you specify `launchTemplate`, and your launch template uses a custom AMI, then don't specify `releaseVersion`, or the node group deployment will fail. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param warmPoolConfig The warm pool configuration for the node group. Warm pools maintain pre-initialized EC2 instances that can quickly join your cluster during scale-out events, improving application scaling performance and reducing costs.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_create_nodegroup
-eks_create_nodegroup <- function(clusterName, nodegroupName, scalingConfig = NULL, diskSize = NULL, subnets, instanceTypes = NULL, amiType = NULL, remoteAccess = NULL, nodeRole, labels = NULL, taints = NULL, tags = NULL, clientRequestToken = NULL, launchTemplate = NULL, updateConfig = NULL, nodeRepairConfig = NULL, capacityType = NULL, version = NULL, releaseVersion = NULL) {
+eks_create_nodegroup <- function(clusterName, nodegroupName, scalingConfig = NULL, diskSize = NULL, subnets, instanceTypes = NULL, amiType = NULL, remoteAccess = NULL, nodeRole, labels = NULL, taints = NULL, tags = NULL, clientRequestToken = NULL, launchTemplate = NULL, updateConfig = NULL, nodeRepairConfig = NULL, capacityType = NULL, version = NULL, releaseVersion = NULL, warmPoolConfig = NULL) {
   op <- new_operation(
     name = "CreateNodegroup",
     http_method = "POST",
@@ -655,7 +448,7 @@ eks_create_nodegroup <- function(clusterName, nodegroupName, scalingConfig = NUL
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$create_nodegroup_input(clusterName = clusterName, nodegroupName = nodegroupName, scalingConfig = scalingConfig, diskSize = diskSize, subnets = subnets, instanceTypes = instanceTypes, amiType = amiType, remoteAccess = remoteAccess, nodeRole = nodeRole, labels = labels, taints = taints, tags = tags, clientRequestToken = clientRequestToken, launchTemplate = launchTemplate, updateConfig = updateConfig, nodeRepairConfig = nodeRepairConfig, capacityType = capacityType, version = version, releaseVersion = releaseVersion)
+  input <- .eks$create_nodegroup_input(clusterName = clusterName, nodegroupName = nodegroupName, scalingConfig = scalingConfig, diskSize = diskSize, subnets = subnets, instanceTypes = instanceTypes, amiType = amiType, remoteAccess = remoteAccess, nodeRole = nodeRole, labels = labels, taints = taints, tags = tags, clientRequestToken = clientRequestToken, launchTemplate = launchTemplate, updateConfig = updateConfig, nodeRepairConfig = nodeRepairConfig, capacityType = capacityType, version = version, releaseVersion = releaseVersion, warmPoolConfig = warmPoolConfig)
   output <- .eks$create_nodegroup_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -669,55 +462,52 @@ eks_create_nodegroup <- function(clusterName, nodegroupName, scalingConfig = NUL
 #' Amazon EKS cluster and an IAM role with EKS Pod Identity
 #'
 #' @description
-#' Creates an EKS Pod Identity association between a service account in an Amazon EKS cluster and an IAM role with *EKS Pod Identity*. Use EKS Pod Identity to give temporary IAM credentials to pods and the credentials are rotated automatically.
+#' Creates an EKS Pod Identity association between a service account in an Amazon EKS cluster and an IAM role with *EKS Pod Identity*. Use EKS Pod Identity to give temporary IAM credentials to Pods and the credentials are rotated automatically.
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_create_pod_identity_association/](https://www.paws-r-sdk.com/docs/eks_create_pod_identity_association/) for full documentation.
 #'
-#' @param clusterName &#91;required&#93; The name of the cluster to create the association in.
-#' @param namespace &#91;required&#93; The name of the Kubernetes namespace inside the cluster to create the
-#' association in. The service account and the pods that use the service
-#' account must be in this namespace.
-#' @param serviceAccount &#91;required&#93; The name of the Kubernetes service account inside the cluster to
-#' associate the IAM credentials with.
-#' @param roleArn &#91;required&#93; The Amazon Resource Name (ARN) of the IAM role to associate with the
-#' service account. The EKS Pod Identity agent manages credentials to
-#' assume this role for applications in the containers in the pods that use
-#' this service account.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param tags Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
+#' @param clusterName &#91;required&#93; The name of the cluster to create the EKS Pod Identity association in.
+#' @param namespace &#91;required&#93; The name of the Kubernetes namespace inside the cluster to create the EKS Pod Identity association in. The service account and the Pods that use the service account must be in this namespace.
+#' @param serviceAccount &#91;required&#93; The name of the Kubernetes service account inside the cluster to associate the IAM credentials with.
+#' @param roleArn &#91;required&#93; The Amazon Resource Name (ARN) of the IAM role to associate with the service account. The EKS Pod Identity agent manages credentials to assume this role for applications in the containers in the Pods that use this service account.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param tags Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource – 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length – 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length – 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#' @param disableSessionTags Disable the automatic sessions tags that are appended by EKS Pod Identity.
+#' 
+#' EKS Pod Identity adds a pre-defined set of session tags when it assumes the role. You can use these tags to author a single role that can work across resources by allowing access to Amazon Web Services resources based on matching tags. By default, EKS Pod Identity attaches six tags, including tags for cluster name, namespace, and service account name. For the list of tags added by EKS Pod Identity, see [List of session tags added by EKS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/pod-id-abac.html#pod-id-abac-tags) in the *Amazon EKS User Guide*.
+#' 
+#' Amazon Web Services compresses inline session policies, managed policy ARNs, and session tags into a packed binary format that has a separate limit. If you receive a `PackedPolicyTooLarge` error indicating the packed binary format has exceeded the size limit, you can attempt to reduce the size by disabling the session tags added by EKS Pod Identity.
+#' @param targetRoleArn The Amazon Resource Name (ARN) of the target IAM role to associate with the service account. This role is assumed by using the EKS Pod Identity association role, then the credentials for this role are injected into the Pod.
+#' 
+#' When you run applications on Amazon EKS, your application might need to access Amazon Web Services resources from a different role that exists in the same or different Amazon Web Services account. For example, your application running in “Account A” might need to access resources, such as Amazon S3 buckets in “Account B” or within “Account A” itself. You can create a association to access Amazon Web Services resources in “Account B” by creating two IAM roles: a role in “Account A” and a role in “Account B” (which can be the same or different account), each with the necessary trust and permission policies. After you provide these roles in the *IAM role* and *Target IAM role* fields, EKS will perform role chaining to ensure your application gets the required permissions. This means Role A will assume Role B, allowing your Pods to securely access resources like S3 buckets in the target account.
+#' @param policy An optional IAM policy in JSON format (as an escaped string) that applies additional restrictions to this pod identity association beyond the IAM policies attached to the IAM role. This policy is applied as the intersection of the role's policies and this policy, allowing you to reduce the permissions that applications in the pods can use. Use this policy to enforce least privilege access while still leveraging a shared IAM role across multiple applications.
+#' 
+#' **Important considerations**
+#' 
+#' -   **Session tags:** When using this policy, `disableSessionTags` must be set to `true`.
+#' 
+#' -   **Target role permissions:** If you specify both a `TargetRoleArn` and a policy, the policy restrictions apply only to the target role's permissions, not to the initial role used for assuming the target role.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_create_pod_identity_association
-eks_create_pod_identity_association <- function(clusterName, namespace, serviceAccount, roleArn, clientRequestToken = NULL, tags = NULL) {
+eks_create_pod_identity_association <- function(clusterName, namespace, serviceAccount, roleArn, clientRequestToken = NULL, tags = NULL, disableSessionTags = NULL, targetRoleArn = NULL, policy = NULL) {
   op <- new_operation(
     name = "CreatePodIdentityAssociation",
     http_method = "POST",
@@ -726,7 +516,7 @@ eks_create_pod_identity_association <- function(clusterName, namespace, serviceA
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$create_pod_identity_association_input(clusterName = clusterName, namespace = namespace, serviceAccount = serviceAccount, roleArn = roleArn, clientRequestToken = clientRequestToken, tags = tags)
+  input <- .eks$create_pod_identity_association_input(clusterName = clusterName, namespace = namespace, serviceAccount = serviceAccount, roleArn = roleArn, clientRequestToken = clientRequestToken, tags = tags, disableSessionTags = disableSessionTags, targetRoleArn = targetRoleArn, policy = policy)
   output <- .eks$create_pod_identity_association_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -776,12 +566,8 @@ eks_delete_access_entry <- function(clusterName, principalArn) {
 #' See [https://www.paws-r-sdk.com/docs/eks_delete_addon/](https://www.paws-r-sdk.com/docs/eks_delete_addon/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by
-#' [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html)
-#' .
-#' @param preserve Specifying this option preserves the add-on software on your cluster but
-#' Amazon EKS stops managing any settings for the add-on. If an IAM account
-#' is associated with the add-on, it isn't removed.
+#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html) .
+#' @param preserve Specifying this option preserves the add-on software on your cluster but Amazon EKS stops managing any settings for the add-on. If an IAM account is associated with the add-on, it isn't removed.
 #'
 #' @keywords internal
 #'
@@ -804,6 +590,38 @@ eks_delete_addon <- function(clusterName, addonName, preserve = NULL) {
   return(response)
 }
 .eks$operations$delete_addon <- eks_delete_addon
+
+#' Deletes a managed capability from your Amazon EKS cluster
+#'
+#' @description
+#' Deletes a managed capability from your Amazon EKS cluster. When you delete a capability, Amazon EKS removes the capability infrastructure but retains all resources that were managed by the capability.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_delete_capability/](https://www.paws-r-sdk.com/docs/eks_delete_capability/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of the Amazon EKS cluster that contains the capability you want to delete.
+#' @param capabilityName &#91;required&#93; The name of the capability to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_delete_capability
+eks_delete_capability <- function(clusterName, capabilityName) {
+  op <- new_operation(
+    name = "DeleteCapability",
+    http_method = "DELETE",
+    http_path = "/clusters/{name}/capabilities/{capabilityName}",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .eks$delete_capability_input(clusterName = clusterName, capabilityName = capabilityName)
+  output <- .eks$delete_capability_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$delete_capability <- eks_delete_capability
 
 #' Deletes an Amazon EKS cluster control plane
 #'
@@ -1035,9 +853,7 @@ eks_describe_access_entry <- function(clusterName, principalArn) {
 #' See [https://www.paws-r-sdk.com/docs/eks_describe_addon/](https://www.paws-r-sdk.com/docs/eks_describe_addon/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by
-#' [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html)
-#' .
+#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html) .
 #'
 #' @keywords internal
 #'
@@ -1068,12 +884,8 @@ eks_describe_addon <- function(clusterName, addonName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_describe_addon_configuration/](https://www.paws-r-sdk.com/docs/eks_describe_addon_configuration/) for full documentation.
 #'
-#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by
-#' [`describe_addon_versions`][eks_describe_addon_versions].
-#' @param addonVersion &#91;required&#93; The version of the add-on. The version must match one of the versions
-#' returned by
-#' [`describe_addon_versions`](https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html)
-#' .
+#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by [`describe_addon_versions`][eks_describe_addon_versions].
+#' @param addonVersion &#91;required&#93; The version of the add-on. The version must match one of the versions returned by [`describe_addon_versions`](https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html) .
 #'
 #' @keywords internal
 #'
@@ -1105,30 +917,14 @@ eks_describe_addon_configuration <- function(addonName, addonVersion) {
 #' See [https://www.paws-r-sdk.com/docs/eks_describe_addon_versions/](https://www.paws-r-sdk.com/docs/eks_describe_addon_versions/) for full documentation.
 #'
 #' @param kubernetesVersion The Kubernetes versions that you can use the add-on with.
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param addonName The name of the add-on. The name must match one of the names returned by
-#' [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html)
-#' .
-#' @param types The type of the add-on. For valid `types`, don't specify a value for
-#' this property.
-#' @param publishers The publisher of the add-on. For valid `publishers`, don't specify a
-#' value for this property.
-#' @param owners The owner of the add-on. For valid `owners`, don't specify a value for
-#' this property.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
+#' @param addonName The name of the add-on. The name must match one of the names returned by [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html) .
+#' @param types The type of the add-on. For valid `types`, don't specify a value for this property.
+#' @param publishers The publisher of the add-on. For valid `publishers`, don't specify a value for this property.
+#' @param owners The owner of the add-on. For valid `owners`, don't specify a value for this property.
 #'
 #' @keywords internal
 #'
@@ -1151,6 +947,40 @@ eks_describe_addon_versions <- function(kubernetesVersion = NULL, maxResults = N
   return(response)
 }
 .eks$operations$describe_addon_versions <- eks_describe_addon_versions
+
+#' Returns detailed information about a specific managed capability in your
+#' Amazon EKS cluster, including its current status, configuration, health
+#' information, and any issues that may be affecting its operation
+#'
+#' @description
+#' Returns detailed information about a specific managed capability in your Amazon EKS cluster, including its current status, configuration, health information, and any issues that may be affecting its operation.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_describe_capability/](https://www.paws-r-sdk.com/docs/eks_describe_capability/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of the Amazon EKS cluster that contains the capability you want to describe.
+#' @param capabilityName &#91;required&#93; The name of the capability to describe.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_describe_capability
+eks_describe_capability <- function(clusterName, capabilityName) {
+  op <- new_operation(
+    name = "DescribeCapability",
+    http_method = "GET",
+    http_path = "/clusters/{name}/capabilities/{capabilityName}",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .eks$describe_capability_input(clusterName = clusterName, capabilityName = capabilityName)
+  output <- .eks$describe_capability_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$describe_capability <- eks_describe_capability
 
 #' Describes an Amazon EKS cluster
 #'
@@ -1196,8 +1026,7 @@ eks_describe_cluster <- function(name) {
 #' @param defaultOnly Filter to show only default versions.
 #' @param includeAll Include all available versions in the response.
 #' @param clusterVersions List of specific cluster versions to describe.
-#' @param status This field is deprecated. Use `versionStatus` instead, as that field
-#' matches for input and output of this action.
+#' @param status This field is deprecated. Use `versionStatus` instead, as that field matches for input and output of this action.
 #' 
 #' Filter versions by their current status.
 #' @param versionStatus Filter versions by their current status.
@@ -1351,6 +1180,38 @@ eks_describe_insight <- function(clusterName, id) {
 }
 .eks$operations$describe_insight <- eks_describe_insight
 
+#' Returns the status of the latest on-demand cluster insights refresh
+#' operation
+#'
+#' @description
+#' Returns the status of the latest on-demand cluster insights refresh operation.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_describe_insights_refresh/](https://www.paws-r-sdk.com/docs/eks_describe_insights_refresh/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of the cluster associated with the insights refresh operation.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_describe_insights_refresh
+eks_describe_insights_refresh <- function(clusterName) {
+  op <- new_operation(
+    name = "DescribeInsightsRefresh",
+    http_method = "GET",
+    http_path = "/clusters/{name}/insights-refresh",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .eks$describe_insights_refresh_input(clusterName = clusterName)
+  output <- .eks$describe_insights_refresh_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$describe_insights_refresh <- eks_describe_insights_refresh
+
 #' Describes a managed node group
 #'
 #' @description
@@ -1424,16 +1285,14 @@ eks_describe_pod_identity_association <- function(clusterName, associationId) {
 #'
 #' @param name &#91;required&#93; The name of the Amazon EKS cluster associated with the update.
 #' @param updateId &#91;required&#93; The ID of the update to describe.
-#' @param nodegroupName The name of the Amazon EKS node group associated with the update. This
-#' parameter is required if the update is a node group update.
-#' @param addonName The name of the add-on. The name must match one of the names returned by
-#' [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html)
-#' . This parameter is required if the update is an add-on update.
+#' @param nodegroupName The name of the Amazon EKS node group associated with the update. This parameter is required if the update is a node group update.
+#' @param addonName The name of the add-on. The name must match one of the names returned by [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html) . This parameter is required if the update is an add-on update.
+#' @param capabilityName The name of the capability for which you want to describe updates.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_describe_update
-eks_describe_update <- function(name, updateId, nodegroupName = NULL, addonName = NULL) {
+eks_describe_update <- function(name, updateId, nodegroupName = NULL, addonName = NULL, capabilityName = NULL) {
   op <- new_operation(
     name = "DescribeUpdate",
     http_method = "GET",
@@ -1442,7 +1301,7 @@ eks_describe_update <- function(name, updateId, nodegroupName = NULL, addonName 
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$describe_update_input(name = name, updateId = updateId, nodegroupName = nodegroupName, addonName = addonName)
+  input <- .eks$describe_update_input(name = name, updateId = updateId, nodegroupName = nodegroupName, addonName = addonName, capabilityName = capabilityName)
   output <- .eks$describe_update_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -1461,9 +1320,7 @@ eks_describe_update <- function(name, updateId, nodegroupName = NULL, addonName 
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
 #' @param principalArn &#91;required&#93; The ARN of the IAM principal for the `AccessEntry`.
-#' @param policyArn &#91;required&#93; The ARN of the policy to disassociate from the access entry. For a list
-#' of associated policies ARNs, use
-#' [`list_associated_access_policies`][eks_list_associated_access_policies].
+#' @param policyArn &#91;required&#93; The ARN of the policy to disassociate from the access entry. For a list of associated policies ARNs, use [`list_associated_access_policies`][eks_list_associated_access_policies].
 #'
 #' @keywords internal
 #'
@@ -1496,8 +1353,7 @@ eks_disassociate_access_policy <- function(clusterName, principalArn, policyArn)
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
 #' @param identityProviderConfig &#91;required&#93; An object representing an identity provider configuration.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
 #'
 #' @keywords internal
 #'
@@ -1529,25 +1385,11 @@ eks_disassociate_identity_provider_config <- function(clusterName, identityProvi
 #' See [https://www.paws-r-sdk.com/docs/eks_list_access_entries/](https://www.paws-r-sdk.com/docs/eks_list_access_entries/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param associatedPolicyArn The ARN of an `AccessPolicy`. When you specify an access policy ARN,
-#' only the access entries associated to that access policy are returned.
-#' For a list of available policy ARNs, use
-#' [`list_access_policies`][eks_list_access_policies].
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param associatedPolicyArn The ARN of an `AccessPolicy`. When you specify an access policy ARN, only the access entries associated to that access policy are returned. For a list of available policy ARNs, use [`list_access_policies`][eks_list_access_policies].
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -1578,21 +1420,10 @@ eks_list_access_entries <- function(clusterName, associatedPolicyArn = NULL, max
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_list_access_policies/](https://www.paws-r-sdk.com/docs/eks_list_access_policies/) for full documentation.
 #'
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -1624,21 +1455,10 @@ eks_list_access_policies <- function(maxResults = NULL, nextToken = NULL) {
 #' See [https://www.paws-r-sdk.com/docs/eks_list_addons/](https://www.paws-r-sdk.com/docs/eks_list_addons/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -1671,21 +1491,10 @@ eks_list_addons <- function(clusterName, maxResults = NULL, nextToken = NULL) {
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
 #' @param principalArn &#91;required&#93; The ARN of the IAM principal for the `AccessEntry`.
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -1709,6 +1518,39 @@ eks_list_associated_access_policies <- function(clusterName, principalArn, maxRe
 }
 .eks$operations$list_associated_access_policies <- eks_list_associated_access_policies
 
+#' Lists all managed capabilities in your Amazon EKS cluster
+#'
+#' @description
+#' Lists all managed capabilities in your Amazon EKS cluster. You can use this operation to get an overview of all capabilities and their current status.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_list_capabilities/](https://www.paws-r-sdk.com/docs/eks_list_capabilities/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of the Amazon EKS cluster for which you want to list capabilities.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
+#' @param maxResults The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned `nextToken` value. If you don't specify a value, the default is 100 results.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_list_capabilities
+eks_list_capabilities <- function(clusterName, nextToken = NULL, maxResults = NULL) {
+  op <- new_operation(
+    name = "ListCapabilities",
+    http_method = "GET",
+    http_path = "/clusters/{name}/capabilities",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "capabilities"),
+    stream_api = FALSE
+  )
+  input <- .eks$list_capabilities_input(clusterName = clusterName, nextToken = nextToken, maxResults = maxResults)
+  output <- .eks$list_capabilities_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$list_capabilities <- eks_list_capabilities
+
 #' Lists the Amazon EKS clusters in your Amazon Web Services account in the
 #' specified Amazon Web Services Region
 #'
@@ -1717,26 +1559,11 @@ eks_list_associated_access_policies <- function(clusterName, principalArn, maxRe
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_list_clusters/](https://www.paws-r-sdk.com/docs/eks_list_clusters/) for full documentation.
 #'
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param include Indicates whether external clusters are included in the returned list.
-#' Use '`all`' to return
-#' <https://docs.aws.amazon.com/eks/latest/userguide/eks-connector.html>connected
-#' clusters, or blank to return only Amazon EKS clusters. '`all`' must be
-#' in lowercase otherwise an error occurs.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
+#' @param include Indicates whether external clusters are included in the returned list. Use '`all`' to return <https://docs.aws.amazon.com/eks/latest/userguide/eks-connector.html>connected clusters, or blank to return only Amazon EKS clusters. '`all`' must be in lowercase otherwise an error occurs.
 #'
 #' @keywords internal
 #'
@@ -1767,20 +1594,8 @@ eks_list_clusters <- function(maxResults = NULL, nextToken = NULL, include = NUL
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_list_eks_anywhere_subscriptions/](https://www.paws-r-sdk.com/docs/eks_list_eks_anywhere_subscriptions/) for full documentation.
 #'
-#' @param maxResults The maximum number of cluster results returned by
-#' ListEksAnywhereSubscriptions in paginated output. When you use this
-#' parameter, ListEksAnywhereSubscriptions returns only maxResults results
-#' in a single page along with a nextToken response element. You can see
-#' the remaining results of the initial request by sending another
-#' ListEksAnywhereSubscriptions request with the returned nextToken value.
-#' This value can be between 1 and 100. If you don't use this parameter,
-#' ListEksAnywhereSubscriptions returns up to 10 results and a nextToken
-#' value if applicable.
-#' @param nextToken The `nextToken` value returned from a previous paginated
-#' [`list_eks_anywhere_subscriptions`][eks_list_eks_anywhere_subscriptions]
-#' request where `maxResults` was used and the results exceeded the value
-#' of that parameter. Pagination continues from the end of the previous
-#' results that returned the `nextToken` value.
+#' @param maxResults The maximum number of cluster results returned by ListEksAnywhereSubscriptions in paginated output. When you use this parameter, ListEksAnywhereSubscriptions returns only maxResults results in a single page along with a nextToken response element. You can see the remaining results of the initial request by sending another ListEksAnywhereSubscriptions request with the returned nextToken value. This value can be between 1 and 100. If you don't use this parameter, ListEksAnywhereSubscriptions returns up to 10 results and a nextToken value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`list_eks_anywhere_subscriptions`][eks_list_eks_anywhere_subscriptions] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value.
 #' @param includeStatus An array of subscription statuses to filter on.
 #'
 #' @keywords internal
@@ -1814,21 +1629,10 @@ eks_list_eks_anywhere_subscriptions <- function(maxResults = NULL, nextToken = N
 #' See [https://www.paws-r-sdk.com/docs/eks_list_fargate_profiles/](https://www.paws-r-sdk.com/docs/eks_list_fargate_profiles/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -1860,21 +1664,10 @@ eks_list_fargate_profiles <- function(clusterName, maxResults = NULL, nextToken 
 #' See [https://www.paws-r-sdk.com/docs/eks_list_identity_provider_configs/](https://www.paws-r-sdk.com/docs/eks_list_identity_provider_configs/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -1901,28 +1694,14 @@ eks_list_identity_provider_configs <- function(clusterName, maxResults = NULL, n
 #' Returns a list of all insights checked for against the specified cluster
 #'
 #' @description
-#' Returns a list of all insights checked for against the specified cluster. You can filter which insights are returned by category, associated Kubernetes version, and status.
+#' Returns a list of all insights checked for against the specified cluster. You can filter which insights are returned by category, associated Kubernetes version, and status. The default filter lists all categories and every status.
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_list_insights/](https://www.paws-r-sdk.com/docs/eks_list_insights/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of the Amazon EKS cluster associated with the insights.
-#' @param filter The criteria to filter your list of insights for your cluster. You can
-#' filter which insights are returned by category, associated Kubernetes
-#' version, and status.
-#' @param maxResults The maximum number of identity provider configurations returned by
-#' [`list_insights`][eks_list_insights] in paginated output. When you use
-#' this parameter, [`list_insights`][eks_list_insights] returns only
-#' `maxResults` results in a single page along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another [`list_insights`][eks_list_insights] request with the
-#' returned `nextToken` value. This value can be between 1 and 100. If you
-#' don't use this parameter, [`list_insights`][eks_list_insights] returns
-#' up to 100 results and a `nextToken` value, if applicable.
-#' @param nextToken The `nextToken` value returned from a previous paginated
-#' [`list_insights`][eks_list_insights] request. When the results of a
-#' [`list_insights`][eks_list_insights] request exceed `maxResults`, you
-#' can use this value to retrieve the next page of results. This value is
-#' `null` when there are no more results to return.
+#' @param filter The criteria to filter your list of insights for your cluster. You can filter which insights are returned by category, associated Kubernetes version, and status.
+#' @param maxResults The maximum number of identity provider configurations returned by [`list_insights`][eks_list_insights] in paginated output. When you use this parameter, [`list_insights`][eks_list_insights] returns only `maxResults` results in a single page along with a `nextToken` response element. You can see the remaining results of the initial request by sending another [`list_insights`][eks_list_insights] request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, [`list_insights`][eks_list_insights] returns up to 100 results and a `nextToken` value, if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`list_insights`][eks_list_insights] request. When the results of a [`list_insights`][eks_list_insights] request exceed `maxResults`, you can use this value to retrieve the next page of results. This value is `null` when there are no more results to return.
 #'
 #' @keywords internal
 #'
@@ -1956,21 +1735,10 @@ eks_list_insights <- function(clusterName, filter = NULL, maxResults = NULL, nex
 #' See [https://www.paws-r-sdk.com/docs/eks_list_nodegroups/](https://www.paws-r-sdk.com/docs/eks_list_nodegroups/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -2002,30 +1770,12 @@ eks_list_nodegroups <- function(clusterName, maxResults = NULL, nextToken = NULL
 #' See [https://www.paws-r-sdk.com/docs/eks_list_pod_identity_associations/](https://www.paws-r-sdk.com/docs/eks_list_pod_identity_associations/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of the cluster that the associations are in.
-#' @param namespace The name of the Kubernetes namespace inside the cluster that the
-#' associations are in.
+#' @param namespace The name of the Kubernetes namespace inside the cluster that the associations are in.
 #' @param serviceAccount The name of the Kubernetes service account that the associations use.
-#' @param maxResults The maximum number of EKS Pod Identity association results returned by
-#' [`list_pod_identity_associations`][eks_list_pod_identity_associations]
-#' in paginated output. When you use this parameter,
-#' [`list_pod_identity_associations`][eks_list_pod_identity_associations]
-#' returns only `maxResults` results in a single page along with a
-#' `nextToken` response element. You can see the remaining results of the
-#' initial request by sending another
-#' [`list_pod_identity_associations`][eks_list_pod_identity_associations]
-#' request with the returned `nextToken` value. This value can be between 1
-#' and 100. If you don't use this parameter,
-#' [`list_pod_identity_associations`][eks_list_pod_identity_associations]
-#' returns up to 100 results and a `nextToken` value if applicable.
-#' @param nextToken The `nextToken` value returned from a previous paginated
-#' [`list_updates`][eks_list_updates] request where `maxResults` was used
-#' and the results exceeded the value of that parameter. Pagination
-#' continues from the end of the previous results that returned the
-#' `nextToken` value.
+#' @param maxResults The maximum number of EKS Pod Identity association results returned by [`list_pod_identity_associations`][eks_list_pod_identity_associations] in paginated output. When you use this parameter, [`list_pod_identity_associations`][eks_list_pod_identity_associations] returns only `maxResults` results in a single page along with a `nextToken` response element. You can see the remaining results of the initial request by sending another [`list_pod_identity_associations`][eks_list_pod_identity_associations] request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, [`list_pod_identity_associations`][eks_list_pod_identity_associations] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`list_updates`][eks_list_updates] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -2056,8 +1806,7 @@ eks_list_pod_identity_associations <- function(clusterName, namespace = NULL, se
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/eks_list_tags_for_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list tags
-#' for.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list tags for.
 #'
 #' @keywords internal
 #'
@@ -2092,26 +1841,16 @@ eks_list_tags_for_resource <- function(resourceArn) {
 #' @param name &#91;required&#93; The name of the Amazon EKS cluster to list updates for.
 #' @param nodegroupName The name of the Amazon EKS managed node group to list updates for.
 #' @param addonName The names of the installed add-ons that have available updates.
-#' @param nextToken The `nextToken` value returned from a previous paginated request, where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is null when there are
-#' no more results to return.
+#' @param capabilityName The name of the capability for which you want to list updates.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
 #' 
-#' This token should be treated as an opaque identifier that is used only
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of results, returned in paginated output. You receive
-#' `maxResults` in a single page, along with a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another request with the returned `nextToken` value. This value
-#' can be between 1 and 100. If you don't use this parameter, 100 results
-#' and a `nextToken` value, if applicable, are returned.
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of results, returned in paginated output. You receive `maxResults` in a single page, along with a `nextToken` response element. You can see the remaining results of the initial request by sending another request with the returned `nextToken` value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a `nextToken` value, if applicable, are returned.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_list_updates
-eks_list_updates <- function(name, nodegroupName = NULL, addonName = NULL, nextToken = NULL, maxResults = NULL) {
+eks_list_updates <- function(name, nodegroupName = NULL, addonName = NULL, capabilityName = NULL, nextToken = NULL, maxResults = NULL) {
   op <- new_operation(
     name = "ListUpdates",
     http_method = "GET",
@@ -2120,7 +1859,7 @@ eks_list_updates <- function(name, nodegroupName = NULL, addonName = NULL, nextT
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "updateIds"),
     stream_api = FALSE
   )
-  input <- .eks$list_updates_input(name = name, nodegroupName = nodegroupName, addonName = addonName, nextToken = nextToken, maxResults = maxResults)
+  input <- .eks$list_updates_input(name = name, nodegroupName = nodegroupName, addonName = addonName, capabilityName = capabilityName, nextToken = nextToken, maxResults = maxResults)
   output <- .eks$list_updates_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -2138,13 +1877,9 @@ eks_list_updates <- function(name, nodegroupName = NULL, addonName = NULL, nextT
 #' See [https://www.paws-r-sdk.com/docs/eks_register_cluster/](https://www.paws-r-sdk.com/docs/eks_register_cluster/) for full documentation.
 #'
 #' @param name &#91;required&#93; A unique name for this cluster in your Amazon Web Services Region.
-#' @param connectorConfig &#91;required&#93; The configuration settings required to connect the Kubernetes cluster to
-#' the Amazon EKS control plane.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param tags Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
+#' @param connectorConfig &#91;required&#93; The configuration settings required to connect the Kubernetes cluster to the Amazon EKS control plane.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param tags Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
 #'
 #' @keywords internal
 #'
@@ -2168,6 +1903,38 @@ eks_register_cluster <- function(name, connectorConfig, clientRequestToken = NUL
 }
 .eks$operations$register_cluster <- eks_register_cluster
 
+#' Initiates an on-demand refresh operation for cluster insights, getting
+#' the latest analysis outside of the standard refresh schedule
+#'
+#' @description
+#' Initiates an on-demand refresh operation for cluster insights, getting the latest analysis outside of the standard refresh schedule.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_start_insights_refresh/](https://www.paws-r-sdk.com/docs/eks_start_insights_refresh/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of the cluster for the refresh insights operation.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_start_insights_refresh
+eks_start_insights_refresh <- function(clusterName) {
+  op <- new_operation(
+    name = "StartInsightsRefresh",
+    http_method = "POST",
+    http_path = "/clusters/{name}/insights-refresh",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .eks$start_insights_refresh_input(clusterName = clusterName)
+  output <- .eks$start_insights_refresh_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$start_insights_refresh <- eks_start_insights_refresh
+
 #' Associates the specified tags to an Amazon EKS resource with the
 #' specified resourceArn
 #'
@@ -2177,9 +1944,7 @@ eks_register_cluster <- function(name, connectorConfig, clientRequestToken = NUL
 #' See [https://www.paws-r-sdk.com/docs/eks_tag_resource/](https://www.paws-r-sdk.com/docs/eks_tag_resource/) for full documentation.
 #'
 #' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource to add tags to.
-#' @param tags &#91;required&#93; Metadata that assists with categorization and organization. Each tag
-#' consists of a key and an optional value. You define both. Tags don't
-#' propagate to any other cluster or Amazon Web Services resources.
+#' @param tags &#91;required&#93; Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.
 #'
 #' @keywords internal
 #'
@@ -2244,35 +2009,13 @@ eks_untag_resource <- function(resourceArn, tagKeys) {
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
 #' @param principalArn &#91;required&#93; The ARN of the IAM principal for the `AccessEntry`.
-#' @param kubernetesGroups The value for `name` that you've specified for `kind: Group` as a
-#' `subject` in a Kubernetes `RoleBinding` or `ClusterRoleBinding` object.
-#' Amazon EKS doesn't confirm that the value for `name` exists in any
-#' bindings on your cluster. You can specify one or more names.
+#' @param kubernetesGroups The value for `name` that you've specified for `kind: Group` as a `subject` in a Kubernetes `RoleBinding` or `ClusterRoleBinding` object. Amazon EKS doesn't confirm that the value for `name` exists in any bindings on your cluster. You can specify one or more names.
 #' 
-#' Kubernetes authorizes the `principalArn` of the access entry to access
-#' any cluster objects that you've specified in a Kubernetes `Role` or
-#' `ClusterRole` object that is also specified in a binding's `roleRef`.
-#' For more information about creating Kubernetes `RoleBinding`,
-#' `ClusterRoleBinding`, `Role`, or `ClusterRole` objects, see [Using RBAC
-#' Authorization in the Kubernetes
-#' documentation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
+#' Kubernetes authorizes the `principalArn` of the access entry to access any cluster objects that you've specified in a Kubernetes `Role` or `ClusterRole` object that is also specified in a binding's `roleRef`. For more information about creating Kubernetes `RoleBinding`, `ClusterRoleBinding`, `Role`, or `ClusterRole` objects, see [Using RBAC Authorization in the Kubernetes documentation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/).
 #' 
-#' If you want Amazon EKS to authorize the `principalArn` (instead of, or
-#' in addition to Kubernetes authorizing the `principalArn`), you can
-#' associate one or more access policies to the access entry using
-#' [`associate_access_policy`][eks_associate_access_policy]. If you
-#' associate any access policies, the `principalARN` has all permissions
-#' assigned in the associated access policies and all permissions in any
-#' Kubernetes `Role` or `ClusterRole` objects that the group names are
-#' bound to.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param username The username to authenticate to Kubernetes with. We recommend not
-#' specifying a username and letting Amazon EKS specify it for you. For
-#' more information about the value Amazon EKS specifies for you, or
-#' constraints before specifying your own username, see [Creating access
-#' entries](https://docs.aws.amazon.com/eks/latest/userguide/access-entries.html#creating-access-entries)
-#' in the *Amazon EKS User Guide*.
+#' If you want Amazon EKS to authorize the `principalArn` (instead of, or in addition to Kubernetes authorizing the `principalArn`), you can associate one or more access policies to the access entry using [`associate_access_policy`][eks_associate_access_policy]. If you associate any access policies, the `principalARN` has all permissions assigned in the associated access policies and all permissions in any Kubernetes `Role` or `ClusterRole` objects that the group names are bound to.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param username The username to authenticate to Kubernetes with. We recommend not specifying a username and letting Amazon EKS specify it for you. For more information about the value Amazon EKS specifies for you, or constraints before specifying your own username, see [Creating access entries](https://docs.aws.amazon.com/eks/latest/userguide/access-entries.html#creating-access-entries) in the *Amazon EKS User Guide*.
 #'
 #' @keywords internal
 #'
@@ -2304,54 +2047,23 @@ eks_update_access_entry <- function(clusterName, principalArn, kubernetesGroups 
 #' See [https://www.paws-r-sdk.com/docs/eks_update_addon/](https://www.paws-r-sdk.com/docs/eks_update_addon/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
-#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by
-#' [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html)
-#' .
-#' @param addonVersion The version of the add-on. The version must match one of the versions
-#' returned by
-#' [`describe_addon_versions`](https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html)
-#' .
-#' @param serviceAccountRoleArn The Amazon Resource Name (ARN) of an existing IAM role to bind to the
-#' add-on's service account. The role must be assigned the IAM permissions
-#' required by the add-on. If you don't specify an existing IAM role, then
-#' the add-on uses the permissions assigned to the node IAM role. For more
-#' information, see [Amazon EKS node IAM
-#' role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html)
-#' in the *Amazon EKS User Guide*.
+#' @param addonName &#91;required&#93; The name of the add-on. The name must match one of the names returned by [`list_addons`](https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html) .
+#' @param addonVersion The version of the add-on. The version must match one of the versions returned by [`describe_addon_versions`](https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html) .
+#' @param serviceAccountRoleArn The Amazon Resource Name (ARN) of an existing IAM role to bind to the add-on's service account. The role must be assigned the IAM permissions required by the add-on. If you don't specify an existing IAM role, then the add-on uses the permissions assigned to the node IAM role. For more information, see [Amazon EKS node IAM role](https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html) in the *Amazon EKS User Guide*.
 #' 
-#' To specify an existing IAM role, you must have an IAM OpenID Connect
-#' (OIDC) provider created for your cluster. For more information, see
-#' [Enabling IAM roles for service accounts on your
-#' cluster](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html)
-#' in the *Amazon EKS User Guide*.
-#' @param resolveConflicts How to resolve field value conflicts for an Amazon EKS add-on if you've
-#' changed a value from the Amazon EKS default value. Conflicts are handled
-#' based on the option you choose:
+#' To specify an existing IAM role, you must have an IAM OpenID Connect (OIDC) provider created for your cluster. For more information, see [Enabling IAM roles for service accounts on your cluster](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html) in the *Amazon EKS User Guide*.
+#' @param resolveConflicts How to resolve field value conflicts for an Amazon EKS add-on if you've changed a value from the Amazon EKS default value. Conflicts are handled based on the option you choose:
 #' 
-#' -   **None** – Amazon EKS doesn't change the value. The update might
-#'     fail.
+#' -   **None** – Amazon EKS doesn't change the value. The update might fail.
 #' 
-#' -   **Overwrite** – Amazon EKS overwrites the changed value back to the
-#'     Amazon EKS default value.
+#' -   **Overwrite** – Amazon EKS overwrites the changed value back to the Amazon EKS default value.
 #' 
-#' -   **Preserve** – Amazon EKS preserves the value. If you choose this
-#'     option, we recommend that you test any field and value changes on a
-#'     non-production cluster before updating the add-on on your production
-#'     cluster.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
-#' @param configurationValues The set of configuration values for the add-on that's created. The
-#' values that you provide are validated against the schema returned by
-#' [`describe_addon_configuration`][eks_describe_addon_configuration].
-#' @param podIdentityAssociations An array of Pod Identity Assocations to be updated. Each EKS Pod
-#' Identity association maps a Kubernetes service account to an IAM Role.
-#' If this value is left blank, no change. If an empty array is provided,
-#' existing Pod Identity Assocations owned by the Addon are deleted.
+#' -   **Preserve** – Amazon EKS preserves the value. If you choose this option, we recommend that you test any field and value changes on a non-production cluster before updating the add-on on your production cluster.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param configurationValues The set of configuration values for the add-on that's created. The values that you provide are validated against the schema returned by [`describe_addon_configuration`][eks_describe_addon_configuration].
+#' @param podIdentityAssociations An array of EKS Pod Identity associations to be updated. Each association maps a Kubernetes service account to an IAM role. If this value is left blank, no change. If an empty array is provided, existing associations owned by the add-on are deleted.
 #' 
-#' For more information, see [Attach an IAM Role to an Amazon EKS add-on
-#' using Pod
-#' Identity](https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html)
-#' in the *Amazon EKS User Guide*.
+#' For more information, see [Attach an IAM Role to an Amazon EKS add-on using EKS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/add-ons-iam.html) in the *Amazon EKS User Guide*.
 #'
 #' @keywords internal
 #'
@@ -2375,62 +2087,74 @@ eks_update_addon <- function(clusterName, addonName, addonVersion = NULL, servic
 }
 .eks$operations$update_addon <- eks_update_addon
 
+#' Updates the configuration of a managed capability in your Amazon EKS
+#' cluster
+#'
+#' @description
+#' Updates the configuration of a managed capability in your Amazon EKS cluster. You can update the IAM role, configuration settings, and delete propagation policy for a capability.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_update_capability/](https://www.paws-r-sdk.com/docs/eks_update_capability/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of the Amazon EKS cluster that contains the capability you want to update configuration for.
+#' @param capabilityName &#91;required&#93; The name of the capability to update configuration for.
+#' @param roleArn The Amazon Resource Name (ARN) of the IAM role that the capability uses to interact with Amazon Web Services services. If you specify a new role ARN, the capability will start using the new role for all subsequent operations.
+#' @param configuration The updated configuration settings for the capability. You only need to specify the configuration parameters you want to change. For Argo CD capabilities, you can update RBAC role mappings and network access settings.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. This token is valid for 24 hours after creation.
+#' @param deletePropagationPolicy The updated delete propagation policy for the capability. Currently, the only supported value is `RETAIN`.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_update_capability
+eks_update_capability <- function(clusterName, capabilityName, roleArn = NULL, configuration = NULL, clientRequestToken = NULL, deletePropagationPolicy = NULL) {
+  op <- new_operation(
+    name = "UpdateCapability",
+    http_method = "POST",
+    http_path = "/clusters/{name}/capabilities/{capabilityName}",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .eks$update_capability_input(clusterName = clusterName, capabilityName = capabilityName, roleArn = roleArn, configuration = configuration, clientRequestToken = clientRequestToken, deletePropagationPolicy = deletePropagationPolicy)
+  output <- .eks$update_capability_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$update_capability <- eks_update_capability
+
 #' Updates an Amazon EKS cluster configuration
 #'
 #' @description
-#' Updates an Amazon EKS cluster configuration. Your cluster continues to function during the update. The response output includes an update ID that you can use to track the status of your cluster update with [`describe_update`][eks_describe_update]"/\>.
+#' Updates an Amazon EKS cluster configuration. Your cluster continues to function during the update. The response output includes an update ID that you can use to track the status of your cluster update with [`describe_update`][eks_describe_update].
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_update_cluster_config/](https://www.paws-r-sdk.com/docs/eks_update_cluster_config/) for full documentation.
 #'
 #' @param name &#91;required&#93; The name of the Amazon EKS cluster to update.
-#' @param resourcesVpcConfig 
-#' @param logging Enable or disable exporting the Kubernetes control plane logs for your
-#' cluster to CloudWatch Logs . By default, cluster control plane logs
-#' aren't exported to CloudWatch Logs . For more information, see [Amazon
-#' EKS cluster control plane
-#' logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html)
-#' in the *Amazon EKS User Guide* .
+#' @param resourcesVpcConfig An object representing the VPC configuration to use for an Amazon EKS cluster.
+#' @param logging Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs . By default, cluster control plane logs aren't exported to CloudWatch Logs . For more information, see [Amazon EKS cluster control plane logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html) in the *Amazon EKS User Guide* .
 #' 
-#' CloudWatch Logs ingestion, archive storage, and data scanning rates
-#' apply to exported control plane logs. For more information, see
-#' [CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/).
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
+#' CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see [CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/).
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
 #' @param accessConfig The access configuration for the cluster.
-#' @param upgradePolicy You can enable or disable extended support for clusters currently on
-#' standard support. You cannot disable extended support once it starts.
-#' You must enable extended support before your cluster exits standard
-#' support.
-#' @param zonalShiftConfig Enable or disable ARC zonal shift for the cluster. If zonal shift is
-#' enabled, Amazon Web Services configures zonal autoshift for the cluster.
+#' @param upgradePolicy You can enable or disable extended support for clusters currently on standard support. You cannot disable extended support once it starts. You must enable extended support before your cluster exits standard support.
+#' @param zonalShiftConfig Enable or disable ARC zonal shift for the cluster. If zonal shift is enabled, Amazon Web Services configures zonal autoshift for the cluster.
 #' 
-#' Zonal shift is a feature of Amazon Application Recovery Controller
-#' (ARC). ARC zonal shift is designed to be a temporary measure that allows
-#' you to move traffic for a resource away from an impaired AZ until the
-#' zonal shift expires or you cancel it. You can extend the zonal shift if
-#' necessary.
+#' Zonal shift is a feature of Amazon Application Recovery Controller (ARC). ARC zonal shift is designed to be a temporary measure that allows you to move traffic for a resource away from an impaired AZ until the zonal shift expires or you cancel it. You can extend the zonal shift if necessary.
 #' 
-#' You can start a zonal shift for an EKS cluster, or you can allow Amazon
-#' Web Services to do it for you by enabling *zonal autoshift*. This shift
-#' updates the flow of east-to-west network traffic in your cluster to only
-#' consider network endpoints for Pods running on worker nodes in healthy
-#' AZs. Additionally, any ALB or NLB handling ingress traffic for
-#' applications in your EKS cluster will automatically route traffic to
-#' targets in the healthy AZs. For more information about zonal shift in
-#' EKS, see [Learn about Amazon Application Recovery Controller (ARC) Zonal
-#' Shift in Amazon
-#' EKS](https://docs.aws.amazon.com/eks/latest/userguide/zone-shift.html)
-#' in the *Amazon EKS User Guide* .
-#' @param computeConfig Update the configuration of the compute capability of your EKS Auto Mode
-#' cluster. For example, enable the capability.
-#' @param kubernetesNetworkConfig 
-#' @param storageConfig Update the configuration of the block storage capability of your EKS
-#' Auto Mode cluster. For example, enable the capability.
+#' You can start a zonal shift for an EKS cluster, or you can allow Amazon Web Services to do it for you by enabling *zonal autoshift*. This shift updates the flow of east-to-west network traffic in your cluster to only consider network endpoints for Pods running on worker nodes in healthy AZs. Additionally, any ALB or NLB handling ingress traffic for applications in your EKS cluster will automatically route traffic to targets in the healthy AZs. For more information about zonal shift in EKS, see [Learn about Amazon Application Recovery Controller (ARC) Zonal Shift in Amazon EKS](https://docs.aws.amazon.com/eks/latest/userguide/zone-shift.html) in the *Amazon EKS User Guide* .
+#' @param computeConfig Update the configuration of the compute capability of your EKS Auto Mode cluster. For example, enable the capability.
+#' @param kubernetesNetworkConfig The Kubernetes network configuration for the cluster.
+#' @param storageConfig Update the configuration of the block storage capability of your EKS Auto Mode cluster. For example, enable the capability.
+#' @param remoteNetworkConfig The configuration in the cluster for EKS Hybrid Nodes. You can add, change, or remove this configuration after the cluster is created.
+#' @param deletionProtection Specifies whether to enable or disable deletion protection for the cluster. When enabled (`true`), the cluster cannot be deleted until deletion protection is explicitly disabled. When disabled (`false`), the cluster can be deleted normally.
+#' @param controlPlaneScalingConfig The control plane scaling tier configuration. For more information, see EKS Provisioned Control Plane in the Amazon EKS User Guide.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_update_cluster_config
-eks_update_cluster_config <- function(name, resourcesVpcConfig = NULL, logging = NULL, clientRequestToken = NULL, accessConfig = NULL, upgradePolicy = NULL, zonalShiftConfig = NULL, computeConfig = NULL, kubernetesNetworkConfig = NULL, storageConfig = NULL) {
+eks_update_cluster_config <- function(name, resourcesVpcConfig = NULL, logging = NULL, clientRequestToken = NULL, accessConfig = NULL, upgradePolicy = NULL, zonalShiftConfig = NULL, computeConfig = NULL, kubernetesNetworkConfig = NULL, storageConfig = NULL, remoteNetworkConfig = NULL, deletionProtection = NULL, controlPlaneScalingConfig = NULL) {
   op <- new_operation(
     name = "UpdateClusterConfig",
     http_method = "POST",
@@ -2439,7 +2163,7 @@ eks_update_cluster_config <- function(name, resourcesVpcConfig = NULL, logging =
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$update_cluster_config_input(name = name, resourcesVpcConfig = resourcesVpcConfig, logging = logging, clientRequestToken = clientRequestToken, accessConfig = accessConfig, upgradePolicy = upgradePolicy, zonalShiftConfig = zonalShiftConfig, computeConfig = computeConfig, kubernetesNetworkConfig = kubernetesNetworkConfig, storageConfig = storageConfig)
+  input <- .eks$update_cluster_config_input(name = name, resourcesVpcConfig = resourcesVpcConfig, logging = logging, clientRequestToken = clientRequestToken, accessConfig = accessConfig, upgradePolicy = upgradePolicy, zonalShiftConfig = zonalShiftConfig, computeConfig = computeConfig, kubernetesNetworkConfig = kubernetesNetworkConfig, storageConfig = storageConfig, remoteNetworkConfig = remoteNetworkConfig, deletionProtection = deletionProtection, controlPlaneScalingConfig = controlPlaneScalingConfig)
   output <- .eks$update_cluster_config_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -2458,13 +2182,13 @@ eks_update_cluster_config <- function(name, resourcesVpcConfig = NULL, logging =
 #'
 #' @param name &#91;required&#93; The name of the Amazon EKS cluster to update.
 #' @param version &#91;required&#93; The desired Kubernetes version following a successful update.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param force Set this value to `true` to override upgrade-blocking readiness checks when updating a cluster.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_update_cluster_version
-eks_update_cluster_version <- function(name, version, clientRequestToken = NULL) {
+eks_update_cluster_version <- function(name, version, clientRequestToken = NULL, force = NULL) {
   op <- new_operation(
     name = "UpdateClusterVersion",
     http_method = "POST",
@@ -2473,7 +2197,7 @@ eks_update_cluster_version <- function(name, version, clientRequestToken = NULL)
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$update_cluster_version_input(name = name, version = version, clientRequestToken = clientRequestToken)
+  input <- .eks$update_cluster_version_input(name = name, version = version, clientRequestToken = clientRequestToken, force = force)
   output <- .eks$update_cluster_version_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -2491,10 +2215,8 @@ eks_update_cluster_version <- function(name, version, clientRequestToken = NULL)
 #' See [https://www.paws-r-sdk.com/docs/eks_update_eks_anywhere_subscription/](https://www.paws-r-sdk.com/docs/eks_update_eks_anywhere_subscription/) for full documentation.
 #'
 #' @param id &#91;required&#93; The ID of the subscription.
-#' @param autoRenew &#91;required&#93; A boolean indicating whether or not to automatically renew the
-#' subscription.
-#' @param clientRequestToken Unique, case-sensitive identifier to ensure the idempotency of the
-#' request.
+#' @param autoRenew &#91;required&#93; A boolean indicating whether or not to automatically renew the subscription.
+#' @param clientRequestToken Unique, case-sensitive identifier to ensure the idempotency of the request.
 #'
 #' @keywords internal
 #'
@@ -2527,22 +2249,18 @@ eks_update_eks_anywhere_subscription <- function(id, autoRenew, clientRequestTok
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
 #' @param nodegroupName &#91;required&#93; The name of the managed node group to update.
-#' @param labels The Kubernetes `labels` to apply to the nodes in the node group after
-#' the update.
-#' @param taints The Kubernetes taints to be applied to the nodes in the node group after
-#' the update. For more information, see [Node taints on managed node
-#' groups](https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html).
-#' @param scalingConfig The scaling configuration details for the Auto Scaling group after the
-#' update.
+#' @param labels The Kubernetes `labels` to apply to the nodes in the node group after the update.
+#' @param taints The Kubernetes taints to be applied to the nodes in the node group after the update. For more information, see [Node taints on managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html).
+#' @param scalingConfig The scaling configuration details for the Auto Scaling group after the update.
 #' @param updateConfig The node group update configuration.
 #' @param nodeRepairConfig The node auto repair configuration for the node group.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
+#' @param warmPoolConfig The warm pool configuration to apply to the node group. You can use this to add a warm pool to an existing node group or modify the settings of an existing warm pool.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_update_nodegroup_config
-eks_update_nodegroup_config <- function(clusterName, nodegroupName, labels = NULL, taints = NULL, scalingConfig = NULL, updateConfig = NULL, nodeRepairConfig = NULL, clientRequestToken = NULL) {
+eks_update_nodegroup_config <- function(clusterName, nodegroupName, labels = NULL, taints = NULL, scalingConfig = NULL, updateConfig = NULL, nodeRepairConfig = NULL, warmPoolConfig = NULL, clientRequestToken = NULL) {
   op <- new_operation(
     name = "UpdateNodegroupConfig",
     http_method = "POST",
@@ -2551,7 +2269,7 @@ eks_update_nodegroup_config <- function(clusterName, nodegroupName, labels = NUL
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$update_nodegroup_config_input(clusterName = clusterName, nodegroupName = nodegroupName, labels = labels, taints = taints, scalingConfig = scalingConfig, updateConfig = updateConfig, nodeRepairConfig = nodeRepairConfig, clientRequestToken = clientRequestToken)
+  input <- .eks$update_nodegroup_config_input(clusterName = clusterName, nodegroupName = nodegroupName, labels = labels, taints = taints, scalingConfig = scalingConfig, updateConfig = updateConfig, nodeRepairConfig = nodeRepairConfig, warmPoolConfig = warmPoolConfig, clientRequestToken = clientRequestToken)
   output <- .eks$update_nodegroup_config_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -2571,44 +2289,13 @@ eks_update_nodegroup_config <- function(clusterName, nodegroupName, labels = NUL
 #'
 #' @param clusterName &#91;required&#93; The name of your cluster.
 #' @param nodegroupName &#91;required&#93; The name of the managed node group to update.
-#' @param version The Kubernetes version to update to. If no version is specified, then
-#' the Kubernetes version of the node group does not change. You can
-#' specify the Kubernetes version of the cluster to update the node group
-#' to the latest AMI version of the cluster's Kubernetes version. If you
-#' specify `launchTemplate`, and your launch template uses a custom AMI,
-#' then don't specify `version`, or the node group update will fail. For
-#' more information about using launch templates with Amazon EKS, see
-#' [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param releaseVersion The AMI version of the Amazon EKS optimized AMI to use for the update.
-#' By default, the latest available AMI version for the node group's
-#' Kubernetes version is used. For information about Linux versions, see
-#' [Amazon EKS optimized Amazon Linux AMI
-#' versions](https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html)
-#' in the *Amazon EKS User Guide*. Amazon EKS managed node groups support
-#' the November 2022 and later releases of the Windows AMIs. For
-#' information about Windows versions, see [Amazon EKS optimized Windows
-#' AMI
-#' versions](https://docs.aws.amazon.com/eks/latest/userguide/eks-ami-versions-windows.html)
-#' in the *Amazon EKS User Guide*.
+#' @param version The Kubernetes version to update to. If no version is specified, then the node group will be updated to match the cluster's current Kubernetes version, and the latest available AMI for that version will be used. You can also specify the Kubernetes version of the cluster to update the node group to the latest AMI version of the cluster's Kubernetes version. If you specify `launchTemplate`, and your launch template uses a custom AMI, then don't specify `version`, or the node group update will fail. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param releaseVersion The AMI version of the Amazon EKS optimized AMI to use for the update. By default, the latest available AMI version for the node group's Kubernetes version is used. For information about Linux versions, see [Amazon EKS optimized Amazon Linux AMI versions](https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html) in the *Amazon EKS User Guide*. Amazon EKS managed node groups support the November 2022 and later releases of the Windows AMIs. For information about Windows versions, see [Amazon EKS optimized Windows AMI versions](https://docs.aws.amazon.com/eks/latest/userguide/eks-ami-versions-windows.html) in the *Amazon EKS User Guide*.
 #' 
-#' If you specify `launchTemplate`, and your launch template uses a custom
-#' AMI, then don't specify `releaseVersion`, or the node group update will
-#' fail. For more information about using launch templates with Amazon EKS,
-#' see [Customizing managed nodes with launch
-#' templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html)
-#' in the *Amazon EKS User Guide*.
-#' @param launchTemplate An object representing a node group's launch template specification. You
-#' can only update a node group using a launch template if the node group
-#' was originally deployed with a launch template.
-#' @param force Force the update if any `Pod` on the existing node group can't be
-#' drained due to a `Pod` disruption budget issue. If an update fails
-#' because all Pods can't be drained, you can force the update after it
-#' fails to terminate the old node whether or not any `Pod` is running on
-#' the node.
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
+#' If you specify `launchTemplate`, and your launch template uses a custom AMI, then don't specify `releaseVersion`, or the node group update will fail. For more information about using launch templates with Amazon EKS, see [Customizing managed nodes with launch templates](https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html) in the *Amazon EKS User Guide*.
+#' @param launchTemplate An object representing a node group's launch template specification. You can only update a node group using a launch template if the node group was originally deployed with a launch template. When updating, you must specify the same launch template ID or name that was used to create the node group.
+#' @param force Force the update if any `Pod` on the existing node group can't be drained due to a `Pod` disruption budget issue. If an update fails because all Pods can't be drained, you can force the update after it fails to terminate the old node whether or not any `Pod` is running on the node.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
 #'
 #' @keywords internal
 #'
@@ -2635,20 +2322,34 @@ eks_update_nodegroup_version <- function(clusterName, nodegroupName, version = N
 #' Updates a EKS Pod Identity association
 #'
 #' @description
-#' Updates a EKS Pod Identity association. Only the IAM role can be changed; an association can't be moved between clusters, namespaces, or service accounts. If you need to edit the namespace or service account, you need to delete the association and then create a new association with your desired settings.
+#' Updates a EKS Pod Identity association. In an update, you can change the IAM role, the target IAM role, or `disableSessionTags`. You must change at least one of these in an update. An association can't be moved between clusters, namespaces, or service accounts. If you need to edit the namespace or service account, you need to delete the association and then create a new association with your desired settings.
 #'
 #' See [https://www.paws-r-sdk.com/docs/eks_update_pod_identity_association/](https://www.paws-r-sdk.com/docs/eks_update_pod_identity_association/) for full documentation.
 #'
 #' @param clusterName &#91;required&#93; The name of the cluster that you want to update the association in.
 #' @param associationId &#91;required&#93; The ID of the association to be updated.
-#' @param roleArn The new IAM role to change the
-#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the
-#' idempotency of the request.
+#' @param roleArn The new IAM role to change in the association.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#' @param disableSessionTags Disable the automatic sessions tags that are appended by EKS Pod Identity.
+#' 
+#' EKS Pod Identity adds a pre-defined set of session tags when it assumes the role. You can use these tags to author a single role that can work across resources by allowing access to Amazon Web Services resources based on matching tags. By default, EKS Pod Identity attaches six tags, including tags for cluster name, namespace, and service account name. For the list of tags added by EKS Pod Identity, see [List of session tags added by EKS Pod Identity](https://docs.aws.amazon.com/eks/latest/userguide/pod-id-abac.html#pod-id-abac-tags) in the *Amazon EKS User Guide*.
+#' 
+#' Amazon Web Services compresses inline session policies, managed policy ARNs, and session tags into a packed binary format that has a separate limit. If you receive a `PackedPolicyTooLarge` error indicating the packed binary format has exceeded the size limit, you can attempt to reduce the size by disabling the session tags added by EKS Pod Identity.
+#' @param targetRoleArn The Amazon Resource Name (ARN) of the target IAM role to associate with the service account. This role is assumed by using the EKS Pod Identity association role, then the credentials for this role are injected into the Pod.
+#' 
+#' When you run applications on Amazon EKS, your application might need to access Amazon Web Services resources from a different role that exists in the same or different Amazon Web Services account. For example, your application running in “Account A” might need to access resources, such as buckets in “Account B” or within “Account A” itself. You can create a association to access Amazon Web Services resources in “Account B” by creating two IAM roles: a role in “Account A” and a role in “Account B” (which can be the same or different account), each with the necessary trust and permission policies. After you provide these roles in the *IAM role* and *Target IAM role* fields, EKS will perform role chaining to ensure your application gets the required permissions. This means Role A will assume Role B, allowing your Pods to securely access resources like S3 buckets in the target account.
+#' @param policy An optional IAM policy in JSON format (as an escaped string) that applies additional restrictions to this pod identity association beyond the IAM policies attached to the IAM role. This policy is applied as the intersection of the role's policies and this policy, allowing you to reduce the permissions that applications in the pods can use. Use this policy to enforce least privilege access while still leveraging a shared IAM role across multiple applications.
+#' 
+#' **Important considerations**
+#' 
+#' -   **Session tags:** When using this policy, `disableSessionTags` must be set to `true`.
+#' 
+#' -   **Target role permissions:** If you specify both a `TargetRoleArn` and a policy, the policy restrictions apply only to the target role's permissions, not to the initial role used for assuming the target role.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_update_pod_identity_association
-eks_update_pod_identity_association <- function(clusterName, associationId, roleArn = NULL, clientRequestToken = NULL) {
+eks_update_pod_identity_association <- function(clusterName, associationId, roleArn = NULL, clientRequestToken = NULL, disableSessionTags = NULL, targetRoleArn = NULL, policy = NULL) {
   op <- new_operation(
     name = "UpdatePodIdentityAssociation",
     http_method = "POST",
@@ -2657,7 +2358,7 @@ eks_update_pod_identity_association <- function(clusterName, associationId, role
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .eks$update_pod_identity_association_input(clusterName = clusterName, associationId = associationId, roleArn = roleArn, clientRequestToken = clientRequestToken)
+  input <- .eks$update_pod_identity_association_input(clusterName = clusterName, associationId = associationId, roleArn = roleArn, clientRequestToken = clientRequestToken, disableSessionTags = disableSessionTags, targetRoleArn = targetRoleArn, policy = policy)
   output <- .eks$update_pod_identity_association_output()
   config <- get_config()
   svc <- .eks$service(config, op)

@@ -8,8 +8,7 @@ account connection}
 proton_get_environment_account_connection(id)
 }
 \arguments{
-\item{id}{[required] The ID of the environment account connection that you want to get the
-detailed data for.}
+\item{id}{[required] The ID of the environment account connection that you want to get the detailed data for.}
 }
 \description{
 In an environment account, get the detailed data for an environment account connection.

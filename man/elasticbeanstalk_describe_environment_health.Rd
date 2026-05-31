@@ -20,9 +20,7 @@ You must specify either this or an EnvironmentName, or both.}
 
 You must specify either this or an EnvironmentName, or both.}
 
-\item{AttributeNames}{Specify the response elements to return. To retrieve all attributes, set
-to \code{All}. If no attribute names are specified, returns the name of the
-environment.}
+\item{AttributeNames}{Specify the response elements to return. To retrieve all attributes, set to \code{All}. If no attribute names are specified, returns the name of the environment.}
 }
 \description{
 Returns information about the overall health of the specified environment. The \strong{DescribeEnvironmentHealth} operation is only available with AWS Elastic Beanstalk Enhanced Health.

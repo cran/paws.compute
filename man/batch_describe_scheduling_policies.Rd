@@ -7,8 +7,7 @@
 batch_describe_scheduling_policies(arns)
 }
 \arguments{
-\item{arns}{[required] A list of up to 100 scheduling policy Amazon Resource Name (ARN)
-entries.}
+\item{arns}{[required] A list of up to 100 scheduling policy Amazon Resource Name (ARN) entries.}
 }
 \description{
 Describes one or more of your scheduling policies.

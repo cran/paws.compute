@@ -14,17 +14,11 @@ computeoptimizer_delete_recommendation_preferences(
 \arguments{
 \item{resourceType}{[required] The target resource type of the recommendation preference to delete.
 
-The \code{Ec2Instance} option encompasses standalone instances and instances
-that are part of Auto Scaling groups. The \code{AutoScalingGroup} option
-encompasses only instances that are part of an Auto Scaling group.}
+The \code{Ec2Instance} option encompasses standalone instances and instances that are part of Auto Scaling groups. The \code{AutoScalingGroup} option encompasses only instances that are part of an Auto Scaling group.}
 
-\item{scope}{An object that describes the scope of the recommendation preference to
-delete.
+\item{scope}{An object that describes the scope of the recommendation preference to delete.
 
-You can delete recommendation preferences that are created at the
-organization level (for management accounts of an organization only),
-account level, and resource level. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html}{Activating enhanced infrastructure metrics}
-in the \emph{Compute Optimizer User Guide}.}
+You can delete recommendation preferences that are created at the organization level (for management accounts of an organization only), account level, and resource level. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html}{Activating enhanced infrastructure metrics} in the \emph{Compute Optimizer User Guide}.}
 
 \item{recommendationPreferenceNames}{[required] The name of the recommendation preference to delete.}
 }

@@ -20,46 +20,35 @@ lightsail_create_distribution(
 \arguments{
 \item{distributionName}{[required] The name for the distribution.}
 
-\item{origin}{[required] An object that describes the origin resource for the distribution, such
-as a Lightsail instance, bucket, or load balancer.
+\item{origin}{[required] An object that describes the origin resource for the distribution, such as a Lightsail instance, bucket, or load balancer.
 
 The distribution pulls, caches, and serves content from the origin.}
 
-\item{defaultCacheBehavior}{[required] An object that describes the default cache behavior for the
-distribution.}
+\item{defaultCacheBehavior}{[required] An object that describes the default cache behavior for the distribution.}
 
-\item{cacheBehaviorSettings}{An object that describes the cache behavior settings for the
-distribution.}
+\item{cacheBehaviorSettings}{An object that describes the cache behavior settings for the distribution.}
 
-\item{cacheBehaviors}{An array of objects that describe the per-path cache behavior for the
-distribution.}
+\item{cacheBehaviors}{An array of objects that describe the per-path cache behavior for the distribution.}
 
 \item{bundleId}{[required] The bundle ID to use for the distribution.
 
-A distribution bundle describes the specifications of your distribution,
-such as the monthly cost and monthly network transfer quota.
+A distribution bundle describes the specifications of your distribution, such as the monthly cost and monthly network transfer quota.
 
-Use the \code{\link[=lightsail_get_distribution_bundles]{get_distribution_bundles}}
-action to get a list of distribution bundle IDs that you can specify.}
+Use the \code{\link[=lightsail_get_distribution_bundles]{get_distribution_bundles}} action to get a list of distribution bundle IDs that you can specify.}
 
 \item{ipAddressType}{The IP address type for the distribution.
 
-The possible values are \code{ipv4} for IPv4 only, and \code{dualstack} for IPv4
-and IPv6.
+The possible values are \code{ipv4} for IPv4 only, and \code{dualstack} for IPv4 and IPv6.
 
 The default value is \code{dualstack}.}
 
-\item{tags}{The tag keys and optional values to add to the distribution during
-create.
+\item{tags}{The tag keys and optional values to add to the distribution during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 
-\item{certificateName}{The name of the SSL/TLS certificate that you want to attach to the
-distribution.
+\item{certificateName}{The name of the SSL/TLS certificate that you want to attach to the distribution.
 
-Use the \code{\link[=lightsail_get_certificates]{get_certificates}} action to get a
-list of certificate names that you can specify.}
+Use the \code{\link[=lightsail_get_certificates]{get_certificates}} action to get a list of certificate names that you can specify.}
 
 \item{viewerMinimumTlsProtocolVersion}{The minimum TLS protocol version for the SSL/TLS certificate.}
 }

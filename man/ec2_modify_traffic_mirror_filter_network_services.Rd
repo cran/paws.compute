@@ -16,13 +16,9 @@ ec2_modify_traffic_mirror_filter_network_services(
 
 \item{AddNetworkServices}{The network service, for example Amazon DNS, that you want to mirror.}
 
-\item{RemoveNetworkServices}{The network service, for example Amazon DNS, that you no longer want to
-mirror.}
+\item{RemoveNetworkServices}{The network service, for example Amazon DNS, that you no longer want to mirror.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Allows or restricts mirroring network services.

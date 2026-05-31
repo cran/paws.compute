@@ -7,8 +7,7 @@
 imagebuilder_delete_image(imageBuildVersionArn)
 }
 \arguments{
-\item{imageBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the Image Builder image resource to
-delete.}
+\item{imageBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the Image Builder image resource to delete.}
 }
 \description{
 Deletes an Image Builder image resource. This does not delete any EC2 AMIs or ECR container images that are created during the image build process. You must clean those up separately, using the appropriate Amazon EC2 or Amazon ECR console actions, or API or CLI commands.

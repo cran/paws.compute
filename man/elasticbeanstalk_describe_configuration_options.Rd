@@ -16,19 +16,13 @@ elasticbeanstalk_describe_configuration_options(
 )
 }
 \arguments{
-\item{ApplicationName}{The name of the application associated with the configuration template
-or environment. Only needed if you want to describe the configuration
-options associated with either the configuration template or
-environment.}
+\item{ApplicationName}{The name of the application associated with the configuration template or environment. Only needed if you want to describe the configuration options associated with either the configuration template or environment.}
 
-\item{TemplateName}{The name of the configuration template whose configuration options you
-want to describe.}
+\item{TemplateName}{The name of the configuration template whose configuration options you want to describe.}
 
-\item{EnvironmentName}{The name of the environment whose configuration options you want to
-describe.}
+\item{EnvironmentName}{The name of the environment whose configuration options you want to describe.}
 
-\item{SolutionStackName}{The name of the solution stack whose configuration options you want to
-describe.}
+\item{SolutionStackName}{The name of the solution stack whose configuration options you want to describe.}
 
 \item{PlatformArn}{The ARN of the custom platform.}
 

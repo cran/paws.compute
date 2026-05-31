@@ -10,12 +10,9 @@ apprunner_update_vpc_ingress_connection(
 )
 }
 \arguments{
-\item{VpcIngressConnectionArn}{[required] The Amazon Resource Name (Arn) for the App Runner VPC Ingress Connection
-resource that you want to update.}
+\item{VpcIngressConnectionArn}{[required] The Amazon Resource Name (Arn) for the App Runner VPC Ingress Connection resource that you want to update.}
 
-\item{IngressVpcConfiguration}{[required] Specifications for the customer’s Amazon VPC and the related Amazon Web
-Services PrivateLink VPC endpoint that are used to update the VPC
-Ingress Connection resource.}
+\item{IngressVpcConfiguration}{[required] Specifications for the customer’s Amazon VPC and the related Amazon Web Services PrivateLink VPC endpoint that are used to update the VPC Ingress Connection resource.}
 }
 \description{
 Update an existing App Runner VPC Ingress Connection resource. The VPC Ingress Connection must be in one of the following states to be updated:

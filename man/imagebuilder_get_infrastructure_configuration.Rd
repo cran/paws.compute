@@ -7,8 +7,7 @@
 imagebuilder_get_infrastructure_configuration(infrastructureConfigurationArn)
 }
 \arguments{
-\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration that
-you want to retrieve.}
+\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration that you want to retrieve.}
 }
 \description{
 Gets an infrastructure configuration.

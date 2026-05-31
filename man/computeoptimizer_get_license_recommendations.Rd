@@ -22,21 +22,15 @@ The following is the format of the ARN:
 
 \item{nextToken}{The token to advance to the next page of license recommendations.}
 
-\item{maxResults}{The maximum number of license recommendations to return with a single
-request.
+\item{maxResults}{The maximum number of license recommendations to return with a single request.
 
-To retrieve the remaining results, make another request with the
-returned \code{nextToken} value.}
+To retrieve the remaining results, make another request with the returned \code{nextToken} value.}
 
-\item{filters}{An array of objects to specify a filter that returns a more specific
-list of license recommendations.}
+\item{filters}{An array of objects to specify a filter that returns a more specific list of license recommendations.}
 
-\item{accountIds}{The ID of the Amazon Web Services account for which to return license
-recommendations.
+\item{accountIds}{The ID of the Amazon Web Services account for which to return license recommendations.
 
-If your account is the management account of an organization, use this
-parameter to specify the member account for which you want to return
-license recommendations.
+If your account is the management account of an organization, use this parameter to specify the member account for which you want to return license recommendations.
 
 Only one account ID can be specified per request.}
 }

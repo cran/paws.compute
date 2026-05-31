@@ -12,23 +12,16 @@ ec2_describe_regions(
 )
 }
 \arguments{
-\item{RegionNames}{The names of the Regions. You can specify any Regions, whether they are
-enabled and disabled for your account.}
+\item{RegionNames}{The names of the Regions. You can specify any Regions, whether they are enabled and disabled for your account.}
 
-\item{AllRegions}{Indicates whether to display all Regions, including Regions that are
-disabled for your account.}
+\item{AllRegions}{Indicates whether to display all Regions, including Regions that are disabled for your account.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{endpoint} - The endpoint of the Region (for example,
-\verb{ec2.us-east-1.amazonaws.com}).
-\item \verb{opt-in-status} - The opt-in status of the Region
-(\verb{opt-in-not-required} | \verb{opted-in} | \verb{not-opted-in}).
+\item \code{endpoint} - The endpoint of the Region (for example, \verb{ec2.us-east-1.amazonaws.com}).
+\item \verb{opt-in-status} - The opt-in status of the Region (\verb{opt-in-not-required} | \verb{opted-in} | \verb{not-opted-in}).
 \item \code{region-name} - The name of the Region (for example, \code{us-east-1}).
 }}
 }

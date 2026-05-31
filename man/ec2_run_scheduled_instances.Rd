@@ -13,20 +13,15 @@ ec2_run_scheduled_instances(
 )
 }
 \arguments{
-\item{ClientToken}{Unique, case-sensitive identifier that ensures the idempotency of the
-request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that ensures the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{InstanceCount}{The number of instances.
 
 Default: 1}
 
-\item{LaunchSpecification}{[required] The launch specification. You must match the instance type, Availability
-Zone, network, and platform of the schedule that you purchased.}
+\item{LaunchSpecification}{[required] The launch specification. You must match the instance type, Availability Zone, network, and platform of the schedule that you purchased.}
 
 \item{ScheduledInstanceId}{[required] The Scheduled Instance ID.}
 }

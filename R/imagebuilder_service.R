@@ -5,11 +5,7 @@ NULL
 #' EC2 Image Builder
 #'
 #' @description
-#' EC2 Image Builder is a fully managed Amazon Web Services service that
-#' makes it easier to automate the creation, management, and deployment of
-#' customized, secure, and up-to-date "golden" server images that are
-#' pre-installed and pre-configured with software and settings to meet
-#' specific IT standards.
+#' EC2 Image Builder is a fully managed Amazon Web Services service that makes it easier to automate the creation, management, and deployment of customized, secure, and up-to-date "golden" server images that are pre-installed and pre-configured with software and settings to meet specific IT standards.
 #'
 #' @param
 #' config
@@ -114,6 +110,7 @@ NULL
 #'  \link[=imagebuilder_delete_infrastructure_configuration]{delete_infrastructure_configuration} \tab Deletes an infrastructure configuration\cr
 #'  \link[=imagebuilder_delete_lifecycle_policy]{delete_lifecycle_policy} \tab Delete the specified lifecycle policy resource\cr
 #'  \link[=imagebuilder_delete_workflow]{delete_workflow} \tab Deletes a specific workflow resource\cr
+#'  \link[=imagebuilder_distribute_image]{distribute_image} \tab DistributeImage distributes existing AMIs to additional regions and accounts without rebuilding the image\cr
 #'  \link[=imagebuilder_get_component]{get_component} \tab Gets a component object\cr
 #'  \link[=imagebuilder_get_component_policy]{get_component_policy} \tab Gets a component policy\cr
 #'  \link[=imagebuilder_get_container_recipe]{get_container_recipe} \tab Retrieves a container recipe\cr
@@ -160,6 +157,7 @@ NULL
 #'  \link[=imagebuilder_put_container_recipe_policy]{put_container_recipe_policy} \tab Applies a policy to a container image\cr
 #'  \link[=imagebuilder_put_image_policy]{put_image_policy} \tab Applies a policy to an image\cr
 #'  \link[=imagebuilder_put_image_recipe_policy]{put_image_recipe_policy} \tab Applies a policy to an image recipe\cr
+#'  \link[=imagebuilder_retry_image]{retry_image} \tab RetryImage retries an image distribution without rebuilding the image\cr
 #'  \link[=imagebuilder_send_workflow_step_action]{send_workflow_step_action} \tab Pauses or resumes image creation when the associated workflow runs a WaitForAction step\cr
 #'  \link[=imagebuilder_start_image_pipeline_execution]{start_image_pipeline_execution} \tab Manually triggers a pipeline to create an image\cr
 #'  \link[=imagebuilder_start_resource_state_update]{start_resource_state_update} \tab Begin asynchronous resource state update for lifecycle changes to the specified image resources\cr
@@ -200,7 +198,7 @@ imagebuilder <- function(config = list(), credentials = list(), endpoint = NULL,
 
 .imagebuilder$metadata <- list(
   service_name = "imagebuilder",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "imagebuilder.{region}.amazonaws.eu", global = FALSE)),
   service_id = "imagebuilder",
   api_version = "2019-12-02",
   signing_name = "imagebuilder",

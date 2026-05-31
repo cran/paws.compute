@@ -18,20 +18,14 @@ ec2_get_transit_gateway_attachment_propagations(
 
 \item{Filters}{One or more filters. The possible values are:
 \itemize{
-\item \code{transit-gateway-route-table-id} - The ID of the transit gateway
-route table.
+\item \code{transit-gateway-route-table-id} - The ID of the transit gateway route table.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Lists the route tables to which the specified resource attachment propagates routes.

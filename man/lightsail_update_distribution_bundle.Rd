@@ -10,13 +10,11 @@ lightsail_update_distribution_bundle(distributionName = NULL, bundleId = NULL)
 \arguments{
 \item{distributionName}{The name of the distribution for which to update the bundle.
 
-Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get
-a list of distribution names that you can specify.}
+Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get a list of distribution names that you can specify.}
 
 \item{bundleId}{The bundle ID of the new bundle to apply to your distribution.
 
-Use the \code{\link[=lightsail_get_distribution_bundles]{get_distribution_bundles}}
-action to get a list of distribution bundle IDs that you can specify.}
+Use the \code{\link[=lightsail_get_distribution_bundles]{get_distribution_bundles}} action to get a list of distribution bundle IDs that you can specify.}
 }
 \description{
 Updates the bundle of your Amazon Lightsail content delivery network (CDN) distribution.

@@ -7,20 +7,18 @@
 ecr_update_pull_through_cache_rule(
   registryId = NULL,
   ecrRepositoryPrefix,
-  credentialArn
+  credentialArn = NULL,
+  customRoleArn = NULL
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry
-associated with the pull through cache rule. If you do not specify a
-registry, the default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry associated with the pull through cache rule. If you do not specify a registry, the default registry is assumed.}
 
-\item{ecrRepositoryPrefix}{[required] The repository name prefix to use when caching images from the source
-registry.}
+\item{ecrRepositoryPrefix}{[required] The repository name prefix to use when caching images from the source registry.}
 
-\item{credentialArn}{[required] The Amazon Resource Name (ARN) of the Amazon Web Services Secrets
-Manager secret that identifies the credentials to authenticate to the
-upstream registry.}
+\item{credentialArn}{The Amazon Resource Name (ARN) of the Amazon Web Services Secrets Manager secret that identifies the credentials to authenticate to the upstream registry.}
+
+\item{customRoleArn}{Amazon Resource Name (ARN) of the IAM role to be assumed by Amazon ECR to authenticate to the ECR upstream registry. This role must be in the same account as the registry that you are configuring.}
 }
 \description{
 Updates an existing pull through cache rule.

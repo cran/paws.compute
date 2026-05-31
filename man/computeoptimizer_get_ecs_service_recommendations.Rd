@@ -19,24 +19,17 @@ The following is the format of the ARN:
 
 \code{arn:aws:ecs:region:aws_account_id:service/cluster-name/service-name}}
 
-\item{nextToken}{The token to advance to the next page of Amazon ECS service
-recommendations.}
+\item{nextToken}{The token to advance to the next page of Amazon ECS service recommendations.}
 
-\item{maxResults}{The maximum number of Amazon ECS service recommendations to return with
-a single request.
+\item{maxResults}{The maximum number of Amazon ECS service recommendations to return with a single request.
 
-To retrieve the remaining results, make another request with the
-returned \code{nextToken} value.}
+To retrieve the remaining results, make another request with the returned \code{nextToken} value.}
 
-\item{filters}{An array of objects to specify a filter that returns a more specific
-list of Amazon ECS service recommendations.}
+\item{filters}{An array of objects to specify a filter that returns a more specific list of Amazon ECS service recommendations.}
 
-\item{accountIds}{Return the Amazon ECS service recommendations to the specified Amazon
-Web Services account IDs.
+\item{accountIds}{Return the Amazon ECS service recommendations to the specified Amazon Web Services account IDs.
 
-If your account is the management account or the delegated administrator
-of an organization, use this parameter to return the Amazon ECS service
-recommendations to specific member accounts.
+If your account is the management account or the delegated administrator of an organization, use this parameter to return the Amazon ECS service recommendations to specific member accounts.
 
 You can only specify one account ID per request.}
 }

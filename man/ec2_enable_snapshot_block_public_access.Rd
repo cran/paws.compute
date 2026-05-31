@@ -8,27 +8,15 @@ account level for the specified Amazon Web Services Region}
 ec2_enable_snapshot_block_public_access(State, DryRun = NULL)
 }
 \arguments{
-\item{State}{[required] The mode in which to enable block public access for snapshots for the
-Region. Specify one of the following values:
+\item{State}{[required] The mode in which to enable block public access for snapshots for the Region. Specify one of the following values:
 \itemize{
-\item \code{block-all-sharing} - Prevents all public sharing of snapshots in
-the Region. Users in the account will no longer be able to request
-new public sharing. Additionally, snapshots that are already
-publicly shared are treated as private and they are no longer
-publicly available.
-\item \code{block-new-sharing} - Prevents only new public sharing of snapshots
-in the Region. Users in the account will no longer be able to
-request new public sharing. However, snapshots that are already
-publicly shared, remain publicly available.
+\item \code{block-all-sharing} - Prevents all public sharing of snapshots in the Region. Users in the account will no longer be able to request new public sharing. Additionally, snapshots that are already publicly shared are treated as private and they are no longer publicly available.
+\item \code{block-new-sharing} - Prevents only new public sharing of snapshots in the Region. Users in the account will no longer be able to request new public sharing. However, snapshots that are already publicly shared, remain publicly available.
 }
 
-\code{unblocked} is not a valid value for
-\strong{EnableSnapshotBlockPublicAccess}.}
+\code{unblocked} is not a valid value for \strong{EnableSnapshotBlockPublicAccess}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Enables or modifies the \emph{block public access for snapshots} setting at the account level for the specified Amazon Web Services Region. After you enable block public access for snapshots in a Region, users can no longer request public sharing for snapshots in that Region. Snapshots that are already publicly shared are either treated as private or they remain publicly shared, depending on the \strong{State} that you specify.

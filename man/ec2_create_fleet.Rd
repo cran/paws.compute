@@ -10,6 +10,7 @@ ec2_create_fleet(
   ClientToken = NULL,
   SpotOptions = NULL,
   OnDemandOptions = NULL,
+  ReservedCapacityOptions = NULL,
   ExcessCapacityTerminationPolicy = NULL,
   LaunchTemplateConfigs,
   TargetCapacitySpecification,
@@ -23,14 +24,9 @@ ec2_create_fleet(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. If you do not specify a client token, a
-randomly generated token is used for the request to ensure idempotency.
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you do not specify a client token, a randomly generated token is used for the request to ensure idempotency.
 
 For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
@@ -38,9 +34,11 @@ For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/
 
 \item{OnDemandOptions}{Describes the configuration of On-Demand Instances in an EC2 Fleet.}
 
-\item{ExcessCapacityTerminationPolicy}{Indicates whether running instances should be terminated if the total
-target capacity of the EC2 Fleet is decreased below the current size of
-the EC2 Fleet.
+\item{ReservedCapacityOptions}{Defines EC2 Fleet preferences for utilizing reserved capacity when DefaultTargetCapacityType is set to \code{reserved-capacity}.
+
+Supported only for fleets of type \code{instant}.}
+
+\item{ExcessCapacityTerminationPolicy}{Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is decreased below the current size of the EC2 Fleet.
 
 Supported only for fleets of type \code{maintain}.}
 
@@ -48,49 +46,28 @@ Supported only for fleets of type \code{maintain}.}
 
 \item{TargetCapacitySpecification}{[required] The number of units to request.}
 
-\item{TerminateInstancesWithExpiration}{Indicates whether running instances should be terminated when the EC2
-Fleet expires.}
+\item{TerminateInstancesWithExpiration}{Indicates whether running instances should be terminated when the EC2 Fleet expires.}
 
 \item{Type}{The fleet type. The default value is \code{maintain}.
 \itemize{
-\item \code{maintain} - The EC2 Fleet places an asynchronous request for your
-desired capacity, and continues to maintain your desired Spot
-capacity by replenishing interrupted Spot Instances.
-\item \code{request} - The EC2 Fleet places an asynchronous one-time request
-for your desired capacity, but does submit Spot requests in
-alternative capacity pools if Spot capacity is unavailable, and does
-not maintain Spot capacity if Spot Instances are interrupted.
-\item \code{instant} - The EC2 Fleet places a synchronous one-time request for
-your desired capacity, and returns errors for any instances that
-could not be launched.
+\item \code{maintain} - The EC2 Fleet places an asynchronous request for your desired capacity, and continues to maintain your desired Spot capacity by replenishing interrupted Spot Instances.
+\item \code{request} - The EC2 Fleet places an asynchronous one-time request for your desired capacity, but does submit Spot requests in alternative capacity pools if Spot capacity is unavailable, and does not maintain Spot capacity if Spot Instances are interrupted.
+\item \code{instant} - The EC2 Fleet places a synchronous one-time request for your desired capacity, and returns errors for any instances that could not be launched.
 }
 
-For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-request-type.html}{EC2 Fleet request types}
-in the \emph{Amazon EC2 User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet-request-type.html}{EC2 Fleet request types} in the \emph{Amazon EC2 User Guide}.}
 
-\item{ValidFrom}{The start date and time of the request, in UTC format (for example,
-\emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z). The default is to start fulfilling
-the request immediately.}
+\item{ValidFrom}{The start date and time of the request, in UTC format (for example, \emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z). The default is to start fulfilling the request immediately.}
 
-\item{ValidUntil}{The end date and time of the request, in UTC format (for example,
-\emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z). At this point, no new EC2 Fleet
-requests are placed or able to fulfill the request. If no value is
-specified, the request remains until you cancel it.}
+\item{ValidUntil}{The end date and time of the request, in UTC format (for example, \emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z). At this point, no new EC2 Fleet requests are placed or able to fulfill the request. If no value is specified, the request remains until you cancel it.}
 
-\item{ReplaceUnhealthyInstances}{Indicates whether EC2 Fleet should replace unhealthy Spot Instances.
-Supported only for fleets of type \code{maintain}. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks}{EC2 Fleet health checks}
-in the \emph{Amazon EC2 User Guide}.}
+\item{ReplaceUnhealthyInstances}{Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type \code{maintain}. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks}{EC2 Fleet health checks} in the \emph{Amazon EC2 User Guide}.}
 
-\item{TagSpecifications}{The key-value pair for tagging the EC2 Fleet request on creation. For
-more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources}{Tag your resources}.
+\item{TagSpecifications}{The key-value pair for tagging the EC2 Fleet request on creation. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources}{Tag your resources}.
 
-If the fleet type is \code{instant}, specify a resource type of \code{fleet} to
-tag the fleet or \code{instance} to tag the instances at launch.
+If the fleet type is \code{instant}, specify a resource type of \code{fleet} to tag the fleet or \code{instance} to tag the instances at launch.
 
-If the fleet type is \code{maintain} or \code{request}, specify a resource type of
-\code{fleet} to tag the fleet. You cannot specify a resource type of
-\code{instance}. To tag instances at launch, specify the tags in a \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template}{launch template}.}
+If the fleet type is \code{maintain} or \code{request}, specify a resource type of \code{fleet} to tag the fleet. You cannot specify a resource type of \code{instance}. To tag instances at launch, specify the tags in a \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template}{launch template}.}
 
 \item{Context}{Reserved.}
 }

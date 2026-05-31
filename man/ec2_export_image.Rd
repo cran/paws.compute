@@ -18,24 +18,17 @@ ec2_export_image(
 \arguments{
 \item{ClientToken}{Token to enable idempotency for export image requests.}
 
-\item{Description}{A description of the image being exported. The maximum length is 255
-characters.}
+\item{Description}{A description of the image being exported. The maximum length is 255 characters.}
 
 \item{DiskImageFormat}{[required] The disk image format.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ImageId}{[required] The ID of the image.}
 
-\item{S3ExportLocation}{[required] The Amazon S3 bucket for the destination image. The destination bucket
-must exist.}
+\item{S3ExportLocation}{[required] The Amazon S3 bucket for the destination image. The destination bucket must exist.}
 
-\item{RoleName}{The name of the role that grants VM Import/Export permission to export
-images to your Amazon S3 bucket. If this parameter is not specified, the
-default role is named 'vmimport'.}
+\item{RoleName}{The name of the role that grants VM Import/Export permission to export images to your Amazon S3 bucket. If this parameter is not specified, the default role is named 'vmimport'.}
 
 \item{TagSpecifications}{The tags to apply to the export image task during creation.}
 }

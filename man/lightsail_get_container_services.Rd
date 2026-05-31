@@ -10,8 +10,7 @@ lightsail_get_container_services(serviceName = NULL)
 \arguments{
 \item{serviceName}{The name of the container service for which to return information.
 
-When omitted, the response includes all of your container services in
-the Amazon Web Services Region where the request is made.}
+When omitted, the response includes all of your container services in the Amazon Web Services Region where the request is made.}
 }
 \description{
 Returns information about one or more of your Amazon Lightsail container services.

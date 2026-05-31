@@ -7,8 +7,7 @@
 imagebuilder_get_lifecycle_policy(lifecyclePolicyArn)
 }
 \arguments{
-\item{lifecyclePolicyArn}{[required] Specifies the Amazon Resource Name (ARN) of the image lifecycle policy
-resource to get.}
+\item{lifecyclePolicyArn}{[required] Specifies the Amazon Resource Name (ARN) of the image lifecycle policy resource to get.}
 }
 \description{
 Get details for the specified image lifecycle policy.

@@ -12,25 +12,17 @@ apprunner_list_services_for_auto_scaling_configuration(
 )
 }
 \arguments{
-\item{AutoScalingConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner auto scaling
-configuration that you want to list the services for.
+\item{AutoScalingConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner auto scaling configuration that you want to list the services for.
 
-The ARN can be a full auto scaling configuration ARN, or a partial ARN
-ending with either \code{.../name } or \code{.../name/revision }. If a revision
-isn't specified, the latest active revision is used.}
+The ARN can be a full auto scaling configuration ARN, or a partial ARN ending with either \code{.../name } or \code{.../name/revision }. If a revision isn't specified, the latest active revision is used.}
 
-\item{MaxResults}{The maximum number of results to include in each response (result page).
-It's used for a paginated request.
+\item{MaxResults}{The maximum number of results to include in each response (result page). It's used for a paginated request.
 
-If you don't specify \code{MaxResults}, the request retrieves all available
-results in a single response.}
+If you don't specify \code{MaxResults}, the request retrieves all available results in a single response.}
 
-\item{NextToken}{A token from a previous result page. It's used for a paginated request.
-The request retrieves the next result page. All other parameter values
-must be identical to the ones specified in the initial request.
+\item{NextToken}{A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones specified in the initial request.
 
-If you don't specify \code{NextToken}, the request retrieves the first result
-page.}
+If you don't specify \code{NextToken}, the request retrieves the first result page.}
 }
 \description{
 Returns a list of the associated App Runner services using an auto scaling configuration.

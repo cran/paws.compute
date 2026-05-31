@@ -15,10 +15,7 @@ ec2_modify_ipam_resource_cidr(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ResourceId}{[required] The ID of the resource you want to modify.}
 
@@ -30,9 +27,7 @@ you have the required permissions, the error response is
 
 \item{DestinationIpamScopeId}{The ID of the scope you want to transfer the resource CIDR to.}
 
-\item{Monitored}{[required] Determines if the resource is monitored by IPAM. If a resource is
-monitored, the resource is discovered by IPAM and you can view details
-about the resource’s CIDR.}
+\item{Monitored}{[required] Determines if the resource is monitored by IPAM. If a resource is monitored, the resource is discovered by IPAM and you can view details about the resource’s CIDR.}
 }
 \description{
 Modify a resource CIDR. You can use this action to transfer resource CIDRs between scopes and ignore resource CIDRs that you do not want to manage. If set to false, the resource will not be tracked for overlap, it cannot be auto-imported into a pool, and it will be removed from any pool it has an allocation in.

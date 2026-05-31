@@ -7,26 +7,16 @@
 ec2_delete_ipam(DryRun = NULL, IpamId, Cascade = NULL)
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamId}{[required] The ID of the IPAM to delete.}
 
-\item{Cascade}{Enables you to quickly delete an IPAM, private scopes, pools in private
-scopes, and any allocations in the pools in private scopes. You cannot
-delete the IPAM with this option if there is a pool in your public
-scope. If you use this option, IPAM does the following:
+\item{Cascade}{Enables you to quickly delete an IPAM, private scopes, pools in private scopes, and any allocations in the pools in private scopes. You cannot delete the IPAM with this option if there is a pool in your public scope. If you use this option, IPAM does the following:
 \itemize{
-\item Deallocates any CIDRs allocated to VPC resources (such as VPCs) in
-pools in private scopes.
+\item Deallocates any CIDRs allocated to VPC resources (such as VPCs) in pools in private scopes.
 
-No VPC resources are deleted as a result of enabling this option.
-The CIDR associated with the resource will no longer be allocated
-from an IPAM pool, but the CIDR itself will remain unchanged.
-\item Deprovisions all IPv4 CIDRs provisioned to IPAM pools in private
-scopes.
+No VPC resources are deleted as a result of enabling this option. The CIDR associated with the resource will no longer be allocated from an IPAM pool, but the CIDR itself will remain unchanged.
+\item Deprovisions all IPv4 CIDRs provisioned to IPAM pools in private scopes.
 \item Deletes all IPAM pools in private scopes.
 \item Deletes all non-default private scopes in the IPAM.
 \item Deletes the default public and private scopes and the IPAM.

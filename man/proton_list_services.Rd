@@ -9,8 +9,7 @@ proton_list_services(maxResults = NULL, nextToken = NULL)
 \arguments{
 \item{maxResults}{The maximum number of services to list.}
 
-\item{nextToken}{A token that indicates the location of the next service in the array of
-services, after the list of services that was previously requested.}
+\item{nextToken}{A token that indicates the location of the next service in the array of services, after the list of services that was previously requested.}
 }
 \description{
 List services with summaries of detail data.

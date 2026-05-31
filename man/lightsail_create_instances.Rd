@@ -18,56 +18,35 @@ lightsail_create_instances(
 )
 }
 \arguments{
-\item{instanceNames}{[required] The names to use for your new Lightsail instances. Separate multiple
-values using quotation marks and commas, for example:
-\verb{["MyFirstInstance","MySecondInstance"]}}
+\item{instanceNames}{[required] The names to use for your new Lightsail instances. Separate multiple values using quotation marks and commas, for example: \verb{["MyFirstInstance","MySecondInstance"]}}
 
-\item{availabilityZone}{[required] The Availability Zone in which to create your instance. Use the
-following format: \verb{us-east-2a} (case sensitive). You can get a list of
-Availability Zones by using the \href{https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html}{get regions}
-operation. Be sure to add the \verb{include Availability Zones} parameter to
-your request.}
+\item{availabilityZone}{[required] The Availability Zone in which to create your instance. Use the following format: \verb{us-east-2a} (case sensitive). You can get a list of Availability Zones by using the \href{https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html}{get regions} operation. Be sure to add the \verb{include Availability Zones} parameter to your request.}
 
 \item{customImageName}{(Discontinued) The name for your custom image.
 
-In releases prior to June 12, 2017, this parameter was ignored by the
-API. It is now discontinued.}
+In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.}
 
-\item{blueprintId}{[required] The ID for a virtual private server image (\code{app_wordpress_x_x} or
-\code{app_lamp_x_x}). Use the \verb{get blueprints} operation to return a list of
-available images (or \emph{blueprints}).
+\item{blueprintId}{[required] The ID for a virtual private server image (\code{app_wordpress_x_x} or \code{app_lamp_x_x}). Use the \verb{get blueprints} operation to return a list of available images (or \emph{blueprints}).
 
-Use active blueprints when creating new instances. Inactive blueprints
-are listed to support customers with existing instances and are not
-necessarily available to create new instances. Blueprints are marked
-inactive when they become outdated due to operating system updates or
-new application releases.}
+Use active blueprints when creating new instances. Inactive blueprints are listed to support customers with existing instances and are not necessarily available to create new instances. Blueprints are marked inactive when they become outdated due to operating system updates or new application releases.}
 
-\item{bundleId}{[required] The bundle of specification information for your virtual private server
-(or \emph{instance}), including the pricing plan (\code{medium_x_x}).}
+\item{bundleId}{[required] The bundle of specification information for your virtual private server (or \emph{instance}), including the pricing plan (\code{medium_x_x}).}
 
-\item{userData}{A launch script you can create that configures a server with additional
-user data. For example, you might want to run \verb{apt-get -y update}.
+\item{userData}{A launch script you can create that configures a server with additional user data. For example, you might want to run \verb{apt-get -y update}.
 
-Depending on the machine image you choose, the command to get software
-on your instance varies. Amazon Linux and CentOS use \code{yum}, Debian and
-Ubuntu use \code{apt-get}, and FreeBSD uses \code{pkg}. For a complete list, see
-the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/compare-options-choose-lightsail-instance-image.html}{Amazon Lightsail Developer Guide}.}
+Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use \code{yum}, Debian and Ubuntu use \code{apt-get}, and FreeBSD uses \code{pkg}. For a complete list, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/compare-options-choose-lightsail-instance-image.html}{Amazon Lightsail Developer Guide}.}
 
 \item{keyPairName}{The name of your key pair.}
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 
-\item{addOns}{An array of objects representing the add-ons to enable for the new
-instance.}
+\item{addOns}{An array of objects representing the add-ons to enable for the new instance.}
 
 \item{ipAddressType}{The IP address type for the instance.
 
-The possible values are \code{ipv4} for IPv4 only, \code{ipv6} for IPv6 only, and
-\code{dualstack} for IPv4 and IPv6.
+The possible values are \code{ipv4} for IPv4 only, \code{ipv6} for IPv6 only, and \code{dualstack} for IPv4 and IPv6.
 
 The default value is \code{dualstack}.}
 }

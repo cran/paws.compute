@@ -10,14 +10,9 @@ ec2_disable_fast_launch(ImageId, Force = NULL, DryRun = NULL)
 \arguments{
 \item{ImageId}{[required] Specify the ID of the image for which to disable Windows fast launch.}
 
-\item{Force}{Forces the image settings to turn off Windows fast launch for your
-Windows AMI. This parameter overrides any errors that are encountered
-while cleaning up resources in your account.}
+\item{Force}{Forces the image settings to turn off Windows fast launch for your Windows AMI. This parameter overrides any errors that are encountered while cleaning up resources in your account.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Discontinue Windows fast launch for a Windows AMI, and clean up existing pre-provisioned snapshots. After you disable Windows fast launch, the AMI uses the standard launch process for each new instance. Amazon EC2 must remove all pre-provisioned snapshots before you can enable Windows fast launch again.

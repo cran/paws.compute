@@ -19,30 +19,19 @@ ec2_associate_address(
 \arguments{
 \item{AllocationId}{The allocation ID. This is required.}
 
-\item{InstanceId}{The ID of the instance. The instance must have exactly one attached
-network interface. You can specify either the instance ID or the network
-interface ID, but not both.}
+\item{InstanceId}{The ID of the instance. The instance must have exactly one attached network interface. You can specify either the instance ID or the network interface ID, but not both.}
 
 \item{PublicIp}{Deprecated.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{NetworkInterfaceId}{The ID of the network interface. If the instance has more than one
-network interface, you must specify a network interface ID.
+\item{NetworkInterfaceId}{The ID of the network interface. If the instance has more than one network interface, you must specify a network interface ID.
 
-You can specify either the instance ID or the network interface ID, but
-not both.}
+You can specify either the instance ID or the network interface ID, but not both.}
 
-\item{PrivateIpAddress}{The primary or secondary private IP address to associate with the
-Elastic IP address. If no private IP address is specified, the Elastic
-IP address is associated with the primary private IP address.}
+\item{PrivateIpAddress}{The primary or secondary private IP address to associate with the Elastic IP address. If no private IP address is specified, the Elastic IP address is associated with the primary private IP address.}
 
-\item{AllowReassociation}{Reassociation is automatic, but you can specify false to ensure the
-operation fails if the Elastic IP address is already associated with
-another resource.}
+\item{AllowReassociation}{Reassociation is automatic, but you can specify false to ensure the operation fails if the Elastic IP address is already associated with another resource.}
 }
 \description{
 Associates an Elastic IP address, or carrier IP address (for instances that are in subnets in Wavelength Zones) with an instance or a network interface. Before you can use an Elastic IP address, you must allocate it to your account.

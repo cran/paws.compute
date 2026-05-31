@@ -20,70 +20,48 @@ lightsail_create_disk_from_snapshot(
 \arguments{
 \item{diskName}{[required] The unique Lightsail disk name (\code{my-disk}).}
 
-\item{diskSnapshotName}{The name of the disk snapshot (\code{my-snapshot}) from which to create the
-new storage disk.
+\item{diskSnapshotName}{The name of the disk snapshot (\code{my-snapshot}) from which to create the new storage disk.
 
 Constraint:
 \itemize{
-\item This parameter cannot be defined together with the
-\verb{source disk name} parameter. The \verb{disk snapshot name} and
-\verb{source disk name} parameters are mutually exclusive.
+\item This parameter cannot be defined together with the \verb{source disk name} parameter. The \verb{disk snapshot name} and \verb{source disk name} parameters are mutually exclusive.
 }}
 
-\item{availabilityZone}{[required] The Availability Zone where you want to create the disk (\verb{us-east-2a}).
-Choose the same Availability Zone as the Lightsail instance where you
-want to create the disk.
+\item{availabilityZone}{[required] The Availability Zone where you want to create the disk (\verb{us-east-2a}). Choose the same Availability Zone as the Lightsail instance where you want to create the disk.
 
-Use the GetRegions operation to list the Availability Zones where
-Lightsail is currently available.}
+Use the GetRegions operation to list the Availability Zones where Lightsail is currently available.}
 
 \item{sizeInGb}{[required] The size of the disk in GB (\code{32}).}
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 
-\item{addOns}{An array of objects that represent the add-ons to enable for the new
-disk.}
+\item{addOns}{An array of objects that represent the add-ons to enable for the new disk.}
 
-\item{sourceDiskName}{The name of the source disk from which the source automatic snapshot was
-created.
+\item{sourceDiskName}{The name of the source disk from which the source automatic snapshot was created.
 
 Constraints:
 \itemize{
-\item This parameter cannot be defined together with the
-\verb{disk snapshot name} parameter. The \verb{source disk name} and
-\verb{disk snapshot name} parameters are mutually exclusive.
-\item Define this parameter only when creating a new disk from an
-automatic snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
+\item This parameter cannot be defined together with the \verb{disk snapshot name} parameter. The \verb{source disk name} and \verb{disk snapshot name} parameters are mutually exclusive.
+\item Define this parameter only when creating a new disk from an automatic snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
 }}
 
-\item{restoreDate}{The date of the automatic snapshot to use for the new disk. Use the
-\verb{get auto snapshots} operation to identify the dates of the available
-automatic snapshots.
+\item{restoreDate}{The date of the automatic snapshot to use for the new disk. Use the \verb{get auto snapshots} operation to identify the dates of the available automatic snapshots.
 
 Constraints:
 \itemize{
 \item Must be specified in \code{YYYY-MM-DD} format.
-\item This parameter cannot be defined together with the
-\verb{use latest restorable auto snapshot} parameter. The \verb{restore date}
-and \verb{use latest restorable auto snapshot} parameters are mutually
-exclusive.
-\item Define this parameter only when creating a new disk from an
-automatic snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
+\item This parameter cannot be defined together with the \verb{use latest restorable auto snapshot} parameter. The \verb{restore date} and \verb{use latest restorable auto snapshot} parameters are mutually exclusive.
+\item Define this parameter only when creating a new disk from an automatic snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
 }}
 
-\item{useLatestRestorableAutoSnapshot}{A Boolean value to indicate whether to use the latest available
-automatic snapshot.
+\item{useLatestRestorableAutoSnapshot}{A Boolean value to indicate whether to use the latest available automatic snapshot.
 
 Constraints:
 \itemize{
-\item This parameter cannot be defined together with the \verb{restore date}
-parameter. The \verb{use latest restorable auto snapshot} and
-\verb{restore date} parameters are mutually exclusive.
-\item Define this parameter only when creating a new disk from an
-automatic snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
+\item This parameter cannot be defined together with the \verb{restore date} parameter. The \verb{use latest restorable auto snapshot} and \verb{restore date} parameters are mutually exclusive.
+\item Define this parameter only when creating a new disk from an automatic snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
 }}
 }
 \description{

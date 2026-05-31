@@ -12,8 +12,7 @@ lightsail_update_bucket_bundle(bucketName, bundleId)
 
 \item{bundleId}{[required] The ID of the new bundle to apply to the bucket.
 
-Use the \code{\link[=lightsail_get_bucket_bundles]{get_bucket_bundles}} action to
-get a list of bundle IDs that you can specify.}
+Use the \code{\link[=lightsail_get_bucket_bundles]{get_bucket_bundles}} action to get a list of bundle IDs that you can specify.}
 }
 \description{
 Updates the bundle, or storage plan, of an existing Amazon Lightsail bucket.

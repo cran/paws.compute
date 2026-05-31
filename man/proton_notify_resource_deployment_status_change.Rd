@@ -16,8 +16,7 @@ proton_notify_resource_deployment_status_change(
 \arguments{
 \item{deploymentId}{The deployment ID for your provisioned resource.}
 
-\item{outputs}{The provisioned resource state change detail data that's returned by
-Proton.}
+\item{outputs}{The provisioned resource state change detail data that's returned by Proton.}
 
 \item{resourceArn}{[required] The provisioned resource Amazon Resource Name (ARN).}
 

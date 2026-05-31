@@ -19,54 +19,29 @@ ec2_modify_capacity_reservation(
 \arguments{
 \item{CapacityReservationId}{[required] The ID of the Capacity Reservation.}
 
-\item{InstanceCount}{The number of instances for which to reserve capacity. The number of
-instances can't be increased or decreased by more than \code{1000} in a
-single request.}
+\item{InstanceCount}{The number of instances for which to reserve capacity. The number of instances can't be increased or decreased by more than \code{1000} in a single request.}
 
-\item{EndDate}{The date and time at which the Capacity Reservation expires. When a
-Capacity Reservation expires, the reserved capacity is released and you
-can no longer launch instances into it. The Capacity Reservation's state
-changes to \code{expired} when it reaches its end date and time.
+\item{EndDate}{The date and time at which the Capacity Reservation expires. When a Capacity Reservation expires, the reserved capacity is released and you can no longer launch instances into it. The Capacity Reservation's state changes to \code{expired} when it reaches its end date and time.
 
-The Capacity Reservation is cancelled within an hour from the specified
-time. For example, if you specify 5/31/2019, 13:30:55, the Capacity
-Reservation is guaranteed to end between 13:30:55 and 14:30:55 on
-5/31/2019.
+The Capacity Reservation is cancelled within an hour from the specified time. For example, if you specify 5/31/2019, 13:30:55, the Capacity Reservation is guaranteed to end between 13:30:55 and 14:30:55 on 5/31/2019.
 
-You must provide an \code{EndDate} value if \code{EndDateType} is \code{limited}. Omit
-\code{EndDate} if \code{EndDateType} is \code{unlimited}.}
+You must provide an \code{EndDate} value if \code{EndDateType} is \code{limited}. Omit \code{EndDate} if \code{EndDateType} is \code{unlimited}.}
 
-\item{EndDateType}{Indicates the way in which the Capacity Reservation ends. A Capacity
-Reservation can have one of the following end types:
+\item{EndDateType}{Indicates the way in which the Capacity Reservation ends. A Capacity Reservation can have one of the following end types:
 \itemize{
-\item \code{unlimited} - The Capacity Reservation remains active until you
-explicitly cancel it. Do not provide an \code{EndDate} value if
-\code{EndDateType} is \code{unlimited}.
-\item \code{limited} - The Capacity Reservation expires automatically at a
-specified date and time. You must provide an \code{EndDate} value if
-\code{EndDateType} is \code{limited}.
+\item \code{unlimited} - The Capacity Reservation remains active until you explicitly cancel it. Do not provide an \code{EndDate} value if \code{EndDateType} is \code{unlimited}.
+\item \code{limited} - The Capacity Reservation expires automatically at a specified date and time. You must provide an \code{EndDate} value if \code{EndDateType} is \code{limited}.
 }}
 
-\item{Accept}{Reserved. Capacity Reservations you have created are accepted by
-default.}
+\item{Accept}{Reserved. Capacity Reservations you have created are accepted by default.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{AdditionalInfo}{Reserved for future use.}
 
-\item{InstanceMatchCriteria}{The matching criteria (instance eligibility) that you want to use in the
-modified Capacity Reservation. If you change the instance eligibility of
-an existing Capacity Reservation from \code{targeted} to \code{open}, any running
-instances that match the attributes of the Capacity Reservation, have
-the \code{CapacityReservationPreference} set to \code{open}, and are not yet
-running in the Capacity Reservation, will automatically use the modified
-Capacity Reservation.
+\item{InstanceMatchCriteria}{The matching criteria (instance eligibility) that you want to use in the modified Capacity Reservation. If you change the instance eligibility of an existing Capacity Reservation from \code{targeted} to \code{open}, any running instances that match the attributes of the Capacity Reservation, have the \code{CapacityReservationPreference} set to \code{open}, and are not yet running in the Capacity Reservation, will automatically use the modified Capacity Reservation.
 
-To modify the instance eligibility, the Capacity Reservation must be
-completely idle (zero usage).}
+To modify the instance eligibility, the Capacity Reservation must be completely idle (zero usage).}
 }
 \description{
 Modifies a Capacity Reservation's capacity, instance eligibility, and the conditions under which it is to be released. You can't modify a Capacity Reservation's instance type, EBS optimization, platform, instance store settings, Availability Zone, or tenancy. If you need to modify any of these attributes, we recommend that you cancel the Capacity Reservation, and then create a new one with the required attributes. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/capacity-reservations-modify.html}{Modify an active Capacity Reservation}.

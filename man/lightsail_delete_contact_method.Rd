@@ -7,13 +7,9 @@
 lightsail_delete_contact_method(protocol)
 }
 \arguments{
-\item{protocol}{[required] The protocol that will be deleted, such as \code{Email} or \code{SMS} (text
-messaging).
+\item{protocol}{[required] The protocol that will be deleted, such as \code{Email} or \code{SMS} (text messaging).
 
-To delete an \code{Email} and an \code{SMS} contact method if you added both, you
-must run separate
-\code{\link[=lightsail_delete_contact_method]{delete_contact_method}} actions to
-delete each protocol.}
+To delete an \code{Email} and an \code{SMS} contact method if you added both, you must run separate \code{\link[=lightsail_delete_contact_method]{delete_contact_method}} actions to delete each protocol.}
 }
 \description{
 Deletes a contact method.

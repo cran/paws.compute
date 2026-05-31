@@ -19,60 +19,48 @@ emrserverless_update_application(
   releaseLabel = NULL,
   runtimeConfiguration = NULL,
   monitoringConfiguration = NULL,
-  schedulerConfiguration = NULL
+  diskEncryptionConfiguration = NULL,
+  schedulerConfiguration = NULL,
+  identityCenterConfiguration = NULL,
+  jobLevelCostAllocationConfiguration = NULL
 )
 }
 \arguments{
 \item{applicationId}{[required] The ID of the application to update.}
 
-\item{clientToken}{[required] The client idempotency token of the application to update. Its value
-must be unique for each request.}
+\item{clientToken}{[required] The client idempotency token of the application to update. Its value must be unique for each request.}
 
 \item{initialCapacity}{The capacity to initialize when the application is updated.}
 
-\item{maximumCapacity}{The maximum capacity to allocate when the application is updated. This
-is cumulative across all workers at any given point in time during the
-lifespan of the application. No new resources will be created once any
-one of the defined limits is hit.}
+\item{maximumCapacity}{The maximum capacity to allocate when the application is updated. This is cumulative across all workers at any given point in time during the lifespan of the application. No new resources will be created once any one of the defined limits is hit.}
 
-\item{autoStartConfiguration}{The configuration for an application to automatically start on job
-submission.}
+\item{autoStartConfiguration}{The configuration for an application to automatically start on job submission.}
 
-\item{autoStopConfiguration}{The configuration for an application to automatically stop after a
-certain amount of time being idle.}
+\item{autoStopConfiguration}{The configuration for an application to automatically stop after a certain amount of time being idle.}
 
-\item{networkConfiguration}{}
+\item{networkConfiguration}{The network configuration for customer VPC connectivity.}
 
 \item{architecture}{The CPU architecture of an application.}
 
-\item{imageConfiguration}{The image configuration to be used for all worker types. You can either
-set this parameter or \code{imageConfiguration} for each worker type in
-\code{WorkerTypeSpecificationInput}.}
+\item{imageConfiguration}{The image configuration to be used for all worker types. You can either set this parameter or \code{imageConfiguration} for each worker type in \code{WorkerTypeSpecificationInput}.}
 
-\item{workerTypeSpecifications}{The key-value pairs that specify worker type to
-\code{WorkerTypeSpecificationInput}. This parameter must contain all valid
-worker types for a Spark or Hive application. Valid worker types include
-\code{Driver} and \code{Executor} for Spark applications and \code{HiveDriver} and
-\code{TezTask} for Hive applications. You can either set image details in
-this parameter for each worker type, or in \code{imageConfiguration} for all
-worker types.}
+\item{workerTypeSpecifications}{The key-value pairs that specify worker type to \code{WorkerTypeSpecificationInput}. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include \code{Driver} and \code{Executor} for Spark applications and \code{HiveDriver} and \code{TezTask} for Hive applications. You can either set image details in this parameter for each worker type, or in \code{imageConfiguration} for all worker types.}
 
-\item{interactiveConfiguration}{The interactive configuration object that contains new interactive use
-cases when the application is updated.}
+\item{interactiveConfiguration}{The interactive configuration object that contains new interactive use cases when the application is updated.}
 
-\item{releaseLabel}{The Amazon EMR release label for the application. You can change the
-release label to use a different release of Amazon EMR.}
+\item{releaseLabel}{The Amazon EMR release label for the application. You can change the release label to use a different release of Amazon EMR.}
 
-\item{runtimeConfiguration}{The
-\href{https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html}{Configuration}
-specifications to use when updating an application. Each configuration
-consists of a classification and properties. This configuration is
-applied across all the job runs submitted under the application.}
+\item{runtimeConfiguration}{The \href{https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html}{Configuration} specifications to use when updating an application. Each configuration consists of a classification and properties. This configuration is applied across all the job runs submitted under the application.}
 
 \item{monitoringConfiguration}{The configuration setting for monitoring.}
 
-\item{schedulerConfiguration}{The scheduler configuration for batch and streaming jobs running on this
-application. Supported with release labels emr-7.0.0 and above.}
+\item{diskEncryptionConfiguration}{The configuration object that allows encrypting local disks.}
+
+\item{schedulerConfiguration}{The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.}
+
+\item{identityCenterConfiguration}{Specifies the IAM Identity Center configuration used to enable or disable trusted identity propagation. When provided, this configuration determines how the application interacts with IAM Identity Center for user authentication and access control.}
+
+\item{jobLevelCostAllocationConfiguration}{The configuration object that enables job level cost allocation.}
 }
 \description{
 Updates a specified application. An application has to be in a stopped or created state in order to be updated.

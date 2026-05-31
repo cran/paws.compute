@@ -15,11 +15,7 @@ lightsail_get_relational_database_master_user_password(
 
 \item{passwordVersion}{The password version to return.
 
-Specifying \code{CURRENT} or \code{PREVIOUS} returns the current or previous
-passwords respectively. Specifying \code{PENDING} returns the newest version
-of the password that will rotate to \code{CURRENT}. After the \code{PENDING}
-password rotates to \code{CURRENT}, the \code{PENDING} password is no longer
-available.
+Specifying \code{CURRENT} or \code{PREVIOUS} returns the current or previous passwords respectively. Specifying \code{PENDING} returns the newest version of the password that will rotate to \code{CURRENT}. After the \code{PENDING} password rotates to \code{CURRENT}, the \code{PENDING} password is no longer available.
 
 Default: \code{CURRENT}}
 }

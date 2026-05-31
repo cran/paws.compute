@@ -8,8 +8,7 @@ the specified Lightsail load balancer}
 lightsail_get_load_balancer_tls_certificates(loadBalancerName)
 }
 \arguments{
-\item{loadBalancerName}{[required] The name of the load balancer you associated with your SSL/TLS
-certificate.}
+\item{loadBalancerName}{[required] The name of the load balancer you associated with your SSL/TLS certificate.}
 }
 \description{
 Returns information about the TLS certificates that are associated with the specified Lightsail load balancer.

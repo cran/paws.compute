@@ -22,20 +22,15 @@ ec2_modify_verified_access_endpoint(
 
 \item{VerifiedAccessGroupId}{The ID of the Verified Access group.}
 
-\item{LoadBalancerOptions}{The load balancer details if creating the Verified Access endpoint as
-\code{load-balancer}type.}
+\item{LoadBalancerOptions}{The load balancer details if creating the Verified Access endpoint as \code{load-balancer}type.}
 
 \item{NetworkInterfaceOptions}{The network interface options.}
 
 \item{Description}{A description for the Verified Access endpoint.}
 
-\item{ClientToken}{A unique, case-sensitive token that you provide to ensure idempotency of
-your modification request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{A unique, case-sensitive token that you provide to ensure idempotency of your modification request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{RdsOptions}{The RDS options.}
 

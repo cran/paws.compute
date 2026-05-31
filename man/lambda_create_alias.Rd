@@ -18,13 +18,11 @@ lambda_create_alias(
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} - \code{MyFunction}.
-\item \strong{Function ARN} -
-\verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
+\item \strong{Function ARN} - \verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
 \item \strong{Partial ARN} - \verb{123456789012:function:MyFunction}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it is limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
 \item{Name}{[required] The name of the alias.}
 
@@ -32,8 +30,7 @@ the function name, it is limited to 64 characters in length.}
 
 \item{Description}{A description of the alias.}
 
-\item{RoutingConfig}{The \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing}{routing configuration}
-of the alias.}
+\item{RoutingConfig}{The \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing}{routing configuration} of the alias.}
 }
 \description{
 Creates an \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html}{alias} for a Lambda function version. Use aliases to provide clients with a function identifier that you can update to invoke a different version.

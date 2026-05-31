@@ -13,22 +13,15 @@ imagebuilder_list_lifecycle_execution_resources(
 )
 }
 \arguments{
-\item{lifecycleExecutionId}{[required] Use the unique identifier for a runtime instance of the lifecycle policy
-to get runtime details.}
+\item{lifecycleExecutionId}{[required] Use the unique identifier for a runtime instance of the lifecycle policy to get runtime details.}
 
-\item{parentResourceId}{You can leave this empty to get a list of Image Builder resources that
-were identified for lifecycle actions.
+\item{parentResourceId}{You can leave this empty to get a list of Image Builder resources that were identified for lifecycle actions.
 
-To get a list of associated resources that are impacted for an
-individual resource (the parent), specify its Amazon Resource Name
-(ARN). Associated resources are produced from your image and distributed
-when you run a build, such as AMIs or container images stored in ECR
-repositories.}
+To get a list of associated resources that are impacted for an individual resource (the parent), specify its Amazon Resource Name (ARN). Associated resources are produced from your image and distributed when you run a build, such as AMIs or container images stored in ECR repositories.}
 
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 }
 \description{
 List resources that the runtime instance of the image lifecycle identified for lifecycle actions.

@@ -16,26 +16,14 @@ ec2_describe_snapshot_tier_status(
 \itemize{
 \item \code{snapshot-id} - The snapshot ID.
 \item \code{volume-id} - The ID of the volume the snapshot is for.
-\item \code{last-tiering-operation} - The state of the last archive or restore
-action. (\verb{archival-in-progress} | \code{archival-completed} |
-\code{archival-failed} | \verb{permanent-restore-in-progress} |
-\code{permanent-restore-completed} | \code{permanent-restore-failed} |
-\verb{temporary-restore-in-progress} | \code{temporary-restore-completed} |
-\code{temporary-restore-failed})
+\item \code{last-tiering-operation} - The state of the last archive or restore action. (\verb{archival-in-progress} | \code{archival-completed} | \code{archival-failed} | \verb{permanent-restore-in-progress} | \code{permanent-restore-completed} | \code{permanent-restore-failed} | \verb{temporary-restore-in-progress} | \code{temporary-restore-completed} | \code{temporary-restore-failed})
 }}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 }
 \description{
 Describes the storage tier status of one or more Amazon EBS snapshots.

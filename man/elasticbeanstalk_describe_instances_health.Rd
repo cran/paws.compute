@@ -17,9 +17,7 @@ elasticbeanstalk_describe_instances_health(
 
 \item{EnvironmentId}{Specify the AWS Elastic Beanstalk environment by ID.}
 
-\item{AttributeNames}{Specifies the response elements you wish to receive. To retrieve all
-attributes, set to \code{All}. If no attribute names are specified, returns a
-list of instances.}
+\item{AttributeNames}{Specifies the response elements you wish to receive. To retrieve all attributes, set to \code{All}. If no attribute names are specified, returns a list of instances.}
 
 \item{NextToken}{Specify the pagination token returned by a previous call.}
 }

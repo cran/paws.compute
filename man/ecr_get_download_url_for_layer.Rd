@@ -8,12 +8,9 @@ image layer}
 ecr_get_download_url_for_layer(registryId = NULL, repositoryName, layerDigest)
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the image layer to download. If you do not specify a registry,
-the default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the image layer to download. If you do not specify a registry, the default registry is assumed.}
 
-\item{repositoryName}{[required] The name of the repository that is associated with the image layer to
-download.}
+\item{repositoryName}{[required] The name of the repository that is associated with the image layer to download.}
 
 \item{layerDigest}{[required] The digest of the image layer to download.}
 }

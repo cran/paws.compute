@@ -19,67 +19,37 @@ ec2_modify_subnet_attribute(
 )
 }
 \arguments{
-\item{AssignIpv6AddressOnCreation}{Specify \code{true} to indicate that network interfaces created in the
-specified subnet should be assigned an IPv6 address. This includes a
-network interface that's created when launching an instance into the
-subnet (the instance therefore receives an IPv6 address).
+\item{AssignIpv6AddressOnCreation}{Specify \code{true} to indicate that network interfaces created in the specified subnet should be assigned an IPv6 address. This includes a network interface that's created when launching an instance into the subnet (the instance therefore receives an IPv6 address).
 
-If you enable the IPv6 addressing feature for your subnet, your network
-interface or instance only receives an IPv6 address if it's created
-using version \code{2016-11-15} or later of the Amazon EC2 API.}
+If you enable the IPv6 addressing feature for your subnet, your network interface or instance only receives an IPv6 address if it's created using version \code{2016-11-15} or later of the Amazon EC2 API.}
 
-\item{MapPublicIpOnLaunch}{Specify \code{true} to indicate that network interfaces attached to instances
-created in the specified subnet should be assigned a public IPv4
-address.
+\item{MapPublicIpOnLaunch}{Specify \code{true} to indicate that network interfaces attached to instances created in the specified subnet should be assigned a public IPv4 address.
 
-Amazon Web Services charges for all public IPv4 addresses, including
-public IPv4 addresses associated with running instances and Elastic IP
-addresses. For more information, see the \emph{Public IPv4 Address} tab on
-the \href{https://aws.amazon.com/vpc/pricing/}{Amazon VPC pricing page}.}
+Amazon Web Services charges for all public IPv4 addresses, including public IPv4 addresses associated with running instances and Elastic IP addresses. For more information, see the \emph{Public IPv4 Address} tab on the \href{https://aws.amazon.com/vpc/pricing/}{Amazon VPC pricing page}.}
 
 \item{SubnetId}{[required] The ID of the subnet.}
 
-\item{MapCustomerOwnedIpOnLaunch}{Specify \code{true} to indicate that network interfaces attached to instances
-created in the specified subnet should be assigned a customer-owned IPv4
-address.
+\item{MapCustomerOwnedIpOnLaunch}{Specify \code{true} to indicate that network interfaces attached to instances created in the specified subnet should be assigned a customer-owned IPv4 address.
 
-When this value is \code{true}, you must specify the customer-owned IP pool
-using \code{CustomerOwnedIpv4Pool}.}
+When this value is \code{true}, you must specify the customer-owned IP pool using \code{CustomerOwnedIpv4Pool}.}
 
 \item{CustomerOwnedIpv4Pool}{The customer-owned IPv4 address pool associated with the subnet.
 
-You must set this value when you specify \code{true} for
-\code{MapCustomerOwnedIpOnLaunch}.}
+You must set this value when you specify \code{true} for \code{MapCustomerOwnedIpOnLaunch}.}
 
-\item{EnableDns64}{Indicates whether DNS queries made to the Amazon-provided DNS Resolver
-in this subnet should return synthetic IPv6 addresses for IPv4-only
-destinations.
+\item{EnableDns64}{Indicates whether DNS queries made to the Amazon-provided DNS Resolver in this subnet should return synthetic IPv6 addresses for IPv4-only destinations.
 
-You must first configure a NAT gateway in a public subnet (separate from
-the subnet containing the IPv6-only workloads). For example, the subnet
-containing the NAT gateway should have a \verb{0.0.0.0/0} route pointing to
-the internet gateway. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-nat64-dns64.html#nat-gateway-nat64-dns64-walkthrough}{Configure DNS64 and NAT64}
-in the \emph{Amazon VPC User Guide}.}
+You must first configure a NAT gateway in a public subnet (separate from the subnet containing the IPv6-only workloads). For example, the subnet containing the NAT gateway should have a \verb{0.0.0.0/0} route pointing to the internet gateway. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-nat64-dns64.html#nat-gateway-nat64-dns64-walkthrough}{Configure DNS64 and NAT64} in the \emph{Amazon VPC User Guide}.}
 
-\item{PrivateDnsHostnameTypeOnLaunch}{The type of hostname to assign to instances in the subnet at launch. For
-IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name
-can be based on the instance IPv4 address (ip-name) or the instance ID
-(resource-name). For IPv6 only subnets, an instance DNS name must be
-based on the instance ID (resource-name).}
+\item{PrivateDnsHostnameTypeOnLaunch}{The type of hostname to assign to instances in the subnet at launch. For IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name can be based on the instance IPv4 address (ip-name) or the instance ID (resource-name). For IPv6 only subnets, an instance DNS name must be based on the instance ID (resource-name).}
 
-\item{EnableResourceNameDnsARecordOnLaunch}{Indicates whether to respond to DNS queries for instance hostnames with
-DNS A records.}
+\item{EnableResourceNameDnsARecordOnLaunch}{Indicates whether to respond to DNS queries for instance hostnames with DNS A records.}
 
-\item{EnableResourceNameDnsAAAARecordOnLaunch}{Indicates whether to respond to DNS queries for instance hostnames with
-DNS AAAA records.}
+\item{EnableResourceNameDnsAAAARecordOnLaunch}{Indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records.}
 
-\item{EnableLniAtDeviceIndex}{Indicates the device position for local network interfaces in this
-subnet. For example, \code{1} indicates local network interfaces in this
-subnet are the secondary network interface (eth1). A local network
-interface cannot be the primary network interface (eth0).}
+\item{EnableLniAtDeviceIndex}{Indicates the device position for local network interfaces in this subnet. For example, \code{1} indicates local network interfaces in this subnet are the secondary network interface (eth1). A local network interface cannot be the primary network interface (eth0).}
 
-\item{DisableLniAtDeviceIndex}{Specify \code{true} to indicate that local network interfaces at the current
-position should be disabled.}
+\item{DisableLniAtDeviceIndex}{Specify \code{true} to indicate that local network interfaces at the current position should be disabled.}
 }
 \description{
 Modifies a subnet attribute. You can only modify one attribute at a time.

@@ -9,12 +9,9 @@ lightsail_stop_instance(instanceName, force = NULL)
 \arguments{
 \item{instanceName}{[required] The name of the instance (a virtual private server) to stop.}
 
-\item{force}{When set to \code{True}, forces a Lightsail instance that is stuck in a
-\code{stopping} state to stop.
+\item{force}{When set to \code{True}, forces a Lightsail instance that is stuck in a \code{stopping} state to stop.
 
-Only use the \code{force} parameter if your instance is stuck in the
-\code{stopping} state. In any other state, your instance should stop normally
-without adding this parameter to your API request.}
+Only use the \code{force} parameter if your instance is stuck in the \code{stopping} state. In any other state, your instance should stop normally without adding this parameter to your API request.}
 }
 \description{
 Stops a specific Amazon Lightsail instance that is currently running.

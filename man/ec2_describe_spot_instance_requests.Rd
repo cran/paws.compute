@@ -13,97 +13,54 @@ ec2_describe_spot_instance_requests(
 )
 }
 \arguments{
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{SpotInstanceRequestIds}{The IDs of the Spot Instance requests.}
 
 \item{Filters}{The filters.
 \itemize{
 \item \code{availability-zone-group} - The Availability Zone group.
-\item \code{create-time} - The time stamp when the Spot Instance request was
-created.
+\item \code{create-time} - The time stamp when the Spot Instance request was created.
 \item \code{fault-code} - The fault code related to the request.
 \item \code{fault-message} - The fault message related to the request.
 \item \code{instance-id} - The ID of the instance that fulfilled the request.
 \item \code{launch-group} - The Spot Instance launch group.
-\item \code{launch.block-device-mapping.delete-on-termination} - Indicates
-whether the EBS volume is deleted on instance termination.
-\item \code{launch.block-device-mapping.device-name} - The device name for the
-volume in the block device mapping (for example, \verb{/dev/sdh} or
-\code{xvdh}).
-\item \code{launch.block-device-mapping.snapshot-id} - The ID of the snapshot
-for the EBS volume.
-\item \code{launch.block-device-mapping.volume-size} - The size of the EBS
-volume, in GiB.
-\item \code{launch.block-device-mapping.volume-type} - The type of EBS volume:
-\code{gp2} or \code{gp3} for General Purpose SSD, \code{io1} or \code{io2} for
-Provisioned IOPS SSD, \code{st1} for Throughput Optimized HDD, \code{sc1} for
-Cold HDD, or \code{standard} for Magnetic.
+\item \code{launch.block-device-mapping.delete-on-termination} - Indicates whether the EBS volume is deleted on instance termination.
+\item \code{launch.block-device-mapping.device-name} - The device name for the volume in the block device mapping (for example, \verb{/dev/sdh} or \code{xvdh}).
+\item \code{launch.block-device-mapping.snapshot-id} - The ID of the snapshot for the EBS volume.
+\item \code{launch.block-device-mapping.volume-size} - The size of the EBS volume, in GiB.
+\item \code{launch.block-device-mapping.volume-type} - The type of EBS volume: \code{gp2} or \code{gp3} for General Purpose SSD, \code{io1} or \code{io2} for Provisioned IOPS SSD, \code{st1} for Throughput Optimized HDD, \code{sc1} for Cold HDD, or \code{standard} for Magnetic.
 \item \code{launch.group-id} - The ID of the security group for the instance.
-\item \code{launch.group-name} - The name of the security group for the
-instance.
+\item \code{launch.group-name} - The name of the security group for the instance.
 \item \code{launch.image-id} - The ID of the AMI.
-\item \code{launch.instance-type} - The type of instance (for example,
-\code{m3.medium}).
+\item \code{launch.instance-type} - The type of instance (for example, \code{m3.medium}).
 \item \code{launch.kernel-id} - The kernel ID.
-\item \code{launch.key-name} - The name of the key pair the instance launched
-with.
-\item \code{launch.monitoring-enabled} - Whether detailed monitoring is enabled
-for the Spot Instance.
+\item \code{launch.key-name} - The name of the key pair the instance launched with.
+\item \code{launch.monitoring-enabled} - Whether detailed monitoring is enabled for the Spot Instance.
 \item \code{launch.ramdisk-id} - The RAM disk ID.
-\item \code{launched-availability-zone} - The Availability Zone in which the
-request is launched.
-\item \code{network-interface.addresses.primary} - Indicates whether the IP
-address is the primary private IP address.
-\item \code{network-interface.delete-on-termination} - Indicates whether the
-network interface is deleted when the instance is terminated.
-\item \code{network-interface.description} - A description of the network
-interface.
-\item \code{network-interface.device-index} - The index of the device for the
-network interface attachment on the instance.
-\item \code{network-interface.group-id} - The ID of the security group
-associated with the network interface.
-\item \code{network-interface.network-interface-id} - The ID of the network
-interface.
-\item \code{network-interface.private-ip-address} - The primary private IP
-address of the network interface.
-\item \code{network-interface.subnet-id} - The ID of the subnet for the
-instance.
-\item \code{product-description} - The product description associated with the
-instance (\code{Linux/UNIX} | \code{Windows}).
+\item \code{launched-availability-zone} - The Availability Zone in which the request is launched.
+\item \code{launched-availability-zone-id} - The ID of the Availability Zone in which the request is launched.
+\item \code{network-interface.addresses.primary} - Indicates whether the IP address is the primary private IP address.
+\item \code{network-interface.delete-on-termination} - Indicates whether the network interface is deleted when the instance is terminated.
+\item \code{network-interface.description} - A description of the network interface.
+\item \code{network-interface.device-index} - The index of the device for the network interface attachment on the instance.
+\item \code{network-interface.group-id} - The ID of the security group associated with the network interface.
+\item \code{network-interface.network-interface-id} - The ID of the network interface.
+\item \code{network-interface.private-ip-address} - The primary private IP address of the network interface.
+\item \code{network-interface.subnet-id} - The ID of the subnet for the instance.
+\item \code{product-description} - The product description associated with the instance (\code{Linux/UNIX} | \code{Windows}).
 \item \code{spot-instance-request-id} - The Spot Instance request ID.
-\item \code{spot-price} - The maximum hourly price for any Spot Instance
-launched to fulfill the request.
-\item \code{state} - The state of the Spot Instance request (\code{open} | \code{active}
-| \code{closed} | \code{cancelled} | \code{failed}). Spot request status
-information can help you track your Amazon EC2 Spot Instance
-requests. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html}{Spot request status}
-in the \emph{Amazon EC2 User Guide}.
-\item \code{status-code} - The short code describing the most recent evaluation
-of your Spot Instance request.
-\item \code{status-message} - The message explaining the status of the Spot
-Instance request.
-\item \verb{tag:<key>} - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources assigned a tag with a specific key,
-regardless of the tag value.
-\item \code{type} - The type of Spot Instance request (\code{one-time} |
-\code{persistent}).
+\item \code{spot-price} - The maximum hourly price for any Spot Instance launched to fulfill the request.
+\item \code{state} - The state of the Spot Instance request (\code{open} | \code{active} | \code{closed} | \code{cancelled} | \code{failed}). Spot request status information can help you track your Amazon EC2 Spot Instance requests. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html}{Spot request status} in the \emph{Amazon EC2 User Guide}.
+\item \code{status-code} - The short code describing the most recent evaluation of your Spot Instance request.
+\item \code{status-message} - The message explaining the status of the Spot Instance request.
+\item \verb{tag:<key>} - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
+\item \code{type} - The type of Spot Instance request (\code{one-time} | \code{persistent}).
 \item \code{valid-from} - The start date of the request.
 \item \code{valid-until} - The end date of the request.
 }}

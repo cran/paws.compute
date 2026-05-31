@@ -9,8 +9,7 @@ lightsail_delete_instance(instanceName, forceDeleteAddOns = NULL)
 \arguments{
 \item{instanceName}{[required] The name of the instance to delete.}
 
-\item{forceDeleteAddOns}{A Boolean value to indicate whether to delete all add-ons for the
-instance.}
+\item{forceDeleteAddOns}{A Boolean value to indicate whether to delete all add-ons for the instance.}
 }
 \description{
 Deletes an Amazon Lightsail instance.

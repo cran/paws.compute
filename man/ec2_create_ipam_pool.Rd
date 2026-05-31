@@ -25,93 +25,45 @@ ec2_create_ipam_pool(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamScopeId}{[required] The ID of the scope in which you would like to create the IPAM pool.}
 
 \item{Locale}{The locale for the pool should be one of the following:
 \itemize{
-\item An Amazon Web Services Region where you want this IPAM pool to be
-available for allocations.
-\item The network border group for an Amazon Web Services Local Zone where
-you want this IPAM pool to be available for allocations (\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html#byoip-zone-avail}{supported Local Zones}).
-This option is only available for IPAM IPv4 pools in the public
-scope.
+\item An Amazon Web Services Region where you want this IPAM pool to be available for allocations.
+\item The network border group for an Amazon Web Services Local Zone where you want this IPAM pool to be available for allocations (\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html#byoip-zone-avail}{supported Local Zones}). This option is only available for IPAM IPv4 pools in the public scope.
 }
 
-Possible values: Any Amazon Web Services Region or supported Amazon Web
-Services Local Zone. Default is \code{none} and means any locale.}
+Possible values: Any Amazon Web Services Region or supported Amazon Web Services Local Zone. Default is \code{none} and means any locale.}
 
-\item{SourceIpamPoolId}{The ID of the source IPAM pool. Use this option to create a pool within
-an existing pool. Note that the CIDR you provision for the pool within
-the source pool must be available in the source pool's CIDR range.}
+\item{SourceIpamPoolId}{The ID of the source IPAM pool. Use this option to create a pool within an existing pool. Note that the CIDR you provision for the pool within the source pool must be available in the source pool's CIDR range.}
 
 \item{Description}{A description for the IPAM pool.}
 
-\item{AddressFamily}{[required] The IP protocol assigned to this IPAM pool. You must choose either IPv4
-or IPv6 protocol for a pool.}
+\item{AddressFamily}{[required] The IP protocol assigned to this IPAM pool. You must choose either IPv4 or IPv6 protocol for a pool.}
 
-\item{AutoImport}{If selected, IPAM will continuously look for resources within the CIDR
-range of this pool and automatically import them as allocations into
-your IPAM. The CIDRs that will be allocated for these resources must not
-already be allocated to other resources in order for the import to
-succeed. IPAM will import a CIDR regardless of its compliance with the
-pool's allocation rules, so a resource might be imported and
-subsequently marked as noncompliant. If IPAM discovers multiple CIDRs
-that overlap, IPAM will import the largest CIDR only. If IPAM discovers
-multiple CIDRs with matching CIDRs, IPAM will randomly import one of
-them only.
+\item{AutoImport}{If selected, IPAM will continuously look for resources within the CIDR range of this pool and automatically import them as allocations into your IPAM. The CIDRs that will be allocated for these resources must not already be allocated to other resources in order for the import to succeed. IPAM will import a CIDR regardless of its compliance with the pool's allocation rules, so a resource might be imported and subsequently marked as noncompliant. If IPAM discovers multiple CIDRs that overlap, IPAM will import the largest CIDR only. If IPAM discovers multiple CIDRs with matching CIDRs, IPAM will randomly import one of them only.
 
 A locale must be set on the pool for this feature to work.}
 
-\item{PubliclyAdvertisable}{Determines if the pool is publicly advertisable. The request can only
-contain \code{PubliclyAdvertisable} if \code{AddressFamily} is \code{ipv6} and
-\code{PublicIpSource} is \code{byoip}.}
+\item{PubliclyAdvertisable}{Determines if the pool is publicly advertisable. The request can only contain \code{PubliclyAdvertisable} if \code{AddressFamily} is \code{ipv6} and \code{PublicIpSource} is \code{byoip}.}
 
-\item{AllocationMinNetmaskLength}{The minimum netmask length required for CIDR allocations in this IPAM
-pool to be compliant. The minimum netmask length must be less than the
-maximum netmask length. Possible netmask lengths for IPv4 addresses are
-0 - 32. Possible netmask lengths for IPv6 addresses are 0 - 128.}
+\item{AllocationMinNetmaskLength}{The minimum netmask length required for CIDR allocations in this IPAM pool to be compliant. The minimum netmask length must be less than the maximum netmask length. Possible netmask lengths for IPv4 addresses are 0 - 32. Possible netmask lengths for IPv6 addresses are 0 - 128.}
 
-\item{AllocationMaxNetmaskLength}{The maximum netmask length possible for CIDR allocations in this IPAM
-pool to be compliant. The maximum netmask length must be greater than
-the minimum netmask length. Possible netmask lengths for IPv4 addresses
-are 0 - 32. Possible netmask lengths for IPv6 addresses are 0 - 128.}
+\item{AllocationMaxNetmaskLength}{The maximum netmask length possible for CIDR allocations in this IPAM pool to be compliant. The maximum netmask length must be greater than the minimum netmask length. Possible netmask lengths for IPv4 addresses are 0 - 32. Possible netmask lengths for IPv6 addresses are 0 - 128.}
 
-\item{AllocationDefaultNetmaskLength}{The default netmask length for allocations added to this pool. If, for
-example, the CIDR assigned to this pool is 10.0.0.0/8 and you enter 16
-here, new allocations will default to 10.0.0.0/16.}
+\item{AllocationDefaultNetmaskLength}{The default netmask length for allocations added to this pool. If, for example, the CIDR assigned to this pool is 10.0.0.0/8 and you enter 16 here, new allocations will default to 10.0.0.0/16.}
 
-\item{AllocationResourceTags}{Tags that are required for resources that use CIDRs from this IPAM pool.
-Resources that do not have these tags will not be allowed to allocate
-space from the pool. If the resources have their tags changed after they
-have allocated space or if the allocation tagging requirements are
-changed on the pool, the resource may be marked as noncompliant.}
+\item{AllocationResourceTags}{Tags that are required for resources that use CIDRs from this IPAM pool. Resources that do not have these tags will not be allowed to allocate space from the pool. If the resources have their tags changed after they have allocated space or if the allocation tagging requirements are changed on the pool, the resource may be marked as noncompliant.}
 
-\item{TagSpecifications}{The key/value combination of a tag assigned to the resource. Use the tag
-key in the filter name and the tag value as the filter value. For
-example, to find all resources that have a tag with the key \code{Owner} and
-the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA}
-for the filter value.}
+\item{TagSpecifications}{The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.}
 
-\item{ClientToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
-\item{AwsService}{Limits which service in Amazon Web Services that the pool can be used
-in. "ec2", for example, allows users to use space for Elastic IP
-addresses and VPCs.}
+\item{AwsService}{Limits which service in Amazon Web Services that the pool can be used in. "ec2", for example, allows users to use space for Elastic IP addresses and VPCs.}
 
-\item{PublicIpSource}{The IP address source for pools in the public scope. Only used for
-provisioning IP address CIDRs to pools in the public scope. Default is
-\code{byoip}. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/intro-create-ipv6-pools.html}{Create IPv6 pools}
-in the \emph{Amazon VPC IPAM User Guide}. By default, you can add only one
-Amazon-provided IPv6 CIDR block to a top-level IPv6 pool if
-PublicIpSource is \code{amazon}. For information on increasing the default
-limit, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/quotas-ipam.html}{Quotas for your IPAM} in
-the \emph{Amazon VPC IPAM User Guide}.}
+\item{PublicIpSource}{The IP address source for pools in the public scope. Only used for provisioning IP address CIDRs to pools in the public scope. Default is \code{byoip}. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/intro-create-ipv6-pools.html}{Create IPv6 pools} in the \emph{Amazon VPC IPAM User Guide}. By default, you can add only one Amazon-provided IPv6 CIDR block to a top-level IPv6 pool if PublicIpSource is \code{amazon}. For information on increasing the default limit, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/quotas-ipam.html}{Quotas for your IPAM} in the \emph{Amazon VPC IPAM User Guide}.}
 
 \item{SourceResource}{The resource used to provision CIDRs to a resource planning pool.}
 }

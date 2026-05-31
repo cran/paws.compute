@@ -13,37 +13,23 @@ ec2_describe_nat_gateways(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filter}{The filters.
 \itemize{
 \item \code{nat-gateway-id} - The ID of the NAT gateway.
-\item \code{state} - The state of the NAT gateway (\code{pending} | \code{failed} |
-\code{available} | \code{deleting} | \code{deleted}).
+\item \code{state} - The state of the NAT gateway (\code{pending} | \code{failed} | \code{available} | \code{deleting} | \code{deleted}).
 \item \code{subnet-id} - The ID of the subnet in which the NAT gateway resides.
-\item \code{tag} - The key/value combination of a tag assigned to the resource.
-Use the tag key in the filter name and the tag value as the filter
-value. For example, to find all resources that have a tag with the
-key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the
-filter name and \code{TeamA} for the filter value.
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources assigned a tag with a specific key,
-regardless of the tag value.
+\item \code{tag} - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
 \item \code{vpc-id} - The ID of the VPC in which the NAT gateway resides.
 }}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
 \item{NatGatewayIds}{The IDs of the NAT gateways.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 }
 \description{
 Describes your NAT gateways. The default is to describe all your NAT gateways. Alternatively, you can specify specific NAT gateway IDs or filter the results to include only the NAT gateways that match specific criteria.

@@ -22,48 +22,31 @@ imagebuilder_import_component(
 \arguments{
 \item{name}{[required] The name of the component.}
 
-\item{semanticVersion}{[required] The semantic version of the component. This version follows the semantic
-version syntax.
+\item{semanticVersion}{[required] The semantic version of the component. This version follows the semantic version syntax.
 
-The semantic version has four nodes:
-\<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the
-first three, and can filter on all of them.
+The semantic version has four nodes: \<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the first three, and can filter on all of them.
 
-\strong{Filtering:} With semantic versioning, you have the flexibility to use
-wildcards (x) to specify the most recent versions or nodes when
-selecting the base image or components for your recipe. When you use a
-wildcard in any node, all nodes to the right of the first wildcard must
-also be wildcards.}
+\strong{Filtering:} With semantic versioning, you have the flexibility to use wildcards (x) to specify the most recent versions or nodes when selecting the base image or components for your recipe. When you use a wildcard in any node, all nodes to the right of the first wildcard must also be wildcards.}
 
-\item{description}{The description of the component. Describes the contents of the
-component.}
+\item{description}{The description of the component. Describes the contents of the component.}
 
-\item{changeDescription}{The change description of the component. This description indicates the
-change that has been made in this version, or what makes this version
-different from other versions of the component.}
+\item{changeDescription}{The change description of the component. This description indicates the change that has been made in this version, or what makes this version different from other versions of the component.}
 
-\item{type}{[required] The type of the component denotes whether the component is used to build
-the image, or only to test it.}
+\item{type}{[required] The type of the component denotes whether the component is used to build the image, or only to test it.}
 
 \item{format}{[required] The format of the resource that you want to import as a component.}
 
 \item{platform}{[required] The platform of the component.}
 
-\item{data}{The data of the component. Used to specify the data inline. Either
-\code{data} or \code{uri} can be used to specify the data within the component.}
+\item{data}{The data of the component. Used to specify the data inline. Either \code{data} or \code{uri} can be used to specify the data within the component.}
 
-\item{uri}{The uri of the component. Must be an Amazon S3 URL and the requester
-must have permission to access the Amazon S3 bucket. If you use Amazon
-S3, you can specify component content up to your service quota. Either
-\code{data} or \code{uri} can be used to specify the data within the component.}
+\item{uri}{The uri of the component. Must be an Amazon S3 URL and the requester must have permission to access the Amazon S3 bucket. If you use Amazon S3, you can specify component content up to your service quota. Either \code{data} or \code{uri} can be used to specify the data within the component.}
 
-\item{kmsKeyId}{The ID of the KMS key that should be used to encrypt this component.}
+\item{kmsKeyId}{The Amazon Resource Name (ARN) that uniquely identifies the KMS key used to encrypt this component. This can be either the Key ARN or the Alias ARN. For more information, see \href{https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN}{Key identifiers (KeyId)} in the \emph{Key Management Service Developer Guide}.}
 
 \item{tags}{The tags of the component.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 Imports a component and transforms its data into a component document.

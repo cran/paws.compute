@@ -8,8 +8,7 @@ instance of the lifecycle policy}
 imagebuilder_get_lifecycle_execution(lifecycleExecutionId)
 }
 \arguments{
-\item{lifecycleExecutionId}{[required] Use the unique identifier for a runtime instance of the lifecycle policy
-to get runtime details.}
+\item{lifecycleExecutionId}{[required] Use the unique identifier for a runtime instance of the lifecycle policy to get runtime details.}
 }
 \description{
 Get the runtime information that was logged for a specific runtime instance of the lifecycle policy.

@@ -7,9 +7,7 @@
 ecr_put_registry_policy(policyText)
 }
 \arguments{
-\item{policyText}{[required] The JSON policy text to apply to your registry. The policy text follows
-the same format as IAM policy text. For more information, see \href{https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html}{Registry permissions}
-in the \emph{Amazon Elastic Container Registry User Guide}.}
+\item{policyText}{[required] The JSON policy text to apply to your registry. The policy text follows the same format as IAM policy text. For more information, see \href{https://docs.aws.amazon.com/AmazonECR/latest/userguide/registry-permissions.html}{Registry permissions} in the \emph{Amazon Elastic Container Registry User Guide}.}
 }
 \description{
 Creates or updates the permissions policy for your registry.

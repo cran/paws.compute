@@ -7,13 +7,11 @@
 ecr_start_image_scan(registryId = NULL, repositoryName, imageId)
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the repository in which to start an image scan request. If you
-do not specify a registry, the default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the repository in which to start an image scan request. If you do not specify a registry, the default registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository that contains the images to scan.}
 
-\item{imageId}{[required]}
+\item{imageId}{[required] An object with identifying information for an image in an Amazon ECR repository.}
 }
 \description{
 Starts a basic image vulnerability scan.

@@ -17,18 +17,15 @@ lambda_put_provisioned_concurrency_config(
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} – \verb{my-function}.
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
 \item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it is limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
 \item{Qualifier}{[required] The version number or alias name.}
 
-\item{ProvisionedConcurrentExecutions}{[required] The amount of provisioned concurrency to allocate for the version or
-alias.}
+\item{ProvisionedConcurrentExecutions}{[required] The amount of provisioned concurrency to allocate for the version or alias.}
 }
 \description{
 Adds a provisioned concurrency configuration to a function's alias or version.

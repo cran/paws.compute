@@ -17,24 +17,15 @@ lightsail_create_load_balancer_tls_certificate(
 
 \item{certificateName}{[required] The SSL/TLS certificate name.
 
-You can have up to 10 certificates in your account at one time. Each
-Lightsail load balancer can have up to 2 certificates associated with it
-at one time. There is also an overall limit to the number of
-certificates that can be issue in a 365-day period. For more
-information, see
-\href{https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html}{Limits}.}
+You can have up to 10 certificates in your account at one time. Each Lightsail load balancer can have up to 2 certificates associated with it at one time. There is also an overall limit to the number of certificates that can be issue in a 365-day period. For more information, see \href{https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html}{Limits}.}
 
 \item{certificateDomainName}{[required] The domain name (\code{example.com}) for your SSL/TLS certificate.}
 
-\item{certificateAlternativeNames}{An array of strings listing alternative domains and subdomains for your
-SSL/TLS certificate. Lightsail will de-dupe the names for you. You can
-have a maximum of 9 alternative names (in addition to the 1 primary
-domain). We do not support wildcards (\verb{*.example.com}).}
+\item{certificateAlternativeNames}{An array of strings listing alternative domains and subdomains for your SSL/TLS certificate. Lightsail will de-dupe the names for you. You can have a maximum of 9 alternative names (in addition to the 1 primary domain). We do not support wildcards (\verb{*.example.com}).}
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 }
 \description{
 Creates an SSL/TLS certificate for an Amazon Lightsail load balancer.

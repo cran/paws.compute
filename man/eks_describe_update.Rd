@@ -4,19 +4,24 @@
 \alias{eks_describe_update}
 \title{Describes an update to an Amazon EKS resource}
 \usage{
-eks_describe_update(name, updateId, nodegroupName = NULL, addonName = NULL)
+eks_describe_update(
+  name,
+  updateId,
+  nodegroupName = NULL,
+  addonName = NULL,
+  capabilityName = NULL
+)
 }
 \arguments{
 \item{name}{[required] The name of the Amazon EKS cluster associated with the update.}
 
 \item{updateId}{[required] The ID of the update to describe.}
 
-\item{nodegroupName}{The name of the Amazon EKS node group associated with the update. This
-parameter is required if the update is a node group update.}
+\item{nodegroupName}{The name of the Amazon EKS node group associated with the update. This parameter is required if the update is a node group update.}
 
-\item{addonName}{The name of the add-on. The name must match one of the names returned by
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{list_addons}}
-. This parameter is required if the update is an add-on update.}
+\item{addonName}{The name of the add-on. The name must match one of the names returned by \href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{list_addons}} . This parameter is required if the update is an add-on update.}
+
+\item{capabilityName}{The name of the capability for which you want to describe updates.}
 }
 \description{
 Describes an update to an Amazon EKS resource.

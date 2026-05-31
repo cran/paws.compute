@@ -7,8 +7,7 @@
 imagebuilder_get_container_recipe_policy(containerRecipeArn)
 }
 \arguments{
-\item{containerRecipeArn}{[required] The Amazon Resource Name (ARN) of the container recipe for the policy
-being requested.}
+\item{containerRecipeArn}{[required] The Amazon Resource Name (ARN) of the container recipe for the policy being requested.}
 }
 \description{
 Retrieves the policy for a container recipe.

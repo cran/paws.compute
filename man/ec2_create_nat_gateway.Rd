@@ -5,10 +5,13 @@
 \title{Creates a NAT gateway in the specified subnet}
 \usage{
 ec2_create_nat_gateway(
+  AvailabilityMode = NULL,
   AllocationId = NULL,
   ClientToken = NULL,
   DryRun = NULL,
-  SubnetId,
+  SubnetId = NULL,
+  VpcId = NULL,
+  AvailabilityZoneAddresses = NULL,
   TagSpecifications = NULL,
   ConnectivityType = NULL,
   PrivateIpAddress = NULL,
@@ -18,43 +21,41 @@ ec2_create_nat_gateway(
 )
 }
 \arguments{
-\item{AllocationId}{[Public NAT gateways only] The allocation ID of an Elastic IP address
-to associate with the NAT gateway. You cannot specify an Elastic IP
-address with a private NAT gateway. If the Elastic IP address is
-associated with another resource, you must first disassociate it.}
+\item{AvailabilityMode}{Specifies whether to create a zonal (single-AZ) or regional (multi-AZ) NAT gateway. Defaults to \code{zonal}.
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
+A zonal NAT gateway is a NAT Gateway that provides redundancy and scalability within a single availability zone. A regional NAT gateway is a single NAT Gateway that works across multiple availability zones (AZs) in your VPC, providing redundancy, scalability and availability across all the AZs in a Region.
+
+For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html}{Regional NAT gateways for automatic multi-AZ expansion} in the \emph{Amazon VPC User Guide}.}
+
+\item{AllocationId}{[Public NAT gateways only] The allocation ID of an Elastic IP address to associate with the NAT gateway. You cannot specify an Elastic IP address with a private NAT gateway. If the Elastic IP address is associated with another resource, you must first disassociate it.}
+
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
 
 Constraint: Maximum 64 ASCII characters.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{SubnetId}{[required] The ID of the subnet in which to create the NAT gateway.}
+\item{SubnetId}{The ID of the subnet in which to create the NAT gateway.}
+
+\item{VpcId}{The ID of the VPC where you want to create a regional NAT gateway.}
+
+\item{AvailabilityZoneAddresses}{For regional NAT gateways only: Specifies which Availability Zones you want the NAT gateway to support and the Elastic IP addresses (EIPs) to use in each AZ. The regional NAT gateway uses these EIPs to handle outbound NAT traffic from their respective AZs. If not specified, the NAT gateway will automatically expand to new AZs and associate EIPs upon detection of an elastic network interface. If you specify this parameter, auto-expansion is disabled and you must manually manage AZ coverage.
+
+A regional NAT gateway is a single NAT Gateway that works across multiple availability zones (AZs) in your VPC, providing redundancy, scalability and availability across all the AZs in a Region.
+
+For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateways-regional.html}{Regional NAT gateways for automatic multi-AZ expansion} in the \emph{Amazon VPC User Guide}.}
 
 \item{TagSpecifications}{The tags to assign to the NAT gateway.}
 
-\item{ConnectivityType}{Indicates whether the NAT gateway supports public or private
-connectivity. The default is public connectivity.}
+\item{ConnectivityType}{Indicates whether the NAT gateway supports public or private connectivity. The default is public connectivity.}
 
-\item{PrivateIpAddress}{The private IPv4 address to assign to the NAT gateway. If you don't
-provide an address, a private IPv4 address will be automatically
-assigned.}
+\item{PrivateIpAddress}{The private IPv4 address to assign to the NAT gateway. If you don't provide an address, a private IPv4 address will be automatically assigned.}
 
-\item{SecondaryAllocationIds}{Secondary EIP allocation IDs. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html}{Create a NAT gateway}
-in the \emph{Amazon VPC User Guide}.}
+\item{SecondaryAllocationIds}{Secondary EIP allocation IDs. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html}{Create a NAT gateway} in the \emph{Amazon VPC User Guide}.}
 
-\item{SecondaryPrivateIpAddresses}{Secondary private IPv4 addresses. For more information about secondary
-addresses, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html}{Create a NAT gateway}
-in the \emph{Amazon VPC User Guide}.}
+\item{SecondaryPrivateIpAddresses}{Secondary private IPv4 addresses. For more information about secondary addresses, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html}{Create a NAT gateway} in the \emph{Amazon VPC User Guide}.}
 
-\item{SecondaryPrivateIpAddressCount}{[Private NAT gateway only] The number of secondary private IPv4
-addresses you want to assign to the NAT gateway. For more information
-about secondary addresses, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html}{Create a NAT gateway}
-in the \emph{Amazon VPC User Guide}.}
+\item{SecondaryPrivateIpAddressCount}{[Private NAT gateway only] The number of secondary private IPv4 addresses you want to assign to the NAT gateway. For more information about secondary addresses, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html}{Create a NAT gateway} in the \emph{Amazon VPC User Guide}.}
 }
 \description{
 Creates a NAT gateway in the specified subnet. This action creates a network interface in the specified subnet with a private IP address from the IP address range of the subnet. You can create either a public NAT gateway or a private NAT gateway.

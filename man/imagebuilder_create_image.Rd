@@ -15,41 +15,34 @@ imagebuilder_create_image(
   clientToken,
   imageScanningConfiguration = NULL,
   workflows = NULL,
-  executionRole = NULL
+  executionRole = NULL,
+  loggingConfiguration = NULL
 )
 }
 \arguments{
-\item{imageRecipeArn}{The Amazon Resource Name (ARN) of the image recipe that defines how
-images are configured, tested, and assessed.}
+\item{imageRecipeArn}{The Amazon Resource Name (ARN) of the image recipe that defines how images are configured, tested, and assessed.}
 
-\item{containerRecipeArn}{The Amazon Resource Name (ARN) of the container recipe that defines how
-images are configured and tested.}
+\item{containerRecipeArn}{The Amazon Resource Name (ARN) of the container recipe that defines how images are configured and tested.}
 
-\item{distributionConfigurationArn}{The Amazon Resource Name (ARN) of the distribution configuration that
-defines and configures the outputs of your pipeline.}
+\item{distributionConfigurationArn}{The Amazon Resource Name (ARN) of the distribution configuration that defines and configures the outputs of your pipeline.}
 
-\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration that
-defines the environment in which your image will be built and tested.}
+\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration that defines the environment in which your image will be built and tested.}
 
 \item{imageTestsConfiguration}{The image tests configuration of the image.}
 
-\item{enhancedImageMetadataEnabled}{Collects additional information about the image being created, including
-the operating system (OS) version and package list. This information is
-used to enhance the overall experience of using EC2 Image Builder.
-Enabled by default.}
+\item{enhancedImageMetadataEnabled}{Collects additional information about the image being created, including the operating system (OS) version and package list. This information is used to enhance the overall experience of using EC2 Image Builder. Enabled by default.}
 
 \item{tags}{The tags of the image.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 
 \item{imageScanningConfiguration}{Contains settings for vulnerability scans.}
 
 \item{workflows}{Contains an array of workflow configuration objects.}
 
-\item{executionRole}{The name or Amazon Resource Name (ARN) for the IAM role you create that
-grants Image Builder access to perform workflow actions.}
+\item{executionRole}{The name or Amazon Resource Name (ARN) for the IAM role you create that grants Image Builder access to perform workflow actions.}
+
+\item{loggingConfiguration}{Define logging configuration for the image build process.}
 }
 \description{
 Creates a new image. This request will create a new image along with all of the configured output resources defined in the distribution configuration. You must specify exactly one recipe for your image, using either a ContainerRecipeArn or an ImageRecipeArn.

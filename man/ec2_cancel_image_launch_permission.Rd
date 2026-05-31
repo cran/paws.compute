@@ -10,10 +10,7 @@ ec2_cancel_image_launch_permission(ImageId, DryRun = NULL)
 \arguments{
 \item{ImageId}{[required] The ID of the AMI that was shared with your Amazon Web Services account.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Removes your Amazon Web Services account from the launch permissions for the specified AMI. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/cancel-sharing-an-AMI.html}{Cancel having an AMI shared with your Amazon Web Services account} in the \emph{Amazon EC2 User Guide}.

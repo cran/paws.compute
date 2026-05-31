@@ -5,21 +5,7 @@ NULL
 #' AWS Compute Optimizer
 #'
 #' @description
-#' Compute Optimizer is a service that analyzes the configuration and
-#' utilization metrics of your Amazon Web Services compute resources, such
-#' as Amazon EC2 instances, Amazon EC2 Auto Scaling groups, Lambda
-#' functions, Amazon EBS volumes, and Amazon ECS services on Fargate. It
-#' reports whether your resources are optimal, and generates optimization
-#' recommendations to reduce the cost and improve the performance of your
-#' workloads. Compute Optimizer also provides recent utilization metric
-#' data, in addition to projected utilization metric data for the
-#' recommendations, which you can use to evaluate which recommendation
-#' provides the best price-performance trade-off. The analysis of your
-#' usage patterns can help you decide when to move or resize your running
-#' resources, and still meet your performance and capacity requirements.
-#' For more information about Compute Optimizer, including the required
-#' permissions to use the service, see the [Compute Optimizer User
-#' Guide](https://docs.aws.amazon.com/compute-optimizer/latest/ug/).
+#' Compute Optimizer is a service that analyzes the configuration and utilization metrics of your Amazon Web Services compute resources, such as Amazon EC2 instances, Amazon EC2 Auto Scaling groups, Lambda functions, Amazon EBS volumes, and Amazon ECS services on Fargate. It reports whether your resources are optimal, and generates optimization recommendations to reduce the cost and improve the performance of your workloads. Compute Optimizer also provides recent utilization metric data, in addition to projected utilization metric data for the recommendations, which you can use to evaluate which recommendation provides the best price-performance trade-off. The analysis of your usage patterns can help you decide when to move or resize your running resources, and still meet your performance and capacity requirements. For more information about Compute Optimizer, including the required permissions to use the service, see the [Compute Optimizer User Guide](https://docs.aws.amazon.com/compute-optimizer/latest/ug/).
 #'
 #' @param
 #' config
@@ -113,7 +99,7 @@ NULL
 #'  \link[=computeoptimizer_export_idle_recommendations]{export_idle_recommendations} \tab Export optimization recommendations for your idle resources\cr
 #'  \link[=computeoptimizer_export_lambda_function_recommendations]{export_lambda_function_recommendations} \tab Exports optimization recommendations for Lambda functions\cr
 #'  \link[=computeoptimizer_export_license_recommendations]{export_license_recommendations} \tab Export optimization recommendations for your licenses\cr
-#'  \link[=computeoptimizer_export_rds_database_recommendations]{export_rds_database_recommendations} \tab Export optimization recommendations for your Amazon Relational Database Service (Amazon RDS)\cr
+#'  \link[=computeoptimizer_export_rds_database_recommendations]{export_rds_database_recommendations} \tab Export optimization recommendations for your Amazon Aurora and Amazon Relational Database Service (Amazon RDS) databases\cr
 #'  \link[=computeoptimizer_get_auto_scaling_group_recommendations]{get_auto_scaling_group_recommendations} \tab Returns Auto Scaling group recommendations\cr
 #'  \link[=computeoptimizer_get_ebs_volume_recommendations]{get_ebs_volume_recommendations} \tab Returns Amazon Elastic Block Store (Amazon EBS) volume recommendations\cr
 #'  \link[=computeoptimizer_get_ec2_instance_recommendations]{get_ec2_instance_recommendations} \tab Returns Amazon EC2 instance recommendations\cr
@@ -126,8 +112,8 @@ NULL
 #'  \link[=computeoptimizer_get_idle_recommendations]{get_idle_recommendations} \tab Returns idle resource recommendations\cr
 #'  \link[=computeoptimizer_get_lambda_function_recommendations]{get_lambda_function_recommendations} \tab Returns Lambda function recommendations\cr
 #'  \link[=computeoptimizer_get_license_recommendations]{get_license_recommendations} \tab Returns license recommendations for Amazon EC2 instances that run on a specific license\cr
-#'  \link[=computeoptimizer_get_rds_database_recommendation_projected_metrics]{get_rds_database_recommendation_projected_metrics} \tab Returns the projected metrics of Amazon RDS recommendations\cr
-#'  \link[=computeoptimizer_get_rds_database_recommendations]{get_rds_database_recommendations} \tab Returns Amazon RDS recommendations\cr
+#'  \link[=computeoptimizer_get_rds_database_recommendation_projected_metrics]{get_rds_database_recommendation_projected_metrics} \tab Returns the projected metrics of Aurora and RDS database recommendations\cr
+#'  \link[=computeoptimizer_get_rds_database_recommendations]{get_rds_database_recommendations} \tab Returns Amazon Aurora and RDS database recommendations\cr
 #'  \link[=computeoptimizer_get_recommendation_preferences]{get_recommendation_preferences} \tab Returns existing recommendation preferences, such as enhanced infrastructure metrics\cr
 #'  \link[=computeoptimizer_get_recommendation_summaries]{get_recommendation_summaries} \tab Returns the optimization findings for an account\cr
 #'  \link[=computeoptimizer_put_recommendation_preferences]{put_recommendation_preferences} \tab Creates a new recommendation preference or updates an existing recommendation preference, such as enhanced infrastructure metrics\cr
@@ -163,7 +149,7 @@ computeoptimizer <- function(config = list(), credentials = list(), endpoint = N
 
 .computeoptimizer$metadata <- list(
   service_name = "computeoptimizer",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "compute-optimizer.{region}.amazonaws.eu", global = FALSE)),
   service_id = "Compute Optimizer",
   api_version = "2019-11-01",
   signing_name = "compute-optimizer",
@@ -172,6 +158,6 @@ computeoptimizer <- function(config = list(), credentials = list(), endpoint = N
 )
 
 .computeoptimizer$service <- function(config = list(), op = NULL) {
-  handlers <- new_handlers("jsonrpc", "v4")
+  handlers <- new_handlers("smithyrpcv2cbor", "v4")
   new_service(.computeoptimizer$metadata, handlers, config, op)
 }

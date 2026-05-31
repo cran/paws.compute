@@ -17,8 +17,7 @@ lightsail_create_instance_snapshot(
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 }
 \description{
 Creates a snapshot of a specific virtual private server, or \emph{instance}. You can use a snapshot to create a new instance that is based on that snapshot.

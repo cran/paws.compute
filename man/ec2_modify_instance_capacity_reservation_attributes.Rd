@@ -15,10 +15,7 @@ ec2_modify_instance_capacity_reservation_attributes(
 
 \item{CapacityReservationSpecification}{[required] Information about the Capacity Reservation targeting option.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Modifies the Capacity Reservation settings for a stopped instance. Use this action to configure an instance to target a specific Capacity Reservation, run in any \code{open} Capacity Reservation with matching attributes, run in On-Demand Instance capacity, or only run in a Capacity Reservation.

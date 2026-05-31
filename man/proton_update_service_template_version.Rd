@@ -15,29 +15,21 @@ proton_update_service_template_version(
 )
 }
 \arguments{
-\item{compatibleEnvironmentTemplates}{An array of environment template objects that are compatible with this
-service template version. A service instance based on this service
-template version can run in environments based on compatible templates.}
+\item{compatibleEnvironmentTemplates}{An array of environment template objects that are compatible with this service template version. A service instance based on this service template version can run in environments based on compatible templates.}
 
 \item{description}{A description of a service template version to update.}
 
-\item{majorVersion}{[required] To update a major version of a service template, include
-\verb{major Version}.}
+\item{majorVersion}{[required] To update a major version of a service template, include \verb{major Version}.}
 
 \item{minorVersion}{[required] To update a minor version of a service template, include \code{minorVersion}.}
 
 \item{status}{The status of the service template minor version to update.}
 
-\item{supportedComponentSources}{An array of supported component sources. Components with supported
-sources can be attached to service instances based on this service
-template version.
+\item{supportedComponentSources}{An array of supported component sources. Components with supported sources can be attached to service instances based on this service template version.
 
-A change to \code{supportedComponentSources} doesn't impact existing
-component attachments to instances based on this template version. A
-change only affects later associations.
+A change to \code{supportedComponentSources} doesn't impact existing component attachments to instances based on this template version. A change only affects later associations.
 
-For more information about components, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html}{Proton components}
-in the \emph{Proton User Guide}.}
+For more information about components, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html}{Proton components} in the \emph{Proton User Guide}.}
 
 \item{templateName}{[required] The name of the service template.}
 }

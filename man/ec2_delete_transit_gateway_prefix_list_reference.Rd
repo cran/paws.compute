@@ -16,10 +16,7 @@ ec2_delete_transit_gateway_prefix_list_reference(
 
 \item{PrefixListId}{[required] The ID of the prefix list.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes a reference (route) to a prefix list in a specified transit gateway route table.

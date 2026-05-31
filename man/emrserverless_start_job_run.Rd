@@ -8,6 +8,7 @@ emrserverless_start_job_run(
   applicationId,
   clientToken,
   executionRoleArn,
+  executionIamPolicy = NULL,
   jobDriver = NULL,
   configurationOverrides = NULL,
   tags = NULL,
@@ -20,10 +21,11 @@ emrserverless_start_job_run(
 \arguments{
 \item{applicationId}{[required] The ID of the application on which to run the job.}
 
-\item{clientToken}{[required] The client idempotency token of the job run to start. Its value must be
-unique for each request.}
+\item{clientToken}{[required] The client idempotency token of the job run to start. Its value must be unique for each request.}
 
 \item{executionRoleArn}{[required] The execution role ARN for the job run.}
+
+\item{executionIamPolicy}{You can pass an optional IAM policy. The resulting job IAM role permissions will be an intersection of this policy and the policy associated with your job execution role.}
 
 \item{jobDriver}{The job driver for the job run.}
 
@@ -31,8 +33,7 @@ unique for each request.}
 
 \item{tags}{The tags assigned to the job run.}
 
-\item{executionTimeoutMinutes}{The maximum duration for the job run to run. If the job run runs beyond
-this duration, it will be automatically cancelled.}
+\item{executionTimeoutMinutes}{The maximum duration for the job run to run. If the job run runs beyond this duration, it will be automatically cancelled.}
 
 \item{name}{The optional job run name. This doesn't have to be unique.}
 

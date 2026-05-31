@@ -10,14 +10,9 @@ ec2_replace_image_criteria_in_allowed_images_settings(
 )
 }
 \arguments{
-\item{ImageCriteria}{The list of criteria that are evaluated to determine whether AMIs are
-discoverable and usable in the account in the specified Amazon Web
-Services Region.}
+\item{ImageCriteria}{The list of criteria that are evaluated to determine whether AMIs are discoverable and usable in the account in the specified Amazon Web Services Region.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Sets or replaces the criteria for Allowed AMIs.

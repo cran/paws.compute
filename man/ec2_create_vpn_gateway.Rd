@@ -19,17 +19,11 @@ ec2_create_vpn_gateway(
 
 \item{TagSpecifications}{The tags to apply to the virtual private gateway.}
 
-\item{AmazonSideAsn}{A private Autonomous System Number (ASN) for the Amazon side of a BGP
-session. If you're using a 16-bit ASN, it must be in the 64512 to 65534
-range. If you're using a 32-bit ASN, it must be in the 4200000000 to
-4294967294 range.
+\item{AmazonSideAsn}{A private Autonomous System Number (ASN) for the Amazon side of a BGP session. If you're using a 16-bit ASN, it must be in the 64512 to 65534 range. If you're using a 32-bit ASN, it must be in the 4200000000 to 4294967294 range.
 
 Default: 64512}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a virtual private gateway. A virtual private gateway is the endpoint on the VPC side of your VPN connection. You can create a virtual private gateway before creating the VPC itself.

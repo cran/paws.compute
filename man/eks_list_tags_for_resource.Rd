@@ -7,8 +7,7 @@
 eks_list_tags_for_resource(resourceArn)
 }
 \arguments{
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) that identifies the resource to list tags
-for.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) that identifies the resource to list tags for.}
 }
 \description{
 List the tags for an Amazon EKS resource.

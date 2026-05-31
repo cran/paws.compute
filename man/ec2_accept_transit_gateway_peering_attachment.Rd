@@ -12,10 +12,7 @@ ec2_accept_transit_gateway_peering_attachment(
 \arguments{
 \item{TransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Accepts a transit gateway peering attachment request. The peering attachment must be in the \code{pendingAcceptance} state.

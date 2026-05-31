@@ -8,8 +8,7 @@ instance of the workflow}
 imagebuilder_get_workflow_execution(workflowExecutionId)
 }
 \arguments{
-\item{workflowExecutionId}{[required] Use the unique identifier for a runtime instance of the workflow to get
-runtime details.}
+\item{workflowExecutionId}{[required] Use the unique identifier for a runtime instance of the workflow to get runtime details.}
 }
 \description{
 Get the runtime information that was logged for a specific runtime instance of the workflow.

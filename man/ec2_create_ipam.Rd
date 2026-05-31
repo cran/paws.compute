@@ -11,40 +11,34 @@ ec2_create_ipam(
   TagSpecifications = NULL,
   ClientToken = NULL,
   Tier = NULL,
-  EnablePrivateGua = NULL
+  EnablePrivateGua = NULL,
+  MeteredAccount = NULL
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Description}{A description for the IPAM.}
 
-\item{OperatingRegions}{The operating Regions for the IPAM. Operating Regions are Amazon Web
-Services Regions where the IPAM is allowed to manage IP address CIDRs.
-IPAM only discovers and monitors resources in the Amazon Web Services
-Regions you select as operating Regions.
+\item{OperatingRegions}{The operating Regions for the IPAM. Operating Regions are Amazon Web Services Regions where the IPAM is allowed to manage IP address CIDRs. IPAM only discovers and monitors resources in the Amazon Web Services Regions you select as operating Regions.
 
-For more information about operating Regions, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/create-ipam.html}{Create an IPAM} in
-the \emph{Amazon VPC IPAM User Guide}.}
+For more information about operating Regions, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/create-ipam.html}{Create an IPAM} in the \emph{Amazon VPC IPAM User Guide}.}
 
-\item{TagSpecifications}{The key/value combination of a tag assigned to the resource. Use the tag
-key in the filter name and the tag value as the filter value. For
-example, to find all resources that have a tag with the key \code{Owner} and
-the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA}
-for the filter value.}
+\item{TagSpecifications}{The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.}
 
-\item{ClientToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
-\item{Tier}{IPAM is offered in a Free Tier and an Advanced Tier. For more
-information about the features available in each tier and the costs
-associated with the tiers, see \href{https://aws.amazon.com/vpc/pricing/}{Amazon VPC pricing \> IPAM tab}.}
+\item{Tier}{IPAM is offered in a Free Tier and an Advanced Tier. For more information about the features available in each tier and the costs associated with the tiers, see \href{https://aws.amazon.com/vpc/pricing/}{Amazon VPC pricing \> IPAM tab}.}
 
-\item{EnablePrivateGua}{Enable this option to use your own GUA ranges as private IPv6 addresses.
-This option is disabled by default.}
+\item{EnablePrivateGua}{Enable this option to use your own GUA ranges as private IPv6 addresses. This option is disabled by default.}
+
+\item{MeteredAccount}{A metered account is an Amazon Web Services account that is charged for active IP addresses managed in IPAM. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/ipam-enable-cost-distro.html}{Enable cost distribution} in the \emph{Amazon VPC IPAM User Guide}.
+
+Possible values:
+\itemize{
+\item \code{ipam-owner} (default): The Amazon Web Services account which owns the IPAM is charged for all active IP addresses managed in IPAM.
+\item \code{resource-owner}: The Amazon Web Services account that owns the IP address is charged for the active IP address.
+}}
 }
 \description{
 Create an IPAM. Amazon VPC IP Address Manager (IPAM) is a VPC feature that you can use to automate your IP address management workflows including assigning, tracking, troubleshooting, and auditing IP addresses across Amazon Web Services Regions and accounts throughout your Amazon Web Services Organization.

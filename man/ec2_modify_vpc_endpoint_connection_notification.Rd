@@ -13,17 +13,13 @@ ec2_modify_vpc_endpoint_connection_notification(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ConnectionNotificationId}{[required] The ID of the notification.}
 
 \item{ConnectionNotificationArn}{The ARN for the SNS topic for the notification.}
 
-\item{ConnectionEvents}{The events for the endpoint. Valid values are \code{Accept}, \code{Connect},
-\code{Delete}, and \code{Reject}.}
+\item{ConnectionEvents}{The events for the endpoint. Valid values are \code{Accept}, \code{Connect}, \code{Delete}, and \code{Reject}.}
 }
 \description{
 Modifies a connection notification for VPC endpoint or VPC endpoint service. You can change the SNS topic for the notification, or the events for which to be notified.

@@ -10,25 +10,20 @@ ec2_get_vpn_connection_device_sample_configuration(
   VpnConnectionId,
   VpnConnectionDeviceTypeId,
   InternetKeyExchangeVersion = NULL,
+  SampleType = NULL,
   DryRun = NULL
 )
 }
 \arguments{
-\item{VpnConnectionId}{[required] The \code{VpnConnectionId} specifies the Site-to-Site VPN connection used for
-the sample configuration.}
+\item{VpnConnectionId}{[required] The \code{VpnConnectionId} specifies the Site-to-Site VPN connection used for the sample configuration.}
 
-\item{VpnConnectionDeviceTypeId}{[required] Device identifier provided by the
-\code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}}
-API.}
+\item{VpnConnectionDeviceTypeId}{[required] Device identifier provided by the \code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}} API.}
 
-\item{InternetKeyExchangeVersion}{The IKE version to be used in the sample configuration file for your
-customer gateway device. You can specify one of the following versions:
-\code{ikev1} or \code{ikev2}.}
+\item{InternetKeyExchangeVersion}{The IKE version to be used in the sample configuration file for your customer gateway device. You can specify one of the following versions: \code{ikev1} or \code{ikev2}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{SampleType}{The type of sample configuration to generate. Valid values are "compatibility" (includes IKEv1) or "recommended" (throws UnsupportedOperationException for IKEv1).}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Download an Amazon Web Services-provided sample configuration file to be used with the customer gateway device specified for your Site-to-Site VPN connection.

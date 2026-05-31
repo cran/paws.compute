@@ -13,8 +13,7 @@ lambda_list_functions_by_code_signing_config(
 \arguments{
 \item{CodeSigningConfigArn}{[required] The The Amazon Resource Name (ARN) of the code signing configuration.}
 
-\item{Marker}{Specify the pagination token that's returned by a previous request to
-retrieve the next page of results.}
+\item{Marker}{Specify the pagination token that's returned by a previous request to retrieve the next page of results.}
 
 \item{MaxItems}{Maximum number of items to return.}
 }

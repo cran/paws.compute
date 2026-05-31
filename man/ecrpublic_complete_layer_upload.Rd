@@ -13,16 +13,11 @@ ecrpublic_complete_layer_upload(
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID, or registry alias, associated with
-the registry where layers are uploaded. If you do not specify a
-registry, the default public registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID, or registry alias, associated with the registry where layers are uploaded. If you do not specify a registry, the default public registry is assumed.}
 
-\item{repositoryName}{[required] The name of the repository in a public registry to associate with the
-image layer.}
+\item{repositoryName}{[required] The name of the repository in a public registry to associate with the image layer.}
 
-\item{uploadId}{[required] The upload ID from a previous
-\code{\link[=ecrpublic_initiate_layer_upload]{initiate_layer_upload}} operation to
-associate with the image layer.}
+\item{uploadId}{[required] The upload ID from a previous \code{\link[=ecrpublic_initiate_layer_upload]{initiate_layer_upload}} operation to associate with the image layer.}
 
 \item{layerDigests}{[required] The \code{sha256} digest of the image layer.}
 }

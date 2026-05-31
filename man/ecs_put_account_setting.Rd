@@ -11,113 +11,47 @@ ecs_put_account_setting(name, value, principalArn = NULL)
 
 The following are the valid values for the account setting name.
 \itemize{
-\item \code{serviceLongArnFormat} - When modified, the Amazon Resource Name
-(ARN) and resource ID format of the resource type for a specified
-user, role, or the root user for an account is affected. The opt-in
-and opt-out account setting must be set for each Amazon ECS resource
-separately. The ARN and resource ID format of a resource is defined
-by the opt-in status of the user or role that created the resource.
-You must turn on this setting to use Amazon ECS features such as
-resource tagging.
-\item \code{taskLongArnFormat} - When modified, the Amazon Resource Name (ARN)
-and resource ID format of the resource type for a specified user,
-role, or the root user for an account is affected. The opt-in and
-opt-out account setting must be set for each Amazon ECS resource
-separately. The ARN and resource ID format of a resource is defined
-by the opt-in status of the user or role that created the resource.
-You must turn on this setting to use Amazon ECS features such as
-resource tagging.
-\item \code{fargateFIPSMode} - When turned on, you can run Fargate workloads in
-a manner that is compliant with Federal Information Processing
-Standard (FIPS-140). For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-fips-compliance.html}{Fargate Federal Information Processing Standard (FIPS-140)}.
-\item \code{containerInstanceLongArnFormat} - When modified, the Amazon
-Resource Name (ARN) and resource ID format of the resource type for
-a specified user, role, or the root user for an account is affected.
-The opt-in and opt-out account setting must be set for each Amazon
-ECS resource separately. The ARN and resource ID format of a
-resource is defined by the opt-in status of the user or role that
-created the resource. You must turn on this setting to use Amazon
-ECS features such as resource tagging.
-\item \code{awsvpcTrunking} - When modified, the elastic network interface
-(ENI) limit for any new container instances that support the feature
-is changed. If \code{awsvpcTrunking} is turned on, any new container
-instances that support the feature are launched have the increased
-ENI limits available to them. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-eni.html}{Elastic Network Interface Trunking}
-in the \emph{Amazon Elastic Container Service Developer Guide}.
-\item \code{containerInsights} - Container Insights with enhanced observability
-provides all the Container Insights metrics, plus additional task
-and container metrics. This version supports enhanced observability
-for Amazon ECS clusters using the Amazon EC2 and Fargate launch
-types. After you configure Container Insights with enhanced
-observability on Amazon ECS, Container Insights auto-collects
-detailed infrastructure telemetry from the cluster level down to the
-container level in your environment and displays these critical
-performance data in curated dashboards removing the heavy lifting in
-observability set-up.
+\item \code{serviceLongArnFormat} - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
+\item \code{taskLongArnFormat} - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
+\item \code{containerInstanceLongArnFormat} - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
+\item \code{awsvpcTrunking} - When modified, the elastic network interface (ENI) limit for any new container instances that support the feature is changed. If \code{awsvpcTrunking} is turned on, any new container instances that support the feature are launched have the increased ENI limits available to them. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-eni.html}{Elastic Network Interface Trunking} in the \emph{Amazon Elastic Container Service Developer Guide}.
+\item \code{containerInsights} - Container Insights with enhanced observability provides all the Container Insights metrics, plus additional task and container metrics. This version supports enhanced observability for Amazon ECS clusters using the Amazon EC2 and Fargate launch types. After you configure Container Insights with enhanced observability on Amazon ECS, Container Insights auto-collects detailed infrastructure telemetry from the cluster level down to the container level in your environment and displays these critical performance data in curated dashboards removing the heavy lifting in observability set-up.
 
-To use Container Insights with enhanced observability, set the
-\code{containerInsights} account setting to \code{enhanced}.
+To use Container Insights with enhanced observability, set the \code{containerInsights} account setting to \code{enhanced}.
 
-To use Container Insights, set the \code{containerInsights} account
-setting to \code{enabled}.
+To use Container Insights, set the \code{containerInsights} account setting to \code{enabled}.
 
-For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-container-insights.html}{Monitor Amazon ECS containers using Container Insights with enhanced observability}
-in the \emph{Amazon Elastic Container Service Developer Guide}.
-\item \code{dualStackIPv6} - When turned on, when using a VPC in dual stack
-mode, your tasks using the \code{awsvpc} network mode can have an IPv6
-address assigned. For more information on using IPv6 with tasks
-launched on Amazon EC2 instances, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html#task-networking-vpc-dual-stack}{Using a VPC in dual-stack mode}.
-For more information on using IPv6 with tasks launched on Fargate,
-see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-task-networking.html#fargate-task-networking-vpc-dual-stack}{Using a VPC in dual-stack mode}.
-\item \code{fargateTaskRetirementWaitPeriod} - When Amazon Web Services
-determines that a security or infrastructure update is needed for an
-Amazon ECS task hosted on Fargate, the tasks need to be stopped and
-new tasks launched to replace them. Use
-\code{fargateTaskRetirementWaitPeriod} to configure the wait time to
-retire a Fargate task. For information about the Fargate tasks
-maintenance, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-maintenance.html}{Amazon Web Services Fargate task maintenance}
-in the \emph{Amazon ECS Developer Guide}.
-\item \code{tagResourceAuthorization} - Amazon ECS is introducing tagging
-authorization for resource creation. Users must have permissions for
-actions that create the resource, such as \code{ecsCreateCluster}. If
-tags are specified when you create a resource, Amazon Web Services
-performs additional authorization to verify if users or roles have
-permissions to create tags. Therefore, you must grant explicit
-permissions to use the \code{ecs:TagResource} action. For more
-information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/supported-iam-actions-tagging.html}{Grant permission to tag resources on creation}
-in the \emph{Amazon ECS Developer Guide}.
-\item \code{guardDutyActivate} - The \code{guardDutyActivate} parameter is read-only
-in Amazon ECS and indicates whether Amazon ECS Runtime Monitoring is
-enabled or disabled by your security administrator in your Amazon
-ECS account. Amazon GuardDuty controls this account setting on your
-behalf. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-guard-duty-integration.html}{Protecting Amazon ECS workloads with Amazon ECS Runtime Monitoring}.
-}}
+For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-container-insights.html}{Monitor Amazon ECS containers using Container Insights with enhanced observability} in the \emph{Amazon Elastic Container Service Developer Guide}.
+\item \code{dualStackIPv6} - When turned on, when using a VPC in dual stack mode, your tasks using the \code{awsvpc} network mode can have an IPv6 address assigned. For more information on using IPv6 with tasks launched on Amazon EC2 instances, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html#task-networking-vpc-dual-stack}{Using a VPC in dual-stack mode}. For more information on using IPv6 with tasks launched on Fargate, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-task-networking.html#fargate-task-networking-vpc-dual-stack}{Using a VPC in dual-stack mode}.
+\item \code{fargateTaskRetirementWaitPeriod} - When Amazon Web Services determines that a security or infrastructure update is needed for an Amazon ECS task hosted on Fargate, the tasks need to be stopped and new tasks launched to replace them. Use \code{fargateTaskRetirementWaitPeriod} to configure the wait time to retire a Fargate task. For information about the Fargate tasks maintenance, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-maintenance.html}{Amazon Web Services Fargate task maintenance} in the \emph{Amazon ECS Developer Guide}.
+\item \code{fargateEventWindows} - When Amazon Web Services determines that a security or infrastructure update is needed for an Amazon ECS task hosted on Fargate, the tasks need to be stopped and new tasks launched to replace them. Use \code{fargateEventWindows} to use EC2 Event Windows associated with Fargate tasks to configure time windows for task retirement.
+\item \code{tagResourceAuthorization} - Amazon ECS is introducing tagging authorization for resource creation. Users must have permissions for actions that create the resource, such as \code{ecsCreateCluster}. If tags are specified when you create a resource, Amazon Web Services performs additional authorization to verify if users or roles have permissions to create tags. Therefore, you must grant explicit permissions to use the \code{ecs:TagResource} action. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/supported-iam-actions-tagging.html}{Grant permission to tag resources on creation} in the \emph{Amazon ECS Developer Guide}.
+\item \code{defaultLogDriverMode} - Amazon ECS supports setting a default delivery mode of log messages from a container to the \code{logDriver} that you specify in the container's \code{logConfiguration}. The delivery mode affects application stability when the flow of logs from the container to the log driver is interrupted. The \code{defaultLogDriverMode} setting supports two values: \code{blocking} and \code{non-blocking}. If you don't specify a delivery mode in your container definition's \code{logConfiguration}, the mode you specify using this account setting will be used as the default. For more information about log delivery modes, see \href{https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html}{LogConfiguration}.
 
-\item{value}{[required] The account setting value for the specified principal ARN. Accepted
-values are \code{enabled}, \code{disabled}, \code{enhanced}, \code{on}, and \code{off}.
-
-When you specify \code{fargateTaskRetirementWaitPeriod} for the \code{name}, the
-following are the valid values:
+On June 25, 2025, Amazon ECS changed the default log driver mode from \code{blocking} to \code{non-blocking} to prioritize task availability over logging. To continue using the \code{blocking} mode after this change, do one of the following:
 \itemize{
-\item \code{0} - Amazon Web Services sends the notification, and immediately
-retires the affected tasks.
-\item \code{7} - Amazon Web Services sends the notification, and waits 7
-calendar days to retire the tasks.
-\item \code{14} - Amazon Web Services sends the notification, and waits 14
-calendar days to retire the tasks.
+\item Set the \code{mode} option in your container definition's \code{logConfiguration} as \code{blocking}.
+\item Set the \code{defaultLogDriverMode} account setting to \code{blocking}.
+}
+\item \code{guardDutyActivate} - The \code{guardDutyActivate} parameter is read-only in Amazon ECS and indicates whether Amazon ECS Runtime Monitoring is enabled or disabled by your security administrator in your Amazon ECS account. Amazon GuardDuty controls this account setting on your behalf. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-guard-duty-integration.html}{Protecting Amazon ECS workloads with Amazon ECS Runtime Monitoring}.
 }}
 
-\item{principalArn}{The ARN of the principal, which can be a user, role, or the root user.
-If you specify the root user, it modifies the account setting for all
-users, roles, and the root user of the account unless a user or role
-explicitly overrides these settings. If this field is omitted, the
-setting is changed only for the authenticated user.
+\item{value}{[required] The account setting value for the specified principal ARN. Accepted values are \code{enabled}, \code{disabled}, \code{enhanced}, \code{on}, and \code{off}.
 
-You must use the root user when you set the Fargate wait time
-(\code{fargateTaskRetirementWaitPeriod}).
+When you specify \code{fargateTaskRetirementWaitPeriod} for the \code{name}, the following are the valid values:
+\itemize{
+\item \code{0} - Amazon Web Services sends the notification, and immediately retires the affected tasks.
+\item \code{7} - Amazon Web Services sends the notification, and waits 7 calendar days to retire the tasks.
+\item \code{14} - Amazon Web Services sends the notification, and waits 14 calendar days to retire the tasks.
+}}
 
-Federated users assume the account setting of the root user and can't
-have explicit account settings set for them.}
+\item{principalArn}{The ARN of the principal, which can be a user, role, or the root user. If you specify the root user, it modifies the account setting for all users, roles, and the root user of the account unless a user or role explicitly overrides these settings. If this field is omitted, the setting is changed only for the authenticated user.
+
+In order to use this parameter, you must be the root user, or the principal.
+
+You must use the root user when you set the Fargate wait time (\code{fargateTaskRetirementWaitPeriod}).
+
+Federated users assume the account setting of the root user and can't have explicit account settings set for them.}
 }
 \description{
 Modifies an account setting. Account settings are set on a per-Region basis.

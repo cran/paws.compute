@@ -18,19 +18,13 @@ ec2_create_transit_gateway_vpc_attachment(
 
 \item{VpcId}{[required] The ID of the VPC.}
 
-\item{SubnetIds}{[required] The IDs of one or more subnets. You can specify only one subnet per
-Availability Zone. You must specify at least one subnet, but we
-recommend that you specify two subnets for better availability. The
-transit gateway uses one IP address from each specified subnet.}
+\item{SubnetIds}{[required] The IDs of one or more subnets. You can specify only one subnet per Availability Zone. You must specify at least one subnet, but we recommend that you specify two subnets for better availability. The transit gateway uses one IP address from each specified subnet.}
 
 \item{Options}{The VPC attachment options.}
 
 \item{TagSpecifications}{The tags to apply to the VPC attachment.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Attaches the specified VPC to the specified transit gateway.

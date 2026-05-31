@@ -18,28 +18,20 @@ ec2_describe_local_gateway_virtual_interfaces(
 \item{Filters}{One or more filters.
 \itemize{
 \item \code{local-address} - The local address.
-\item \code{local-bgp-asn} - The Border Gateway Protocol (BGP) Autonomous
-System Number (ASN) of the local gateway.
+\item \code{local-bgp-asn} - The Border Gateway Protocol (BGP) Autonomous System Number (ASN) of the local gateway.
 \item \code{local-gateway-id} - The ID of the local gateway.
-\item \code{local-gateway-virtual-interface-id} - The ID of the virtual
-interface.
-\item \code{owner-id} - The ID of the Amazon Web Services account that owns the
-local gateway virtual interface.
+\item \code{local-gateway-virtual-interface-id} - The ID of the virtual interface.
+\item \code{owner-id} - The ID of the Amazon Web Services account that owns the local gateway virtual interface.
 \item \code{peer-address} - The peer address.
 \item \code{peer-bgp-asn} - The peer BGP ASN.
 \item \code{vlan} - The ID of the VLAN.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes the specified local gateway virtual interfaces.

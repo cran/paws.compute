@@ -7,17 +7,11 @@
 ecs_stop_task(cluster = NULL, task, reason = NULL)
 }
 \arguments{
-\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that
-hosts the task to stop. If you do not specify a cluster, the default
-cluster is assumed.}
+\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to stop. If you do not specify a cluster, the default cluster is assumed.}
 
 \item{task}{[required] Thefull Amazon Resource Name (ARN) of the task.}
 
-\item{reason}{An optional message specified when a task is stopped. For example, if
-you're using a custom scheduler, you can use this parameter to specify
-the reason for stopping the task here, and the message appears in
-subsequent \code{\link[=ecs_describe_tasks]{describe_tasks}}\> API operations on
-this task.}
+\item{reason}{An optional message specified when a task is stopped. For example, if you're using a custom scheduler, you can use this parameter to specify the reason for stopping the task here, and the message appears in subsequent \code{\link[=ecs_describe_tasks]{describe_tasks}}\> API operations on this task.}
 }
 \description{
 Stops a running task. Any tags associated with the task will be deleted.

@@ -14,30 +14,22 @@ ec2_describe_vpc_endpoint_service_permissions(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ServiceId}{[required] The ID of the service.}
 
 \item{Filters}{The filters.
 \itemize{
 \item \code{principal} - The ARN of the principal.
-\item \code{principal-type} - The principal type (\code{All} | \code{Service} |
-\code{OrganizationUnit} | \code{Account} | \code{User} | \code{Role}).
+\item \code{principal-type} - The principal type (\code{All} | \code{Service} | \code{OrganizationUnit} | \code{Account} | \code{User} | \code{Role}).
 }}
 
-\item{MaxResults}{The maximum number of results to return for the request in a single
-page. The remaining results of the initial request can be seen by
-sending another request with the returned \code{NextToken} value. This value
-can be between 5 and 1,000; if \code{MaxResults} is given a value larger than
-1,000, only 1,000 results are returned.}
+\item{MaxResults}{The maximum number of results to return for the request in a single page. The remaining results of the initial request can be seen by sending another request with the returned \code{NextToken} value. This value can be between 5 and 1,000; if \code{MaxResults} is given a value larger than 1,000, only 1,000 results are returned.}
 
 \item{NextToken}{The token to retrieve the next page of results.}
 }
 \description{
-Describes the principals (service consumers) that are permitted to discover your VPC endpoint service.
+Describes the principals (service consumers) that are permitted to discover your VPC endpoint service. Principal ARNs with path components aren't supported.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_describe_vpc_endpoint_service_permissions/} for full documentation.
 }

@@ -8,6 +8,7 @@ ec2_describe_instance_status(
   InstanceIds = NULL,
   MaxResults = NULL,
   NextToken = NULL,
+  IncludeManagedResources = NULL,
   DryRun = NULL,
   Filters = NULL,
   IncludeAllInstances = NULL
@@ -20,68 +21,38 @@ Default: Describes all your instances.
 
 Constraints: Maximum 100 explicitly specified instance IDs.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.
 
-You cannot specify this parameter and the instance IDs parameter in the
-same request.}
+You cannot specify this parameter and the instance IDs parameter in the same request.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{IncludeManagedResources}{Indicates whether to include managed resources in the output. If this parameter is set to \code{true}, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.}
+
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
 \item \code{availability-zone} - The Availability Zone of the instance.
-\item \code{event.code} - The code for the scheduled event (\code{instance-reboot} |
-\code{system-reboot} | \code{system-maintenance} | \code{instance-retirement} |
-\code{instance-stop}).
+\item \code{availability-zone-id} - The ID of the Availability Zone of the instance.
+\item \code{event.code} - The code for the scheduled event (\code{instance-reboot} | \code{system-reboot} | \code{system-maintenance} | \code{instance-retirement} | \code{instance-stop}).
 \item \code{event.description} - A description of the event.
-\item \code{event.instance-event-id} - The ID of the event whose date and time
-you are modifying.
-\item \code{event.not-after} - The latest end time for the scheduled event (for
-example, \verb{2014-09-15T17:15:20.000Z}).
-\item \code{event.not-before} - The earliest start time for the scheduled event
-(for example, \verb{2014-09-15T17:15:20.000Z}).
-\item \code{event.not-before-deadline} - The deadline for starting the event
-(for example, \verb{2014-09-15T17:15:20.000Z}).
-\item \code{instance-state-code} - The code for the instance state, as a 16-bit
-unsigned integer. The high byte is used for internal purposes and
-should be ignored. The low byte is set based on the state
-represented. The valid values are 0 (pending), 16 (running), 32
-(shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
-\item \code{instance-state-name} - The state of the instance (\code{pending} |
-\code{running} | \code{shutting-down} | \code{terminated} | \code{stopping} |
-\code{stopped}).
-\item \code{instance-status.reachability} - Filters on instance status where
-the name is \code{reachability} (\code{passed} | \code{failed} | \code{initializing} |
-\code{insufficient-data}).
-\item \code{instance-status.status} - The status of the instance (\code{ok} |
-\code{impaired} | \code{initializing} | \code{insufficient-data} |
-\code{not-applicable}).
-\item \code{operator.managed} - A Boolean that indicates whether this is a
-managed instance.
-\item \code{operator.principal} - The principal that manages the instance. Only
-valid for managed instances, where \code{managed} is \code{true}.
-\item \code{system-status.reachability} - Filters on system status where the
-name is \code{reachability} (\code{passed} | \code{failed} | \code{initializing} |
-\code{insufficient-data}).
-\item \code{system-status.status} - The system status of the instance (\code{ok} |
-\code{impaired} | \code{initializing} | \code{insufficient-data} |
-\code{not-applicable}).
-\item \code{attached-ebs-status.status} - The status of the attached EBS volume
-for the instance (\code{ok} | \code{impaired} | \code{initializing} |
-\code{insufficient-data} | \code{not-applicable}).
+\item \code{event.instance-event-id} - The ID of the event whose date and time you are modifying.
+\item \code{event.not-after} - The latest end time for the scheduled event (for example, \verb{2014-09-15T17:15:20.000Z}).
+\item \code{event.not-before} - The earliest start time for the scheduled event (for example, \verb{2014-09-15T17:15:20.000Z}).
+\item \code{event.not-before-deadline} - The deadline for starting the event (for example, \verb{2014-09-15T17:15:20.000Z}).
+\item \code{instance-state-code} - The code for the instance state, as a 16-bit unsigned integer. The high byte is used for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values are 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
+\item \code{instance-state-name} - The state of the instance (\code{pending} | \code{running} | \code{shutting-down} | \code{terminated} | \code{stopping} | \code{stopped}).
+\item \code{instance-status.reachability} - Filters on instance status where the name is \code{reachability} (\code{passed} | \code{failed} | \code{initializing} | \code{insufficient-data}).
+\item \code{instance-status.status} - The status of the instance (\code{ok} | \code{impaired} | \code{initializing} | \code{insufficient-data} | \code{not-applicable}).
+\item \code{operator.managed} - A Boolean that indicates whether this is a managed instance.
+\item \code{operator.principal} - The principal that manages the instance. Only valid for managed instances, where \code{managed} is \code{true}.
+\item \code{system-status.reachability} - Filters on system status where the name is \code{reachability} (\code{passed} | \code{failed} | \code{initializing} | \code{insufficient-data}).
+\item \code{system-status.status} - The system status of the instance (\code{ok} | \code{impaired} | \code{initializing} | \code{insufficient-data} | \code{not-applicable}).
+\item \code{attached-ebs-status.status} - The status of the attached EBS volume for the instance (\code{ok} | \code{impaired} | \code{initializing} | \code{insufficient-data} | \code{not-applicable}).
 }}
 
-\item{IncludeAllInstances}{When \code{true}, includes the health status for all instances. When \code{false},
-includes the health status for running instances only.
+\item{IncludeAllInstances}{When \code{true}, includes the health status for all instances. When \code{false}, includes the health status for running instances only.
 
 Default: \code{false}}
 }

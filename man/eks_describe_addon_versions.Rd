@@ -17,35 +17,19 @@ eks_describe_addon_versions(
 \arguments{
 \item{kubernetesVersion}{The Kubernetes versions that you can use the add-on with.}
 
-\item{maxResults}{The maximum number of results, returned in paginated output. You receive
-\code{maxResults} in a single page, along with a \code{nextToken} response
-element. You can see the remaining results of the initial request by
-sending another request with the returned \code{nextToken} value. This value
-can be between 1 and 100. If you don't use this parameter, 100 results
-and a \code{nextToken} value, if applicable, are returned.}
+\item{maxResults}{The maximum number of results, returned in paginated output. You receive \code{maxResults} in a single page, along with a \code{nextToken} response element. You can see the remaining results of the initial request by sending another request with the returned \code{nextToken} value. This value can be between 1 and 100. If you don't use this parameter, 100 results and a \code{nextToken} value, if applicable, are returned.}
 
-\item{nextToken}{The \code{nextToken} value returned from a previous paginated request, where
-\code{maxResults} was used and the results exceeded the value of that
-parameter. Pagination continues from the end of the previous results
-that returned the \code{nextToken} value. This value is null when there are
-no more results to return.
+\item{nextToken}{The \code{nextToken} value returned from a previous paginated request, where \code{maxResults} was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the \code{nextToken} value. This value is null when there are no more results to return.
 
-This token should be treated as an opaque identifier that is used only
-to retrieve the next items in a list and not for other programmatic
-purposes.}
+This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.}
 
-\item{addonName}{The name of the add-on. The name must match one of the names returned by
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{list_addons}}
-.}
+\item{addonName}{The name of the add-on. The name must match one of the names returned by \href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{list_addons}} .}
 
-\item{types}{The type of the add-on. For valid \code{types}, don't specify a value for
-this property.}
+\item{types}{The type of the add-on. For valid \code{types}, don't specify a value for this property.}
 
-\item{publishers}{The publisher of the add-on. For valid \code{publishers}, don't specify a
-value for this property.}
+\item{publishers}{The publisher of the add-on. For valid \code{publishers}, don't specify a value for this property.}
 
-\item{owners}{The owner of the add-on. For valid \code{owners}, don't specify a value for
-this property.}
+\item{owners}{The owner of the add-on. For valid \code{owners}, don't specify a value for this property.}
 }
 \description{
 Describes the versions for an add-on.

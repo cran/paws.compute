@@ -13,8 +13,7 @@ elasticbeanstalk_delete_application(
 \arguments{
 \item{ApplicationName}{[required] The name of the application to delete.}
 
-\item{TerminateEnvByForce}{When set to true, running environments will be terminated before
-deleting the application.}
+\item{TerminateEnvByForce}{When set to true, running environments will be terminated before deleting the application.}
 }
 \description{
 Deletes the specified application along with all associated versions and configurations. The application versions will not be deleted from your Amazon S3 bucket.

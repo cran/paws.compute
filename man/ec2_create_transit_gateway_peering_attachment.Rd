@@ -18,11 +18,9 @@ ec2_create_transit_gateway_peering_attachment(
 \arguments{
 \item{TransitGatewayId}{[required] The ID of the transit gateway.}
 
-\item{PeerTransitGatewayId}{[required] The ID of the peer transit gateway with which to create the peering
-attachment.}
+\item{PeerTransitGatewayId}{[required] The ID of the peer transit gateway with which to create the peering attachment.}
 
-\item{PeerAccountId}{[required] The ID of the Amazon Web Services account that owns the peer transit
-gateway.}
+\item{PeerAccountId}{[required] The ID of the Amazon Web Services account that owns the peer transit gateway.}
 
 \item{PeerRegion}{[required] The Region where the peer transit gateway is located.}
 
@@ -30,10 +28,7 @@ gateway.}
 
 \item{TagSpecifications}{The tags to apply to the transit gateway peering attachment.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Requests a transit gateway peering attachment between the specified transit gateway (requester) and a peer transit gateway (accepter). The peer transit gateway can be in your account or a different Amazon Web Services account.

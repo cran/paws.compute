@@ -8,14 +8,11 @@ Amazon Lightsail content delivery network (CDN) distribution}
 lightsail_get_distribution_latest_cache_reset(distributionName = NULL)
 }
 \arguments{
-\item{distributionName}{The name of the distribution for which to return the timestamp of the
-last cache reset.
+\item{distributionName}{The name of the distribution for which to return the timestamp of the last cache reset.
 
-Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get
-a list of distribution names that you can specify.
+Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get a list of distribution names that you can specify.
 
-When omitted, the response includes the latest cache reset timestamp of
-all your distributions.}
+When omitted, the response includes the latest cache reset timestamp of all your distributions.}
 }
 \description{
 Returns the timestamp and status of the last cache reset of a specific Amazon Lightsail content delivery network (CDN) distribution.

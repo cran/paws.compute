@@ -16,13 +16,9 @@ ec2_create_transit_gateway_route_table_announcement(
 
 \item{PeeringAttachmentId}{[required] The ID of the peering attachment.}
 
-\item{TagSpecifications}{The tags specifications applied to the transit gateway route table
-announcement.}
+\item{TagSpecifications}{The tags specifications applied to the transit gateway route table announcement.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Advertises a new transit gateway route table.

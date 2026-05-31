@@ -8,10 +8,7 @@ subnet in each Availability Zone}
 ec2_create_default_vpc(DryRun = NULL)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a default VPC with a size \verb{/16} IPv4 CIDR block and a default subnet in each Availability Zone. For more information about the components of a default VPC, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/default-vpc.html}{Default VPCs} in the \emph{Amazon VPC User Guide}. You cannot specify the components of the default VPC yourself.

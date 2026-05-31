@@ -14,14 +14,9 @@ ec2_modify_fleet(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ExcessCapacityTerminationPolicy}{Indicates whether running instances should be terminated if the total
-target capacity of the EC2 Fleet is decreased below the current size of
-the EC2 Fleet.
+\item{ExcessCapacityTerminationPolicy}{Indicates whether running instances should be terminated if the total target capacity of the EC2 Fleet is decreased below the current size of the EC2 Fleet.
 
 Supported only for fleets of type \code{maintain}.}
 

@@ -9,8 +9,7 @@ lightsail_update_domain_entry(domainName, domainEntry)
 \arguments{
 \item{domainName}{[required] The name of the domain recordset to update.}
 
-\item{domainEntry}{[required] An array of key-value pairs containing information about the domain
-entry.}
+\item{domainEntry}{[required] An array of key-value pairs containing information about the domain entry.}
 }
 \description{
 Updates a domain recordset after it is created.

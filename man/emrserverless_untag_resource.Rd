@@ -7,9 +7,7 @@
 emrserverless_untag_resource(resourceArn, tagKeys)
 }
 \arguments{
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) that identifies the resource to list the
-tags for. Currently, the supported resources are Amazon EMR Serverless
-applications and job runs.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) that identifies the resource to list the tags for. Currently, the supported resources are Amazon EMR Serverless applications and job runs.}
 
 \item{tagKeys}{[required] The keys of the tags to be removed.}
 }

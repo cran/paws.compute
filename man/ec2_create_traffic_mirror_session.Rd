@@ -24,43 +24,25 @@ ec2_create_traffic_mirror_session(
 
 \item{TrafficMirrorFilterId}{[required] The ID of the Traffic Mirror filter.}
 
-\item{PacketLength}{The number of bytes in each packet to mirror. These are bytes after the
-VXLAN header. Do not specify this parameter when you want to mirror the
-entire packet. To mirror a subset of the packet, set this to the length
-(in bytes) that you want to mirror. For example, if you set this value
-to 100, then the first 100 bytes that meet the filter criteria are
-copied to the target.
+\item{PacketLength}{The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the length (in bytes) that you want to mirror. For example, if you set this value to 100, then the first 100 bytes that meet the filter criteria are copied to the target.
 
-If you do not want to mirror the entire packet, use the \code{PacketLength}
-parameter to specify the number of bytes in each packet to mirror.
+If you do not want to mirror the entire packet, use the \code{PacketLength} parameter to specify the number of bytes in each packet to mirror.
 
-For sessions with Network Load Balancer (NLB) Traffic Mirror targets the
-default \code{PacketLength} will be set to 8500. Valid values are 1-8500.
-Setting a \code{PacketLength} greater than 8500 will result in an error
-response.}
+For sessions with Network Load Balancer (NLB) Traffic Mirror targets the default \code{PacketLength} will be set to 8500. Valid values are 1-8500. Setting a \code{PacketLength} greater than 8500 will result in an error response.}
 
-\item{SessionNumber}{[required] The session number determines the order in which sessions are evaluated
-when an interface is used by multiple sessions. The first session with a
-matching filter is the one that mirrors the packets.
+\item{SessionNumber}{[required] The session number determines the order in which sessions are evaluated when an interface is used by multiple sessions. The first session with a matching filter is the one that mirrors the packets.
 
 Valid values are 1-32766.}
 
-\item{VirtualNetworkId}{The VXLAN ID for the Traffic Mirror session. For more information about
-the VXLAN protocol, see \href{https://datatracker.ietf.org/doc/html/rfc7348}{RFC 7348}. If you do not
-specify a \code{VirtualNetworkId}, an account-wide unique ID is chosen at
-random.}
+\item{VirtualNetworkId}{The VXLAN ID for the Traffic Mirror session. For more information about the VXLAN protocol, see \href{https://datatracker.ietf.org/doc/html/rfc7348}{RFC 7348}. If you do not specify a \code{VirtualNetworkId}, an account-wide unique ID is chosen at random.}
 
 \item{Description}{The description of the Traffic Mirror session.}
 
 \item{TagSpecifications}{The tags to assign to a Traffic Mirror session.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
 }
 \description{
 Creates a Traffic Mirror session.

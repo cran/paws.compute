@@ -15,15 +15,11 @@ ec2_create_managed_prefix_list(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{PrefixListName}{[required] A name for the prefix list.
 
-Constraints: Up to 255 characters in length. The name cannot start with
-\code{com.amazonaws}.}
+Constraints: Up to 255 characters in length. The name cannot start with \code{com.amazonaws}.}
 
 \item{Entries}{One or more entries for the prefix list.}
 
@@ -35,8 +31,7 @@ Constraints: Up to 255 characters in length. The name cannot start with
 
 Valid Values: \code{IPv4} | \code{IPv6}}
 
-\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency
-of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
+\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
 
 Constraints: Up to 255 UTF-8 characters in length.}
 }

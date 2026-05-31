@@ -5,25 +5,13 @@ NULL
 #' AWS Elastic Beanstalk
 #'
 #' @description
-#' AWS Elastic Beanstalk makes it easy for you to create, deploy, and
-#' manage scalable, fault-tolerant applications running on the Amazon Web
-#' Services cloud.
+#' AWS Elastic Beanstalk makes it easy for you to create, deploy, and manage scalable, fault-tolerant applications running on the Amazon Web Services cloud.
 #' 
-#' For more information about this product, go to the [AWS Elastic
-#' Beanstalk](https://aws.amazon.com/elasticbeanstalk/) details page. The
-#' location of the latest AWS Elastic Beanstalk WSDL is
-#' <https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl>.
-#' To install the Software Development Kits (SDKs), Integrated Development
-#' Environment (IDE) Toolkits, and command line tools that enable you to
-#' access the API, go to [Tools for Amazon Web
-#' Services](https://aws.amazon.com/developer/tools/).
+#' For more information about this product, go to the [AWS Elastic Beanstalk](https://aws.amazon.com/elasticbeanstalk/) details page. The location of the latest AWS Elastic Beanstalk WSDL is <https://elasticbeanstalk.s3.amazonaws.com/doc/2010-12-01/AWSElasticBeanstalk.wsdl>. To install the Software Development Kits (SDKs), Integrated Development Environment (IDE) Toolkits, and command line tools that enable you to access the API, go to [Tools for Amazon Web Services](https://builder.aws.com/build/tools).
 #' 
 #' **Endpoints**
 #' 
-#' For a list of region-specific endpoints that AWS Elastic Beanstalk
-#' supports, go to [Regions and
-#' Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region)
-#' in the *Amazon Web Services Glossary*.
+#' For a list of region-specific endpoints that AWS Elastic Beanstalk supports, go to [Regions and Endpoints](https://docs.aws.amazon.com/general/latest/gr/rande.html#elasticbeanstalk_region) in the *Amazon Web Services Glossary*.
 #'
 #' @param
 #' config
@@ -188,7 +176,7 @@ elasticbeanstalk <- function(config = list(), credentials = list(), endpoint = N
 
 .elasticbeanstalk$metadata <- list(
   service_name = "elasticbeanstalk",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "elasticbeanstalk.{region}.amazonaws.eu", global = FALSE)),
   service_id = "Elastic Beanstalk",
   api_version = "2010-12-01",
   signing_name = "elasticbeanstalk",

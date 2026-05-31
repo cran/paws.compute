@@ -11,8 +11,7 @@ lightsail_attach_load_balancer_tls_certificate(
 )
 }
 \arguments{
-\item{loadBalancerName}{[required] The name of the load balancer to which you want to associate the SSL/TLS
-certificate.}
+\item{loadBalancerName}{[required] The name of the load balancer to which you want to associate the SSL/TLS certificate.}
 
 \item{certificateName}{[required] The name of your SSL/TLS certificate.}
 }

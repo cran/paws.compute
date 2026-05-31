@@ -13,24 +13,15 @@ ec2_assign_ipv_6_addresses(
 )
 }
 \arguments{
-\item{Ipv6PrefixCount}{The number of IPv6 prefixes that Amazon Web Services automatically
-assigns to the network interface. You cannot use this option if you use
-the \code{Ipv6Prefixes} option.}
+\item{Ipv6PrefixCount}{The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface. You cannot use this option if you use the \code{Ipv6Prefixes} option.}
 
-\item{Ipv6Prefixes}{One or more IPv6 prefixes assigned to the network interface. You can't
-use this option if you use the \code{Ipv6PrefixCount} option.}
+\item{Ipv6Prefixes}{One or more IPv6 prefixes assigned to the network interface. You can't use this option if you use the \code{Ipv6PrefixCount} option.}
 
 \item{NetworkInterfaceId}{[required] The ID of the network interface.}
 
-\item{Ipv6Addresses}{The IPv6 addresses to be assigned to the network interface. You can't
-use this option if you're specifying a number of IPv6 addresses.}
+\item{Ipv6Addresses}{The IPv6 addresses to be assigned to the network interface. You can't use this option if you're specifying a number of IPv6 addresses.}
 
-\item{Ipv6AddressCount}{The number of additional IPv6 addresses to assign to the network
-interface. The specified number of IPv6 addresses are assigned in
-addition to the existing IPv6 addresses that are already assigned to the
-network interface. Amazon EC2 automatically selects the IPv6 addresses
-from the subnet range. You can't use this option if specifying specific
-IPv6 addresses.}
+\item{Ipv6AddressCount}{The number of additional IPv6 addresses to assign to the network interface. The specified number of IPv6 addresses are assigned in addition to the existing IPv6 addresses that are already assigned to the network interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range. You can't use this option if specifying specific IPv6 addresses.}
 }
 \description{
 Assigns the specified IPv6 addresses to the specified network interface. You can specify specific IPv6 addresses, or you can specify the number of IPv6 addresses to be automatically assigned from the subnet's IPv6 CIDR block range. You can assign as many IPv6 addresses to a network interface as you can assign private IPv4 addresses, and the limit varies by instance type.

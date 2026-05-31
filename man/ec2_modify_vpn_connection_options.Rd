@@ -10,14 +10,14 @@ ec2_modify_vpn_connection_options(
   RemoteIpv4NetworkCidr = NULL,
   LocalIpv6NetworkCidr = NULL,
   RemoteIpv6NetworkCidr = NULL,
+  TunnelBandwidth = NULL,
   DryRun = NULL
 )
 }
 \arguments{
 \item{VpnConnectionId}{[required] The ID of the Site-to-Site VPN connection.}
 
-\item{LocalIpv4NetworkCidr}{The IPv4 CIDR on the customer gateway (on-premises) side of the VPN
-connection.
+\item{LocalIpv4NetworkCidr}{The IPv4 CIDR on the customer gateway (on-premises) side of the VPN connection.
 
 Default: \verb{0.0.0.0/0}}
 
@@ -25,8 +25,7 @@ Default: \verb{0.0.0.0/0}}
 
 Default: \verb{0.0.0.0/0}}
 
-\item{LocalIpv6NetworkCidr}{The IPv6 CIDR on the customer gateway (on-premises) side of the VPN
-connection.
+\item{LocalIpv6NetworkCidr}{The IPv6 CIDR on the customer gateway (on-premises) side of the VPN connection.
 
 Default: \verb{::/0}}
 
@@ -34,10 +33,9 @@ Default: \verb{::/0}}
 
 Default: \verb{::/0}}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{TunnelBandwidth}{The desired bandwidth specification for the VPN connection. \code{standard} supports up to 1.25 Gbps per tunnel, while \code{large} supports up to 5 Gbps per tunnel. Large bandwidth is only available for VPN connections attached to a transit gateway or to Cloud WAN. The default value is \code{standard}.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Modifies the connection options for your Site-to-Site VPN connection.

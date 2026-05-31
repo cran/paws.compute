@@ -9,9 +9,7 @@ proton_list_service_templates(maxResults = NULL, nextToken = NULL)
 \arguments{
 \item{maxResults}{The maximum number of service templates to list.}
 
-\item{nextToken}{A token that indicates the location of the next service template in the
-array of service templates, after the list of service templates
-previously requested.}
+\item{nextToken}{A token that indicates the location of the next service template in the array of service templates, after the list of service templates previously requested.}
 }
 \description{
 List service templates with detail data.

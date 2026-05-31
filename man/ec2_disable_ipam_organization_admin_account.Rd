@@ -10,13 +10,9 @@ ec2_disable_ipam_organization_admin_account(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{DelegatedAdminAccountId}{[required] The Organizations member account ID that you want to disable as IPAM
-account.}
+\item{DelegatedAdminAccountId}{[required] The Organizations member account ID that you want to disable as IPAM account.}
 }
 \description{
 Disable the IPAM account. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/enable-integ-ipam.html}{Enable integration with Organizations} in the \emph{Amazon VPC IPAM User Guide}.

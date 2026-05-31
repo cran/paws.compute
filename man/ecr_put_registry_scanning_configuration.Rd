@@ -9,20 +9,11 @@ ecr_put_registry_scanning_configuration(scanType = NULL, rules = NULL)
 \arguments{
 \item{scanType}{The scanning type to set for the registry.
 
-When a registry scanning configuration is not defined, by default the
-\code{BASIC} scan type is used. When basic scanning is used, you may specify
-filters to determine which individual repositories, or all repositories,
-are scanned when new images are pushed to those repositories.
-Alternatively, you can do manual scans of images with basic scanning.
+When a registry scanning configuration is not defined, by default the \code{BASIC} scan type is used. When basic scanning is used, you may specify filters to determine which individual repositories, or all repositories, are scanned when new images are pushed to those repositories. Alternatively, you can do manual scans of images with basic scanning.
 
-When the \code{ENHANCED} scan type is set, Amazon Inspector provides
-automated vulnerability scanning. You may choose between continuous
-scanning or scan on push and you may specify filters to determine which
-individual repositories, or all repositories, are scanned.}
+When the \code{ENHANCED} scan type is set, Amazon Inspector provides automated vulnerability scanning. You may choose between continuous scanning or scan on push and you may specify filters to determine which individual repositories, or all repositories, are scanned.}
 
-\item{rules}{The scanning rules to use for the registry. A scanning rule is used to
-determine which repository filters are used and at what frequency
-scanning will occur.}
+\item{rules}{The scanning rules to use for the registry. A scanning rule is used to determine which repository filters are used and at what frequency scanning will occur.}
 }
 \description{
 Creates or updates the scanning configuration for your private registry.

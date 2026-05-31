@@ -7,8 +7,7 @@
 apprunner_delete_vpc_connector(VpcConnectorArn)
 }
 \arguments{
-\item{VpcConnectorArn}{[required] The Amazon Resource Name (ARN) of the App Runner VPC connector that you
-want to delete.
+\item{VpcConnectorArn}{[required] The Amazon Resource Name (ARN) of the App Runner VPC connector that you want to delete.
 
 The ARN must be a full VPC connector ARN.}
 }

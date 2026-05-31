@@ -4,23 +4,23 @@
 \alias{batch_create_scheduling_policy}
 \title{Creates an Batch scheduling policy}
 \usage{
-batch_create_scheduling_policy(name, fairsharePolicy = NULL, tags = NULL)
+batch_create_scheduling_policy(
+  name,
+  quotaSharePolicy = NULL,
+  fairsharePolicy = NULL,
+  tags = NULL
+)
 }
 \arguments{
-\item{name}{[required] The name of the fair-share scheduling policy. It can be up to 128
-letters long. It can contain uppercase and lowercase letters, numbers,
-hyphens (-), and underscores (_).}
+\item{name}{[required] The name of the fair-share scheduling policy. It can be up to 128 letters long. It can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).}
 
-\item{fairsharePolicy}{The fair-share scheduling policy details.}
+\item{quotaSharePolicy}{The quota share scheduling policy details. Only one of fairsharePolicy or quotaSharePolicy can be set. Once set, this policy type cannot be removed or changed to a fairSharePolicy.}
 
-\item{tags}{The tags that you apply to the scheduling policy to help you categorize
-and organize your resources. Each tag consists of a key and an optional
-value. For more information, see \href{https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html}{Tagging Amazon Web Services Resources}
-in \emph{Amazon Web Services General Reference}.
+\item{fairsharePolicy}{The fair-share scheduling policy details. Only one of fairsharePolicy or quotaSharePolicy can be set. Once set, this policy type cannot be removed or changed to a quotaSharePolicy.}
 
-These tags can be updated or removed using the
-\code{\link[=batch_tag_resource]{tag_resource}} and
-\code{\link[=batch_untag_resource]{untag_resource}} API operations.}
+\item{tags}{The tags that you apply to the scheduling policy to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see \href{https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html}{Tagging Amazon Web Services Resources} in \emph{Amazon Web Services General Reference}.
+
+These tags can be updated or removed using the \code{\link[=batch_tag_resource]{tag_resource}} and \code{\link[=batch_untag_resource]{untag_resource}} API operations.}
 }
 \description{
 Creates an Batch scheduling policy.

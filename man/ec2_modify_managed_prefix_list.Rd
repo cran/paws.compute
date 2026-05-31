@@ -11,14 +11,12 @@ ec2_modify_managed_prefix_list(
   PrefixListName = NULL,
   AddEntries = NULL,
   RemoveEntries = NULL,
-  MaxEntries = NULL
+  MaxEntries = NULL,
+  IpamPrefixListResolverSyncEnabled = NULL
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{PrefixListId}{[required] The ID of the prefix list.}
 
@@ -30,14 +28,11 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{RemoveEntries}{One or more entries to remove from the prefix list.}
 
-\item{MaxEntries}{The maximum number of entries for the prefix list. You cannot modify the
-entries of a prefix list and modify the size of a prefix list at the
-same time.
+\item{MaxEntries}{The maximum number of entries for the prefix list. You cannot modify the entries of a prefix list and modify the size of a prefix list at the same time.
 
-If any of the resources that reference the prefix list cannot support
-the new maximum size, the modify operation fails. Check the state
-message for the IDs of the first ten resources that do not support the
-new maximum size.}
+If any of the resources that reference the prefix list cannot support the new maximum size, the modify operation fails. Check the state message for the IDs of the first ten resources that do not support the new maximum size.}
+
+\item{IpamPrefixListResolverSyncEnabled}{Indicates whether synchronization with an IPAM prefix list resolver should be enabled for this managed prefix list. When enabled, the prefix list CIDRs are automatically updated based on the associated resolver's CIDR selection rules.}
 }
 \description{
 Modifies the specified managed prefix list.

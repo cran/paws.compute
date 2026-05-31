@@ -7,13 +7,9 @@
 ecs_put_attributes(cluster = NULL, attributes)
 }
 \arguments{
-\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that
-contains the resource to apply attributes. If you do not specify a
-cluster, the default cluster is assumed.}
+\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that contains the resource to apply attributes. If you do not specify a cluster, the default cluster is assumed.}
 
-\item{attributes}{[required] The attributes to apply to your resource. You can specify up to 10
-custom attributes for each resource. You can specify up to 10 attributes
-in a single call.}
+\item{attributes}{[required] The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource. You can specify up to 10 attributes in a single call.}
 }
 \description{
 Create or update an attribute on an Amazon ECS resource. If the attribute doesn't exist, it's created. If the attribute exists, its value is replaced with the specified value. To delete an attribute, use \code{\link[=ecs_delete_attributes]{delete_attributes}}. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html#attributes}{Attributes} in the \emph{Amazon Elastic Container Service Developer Guide}.

@@ -19,43 +19,27 @@ ec2_revoke_security_group_ingress(
 )
 }
 \arguments{
-\item{CidrIp}{The CIDR IP address range. You can't specify this parameter when
-specifying a source security group.}
+\item{CidrIp}{The CIDR IP address range. You can't specify this parameter when specifying a source security group.}
 
-\item{FromPort}{If the protocol is TCP or UDP, this is the start of the port range. If
-the protocol is ICMP, this is the ICMP type or -1 (all ICMP types).}
+\item{FromPort}{If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP, this is the ICMP type or -1 (all ICMP types).}
 
 \item{GroupId}{The ID of the security group.}
 
-\item{GroupName}{[Default VPC] The name of the security group. You must specify either
-the security group ID or the security group name in the request. For
-security groups in a nondefault VPC, you must specify the security group
-ID.}
+\item{GroupName}{[Default VPC] The name of the security group. You must specify either the security group ID or the security group name in the request. For security groups in a nondefault VPC, you must specify the security group ID.}
 
-\item{IpPermissions}{The sets of IP permissions. You can't specify a source security group
-and a CIDR IP address range in the same set of permissions.}
+\item{IpPermissions}{The sets of IP permissions. You can't specify a source security group and a CIDR IP address range in the same set of permissions.}
 
-\item{IpProtocol}{The IP protocol name (\code{tcp}, \code{udp}, \code{icmp}) or number (see \href{http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml}{Protocol Numbers}).
-Use \code{-1} to specify all.}
+\item{IpProtocol}{The IP protocol name (\code{tcp}, \code{udp}, \code{icmp}) or number (see \href{http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml}{Protocol Numbers}). Use \code{-1} to specify all.}
 
-\item{SourceSecurityGroupName}{[Default VPC] The name of the source security group. You can't specify
-this parameter in combination with the following parameters: the CIDR IP
-address range, the start of the port range, the IP protocol, and the end
-of the port range. The source security group must be in the same VPC. To
-revoke a specific rule for an IP protocol and port range, use a set of
-IP permissions instead.}
+\item{SourceSecurityGroupName}{[Default VPC] The name of the source security group. You can't specify this parameter in combination with the following parameters: the CIDR IP address range, the start of the port range, the IP protocol, and the end of the port range. The source security group must be in the same VPC. To revoke a specific rule for an IP protocol and port range, use a set of IP permissions instead.}
 
 \item{SourceSecurityGroupOwnerId}{Not supported.}
 
-\item{ToPort}{If the protocol is TCP or UDP, this is the end of the port range. If the
-protocol is ICMP, this is the ICMP code or -1 (all ICMP codes).}
+\item{ToPort}{If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP, this is the ICMP code or -1 (all ICMP codes).}
 
 \item{SecurityGroupRuleIds}{The IDs of the security group rules.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Removes the specified inbound (ingress) rules from a security group.

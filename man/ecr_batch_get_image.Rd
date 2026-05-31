@@ -12,21 +12,15 @@ ecr_batch_get_image(
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the images to describe. If you do not specify a registry, the
-default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the images to describe. If you do not specify a registry, the default registry is assumed.}
 
 \item{repositoryName}{[required] The repository that contains the images to describe.}
 
-\item{imageIds}{[required] A list of image ID references that correspond to images to describe. The
-format of the \code{imageIds} reference is \code{imageTag=tag} or
-\code{imageDigest=digest}.}
+\item{imageIds}{[required] A list of image ID references that correspond to images to describe. The format of the \code{imageIds} reference is \code{imageTag=tag} or \code{imageDigest=digest}.}
 
 \item{acceptedMediaTypes}{The accepted media types for the request.
 
-Valid values: \code{application/vnd.docker.distribution.manifest.v1+json} |
-\code{application/vnd.docker.distribution.manifest.v2+json} |
-\code{application/vnd.oci.image.manifest.v1+json}}
+Valid values: \code{application/vnd.docker.distribution.manifest.v1+json} | \code{application/vnd.docker.distribution.manifest.v2+json} | \code{application/vnd.oci.image.manifest.v1+json}}
 }
 \description{
 Gets detailed information for an image. Images are specified with either an \code{imageTag} or \code{imageDigest}.

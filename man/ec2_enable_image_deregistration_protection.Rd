@@ -13,13 +13,9 @@ ec2_enable_image_deregistration_protection(
 \arguments{
 \item{ImageId}{[required] The ID of the AMI.}
 
-\item{WithCooldown}{If \code{true}, enforces deregistration protection for 24 hours after
-deregistration protection is disabled.}
+\item{WithCooldown}{If \code{true}, enforces deregistration protection for 24 hours after deregistration protection is disabled.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Enables deregistration protection for an AMI. When deregistration protection is enabled, the AMI can't be deregistered.

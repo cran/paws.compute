@@ -23,7 +23,9 @@ lambda_update_function_configuration(
   ImageConfig = NULL,
   EphemeralStorage = NULL,
   SnapStart = NULL,
-  LoggingConfig = NULL
+  LoggingConfig = NULL,
+  CapacityProviderConfig = NULL,
+  DurableConfig = NULL
 )
 }
 \arguments{
@@ -32,101 +34,63 @@ lambda_update_function_configuration(
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} – \verb{my-function}.
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
 \item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it is limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
 \item{Role}{The Amazon Resource Name (ARN) of the function's execution role.}
 
-\item{Handler}{The name of the method within your code that Lambda calls to run your
-function. Handler is required if the deployment package is a .zip file
-archive. The format includes the file name. It can also include
-namespaces and other qualifiers, depending on the runtime. For more
-information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/foundation-progmodel.html}{Lambda programming model}.}
+\item{Handler}{The name of the method within your code that Lambda calls to run your function. Handler is required if the deployment package is a .zip file archive. The format includes the file name. It can also include namespaces and other qualifiers, depending on the runtime. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/foundation-progmodel.html}{Lambda programming model}.}
 
 \item{Description}{A description of the function.}
 
-\item{Timeout}{The amount of time (in seconds) that Lambda allows a function to run
-before stopping it. The default is 3 seconds. The maximum allowed value
-is 900 seconds. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html}{Lambda execution environment}.}
+\item{Timeout}{The amount of time (in seconds) that Lambda allows a function to run before stopping it. The default is 3 seconds. The maximum allowed value is 900 seconds. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtime-environment.html}{Lambda execution environment}.}
 
-\item{MemorySize}{The amount of \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-functions.html#configuration-memory-console}{memory available to the function}
-at runtime. Increasing the function memory also increases its CPU
-allocation. The default value is 128 MB. The value can be any multiple
-of 1 MB.}
+\item{MemorySize}{The amount of \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-functions.html#configuration-memory-console}{memory available to the function} at runtime. Increasing the function memory also increases its CPU allocation. The default value is 128 MB. The value can be any multiple of 1 MB.}
 
-\item{VpcConfig}{For network connectivity to Amazon Web Services resources in a VPC,
-specify a list of security groups and subnets in the VPC. When you
-connect a function to a VPC, it can access resources and the internet
-only through that VPC. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html}{Configuring a Lambda function to access resources in a VPC}.}
+\item{VpcConfig}{For network connectivity to Amazon Web Services resources in a VPC, specify a list of security groups and subnets in the VPC. When you connect a function to a VPC, it can access resources and the internet only through that VPC. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-vpc.html}{Configuring a Lambda function to access resources in a VPC}.}
 
-\item{Environment}{Environment variables that are accessible from function code during
-execution.}
+\item{Environment}{Environment variables that are accessible from function code during execution.}
 
-\item{Runtime}{The identifier of the function's
-\href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html}{runtime}.
-Runtime is required if the deployment package is a .zip file archive.
-Specifying a runtime results in an error if you're deploying a function
-using a container image.
+\item{Runtime}{The identifier of the function's \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html}{runtime}. Runtime is required if the deployment package is a .zip file archive. Specifying a runtime results in an error if you're deploying a function using a container image.
 
-The following list includes deprecated runtimes. Lambda blocks creating
-new functions and updating existing functions shortly after each runtime
-is deprecated. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels}{Runtime use after deprecation}.
+The following list includes deprecated runtimes. Lambda blocks creating new functions and updating existing functions shortly after each runtime is deprecated. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-deprecation-levels}{Runtime use after deprecation}.
 
 For a list of all currently supported runtimes, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtimes-supported}{Supported runtimes}.}
 
-\item{DeadLetterConfig}{A dead-letter queue configuration that specifies the queue or topic
-where Lambda sends asynchronous events when they fail processing. For
-more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-dlq}{Dead-letter queues}.}
+\item{DeadLetterConfig}{A dead-letter queue configuration that specifies the queue or topic where Lambda sends asynchronous events when they fail processing. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html#invocation-dlq}{Dead-letter queues}.}
 
-\item{KMSKeyArn}{The ARN of the Key Management Service (KMS) customer managed key that's
-used to encrypt the following resources:
+\item{KMSKeyArn}{The ARN of the Key Management Service (KMS) customer managed key that's used to encrypt the following resources:
 \itemize{
 \item The function's \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-envvars.html#configuration-envvars-encryption}{environment variables}.
-\item The function's \href{https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html}{Lambda SnapStart}
-snapshots.
-\item When used with \code{SourceKMSKeyArn}, the unzipped version of the .zip
-deployment package that's used for function invocations. For more
-information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/encrypt-zip-package.html#enable-zip-custom-encryption}{Specifying a customer managed key for Lambda}.
-\item The optimized version of the container image that's used for
-function invocations. Note that this is not the same key that's used
-to protect your container image in the Amazon Elastic Container
-Registry (Amazon ECR). For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-lifecycle}{Function lifecycle}.
+\item The function's \href{https://docs.aws.amazon.com/lambda/latest/dg/snapstart-security.html}{Lambda SnapStart} snapshots.
+\item When used with \code{SourceKMSKeyArn}, the unzipped version of the .zip deployment package that's used for function invocations. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/encrypt-zip-package.html#enable-zip-custom-encryption}{Specifying a customer managed key for Lambda}.
+\item The optimized version of the container image that's used for function invocations. Note that this is not the same key that's used to protect your container image in the Amazon Elastic Container Registry (Amazon ECR). For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-lifecycle}{Function lifecycle}.
 }
 
-If you don't provide a customer managed key, Lambda uses an \href{https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk}{Amazon Web Services owned key}
-or an \href{https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk}{Amazon Web Services managed key}.}
+If you don't provide a customer managed key, Lambda uses an \href{https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-owned-cmk}{Amazon Web Services owned key} or an \href{https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#aws-managed-cmk}{Amazon Web Services managed key}.}
 
-\item{TracingConfig}{Set \code{Mode} to \code{Active} to sample and trace a subset of incoming requests
-with
-\href{https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html}{X-Ray}.}
+\item{TracingConfig}{Set \code{Mode} to \code{Active} to sample and trace a subset of incoming requests with \href{https://docs.aws.amazon.com/lambda/latest/dg/services-xray.html}{X-Ray}.}
 
-\item{RevisionId}{Update the function only if the revision ID matches the ID that's
-specified. Use this option to avoid modifying a function that has
-changed since you last read it.}
+\item{RevisionId}{Update the function only if the revision ID matches the ID that's specified. Use this option to avoid modifying a function that has changed since you last read it.}
 
-\item{Layers}{A list of \href{https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html}{function layers}
-to add to the function's execution environment. Specify each layer by
-its ARN, including the version.}
+\item{Layers}{A list of \href{https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html}{function layers} to add to the function's execution environment. Specify each layer by its ARN, including the version.}
 
-\item{FileSystemConfigs}{Connection settings for an Amazon EFS file system.}
+\item{FileSystemConfigs}{Connection settings for an Amazon EFS file system or an Amazon S3 Files file system.}
 
-\item{ImageConfig}{\href{https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms}{Container image configuration values}
-that override the values in the container image Docker file.}
+\item{ImageConfig}{\href{https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms}{Container image configuration values} that override the values in the container image Docker file.}
 
-\item{EphemeralStorage}{The size of the function's \verb{/tmp} directory in MB. The default value is
-512, but can be any whole number between 512 and 10,240 MB. For more
-information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-functions.html#configuration-ephemeral-storage}{Configuring ephemeral storage (console)}.}
+\item{EphemeralStorage}{The size of the function's \verb{/tmp} directory in MB. The default value is 512, but can be any whole number between 512 and 10,240 MB. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-functions.html#configuration-ephemeral-storage}{Configuring ephemeral storage (console)}.}
 
-\item{SnapStart}{The function's
-\href{https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html}{SnapStart}
-setting.}
+\item{SnapStart}{The function's \href{https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html}{SnapStart} setting.}
 
 \item{LoggingConfig}{The function's Amazon CloudWatch Logs configuration settings.}
+
+\item{CapacityProviderConfig}{Configuration for the capacity provider that manages compute resources for Lambda functions.}
+
+\item{DurableConfig}{Configuration settings for durable functions. Allows updating execution timeout and retention period for functions with durability enabled.}
 }
 \description{
 Modify the version-specific settings of a Lambda function.

@@ -8,10 +8,9 @@ in your Amazon Web Services account}
 imagebuilder_list_waiting_workflow_steps(maxResults = NULL, nextToken = NULL)
 }
 \arguments{
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 }
 \description{
 Get a list of workflow steps that are waiting for action for workflows in your Amazon Web Services account.

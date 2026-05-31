@@ -31,43 +31,25 @@ Valid values: \code{description} | \code{imdsSupport} | \code{launchPermission}}
 
 \item{LaunchPermission}{A new launch permission for the AMI.}
 
-\item{OperationType}{The operation type. This parameter can be used only when the \code{Attribute}
-parameter is \code{launchPermission}.}
+\item{OperationType}{The operation type. This parameter can be used only when the \code{Attribute} parameter is \code{launchPermission}.}
 
 \item{ProductCodes}{Not supported.}
 
-\item{UserGroups}{The user groups. This parameter can be used only when the \code{Attribute}
-parameter is \code{launchPermission}.}
+\item{UserGroups}{The user groups. This parameter can be used only when the \code{Attribute} parameter is \code{launchPermission}.}
 
-\item{UserIds}{The Amazon Web Services account IDs. This parameter can be used only
-when the \code{Attribute} parameter is \code{launchPermission}.}
+\item{UserIds}{The Amazon Web Services account IDs. This parameter can be used only when the \code{Attribute} parameter is \code{launchPermission}.}
 
-\item{Value}{The value of the attribute being modified. This parameter can be used
-only when the \code{Attribute} parameter is \code{description} or \code{imdsSupport}.}
+\item{Value}{The value of the attribute being modified. This parameter can be used only when the \code{Attribute} parameter is \code{description} or \code{imdsSupport}.}
 
-\item{OrganizationArns}{The Amazon Resource Name (ARN) of an organization. This parameter can be
-used only when the \code{Attribute} parameter is \code{launchPermission}.}
+\item{OrganizationArns}{The Amazon Resource Name (ARN) of an organization. This parameter can be used only when the \code{Attribute} parameter is \code{launchPermission}.}
 
-\item{OrganizationalUnitArns}{The Amazon Resource Name (ARN) of an organizational unit (OU). This
-parameter can be used only when the \code{Attribute} parameter is
-\code{launchPermission}.}
+\item{OrganizationalUnitArns}{The Amazon Resource Name (ARN) of an organizational unit (OU). This parameter can be used only when the \code{Attribute} parameter is \code{launchPermission}.}
 
-\item{ImdsSupport}{Set to \code{v2.0} to indicate that IMDSv2 is specified in the AMI. Instances
-launched from this AMI will have \code{HttpTokens} automatically set to
-\code{required} so that, by default, the instance requires that IMDSv2 is
-used when requesting instance metadata. In addition,
-\code{HttpPutResponseHopLimit} is set to \code{2}. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration}{Configure the AMI}
-in the \emph{Amazon EC2 User Guide}.
+\item{ImdsSupport}{Set to \code{v2.0} to indicate that IMDSv2 is specified in the AMI. Instances launched from this AMI will have \code{HttpTokens} automatically set to \code{required} so that, by default, the instance requires that IMDSv2 is used when requesting instance metadata. In addition, \code{HttpPutResponseHopLimit} is set to \code{2}. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#configure-IMDS-new-instances-ami-configuration}{Configure the AMI} in the \emph{Amazon EC2 User Guide}.
 
-Do not use this parameter unless your AMI software supports IMDSv2.
-After you set the value to \code{v2.0}, you can't undo it. The only way to
-“reset” your AMI is to create a new AMI from the underlying snapshot.}
+Do not use this parameter unless your AMI software supports IMDSv2. After you set the value to \code{v2.0}, you can't undo it. The only way to “reset” your AMI is to create a new AMI from the underlying snapshot.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Modifies the specified attribute of the specified AMI. You can specify only one attribute at a time.

@@ -20,73 +20,43 @@ proton_create_environment(
 )
 }
 \arguments{
-\item{codebuildRoleArn}{The Amazon Resource Name (ARN) of the IAM service role that allows
-Proton to provision infrastructure using CodeBuild-based provisioning on
-your behalf.
+\item{codebuildRoleArn}{The Amazon Resource Name (ARN) of the IAM service role that allows Proton to provision infrastructure using CodeBuild-based provisioning on your behalf.
 
-To use CodeBuild-based provisioning for the environment or for any
-service instance running in the environment, specify either the
-\code{environmentAccountConnectionId} or \code{codebuildRoleArn} parameter.}
+To use CodeBuild-based provisioning for the environment or for any service instance running in the environment, specify either the \code{environmentAccountConnectionId} or \code{codebuildRoleArn} parameter.}
 
-\item{componentRoleArn}{The Amazon Resource Name (ARN) of the IAM service role that Proton uses
-when provisioning directly defined components in this environment. It
-determines the scope of infrastructure that a component can provision.
+\item{componentRoleArn}{The Amazon Resource Name (ARN) of the IAM service role that Proton uses when provisioning directly defined components in this environment. It determines the scope of infrastructure that a component can provision.
 
-You must specify \code{componentRoleArn} to allow directly defined components
-to be associated with this environment.
+You must specify \code{componentRoleArn} to allow directly defined components to be associated with this environment.
 
-For more information about components, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html}{Proton components}
-in the \emph{Proton User Guide}.}
+For more information about components, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html}{Proton components} in the \emph{Proton User Guide}.}
 
 \item{description}{A description of the environment that's being created and deployed.}
 
-\item{environmentAccountConnectionId}{The ID of the environment account connection that you provide if you're
-provisioning your environment infrastructure resources to an environment
-account. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-env-account-connections.html}{Environment account connections}
-in the \emph{Proton User guide}.
+\item{environmentAccountConnectionId}{The ID of the environment account connection that you provide if you're provisioning your environment infrastructure resources to an environment account. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-env-account-connections.html}{Environment account connections} in the \emph{Proton User guide}.
 
-To use Amazon Web Services-managed provisioning for the environment,
-specify either the \code{environmentAccountConnectionId} or
-\code{protonServiceRoleArn} parameter and omit the \code{provisioningRepository}
-parameter.}
+To use Amazon Web Services-managed provisioning for the environment, specify either the \code{environmentAccountConnectionId} or \code{protonServiceRoleArn} parameter and omit the \code{provisioningRepository} parameter.}
 
 \item{name}{[required] The name of the environment.}
 
-\item{protonServiceRoleArn}{The Amazon Resource Name (ARN) of the Proton service role that allows
-Proton to make calls to other services on your behalf.
+\item{protonServiceRoleArn}{The Amazon Resource Name (ARN) of the Proton service role that allows Proton to make calls to other services on your behalf.
 
-To use Amazon Web Services-managed provisioning for the environment,
-specify either the \code{environmentAccountConnectionId} or
-\code{protonServiceRoleArn} parameter and omit the \code{provisioningRepository}
-parameter.}
+To use Amazon Web Services-managed provisioning for the environment, specify either the \code{environmentAccountConnectionId} or \code{protonServiceRoleArn} parameter and omit the \code{provisioningRepository} parameter.}
 
-\item{provisioningRepository}{The linked repository that you use to host your rendered infrastructure
-templates for self-managed provisioning. A linked repository is a
-repository that has been registered with Proton. For more information,
-see \code{\link[=proton_create_repository]{create_repository}}.
+\item{provisioningRepository}{The linked repository that you use to host your rendered infrastructure templates for self-managed provisioning. A linked repository is a repository that has been registered with Proton. For more information, see \code{\link[=proton_create_repository]{create_repository}}.
 
-To use self-managed provisioning for the environment, specify this
-parameter and omit the \code{environmentAccountConnectionId} and
-\code{protonServiceRoleArn} parameters.}
+To use self-managed provisioning for the environment, specify this parameter and omit the \code{environmentAccountConnectionId} and \code{protonServiceRoleArn} parameters.}
 
-\item{spec}{[required] A YAML formatted string that provides inputs as defined in the
-environment template bundle schema file. For more information, see
-\href{https://docs.aws.amazon.com/proton/latest/userguide/ag-environments.html}{Environments}
-in the \emph{Proton User Guide}.}
+\item{spec}{[required] A YAML formatted string that provides inputs as defined in the environment template bundle schema file. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-environments.html}{Environments} in the \emph{Proton User Guide}.}
 
-\item{tags}{An optional list of metadata items that you can associate with the
-Proton environment. A tag is a key-value pair.
+\item{tags}{An optional list of metadata items that you can associate with the Proton environment. A tag is a key-value pair.
 
-For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging}
-in the \emph{Proton User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging} in the \emph{Proton User Guide}.}
 
 \item{templateMajorVersion}{[required] The major version of the environment template.}
 
 \item{templateMinorVersion}{The minor version of the environment template.}
 
-\item{templateName}{[required] The name of the environment template. For more information, see
-\href{https://docs.aws.amazon.com/proton/latest/userguide/ag-templates.html}{Environment Templates}
-in the \emph{Proton User Guide}.}
+\item{templateName}{[required] The name of the environment template. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-templates.html}{Environment Templates} in the \emph{Proton User Guide}.}
 }
 \description{
 Deploy a new environment. An Proton environment is created from an environment template that defines infrastructure and resources that can be shared across services.

@@ -18,48 +18,29 @@ ec2_get_spot_placement_scores(
 )
 }
 \arguments{
-\item{InstanceTypes}{The instance types. We recommend that you specify at least three
-instance types. If you specify one or two instance types, or specify
-variations of a single instance type (for example, an \code{m3.xlarge} with
-and without instance storage), the returned placement score will always
-be low.
+\item{InstanceTypes}{The instance types. We recommend that you specify at least three instance types. If you specify one or two instance types, or specify variations of a single instance type (for example, an \code{m3.xlarge} with and without instance storage), the returned placement score will always be low.
 
-If you specify \code{InstanceTypes}, you can't specify
-\code{InstanceRequirementsWithMetadata}.}
+If you specify \code{InstanceTypes}, you can't specify \code{InstanceRequirementsWithMetadata}.}
 
 \item{TargetCapacity}{[required] The target capacity.}
 
 \item{TargetCapacityUnitType}{The unit for the target capacity.}
 
-\item{SingleAvailabilityZone}{Specify \code{true} so that the response returns a list of scored
-Availability Zones. Otherwise, the response returns a list of scored
-Regions.
+\item{SingleAvailabilityZone}{Specify \code{true} so that the response returns a list of scored Availability Zones. Otherwise, the response returns a list of scored Regions.
 
-A list of scored Availability Zones is useful if you want to launch all
-of your Spot capacity into a single Availability Zone.}
+A list of scored Availability Zones is useful if you want to launch all of your Spot capacity into a single Availability Zone.}
 
-\item{RegionNames}{The Regions used to narrow down the list of Regions to be scored. Enter
-the Region code, for example, \code{us-east-1}.}
+\item{RegionNames}{The Regions used to narrow down the list of Regions to be scored. Enter the Region code, for example, \code{us-east-1}.}
 
-\item{InstanceRequirementsWithMetadata}{The attributes for the instance types. When you specify instance
-attributes, Amazon EC2 will identify instance types with those
-attributes.
+\item{InstanceRequirementsWithMetadata}{The attributes for the instance types. When you specify instance attributes, Amazon EC2 will identify instance types with those attributes.
 
-If you specify \code{InstanceRequirementsWithMetadata}, you can't specify
-\code{InstanceTypes}.}
+If you specify \code{InstanceRequirementsWithMetadata}, you can't specify \code{InstanceTypes}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 }
 \description{
 Calculates the Spot placement score for a Region or Availability Zone based on the specified target capacity and compute requirements.

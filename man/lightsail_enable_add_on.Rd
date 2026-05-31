@@ -7,8 +7,7 @@
 lightsail_enable_add_on(resourceName, addOnRequest)
 }
 \arguments{
-\item{resourceName}{[required] The name of the source resource for which to enable or modify the
-add-on.}
+\item{resourceName}{[required] The name of the source resource for which to enable or modify the add-on.}
 
 \item{addOnRequest}{[required] An array of strings representing the add-on to enable or modify.}
 }

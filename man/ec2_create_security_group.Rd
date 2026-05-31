@@ -17,24 +17,19 @@ ec2_create_security_group(
 
 Constraints: Up to 255 characters in length
 
-Valid characters: a-z, A-Z, 0-9, spaces, and
-._-:/()#,@[]+=&;\{\}!$*}
+Valid characters: a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&;\{\}!$*}
 
-\item{GroupName}{[required] The name of the security group.
+\item{GroupName}{[required] The name of the security group. Names are case-insensitive and must be unique within the VPC.
 
-Constraints: Up to 255 characters in length. Cannot start with \verb{sg-}.
+Constraints: Up to 255 characters in length. Can't start with \verb{sg-}.
 
-Valid characters: a-z, A-Z, 0-9, spaces, and
-._-:/()#,@[]+=&;\{\}!$*}
+Valid characters: a-z, A-Z, 0-9, spaces, and ._-:/()#,@[]+=&;\{\}!$*}
 
 \item{VpcId}{The ID of the VPC. Required for a nondefault VPC.}
 
 \item{TagSpecifications}{The tags to assign to the security group.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a security group.

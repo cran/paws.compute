@@ -40,6 +40,7 @@ ec2_run_instances(
   EnablePrimaryIpv6 = NULL,
   NetworkPerformanceOptions = NULL,
   Operator = NULL,
+  SecondaryInterfaces = NULL,
   DryRun = NULL,
   DisableApiTermination = NULL,
   InstanceInitiatedShutdownBehavior = NULL,
@@ -52,101 +53,59 @@ ec2_run_instances(
 )
 }
 \arguments{
-\item{BlockDeviceMappings}{The block device mapping, which defines the EBS volumes and instance
-store volumes to attach to the instance at launch. For more information,
-see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html}{Block device mappings}
-in the \emph{Amazon EC2 User Guide}.}
+\item{BlockDeviceMappings}{The block device mapping, which defines the EBS volumes and instance store volumes to attach to the instance at launch. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html}{Block device mappings} in the \emph{Amazon EC2 User Guide}.}
 
-\item{ImageId}{The ID of the AMI. An AMI ID is required to launch an instance and must
-be specified here or in a launch template.}
+\item{ImageId}{The ID of the AMI. An AMI ID is required to launch an instance and must be specified here or in a launch template.}
 
-\item{InstanceType}{The instance type. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html}{Amazon EC2 instance types}
-in the \emph{Amazon EC2 User Guide}.}
+\item{InstanceType}{The instance type. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/instance-types.html}{Amazon EC2 Instance Types Guide}.}
 
-\item{Ipv6AddressCount}{The number of IPv6 addresses to associate with the primary network
-interface. Amazon EC2 chooses the IPv6 addresses from the range of your
-subnet. You cannot specify this option and the option to assign specific
-IPv6 addresses in the same request. You can specify this option if
-you've specified a minimum number of instances to launch.
+\item{Ipv6AddressCount}{The number of IPv6 addresses to associate with the primary network interface. Amazon EC2 chooses the IPv6 addresses from the range of your subnet. You cannot specify this option and the option to assign specific IPv6 addresses in the same request. You can specify this option if you've specified a minimum number of instances to launch.
 
-You cannot specify this option and the network interfaces option in the
-same request.}
+You cannot specify this option and the network interfaces option in the same request.}
 
-\item{Ipv6Addresses}{The IPv6 addresses from the range of the subnet to associate with the
-primary network interface. You cannot specify this option and the option
-to assign a number of IPv6 addresses in the same request. You cannot
-specify this option if you've specified a minimum number of instances to
-launch.
+\item{Ipv6Addresses}{The IPv6 addresses from the range of the subnet to associate with the primary network interface. You cannot specify this option and the option to assign a number of IPv6 addresses in the same request. You cannot specify this option if you've specified a minimum number of instances to launch.
 
-You cannot specify this option and the network interfaces option in the
-same request.}
+You cannot specify this option and the network interfaces option in the same request.}
 
 \item{KernelId}{The ID of the kernel.
 
-We recommend that you use PV-GRUB instead of kernels and RAM disks. For
-more information, see
-\href{https://docs.aws.amazon.com/linux/al2/ug/UserProvidedKernels.html}{PV-GRUB}
-in the \emph{Amazon EC2 User Guide}.}
+We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see \href{https://docs.aws.amazon.com/linux/al2/ug/UserProvidedKernels.html}{PV-GRUB} in the \emph{Amazon EC2 User Guide}.}
 
-\item{KeyName}{The name of the key pair. You can create a key pair using
-\code{\link[=ec2_create_key_pair]{create_key_pair}} or
-\code{\link[=ec2_import_key_pair]{import_key_pair}}.
+\item{KeyName}{The name of the key pair. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html}{Create a key pair for your EC2 instance}.
 
-If you do not specify a key pair, you can't connect to the instance
-unless you choose an AMI that is configured to allow users another way
-to log in.}
+If you do not specify a key pair, you can't connect to the instance unless you choose an AMI that is configured to allow users another way to log in.}
 
-\item{MaxCount}{[required] The maximum number of instances to launch. If you specify a value that
-is more capacity than Amazon EC2 can launch in the target Availability
-Zone, Amazon EC2 launches the largest possible number of instances above
-the specified minimum count.
+\item{MaxCount}{[required] The maximum number of instances to launch. If you specify a value that is more capacity than Amazon EC2 can launch in the target Availability Zone, Amazon EC2 launches the largest possible number of instances above the specified minimum count.
 
-Constraints: Between 1 and the quota for the specified instance type for
-your account for this Region. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-quotas.html}{Amazon EC2 instance type quotas}.}
+Constraints: Between 1 and the quota for the specified instance type for your account for this Region. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-quotas.html}{Amazon EC2 instance type quotas}.}
 
-\item{MinCount}{[required] The minimum number of instances to launch. If you specify a value that
-is more capacity than Amazon EC2 can provide in the target Availability
-Zone, Amazon EC2 does not launch any instances.
+\item{MinCount}{[required] The minimum number of instances to launch. If you specify a value that is more capacity than Amazon EC2 can provide in the target Availability Zone, Amazon EC2 does not launch any instances.
 
-Constraints: Between 1 and the quota for the specified instance type for
-your account for this Region. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-quotas.html}{Amazon EC2 instance type quotas}.}
+Constraints: Between 1 and the quota for the specified instance type for your account for this Region. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-instance-quotas.html}{Amazon EC2 instance type quotas}.}
 
 \item{Monitoring}{Specifies whether detailed monitoring is enabled for the instance.}
 
 \item{Placement}{The placement for the instance.}
 
-\item{RamdiskId}{The ID of the RAM disk to select. Some kernels require additional
-drivers at launch. Check the kernel requirements for information about
-whether you need to specify a RAM disk. To find kernel requirements, go
-to the Amazon Web Services Resource Center and search for the kernel ID.
+\item{RamdiskId}{The ID of the RAM disk to select. Some kernels require additional drivers at launch. Check the kernel requirements for information about whether you need to specify a RAM disk. To find kernel requirements, go to the Amazon Web Services Resource Center and search for the kernel ID.
 
-We recommend that you use PV-GRUB instead of kernels and RAM disks. For
-more information, see
-\href{https://docs.aws.amazon.com/linux/al2/ug/UserProvidedKernels.html}{PV-GRUB}
-in the \emph{Amazon EC2 User Guide}.}
+We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see \href{https://docs.aws.amazon.com/linux/al2/ug/UserProvidedKernels.html}{PV-GRUB} in the \emph{Amazon EC2 User Guide}.}
 
-\item{SecurityGroupIds}{The IDs of the security groups. You can create a security group using
-\code{\link[=ec2_create_security_group]{create_security_group}}.
+\item{SecurityGroupIds}{The IDs of the security groups.
 
-If you specify a network interface, you must specify any security groups
-as part of the network interface instead of using this parameter.}
+If you specify a network interface, you must specify any security groups as part of the network interface instead of using this parameter.}
 
 \item{SecurityGroups}{[Default VPC] The names of the security groups.
 
-If you specify a network interface, you must specify any security groups
-as part of the network interface instead of using this parameter.
+If you specify a network interface, you must specify any security groups as part of the network interface instead of using this parameter.
 
 Default: Amazon EC2 uses the default security group.}
 
 \item{SubnetId}{The ID of the subnet to launch the instance into.
 
-If you specify a network interface, you must specify any subnets as part
-of the network interface instead of using this parameter.}
+If you specify a network interface, you must specify any subnets as part of the network interface instead of using this parameter.}
 
-\item{UserData}{The user data to make available to the instance. User data must be
-base64-encoded. Depending on the tool or SDK that you're using, the
-base64-encoding might be performed for you. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/}{Work with instance user data}.}
+\item{UserData}{The user data to make available to the instance. User data must be base64-encoded. Depending on the tool or SDK that you're using, the base64-encoding might be performed for you. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html}{Run commands at launch using instance user data}.}
 
 \item{ElasticGpuSpecification}{An elastic GPU to associate with the instance.
 
@@ -156,8 +115,7 @@ Amazon Elastic Graphics reached end of life on January 8, 2024.}
 
 Amazon Elastic Inference is no longer available.}
 
-\item{TagSpecifications}{The tags to apply to the resources that are created during instance
-launch.
+\item{TagSpecifications}{The tags to apply to the resources that are created during instance launch.
 
 You can specify tags for the following resources only:
 \itemize{
@@ -167,121 +125,67 @@ You can specify tags for the following resources only:
 \item Network interfaces
 }
 
-To tag a resource after it has been created, see
-\code{\link[=ec2_create_tags]{create_tags}}.}
+To tag a resource after it has been created, see \code{\link[=ec2_create_tags]{create_tags}}.}
 
-\item{LaunchTemplate}{The launch template. Any additional parameters that you specify for the
-new instance overwrite the corresponding parameters included in the
-launch template.}
+\item{LaunchTemplate}{The launch template. Any additional parameters that you specify for the new instance overwrite the corresponding parameters included in the launch template.}
 
 \item{InstanceMarketOptions}{The market (purchasing) option for the instances.
 
-For \code{\link[=ec2_run_instances]{run_instances}}, persistent Spot Instance
-requests are only supported when \strong{InstanceInterruptionBehavior} is set
-to either \code{hibernate} or \code{stop}.}
+For \code{\link[=ec2_run_instances]{run_instances}}, persistent Spot Instance requests are only supported when \strong{InstanceInterruptionBehavior} is set to either \code{hibernate} or \code{stop}.}
 
-\item{CreditSpecification}{The credit option for CPU usage of the burstable performance instance.
-Valid values are \code{standard} and \code{unlimited}. To change this attribute
-after launch, use
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyInstanceCreditSpecification.html}{ModifyInstanceCreditSpecification}.
-For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html}{Burstable performance instances}
-in the \emph{Amazon EC2 User Guide}.
+\item{CreditSpecification}{The credit option for CPU usage of the burstable performance instance. Valid values are \code{standard} and \code{unlimited}. To change this attribute after launch, use \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ModifyInstanceCreditSpecification.html}{ModifyInstanceCreditSpecification}. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html}{Burstable performance instances} in the \emph{Amazon EC2 User Guide}.
 
 Default: \code{standard} (T2 instances) or \code{unlimited} (T3/T3a/T4g instances)
 
 For T3 instances with \code{host} tenancy, only \code{standard} is supported.}
 
-\item{CpuOptions}{The CPU options for the instance. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html}{Optimize CPU options}
-in the \emph{Amazon EC2 User Guide}.}
+\item{CpuOptions}{The CPU options for the instance. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-optimize-cpu.html}{Optimize CPU options} in the \emph{Amazon EC2 User Guide}.}
 
-\item{CapacityReservationSpecification}{Information about the Capacity Reservation targeting option. If you do
-not specify this parameter, the instance's Capacity Reservation
-preference defaults to \code{open}, which enables it to run in any open
-Capacity Reservation that has matching attributes (instance type,
-platform, Availability Zone, and tenancy).}
+\item{CapacityReservationSpecification}{Information about the Capacity Reservation targeting option. If you do not specify this parameter, the instance's Capacity Reservation preference defaults to \code{open}, which enables it to run in any open Capacity Reservation that has matching attributes (instance type, platform, Availability Zone, and tenancy).}
 
-\item{HibernationOptions}{Indicates whether an instance is enabled for hibernation. This parameter
-is valid only if the instance meets the \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html}{hibernation prerequisites}.
-For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html}{Hibernate your Amazon EC2 instance}
-in the \emph{Amazon EC2 User Guide}.
+\item{HibernationOptions}{Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance meets the \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/hibernating-prerequisites.html}{hibernation prerequisites}. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html}{Hibernate your Amazon EC2 instance} in the \emph{Amazon EC2 User Guide}.
 
-You can't enable hibernation and Amazon Web Services Nitro Enclaves on
-the same instance.}
+You can't enable hibernation and Amazon Web Services Nitro Enclaves on the same instance.}
 
 \item{LicenseSpecifications}{The license configurations.}
 
-\item{MetadataOptions}{The metadata options for the instance. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html}{Instance metadata and user data}.}
+\item{MetadataOptions}{The metadata options for the instance. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html}{Configure the Instance Metadata Service options}.}
 
-\item{EnclaveOptions}{Indicates whether the instance is enabled for Amazon Web Services Nitro
-Enclaves. For more information, see \href{https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html}{What is Amazon Web Services Nitro Enclaves?}
-in the \emph{Amazon Web Services Nitro Enclaves User Guide}.
+\item{EnclaveOptions}{Indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves. For more information, see \href{https://docs.aws.amazon.com/enclaves/latest/user/}{Amazon Web Services Nitro Enclaves User Guide}.
 
-You can't enable Amazon Web Services Nitro Enclaves and hibernation on
-the same instance.}
+You can't enable Amazon Web Services Nitro Enclaves and hibernation on the same instance.}
 
-\item{PrivateDnsNameOptions}{The options for the instance hostname. The default values are inherited
-from the subnet. Applies only if creating a network interface, not
-attaching an existing one.}
+\item{PrivateDnsNameOptions}{The options for the instance hostname. The default values are inherited from the subnet. Applies only if creating a network interface, not attaching an existing one.}
 
 \item{MaintenanceOptions}{The maintenance and recovery options for the instance.}
 
-\item{DisableApiStop}{Indicates whether an instance is enabled for stop protection. For more
-information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html#Using_StopProtection}{Stop protection}.}
+\item{DisableApiStop}{Indicates whether an instance is enabled for stop protection. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html}{Enable stop protection for your EC2 instances}.}
 
-\item{EnablePrimaryIpv6}{If you’re launching an instance into a dual-stack or IPv6-only subnet,
-you can enable assigning a primary IPv6 address. A primary IPv6 address
-is an IPv6 GUA address associated with an ENI that you have enabled to
-use a primary IPv6 address. Use this option if an instance relies on its
-IPv6 address not changing. When you launch the instance, Amazon Web
-Services will automatically assign an IPv6 address associated with the
-ENI attached to your instance to be the primary IPv6 address. Once you
-enable an IPv6 GUA address to be a primary IPv6, you cannot disable it.
-When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6
-GUA will be made the primary IPv6 address until the instance is
-terminated or the network interface is detached. If you have multiple
-IPv6 addresses associated with an ENI attached to your instance and you
-enable a primary IPv6 address, the first IPv6 GUA address associated
-with the ENI becomes the primary IPv6 address.}
+\item{EnablePrimaryIpv6}{If you’re launching an instance into a dual-stack or IPv6-only subnet, you can enable assigning a primary IPv6 address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you have enabled to use a primary IPv6 address. Use this option if an instance relies on its IPv6 address not changing. When you launch the instance, Amazon Web Services will automatically assign an IPv6 address associated with the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6 GUA address to be a primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is detached. If you have multiple IPv6 addresses associated with an ENI attached to your instance and you enable a primary IPv6 address, the first IPv6 GUA address associated with the ENI becomes the primary IPv6 address.}
 
 \item{NetworkPerformanceOptions}{Contains settings for the network performance options for the instance.}
 
 \item{Operator}{Reserved for internal use.}
 
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{SecondaryInterfaces}{The secondary interfaces to associate with the instance.}
 
-\item{DisableApiTermination}{Indicates whether termination protection is enabled for the instance.
-The default is \code{false}, which means that you can terminate the instance
-using the Amazon EC2 console, command line tools, or API. You can enable
-termination protection when you launch an instance, while the instance
-is running, or while the instance is stopped.}
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{InstanceInitiatedShutdownBehavior}{Indicates whether an instance stops or terminates when you initiate
-shutdown from the instance (using the operating system command for
-system shutdown).
+\item{DisableApiTermination}{Indicates whether termination protection is enabled for the instance. The default is \code{false}, which means that you can terminate the instance using the Amazon EC2 console, command line tools, or API. You can enable termination protection when you launch an instance, while the instance is running, or while the instance is stopped.}
+
+\item{InstanceInitiatedShutdownBehavior}{Indicates whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown).
 
 Default: \code{stop}}
 
-\item{PrivateIpAddress}{The primary IPv4 address. You must specify a value from the IPv4 address
-range of the subnet.
+\item{PrivateIpAddress}{The primary IPv4 address. You must specify a value from the IPv4 address range of the subnet.
 
-Only one private IP address can be designated as primary. You can't
-specify this option if you've specified the option to designate a
-private IP address as the primary IP address in a network interface
-specification. You cannot specify this option if you're launching more
-than one instance in the request.
+Only one private IP address can be designated as primary. You can't specify this option if you've specified the option to designate a private IP address as the primary IP address in a network interface specification. You cannot specify this option if you're launching more than one instance in the request.
 
-You cannot specify this option and the network interfaces option in the
-same request.}
+You cannot specify this option and the network interfaces option in the same request.}
 
-\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency
-of the request. If you do not specify a client token, a randomly
-generated token is used for the request to ensure idempotency.
+\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a client token, a randomly generated token is used for the request to ensure idempotency.
 
-For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.
+For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency in Amazon EC2 API requests}.
 
 Constraints: Maximum 64 ASCII characters}
 
@@ -291,11 +195,7 @@ Constraints: Maximum 64 ASCII characters}
 
 \item{IamInstanceProfile}{The name or Amazon Resource Name (ARN) of an IAM instance profile.}
 
-\item{EbsOptimized}{Indicates whether the instance is optimized for Amazon EBS I/O. This
-optimization provides dedicated throughput to Amazon EBS and an
-optimized configuration stack to provide optimal Amazon EBS I/O
-performance. This optimization isn't available with all instance types.
-Additional usage charges apply when using an EBS-optimized instance.
+\item{EbsOptimized}{Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal Amazon EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance.
 
 Default: \code{false}}
 }

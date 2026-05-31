@@ -25,8 +25,7 @@ emrserverless_list_job_runs(
 
 \item{createdAtBefore}{The upper bound of the option to filter by creation date and time.}
 
-\item{states}{An optional filter for job run states. Note that if this filter contains
-multiple states, the resulting list will be grouped by the state.}
+\item{states}{An optional filter for job run states. Note that if this filter contains multiple states, the resulting list will be grouped by the state.}
 
 \item{mode}{The mode of the job runs to list.}
 }

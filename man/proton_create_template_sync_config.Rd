@@ -21,9 +21,7 @@ proton_create_template_sync_config(
 
 \item{repositoryProvider}{[required] The provider type for your repository.}
 
-\item{subdirectory}{A repository subdirectory path to your template bundle directory. When
-included, Proton limits the template bundle search to this repository
-directory.}
+\item{subdirectory}{A repository subdirectory path to your template bundle directory. When included, Proton limits the template bundle search to this repository directory.}
 
 \item{templateName}{[required] The name of your registered template.}
 

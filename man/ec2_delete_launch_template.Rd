@@ -11,20 +11,15 @@ ec2_delete_launch_template(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{LaunchTemplateId}{The ID of the launch template.
 
-You must specify either the launch template ID or the launch template
-name, but not both.}
+You must specify either the launch template ID or the launch template name, but not both.}
 
 \item{LaunchTemplateName}{The name of the launch template.
 
-You must specify either the launch template ID or the launch template
-name, but not both.}
+You must specify either the launch template ID or the launch template name, but not both.}
 }
 \description{
 Deletes a launch template. Deleting a launch template deletes all of its versions.

@@ -8,12 +8,13 @@ imagebuilder_create_image_recipe(
   name,
   description = NULL,
   semanticVersion,
-  components,
+  components = NULL,
   parentImage,
   blockDeviceMappings = NULL,
   tags = NULL,
   workingDirectory = NULL,
   additionalInstanceConfiguration = NULL,
+  amiTags = NULL,
   clientToken
 )
 }
@@ -22,33 +23,25 @@ imagebuilder_create_image_recipe(
 
 \item{description}{The description of the image recipe.}
 
-\item{semanticVersion}{[required] The semantic version of the image recipe. This version follows the
-semantic version syntax.
+\item{semanticVersion}{[required] The semantic version of the image recipe. This version follows the semantic version syntax.
 
-The semantic version has four nodes:
-\<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the
-first three, and can filter on all of them.
+The semantic version has four nodes: \<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the first three, and can filter on all of them.
 
-\strong{Assignment:} For the first three nodes you can assign any positive
-integer value, including zero, with an upper limit of 2^30-1, or
-1073741823 for each node. Image Builder automatically assigns the build
-number to the fourth node.
+\strong{Assignment:} For the first three nodes you can assign any positive integer value, including zero, with an upper limit of 2^30-1, or 1073741823 for each node. Image Builder automatically assigns the build number to the fourth node.
 
-\strong{Patterns:} You can use any numeric pattern that adheres to the
-assignment requirements for the nodes that you can assign. For example,
-you might choose a software version pattern, such as 1.0.0, or a date,
-such as 2021.01.01.}
+\strong{Patterns:} You can use any numeric pattern that adheres to the assignment requirements for the nodes that you can assign. For example, you might choose a software version pattern, such as 1.0.0, or a date, such as 2021.01.01.}
 
-\item{components}{[required] The components included in the image recipe.}
+\item{components}{The components included in the image recipe.}
 
-\item{parentImage}{[required] The base image of the image recipe. The value of the string can be the
-ARN of the base image or an AMI ID. The format for the ARN follows this
-example:
-\code{arn:aws:imagebuilder:us-west-2:aws:image/windows-server-2016-english-full-base-x86/x.x.x}.
-You can provide the specific version that you want to use, or you can
-use a wildcard in all of the fields. If you enter an AMI ID for the
-string value, you must have access to the AMI, and the AMI must be in
-the same Region in which you are using Image Builder.}
+\item{parentImage}{[required] The base image for customizations specified in the image recipe. You can specify the parent image using one of the following options:
+\itemize{
+\item AMI ID
+\item Image Builder image Amazon Resource Name (ARN)
+\item Amazon Web Services Systems Manager (SSM) Parameter Store Parameter, prefixed by \verb{ssm:}, followed by the parameter name or ARN.
+\item Amazon Web Services Marketplace product ID
+}
+
+If you enter an AMI ID or an SSM parameter that contains the AMI ID, you must have access to the AMI, and the AMI must be in the source Region.}
 
 \item{blockDeviceMappings}{The block device mappings of the image recipe.}
 
@@ -58,9 +51,9 @@ the same Region in which you are using Image Builder.}
 
 \item{additionalInstanceConfiguration}{Specify additional settings and launch scripts for your build instances.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{amiTags}{Tags that are applied to the AMI that Image Builder creates during the Build phase prior to image distribution.}
+
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 Creates a new image recipe. Image recipes define how images are configured, tested, and assessed.

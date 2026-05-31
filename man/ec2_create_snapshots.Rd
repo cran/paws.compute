@@ -18,38 +18,26 @@ ec2_create_snapshots(
 \arguments{
 \item{Description}{A description propagated to every snapshot specified by the instance.}
 
-\item{InstanceSpecification}{[required] The instance to specify which volumes should be included in the
-snapshots.}
+\item{InstanceSpecification}{[required] The instance to specify which volumes should be included in the snapshots.}
 
-\item{OutpostArn}{Only supported for instances on Outposts. If the source instance is not
-on an Outpost, omit this parameter.
+\item{OutpostArn}{Only supported for instances on Outposts. If the source instance is not on an Outpost, omit this parameter.
 \itemize{
-\item To create the snapshots on the same Outpost as the source instance,
-specify the ARN of that Outpost. The snapshots must be created on
-the same Outpost as the instance.
-\item To create the snapshots in the parent Region of the Outpost, omit
-this parameter.
+\item To create the snapshots on the same Outpost as the source instance, specify the ARN of that Outpost. The snapshots must be created on the same Outpost as the instance.
+\item To create the snapshots in the parent Region of the Outpost, omit this parameter.
 }
 
-For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#create-snapshot}{Create local snapshots from volumes on an Outpost}
-in the \emph{Amazon EBS User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/snapshots-outposts.html#create-snapshot}{Create local snapshots from volumes on an Outpost} in the \emph{Amazon EBS User Guide}.}
 
 \item{TagSpecifications}{Tags to apply to every snapshot specified by the instance.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{CopyTagsFromSource}{Copies the tags from the specified volume to corresponding snapshot.}
 
-\item{Location}{Only supported for instances in Local Zones. If the source instance is
-not in a Local Zone, omit this parameter.
+\item{Location}{Only supported for instances in Local Zones. If the source instance is not in a Local Zone, omit this parameter.
 \itemize{
-\item To create local snapshots in the same Local Zone as the source
-instance, specify \code{local}.
-\item To create a regional snapshots in the parent Region of the Local
-Zone, specify \code{regional} or omit this parameter.
+\item To create local snapshots in the same Local Zone as the source instance, specify \code{local}.
+\item To create regional snapshots in the parent Region of the Local Zone, specify \code{regional} or omit this parameter.
 }
 
 Default value: \code{regional}}

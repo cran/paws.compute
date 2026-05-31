@@ -17,8 +17,7 @@ lightsail_get_container_log(
 \arguments{
 \item{serviceName}{[required] The name of the container service for which to get a container log.}
 
-\item{containerName}{[required] The name of the container that is either running or previously ran on
-the container service for which to return a log.}
+\item{containerName}{[required] The name of the container that is either running or previously ran on the container service for which to return a log.}
 
 \item{startTime}{The start of the time interval for which to get log data.
 
@@ -27,12 +26,10 @@ Constraints:
 \item Specified in Coordinated Universal Time (UTC).
 \item Specified in the Unix time format.
 
-For example, if you wish to use a start time of October 1, 2018, at
-8 PM UTC, specify \code{1538424000} as the start time.
+For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, specify \code{1538424000} as the start time.
 }
 
-You can convert a human-friendly time to Unix time format using a
-converter like \href{https://www.epochconverter.com/}{Epoch converter}.}
+You can convert a human-friendly time to Unix time format using a converter like \href{https://www.epochconverter.com/}{Epoch converter}.}
 
 \item{endTime}{The end of the time interval for which to get log data.
 
@@ -41,35 +38,25 @@ Constraints:
 \item Specified in Coordinated Universal Time (UTC).
 \item Specified in the Unix time format.
 
-For example, if you wish to use an end time of October 1, 2018, at 9
-PM UTC, specify \code{1538427600} as the end time.
+For example, if you wish to use an end time of October 1, 2018, at 9 PM UTC, specify \code{1538427600} as the end time.
 }
 
-You can convert a human-friendly time to Unix time format using a
-converter like \href{https://www.epochconverter.com/}{Epoch converter}.}
+You can convert a human-friendly time to Unix time format using a converter like \href{https://www.epochconverter.com/}{Epoch converter}.}
 
 \item{filterPattern}{The pattern to use to filter the returned log events to a specific term.
 
-The following are a few examples of filter patterns that you can
-specify:
+The following are a few examples of filter patterns that you can specify:
 \itemize{
 \item To return all log events, specify a filter pattern of \code{""}.
-\item To exclude log events that contain the \code{ERROR} term, and return all
-other log events, specify a filter pattern of \code{"-ERROR"}.
-\item To return log events that contain the \code{ERROR} term, specify a filter
-pattern of \code{"ERROR"}.
-\item To return log events that contain both the \code{ERROR} and \code{Exception}
-terms, specify a filter pattern of \code{"ERROR Exception"}.
-\item To return log events that contain the \code{ERROR} \emph{or} the \code{Exception}
-term, specify a filter pattern of \code{"?ERROR ?Exception"}.
+\item To exclude log events that contain the \code{ERROR} term, and return all other log events, specify a filter pattern of \code{"-ERROR"}.
+\item To return log events that contain the \code{ERROR} term, specify a filter pattern of \code{"ERROR"}.
+\item To return log events that contain both the \code{ERROR} and \code{Exception} terms, specify a filter pattern of \code{"ERROR Exception"}.
+\item To return log events that contain the \code{ERROR} \emph{or} the \code{Exception} term, specify a filter pattern of \code{"?ERROR ?Exception"}.
 }}
 
 \item{pageToken}{The token to advance to the next page of results from your request.
 
-To get a page token, perform an initial
-\code{\link[=lightsail_get_container_log]{get_container_log}} request. If your
-results are paginated, the response will return a next page token that
-you can specify as the page token in a subsequent request.}
+To get a page token, perform an initial \code{\link[=lightsail_get_container_log]{get_container_log}} request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.}
 }
 \description{
 Returns the log events of a container of your Amazon Lightsail container service.

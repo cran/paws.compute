@@ -9,10 +9,7 @@ ec2_delete_volume(VolumeId, DryRun = NULL)
 \arguments{
 \item{VolumeId}{[required] The ID of the volume.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes the specified EBS volume. The volume must be in the \code{available} state (not attached to an instance).

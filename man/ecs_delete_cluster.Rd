@@ -7,8 +7,7 @@
 ecs_delete_cluster(cluster)
 }
 \arguments{
-\item{cluster}{[required] The short name or full Amazon Resource Name (ARN) of the cluster to
-delete.}
+\item{cluster}{[required] The short name or full Amazon Resource Name (ARN) of the cluster to delete.}
 }
 \description{
 Deletes the specified cluster. The cluster transitions to the \code{INACTIVE} state. Clusters with an \code{INACTIVE} status might remain discoverable in your account for a period of time. However, this behavior is subject to change in the future. We don't recommend that you rely on \code{INACTIVE} clusters persisting.

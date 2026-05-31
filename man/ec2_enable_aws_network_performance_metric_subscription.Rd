@@ -13,24 +13,15 @@ ec2_enable_aws_network_performance_metric_subscription(
 )
 }
 \arguments{
-\item{Source}{The source Region (like \code{us-east-1}) or Availability Zone ID (like
-\code{use1-az1}) that the metric subscription is enabled for. If you use
-Availability Zone IDs, the Source and Destination Availability Zones
-must be in the same Region.}
+\item{Source}{The source Region (like \code{us-east-1}) or Availability Zone ID (like \code{use1-az1}) that the metric subscription is enabled for. If you use Availability Zone IDs, the Source and Destination Availability Zones must be in the same Region.}
 
-\item{Destination}{The target Region (like \code{us-east-2}) or Availability Zone ID (like
-\code{use2-az2}) that the metric subscription is enabled for. If you use
-Availability Zone IDs, the Source and Destination Availability Zones
-must be in the same Region.}
+\item{Destination}{The target Region (like \code{us-east-2}) or Availability Zone ID (like \code{use2-az2}) that the metric subscription is enabled for. If you use Availability Zone IDs, the Source and Destination Availability Zones must be in the same Region.}
 
 \item{Metric}{The metric used for the enabled subscription.}
 
 \item{Statistic}{The statistic used for the enabled subscription.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Enables Infrastructure Performance subscriptions.

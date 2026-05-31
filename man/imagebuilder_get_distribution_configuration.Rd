@@ -7,8 +7,7 @@
 imagebuilder_get_distribution_configuration(distributionConfigurationArn)
 }
 \arguments{
-\item{distributionConfigurationArn}{[required] The Amazon Resource Name (ARN) of the distribution configuration that
-you want to retrieve.}
+\item{distributionConfigurationArn}{[required] The Amazon Resource Name (ARN) of the distribution configuration that you want to retrieve.}
 }
 \description{
 Gets a distribution configuration.

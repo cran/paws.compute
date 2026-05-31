@@ -10,10 +10,7 @@ ec2_cancel_capacity_reservation(CapacityReservationId, DryRun = NULL)
 \arguments{
 \item{CapacityReservationId}{[required] The ID of the Capacity Reservation to be cancelled.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Cancels the specified Capacity Reservation, releases the reserved capacity, and changes the Capacity Reservation's state to \code{cancelled}.

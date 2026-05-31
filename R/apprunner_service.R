@@ -7,33 +7,17 @@ NULL
 #' @description
 #' App Runner
 #' 
-#' App Runner is an application service that provides a fast, simple, and
-#' cost-effective way to go directly from an existing container image or
-#' source code to a running service in the Amazon Web Services Cloud in
-#' seconds. You don't need to learn new technologies, decide which compute
-#' service to use, or understand how to provision and configure Amazon Web
-#' Services resources.
+#' App Runner is an application service that provides a fast, simple, and cost-effective way to go directly from an existing container image or source code to a running service in the Amazon Web Services Cloud in seconds. You don't need to learn new technologies, decide which compute service to use, or understand how to provision and configure Amazon Web Services resources.
 #' 
-#' App Runner connects directly to your container registry or source code
-#' repository. It provides an automatic delivery pipeline with fully
-#' managed operations, high performance, scalability, and security.
+#' App Runner connects directly to your container registry or source code repository. It provides an automatic delivery pipeline with fully managed operations, high performance, scalability, and security.
 #' 
-#' For more information about App Runner, see the [App Runner Developer
-#' Guide](https://docs.aws.amazon.com/apprunner/latest/dg/). For release
-#' information, see the [App Runner Release
-#' Notes](https://docs.aws.amazon.com/apprunner/latest/relnotes/).
+#' For more information about App Runner, see the [App Runner Developer Guide](https://docs.aws.amazon.com/apprunner/latest/dg/). For release information, see the [App Runner Release Notes](https://docs.aws.amazon.com/apprunner/latest/relnotes/).
 #' 
-#' To install the Software Development Kits (SDKs), Integrated Development
-#' Environment (IDE) Toolkits, and command line tools that you can use to
-#' access the API, see [Tools for Amazon Web
-#' Services](https://aws.amazon.com/developer/tools/).
+#' To install the Software Development Kits (SDKs), Integrated Development Environment (IDE) Toolkits, and command line tools that you can use to access the API, see [Tools for Amazon Web Services](https://builder.aws.com/build/tools).
 #' 
 #' **Endpoints**
 #' 
-#' For a list of Region-specific endpoints that App Runner supports, see
-#' [App Runner endpoints and
-#' quotas](https://docs.aws.amazon.com/general/latest/gr/apprunner.html) in
-#' the *Amazon Web Services General Reference*.
+#' For a list of Region-specific endpoints that App Runner supports, see [App Runner endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/apprunner.html) in the *Amazon Web Services General Reference*.
 #'
 #' @param
 #' config
@@ -186,7 +170,7 @@ apprunner <- function(config = list(), credentials = list(), endpoint = NULL, re
 
 .apprunner$metadata <- list(
   service_name = "apprunner",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "apprunner.{region}.amazonaws.eu", global = FALSE)),
   service_id = "AppRunner",
   api_version = "2020-05-15",
   signing_name = "apprunner",

@@ -14,56 +14,40 @@ imagebuilder_create_workflow(
   kmsKeyId = NULL,
   tags = NULL,
   clientToken,
-  type
+  type,
+  dryRun = NULL
 )
 }
 \arguments{
 \item{name}{[required] The name of the workflow to create.}
 
-\item{semanticVersion}{[required] The semantic version of this workflow resource. The semantic version
-syntax adheres to the following rules.
+\item{semanticVersion}{[required] The semantic version of this workflow resource. The semantic version syntax adheres to the following rules.
 
-The semantic version has four nodes:
-\<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the
-first three, and can filter on all of them.
+The semantic version has four nodes: \<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the first three, and can filter on all of them.
 
-\strong{Assignment:} For the first three nodes you can assign any positive
-integer value, including zero, with an upper limit of 2^30-1, or
-1073741823 for each node. Image Builder automatically assigns the build
-number to the fourth node.
+\strong{Assignment:} For the first three nodes you can assign any positive integer value, including zero, with an upper limit of 2^30-1, or 1073741823 for each node. Image Builder automatically assigns the build number to the fourth node.
 
-\strong{Patterns:} You can use any numeric pattern that adheres to the
-assignment requirements for the nodes that you can assign. For example,
-you might choose a software version pattern, such as 1.0.0, or a date,
-such as 2021.01.01.}
+\strong{Patterns:} You can use any numeric pattern that adheres to the assignment requirements for the nodes that you can assign. For example, you might choose a software version pattern, such as 1.0.0, or a date, such as 2021.01.01.}
 
 \item{description}{Describes the workflow.}
 
-\item{changeDescription}{Describes what change has been made in this version of the workflow, or
-what makes this version different from other versions of the workflow.}
+\item{changeDescription}{Describes what change has been made in this version of the workflow, or what makes this version different from other versions of the workflow.}
 
-\item{data}{Contains the UTF-8 encoded YAML document content for the workflow.
-Alternatively, you can specify the \code{uri} of a YAML document file stored
-in Amazon S3. However, you cannot specify both properties.}
+\item{data}{Contains the UTF-8 encoded YAML document content for the workflow. Alternatively, you can specify the \code{uri} of a YAML document file stored in Amazon S3. However, you cannot specify both properties.}
 
-\item{uri}{The \code{uri} of a YAML component document file. This must be an S3 URL
-(\verb{s3://bucket/key}), and the requester must have permission to access
-the S3 bucket it points to. If you use Amazon S3, you can specify
-component content up to your service quota.
+\item{uri}{The \code{uri} of a YAML component document file. This must be an S3 URL (\verb{s3://bucket/key}), and the requester must have permission to access the S3 bucket it points to. If you use Amazon S3, you can specify component content up to your service quota.
 
-Alternatively, you can specify the YAML document inline, using the
-component \code{data} property. You cannot specify both properties.}
+Alternatively, you can specify the YAML document inline, using the component \code{data} property. You cannot specify both properties.}
 
-\item{kmsKeyId}{The ID of the KMS key that is used to encrypt this workflow resource.}
+\item{kmsKeyId}{The Amazon Resource Name (ARN) that uniquely identifies the KMS key used to encrypt this workflow resource. This can be either the Key ARN or the Alias ARN. For more information, see \href{https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN}{Key identifiers (KeyId)} in the \emph{Key Management Service Developer Guide}.}
 
 \item{tags}{Tags that apply to the workflow resource.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 
-\item{type}{[required] The phase in the image build process for which the workflow resource is
-responsible.}
+\item{type}{[required] The phase in the image build process for which the workflow resource is responsible.}
+
+\item{dryRun}{Validates the required permissions for the operation and the request parameters, without actually making the request, and provides an error response. Upon a successful request, the error response is \code{DryRunOperationException}.}
 }
 \description{
 Create a new workflow or a new version of an existing workflow.

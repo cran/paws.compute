@@ -11,8 +11,7 @@ emrserverless_get_job_run(applicationId, jobRunId, attempt = NULL)
 
 \item{jobRunId}{[required] The ID of the job run.}
 
-\item{attempt}{An optimal parameter that indicates the amount of attempts for the job.
-If not specified, this value defaults to the attempt of the latest job.}
+\item{attempt}{An optimal parameter that indicates the amount of attempts for the job. If not specified, this value defaults to the attempt of the latest job.}
 }
 \description{
 Displays detailed information about a job run.

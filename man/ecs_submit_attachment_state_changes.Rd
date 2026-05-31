@@ -8,8 +8,7 @@ for use outside of the agent}
 ecs_submit_attachment_state_changes(cluster = NULL, attachments)
 }
 \arguments{
-\item{cluster}{The short name or full ARN of the cluster that hosts the container
-instance the attachment belongs to.}
+\item{cluster}{The short name or full ARN of the cluster that hosts the container instance the attachment belongs to.}
 
 \item{attachments}{[required] Any attachments associated with the state change request.}
 }

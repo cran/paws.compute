@@ -15,34 +15,17 @@ ec2_modify_capacity_reservation_fleet(
 \arguments{
 \item{CapacityReservationFleetId}{[required] The ID of the Capacity Reservation Fleet to modify.}
 
-\item{TotalTargetCapacity}{The total number of capacity units to be reserved by the Capacity
-Reservation Fleet. This value, together with the instance type weights
-that you assign to each instance type used by the Fleet determine the
-number of instances for which the Fleet reserves capacity. Both values
-are based on units that make sense for your workload. For more
-information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity}{Total target capacity}
-in the \emph{Amazon EC2 User Guide}.}
+\item{TotalTargetCapacity}{The total number of capacity units to be reserved by the Capacity Reservation Fleet. This value, together with the instance type weights that you assign to each instance type used by the Fleet determine the number of instances for which the Fleet reserves capacity. Both values are based on units that make sense for your workload. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity}{Total target capacity} in the \emph{Amazon EC2 User Guide}.}
 
-\item{EndDate}{The date and time at which the Capacity Reservation Fleet expires. When
-the Capacity Reservation Fleet expires, its state changes to \code{expired}
-and all of the Capacity Reservations in the Fleet expire.
+\item{EndDate}{The date and time at which the Capacity Reservation Fleet expires. When the Capacity Reservation Fleet expires, its state changes to \code{expired} and all of the Capacity Reservations in the Fleet expire.
 
-The Capacity Reservation Fleet expires within an hour after the
-specified time. For example, if you specify \code{5/31/2019}, \code{13:30:55}, the
-Capacity Reservation Fleet is guaranteed to expire between \code{13:30:55}
-and \code{14:30:55} on \code{5/31/2019}.
+The Capacity Reservation Fleet expires within an hour after the specified time. For example, if you specify \code{5/31/2019}, \code{13:30:55}, the Capacity Reservation Fleet is guaranteed to expire between \code{13:30:55} and \code{14:30:55} on \code{5/31/2019}.
 
 You can't specify \strong{EndDate} and \strong{RemoveEndDate} in the same request.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{RemoveEndDate}{Indicates whether to remove the end date from the Capacity Reservation
-Fleet. If you remove the end date, the Capacity Reservation Fleet does
-not expire and it remains active until you explicitly cancel it using
-the \strong{CancelCapacityReservationFleet} action.
+\item{RemoveEndDate}{Indicates whether to remove the end date from the Capacity Reservation Fleet. If you remove the end date, the Capacity Reservation Fleet does not expire and it remains active until you explicitly cancel it using the \strong{CancelCapacityReservationFleet} action.
 
 You can't specify \strong{RemoveEndDate} and \strong{EndDate} in the same request.}
 }

@@ -10,35 +10,28 @@ ec2_modify_instance_metadata_defaults(
   HttpPutResponseHopLimit = NULL,
   HttpEndpoint = NULL,
   InstanceMetadataTags = NULL,
-  DryRun = NULL
+  DryRun = NULL,
+  HttpTokensEnforced = NULL
 )
 }
 \arguments{
 \item{HttpTokens}{Indicates whether IMDSv2 is required.
 \itemize{
-\item \code{optional} – IMDSv2 is optional, which means that you can use either
-IMDSv2 or IMDSv1.
-\item \code{required} – IMDSv2 is required, which means that IMDSv1 is
-disabled, and you must use IMDSv2.
+\item \code{optional} – IMDSv2 is optional, which means that you can use either IMDSv2 or IMDSv1.
+\item \code{required} – IMDSv2 is required, which means that IMDSv1 is disabled, and you must use IMDSv2.
 }}
 
-\item{HttpPutResponseHopLimit}{The maximum number of hops that the metadata token can travel. To
-indicate no preference, specify \code{-1}.
+\item{HttpPutResponseHopLimit}{The maximum number of hops that the metadata token can travel. To indicate no preference, specify \code{-1}.
 
-Possible values: Integers from \code{1} to \code{64}, and \code{-1} to indicate no
-preference}
+Possible values: Integers from \code{1} to \code{64}, and \code{-1} to indicate no preference}
 
-\item{HttpEndpoint}{Enables or disables the IMDS endpoint on an instance. When disabled, the
-instance metadata can't be accessed.}
+\item{HttpEndpoint}{Enables or disables the IMDS endpoint on an instance. When disabled, the instance metadata can't be accessed.}
 
-\item{InstanceMetadataTags}{Enables or disables access to an instance's tags from the instance
-metadata. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#work-with-tags-in-IMDS}{Work with instance tags using the instance metadata}
-in the \emph{Amazon EC2 User Guide}.}
+\item{InstanceMetadataTags}{Enables or disables access to an instance's tags from the instance metadata. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html}{View tags for your EC2 instances using instance metadata} in the \emph{Amazon EC2 User Guide}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+
+\item{HttpTokensEnforced}{Specifies whether to enforce the requirement of IMDSv2 on an instance at the time of launch. When enforcement is enabled, the instance can't launch unless IMDSv2 (\code{HttpTokens}) is set to \code{required}. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-new-instances.html#enforce-imdsv2-at-the-account-level}{Enforce IMDSv2 at the account level} in the \emph{Amazon EC2 User Guide}.}
 }
 \description{
 Modifies the default instance metadata service (IMDS) settings at the account level in the specified Amazon Web Services Region.

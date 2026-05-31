@@ -9,9 +9,7 @@ proton_list_environment_templates(maxResults = NULL, nextToken = NULL)
 \arguments{
 \item{maxResults}{The maximum number of environment templates to list.}
 
-\item{nextToken}{A token that indicates the location of the next environment template in
-the array of environment templates, after the list of environment
-templates that was previously requested.}
+\item{nextToken}{A token that indicates the location of the next environment template in the array of environment templates, after the list of environment templates that was previously requested.}
 }
 \description{
 List environment templates.

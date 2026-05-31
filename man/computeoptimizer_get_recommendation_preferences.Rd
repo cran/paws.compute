@@ -13,28 +13,19 @@ computeoptimizer_get_recommendation_preferences(
 )
 }
 \arguments{
-\item{resourceType}{[required] The target resource type of the recommendation preference for which to
-return preferences.
+\item{resourceType}{[required] The target resource type of the recommendation preference for which to return preferences.
 
-The \code{Ec2Instance} option encompasses standalone instances and instances
-that are part of Auto Scaling groups. The \code{AutoScalingGroup} option
-encompasses only instances that are part of an Auto Scaling group.}
+The \code{Ec2Instance} option encompasses standalone instances and instances that are part of Auto Scaling groups. The \code{AutoScalingGroup} option encompasses only instances that are part of an Auto Scaling group.}
 
-\item{scope}{An object that describes the scope of the recommendation preference to
-return.
+\item{scope}{An object that describes the scope of the recommendation preference to return.
 
-You can return recommendation preferences that are created at the
-organization level (for management accounts of an organization only),
-account level, and resource level. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html}{Activating enhanced infrastructure metrics}
-in the \emph{Compute Optimizer User Guide}.}
+You can return recommendation preferences that are created at the organization level (for management accounts of an organization only), account level, and resource level. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html}{Activating enhanced infrastructure metrics} in the \emph{Compute Optimizer User Guide}.}
 
 \item{nextToken}{The token to advance to the next page of recommendation preferences.}
 
-\item{maxResults}{The maximum number of recommendation preferences to return with a single
-request.
+\item{maxResults}{The maximum number of recommendation preferences to return with a single request.
 
-To retrieve the remaining results, make another request with the
-returned \code{nextToken} value.}
+To retrieve the remaining results, make another request with the returned \code{nextToken} value.}
 }
 \description{
 Returns existing recommendation preferences, such as enhanced infrastructure metrics.

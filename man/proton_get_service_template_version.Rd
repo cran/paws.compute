@@ -7,14 +7,11 @@
 proton_get_service_template_version(majorVersion, minorVersion, templateName)
 }
 \arguments{
-\item{majorVersion}{[required] To get service template major version detail data, include
-\verb{major Version}.}
+\item{majorVersion}{[required] To get service template major version detail data, include \verb{major Version}.}
 
-\item{minorVersion}{[required] To get service template minor version detail data, include
-\code{minorVersion}.}
+\item{minorVersion}{[required] To get service template minor version detail data, include \code{minorVersion}.}
 
-\item{templateName}{[required] The name of the service template a version of which you want to get
-detailed data for.}
+\item{templateName}{[required] The name of the service template a version of which you want to get detailed data for.}
 }
 \description{
 Get detailed data for a major or minor version of a service template.

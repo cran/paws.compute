@@ -9,40 +9,29 @@ ecr_create_repository(
   repositoryName,
   tags = NULL,
   imageTagMutability = NULL,
+  imageTagMutabilityExclusionFilters = NULL,
   imageScanningConfiguration = NULL,
   encryptionConfiguration = NULL
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry to
-create the repository. If you do not specify a registry, the default
-registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry to create the repository. If you do not specify a registry, the default registry is assumed.}
 
-\item{repositoryName}{[required] The name to use for the repository. The repository name may be specified
-on its own (such as \code{nginx-web-app}) or it can be prepended with a
-namespace to group the repository into a category (such as
-\code{project-a/nginx-web-app}).
+\item{repositoryName}{[required] The name to use for the repository. The repository name may be specified on its own (such as \code{nginx-web-app}) or it can be prepended with a namespace to group the repository into a category (such as \code{project-a/nginx-web-app}).
 
-The repository name must start with a letter and can only contain
-lowercase letters, numbers, hyphens, underscores, and forward slashes.}
+The repository name must start with a letter and can only contain lowercase letters, numbers, hyphens, underscores, and forward slashes.}
 
-\item{tags}{The metadata that you apply to the repository to help you categorize and
-organize them. Each tag consists of a key and an optional value, both of
-which you define. Tag keys can have a maximum character length of 128
-characters, and tag values can have a maximum length of 256 characters.}
+\item{tags}{The metadata that you apply to the repository to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. Tag keys can have a maximum character length of 128 characters, and tag values can have a maximum length of 256 characters.}
 
-\item{imageTagMutability}{The tag mutability setting for the repository. If this parameter is
-omitted, the default setting of \code{MUTABLE} will be used which will allow
-image tags to be overwritten. If \code{IMMUTABLE} is specified, all image
-tags within the repository will be immutable which will prevent them
-from being overwritten.}
+\item{imageTagMutability}{The tag mutability setting for the repository. If this parameter is omitted, the default setting of \code{MUTABLE} will be used which will allow image tags to be overwritten. If \code{IMMUTABLE} is specified, all image tags within the repository will be immutable which will prevent them from being overwritten.}
 
-\item{imageScanningConfiguration}{The image scanning configuration for the repository. This determines
-whether images are scanned for known vulnerabilities after being pushed
-to the repository.}
+\item{imageTagMutabilityExclusionFilters}{A list of filters that specify which image tags should be excluded from the repository's image tag mutability setting.}
 
-\item{encryptionConfiguration}{The encryption configuration for the repository. This determines how the
-contents of your repository are encrypted at rest.}
+\item{imageScanningConfiguration}{The \code{imageScanningConfiguration} parameter is being deprecated, in favor of specifying the image scanning configuration at the registry level. For more information, see \code{\link[=ecr_put_registry_scanning_configuration]{put_registry_scanning_configuration}}.
+
+The image scanning configuration for the repository. This determines whether images are scanned for known vulnerabilities after being pushed to the repository.}
+
+\item{encryptionConfiguration}{The encryption configuration for the repository. This determines how the contents of your repository are encrypted at rest.}
 }
 \description{
 Creates a repository. For more information, see \href{https://docs.aws.amazon.com/AmazonECR/latest/userguide/Repositories.html}{Amazon ECR repositories} in the \emph{Amazon Elastic Container Registry User Guide}.

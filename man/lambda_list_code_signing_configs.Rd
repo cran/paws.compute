@@ -7,8 +7,7 @@
 lambda_list_code_signing_configs(Marker = NULL, MaxItems = NULL)
 }
 \arguments{
-\item{Marker}{Specify the pagination token that's returned by a previous request to
-retrieve the next page of results.}
+\item{Marker}{Specify the pagination token that's returned by a previous request to retrieve the next page of results.}
 
 \item{MaxItems}{Maximum number of items to return.}
 }

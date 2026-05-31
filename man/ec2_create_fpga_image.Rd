@@ -16,13 +16,9 @@ ec2_create_fpga_image(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{InputStorageLocation}{[required] The location of the encrypted design checkpoint in Amazon S3. The input
-must be a tarball.}
+\item{InputStorageLocation}{[required] The location of the encrypted design checkpoint in Amazon S3. The input must be a tarball.}
 
 \item{LogsStorageLocation}{The location in Amazon S3 for the output logs.}
 
@@ -30,8 +26,7 @@ must be a tarball.}
 
 \item{Name}{A name for the AFI.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
 
 \item{TagSpecifications}{The tags to apply to the FPGA image during creation.}
 }

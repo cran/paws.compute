@@ -13,25 +13,21 @@ ec2_modify_launch_template(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency
-of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
+\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If a client token isn't specified, a randomly generated token is used in the request to ensure idempotency.
+
+For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
 
 Constraint: Maximum 128 ASCII characters.}
 
 \item{LaunchTemplateId}{The ID of the launch template.
 
-You must specify either the launch template ID or the launch template
-name, but not both.}
+You must specify either the launch template ID or the launch template name, but not both.}
 
 \item{LaunchTemplateName}{The name of the launch template.
 
-You must specify either the launch template ID or the launch template
-name, but not both.}
+You must specify either the launch template ID or the launch template name, but not both.}
 
 \item{DefaultVersion}{The version number of the launch template to set as the default version.}
 }

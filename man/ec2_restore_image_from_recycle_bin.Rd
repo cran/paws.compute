@@ -9,13 +9,10 @@ ec2_restore_image_from_recycle_bin(ImageId, DryRun = NULL)
 \arguments{
 \item{ImageId}{[required] The ID of the AMI to restore.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
-Restores an AMI from the Recycle Bin. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/recycle-bin.html}{Recycle Bin} in the \emph{Amazon EC2 User Guide}.
+Restores an AMI from the Recycle Bin. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/recycle-bin.html}{Recover deleted Amazon EBS snapshots and EBS-back AMIs with Recycle Bin} in the \emph{Amazon EC2 User Guide}.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_restore_image_from_recycle_bin/} for full documentation.
 }

@@ -13,8 +13,7 @@ proton_update_service_sync_config(
 )
 }
 \arguments{
-\item{branch}{[required] The name of the code repository branch where the Proton Ops file is
-found.}
+\item{branch}{[required] The name of the code repository branch where the Proton Ops file is found.}
 
 \item{filePath}{[required] The path to the Proton Ops file.}
 

@@ -8,10 +8,7 @@ instance from an exported Amazon Lightsail snapshot}
 lightsail_create_cloud_formation_stack(instances)
 }
 \arguments{
-\item{instances}{[required] An array of parameters that will be used to create the new Amazon EC2
-instance. You can only pass one instance entry at a time in this array.
-You will get an invalid parameter error if you pass more than one
-instance entry in this array.}
+\item{instances}{[required] An array of parameters that will be used to create the new Amazon EC2 instance. You can only pass one instance entry at a time in this array. You will get an invalid parameter error if you pass more than one instance entry in this array.}
 }
 \description{
 Creates an AWS CloudFormation stack, which creates a new Amazon EC2 instance from an exported Amazon Lightsail snapshot. This operation results in a CloudFormation stack record that can be used to track the AWS CloudFormation stack created. Use the \verb{get cloud formation stack records} operation to get a list of the CloudFormation stacks created.

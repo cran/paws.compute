@@ -8,14 +8,9 @@ Services Region}
 ec2_enable_allowed_images_settings(AllowedImagesSettingsState, DryRun = NULL)
 }
 \arguments{
-\item{AllowedImagesSettingsState}{[required] Specify \code{enabled} to apply the image criteria specified by the Allowed
-AMIs settings. Specify \code{audit-mode} so that you can check which AMIs
-will be allowed or not allowed by the image criteria.}
+\item{AllowedImagesSettingsState}{[required] Specify \code{enabled} to apply the image criteria specified by the Allowed AMIs settings. Specify \code{audit-mode} so that you can check which AMIs will be allowed or not allowed by the image criteria.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Enables Allowed AMIs for your account in the specified Amazon Web Services Region. Two values are accepted:

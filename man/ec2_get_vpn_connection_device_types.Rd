@@ -12,30 +12,11 @@ ec2_get_vpn_connection_device_types(
 )
 }
 \arguments{
-\item{MaxResults}{The maximum number of results returned by
-\code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}}
-in paginated output. When this parameter is used,
-\code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}}
-only returns \code{MaxResults} results in a single page along with a
-\code{NextToken} response element. The remaining results of the initial
-request can be seen by sending another
-\code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}}
-request with the returned \code{NextToken} value. This value can be between
-200 and 1000. If this parameter is not used, then
-\code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}}
-returns all results.}
+\item{MaxResults}{The maximum number of results returned by \code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}} in paginated output. When this parameter is used, \code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}} only returns \code{MaxResults} results in a single page along with a \code{NextToken} response element. The remaining results of the initial request can be seen by sending another \code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}} request with the returned \code{NextToken} value. This value can be between 200 and 1000. If this parameter is not used, then \code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}} returns all results.}
 
-\item{NextToken}{The \code{NextToken} value returned from a previous paginated
-\code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}}
-request where \code{MaxResults} was used and the results exceeded the value
-of that parameter. Pagination continues from the end of the previous
-results that returned the \code{NextToken} value. This value is null when
-there are no more results to return.}
+\item{NextToken}{The \code{NextToken} value returned from a previous paginated \code{\link[=ec2_get_vpn_connection_device_types]{get_vpn_connection_device_types}} request where \code{MaxResults} was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the \code{NextToken} value. This value is null when there are no more results to return.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Obtain a list of customer gateway devices for which sample configuration files can be provided. The request has no additional parameters. You can also see the list of device types with sample configuration files available under \href{https://docs.aws.amazon.com/vpn/latest/s2svpn/your-cgw.html}{Your customer gateway device} in the \emph{Amazon Web Services Site-to-Site VPN User Guide}.

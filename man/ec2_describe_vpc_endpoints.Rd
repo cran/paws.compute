@@ -13,10 +13,7 @@ ec2_describe_vpc_endpoints(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{VpcEndpointIds}{The IDs of the VPC endpoints.}
 
@@ -25,32 +22,19 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item \code{ip-address-type} - The IP address type (\code{ipv4} | \code{ipv6}).
 \item \code{service-name} - The name of the service.
 \item \code{service-region} - The Region of the service.
-\item \code{tag}:\<key\> - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources assigned a tag with a specific key,
-regardless of the tag value.
+\item \code{tag}:\<key\> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
 \item \code{vpc-id} - The ID of the VPC in which the endpoint resides.
 \item \code{vpc-endpoint-id} - The ID of the endpoint.
-\item \code{vpc-endpoint-state} - The state of the endpoint
-(\code{pendingAcceptance} | \code{pending} | \code{available} | \code{deleting} |
-\code{deleted} | \code{rejected} | \code{failed}).
-\item \code{vpc-endpoint-type} - The type of VPC endpoint (\code{Interface} |
-\code{Gateway} | \code{GatewayLoadBalancer} | \code{Resource} | \code{ServiceNetwork}).
+\item \code{vpc-endpoint-state} - The state of the endpoint (\code{pendingAcceptance} | \code{pending} | \code{available} | \code{deleting} | \code{deleted} | \code{rejected} | \code{failed}).
+\item \code{vpc-endpoint-type} - The type of VPC endpoint (\code{Interface} | \code{Gateway} | \code{GatewayLoadBalancer} | \code{Resource} | \code{ServiceNetwork}).
 }}
 
-\item{MaxResults}{The maximum number of items to return for this request. The request
-returns a token that you can specify in a subsequent call to get the
-next set of results.
+\item{MaxResults}{The maximum number of items to return for this request. The request returns a token that you can specify in a subsequent call to get the next set of results.
 
-Constraint: If the value is greater than 1,000, we return only 1,000
-items.}
+Constraint: If the value is greater than 1,000, we return only 1,000 items.}
 
-\item{NextToken}{The token for the next set of items to return. (You received this token
-from a prior call.)}
+\item{NextToken}{The token for the next set of items to return. (You received this token from a prior call.)}
 }
 \description{
 Describes your VPC endpoints. The default is to describe all your VPC endpoints. Alternatively, you can specify specific VPC endpoint IDs or filter the results to include only the VPC endpoints that match specific criteria.

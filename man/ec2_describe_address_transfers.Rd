@@ -14,16 +14,11 @@ ec2_describe_address_transfers(
 \arguments{
 \item{AllocationIds}{The allocation IDs of Elastic IP addresses.}
 
-\item{NextToken}{Specify the pagination token from a previous request to retrieve the
-next page of results.}
+\item{NextToken}{Specify the pagination token from a previous request to retrieve the next page of results.}
 
-\item{MaxResults}{The maximum number of address transfers to return in one page of
-results.}
+\item{MaxResults}{The maximum number of address transfers to return in one page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes an Elastic IP address transfer. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#transfer-EIPs-intro}{Transfer Elastic IP addresses} in the \emph{Amazon VPC User Guide}.

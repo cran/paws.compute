@@ -12,8 +12,7 @@ lightsail_delete_key_pair(keyPairName, expectedFingerprint = NULL)
 
 \item{expectedFingerprint}{The RSA fingerprint of the Lightsail default key pair to delete.
 
-The \code{expectedFingerprint} parameter is required only when specifying to
-delete a Lightsail default key pair.}
+The \code{expectedFingerprint} parameter is required only when specifying to delete a Lightsail default key pair.}
 }
 \description{
 Deletes the specified key pair by removing the public key from Amazon Lightsail.

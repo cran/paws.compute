@@ -12,11 +12,12 @@ NULL
 #'
 #' @param applicationId &#91;required&#93; The ID of the application on which the job run will be canceled.
 #' @param jobRunId &#91;required&#93; The ID of the job run to cancel.
+#' @param shutdownGracePeriodInSeconds The duration in seconds to wait before forcefully terminating the job after cancellation is requested.
 #'
 #' @keywords internal
 #'
 #' @rdname emrserverless_cancel_job_run
-emrserverless_cancel_job_run <- function(applicationId, jobRunId) {
+emrserverless_cancel_job_run <- function(applicationId, jobRunId, shutdownGracePeriodInSeconds = NULL) {
   op <- new_operation(
     name = "CancelJobRun",
     http_method = "DELETE",
@@ -25,7 +26,7 @@ emrserverless_cancel_job_run <- function(applicationId, jobRunId) {
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .emrserverless$cancel_job_run_input(applicationId = applicationId, jobRunId = jobRunId)
+  input <- .emrserverless$cancel_job_run_input(applicationId = applicationId, jobRunId = jobRunId, shutdownGracePeriodInSeconds = shutdownGracePeriodInSeconds)
   output <- .emrserverless$cancel_job_run_output()
   config <- get_config()
   svc <- .emrserverless$service(config, op)
@@ -45,45 +46,28 @@ emrserverless_cancel_job_run <- function(applicationId, jobRunId) {
 #' @param name The name of the application.
 #' @param releaseLabel &#91;required&#93; The Amazon EMR release associated with the application.
 #' @param type &#91;required&#93; The type of application you want to start, such as Spark or Hive.
-#' @param clientToken &#91;required&#93; The client idempotency token of the application to create. Its value
-#' must be unique for each request.
+#' @param clientToken &#91;required&#93; The client idempotency token of the application to create. Its value must be unique for each request.
 #' @param initialCapacity The capacity to initialize when the application is created.
-#' @param maximumCapacity The maximum capacity to allocate when the application is created. This
-#' is cumulative across all workers at any given point in time, not just
-#' when an application is created. No new resources will be created once
-#' any one of the defined limits is hit.
+#' @param maximumCapacity The maximum capacity to allocate when the application is created. This is cumulative across all workers at any given point in time, not just when an application is created. No new resources will be created once any one of the defined limits is hit.
 #' @param tags The tags assigned to the application.
-#' @param autoStartConfiguration The configuration for an application to automatically start on job
-#' submission.
-#' @param autoStopConfiguration The configuration for an application to automatically stop after a
-#' certain amount of time being idle.
+#' @param autoStartConfiguration The configuration for an application to automatically start on job submission.
+#' @param autoStopConfiguration The configuration for an application to automatically stop after a certain amount of time being idle.
 #' @param networkConfiguration The network configuration for customer VPC connectivity.
 #' @param architecture The CPU architecture of an application.
-#' @param imageConfiguration The image configuration for all worker types. You can either set this
-#' parameter or `imageConfiguration` for each worker type in
-#' `workerTypeSpecifications`.
-#' @param workerTypeSpecifications The key-value pairs that specify worker type to
-#' `WorkerTypeSpecificationInput`. This parameter must contain all valid
-#' worker types for a Spark or Hive application. Valid worker types include
-#' `Driver` and `Executor` for Spark applications and `HiveDriver` and
-#' `TezTask` for Hive applications. You can either set image details in
-#' this parameter for each worker type, or in `imageConfiguration` for all
-#' worker types.
-#' @param runtimeConfiguration The
-#' [Configuration](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html)
-#' specifications to use when creating an application. Each configuration
-#' consists of a classification and properties. This configuration is
-#' applied to all the job runs submitted under the application.
+#' @param imageConfiguration The image configuration for all worker types. You can either set this parameter or `imageConfiguration` for each worker type in `workerTypeSpecifications`.
+#' @param workerTypeSpecifications The key-value pairs that specify worker type to `WorkerTypeSpecificationInput`. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include `Driver` and `Executor` for Spark applications and `HiveDriver` and `TezTask` for Hive applications. You can either set image details in this parameter for each worker type, or in `imageConfiguration` for all worker types.
+#' @param runtimeConfiguration The [Configuration](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html) specifications to use when creating an application. Each configuration consists of a classification and properties. This configuration is applied to all the job runs submitted under the application.
 #' @param monitoringConfiguration The configuration setting for monitoring.
-#' @param interactiveConfiguration The interactive configuration object that enables the interactive use
-#' cases to use when running an application.
-#' @param schedulerConfiguration The scheduler configuration for batch and streaming jobs running on this
-#' application. Supported with release labels emr-7.0.0 and above.
+#' @param diskEncryptionConfiguration The configuration object that allows encrypting local disks.
+#' @param interactiveConfiguration The interactive configuration object that enables the interactive use cases to use when running an application.
+#' @param schedulerConfiguration The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.
+#' @param identityCenterConfiguration The IAM Identity Center Configuration accepts the Identity Center instance parameter required to enable trusted identity propagation. This configuration allows identity propagation between integrated services and the Identity Center instance.
+#' @param jobLevelCostAllocationConfiguration The configuration object that enables job level cost allocation.
 #'
 #' @keywords internal
 #'
 #' @rdname emrserverless_create_application
-emrserverless_create_application <- function(name = NULL, releaseLabel, type, clientToken, initialCapacity = NULL, maximumCapacity = NULL, tags = NULL, autoStartConfiguration = NULL, autoStopConfiguration = NULL, networkConfiguration = NULL, architecture = NULL, imageConfiguration = NULL, workerTypeSpecifications = NULL, runtimeConfiguration = NULL, monitoringConfiguration = NULL, interactiveConfiguration = NULL, schedulerConfiguration = NULL) {
+emrserverless_create_application <- function(name = NULL, releaseLabel, type, clientToken, initialCapacity = NULL, maximumCapacity = NULL, tags = NULL, autoStartConfiguration = NULL, autoStopConfiguration = NULL, networkConfiguration = NULL, architecture = NULL, imageConfiguration = NULL, workerTypeSpecifications = NULL, runtimeConfiguration = NULL, monitoringConfiguration = NULL, diskEncryptionConfiguration = NULL, interactiveConfiguration = NULL, schedulerConfiguration = NULL, identityCenterConfiguration = NULL, jobLevelCostAllocationConfiguration = NULL) {
   op <- new_operation(
     name = "CreateApplication",
     http_method = "POST",
@@ -92,7 +76,7 @@ emrserverless_create_application <- function(name = NULL, releaseLabel, type, cl
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .emrserverless$create_application_input(name = name, releaseLabel = releaseLabel, type = type, clientToken = clientToken, initialCapacity = initialCapacity, maximumCapacity = maximumCapacity, tags = tags, autoStartConfiguration = autoStartConfiguration, autoStopConfiguration = autoStopConfiguration, networkConfiguration = networkConfiguration, architecture = architecture, imageConfiguration = imageConfiguration, workerTypeSpecifications = workerTypeSpecifications, runtimeConfiguration = runtimeConfiguration, monitoringConfiguration = monitoringConfiguration, interactiveConfiguration = interactiveConfiguration, schedulerConfiguration = schedulerConfiguration)
+  input <- .emrserverless$create_application_input(name = name, releaseLabel = releaseLabel, type = type, clientToken = clientToken, initialCapacity = initialCapacity, maximumCapacity = maximumCapacity, tags = tags, autoStartConfiguration = autoStartConfiguration, autoStopConfiguration = autoStopConfiguration, networkConfiguration = networkConfiguration, architecture = architecture, imageConfiguration = imageConfiguration, workerTypeSpecifications = workerTypeSpecifications, runtimeConfiguration = runtimeConfiguration, monitoringConfiguration = monitoringConfiguration, diskEncryptionConfiguration = diskEncryptionConfiguration, interactiveConfiguration = interactiveConfiguration, schedulerConfiguration = schedulerConfiguration, identityCenterConfiguration = identityCenterConfiguration, jobLevelCostAllocationConfiguration = jobLevelCostAllocationConfiguration)
   output <- .emrserverless$create_application_output()
   config <- get_config()
   svc <- .emrserverless$service(config, op)
@@ -174,10 +158,8 @@ emrserverless_get_application <- function(applicationId) {
 #'
 #' @param applicationId &#91;required&#93; The ID of the application.
 #' @param jobRunId &#91;required&#93; The ID of the job run.
-#' @param attempt An optimal parameter that indicates the amount of attempts for the job.
-#' If not specified, this value defaults to the attempt of the latest job.
-#' @param accessSystemProfileLogs Allows access to system profile logs for Lake Formation-enabled jobs.
-#' Default is false.
+#' @param attempt An optimal parameter that indicates the amount of attempts for the job. If not specified, this value defaults to the attempt of the latest job.
+#' @param accessSystemProfileLogs Allows access to system profile logs for Lake Formation-enabled jobs. Default is false.
 #'
 #' @keywords internal
 #'
@@ -210,8 +192,7 @@ emrserverless_get_dashboard_for_job_run <- function(applicationId, jobRunId, att
 #'
 #' @param applicationId &#91;required&#93; The ID of the application on which the job run is submitted.
 #' @param jobRunId &#91;required&#93; The ID of the job run.
-#' @param attempt An optimal parameter that indicates the amount of attempts for the job.
-#' If not specified, this value defaults to the attempt of the latest job.
+#' @param attempt An optimal parameter that indicates the amount of attempts for the job. If not specified, this value defaults to the attempt of the latest job.
 #'
 #' @keywords internal
 #'
@@ -235,6 +216,105 @@ emrserverless_get_job_run <- function(applicationId, jobRunId, attempt = NULL) {
 }
 .emrserverless$operations$get_job_run <- emrserverless_get_job_run
 
+#' Returns a URL that you can use to access the application UIs for a
+#' specified resource, such as a session
+#'
+#' @description
+#' Returns a URL that you can use to access the application UIs for a specified resource, such as a session.
+#'
+#' See [https://www.paws-r-sdk.com/docs/emrserverless_get_resource_dashboard/](https://www.paws-r-sdk.com/docs/emrserverless_get_resource_dashboard/) for full documentation.
+#'
+#' @param applicationId &#91;required&#93; The ID of the application that the resource belongs to.
+#' @param resourceId &#91;required&#93; The ID of the resource.
+#' @param resourceType &#91;required&#93; The type of resource to access the dashboard for. Currently, only `Session` is supported.
+#'
+#' @keywords internal
+#'
+#' @rdname emrserverless_get_resource_dashboard
+emrserverless_get_resource_dashboard <- function(applicationId, resourceId, resourceType) {
+  op <- new_operation(
+    name = "GetResourceDashboard",
+    http_method = "GET",
+    http_path = "/applications/{applicationId}/dashboard",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .emrserverless$get_resource_dashboard_input(applicationId = applicationId, resourceId = resourceId, resourceType = resourceType)
+  output <- .emrserverless$get_resource_dashboard_output()
+  config <- get_config()
+  svc <- .emrserverless$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.emrserverless$operations$get_resource_dashboard <- emrserverless_get_resource_dashboard
+
+#' Displays detailed information about a session
+#'
+#' @description
+#' Displays detailed information about a session.
+#'
+#' See [https://www.paws-r-sdk.com/docs/emrserverless_get_session/](https://www.paws-r-sdk.com/docs/emrserverless_get_session/) for full documentation.
+#'
+#' @param applicationId &#91;required&#93; The ID of the application that the session belongs to.
+#' @param sessionId &#91;required&#93; The ID of the session.
+#'
+#' @keywords internal
+#'
+#' @rdname emrserverless_get_session
+emrserverless_get_session <- function(applicationId, sessionId) {
+  op <- new_operation(
+    name = "GetSession",
+    http_method = "GET",
+    http_path = "/applications/{applicationId}/sessions/{sessionId}",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .emrserverless$get_session_input(applicationId = applicationId, sessionId = sessionId)
+  output <- .emrserverless$get_session_output()
+  config <- get_config()
+  svc <- .emrserverless$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.emrserverless$operations$get_session <- emrserverless_get_session
+
+#' Returns the session endpoint URL and a time-limited authentication token
+#' for the specified session
+#'
+#' @description
+#' Returns the session endpoint URL and a time-limited authentication token for the specified session. Use the endpoint and token to connect a client to the session. Call this operation again when the authentication token expires to obtain a new token.
+#'
+#' See [https://www.paws-r-sdk.com/docs/emrserverless_get_session_endpoint/](https://www.paws-r-sdk.com/docs/emrserverless_get_session_endpoint/) for full documentation.
+#'
+#' @param applicationId &#91;required&#93; The ID of the application that the session belongs to.
+#' @param sessionId &#91;required&#93; The ID of the session.
+#'
+#' @keywords internal
+#'
+#' @rdname emrserverless_get_session_endpoint
+emrserverless_get_session_endpoint <- function(applicationId, sessionId) {
+  op <- new_operation(
+    name = "GetSessionEndpoint",
+    http_method = "GET",
+    http_path = "/applications/{applicationId}/sessions/{sessionId}/endpoint",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .emrserverless$get_session_endpoint_input(applicationId = applicationId, sessionId = sessionId)
+  output <- .emrserverless$get_session_endpoint_output()
+  config <- get_config()
+  svc <- .emrserverless$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.emrserverless$operations$get_session_endpoint <- emrserverless_get_session_endpoint
+
 #' Lists applications based on a set of parameters
 #'
 #' @description
@@ -244,9 +324,7 @@ emrserverless_get_job_run <- function(applicationId, jobRunId, attempt = NULL) {
 #'
 #' @param nextToken The token for the next set of application results.
 #' @param maxResults The maximum number of applications that can be listed.
-#' @param states An optional filter for application states. Note that if this filter
-#' contains multiple states, the resulting list will be grouped by the
-#' state.
+#' @param states An optional filter for application states. Note that if this filter contains multiple states, the resulting list will be grouped by the state.
 #'
 #' @keywords internal
 #'
@@ -316,8 +394,7 @@ emrserverless_list_job_run_attempts <- function(applicationId, jobRunId, nextTok
 #' @param maxResults The maximum number of job runs that can be listed.
 #' @param createdAtAfter The lower bound of the option to filter by creation date and time.
 #' @param createdAtBefore The upper bound of the option to filter by creation date and time.
-#' @param states An optional filter for job run states. Note that if this filter contains
-#' multiple states, the resulting list will be grouped by the state.
+#' @param states An optional filter for job run states. Note that if this filter contains multiple states, the resulting list will be grouped by the state.
 #' @param mode The mode of the job runs to list.
 #'
 #' @keywords internal
@@ -342,6 +419,42 @@ emrserverless_list_job_runs <- function(applicationId, nextToken = NULL, maxResu
 }
 .emrserverless$operations$list_job_runs <- emrserverless_list_job_runs
 
+#' Lists sessions for the specified application
+#'
+#' @description
+#' Lists sessions for the specified application. You can filter sessions by state and creation time.
+#'
+#' See [https://www.paws-r-sdk.com/docs/emrserverless_list_sessions/](https://www.paws-r-sdk.com/docs/emrserverless_list_sessions/) for full documentation.
+#'
+#' @param applicationId &#91;required&#93; The ID of the application to list sessions for.
+#' @param nextToken The token for the next set of session results.
+#' @param maxResults The maximum number of sessions to return in each page of results.
+#' @param states An optional filter for session states. Note that if this filter contains multiple states, the resulting list will be grouped by the state.
+#' @param createdAtAfter The lower bound of the option to filter by creation date and time.
+#' @param createdAtBefore The upper bound of the option to filter by creation date and time.
+#'
+#' @keywords internal
+#'
+#' @rdname emrserverless_list_sessions
+emrserverless_list_sessions <- function(applicationId, nextToken = NULL, maxResults = NULL, states = NULL, createdAtAfter = NULL, createdAtBefore = NULL) {
+  op <- new_operation(
+    name = "ListSessions",
+    http_method = "GET",
+    http_path = "/applications/{applicationId}/sessions",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "sessions"),
+    stream_api = FALSE
+  )
+  input <- .emrserverless$list_sessions_input(applicationId = applicationId, nextToken = nextToken, maxResults = maxResults, states = states, createdAtAfter = createdAtAfter, createdAtBefore = createdAtBefore)
+  output <- .emrserverless$list_sessions_output()
+  config <- get_config()
+  svc <- .emrserverless$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.emrserverless$operations$list_sessions <- emrserverless_list_sessions
+
 #' Lists the tags assigned to the resources
 #'
 #' @description
@@ -349,9 +462,7 @@ emrserverless_list_job_runs <- function(applicationId, nextToken = NULL, maxResu
 #'
 #' See [https://www.paws-r-sdk.com/docs/emrserverless_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/emrserverless_list_tags_for_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list the
-#' tags for. Currently, the supported resources are Amazon EMR Serverless
-#' applications and job runs.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list the tags for. Currently, the supported resources are Amazon EMR Serverless applications and job runs.
 #'
 #' @keywords internal
 #'
@@ -415,14 +526,13 @@ emrserverless_start_application <- function(applicationId) {
 #' See [https://www.paws-r-sdk.com/docs/emrserverless_start_job_run/](https://www.paws-r-sdk.com/docs/emrserverless_start_job_run/) for full documentation.
 #'
 #' @param applicationId &#91;required&#93; The ID of the application on which to run the job.
-#' @param clientToken &#91;required&#93; The client idempotency token of the job run to start. Its value must be
-#' unique for each request.
+#' @param clientToken &#91;required&#93; The client idempotency token of the job run to start. Its value must be unique for each request.
 #' @param executionRoleArn &#91;required&#93; The execution role ARN for the job run.
+#' @param executionIamPolicy You can pass an optional IAM policy. The resulting job IAM role permissions will be an intersection of this policy and the policy associated with your job execution role.
 #' @param jobDriver The job driver for the job run.
 #' @param configurationOverrides The configuration overrides for the job run.
 #' @param tags The tags assigned to the job run.
-#' @param executionTimeoutMinutes The maximum duration for the job run to run. If the job run runs beyond
-#' this duration, it will be automatically cancelled.
+#' @param executionTimeoutMinutes The maximum duration for the job run to run. If the job run runs beyond this duration, it will be automatically cancelled.
 #' @param name The optional job run name. This doesn't have to be unique.
 #' @param mode The mode of the job run when it starts.
 #' @param retryPolicy The retry policy when job run starts.
@@ -430,7 +540,7 @@ emrserverless_start_application <- function(applicationId) {
 #' @keywords internal
 #'
 #' @rdname emrserverless_start_job_run
-emrserverless_start_job_run <- function(applicationId, clientToken, executionRoleArn, jobDriver = NULL, configurationOverrides = NULL, tags = NULL, executionTimeoutMinutes = NULL, name = NULL, mode = NULL, retryPolicy = NULL) {
+emrserverless_start_job_run <- function(applicationId, clientToken, executionRoleArn, executionIamPolicy = NULL, jobDriver = NULL, configurationOverrides = NULL, tags = NULL, executionTimeoutMinutes = NULL, name = NULL, mode = NULL, retryPolicy = NULL) {
   op <- new_operation(
     name = "StartJobRun",
     http_method = "POST",
@@ -439,7 +549,7 @@ emrserverless_start_job_run <- function(applicationId, clientToken, executionRol
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .emrserverless$start_job_run_input(applicationId = applicationId, clientToken = clientToken, executionRoleArn = executionRoleArn, jobDriver = jobDriver, configurationOverrides = configurationOverrides, tags = tags, executionTimeoutMinutes = executionTimeoutMinutes, name = name, mode = mode, retryPolicy = retryPolicy)
+  input <- .emrserverless$start_job_run_input(applicationId = applicationId, clientToken = clientToken, executionRoleArn = executionRoleArn, executionIamPolicy = executionIamPolicy, jobDriver = jobDriver, configurationOverrides = configurationOverrides, tags = tags, executionTimeoutMinutes = executionTimeoutMinutes, name = name, mode = mode, retryPolicy = retryPolicy)
   output <- .emrserverless$start_job_run_output()
   config <- get_config()
   svc <- .emrserverless$service(config, op)
@@ -448,6 +558,43 @@ emrserverless_start_job_run <- function(applicationId, clientToken, executionRol
   return(response)
 }
 .emrserverless$operations$start_job_run <- emrserverless_start_job_run
+
+#' Creates and starts a new session on the specified application
+#'
+#' @description
+#' Creates and starts a new session on the specified application. The application must be in the `STARTED` state or have `AutoStart` enabled, and have interactive sessions enabled. This operation is supported for EMR release 7.13.0 and later.
+#'
+#' See [https://www.paws-r-sdk.com/docs/emrserverless_start_session/](https://www.paws-r-sdk.com/docs/emrserverless_start_session/) for full documentation.
+#'
+#' @param applicationId &#91;required&#93; The ID of the application on which to start the session.
+#' @param clientToken &#91;required&#93; A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. If you retry a request that completed successfully using the same client token, the server returns the successful response without performing the operation again.
+#' @param executionRoleArn &#91;required&#93; The execution role ARN for the session. Amazon EMR Serverless uses this role to access Amazon Web Services resources on your behalf during session execution.
+#' @param configurationOverrides The configuration overrides for the session. Only runtime configuration overrides are supported.
+#' @param tags The tags to assign to the session.
+#' @param idleTimeoutMinutes The idle timeout in minutes for the session. After the session remains idle for this duration, Amazon EMR Serverless automatically terminates it.
+#' @param name The optional name for the session.
+#'
+#' @keywords internal
+#'
+#' @rdname emrserverless_start_session
+emrserverless_start_session <- function(applicationId, clientToken, executionRoleArn, configurationOverrides = NULL, tags = NULL, idleTimeoutMinutes = NULL, name = NULL) {
+  op <- new_operation(
+    name = "StartSession",
+    http_method = "POST",
+    http_path = "/applications/{applicationId}/sessions",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .emrserverless$start_session_input(applicationId = applicationId, clientToken = clientToken, executionRoleArn = executionRoleArn, configurationOverrides = configurationOverrides, tags = tags, idleTimeoutMinutes = idleTimeoutMinutes, name = name)
+  output <- .emrserverless$start_session_output()
+  config <- get_config()
+  svc <- .emrserverless$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.emrserverless$operations$start_session <- emrserverless_start_session
 
 #' Stops a specified application and releases initial capacity if
 #' configured
@@ -488,9 +635,7 @@ emrserverless_stop_application <- function(applicationId) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/emrserverless_tag_resource/](https://www.paws-r-sdk.com/docs/emrserverless_tag_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list the
-#' tags for. Currently, the supported resources are Amazon EMR Serverless
-#' applications and job runs.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list the tags for. Currently, the supported resources are Amazon EMR Serverless applications and job runs.
 #' @param tags &#91;required&#93; The tags to add to the resource. A tag is an array of key-value pairs.
 #'
 #' @keywords internal
@@ -515,6 +660,38 @@ emrserverless_tag_resource <- function(resourceArn, tags) {
 }
 .emrserverless$operations$tag_resource <- emrserverless_tag_resource
 
+#' Terminates the specified session
+#'
+#' @description
+#' Terminates the specified session. After you terminate a session, it enters the `TERMINATING` state and then the `TERMINATED` state. You can still access the Spark History Server for a terminated session through the [`get_resource_dashboard`][emrserverless_get_resource_dashboard] operation.
+#'
+#' See [https://www.paws-r-sdk.com/docs/emrserverless_terminate_session/](https://www.paws-r-sdk.com/docs/emrserverless_terminate_session/) for full documentation.
+#'
+#' @param applicationId &#91;required&#93; The ID of the application that the session belongs to.
+#' @param sessionId &#91;required&#93; The ID of the session to terminate.
+#'
+#' @keywords internal
+#'
+#' @rdname emrserverless_terminate_session
+emrserverless_terminate_session <- function(applicationId, sessionId) {
+  op <- new_operation(
+    name = "TerminateSession",
+    http_method = "DELETE",
+    http_path = "/applications/{applicationId}/sessions/{sessionId}",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .emrserverless$terminate_session_input(applicationId = applicationId, sessionId = sessionId)
+  output <- .emrserverless$terminate_session_output()
+  config <- get_config()
+  svc <- .emrserverless$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.emrserverless$operations$terminate_session <- emrserverless_terminate_session
+
 #' Removes tags from resources
 #'
 #' @description
@@ -522,9 +699,7 @@ emrserverless_tag_resource <- function(resourceArn, tags) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/emrserverless_untag_resource/](https://www.paws-r-sdk.com/docs/emrserverless_untag_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list the
-#' tags for. Currently, the supported resources are Amazon EMR Serverless
-#' applications and job runs.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list the tags for. Currently, the supported resources are Amazon EMR Serverless applications and job runs.
 #' @param tagKeys &#91;required&#93; The keys of the tags to be removed.
 #'
 #' @keywords internal
@@ -557,46 +732,28 @@ emrserverless_untag_resource <- function(resourceArn, tagKeys) {
 #' See [https://www.paws-r-sdk.com/docs/emrserverless_update_application/](https://www.paws-r-sdk.com/docs/emrserverless_update_application/) for full documentation.
 #'
 #' @param applicationId &#91;required&#93; The ID of the application to update.
-#' @param clientToken &#91;required&#93; The client idempotency token of the application to update. Its value
-#' must be unique for each request.
+#' @param clientToken &#91;required&#93; The client idempotency token of the application to update. Its value must be unique for each request.
 #' @param initialCapacity The capacity to initialize when the application is updated.
-#' @param maximumCapacity The maximum capacity to allocate when the application is updated. This
-#' is cumulative across all workers at any given point in time during the
-#' lifespan of the application. No new resources will be created once any
-#' one of the defined limits is hit.
-#' @param autoStartConfiguration The configuration for an application to automatically start on job
-#' submission.
-#' @param autoStopConfiguration The configuration for an application to automatically stop after a
-#' certain amount of time being idle.
-#' @param networkConfiguration 
+#' @param maximumCapacity The maximum capacity to allocate when the application is updated. This is cumulative across all workers at any given point in time during the lifespan of the application. No new resources will be created once any one of the defined limits is hit.
+#' @param autoStartConfiguration The configuration for an application to automatically start on job submission.
+#' @param autoStopConfiguration The configuration for an application to automatically stop after a certain amount of time being idle.
+#' @param networkConfiguration The network configuration for customer VPC connectivity.
 #' @param architecture The CPU architecture of an application.
-#' @param imageConfiguration The image configuration to be used for all worker types. You can either
-#' set this parameter or `imageConfiguration` for each worker type in
-#' `WorkerTypeSpecificationInput`.
-#' @param workerTypeSpecifications The key-value pairs that specify worker type to
-#' `WorkerTypeSpecificationInput`. This parameter must contain all valid
-#' worker types for a Spark or Hive application. Valid worker types include
-#' `Driver` and `Executor` for Spark applications and `HiveDriver` and
-#' `TezTask` for Hive applications. You can either set image details in
-#' this parameter for each worker type, or in `imageConfiguration` for all
-#' worker types.
-#' @param interactiveConfiguration The interactive configuration object that contains new interactive use
-#' cases when the application is updated.
-#' @param releaseLabel The Amazon EMR release label for the application. You can change the
-#' release label to use a different release of Amazon EMR.
-#' @param runtimeConfiguration The
-#' [Configuration](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html)
-#' specifications to use when updating an application. Each configuration
-#' consists of a classification and properties. This configuration is
-#' applied across all the job runs submitted under the application.
+#' @param imageConfiguration The image configuration to be used for all worker types. You can either set this parameter or `imageConfiguration` for each worker type in `WorkerTypeSpecificationInput`.
+#' @param workerTypeSpecifications The key-value pairs that specify worker type to `WorkerTypeSpecificationInput`. This parameter must contain all valid worker types for a Spark or Hive application. Valid worker types include `Driver` and `Executor` for Spark applications and `HiveDriver` and `TezTask` for Hive applications. You can either set image details in this parameter for each worker type, or in `imageConfiguration` for all worker types.
+#' @param interactiveConfiguration The interactive configuration object that contains new interactive use cases when the application is updated.
+#' @param releaseLabel The Amazon EMR release label for the application. You can change the release label to use a different release of Amazon EMR.
+#' @param runtimeConfiguration The [Configuration](https://docs.aws.amazon.com/emr-serverless/latest/APIReference/API_Configuration.html) specifications to use when updating an application. Each configuration consists of a classification and properties. This configuration is applied across all the job runs submitted under the application.
 #' @param monitoringConfiguration The configuration setting for monitoring.
-#' @param schedulerConfiguration The scheduler configuration for batch and streaming jobs running on this
-#' application. Supported with release labels emr-7.0.0 and above.
+#' @param diskEncryptionConfiguration The configuration object that allows encrypting local disks.
+#' @param schedulerConfiguration The scheduler configuration for batch and streaming jobs running on this application. Supported with release labels emr-7.0.0 and above.
+#' @param identityCenterConfiguration Specifies the IAM Identity Center configuration used to enable or disable trusted identity propagation. When provided, this configuration determines how the application interacts with IAM Identity Center for user authentication and access control.
+#' @param jobLevelCostAllocationConfiguration The configuration object that enables job level cost allocation.
 #'
 #' @keywords internal
 #'
 #' @rdname emrserverless_update_application
-emrserverless_update_application <- function(applicationId, clientToken, initialCapacity = NULL, maximumCapacity = NULL, autoStartConfiguration = NULL, autoStopConfiguration = NULL, networkConfiguration = NULL, architecture = NULL, imageConfiguration = NULL, workerTypeSpecifications = NULL, interactiveConfiguration = NULL, releaseLabel = NULL, runtimeConfiguration = NULL, monitoringConfiguration = NULL, schedulerConfiguration = NULL) {
+emrserverless_update_application <- function(applicationId, clientToken, initialCapacity = NULL, maximumCapacity = NULL, autoStartConfiguration = NULL, autoStopConfiguration = NULL, networkConfiguration = NULL, architecture = NULL, imageConfiguration = NULL, workerTypeSpecifications = NULL, interactiveConfiguration = NULL, releaseLabel = NULL, runtimeConfiguration = NULL, monitoringConfiguration = NULL, diskEncryptionConfiguration = NULL, schedulerConfiguration = NULL, identityCenterConfiguration = NULL, jobLevelCostAllocationConfiguration = NULL) {
   op <- new_operation(
     name = "UpdateApplication",
     http_method = "PATCH",
@@ -605,7 +762,7 @@ emrserverless_update_application <- function(applicationId, clientToken, initial
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .emrserverless$update_application_input(applicationId = applicationId, clientToken = clientToken, initialCapacity = initialCapacity, maximumCapacity = maximumCapacity, autoStartConfiguration = autoStartConfiguration, autoStopConfiguration = autoStopConfiguration, networkConfiguration = networkConfiguration, architecture = architecture, imageConfiguration = imageConfiguration, workerTypeSpecifications = workerTypeSpecifications, interactiveConfiguration = interactiveConfiguration, releaseLabel = releaseLabel, runtimeConfiguration = runtimeConfiguration, monitoringConfiguration = monitoringConfiguration, schedulerConfiguration = schedulerConfiguration)
+  input <- .emrserverless$update_application_input(applicationId = applicationId, clientToken = clientToken, initialCapacity = initialCapacity, maximumCapacity = maximumCapacity, autoStartConfiguration = autoStartConfiguration, autoStopConfiguration = autoStopConfiguration, networkConfiguration = networkConfiguration, architecture = architecture, imageConfiguration = imageConfiguration, workerTypeSpecifications = workerTypeSpecifications, interactiveConfiguration = interactiveConfiguration, releaseLabel = releaseLabel, runtimeConfiguration = runtimeConfiguration, monitoringConfiguration = monitoringConfiguration, diskEncryptionConfiguration = diskEncryptionConfiguration, schedulerConfiguration = schedulerConfiguration, identityCenterConfiguration = identityCenterConfiguration, jobLevelCostAllocationConfiguration = jobLevelCostAllocationConfiguration)
   output <- .emrserverless$update_application_output()
   config <- get_config()
   svc <- .emrserverless$service(config, op)

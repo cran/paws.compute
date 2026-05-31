@@ -19,10 +19,7 @@ ec2_deregister_transit_gateway_multicast_group_members(
 
 \item{NetworkInterfaceIds}{The IDs of the group members' network interfaces.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deregisters the specified members (network interfaces) from the transit gateway multicast group.

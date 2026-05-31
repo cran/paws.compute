@@ -14,29 +14,18 @@ ec2_describe_vpc_endpoint_associations(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{VpcEndpointIds}{The IDs of the VPC endpoints.}
 
 \item{Filters}{The filters.
 \itemize{
 \item \code{vpc-endpoint-id} - The ID of the VPC endpoint.
-\item \code{associated-resource-accessibility} - The association state. When
-the state is \code{accessible}, it returns \code{AVAILABLE}. When the state is
-\code{inaccessible}, it returns \code{PENDING} or \code{FAILED}.
+\item \code{associated-resource-accessibility} - The association state. When the state is \code{accessible}, it returns \code{AVAILABLE}. When the state is \code{inaccessible}, it returns \code{PENDING} or \code{FAILED}.
 \item \code{association-id} - The ID of the VPC endpoint association.
-\item \code{associated-resource-id} - The ID of the associated resource
-configuration.
-\item \code{service-network-arn} - The Amazon Resource Name (ARN) of the
-associated service network. Only VPC endpoints of type service
-network will be returned.
-\item \code{resource-configuration-group-arn} - The Amazon Resource Name (ARN)
-of the resource configuration of type GROUP.
-\item \code{service-network-resource-association-id} - The ID of the
-association.
+\item \code{associated-resource-id} - The ID of the associated resource configuration.
+\item \code{service-network-arn} - The Amazon Resource Name (ARN) of the associated service network. Only VPC endpoints of type service network will be returned.
+\item \code{resource-configuration-group-arn} - The Amazon Resource Name (ARN) of the resource configuration of type GROUP.
 }}
 
 \item{MaxResults}{The maximum page size.}

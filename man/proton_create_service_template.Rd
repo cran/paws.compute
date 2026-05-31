@@ -16,24 +16,17 @@ proton_create_service_template(
 \arguments{
 \item{description}{A description of the service template.}
 
-\item{displayName}{The name of the service template as displayed in the developer
-interface.}
+\item{displayName}{The name of the service template as displayed in the developer interface.}
 
 \item{encryptionKey}{A customer provided encryption key that's used to encrypt data.}
 
 \item{name}{[required] The name of the service template.}
 
-\item{pipelineProvisioning}{By default, Proton provides a service pipeline for your service. When
-this parameter is included, it indicates that an Proton service pipeline
-\emph{isn't} provided for your service. After it's included, it \emph{can't} be
-changed. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-template-authoring.html#ag-template-bundles}{Template bundles}
-in the \emph{Proton User Guide}.}
+\item{pipelineProvisioning}{By default, Proton provides a service pipeline for your service. When this parameter is included, it indicates that an Proton service pipeline \emph{isn't} provided for your service. After it's included, it \emph{can't} be changed. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-template-authoring.html#ag-template-bundles}{Template bundles} in the \emph{Proton User Guide}.}
 
-\item{tags}{An optional list of metadata items that you can associate with the
-Proton service template. A tag is a key-value pair.
+\item{tags}{An optional list of metadata items that you can associate with the Proton service template. A tag is a key-value pair.
 
-For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging}
-in the \emph{Proton User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging} in the \emph{Proton User Guide}.}
 }
 \description{
 Create a service template. The administrator creates a service template to define standardized infrastructure and an optional CI/CD service pipeline. Developers, in turn, select the service template from Proton. If the selected service template includes a service pipeline definition, they provide a link to their source code repository. Proton then deploys and manages the infrastructure defined by the selected service template. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-templates.html}{Proton templates} in the \emph{Proton User Guide}.

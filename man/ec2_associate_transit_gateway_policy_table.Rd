@@ -12,16 +12,11 @@ ec2_associate_transit_gateway_policy_table(
 )
 }
 \arguments{
-\item{TransitGatewayPolicyTableId}{[required] The ID of the transit gateway policy table to associate with the transit
-gateway attachment.}
+\item{TransitGatewayPolicyTableId}{[required] The ID of the transit gateway policy table to associate with the transit gateway attachment.}
 
-\item{TransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment to associate with the policy
-table.}
+\item{TransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment to associate with the policy table.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Associates the specified transit gateway attachment with a transit gateway policy table.

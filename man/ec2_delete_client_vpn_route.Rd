@@ -18,10 +18,7 @@ ec2_delete_client_vpn_route(
 
 \item{DestinationCidrBlock}{[required] The IPv4 address range, in CIDR notation, of the route to be deleted.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes a route from a Client VPN endpoint. You can only delete routes that you manually added using the \strong{CreateClientVpnRoute} action. You cannot delete routes that were automatically added when associating a subnet. To remove routes that have been automatically added, disassociate the target subnet from the Client VPN endpoint.

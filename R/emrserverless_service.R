@@ -5,26 +5,15 @@ NULL
 #' EMR Serverless
 #'
 #' @description
-#' Amazon EMR Serverless is a new deployment option for Amazon EMR. Amazon
-#' EMR Serverless provides a serverless runtime environment that simplifies
-#' running analytics applications using the latest open source frameworks
-#' such as Apache Spark and Apache Hive. With Amazon EMR Serverless, you
-#' don’t have to configure, optimize, secure, or operate clusters to run
-#' applications with these frameworks.
+#' Amazon EMR Serverless is a new deployment option for Amazon EMR. Amazon EMR Serverless provides a serverless runtime environment that simplifies running analytics applications using the latest open source frameworks such as Apache Spark and Apache Hive. With Amazon EMR Serverless, you don’t have to configure, optimize, secure, or operate clusters to run applications with these frameworks.
 #' 
-#' The API reference to Amazon EMR Serverless is `emr-serverless`. The
-#' `emr-serverless` prefix is used in the following scenarios:
+#' The API reference to Amazon EMR Serverless is `emr-serverless`. The `emr-serverless` prefix is used in the following scenarios:
 #' 
-#' -   It is the prefix in the CLI commands for Amazon EMR Serverless. For
-#'     example, `aws emr-serverless start-job-run`.
+#' -   It is the prefix in the CLI commands for Amazon EMR Serverless. For example, `aws emr-serverless start-job-run`.
 #' 
-#' -   It is the prefix before IAM policy actions for Amazon EMR
-#'     Serverless. For example, `"Action": ["emr-serverless:StartJobRun"]`.
-#'     For more information, see [Policy actions for Amazon EMR
-#'     Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-actions).
+#' -   It is the prefix before IAM policy actions for Amazon EMR Serverless. For example, `"Action": ["emr-serverless:StartJobRun"]`. For more information, see [Policy actions for Amazon EMR Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-actions).
 #' 
-#' -   It is the prefix used in Amazon EMR Serverless service endpoints.
-#'     For example, `emr-serverless.us-east-2.amazonaws.com`.
+#' -   It is the prefix used in Amazon EMR Serverless service endpoints. For example, `emr-serverless.us-east-2.amazonaws.com`.
 #'
 #' @param
 #' config
@@ -115,14 +104,20 @@ NULL
 #'  \link[=emrserverless_get_application]{get_application} \tab Displays detailed information about a specified application\cr
 #'  \link[=emrserverless_get_dashboard_for_job_run]{get_dashboard_for_job_run} \tab Creates and returns a URL that you can use to access the application UIs for a job run\cr
 #'  \link[=emrserverless_get_job_run]{get_job_run} \tab Displays detailed information about a job run\cr
+#'  \link[=emrserverless_get_resource_dashboard]{get_resource_dashboard} \tab Returns a URL that you can use to access the application UIs for a specified resource, such as a session\cr
+#'  \link[=emrserverless_get_session]{get_session} \tab Displays detailed information about a session\cr
+#'  \link[=emrserverless_get_session_endpoint]{get_session_endpoint} \tab Returns the session endpoint URL and a time-limited authentication token for the specified session\cr
 #'  \link[=emrserverless_list_applications]{list_applications} \tab Lists applications based on a set of parameters\cr
 #'  \link[=emrserverless_list_job_run_attempts]{list_job_run_attempts} \tab Lists all attempt of a job run\cr
 #'  \link[=emrserverless_list_job_runs]{list_job_runs} \tab Lists job runs based on a set of parameters\cr
+#'  \link[=emrserverless_list_sessions]{list_sessions} \tab Lists sessions for the specified application\cr
 #'  \link[=emrserverless_list_tags_for_resource]{list_tags_for_resource} \tab Lists the tags assigned to the resources\cr
 #'  \link[=emrserverless_start_application]{start_application} \tab Starts a specified application and initializes initial capacity if configured\cr
 #'  \link[=emrserverless_start_job_run]{start_job_run} \tab Starts a job run\cr
+#'  \link[=emrserverless_start_session]{start_session} \tab Creates and starts a new session on the specified application\cr
 #'  \link[=emrserverless_stop_application]{stop_application} \tab Stops a specified application and releases initial capacity if configured\cr
 #'  \link[=emrserverless_tag_resource]{tag_resource} \tab Assigns tags to resources\cr
+#'  \link[=emrserverless_terminate_session]{terminate_session} \tab Terminates the specified session\cr
 #'  \link[=emrserverless_untag_resource]{untag_resource} \tab Removes tags from resources\cr
 #'  \link[=emrserverless_update_application]{update_application} \tab Updates a specified application
 #' }
@@ -156,7 +151,7 @@ emrserverless <- function(config = list(), credentials = list(), endpoint = NULL
 
 .emrserverless$metadata <- list(
   service_name = "emrserverless",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "emr-serverless.{region}.amazonaws.eu", global = FALSE)),
   service_id = "EMR Serverless",
   api_version = "2021-07-13",
   signing_name = "emr-serverless",

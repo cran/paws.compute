@@ -14,29 +14,19 @@ elasticbeanstalk_swap_environment_cnam_es(
 \arguments{
 \item{SourceEnvironmentId}{The ID of the source environment.
 
-Condition: You must specify at least the \code{SourceEnvironmentID} or the
-\code{SourceEnvironmentName}. You may also specify both. If you specify the
-\code{SourceEnvironmentId}, you must specify the \code{DestinationEnvironmentId}.}
+Condition: You must specify at least the \code{SourceEnvironmentID} or the \code{SourceEnvironmentName}. You may also specify both. If you specify the \code{SourceEnvironmentId}, you must specify the \code{DestinationEnvironmentId}.}
 
 \item{SourceEnvironmentName}{The name of the source environment.
 
-Condition: You must specify at least the \code{SourceEnvironmentID} or the
-\code{SourceEnvironmentName}. You may also specify both. If you specify the
-\code{SourceEnvironmentName}, you must specify the
-\code{DestinationEnvironmentName}.}
+Condition: You must specify at least the \code{SourceEnvironmentID} or the \code{SourceEnvironmentName}. You may also specify both. If you specify the \code{SourceEnvironmentName}, you must specify the \code{DestinationEnvironmentName}.}
 
 \item{DestinationEnvironmentId}{The ID of the destination environment.
 
-Condition: You must specify at least the \code{DestinationEnvironmentID} or
-the \code{DestinationEnvironmentName}. You may also specify both. You must
-specify the \code{SourceEnvironmentId} with the \code{DestinationEnvironmentId}.}
+Condition: You must specify at least the \code{DestinationEnvironmentID} or the \code{DestinationEnvironmentName}. You may also specify both. You must specify the \code{SourceEnvironmentId} with the \code{DestinationEnvironmentId}.}
 
 \item{DestinationEnvironmentName}{The name of the destination environment.
 
-Condition: You must specify at least the \code{DestinationEnvironmentID} or
-the \code{DestinationEnvironmentName}. You may also specify both. You must
-specify the \code{SourceEnvironmentName} with the
-\code{DestinationEnvironmentName}.}
+Condition: You must specify at least the \code{DestinationEnvironmentID} or the \code{DestinationEnvironmentName}. You may also specify both. You must specify the \code{SourceEnvironmentName} with the \code{DestinationEnvironmentName}.}
 }
 \description{
 Swaps the CNAMEs of two environments.

@@ -8,30 +8,21 @@ account in this Region}
 ec2_modify_ebs_default_kms_key_id(KmsKeyId, DryRun = NULL)
 }
 \arguments{
-\item{KmsKeyId}{[required] The identifier of the KMS key to use for Amazon EBS encryption. If this
-parameter is not specified, your KMS key for Amazon EBS is used. If
-\code{KmsKeyId} is specified, the encrypted state must be \code{true}.
+\item{KmsKeyId}{[required] The identifier of the KMS key to use for Amazon EBS encryption. If this parameter is not specified, your KMS key for Amazon EBS is used. If \code{KmsKeyId} is specified, the encrypted state must be \code{true}.
 
 You can specify the KMS key using any of the following:
 \itemize{
 \item Key ID. For example, 1234abcd-12ab-34cd-56ef-1234567890ab.
 \item Key alias. For example, alias/ExampleAlias.
-\item Key ARN. For example,
-arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
-\item Alias ARN. For example,
-arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
+\item Key ARN. For example, arn:aws:kms:us-east-1:012345678910:key/1234abcd-12ab-34cd-56ef-1234567890ab.
+\item Alias ARN. For example, arn:aws:kms:us-east-1:012345678910:alias/ExampleAlias.
 }
 
-Amazon Web Services authenticates the KMS key asynchronously. Therefore,
-if you specify an ID, alias, or ARN that is not valid, the action can
-appear to complete, but eventually fails.
+Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the action can appear to complete, but eventually fails.
 
 Amazon EBS does not support asymmetric KMS keys.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Changes the default KMS key for EBS encryption by default for your account in this Region.

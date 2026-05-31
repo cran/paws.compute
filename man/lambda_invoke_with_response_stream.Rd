@@ -11,7 +11,8 @@ lambda_invoke_with_response_stream(
   LogType = NULL,
   ClientContext = NULL,
   Qualifier = NULL,
-  Payload = NULL
+  Payload = NULL,
+  TenantId = NULL
 )
 }
 \arguments{
@@ -20,37 +21,29 @@ lambda_invoke_with_response_stream(
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} – \verb{my-function}.
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
 \item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it is limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
 \item{InvocationType}{Use one of the following options:
 \itemize{
-\item \code{RequestResponse} (default) – Invoke the function synchronously.
-Keep the connection open until the function returns a response or
-times out. The API operation response includes the function response
-and additional data.
-\item \code{DryRun} – Validate parameter values and verify that the IAM user or
-role has permission to invoke the function.
+\item \code{RequestResponse} (default) – Invoke the function synchronously. Keep the connection open until the function returns a response or times out. The API operation response includes the function response and additional data.
+\item \code{DryRun} – Validate parameter values and verify that the IAM user or role has permission to invoke the function.
 }}
 
-\item{LogType}{Set to \code{Tail} to include the execution log in the response. Applies to
-synchronously invoked functions only.}
+\item{LogType}{Set to \code{Tail} to include the execution log in the response. Applies to synchronously invoked functions only.}
 
-\item{ClientContext}{Up to 3,583 bytes of base64-encoded data about the invoking client to
-pass to the function in the context object.}
+\item{ClientContext}{Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context object.}
 
 \item{Qualifier}{The alias name.}
 
 \item{Payload}{The JSON that you want to provide to your Lambda function as input.
 
-You can enter the JSON directly. For example,
-\verb{--payload '\{ "key": "value" \}'}. You can also specify a file path. For
-example, \verb{--payload file://payload.json}.}
+You can enter the JSON directly. For example, \verb{--payload '\{ "key": "value" \}'}. You can also specify a file path. For example, \verb{--payload file://payload.json}.}
+
+\item{TenantId}{The identifier of the tenant in a multi-tenant Lambda function.}
 }
 \description{
 Configure your Lambda functions to stream response payloads back to clients. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-response-streaming.html}{Configuring a Lambda function to stream responses}.

@@ -11,31 +11,13 @@ batch_describe_compute_environments(
 )
 }
 \arguments{
-\item{computeEnvironments}{A list of up to 100 compute environment names or full Amazon Resource
-Name (ARN) entries.}
+\item{computeEnvironments}{A list of up to 100 compute environment names or full Amazon Resource Name (ARN) entries.}
 
-\item{maxResults}{The maximum number of cluster results returned by
-\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
-in paginated output. When this parameter is used,
-\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
-only returns \code{maxResults} results in a single page along with a
-\code{nextToken} response element. The remaining results of the initial
-request can be seen by sending another
-\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
-request with the returned \code{nextToken} value. This value can be between 1
-and 100. If this parameter isn't used, then
-\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
-returns up to 100 results and a \code{nextToken} value if applicable.}
+\item{maxResults}{The maximum number of cluster results returned by \code{\link[=batch_describe_compute_environments]{describe_compute_environments}} in paginated output. When this parameter is used, \code{\link[=batch_describe_compute_environments]{describe_compute_environments}} only returns \code{maxResults} results in a single page along with a \code{nextToken} response element. The remaining results of the initial request can be seen by sending another \code{\link[=batch_describe_compute_environments]{describe_compute_environments}} request with the returned \code{nextToken} value. This value can be between 1 and 100. If this parameter isn't used, then \code{\link[=batch_describe_compute_environments]{describe_compute_environments}} returns up to 100 results and a \code{nextToken} value if applicable.}
 
-\item{nextToken}{The \code{nextToken} value returned from a previous paginated
-\code{\link[=batch_describe_compute_environments]{describe_compute_environments}}
-request where \code{maxResults} was used and the results exceeded the value
-of that parameter. Pagination continues from the end of the previous
-results that returned the \code{nextToken} value. This value is \code{null} when
-there are no more results to return.
+\item{nextToken}{The \code{nextToken} value returned from a previous paginated \code{\link[=batch_describe_compute_environments]{describe_compute_environments}} request where \code{maxResults} was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the \code{nextToken} value. This value is \code{null} when there are no more results to return.
 
-Treat this token as an opaque identifier that's only used to retrieve
-the next items in a list and not for other programmatic purposes.}
+Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.}
 }
 \description{
 Describes one or more of your compute environments.

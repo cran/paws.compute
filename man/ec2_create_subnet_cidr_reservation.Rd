@@ -18,21 +18,15 @@ ec2_create_subnet_cidr_reservation(
 
 \item{Cidr}{[required] The IPv4 or IPV6 CIDR range to reserve.}
 
-\item{ReservationType}{[required] The type of reservation. The reservation type determines how the
-reserved IP addresses are assigned to resources.
+\item{ReservationType}{[required] The type of reservation. The reservation type determines how the reserved IP addresses are assigned to resources.
 \itemize{
-\item \code{prefix} - Amazon Web Services assigns the reserved IP addresses to
-network interfaces.
-\item \code{explicit} - You assign the reserved IP addresses to network
-interfaces.
+\item \code{prefix} - Amazon Web Services assigns the reserved IP addresses to network interfaces.
+\item \code{explicit} - You assign the reserved IP addresses to network interfaces.
 }}
 
 \item{Description}{The description to assign to the subnet CIDR reservation.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{TagSpecifications}{The tags to assign to the subnet CIDR reservation.}
 }

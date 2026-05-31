@@ -9,10 +9,7 @@ ec2_disable_address_transfer(AllocationId, DryRun = NULL)
 \arguments{
 \item{AllocationId}{[required] The allocation ID of an Elastic IP address.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Disables Elastic IP address transfer. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#transfer-EIPs-intro}{Transfer Elastic IP addresses} in the \emph{Amazon VPC User Guide}.

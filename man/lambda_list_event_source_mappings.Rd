@@ -14,12 +14,10 @@ lambda_list_event_source_mappings(
 \arguments{
 \item{EventSourceArn}{The Amazon Resource Name (ARN) of the event source.
 \itemize{
-\item \strong{Amazon Kinesis} – The ARN of the data stream or a stream
-consumer.
+\item \strong{Amazon Kinesis} – The ARN of the data stream or a stream consumer.
 \item \strong{Amazon DynamoDB Streams} – The ARN of the stream.
 \item \strong{Amazon Simple Queue Service} – The ARN of the queue.
-\item \strong{Amazon Managed Streaming for Apache Kafka} – The ARN of the
-cluster or the ARN of the VPC connection (for \href{https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc}{cross-account event source mappings}).
+\item \strong{Amazon Managed Streaming for Apache Kafka} – The ARN of the cluster or the ARN of the VPC connection (for \href{https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc}{cross-account event source mappings}).
 \item \strong{Amazon MQ} – The ARN of the broker.
 \item \strong{Amazon DocumentDB} – The ARN of the DocumentDB change stream.
 }}
@@ -29,21 +27,16 @@ cluster or the ARN of the VPC connection (for \href{https://docs.aws.amazon.com/
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} – \code{MyFunction}.
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
-\item \strong{Version or Alias ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD}.
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
+\item \strong{Version or Alias ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD}.
 \item \strong{Partial ARN} – \verb{123456789012:function:MyFunction}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it's limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it's limited to 64 characters in length.}
 
 \item{Marker}{A pagination token returned by a previous call.}
 
-\item{MaxItems}{The maximum number of event source mappings to return. Note that
-ListEventSourceMappings returns a maximum of 100 items in each response,
-even if you set the number higher.}
+\item{MaxItems}{The maximum number of event source mappings to return. Note that ListEventSourceMappings returns a maximum of 100 items in each response, even if you set the number higher.}
 }
 \description{
 Lists event source mappings. Specify an \code{EventSourceArn} to show only event source mappings for a single event source.

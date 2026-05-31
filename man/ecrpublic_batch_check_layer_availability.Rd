@@ -12,12 +12,9 @@ ecrpublic_batch_check_layer_availability(
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID, or registry alias, associated with
-the public registry that contains the image layers to check. If you do
-not specify a registry, the default public registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID, or registry alias, associated with the public registry that contains the image layers to check. If you do not specify a registry, the default public registry is assumed.}
 
-\item{repositoryName}{[required] The name of the repository that's associated with the image layers to
-check.}
+\item{repositoryName}{[required] The name of the repository that's associated with the image layers to check.}
 
 \item{layerDigests}{[required] The digests of the image layers to check.}
 }

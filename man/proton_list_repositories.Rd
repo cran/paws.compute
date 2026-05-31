@@ -9,8 +9,7 @@ proton_list_repositories(maxResults = NULL, nextToken = NULL)
 \arguments{
 \item{maxResults}{The maximum number of repositories to list.}
 
-\item{nextToken}{A token that indicates the location of the next repository in the array
-of repositories, after the list of repositories previously requested.}
+\item{nextToken}{A token that indicates the location of the next repository in the array of repositories, after the list of repositories previously requested.}
 }
 \description{
 List linked repositories with detail data.

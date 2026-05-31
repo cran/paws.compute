@@ -8,50 +8,38 @@ ec2_describe_volume_status(
   MaxResults = NULL,
   NextToken = NULL,
   VolumeIds = NULL,
+  IncludeManagedResources = NULL,
   DryRun = NULL,
   Filters = NULL
 )
 }
 \arguments{
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
 \item{VolumeIds}{The IDs of the volumes.
 
 Default: Describes all your volumes.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{IncludeManagedResources}{Indicates whether to include managed resources in the output. If this parameter is set to \code{true}, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{action.code} - The action code for the event (for example,
-\code{enable-volume-io}).
+\item \code{action.code} - The action code for the event (for example, \code{enable-volume-io}).
 \item \code{action.description} - A description of the action.
 \item \code{action.event-id} - The event ID associated with the action.
 \item \code{availability-zone} - The Availability Zone of the instance.
 \item \code{event.description} - A description of the event.
 \item \code{event.event-id} - The event ID.
-\item \code{event.event-type} - The event type (for \code{io-enabled}: \code{passed} |
-\code{failed}; for \code{io-performance}: \code{io-performance:degraded} |
-\code{io-performance:severely-degraded} | \code{io-performance:stalled}).
+\item \code{event.event-type} - The event type (for \code{io-enabled}: \code{passed} | \code{failed}; for \code{io-performance}: \code{io-performance:degraded} | \code{io-performance:severely-degraded} | \code{io-performance:stalled}).
 \item \code{event.not-after} - The latest end time for the event.
 \item \code{event.not-before} - The earliest start time for the event.
-\item \code{volume-status.details-name} - The cause for \code{volume-status.status}
-(\code{io-enabled} | \code{io-performance}).
-\item \code{volume-status.details-status} - The status of
-\code{volume-status.details-name} (for \code{io-enabled}: \code{passed} | \code{failed};
-for \code{io-performance}: \code{normal} | \code{degraded} | \code{severely-degraded} |
-\code{stalled}).
-\item \code{volume-status.status} - The status of the volume (\code{ok} | \code{impaired}
-| \code{warning} | \code{insufficient-data}).
+\item \code{volume-status.details-name} - The cause for \code{volume-status.status} (\code{io-enabled} | \code{io-performance}).
+\item \code{volume-status.details-status} - The status of \code{volume-status.details-name} (for \code{io-enabled}: \code{passed} | \code{failed}; for \code{io-performance}: \code{normal} | \code{degraded} | \code{severely-degraded} | \code{stalled}).
+\item \code{volume-status.status} - The status of the volume (\code{ok} | \code{impaired} | \code{warning} | \code{insufficient-data}).
 }}
 }
 \description{

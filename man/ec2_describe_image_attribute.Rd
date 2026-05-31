@@ -9,17 +9,11 @@ ec2_describe_image_attribute(Attribute, ImageId, DryRun = NULL)
 \arguments{
 \item{Attribute}{[required] The AMI attribute.
 
-\strong{Note}: The \code{blockDeviceMapping} attribute is deprecated. Using this
-attribute returns the \code{Client.AuthFailure} error. To get information
-about the block device mappings for an AMI, use the
-\code{\link[=ec2_describe_images]{describe_images}} action.}
+\strong{Note}: The \code{blockDeviceMapping} attribute is deprecated. Using this attribute returns the \code{Client.AuthFailure} error. To get information about the block device mappings for an AMI, describe the image instead.}
 
 \item{ImageId}{[required] The ID of the AMI.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes the specified attribute of the specified AMI. You can specify only one attribute at a time.

@@ -50,24 +50,11 @@ Operations section.
 \description{
 Amazon Elastic Container Service
 
-Amazon Elastic Container Service (Amazon ECS) is a highly scalable,
-fast, container management service. It makes it easy to run, stop, and
-manage Docker containers. You can host your cluster on a serverless
-infrastructure that's managed by Amazon ECS by launching your services
-or tasks on Fargate. For more control, you can host your tasks on a
-cluster of Amazon Elastic Compute Cloud (Amazon EC2) or External
-(on-premises) instances that you manage.
+Amazon Elastic Container Service (Amazon ECS) is a highly scalable, fast, container management service. It makes it easy to run, stop, and manage Docker containers. You can host your cluster on a serverless infrastructure that's managed by Amazon ECS by launching your services or tasks on Fargate. For more control, you can host your tasks on a cluster of Amazon Elastic Compute Cloud (Amazon EC2) or External (on-premises) instances that you manage.
 
-Amazon ECS makes it easy to launch and stop container-based applications
-with simple API calls. This makes it easy to get the state of your
-cluster from a centralized service, and gives you access to many
-familiar Amazon EC2 features.
+Amazon ECS makes it easy to launch and stop container-based applications with simple API calls. This makes it easy to get the state of your cluster from a centralized service, and gives you access to many familiar Amazon EC2 features.
 
-You can use Amazon ECS to schedule the placement of containers across
-your cluster based on your resource needs, isolation policies, and
-availability requirements. With Amazon ECS, you don't need to operate
-your own cluster management and configuration management systems. You
-also don't need to worry about scaling your management infrastructure.
+You can use Amazon ECS to schedule the placement of containers across your cluster based on your resource needs, isolation policies, and availability requirements. With Amazon ECS, you don't need to operate your own cluster management and configuration management systems. You also don't need to worry about scaling your management infrastructure.
 }
 \section{Service syntax}{
 
@@ -108,14 +95,20 @@ also don't need to worry about scaling your management infrastructure.
 \section{Operations}{
 
 \tabular{ll}{
-\link[=ecs_create_capacity_provider]{create_capacity_provider} \tab Creates a new capacity provider\cr
+\link[=ecs_continue_service_deployment]{continue_service_deployment} \tab Continues or rolls back an Amazon ECS service deployment that is paused at a lifecycle hook\cr
+\link[=ecs_create_capacity_provider]{create_capacity_provider} \tab Creates a capacity provider\cr
 \link[=ecs_create_cluster]{create_cluster} \tab Creates a new Amazon ECS cluster\cr
+\link[=ecs_create_daemon]{create_daemon} \tab Creates a new daemon in the specified cluster and capacity providers\cr
+\link[=ecs_create_express_gateway_service]{create_express_gateway_service} \tab Creates an Express service that simplifies deploying containerized web applications on Amazon ECS with managed Amazon Web Services infrastructure\cr
 \link[=ecs_create_service]{create_service} \tab Runs and maintains your desired number of tasks from a specified task definition\cr
 \link[=ecs_create_task_set]{create_task_set} \tab Create a task set in the specified cluster and service\cr
 \link[=ecs_delete_account_setting]{delete_account_setting} \tab Disables an account setting for a specified user, role, or the root user for an account\cr
 \link[=ecs_delete_attributes]{delete_attributes} \tab Deletes one or more custom attributes from an Amazon ECS resource\cr
 \link[=ecs_delete_capacity_provider]{delete_capacity_provider} \tab Deletes the specified capacity provider\cr
 \link[=ecs_delete_cluster]{delete_cluster} \tab Deletes the specified cluster\cr
+\link[=ecs_delete_daemon]{delete_daemon} \tab Deletes the specified daemon\cr
+\link[=ecs_delete_daemon_task_definition]{delete_daemon_task_definition} \tab Deletes the specified daemon task definition\cr
+\link[=ecs_delete_express_gateway_service]{delete_express_gateway_service} \tab Deletes an Express service and removes all associated Amazon Web Services resources\cr
 \link[=ecs_delete_service]{delete_service} \tab Deletes a specified service within a cluster\cr
 \link[=ecs_delete_task_definitions]{delete_task_definitions} \tab Deletes one or more task definitions\cr
 \link[=ecs_delete_task_set]{delete_task_set} \tab Deletes a specified task set within a service\cr
@@ -124,6 +117,11 @@ also don't need to worry about scaling your management infrastructure.
 \link[=ecs_describe_capacity_providers]{describe_capacity_providers} \tab Describes one or more of your capacity providers\cr
 \link[=ecs_describe_clusters]{describe_clusters} \tab Describes one or more of your clusters\cr
 \link[=ecs_describe_container_instances]{describe_container_instances} \tab Describes one or more container instances\cr
+\link[=ecs_describe_daemon]{describe_daemon} \tab Describes the specified daemon\cr
+\link[=ecs_describe_daemon_deployments]{describe_daemon_deployments} \tab Describes one or more of your daemon deployments\cr
+\link[=ecs_describe_daemon_revisions]{describe_daemon_revisions} \tab Describes one or more of your daemon revisions\cr
+\link[=ecs_describe_daemon_task_definition]{describe_daemon_task_definition} \tab Describes a daemon task definition\cr
+\link[=ecs_describe_express_gateway_service]{describe_express_gateway_service} \tab Retrieves detailed information about an Express service, including current status, configuration, managed infrastructure, and service revisions\cr
 \link[=ecs_describe_service_deployments]{describe_service_deployments} \tab Describes one or more of your service deployments\cr
 \link[=ecs_describe_service_revisions]{describe_service_revisions} \tab Describes one or more service revisions\cr
 \link[=ecs_describe_services]{describe_services} \tab Describes the specified services running in your cluster\cr
@@ -137,6 +135,9 @@ also don't need to worry about scaling your management infrastructure.
 \link[=ecs_list_attributes]{list_attributes} \tab Lists the attributes for Amazon ECS resources within a specified target type and cluster\cr
 \link[=ecs_list_clusters]{list_clusters} \tab Returns a list of existing clusters\cr
 \link[=ecs_list_container_instances]{list_container_instances} \tab Returns a list of container instances in a specified cluster\cr
+\link[=ecs_list_daemon_deployments]{list_daemon_deployments} \tab Returns a list of daemon deployments for a specified daemon\cr
+\link[=ecs_list_daemons]{list_daemons} \tab Returns a list of daemons\cr
+\link[=ecs_list_daemon_task_definitions]{list_daemon_task_definitions} \tab Returns a list of daemon task definitions that are registered to your account\cr
 \link[=ecs_list_service_deployments]{list_service_deployments} \tab This operation lists all the service deployments that meet the specified filter criteria\cr
 \link[=ecs_list_services]{list_services} \tab Returns a list of services\cr
 \link[=ecs_list_services_by_namespace]{list_services_by_namespace} \tab This operation lists all of the services that are associated with a Cloud Map namespace\cr
@@ -149,9 +150,11 @@ also don't need to worry about scaling your management infrastructure.
 \link[=ecs_put_attributes]{put_attributes} \tab Create or update an attribute on an Amazon ECS resource\cr
 \link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers} \tab Modifies the available capacity providers and the default capacity provider strategy for a cluster\cr
 \link[=ecs_register_container_instance]{register_container_instance} \tab This action is only used by the Amazon ECS agent, and it is not intended for use outside of the agent\cr
+\link[=ecs_register_daemon_task_definition]{register_daemon_task_definition} \tab Registers a new daemon task definition from the supplied family and containerDefinitions\cr
 \link[=ecs_register_task_definition]{register_task_definition} \tab Registers a new task definition from the supplied family and containerDefinitions\cr
 \link[=ecs_run_task]{run_task} \tab Starts a new task using the specified task definition\cr
 \link[=ecs_start_task]{start_task} \tab Starts a new task from the specified task definition on the specified container instance or instances\cr
+\link[=ecs_stop_service_deployment]{stop_service_deployment} \tab Stops an ongoing service deployment\cr
 \link[=ecs_stop_task]{stop_task} \tab Stops a running task\cr
 \link[=ecs_submit_attachment_state_changes]{submit_attachment_state_changes} \tab This action is only used by the Amazon ECS agent, and it is not intended for use outside of the agent\cr
 \link[=ecs_submit_container_state_change]{submit_container_state_change} \tab This action is only used by the Amazon ECS agent, and it is not intended for use outside of the agent\cr
@@ -163,6 +166,8 @@ also don't need to worry about scaling your management infrastructure.
 \link[=ecs_update_cluster_settings]{update_cluster_settings} \tab Modifies the settings to use for a cluster\cr
 \link[=ecs_update_container_agent]{update_container_agent} \tab Updates the Amazon ECS container agent on a specified container instance\cr
 \link[=ecs_update_container_instances_state]{update_container_instances_state} \tab Modifies the status of an Amazon ECS container instance\cr
+\link[=ecs_update_daemon]{update_daemon} \tab Updates the specified daemon\cr
+\link[=ecs_update_express_gateway_service]{update_express_gateway_service} \tab Updates an existing Express service configuration\cr
 \link[=ecs_update_service]{update_service} \tab Modifies the parameters of a service\cr
 \link[=ecs_update_service_primary_task_set]{update_service_primary_task_set} \tab Modifies which task set in a service is the primary task set\cr
 \link[=ecs_update_task_protection]{update_task_protection} \tab Updates the protection status of a task\cr

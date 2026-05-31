@@ -11,22 +11,17 @@ computeoptimizer_get_recommendation_summaries(
 )
 }
 \arguments{
-\item{accountIds}{The ID of the Amazon Web Services account for which to return
-recommendation summaries.
+\item{accountIds}{The ID of the Amazon Web Services account for which to return recommendation summaries.
 
-If your account is the management account of an organization, use this
-parameter to specify the member account for which you want to return
-recommendation summaries.
+If your account is the management account of an organization, use this parameter to specify the member account for which you want to return recommendation summaries.
 
 Only one account ID can be specified per request.}
 
 \item{nextToken}{The token to advance to the next page of recommendation summaries.}
 
-\item{maxResults}{The maximum number of recommendation summaries to return with a single
-request.
+\item{maxResults}{The maximum number of recommendation summaries to return with a single request.
 
-To retrieve the remaining results, make another request with the
-returned \code{nextToken} value.}
+To retrieve the remaining results, make another request with the returned \code{nextToken} value.}
 }
 \description{
 Returns the optimization findings for an account.

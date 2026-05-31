@@ -10,11 +10,9 @@ or text (TXT)}
 lightsail_create_domain_entry(domainName, domainEntry)
 }
 \arguments{
-\item{domainName}{[required] The domain name (\code{example.com}) for which you want to create the domain
-entry.}
+\item{domainName}{[required] The domain name (\code{example.com}) for which you want to create the domain entry.}
 
-\item{domainEntry}{[required] An array of key-value pairs containing information about the domain
-entry request.}
+\item{domainEntry}{[required] An array of key-value pairs containing information about the domain entry request.}
 }
 \description{
 Creates one of the following domain name system (DNS) records in a domain DNS zone: Address (A), canonical name (CNAME), mail exchanger (MX), name server (NS), start of authority (SOA), service locator (SRV), or text (TXT).

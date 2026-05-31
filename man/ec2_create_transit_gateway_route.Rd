@@ -13,8 +13,7 @@ ec2_create_transit_gateway_route(
 )
 }
 \arguments{
-\item{DestinationCidrBlock}{[required] The CIDR range used for destination matches. Routing decisions are based
-on the most specific match.}
+\item{DestinationCidrBlock}{[required] The CIDR range used for destination matches. Routing decisions are based on the most specific match.}
 
 \item{TransitGatewayRouteTableId}{[required] The ID of the transit gateway route table.}
 
@@ -22,10 +21,7 @@ on the most specific match.}
 
 \item{Blackhole}{Indicates whether to drop traffic that matches this route.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a static route for the specified transit gateway route table.

@@ -53,24 +53,13 @@ to the client. The available operations are listed in the
 Operations section.
 }
 \description{
-Amazon EMR on EKS provides a deployment option for Amazon EMR that
-allows you to run open-source big data frameworks on Amazon Elastic
-Kubernetes Service (Amazon EKS). With this deployment option, you can
-focus on running analytics workloads while Amazon EMR on EKS builds,
-configures, and manages containers for open-source applications. For
-more information about Amazon EMR on EKS concepts and tasks, see \href{https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/emr-eks.html}{What is Amazon EMR on EKS}.
+Amazon EMR on EKS provides a deployment option for Amazon EMR that allows you to run open-source big data frameworks on Amazon Elastic Kubernetes Service (Amazon EKS). With this deployment option, you can focus on running analytics workloads while Amazon EMR on EKS builds, configures, and manages containers for open-source applications. For more information about Amazon EMR on EKS concepts and tasks, see \href{https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/emr-eks.html}{What is Amazon EMR on EKS}.
 
-\emph{Amazon EMR containers} is the API name for Amazon EMR on EKS. The
-\code{emr-containers} prefix is used in the following scenarios:
+\emph{Amazon EMR containers} is the API name for Amazon EMR on EKS. The \code{emr-containers} prefix is used in the following scenarios:
 \itemize{
-\item It is the prefix in the CLI commands for Amazon EMR on EKS. For
-example, \verb{aws emr-containers start-job-run}.
-\item It is the prefix before IAM policy actions for Amazon EMR on EKS.
-For example, \verb{"Action": [ "emr-containers:StartJobRun"]}. For more
-information, see \href{https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-actions}{Policy actions for Amazon EMR on EKS}.
-\item It is the prefix used in Amazon EMR on EKS service endpoints. For
-example, \verb{emr-containers.us-east-2.amazonaws.com}. For more
-information, see \href{https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/service-quotas.html#service-endpoints}{Amazon EMR on EKSService Endpoints}.
+\item It is the prefix in the CLI commands for Amazon EMR on EKS. For example, \verb{aws emr-containers start-job-run}.
+\item It is the prefix before IAM policy actions for Amazon EMR on EKS. For example, \verb{"Action": [ "emr-containers:StartJobRun"]}. For more information, see \href{https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-actions}{Policy actions for Amazon EMR on EKS}.
+\item It is the prefix used in Amazon EMR on EKS service endpoints. For example, \verb{emr-containers.us-east-2.amazonaws.com}. For more information, see \href{https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/service-quotas.html#service-endpoints}{Amazon EMR on EKSService Endpoints}.
 }
 }
 \section{Service syntax}{

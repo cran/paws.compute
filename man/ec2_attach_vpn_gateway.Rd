@@ -11,10 +11,7 @@ ec2_attach_vpn_gateway(VpcId, VpnGatewayId, DryRun = NULL)
 
 \item{VpnGatewayId}{[required] The ID of the virtual private gateway.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Attaches an available virtual private gateway to a VPC. You can attach one virtual private gateway to one VPC at a time.

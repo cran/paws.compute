@@ -9,8 +9,7 @@ lightsail_detach_instances_from_load_balancer(loadBalancerName, instanceNames)
 \arguments{
 \item{loadBalancerName}{[required] The name of the Lightsail load balancer.}
 
-\item{instanceNames}{[required] An array of strings containing the names of the instances you want to
-detach from the load balancer.}
+\item{instanceNames}{[required] An array of strings containing the names of the instances you want to detach from the load balancer.}
 }
 \description{
 Detaches the specified instances from a Lightsail load balancer.

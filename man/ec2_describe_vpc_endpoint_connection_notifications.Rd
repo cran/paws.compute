@@ -14,28 +14,21 @@ ec2_describe_vpc_endpoint_connection_notifications(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ConnectionNotificationId}{The ID of the notification.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{connection-notification-arn} - The ARN of the SNS topic for the
-notification.
+\item \code{connection-notification-arn} - The ARN of the SNS topic for the notification.
 \item \code{connection-notification-id} - The ID of the notification.
-\item \code{connection-notification-state} - The state of the notification
-(\code{Enabled} | \code{Disabled}).
+\item \code{connection-notification-state} - The state of the notification (\code{Enabled} | \code{Disabled}).
 \item \code{connection-notification-type} - The type of notification (\code{Topic}).
 \item \code{service-id} - The ID of the endpoint service.
 \item \code{vpc-endpoint-id} - The ID of the VPC endpoint.
 }}
 
-\item{MaxResults}{The maximum number of results to return in a single call. To retrieve
-the remaining results, make another request with the returned
-\code{NextToken} value.}
+\item{MaxResults}{The maximum number of results to return in a single call. To retrieve the remaining results, make another request with the returned \code{NextToken} value.}
 
 \item{NextToken}{The token to request the next page of results.}
 }

@@ -7,8 +7,7 @@
 apprunner_describe_service(ServiceArn)
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want a
-description for.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want a description for.}
 }
 \description{
 Return a full description of an App Runner service.

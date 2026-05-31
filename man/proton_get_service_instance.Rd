@@ -7,8 +7,7 @@
 proton_get_service_instance(name, serviceName)
 }
 \arguments{
-\item{name}{[required] The name of a service instance that you want to get the detailed data
-for.}
+\item{name}{[required] The name of a service instance that you want to get the detailed data for.}
 
 \item{serviceName}{[required] The name of the service that you want the service instance input for.}
 }

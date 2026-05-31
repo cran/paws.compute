@@ -15,32 +15,19 @@ apprunner_update_service(
 )
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want
-to update.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want to update.}
 
 \item{SourceConfiguration}{The source configuration to apply to the App Runner service.
 
-You can change the configuration of the code or image repository that
-the service uses. However, you can't switch from code to image or the
-other way around. This means that you must provide the same structure
-member of \code{SourceConfiguration} that you originally included when you
-created the service. Specifically, you can include either
-\code{CodeRepository} or \code{ImageRepository}. To update the source
-configuration, set the values to members of the structure that you
-include.}
+You can change the configuration of the code or image repository that the service uses. However, you can't switch from code to image or the other way around. This means that you must provide the same structure member of \code{SourceConfiguration} that you originally included when you created the service. Specifically, you can include either \code{CodeRepository} or \code{ImageRepository}. To update the source configuration, set the values to members of the structure that you include.}
 
-\item{InstanceConfiguration}{The runtime configuration to apply to instances (scaling units) of your
-service.}
+\item{InstanceConfiguration}{The runtime configuration to apply to instances (scaling units) of your service.}
 
-\item{AutoScalingConfigurationArn}{The Amazon Resource Name (ARN) of an App Runner automatic scaling
-configuration resource that you want to associate with the App Runner
-service.}
+\item{AutoScalingConfigurationArn}{The Amazon Resource Name (ARN) of an App Runner automatic scaling configuration resource that you want to associate with the App Runner service.}
 
-\item{HealthCheckConfiguration}{The settings for the health check that App Runner performs to monitor
-the health of the App Runner service.}
+\item{HealthCheckConfiguration}{The settings for the health check that App Runner performs to monitor the health of the App Runner service.}
 
-\item{NetworkConfiguration}{Configuration settings related to network traffic of the web application
-that the App Runner service runs.}
+\item{NetworkConfiguration}{Configuration settings related to network traffic of the web application that the App Runner service runs.}
 
 \item{ObservabilityConfiguration}{The observability configuration of your service.}
 }

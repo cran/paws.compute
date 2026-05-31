@@ -9,8 +9,7 @@ proton_update_service_template(description = NULL, displayName = NULL, name)
 \arguments{
 \item{description}{A description of the service template update.}
 
-\item{displayName}{The name of the service template to update that's displayed in the
-developer interface.}
+\item{displayName}{The name of the service template to update that's displayed in the developer interface.}
 
 \item{name}{[required] The name of the service template to update.}
 }

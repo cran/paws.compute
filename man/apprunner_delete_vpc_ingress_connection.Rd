@@ -8,8 +8,7 @@ with an App Runner service}
 apprunner_delete_vpc_ingress_connection(VpcIngressConnectionArn)
 }
 \arguments{
-\item{VpcIngressConnectionArn}{[required] The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection
-that you want to delete.}
+\item{VpcIngressConnectionArn}{[required] The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection that you want to delete.}
 }
 \description{
 Delete an App Runner VPC Ingress Connection resource that's associated with an App Runner service. The VPC Ingress Connection must be in one of the following states to be deleted:

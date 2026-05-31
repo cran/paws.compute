@@ -7,15 +7,11 @@
 ec2_reset_image_attribute(Attribute, ImageId, DryRun = NULL)
 }
 \arguments{
-\item{Attribute}{[required] The attribute to reset (currently you can only reset the launch
-permission attribute).}
+\item{Attribute}{[required] The attribute to reset (currently you can only reset the launch permission attribute).}
 
 \item{ImageId}{[required] The ID of the AMI.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Resets an attribute of an AMI to its default value.

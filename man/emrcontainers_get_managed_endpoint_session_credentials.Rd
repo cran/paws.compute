@@ -21,14 +21,11 @@ emrcontainers_get_managed_endpoint_session_credentials(
 
 \item{executionRoleArn}{[required] The IAM Execution Role ARN that will be used by the job run.}
 
-\item{credentialType}{[required] Type of the token requested. Currently supported and default value of
-this field is “TOKEN.”}
+\item{credentialType}{[required] Type of the token requested. Currently supported and default value of this field is “TOKEN.”}
 
-\item{durationInSeconds}{Duration in seconds for which the session token is valid. The default
-duration is 15 minutes and the maximum is 12 hours.}
+\item{durationInSeconds}{Duration in seconds for which the session token is valid. The default duration is 15 minutes and the maximum is 12 hours.}
 
-\item{logContext}{String identifier used to separate sections of the execution logs
-uploaded to S3.}
+\item{logContext}{String identifier used to separate sections of the execution logs uploaded to S3.}
 
 \item{clientToken}{The client idempotency token of the job run request.}
 }

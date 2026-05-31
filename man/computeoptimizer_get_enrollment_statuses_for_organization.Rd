@@ -12,17 +12,13 @@ computeoptimizer_get_enrollment_statuses_for_organization(
 )
 }
 \arguments{
-\item{filters}{An array of objects to specify a filter that returns a more specific
-list of account enrollment statuses.}
+\item{filters}{An array of objects to specify a filter that returns a more specific list of account enrollment statuses.}
 
 \item{nextToken}{The token to advance to the next page of account enrollment statuses.}
 
-\item{maxResults}{The maximum number of account enrollment statuses to return with a
-single request. You can specify up to 100 statuses to return with each
-request.
+\item{maxResults}{The maximum number of account enrollment statuses to return with a single request. You can specify up to 100 statuses to return with each request.
 
-To retrieve the remaining results, make another request with the
-returned \code{nextToken} value.}
+To retrieve the remaining results, make another request with the returned \code{nextToken} value.}
 }
 \description{
 Returns the Compute Optimizer enrollment (opt-in) status of organization member accounts, if your account is an organization management account.

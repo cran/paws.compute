@@ -14,13 +14,11 @@ lambda_put_function_code_signing_config(CodeSigningConfigArn, FunctionName)
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} - \code{MyFunction}.
-\item \strong{Function ARN} -
-\verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
+\item \strong{Function ARN} - \verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
 \item \strong{Partial ARN} - \verb{123456789012:function:MyFunction}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it is limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 }
 \description{
 Update the code signing configuration for the function. Changes to the code signing configuration take effect the next time a user tries to deploy a code package to the function.

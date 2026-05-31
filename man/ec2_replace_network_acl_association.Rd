@@ -7,13 +7,9 @@
 ec2_replace_network_acl_association(DryRun = NULL, AssociationId, NetworkAclId)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{AssociationId}{[required] The ID of the current association between the original network ACL and
-the subnet.}
+\item{AssociationId}{[required] The ID of the current association between the original network ACL and the subnet.}
 
 \item{NetworkAclId}{[required] The ID of the new network ACL to associate with the subnet.}
 }

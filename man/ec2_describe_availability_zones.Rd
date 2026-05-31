@@ -18,48 +18,29 @@ ec2_describe_availability_zones(
 
 \item{ZoneIds}{The IDs of the Availability Zones, Local Zones, and Wavelength Zones.}
 
-\item{AllAvailabilityZones}{Include all Availability Zones, Local Zones, and Wavelength Zones
-regardless of your opt-in status.
+\item{AllAvailabilityZones}{Include all Availability Zones, Local Zones, and Wavelength Zones regardless of your opt-in status.
 
-If you do not use this parameter, the results include only the zones for
-the Regions where you have chosen the option to opt in.}
+If you do not use this parameter, the results include only the zones for the Regions where you have chosen the option to opt in.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{group-name} - The name of the zone group for the Availability Zone
-(for example, \code{us-east-1-zg-1}), the Local Zone (for example,
-\code{us-west-2-lax-1}), or the Wavelength Zone (for example,
-\code{us-east-1-wl1}).
+\item \code{group-long-name} - The long name of the zone group for the Availability Zone (for example, \verb{US West (Oregon) 1}), the Local Zone (for example, for Zone group \code{us-west-2-lax-1}, it is \verb{US West (Los Angeles)}, or the Wavelength Zone (for example, for Zone group \code{us-east-1-wl1}, it is \verb{US East (Verizon)}.
+\item \code{group-name} - The name of the zone group for the Availability Zone (for example, \code{us-east-1-zg-1}), the Local Zone (for example, \code{us-west-2-lax-1}), or the Wavelength Zone (for example, \code{us-east-1-wl1}).
 \item \code{message} - The Zone message.
-\item \verb{opt-in-status} - The opt-in status (\verb{opted-in} | \verb{not-opted-in} |
-\verb{opt-in-not-required}).
-\item \code{parent-zone-id} - The ID of the zone that handles some of the Local
-Zone and Wavelength Zone control plane operations, such as API
-calls.
-\item \code{parent-zone-name} - The ID of the zone that handles some of the
-Local Zone and Wavelength Zone control plane operations, such as API
-calls.
-\item \code{region-name} - The name of the Region for the Zone (for example,
-\code{us-east-1}).
-\item \code{state} - The state of the Availability Zone, the Local Zone, or the
-Wavelength Zone (\code{available}).
-\item \code{zone-id} - The ID of the Availability Zone (for example,
-\code{use1-az1}), the Local Zone (for example, \code{usw2-lax1-az1}), or the
-Wavelength Zone (for example, \code{us-east-1-wl1-bos-wlz-1}).
-\item \code{zone-name} - The name of the Availability Zone (for example,
-\verb{us-east-1a}), the Local Zone (for example, \verb{us-west-2-lax-1a}), or
-the Wavelength Zone (for example, \code{us-east-1-wl1-bos-wlz-1}).
-\item \code{zone-type} - The type of zone (\code{availability-zone} | \code{local-zone} |
-\code{wavelength-zone}).
+\item \verb{opt-in-status} - The opt-in status (\verb{opted-in} | \verb{not-opted-in} | \verb{opt-in-not-required}).
+\item \code{parent-zone-id} - The ID of the zone that handles some of the Local Zone and Wavelength Zone control plane operations, such as API calls.
+\item \code{parent-zone-name} - The ID of the zone that handles some of the Local Zone and Wavelength Zone control plane operations, such as API calls.
+\item \code{region-name} - The name of the Region for the Zone (for example, \code{us-east-1}).
+\item \code{state} - The state of the Availability Zone, the Local Zone, or the Wavelength Zone (\code{available} | \code{unavailable} | \code{constrained}).
+\item \code{zone-id} - The ID of the Availability Zone (for example, \code{use1-az1}), the Local Zone (for example, \code{usw2-lax1-az1}), or the Wavelength Zone (for example, \code{us-east-1-wl1-bos-wlz-1}).
+\item \code{zone-name} - The name of the Availability Zone (for example, \verb{us-east-1a}), the Local Zone (for example, \verb{us-west-2-lax-1a}), or the Wavelength Zone (for example, \code{us-east-1-wl1-bos-wlz-1}).
+\item \code{zone-type} - The type of zone (\code{availability-zone} | \code{local-zone} | \code{wavelength-zone}).
 }}
 }
 \description{
-Describes the Availability Zones, Local Zones, and Wavelength Zones that are available to you. If there is an event impacting a zone, you can use this request to view the state and any provided messages for that zone.
+Describes the Availability Zones, Local Zones, and Wavelength Zones that are available to you.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_describe_availability_zones/} for full documentation.
 }

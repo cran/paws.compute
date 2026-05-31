@@ -23,21 +23,17 @@ imagebuilder_create_lifecycle_policy(
 
 \item{status}{Indicates whether the lifecycle policy resource is enabled.}
 
-\item{executionRole}{[required] The name or Amazon Resource Name (ARN) for the IAM role you create that
-grants Image Builder access to run lifecycle actions.}
+\item{executionRole}{[required] The name or Amazon Resource Name (ARN) for the IAM role you create that grants Image Builder access to run lifecycle actions.}
 
 \item{resourceType}{[required] The type of Image Builder resource that the lifecycle policy applies to.}
 
 \item{policyDetails}{[required] Configuration details for the lifecycle policy rules.}
 
-\item{resourceSelection}{[required] Selection criteria for the resources that the lifecycle policy applies
-to.}
+\item{resourceSelection}{[required] Selection criteria for the resources that the lifecycle policy applies to.}
 
 \item{tags}{Tags to apply to the lifecycle policy resource.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 Create a lifecycle policy resource.

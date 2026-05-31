@@ -16,21 +16,13 @@ ec2_describe_instance_topology(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.
 
-You can't specify this parameter and the instance IDs parameter in the
-same request.
+You can't specify this parameter and the instance IDs parameter in the same request.
 
 Default: \code{20}}
 
@@ -46,16 +38,9 @@ Constraints: Maximum 100 explicitly specified placement group names.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{availability-zone} - The name of the Availability Zone (for
-example, \verb{us-west-2a}) or Local Zone (for example,
-\verb{us-west-2-lax-1b}) that the instance is in.
-\item \code{instance-type} - The instance type (for example, \code{p4d.24xlarge}) or
-instance family (for example, \verb{p4d*}). You can use the \code{*} wildcard
-to match zero or more characters, or the \verb{?} wildcard to match zero
-or one character.
-\item \code{zone-id} - The ID of the Availability Zone (for example,
-\code{usw2-az2}) or Local Zone (for example, \code{usw2-lax1-az1}) that the
-instance is in.
+\item \code{availability-zone} - The name of the Availability Zone (for example, \verb{us-west-2a}) or Local Zone (for example, \verb{us-west-2-lax-1b}) that the instance is in.
+\item \code{instance-type} - The instance type (for example, \code{p4d.24xlarge}) or instance family (for example, \verb{p4d*}). You can use the \code{*} wildcard to match zero or more characters, or the \verb{?} wildcard to match zero or one character.
+\item \code{zone-id} - The ID of the Availability Zone (for example, \code{usw2-az2}) or Local Zone (for example, \code{usw2-lax1-az1}) that the instance is in.
 }}
 }
 \description{

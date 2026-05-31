@@ -19,22 +19,14 @@ lightsail_get_container_service_metric_data(
 
 \item{metricName}{[required] The metric for which you want to return information.
 
-Valid container service metric names are listed below, along with the
-most useful statistics to include in your request, and the published
-unit value.
+Valid container service metric names are listed below, along with the most useful statistics to include in your request, and the published unit value.
 \itemize{
-\item \code{CPUUtilization} - The average percentage of compute units that are
-currently in use across all nodes of the container service. This
-metric identifies the processing power required to run containers on
-each node of the container service.
+\item \code{CPUUtilization} - The average percentage of compute units that are currently in use across all nodes of the container service. This metric identifies the processing power required to run containers on each node of the container service.
 
 Statistics: The most useful statistics are \code{Maximum} and \code{Average}.
 
 Unit: The published unit is \code{Percent}.
-\item \code{MemoryUtilization} - The average percentage of available memory
-that is currently in use across all nodes of the container service.
-This metric identifies the memory required to run containers on each
-node of the container service.
+\item \code{MemoryUtilization} - The average percentage of available memory that is currently in use across all nodes of the container service. This metric identifies the memory required to run containers on each node of the container service.
 
 Statistics: The most useful statistics are \code{Maximum} and \code{Average}.
 
@@ -47,30 +39,17 @@ Unit: The published unit is \code{Percent}.
 
 \item{period}{[required] The granularity, in seconds, of the returned data points.
 
-All container service metric data is available in 5-minute (300 seconds)
-granularity.}
+All container service metric data is available in 5-minute (300 seconds) granularity.}
 
 \item{statistics}{[required] The statistic for the metric.
 
 The following statistics are available:
 \itemize{
-\item \code{Minimum} - The lowest value observed during the specified period.
-Use this value to determine low volumes of activity for your
-application.
-\item \code{Maximum} - The highest value observed during the specified period.
-Use this value to determine high volumes of activity for your
-application.
-\item \code{Sum} - All values submitted for the matching metric added together.
-You can use this statistic to determine the total volume of a
-metric.
-\item \code{Average} - The value of \code{Sum} / \code{SampleCount} during the specified
-period. By comparing this statistic with the \code{Minimum} and \code{Maximum}
-values, you can determine the full scope of a metric and how close
-the average use is to the \code{Minimum} and \code{Maximum} values. This
-comparison helps you to know when to increase or decrease your
-resources.
-\item \code{SampleCount} - The count, or number, of data points used for the
-statistical calculation.
+\item \code{Minimum} - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.
+\item \code{Maximum} - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.
+\item \code{Sum} - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.
+\item \code{Average} - The value of \code{Sum} / \code{SampleCount} during the specified period. By comparing this statistic with the \code{Minimum} and \code{Maximum} values, you can determine the full scope of a metric and how close the average use is to the \code{Minimum} and \code{Maximum} values. This comparison helps you to know when to increase or decrease your resources.
+\item \code{SampleCount} - The count, or number, of data points used for the statistical calculation.
 }}
 }
 \description{

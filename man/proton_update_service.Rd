@@ -12,11 +12,7 @@ proton_update_service(description = NULL, name, spec = NULL)
 
 \item{name}{[required] The name of the service to edit.}
 
-\item{spec}{Lists the service instances to add and the existing service instances to
-remain. Omit the existing service instances to delete from the list.
-\emph{Don't} include edits to the existing service instances or pipeline. For
-more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-svc-update.html}{Edit a service}
-in the \emph{Proton User Guide}.}
+\item{spec}{Lists the service instances to add and the existing service instances to remain. Omit the existing service instances to delete from the list. \emph{Don't} include edits to the existing service instances or pipeline. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-svc-update.html}{Edit a service} in the \emph{Proton User Guide}.}
 }
 \description{
 Edit a service description or use a spec to add and delete service instances.

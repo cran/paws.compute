@@ -7,11 +7,9 @@
 proton_untag_resource(resourceArn, tagKeys)
 }
 \arguments{
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource to remove customer tags
-from.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource to remove customer tags from.}
 
-\item{tagKeys}{[required] A list of customer tag keys that indicate the customer tags to be
-removed from the resource.}
+\item{tagKeys}{[required] A list of customer tag keys that indicate the customer tags to be removed from the resource.}
 }
 \description{
 Remove a customer tag from a resource. A tag is a key-value pair of metadata associated with an Proton resource.

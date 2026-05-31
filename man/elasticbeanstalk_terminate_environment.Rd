@@ -14,24 +14,16 @@ elasticbeanstalk_terminate_environment(
 \arguments{
 \item{EnvironmentId}{The ID of the environment to terminate.
 
-Condition: You must specify either this or an EnvironmentName, or both.
-If you do not specify either, AWS Elastic Beanstalk returns
-\code{MissingRequiredParameter} error.}
+Condition: You must specify either this or an EnvironmentName, or both. If you do not specify either, AWS Elastic Beanstalk returns \code{MissingRequiredParameter} error.}
 
 \item{EnvironmentName}{The name of the environment to terminate.
 
-Condition: You must specify either this or an EnvironmentId, or both. If
-you do not specify either, AWS Elastic Beanstalk returns
-\code{MissingRequiredParameter} error.}
+Condition: You must specify either this or an EnvironmentId, or both. If you do not specify either, AWS Elastic Beanstalk returns \code{MissingRequiredParameter} error.}
 
-\item{TerminateResources}{Indicates whether the associated AWS resources should shut down when the
-environment is terminated:
+\item{TerminateResources}{Indicates whether the associated AWS resources should shut down when the environment is terminated:
 \itemize{
-\item \code{true}: The specified environment as well as the associated AWS
-resources, such as Auto Scaling group and LoadBalancer, are
-terminated.
-\item \code{false}: AWS Elastic Beanstalk resource management is removed from
-the environment, but the AWS resources continue to operate.
+\item \code{true}: The specified environment as well as the associated AWS resources, such as Auto Scaling group and LoadBalancer, are terminated.
+\item \code{false}: AWS Elastic Beanstalk resource management is removed from the environment, but the AWS resources continue to operate.
 }
 
 For more information, see the \href{https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/}{AWS Elastic Beanstalk User Guide.}
@@ -40,8 +32,7 @@ Default: \code{true}
 
 Valid Values: \code{true} | \code{false}}
 
-\item{ForceTerminate}{Terminates the target environment even if another environment in the
-same group is dependent on it.}
+\item{ForceTerminate}{Terminates the target environment even if another environment in the same group is dependent on it.}
 }
 \description{
 Terminates the specified environment.

@@ -18,39 +18,25 @@ proton_create_service(
 )
 }
 \arguments{
-\item{branchName}{The name of the code repository branch that holds the code that's
-deployed in Proton. \emph{Don't} include this parameter if your service
-template \emph{doesn't} include a service pipeline.}
+\item{branchName}{The name of the code repository branch that holds the code that's deployed in Proton. \emph{Don't} include this parameter if your service template \emph{doesn't} include a service pipeline.}
 
 \item{description}{A description of the Proton service.}
 
 \item{name}{[required] The service name.}
 
-\item{repositoryConnectionArn}{The Amazon Resource Name (ARN) of the repository connection. For more
-information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/setting-up-for-service.html#setting-up-vcontrol}{Setting up an AWS CodeStar connection}
-in the \emph{Proton User Guide}. \emph{Don't} include this parameter if your
-service template \emph{doesn't} include a service pipeline.}
+\item{repositoryConnectionArn}{The Amazon Resource Name (ARN) of the repository connection. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/setting-up-for-service.html#setting-up-vcontrol}{Setting up an AWS CodeStar connection} in the \emph{Proton User Guide}. \emph{Don't} include this parameter if your service template \emph{doesn't} include a service pipeline.}
 
-\item{repositoryId}{The ID of the code repository. \emph{Don't} include this parameter if your
-service template \emph{doesn't} include a service pipeline.}
+\item{repositoryId}{The ID of the code repository. \emph{Don't} include this parameter if your service template \emph{doesn't} include a service pipeline.}
 
-\item{spec}{[required] A link to a spec file that provides inputs as defined in the service
-template bundle schema file. The spec file is in YAML format. \emph{Don’t}
-include pipeline inputs in the spec if your service template \emph{doesn’t}
-include a service pipeline. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-create-svc.html}{Create a service}
-in the \emph{Proton User Guide}.}
+\item{spec}{[required] A link to a spec file that provides inputs as defined in the service template bundle schema file. The spec file is in YAML format. \emph{Don’t} include pipeline inputs in the spec if your service template \emph{doesn’t} include a service pipeline. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-create-svc.html}{Create a service} in the \emph{Proton User Guide}.}
 
-\item{tags}{An optional list of metadata items that you can associate with the
-Proton service. A tag is a key-value pair.
+\item{tags}{An optional list of metadata items that you can associate with the Proton service. A tag is a key-value pair.
 
-For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging}
-in the \emph{Proton User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging} in the \emph{Proton User Guide}.}
 
-\item{templateMajorVersion}{[required] The major version of the service template that was used to create the
-service.}
+\item{templateMajorVersion}{[required] The major version of the service template that was used to create the service.}
 
-\item{templateMinorVersion}{The minor version of the service template that was used to create the
-service.}
+\item{templateMinorVersion}{The minor version of the service template that was used to create the service.}
 
 \item{templateName}{[required] The name of the service template that's used to create the service.}
 }

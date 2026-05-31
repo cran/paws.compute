@@ -15,11 +15,9 @@ proton_update_environment_template_version(
 \arguments{
 \item{description}{A description of environment template version to update.}
 
-\item{majorVersion}{[required] To update a major version of an environment template, include
-\verb{major Version}.}
+\item{majorVersion}{[required] To update a major version of an environment template, include \verb{major Version}.}
 
-\item{minorVersion}{[required] To update a minor version of an environment template, include
-\code{minorVersion}.}
+\item{minorVersion}{[required] To update a minor version of an environment template, include \code{minorVersion}.}
 
 \item{status}{The status of the environment template minor version to update.}
 

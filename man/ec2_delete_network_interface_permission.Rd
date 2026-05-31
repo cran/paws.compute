@@ -13,13 +13,9 @@ ec2_delete_network_interface_permission(
 \arguments{
 \item{NetworkInterfacePermissionId}{[required] The ID of the network interface permission.}
 
-\item{Force}{Specify \code{true} to remove the permission even if the network interface is
-attached to an instance.}
+\item{Force}{Specify \code{true} to remove the permission even if the network interface is attached to an instance.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes a permission for a network interface. By default, you cannot delete the permission if the account for which you're removing the permission has attached the network interface to an instance. However, you can force delete the permission, regardless of any attachment.

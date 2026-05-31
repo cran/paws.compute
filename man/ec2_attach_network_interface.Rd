@@ -7,6 +7,7 @@
 ec2_attach_network_interface(
   NetworkCardIndex = NULL,
   EnaSrdSpecification = NULL,
+  EnaQueueCount = NULL,
   DryRun = NULL,
   NetworkInterfaceId,
   InstanceId,
@@ -14,17 +15,13 @@ ec2_attach_network_interface(
 )
 }
 \arguments{
-\item{NetworkCardIndex}{The index of the network card. Some instance types support multiple
-network cards. The primary network interface must be assigned to network
-card index 0. The default is network card index 0.}
+\item{NetworkCardIndex}{The index of the network card. Some instance types support multiple network cards. The primary network interface must be assigned to network card index 0. The default is network card index 0.}
 
-\item{EnaSrdSpecification}{Configures ENA Express for the network interface that this action
-attaches to the instance.}
+\item{EnaSrdSpecification}{Configures ENA Express for the network interface that this action attaches to the instance.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{EnaQueueCount}{The number of ENA queues to be created with the instance.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{NetworkInterfaceId}{[required] The ID of the network interface.}
 

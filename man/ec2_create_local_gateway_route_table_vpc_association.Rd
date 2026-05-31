@@ -19,10 +19,7 @@ ec2_create_local_gateway_route_table_vpc_association(
 
 \item{TagSpecifications}{The tags to assign to the local gateway route table VPC association.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Associates the specified VPC with the specified local gateway route table.

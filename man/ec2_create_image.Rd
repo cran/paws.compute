@@ -7,6 +7,7 @@ is either running or stopped}
 \usage{
 ec2_create_image(
   TagSpecifications = NULL,
+  SnapshotLocation = NULL,
   DryRun = NULL,
   InstanceId,
   Name,
@@ -16,47 +17,40 @@ ec2_create_image(
 )
 }
 \arguments{
-\item{TagSpecifications}{The tags to apply to the AMI and snapshots on creation. You can tag the
-AMI, the snapshots, or both.
+\item{TagSpecifications}{The tags to apply to the AMI and snapshots on creation. You can tag the AMI, the snapshots, or both.
 \itemize{
 \item To tag the AMI, the value for \code{ResourceType} must be \code{image}.
-\item To tag the snapshots that are created of the root volume and of
-other Amazon EBS volumes that are attached to the instance, the
-value for \code{ResourceType} must be \code{snapshot}. The same tag is applied
-to all of the snapshots that are created.
+\item To tag the snapshots that are created of the root volume and of other Amazon EBS volumes that are attached to the instance, the value for \code{ResourceType} must be \code{snapshot}. The same tag is applied to all of the snapshots that are created.
 }
 
 If you specify other values for \code{ResourceType}, the request fails.
 
-To tag an AMI or snapshot after it has been created, see
-\code{\link[=ec2_create_tags]{create_tags}}.}
+To tag an AMI or snapshot after it has been created, see \code{\link[=ec2_create_tags]{create_tags}}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{SnapshotLocation}{Only supported for instances in Local Zones. If the source instance is not in a Local Zone, omit this parameter.
+
+The Amazon S3 location where the snapshots will be stored.
+\itemize{
+\item To create local snapshots in the same Local Zone as the source instance, specify \code{local}.
+\item To create regional snapshots in the parent Region of the Local Zone, specify \code{regional} or omit this parameter.
+}
+
+Default: \code{regional}}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{InstanceId}{[required] The ID of the instance.}
 
 \item{Name}{[required] A name for the new image.
 
-Constraints: 3-128 alphanumeric characters, parentheses (()), square
-brackets ([]), spaces ( ), periods (.), slashes (/), dashes (-),
-single quotes ('), at-signs (@), or underscores(_)}
+Constraints: 3-128 alphanumeric characters, parentheses (()), square brackets ([]), spaces ( ), periods (.), slashes (/), dashes (-), single quotes ('), at-signs (@), or underscores(_)}
 
 \item{Description}{A description for the new image.}
 
-\item{NoReboot}{Indicates whether or not the instance should be automatically rebooted
-before creating the image. Specify one of the following values:
+\item{NoReboot}{Indicates whether or not the instance should be automatically rebooted before creating the image. Specify one of the following values:
 \itemize{
-\item \code{true} - The instance is not rebooted before creating the image.
-This creates crash-consistent snapshots that include only the data
-that has been written to the volumes at the time the snapshots are
-created. Buffered data and data in memory that has not yet been
-written to the volumes is not included in the snapshots.
-\item \code{false} - The instance is rebooted before creating the image. This
-ensures that all buffered data and data in memory is written to the
-volumes before the snapshots are created.
+\item \code{true} - The instance is not rebooted before creating the image. This creates crash-consistent snapshots that include only the data that has been written to the volumes at the time the snapshots are created. Buffered data and data in memory that has not yet been written to the volumes is not included in the snapshots.
+\item \code{false} - The instance is rebooted before creating the image. This ensures that all buffered data and data in memory is written to the volumes before the snapshots are created.
 }
 
 Default: \code{false}}
@@ -65,17 +59,9 @@ Default: \code{false}}
 
 When using the CreateImage action:
 \itemize{
-\item You can't change the volume size using the VolumeSize parameter. If
-you want a different volume size, you must first change the volume
-size of the source instance.
-\item You can't modify the encryption status of existing volumes or
-snapshots. To create an AMI with volumes or snapshots that have a
-different encryption status (for example, where the source volume
-and snapshots are unencrypted, and you want to create an AMI with
-encrypted volumes or snapshots), use the
-\code{\link[=ec2_copy_image]{copy_image}} action.
-\item The only option that can be changed for existing mappings or
-snapshots is \code{DeleteOnTermination}.
+\item You can't change the volume size using the VolumeSize parameter. If you want a different volume size, you must first change the volume size of the source instance.
+\item You can't modify the encryption status of existing volumes or snapshots. To create an AMI with volumes or snapshots that have a different encryption status (for example, where the source volume and snapshots are unencrypted, and you want to create an AMI with encrypted volumes or snapshots), copy the image instead.
+\item The only option that can be changed for existing mappings or snapshots is \code{DeleteOnTermination}.
 }}
 }
 \description{

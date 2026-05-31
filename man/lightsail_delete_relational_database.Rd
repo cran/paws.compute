@@ -13,21 +13,15 @@ lightsail_delete_relational_database(
 \arguments{
 \item{relationalDatabaseName}{[required] The name of the database that you are deleting.}
 
-\item{skipFinalSnapshot}{Determines whether a final database snapshot is created before your
-database is deleted. If \code{true} is specified, no database snapshot is
-created. If \code{false} is specified, a database snapshot is created before
-your database is deleted.
+\item{skipFinalSnapshot}{Determines whether a final database snapshot is created before your database is deleted. If \code{true} is specified, no database snapshot is created. If \code{false} is specified, a database snapshot is created before your database is deleted.
 
-You must specify the \verb{final relational database snapshot name} parameter
-if the \verb{skip final snapshot} parameter is \code{false}.
+You must specify the \verb{final relational database snapshot name} parameter if the \verb{skip final snapshot} parameter is \code{false}.
 
 Default: \code{false}}
 
-\item{finalRelationalDatabaseSnapshotName}{The name of the database snapshot created if \verb{skip final snapshot} is
-\code{false}, which is the default value for that parameter.
+\item{finalRelationalDatabaseSnapshotName}{The name of the database snapshot created if \verb{skip final snapshot} is \code{false}, which is the default value for that parameter.
 
-Specifying this parameter and also specifying the \verb{skip final snapshot}
-parameter to \code{true} results in an error.
+Specifying this parameter and also specifying the \verb{skip final snapshot} parameter to \code{true} results in an error.
 
 Constraints:
 \itemize{

@@ -9,8 +9,7 @@ lightsail_tag_resource(resourceName, resourceArn = NULL, tags)
 \arguments{
 \item{resourceName}{[required] The name of the resource to which you are adding tags.}
 
-\item{resourceArn}{The Amazon Resource Name (ARN) of the resource to which you want to add
-a tag.}
+\item{resourceArn}{The Amazon Resource Name (ARN) of the resource to which you want to add a tag.}
 
 \item{tags}{[required] The tag key and optional value.}
 }

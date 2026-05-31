@@ -15,8 +15,7 @@ computeoptimizer_get_ec2_recommendation_projected_metrics(
 )
 }
 \arguments{
-\item{instanceArn}{[required] The Amazon Resource Name (ARN) of the instances for which to return
-recommendation projected metrics.}
+\item{instanceArn}{[required] The Amazon Resource Name (ARN) of the instances for which to return recommendation projected metrics.}
 
 \item{stat}{[required] The statistic of the projected metrics.}
 
@@ -26,8 +25,7 @@ recommendation projected metrics.}
 
 \item{endTime}{[required] The timestamp of the last projected metrics data point to return.}
 
-\item{recommendationPreferences}{An object to specify the preferences for the Amazon EC2 recommendation
-projected metrics to return in the response.}
+\item{recommendationPreferences}{An object to specify the preferences for the Amazon EC2 recommendation projected metrics to return in the response.}
 }
 \description{
 Returns the projected utilization metrics of Amazon EC2 instance recommendations.

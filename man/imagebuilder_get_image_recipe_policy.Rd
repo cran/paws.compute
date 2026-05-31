@@ -7,8 +7,7 @@
 imagebuilder_get_image_recipe_policy(imageRecipeArn)
 }
 \arguments{
-\item{imageRecipeArn}{[required] The Amazon Resource Name (ARN) of the image recipe whose policy you want
-to retrieve.}
+\item{imageRecipeArn}{[required] The Amazon Resource Name (ARN) of the image recipe whose policy you want to retrieve.}
 }
 \description{
 Gets an image recipe policy.

@@ -17,90 +17,49 @@ lightsail_create_container_service(
 \arguments{
 \item{serviceName}{[required] The name for the container service.
 
-The name that you specify for your container service will make up part
-of its default domain. The default domain of a container service is
-typically
-\verb{https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com}.
-If the name of your container service is \code{container-service-1}, and it's
-located in the US East (Ohio) Amazon Web Services Region (\code{us-east-2}),
-then the domain for your container service will be like the following
-example:
-\verb{https://container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com}
+The name that you specify for your container service will make up part of its default domain. The default domain of a container service is typically \verb{https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com}. If the name of your container service is \code{container-service-1}, and it's located in the US East (Ohio) Amazon Web Services Region (\code{us-east-2}), then the domain for your container service will be like the following example: \verb{https://container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com}
 
 The following are the requirements for container service names:
 \itemize{
-\item Must be unique within each Amazon Web Services Region in your
-Lightsail account.
+\item Must be unique within each Amazon Web Services Region in your Lightsail account.
 \item Must contain 1 to 63 characters.
 \item Must contain only alphanumeric characters and hyphens.
-\item A hyphen (-) can separate words but cannot be at the start or end of
-the name.
+\item A hyphen (-) can separate words but cannot be at the start or end of the name.
 }}
 
 \item{power}{[required] The power specification for the container service.
 
-The power specifies the amount of memory, vCPUs, and base monthly cost
-of each node of the container service. The \code{power} and \code{scale} of a
-container service makes up its configured capacity. To determine the
-monthly price of your container service, multiply the base price of the
-\code{power} with the \code{scale} (the number of nodes) of the service.
+The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the container service. The \code{power} and \code{scale} of a container service makes up its configured capacity. To determine the monthly price of your container service, multiply the base price of the \code{power} with the \code{scale} (the number of nodes) of the service.
 
-Use the
-\code{\link[=lightsail_get_container_service_powers]{get_container_service_powers}}
-action to get a list of power options that you can specify using this
-parameter, and their base monthly cost.}
+Use the \code{\link[=lightsail_get_container_service_powers]{get_container_service_powers}} action to get a list of power options that you can specify using this parameter, and their base monthly cost.}
 
 \item{scale}{[required] The scale specification for the container service.
 
-The scale specifies the allocated compute nodes of the container
-service. The \code{power} and \code{scale} of a container service makes up its
-configured capacity. To determine the monthly price of your container
-service, multiply the base price of the \code{power} with the \code{scale} (the
-number of nodes) of the service.}
+The scale specifies the allocated compute nodes of the container service. The \code{power} and \code{scale} of a container service makes up its configured capacity. To determine the monthly price of your container service, multiply the base price of the \code{power} with the \code{scale} (the number of nodes) of the service.}
 
-\item{tags}{The tag keys and optional values to add to the container service during
-create.
+\item{tags}{The tag keys and optional values to add to the container service during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.
 
 For more information about tags in Lightsail, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags.html}{Amazon Lightsail Developer Guide}.}
 
-\item{publicDomainNames}{The public domain names to use with the container service, such as
-\code{example.com} and \code{www.example.com}.
+\item{publicDomainNames}{The public domain names to use with the container service, such as \code{example.com} and \code{www.example.com}.
 
-You can specify up to four public domain names for a container service.
-The domain names that you specify are used when you create a deployment
-with a container configured as the public endpoint of your container
-service.
+You can specify up to four public domain names for a container service. The domain names that you specify are used when you create a deployment with a container configured as the public endpoint of your container service.
 
-If you don't specify public domain names, then you can use the default
-domain of the container service.
+If you don't specify public domain names, then you can use the default domain of the container service.
 
-You must create and validate an SSL/TLS certificate before you can use
-public domain names with your container service. Use the
-\code{\link[=lightsail_create_certificate]{create_certificate}} action to create a
-certificate for the public domain names you want to use with your
-container service.
+You must create and validate an SSL/TLS certificate before you can use public domain names with your container service. Use the \code{\link[=lightsail_create_certificate]{create_certificate}} action to create a certificate for the public domain names you want to use with your container service.
 
-You can specify public domain names using a string to array map as shown
-in the example later on this page.}
+You can specify public domain names using a string to array map as shown in the example later on this page.}
 
 \item{deployment}{An object that describes a deployment for the container service.
 
-A deployment specifies the containers that will be launched on the
-container service and their settings, such as the ports to open, the
-environment variables to apply, and the launch command to run. It also
-specifies the container that will serve as the public endpoint of the
-deployment and its settings, such as the HTTP or HTTPS port to use, and
-the health check configuration.}
+A deployment specifies the containers that will be launched on the container service and their settings, such as the ports to open, the environment variables to apply, and the launch command to run. It also specifies the container that will serve as the public endpoint of the deployment and its settings, such as the HTTP or HTTPS port to use, and the health check configuration.}
 
-\item{privateRegistryAccess}{An object to describe the configuration for the container service to
-access private container image repositories, such as Amazon Elastic
-Container Registry (Amazon ECR) private repositories.
+\item{privateRegistryAccess}{An object to describe the configuration for the container service to access private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.
 
-For more information, see \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-container-service-ecr-private-repo-access.html}{Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service}
-in the \emph{Amazon Lightsail Developer Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-container-service-ecr-private-repo-access.html}{Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service} in the \emph{Amazon Lightsail Developer Guide}.}
 }
 \description{
 Creates an Amazon Lightsail container service.

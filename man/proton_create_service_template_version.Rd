@@ -16,37 +16,25 @@ proton_create_service_template_version(
 )
 }
 \arguments{
-\item{clientToken}{When included, if two identical requests are made with the same client
-token, Proton returns the service template version that the first
-request created.}
+\item{clientToken}{When included, if two identical requests are made with the same client token, Proton returns the service template version that the first request created.}
 
-\item{compatibleEnvironmentTemplates}{[required] An array of environment template objects that are compatible with the
-new service template version. A service instance based on this service
-template version can run in environments based on compatible templates.}
+\item{compatibleEnvironmentTemplates}{[required] An array of environment template objects that are compatible with the new service template version. A service instance based on this service template version can run in environments based on compatible templates.}
 
 \item{description}{A description of the new version of a service template.}
 
-\item{majorVersion}{To create a new minor version of the service template, include a
-\verb{major Version}.
+\item{majorVersion}{To create a new minor version of the service template, include a \verb{major Version}.
 
-To create a new major and minor version of the service template,
-\emph{exclude} \verb{major Version}.}
+To create a new major and minor version of the service template, \emph{exclude} \verb{major Version}.}
 
-\item{source}{[required] An object that includes the template bundle S3 bucket path and name for
-the new version of a service template.}
+\item{source}{[required] An object that includes the template bundle S3 bucket path and name for the new version of a service template.}
 
-\item{supportedComponentSources}{An array of supported component sources. Components with supported
-sources can be attached to service instances based on this service
-template version.
+\item{supportedComponentSources}{An array of supported component sources. Components with supported sources can be attached to service instances based on this service template version.
 
-For more information about components, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html}{Proton components}
-in the \emph{Proton User Guide}.}
+For more information about components, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html}{Proton components} in the \emph{Proton User Guide}.}
 
-\item{tags}{An optional list of metadata items that you can associate with the
-Proton service template version. A tag is a key-value pair.
+\item{tags}{An optional list of metadata items that you can associate with the Proton service template version. A tag is a key-value pair.
 
-For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging}
-in the \emph{Proton User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging} in the \emph{Proton User Guide}.}
 
 \item{templateName}{[required] The name of the service template.}
 }

@@ -4,18 +4,21 @@
 \alias{ec2_deregister_image}
 \title{Deregisters the specified AMI}
 \usage{
-ec2_deregister_image(ImageId, DryRun = NULL)
+ec2_deregister_image(ImageId, DeleteAssociatedSnapshots = NULL, DryRun = NULL)
 }
 \arguments{
 \item{ImageId}{[required] The ID of the AMI.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DeleteAssociatedSnapshots}{Specifies whether to delete the snapshots associated with the AMI during deregistration.
+
+If a snapshot is associated with multiple AMIs, it is not deleted, regardless of this setting.
+
+Default: The snapshots are not deleted.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
-Deregisters the specified AMI. After you deregister an AMI, it can't be used to launch new instances.
+Deregisters the specified AMI. A deregistered AMI can't be used to launch new instances.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_deregister_image/} for full documentation.
 }

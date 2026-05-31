@@ -19,28 +19,15 @@ eks_create_fargate_profile(
 
 \item{clusterName}{[required] The name of your cluster.}
 
-\item{podExecutionRoleArn}{[required] The Amazon Resource Name (ARN) of the \code{Pod} execution role to use for a
-\code{Pod} that matches the selectors in the Fargate profile. The \code{Pod}
-execution role allows Fargate infrastructure to register with your
-cluster as a node, and it provides read access to Amazon ECR image
-repositories. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html}{\code{Pod} execution role}
-in the \emph{Amazon EKS User Guide}.}
+\item{podExecutionRoleArn}{[required] The Amazon Resource Name (ARN) of the \code{Pod} execution role to use for a \code{Pod} that matches the selectors in the Fargate profile. The \code{Pod} execution role allows Fargate infrastructure to register with your cluster as a node, and it provides read access to Amazon ECR image repositories. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/pod-execution-role.html}{\code{Pod} execution role} in the \emph{Amazon EKS User Guide}.}
 
-\item{subnets}{The IDs of subnets to launch a \code{Pod} into. A \code{Pod} running on Fargate
-isn't assigned a public IP address, so only private subnets (with no
-direct route to an Internet Gateway) are accepted for this parameter.}
+\item{subnets}{The IDs of subnets to launch a \code{Pod} into. A \code{Pod} running on Fargate isn't assigned a public IP address, so only private subnets (with no direct route to an Internet Gateway) are accepted for this parameter.}
 
-\item{selectors}{The selectors to match for a \code{Pod} to use this Fargate profile. Each
-selector must have an associated Kubernetes \code{namespace}. Optionally, you
-can also specify \code{labels} for a \code{namespace}. You may specify up to five
-selectors in a Fargate profile.}
+\item{selectors}{The selectors to match for a \code{Pod} to use this Fargate profile. Each selector must have an associated Kubernetes \code{namespace}. Optionally, you can also specify \code{labels} for a \code{namespace}. You may specify up to five selectors in a Fargate profile.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 
-\item{tags}{Metadata that assists with categorization and organization. Each tag
-consists of a key and an optional value. You define both. Tags don't
-propagate to any other cluster or Amazon Web Services resources.}
+\item{tags}{Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.}
 }
 \description{
 Creates an Fargate profile for your Amazon EKS cluster. You must have at least one Fargate profile in a cluster to be able to run pods on Fargate.

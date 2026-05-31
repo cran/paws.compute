@@ -14,8 +14,7 @@ ec2_replace_transit_gateway_route(
 )
 }
 \arguments{
-\item{DestinationCidrBlock}{[required] The CIDR range used for the destination match. Routing decisions are
-based on the most specific match.}
+\item{DestinationCidrBlock}{[required] The CIDR range used for the destination match. Routing decisions are based on the most specific match.}
 
 \item{TransitGatewayRouteTableId}{[required] The ID of the route table.}
 
@@ -23,10 +22,7 @@ based on the most specific match.}
 
 \item{Blackhole}{Indicates whether traffic matching this route is to be dropped.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Replaces the specified route in the specified transit gateway route table.

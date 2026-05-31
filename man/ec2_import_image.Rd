@@ -38,70 +38,37 @@ Valid values: \code{i386} | \code{x86_64}}
 
 \item{DiskContainers}{Information about the disk containers.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{Encrypted}{Specifies whether the destination AMI of the imported image should be
-encrypted. The default KMS key for EBS is used unless you specify a
-non-default KMS key using \code{KmsKeyId}. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html}{Amazon EBS Encryption}
-in the \emph{Amazon Elastic Compute Cloud User Guide}.}
+\item{Encrypted}{Specifies whether the destination AMI of the imported image should be encrypted. The default KMS key for EBS is used unless you specify a non-default KMS key using \code{KmsKeyId}. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html}{Amazon EBS Encryption} in the \emph{Amazon Elastic Compute Cloud User Guide}.}
 
 \item{Hypervisor}{The target hypervisor platform.
 
 Valid values: \code{xen}}
 
-\item{KmsKeyId}{An identifier for the symmetric KMS key to use when creating the
-encrypted AMI. This parameter is only required if you want to use a
-non-default KMS key; if this parameter is not specified, the default KMS
-key for EBS is used. If a \code{KmsKeyId} is specified, the \code{Encrypted} flag
-must also be set.
+\item{KmsKeyId}{An identifier for the symmetric KMS key to use when creating the encrypted AMI. This parameter is only required if you want to use a non-default KMS key; if this parameter is not specified, the default KMS key for EBS is used. If a \code{KmsKeyId} is specified, the \code{Encrypted} flag must also be set.
 
 The KMS key identifier may be provided in any of the following formats:
 \itemize{
 \item Key ID
 \item Key alias
-\item ARN using key ID. The ID ARN contains the \code{arn:aws:kms} namespace,
-followed by the Region of the key, the Amazon Web Services account
-ID of the key owner, the \code{key} namespace, and then the key ID. For
-example,
-arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:key/\emph{abcd1234-a123-456a-a12b-a123b4cd56ef}.
-\item ARN using key alias. The alias ARN contains the \code{arn:aws:kms}
-namespace, followed by the Region of the key, the Amazon Web
-Services account ID of the key owner, the \code{alias} namespace, and
-then the key alias. For example,
-arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:alias/\emph{ExampleAlias}.
+\item ARN using key ID. The ID ARN contains the \code{arn:aws:kms} namespace, followed by the Region of the key, the Amazon Web Services account ID of the key owner, the \code{key} namespace, and then the key ID. For example, arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:key/\emph{abcd1234-a123-456a-a12b-a123b4cd56ef}.
+\item ARN using key alias. The alias ARN contains the \code{arn:aws:kms} namespace, followed by the Region of the key, the Amazon Web Services account ID of the key owner, the \code{alias} namespace, and then the key alias. For example, arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:alias/\emph{ExampleAlias}.
 }
 
-Amazon Web Services parses \code{KmsKeyId} asynchronously, meaning that the
-action you call may appear to complete even though you provided an
-invalid identifier. This action will eventually report failure.
+Amazon Web Services parses \code{KmsKeyId} asynchronously, meaning that the action you call may appear to complete even though you provided an invalid identifier. This action will eventually report failure.
 
-The specified KMS key must exist in the Region that the AMI is being
-copied to.
+The specified KMS key must exist in the Region that the AMI is being copied to.
 
 Amazon EBS does not support asymmetric KMS keys.}
 
-\item{LicenseType}{The license type to be used for the Amazon Machine Image (AMI) after
-importing.
+\item{LicenseType}{The license type to be used for the Amazon Machine Image (AMI) after importing.
 
-Specify \code{AWS} to replace the source-system license with an Amazon Web
-Services license or \code{BYOL} to retain the source-system license. Leaving
-this parameter undefined is the same as choosing \code{AWS} when importing a
-Windows Server operating system, and the same as choosing \code{BYOL} when
-importing a Windows client operating system (such as Windows 10) or a
-Linux operating system.
+Specify \code{AWS} to replace the source-system license with an Amazon Web Services license or \code{BYOL} to retain the source-system license. Leaving this parameter undefined is the same as choosing \code{AWS} when importing a Windows Server operating system, and the same as choosing \code{BYOL} when importing a Windows client operating system (such as Windows 10) or a Linux operating system.
 
-To use \code{BYOL}, you must have existing licenses with rights to use these
-licenses in a third party cloud, such as Amazon Web Services. For more
-information, see
-\href{https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html#prerequisites-image}{Prerequisites}
-in the VM Import/Export User Guide.}
+To use \code{BYOL}, you must have existing licenses with rights to use these licenses in a third party cloud, such as Amazon Web Services. For more information, see \href{https://docs.aws.amazon.com/vm-import/latest/userguide/vmimport-image-import.html#prerequisites-image}{Prerequisites} in the VM Import/Export User Guide.}
 
-\item{Platform}{The operating system of the virtual machine. If you import a VM that is
-compatible with Unified Extensible Firmware Interface (UEFI) using an
-EBS snapshot, you must specify a value for the platform.
+\item{Platform}{The operating system of the virtual machine. If you import a VM that is compatible with Unified Extensible Firmware Interface (UEFI) using an EBS snapshot, you must specify a value for the platform.
 
 Valid values: \code{Windows} | \code{Linux}}
 
@@ -111,14 +78,11 @@ Valid values: \code{Windows} | \code{Linux}}
 
 \item{TagSpecifications}{The tags to apply to the import image task during creation.}
 
-\item{UsageOperation}{The usage operation value. For more information, see \href{https://docs.aws.amazon.com/vm-import/latest/userguide/vmie_prereqs.html#prerequisites}{Licensing options}
-in the \emph{VM Import/Export User Guide}.}
+\item{UsageOperation}{The usage operation value. For more information, see \href{https://docs.aws.amazon.com/vm-import/latest/userguide/vmie_prereqs.html#prerequisites}{Licensing options} in the \emph{VM Import/Export User Guide}.}
 
 \item{BootMode}{The boot mode of the virtual machine.
 
-The \code{uefi-preferred} boot mode isn't supported for importing images. For
-more information, see \href{https://docs.aws.amazon.com/vm-import/latest/userguide/prerequisites.html#vmimport-boot-modes}{Boot modes}
-in the \emph{VM Import/Export User Guide}.}
+The \code{uefi-preferred} boot mode isn't supported for importing images. For more information, see \href{https://docs.aws.amazon.com/vm-import/latest/userguide/prerequisites.html#vmimport-boot-modes}{Boot modes} in the \emph{VM Import/Export User Guide}.}
 }
 \description{
 To import your virtual machines (VMs) with a console-based experience, you can use the \emph{Import virtual machine images to Amazon Web Services} template in the Migration Hub Orchestrator console. For more information, see the \href{https://docs.aws.amazon.com/migrationhub-orchestrator/latest/userguide/import-vm-images.html}{\emph{Migration Hub Orchestrator User Guide}} .

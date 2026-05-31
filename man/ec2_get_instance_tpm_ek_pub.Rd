@@ -12,15 +12,9 @@ ec2_get_instance_tpm_ek_pub(InstanceId, KeyType, KeyFormat, DryRun = NULL)
 
 \item{KeyType}{[required] The required public endorsement key type.}
 
-\item{KeyFormat}{[required] The required public endorsement key format. Specify \code{der} for a
-DER-encoded public key that is compatible with OpenSSL. Specify \code{tpmt}
-for a TPM 2.0 format that is compatible with tpm2-tools. The returned
-key is base64 encoded.}
+\item{KeyFormat}{[required] The required public endorsement key format. Specify \code{der} for a DER-encoded public key that is compatible with OpenSSL. Specify \code{tpmt} for a TPM 2.0 format that is compatible with tpm2-tools. The returned key is base64 encoded.}
 
-\item{DryRun}{Specify this parameter to verify whether the request will succeed,
-without actually making the request. If the request will succeed, the
-response is \code{DryRunOperation}. Otherwise, the response is
-\code{UnauthorizedOperation}.}
+\item{DryRun}{Specify this parameter to verify whether the request will succeed, without actually making the request. If the request will succeed, the response is \code{DryRunOperation}. Otherwise, the response is \code{UnauthorizedOperation}.}
 }
 \description{
 Gets the public endorsement key associated with the Nitro Trusted Platform Module (NitroTPM) for the specified instance.

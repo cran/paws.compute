@@ -13,28 +13,15 @@ proton_update_account_settings(
 )
 }
 \arguments{
-\item{deletePipelineProvisioningRepository}{Set to \code{true} to remove a configured pipeline repository from the
-account settings. Don't set this field if you are updating the
-configured pipeline repository.}
+\item{deletePipelineProvisioningRepository}{Set to \code{true} to remove a configured pipeline repository from the account settings. Don't set this field if you are updating the configured pipeline repository.}
 
-\item{pipelineCodebuildRoleArn}{The Amazon Resource Name (ARN) of the service role you want to use for
-provisioning pipelines. Proton assumes this role for CodeBuild-based
-provisioning.}
+\item{pipelineCodebuildRoleArn}{The Amazon Resource Name (ARN) of the service role you want to use for provisioning pipelines. Proton assumes this role for CodeBuild-based provisioning.}
 
-\item{pipelineProvisioningRepository}{A linked repository for pipeline provisioning. Specify it if you have
-environments configured for self-managed provisioning with services that
-include pipelines. A linked repository is a repository that has been
-registered with Proton. For more information, see
-\code{\link[=proton_create_repository]{create_repository}}.
+\item{pipelineProvisioningRepository}{A linked repository for pipeline provisioning. Specify it if you have environments configured for self-managed provisioning with services that include pipelines. A linked repository is a repository that has been registered with Proton. For more information, see \code{\link[=proton_create_repository]{create_repository}}.
 
-To remove a previously configured repository, set
-\code{deletePipelineProvisioningRepository} to \code{true}, and don't set
-\code{pipelineProvisioningRepository}.}
+To remove a previously configured repository, set \code{deletePipelineProvisioningRepository} to \code{true}, and don't set \code{pipelineProvisioningRepository}.}
 
-\item{pipelineServiceRoleArn}{The Amazon Resource Name (ARN) of the service role you want to use for
-provisioning pipelines. Assumed by Proton for Amazon Web
-Services-managed provisioning, and by customer-owned automation for
-self-managed provisioning.
+\item{pipelineServiceRoleArn}{The Amazon Resource Name (ARN) of the service role you want to use for provisioning pipelines. Assumed by Proton for Amazon Web Services-managed provisioning, and by customer-owned automation for self-managed provisioning.
 
 To remove a previously configured ARN, specify an empty string.}
 }

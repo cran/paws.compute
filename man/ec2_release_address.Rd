@@ -16,16 +16,11 @@ ec2_release_address(
 
 \item{PublicIp}{Deprecated.}
 
-\item{NetworkBorderGroup}{The set of Availability Zones, Local Zones, or Wavelength Zones from
-which Amazon Web Services advertises IP addresses.
+\item{NetworkBorderGroup}{The set of Availability Zones, Local Zones, or Wavelength Zones from which Amazon Web Services advertises IP addresses.
 
-If you provide an incorrect network border group, you receive an
-\code{InvalidAddress.NotFound} error.}
+If you provide an incorrect network border group, you receive an \code{InvalidAddress.NotFound} error.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Releases the specified Elastic IP address.

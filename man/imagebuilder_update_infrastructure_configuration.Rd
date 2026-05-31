@@ -22,61 +22,39 @@ imagebuilder_update_infrastructure_configuration(
 )
 }
 \arguments{
-\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration that
-you want to update.}
+\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration that you want to update.}
 
 \item{description}{The description of the infrastructure configuration.}
 
-\item{instanceTypes}{The instance types of the infrastructure configuration. You can specify
-one or more instance types to use for this build. The service will pick
-one of these instance types based on availability.}
+\item{instanceTypes}{The instance types of the infrastructure configuration. You can specify one or more instance types to use for this build. The service will pick one of these instance types based on availability.}
 
-\item{instanceProfileName}{[required] The instance profile to associate with the instance used to customize
-your Amazon EC2 AMI.}
+\item{instanceProfileName}{[required] The instance profile to associate with the instance used to customize your Amazon EC2 AMI.}
 
-\item{securityGroupIds}{The security group IDs to associate with the instance used to customize
-your Amazon EC2 AMI.}
+\item{securityGroupIds}{The security group IDs to associate with the instance used to customize your Amazon EC2 AMI.}
 
-\item{subnetId}{The subnet ID to place the instance used to customize your Amazon EC2
-AMI in.}
+\item{subnetId}{The subnet ID to place the instance used to customize your Amazon EC2 AMI in.}
 
 \item{logging}{The logging configuration of the infrastructure configuration.}
 
-\item{keyPair}{The key pair of the infrastructure configuration. You can use this to
-log on to and debug the instance used to create your image.}
+\item{keyPair}{The key pair of the infrastructure configuration. You can use this to log on to and debug the instance used to create your image.}
 
-\item{terminateInstanceOnFailure}{The terminate instance on failure setting of the infrastructure
-configuration. Set to false if you want Image Builder to retain the
-instance used to configure your AMI if the build or test phase of your
-workflow fails.}
+\item{terminateInstanceOnFailure}{The terminate instance on failure setting of the infrastructure configuration. Set to false if you want Image Builder to retain the instance used to configure your AMI if the build or test phase of your workflow fails.}
 
-\item{snsTopicArn}{The Amazon Resource Name (ARN) for the SNS topic to which we send image
-build event notifications.
+\item{snsTopicArn}{The Amazon Resource Name (ARN) for the SNS topic to which we send image build event notifications.
 
-EC2 Image Builder is unable to send notifications to SNS topics that are
-encrypted using keys from other accounts. The key that is used to
-encrypt the SNS topic must reside in the account that the Image Builder
-service runs under.}
+EC2 Image Builder is unable to send notifications to SNS topics that are encrypted using keys from other accounts. The key that is used to encrypt the SNS topic must reside in the account that the Image Builder service runs under.}
 
 \item{resourceTags}{The tags attached to the resource created by Image Builder.}
 
-\item{instanceMetadataOptions}{The instance metadata options that you can set for the HTTP requests
-that pipeline builds use to launch EC2 build and test instances. For
-more information about instance metadata options, see one of the
-following links:
+\item{instanceMetadataOptions}{The instance metadata options that you can set for the HTTP requests that pipeline builds use to launch EC2 build and test instances. For more information about instance metadata options, see one of the following links:
 \itemize{
-\item \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html}{Configure the instance metadata options}
-in the \emph{Amazon EC2 User Guide} for Linux instances.
-\item \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html}{Configure the instance metadata options}
-in the \emph{Amazon EC2 Windows Guide} for Windows instances.
+\item \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html}{Configure the instance metadata options} in the \emph{Amazon EC2 User Guide} for Linux instances.
+\item \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-instance-metadata-options.html}{Configure the instance metadata options} in the \emph{Amazon EC2 Windows Guide} for Windows instances.
 }}
 
-\item{placement}{The instance placement settings that define where the instances that are
-launched from your image will run.}
+\item{placement}{The instance placement settings that define where the instances that are launched from your image will run.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 Updates a new infrastructure configuration. An infrastructure configuration defines the environment in which your image will be built and tested.

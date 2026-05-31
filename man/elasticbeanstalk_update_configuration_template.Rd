@@ -14,23 +14,17 @@ elasticbeanstalk_update_configuration_template(
 )
 }
 \arguments{
-\item{ApplicationName}{[required] The name of the application associated with the configuration template
-to update.
+\item{ApplicationName}{[required] The name of the application associated with the configuration template to update.
 
-If no application is found with this name,
-\code{\link[=elasticbeanstalk_update_configuration_template]{update_configuration_template}}
-returns an \code{InvalidParameterValue} error.}
+If no application is found with this name, \code{\link[=elasticbeanstalk_update_configuration_template]{update_configuration_template}} returns an \code{InvalidParameterValue} error.}
 
 \item{TemplateName}{[required] The name of the configuration template to update.
 
-If no configuration template is found with this name,
-\code{\link[=elasticbeanstalk_update_configuration_template]{update_configuration_template}}
-returns an \code{InvalidParameterValue} error.}
+If no configuration template is found with this name, \code{\link[=elasticbeanstalk_update_configuration_template]{update_configuration_template}} returns an \code{InvalidParameterValue} error.}
 
 \item{Description}{A new description for the configuration.}
 
-\item{OptionSettings}{A list of configuration option settings to update with the new specified
-option value.}
+\item{OptionSettings}{A list of configuration option settings to update with the new specified option value.}
 
 \item{OptionsToRemove}{A list of configuration options to remove from the configuration set.
 

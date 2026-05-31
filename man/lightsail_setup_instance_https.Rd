@@ -14,11 +14,9 @@ lightsail_setup_instance_https(
 \arguments{
 \item{instanceName}{[required] The name of the Lightsail instance.}
 
-\item{emailAddress}{[required] The contact method for SSL/TLS certificate renewal alerts. You can enter
-one email address.}
+\item{emailAddress}{[required] The contact method for SSL/TLS certificate renewal alerts. You can enter one email address.}
 
-\item{domainNames}{[required] The name of the domain and subdomains that were specified for the
-SSL/TLS certificate.}
+\item{domainNames}{[required] The name of the domain and subdomains that were specified for the SSL/TLS certificate.}
 
 \item{certificateProvider}{[required] The certificate authority that issues the SSL/TLS certificate.}
 }

@@ -16,8 +16,7 @@ lambda_create_code_signing_config(
 
 \item{AllowedPublishers}{[required] Signing profiles for this code signing configuration.}
 
-\item{CodeSigningPolicies}{The code signing policies define the actions to take if the validation
-checks fail.}
+\item{CodeSigningPolicies}{The code signing policies define the actions to take if the validation checks fail.}
 
 \item{Tags}{A list of tags to add to the code signing configuration.}
 }

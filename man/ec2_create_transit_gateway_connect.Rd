@@ -12,17 +12,13 @@ ec2_create_transit_gateway_connect(
 )
 }
 \arguments{
-\item{TransportTransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment. You can specify a VPC
-attachment or Amazon Web Services Direct Connect attachment.}
+\item{TransportTransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment. You can specify a VPC attachment or Amazon Web Services Direct Connect attachment.}
 
 \item{Options}{[required] The Connect attachment options.}
 
 \item{TagSpecifications}{The tags to apply to the Connect attachment.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a Connect attachment from a specified transit gateway attachment. A Connect attachment is a GRE-based tunnel attachment that you can use to establish a connection between a transit gateway and an appliance.

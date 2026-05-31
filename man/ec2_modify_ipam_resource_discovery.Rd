@@ -15,47 +15,23 @@ ec2_modify_ipam_resource_discovery(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamResourceDiscoveryId}{[required] A resource discovery ID.}
 
 \item{Description}{A resource discovery description.}
 
-\item{AddOperatingRegions}{Add operating Regions to the resource discovery. Operating Regions are
-Amazon Web Services Regions where the IPAM is allowed to manage IP
-address CIDRs. IPAM only discovers and monitors resources in the Amazon
-Web Services Regions you select as operating Regions.}
+\item{AddOperatingRegions}{Add operating Regions to the resource discovery. Operating Regions are Amazon Web Services Regions where the IPAM is allowed to manage IP address CIDRs. IPAM only discovers and monitors resources in the Amazon Web Services Regions you select as operating Regions.}
 
 \item{RemoveOperatingRegions}{Remove operating Regions.}
 
-\item{AddOrganizationalUnitExclusions}{Add an Organizational Unit (OU) exclusion to your IPAM. If your IPAM is
-integrated with Amazon Web Services Organizations and you add an
-organizational unit (OU) exclusion, IPAM will not manage the IP
-addresses in accounts in that OU exclusion. There is a limit on the
-number of exclusions you can create. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/quotas-ipam.html}{Quotas for your IPAM} in
-the \emph{Amazon VPC IPAM User Guide}.
+\item{AddOrganizationalUnitExclusions}{Add an Organizational Unit (OU) exclusion to your IPAM. If your IPAM is integrated with Amazon Web Services Organizations and you add an organizational unit (OU) exclusion, IPAM will not manage the IP addresses in accounts in that OU exclusion. There is a limit on the number of exclusions you can create. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/quotas-ipam.html}{Quotas for your IPAM} in the \emph{Amazon VPC IPAM User Guide}.
 
-The resulting set of exclusions must not result in "overlap", meaning
-two or more OU exclusions must not exclude the same OU. For more
-information and examples, see the Amazon Web Services CLI request
-process in \href{https://docs.aws.amazon.com/vpc/latest/ipam/exclude-ous.html#exclude-ous-create-delete}{Add or remove OU exclusions}
-in the \emph{Amazon VPC User Guide}.}
+The resulting set of exclusions must not result in "overlap", meaning two or more OU exclusions must not exclude the same OU. For more information and examples, see the Amazon Web Services CLI request process in \href{https://docs.aws.amazon.com/vpc/latest/ipam/exclude-ous.html#exclude-ous-create-delete}{Add or remove OU exclusions} in the \emph{Amazon VPC User Guide}.}
 
-\item{RemoveOrganizationalUnitExclusions}{Remove an Organizational Unit (OU) exclusion to your IPAM. If your IPAM
-is integrated with Amazon Web Services Organizations and you add an
-organizational unit (OU) exclusion, IPAM will not manage the IP
-addresses in accounts in that OU exclusion. There is a limit on the
-number of exclusions you can create. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/quotas-ipam.html}{Quotas for your IPAM} in
-the \emph{Amazon VPC IPAM User Guide}.
+\item{RemoveOrganizationalUnitExclusions}{Remove an Organizational Unit (OU) exclusion to your IPAM. If your IPAM is integrated with Amazon Web Services Organizations and you add an organizational unit (OU) exclusion, IPAM will not manage the IP addresses in accounts in that OU exclusion. There is a limit on the number of exclusions you can create. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/ipam/quotas-ipam.html}{Quotas for your IPAM} in the \emph{Amazon VPC IPAM User Guide}.
 
-The resulting set of exclusions must not result in "overlap", meaning
-two or more OU exclusions must not exclude the same OU. For more
-information and examples, see the Amazon Web Services CLI request
-process in \href{https://docs.aws.amazon.com/vpc/latest/ipam/exclude-ous.html#exclude-ous-create-delete}{Add or remove OU exclusions}
-in the \emph{Amazon VPC User Guide}.}
+The resulting set of exclusions must not result in "overlap", meaning two or more OU exclusions must not exclude the same OU. For more information and examples, see the Amazon Web Services CLI request process in \href{https://docs.aws.amazon.com/vpc/latest/ipam/exclude-ous.html#exclude-ous-create-delete}{Add or remove OU exclusions} in the \emph{Amazon VPC User Guide}.}
 }
 \description{
 Modifies a resource discovery. A resource discovery is an IPAM component that enables IPAM to manage and monitor resources that belong to the owning account.

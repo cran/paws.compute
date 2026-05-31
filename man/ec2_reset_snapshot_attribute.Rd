@@ -7,15 +7,11 @@
 ec2_reset_snapshot_attribute(Attribute, SnapshotId, DryRun = NULL)
 }
 \arguments{
-\item{Attribute}{[required] The attribute to reset. Currently, only the attribute for permission to
-create volumes can be reset.}
+\item{Attribute}{[required] The attribute to reset. Currently, only the attribute for permission to create volumes can be reset.}
 
 \item{SnapshotId}{[required] The ID of the snapshot.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Resets permission settings for the specified snapshot.

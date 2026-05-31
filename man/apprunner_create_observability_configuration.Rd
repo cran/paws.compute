@@ -11,25 +11,15 @@ apprunner_create_observability_configuration(
 )
 }
 \arguments{
-\item{ObservabilityConfigurationName}{[required] A name for the observability configuration. When you use it for the
-first time in an Amazon Web Services Region, App Runner creates revision
-number \code{1} of this name. When you use the same name in subsequent calls,
-App Runner creates incremental revisions of the configuration.
+\item{ObservabilityConfigurationName}{[required] A name for the observability configuration. When you use it for the first time in an Amazon Web Services Region, App Runner creates revision number \code{1} of this name. When you use the same name in subsequent calls, App Runner creates incremental revisions of the configuration.
 
-The name \code{DefaultConfiguration} is reserved. You can't use it to create
-a new observability configuration, and you can't create a revision of
-it.
+The name \code{DefaultConfiguration} is reserved. You can't use it to create a new observability configuration, and you can't create a revision of it.
 
-When you want to use your own observability configuration for your App
-Runner service, \emph{create a configuration with a different name}, and then
-provide it when you create or update your service.}
+When you want to use your own observability configuration for your App Runner service, \emph{create a configuration with a different name}, and then provide it when you create or update your service.}
 
-\item{TraceConfiguration}{The configuration of the tracing feature within this observability
-configuration. If you don't specify it, App Runner doesn't enable
-tracing.}
+\item{TraceConfiguration}{The configuration of the tracing feature within this observability configuration. If you don't specify it, App Runner doesn't enable tracing.}
 
-\item{Tags}{A list of metadata items that you can associate with your observability
-configuration resource. A tag is a key-value pair.}
+\item{Tags}{A list of metadata items that you can associate with your observability configuration resource. A tag is a key-value pair.}
 }
 \description{
 Create an App Runner observability configuration resource. App Runner requires this resource when you create or update App Runner services and you want to enable non-default observability features. You can share an observability configuration across multiple services.

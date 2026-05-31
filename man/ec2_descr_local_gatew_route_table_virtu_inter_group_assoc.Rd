@@ -19,29 +19,19 @@ ec2_describe_local_gateway_route_table_virtual_interface_group_associations(
 \item{Filters}{One or more filters.
 \itemize{
 \item \code{local-gateway-id} - The ID of a local gateway.
-\item \code{local-gateway-route-table-arn} - The Amazon Resource Name (ARN) of
-the local gateway route table for the virtual interface group.
-\item \code{local-gateway-route-table-id} - The ID of the local gateway route
-table.
-\item \code{local-gateway-route-table-virtual-interface-group-association-id} -
-The ID of the association.
-\item \code{local-gateway-route-table-virtual-interface-group-id} - The ID of
-the virtual interface group.
-\item \code{owner-id} - The ID of the Amazon Web Services account that owns the
-local gateway virtual interface group association.
+\item \code{local-gateway-route-table-arn} - The Amazon Resource Name (ARN) of the local gateway route table for the virtual interface group.
+\item \code{local-gateway-route-table-id} - The ID of the local gateway route table.
+\item \code{local-gateway-route-table-virtual-interface-group-association-id} - The ID of the association.
+\item \code{local-gateway-route-table-virtual-interface-group-id} - The ID of the virtual interface group.
+\item \code{owner-id} - The ID of the Amazon Web Services account that owns the local gateway virtual interface group association.
 \item \code{state} - The state of the association.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes the associations between virtual interface groups and local gateway route tables.

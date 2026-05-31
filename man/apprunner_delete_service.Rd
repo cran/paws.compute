@@ -7,8 +7,7 @@
 apprunner_delete_service(ServiceArn)
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want
-to delete.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want to delete.}
 }
 \description{
 Delete an App Runner service.

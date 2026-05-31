@@ -14,16 +14,11 @@ ec2_assign_private_nat_gateway_address(
 \arguments{
 \item{NatGatewayId}{[required] The ID of the NAT gateway.}
 
-\item{PrivateIpAddresses}{The private IPv4 addresses you want to assign to the private NAT
-gateway.}
+\item{PrivateIpAddresses}{The private IPv4 addresses you want to assign to the private NAT gateway.}
 
-\item{PrivateIpAddressCount}{The number of private IP addresses to assign to the NAT gateway. You
-can't specify this parameter when also specifying private IP addresses.}
+\item{PrivateIpAddressCount}{The number of private IP addresses to assign to the NAT gateway. You can't specify this parameter when also specifying private IP addresses.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Assigns private IPv4 addresses to a private NAT gateway. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html}{Work with NAT gateways} in the \emph{Amazon VPC User Guide}.

@@ -8,10 +8,7 @@ network ACL}
 ec2_delete_network_acl_entry(DryRun = NULL, NetworkAclId, RuleNumber, Egress)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{NetworkAclId}{[required] The ID of the network ACL.}
 

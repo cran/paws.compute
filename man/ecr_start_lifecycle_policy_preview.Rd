@@ -11,14 +11,11 @@ ecr_start_lifecycle_policy_preview(
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the repository. If you do not specify a registry, the default
-registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository to be evaluated.}
 
-\item{lifecyclePolicyText}{The policy to be evaluated against. If you do not specify a policy, the
-current policy for the repository is used.}
+\item{lifecyclePolicyText}{The policy to be evaluated against. If you do not specify a policy, the current policy for the repository is used.}
 }
 \description{
 Starts a preview of a lifecycle policy for the specified repository. This allows you to see the results before associating the lifecycle policy with the repository.

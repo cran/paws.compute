@@ -20,47 +20,33 @@ lightsail_update_distribution(
 \arguments{
 \item{distributionName}{[required] The name of the distribution to update.
 
-Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get
-a list of distribution names that you can specify.}
+Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get a list of distribution names that you can specify.}
 
-\item{origin}{An object that describes the origin resource for the distribution, such
-as a Lightsail instance, bucket, or load balancer.
+\item{origin}{An object that describes the origin resource for the distribution, such as a Lightsail instance, bucket, or load balancer.
 
 The distribution pulls, caches, and serves content from the origin.}
 
-\item{defaultCacheBehavior}{An object that describes the default cache behavior for the
-distribution.}
+\item{defaultCacheBehavior}{An object that describes the default cache behavior for the distribution.}
 
-\item{cacheBehaviorSettings}{An object that describes the cache behavior settings for the
-distribution.
+\item{cacheBehaviorSettings}{An object that describes the cache behavior settings for the distribution.
 
-The \code{cacheBehaviorSettings} specified in your
-\code{UpdateDistributionRequest} will replace your distribution's existing
-settings.}
+The \code{cacheBehaviorSettings} specified in your \code{UpdateDistributionRequest} will replace your distribution's existing settings.}
 
-\item{cacheBehaviors}{An array of objects that describe the per-path cache behavior for the
-distribution.}
+\item{cacheBehaviors}{An array of objects that describe the per-path cache behavior for the distribution.}
 
 \item{isEnabled}{Indicates whether to enable the distribution.}
 
-\item{viewerMinimumTlsProtocolVersion}{Use this parameter to update the minimum TLS protocol version for the
-SSL/TLS certificate that's attached to the distribution.}
+\item{viewerMinimumTlsProtocolVersion}{Use this parameter to update the minimum TLS protocol version for the SSL/TLS certificate that's attached to the distribution.}
 
-\item{certificateName}{The name of the SSL/TLS certificate that you want to attach to the
-distribution.
+\item{certificateName}{The name of the SSL/TLS certificate that you want to attach to the distribution.
 
-Only certificates with a status of \code{ISSUED} can be attached to a
-distribution.
+Only certificates with a status of \code{ISSUED} can be attached to a distribution.
 
-Use the \code{\link[=lightsail_get_certificates]{get_certificates}} action to get a
-list of certificate names that you can specify.}
+Use the \code{\link[=lightsail_get_certificates]{get_certificates}} action to get a list of certificate names that you can specify.}
 
-\item{useDefaultCertificate}{Indicates whether the default SSL/TLS certificate is attached to the
-distribution. The default value is \code{true}. When \code{true}, the distribution
-uses the default domain name such as \code{d111111abcdef8.cloudfront.net}.
+\item{useDefaultCertificate}{Indicates whether the default SSL/TLS certificate is attached to the distribution. The default value is \code{true}. When \code{true}, the distribution uses the default domain name such as \code{d111111abcdef8.cloudfront.net}.
 
-Set this value to \code{false} to attach a new certificate to the
-distribution.}
+Set this value to \code{false} to attach a new certificate to the distribution.}
 }
 \description{
 Updates an existing Amazon Lightsail content delivery network (CDN) distribution.

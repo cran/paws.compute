@@ -14,23 +14,17 @@ ec2_get_ipam_discovered_accounts(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamResourceDiscoveryId}{[required] A resource discovery ID.}
 
-\item{DiscoveryRegion}{[required] The Amazon Web Services Region that the account information is returned
-from.}
+\item{DiscoveryRegion}{[required] The Amazon Web Services Region that the account information is returned from.}
 
 \item{Filters}{Discovered account filters.}
 
-\item{NextToken}{Specify the pagination token from a previous request to retrieve the
-next page of results.}
+\item{NextToken}{Specify the pagination token from a previous request to retrieve the next page of results.}
 
-\item{MaxResults}{The maximum number of discovered accounts to return in one page of
-results.}
+\item{MaxResults}{The maximum number of discovered accounts to return in one page of results.}
 }
 \description{
 Gets IPAM discovered accounts. A discovered account is an Amazon Web Services account that is monitored under a resource discovery. If you have integrated IPAM with Amazon Web Services Organizations, all accounts in the organization are discovered accounts. Only the IPAM account can get all discovered accounts in the organization.

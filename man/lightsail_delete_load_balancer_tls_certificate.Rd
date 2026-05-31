@@ -17,10 +17,7 @@ lightsail_delete_load_balancer_tls_certificate(
 
 \item{force}{When \code{true}, forces the deletion of an SSL/TLS certificate.
 
-There can be two certificates associated with a Lightsail load balancer:
-the primary and the backup. The \code{force} parameter is required when the
-primary SSL/TLS certificate is in use by an instance attached to the
-load balancer.}
+There can be two certificates associated with a Lightsail load balancer: the primary and the backup. The \code{force} parameter is required when the primary SSL/TLS certificate is in use by an instance attached to the load balancer.}
 }
 \description{
 Deletes an SSL/TLS certificate associated with a Lightsail load balancer.

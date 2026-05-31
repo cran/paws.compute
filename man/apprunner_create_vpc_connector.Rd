@@ -14,20 +14,13 @@ apprunner_create_vpc_connector(
 \arguments{
 \item{VpcConnectorName}{[required] A name for the VPC connector.}
 
-\item{Subnets}{[required] A list of IDs of subnets that App Runner should use when it associates
-your service with a custom Amazon VPC. Specify IDs of subnets of a
-single Amazon VPC. App Runner determines the Amazon VPC from the subnets
-you specify.
+\item{Subnets}{[required] A list of IDs of subnets that App Runner should use when it associates your service with a custom Amazon VPC. Specify IDs of subnets of a single Amazon VPC. App Runner determines the Amazon VPC from the subnets you specify.
 
-App Runner currently only provides support for IPv4.}
+App Runner only supports subnets of IP address type \emph{IPv4} and \emph{dual stack} (IPv4 and IPv6).}
 
-\item{SecurityGroups}{A list of IDs of security groups that App Runner should use for access
-to Amazon Web Services resources under the specified subnets. If not
-specified, App Runner uses the default security group of the Amazon VPC.
-The default security group allows all outbound traffic.}
+\item{SecurityGroups}{A list of IDs of security groups that App Runner should use for access to Amazon Web Services resources under the specified subnets. If not specified, App Runner uses the default security group of the Amazon VPC. The default security group allows all outbound traffic.}
 
-\item{Tags}{A list of metadata items that you can associate with your VPC connector
-resource. A tag is a key-value pair.}
+\item{Tags}{A list of metadata items that you can associate with your VPC connector resource. A tag is a key-value pair.}
 }
 \description{
 Create an App Runner VPC connector resource. App Runner requires this resource when you want to associate your App Runner service to a custom Amazon Virtual Private Cloud (Amazon VPC).

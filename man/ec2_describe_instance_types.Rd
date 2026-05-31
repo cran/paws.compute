@@ -9,142 +9,83 @@ ec2_describe_instance_types(
   InstanceTypes = NULL,
   Filters = NULL,
   MaxResults = NULL,
-  NextToken = NULL
+  NextToken = NULL,
+  IncludeUnsupportedInRegion = NULL
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{InstanceTypes}{The instance types.}
 
 \item{Filters}{One or more filters. Filter names and values are case-sensitive.
 \itemize{
-\item \code{auto-recovery-supported} - Indicates whether Amazon CloudWatch
-action based recovery is supported (\code{true} | \code{false}).
-\item \code{bare-metal} - Indicates whether it is a bare metal instance type
-(\code{true} | \code{false}).
-\item \code{burstable-performance-supported} - Indicates whether the instance
-type is a burstable performance T instance type (\code{true} | \code{false}).
-\item \code{current-generation} - Indicates whether this instance type is the
-latest generation instance type of an instance family (\code{true} |
-\code{false}).
-\item \verb{ebs-info.ebs-optimized-info.baseline-bandwidth-in-mbps} - The
-baseline bandwidth performance for an EBS-optimized instance type,
-in Mbps.
-\item \code{ebs-info.ebs-optimized-info.baseline-iops} - The baseline
-input/output storage operations per second for an EBS-optimized
-instance type.
-\item \verb{ebs-info.ebs-optimized-info.baseline-throughput-in-mbps} - The
-baseline throughput performance for an EBS-optimized instance type,
-in MB/s.
-\item \verb{ebs-info.ebs-optimized-info.maximum-bandwidth-in-mbps} - The
-maximum bandwidth performance for an EBS-optimized instance type, in
-Mbps.
-\item \code{ebs-info.ebs-optimized-info.maximum-iops} - The maximum
-input/output storage operations per second for an EBS-optimized
-instance type.
-\item \verb{ebs-info.ebs-optimized-info.maximum-throughput-in-mbps} - The
-maximum throughput performance for an EBS-optimized instance type,
-in MB/s.
-\item \code{ebs-info.ebs-optimized-support} - Indicates whether the instance
-type is EBS-optimized (\code{supported} | \code{unsupported} | \code{default}).
-\item \code{ebs-info.encryption-support} - Indicates whether EBS encryption is
-supported (\code{supported} | \code{unsupported}).
-\item \code{ebs-info.nvme-support} - Indicates whether non-volatile memory
-express (NVMe) is supported for EBS volumes (\code{required} |
-\code{supported} | \code{unsupported}).
-\item \code{free-tier-eligible} - Indicates whether the instance type is
-eligible to use in the free tier (\code{true} | \code{false}).
-\item \code{hibernation-supported} - Indicates whether On-Demand hibernation is
-supported (\code{true} | \code{false}).
+\item \code{auto-recovery-supported} - Indicates whether Amazon CloudWatch action based recovery is supported (\code{true} | \code{false}).
+\item \code{bare-metal} - Indicates whether it is a bare metal instance type (\code{true} | \code{false}).
+\item \code{burstable-performance-supported} - Indicates whether the instance type is a burstable performance T instance type (\code{true} | \code{false}).
+\item \code{current-generation} - Indicates whether this instance type is the latest generation instance type of an instance family (\code{true} | \code{false}).
+\item \code{dedicated-hosts-supported} - Indicates whether the instance type supports Dedicated Hosts. (\code{true} | \code{false})
+\item \code{ebs-info.attachment-limit-type} - The type of Amazon EBS volume attachment limit (\code{shared} | \code{dedicated}).
+\item \code{ebs-info.maximum-ebs-attachments} - The maximum number of Amazon EBS volumes that can be attached to the instance type.
+\item \verb{ebs-info.ebs-optimized-info.baseline-bandwidth-in-mbps} - The baseline bandwidth performance for an EBS-optimized instance type, in Mbps.
+\item \code{ebs-info.ebs-optimized-info.baseline-iops} - The baseline input/output storage operations per second for an EBS-optimized instance type.
+\item \verb{ebs-info.ebs-optimized-info.baseline-throughput-in-mbps} - The baseline throughput performance for an EBS-optimized instance type, in MB/s.
+\item \verb{ebs-info.ebs-optimized-info.maximum-bandwidth-in-mbps} - The maximum bandwidth performance for an EBS-optimized instance type, in Mbps.
+\item \code{ebs-info.ebs-optimized-info.maximum-iops} - The maximum input/output storage operations per second for an EBS-optimized instance type.
+\item \verb{ebs-info.ebs-optimized-info.maximum-throughput-in-mbps} - The maximum throughput performance for an EBS-optimized instance type, in MB/s.
+\item \code{ebs-info.ebs-optimized-support} - Indicates whether the instance type is EBS-optimized (\code{supported} | \code{unsupported} | \code{default}).
+\item \code{ebs-info.encryption-support} - Indicates whether EBS encryption is supported (\code{supported} | \code{unsupported}).
+\item \code{ebs-info.nvme-support} - Indicates whether non-volatile memory express (NVMe) is supported for EBS volumes (\code{required} | \code{supported} | \code{unsupported}).
+\item \code{free-tier-eligible} - A Boolean that indicates whether this instance type can be used under the Amazon Web Services Free Tier (\code{true} | \code{false}).
+\item \code{hibernation-supported} - Indicates whether On-Demand hibernation is supported (\code{true} | \code{false}).
 \item \code{hypervisor} - The hypervisor (\code{nitro} | \code{xen}).
 \item \code{instance-storage-info.disk.count} - The number of local disks.
-\item \verb{instance-storage-info.disk.size-in-gb} - The storage size of each
-instance storage disk, in GB.
-\item \code{instance-storage-info.disk.type} - The storage technology for the
-local instance storage disks (\code{hdd} | \code{ssd}).
-\item \code{instance-storage-info.encryption-support} - Indicates whether data
-is encrypted at rest (\code{required} | \code{supported} | \code{unsupported}).
-\item \code{instance-storage-info.nvme-support} - Indicates whether
-non-volatile memory express (NVMe) is supported for instance store
-(\code{required} | \code{supported} | \code{unsupported}).
-\item \verb{instance-storage-info.total-size-in-gb} - The total amount of
-storage available from all local instance storage, in GB.
-\item \code{instance-storage-supported} - Indicates whether the instance type
-has local instance storage (\code{true} | \code{false}).
-\item \code{instance-type} - The instance type (for example \code{c5.2xlarge} or
-c5*).
+\item \verb{instance-storage-info.disk.size-in-gb} - The storage size of each instance storage disk, in GB.
+\item \code{instance-storage-info.disk.type} - The storage technology for the local instance storage disks (\code{hdd} | \code{ssd}).
+\item \code{instance-storage-info.encryption-support} - Indicates whether data is encrypted at rest (\code{required} | \code{supported} | \code{unsupported}).
+\item \code{instance-storage-info.nvme-support} - Indicates whether non-volatile memory express (NVMe) is supported for instance store (\code{required} | \code{supported} | \code{unsupported}).
+\item \verb{instance-storage-info.total-size-in-gb} - The total amount of storage available from all local instance storage, in GB.
+\item \code{instance-storage-supported} - Indicates whether the instance type has local instance storage (\code{true} | \code{false}).
+\item \code{instance-type} - The instance type (for example \code{c5.2xlarge} or c5*).
 \item \verb{memory-info.size-in-mib} - The memory size.
-\item \code{network-info.bandwidth-weightings} - For instances that support
-bandwidth weighting to boost performance (\code{default}, \code{vpc-1},
-\code{ebs-1}).
-\item \code{network-info.efa-info.maximum-efa-interfaces} - The maximum number
-of Elastic Fabric Adapters (EFAs) per instance.
-\item \code{network-info.efa-supported} - Indicates whether the instance type
-supports Elastic Fabric Adapter (EFA) (\code{true} | \code{false}).
-\item \code{network-info.ena-support} - Indicates whether Elastic Network
-Adapter (ENA) is supported or required (\code{required} | \code{supported} |
-\code{unsupported}).
-\item \verb{network-info.encryption-in-transit-supported} - Indicates whether
-the instance type automatically encrypts in-transit traffic between
-instances (\code{true} | \code{false}).
-\item \code{network-info.ipv4-addresses-per-interface} - The maximum number of
-private IPv4 addresses per network interface.
-\item \code{network-info.ipv6-addresses-per-interface} - The maximum number of
-private IPv6 addresses per network interface.
-\item \code{network-info.ipv6-supported} - Indicates whether the instance type
-supports IPv6 (\code{true} | \code{false}).
-\item \code{network-info.maximum-network-cards} - The maximum number of network
-cards per instance.
-\item \code{network-info.maximum-network-interfaces} - The maximum number of
-network interfaces per instance.
-\item \code{network-info.network-performance} - The network performance (for
-example, "25 Gigabit").
-\item \code{nitro-enclaves-support} - Indicates whether Nitro Enclaves is
-supported (\code{supported} | \code{unsupported}).
-\item \code{nitro-tpm-support} - Indicates whether NitroTPM is supported
-(\code{supported} | \code{unsupported}).
-\item \code{nitro-tpm-info.supported-versions} - The supported NitroTPM version
-(\code{2.0}).
-\item \code{processor-info.supported-architecture} - The CPU architecture
-(\code{arm64} | \code{i386} | \code{x86_64}).
-\item \verb{processor-info.sustained-clock-speed-in-ghz} - The CPU clock speed,
-in GHz.
-\item \code{processor-info.supported-features} - The supported CPU features
-(\code{amd-sev-snp}).
+\item \code{network-info.bandwidth-weightings} - For instances that support bandwidth weighting to boost performance (\code{default}, \code{vpc-1}, \code{ebs-1}).
+\item \code{network-info.efa-info.maximum-efa-interfaces} - The maximum number of Elastic Fabric Adapters (EFAs) per instance.
+\item \code{network-info.efa-supported} - Indicates whether the instance type supports Elastic Fabric Adapter (EFA) (\code{true} | \code{false}).
+\item \code{network-info.ena-support} - Indicates whether Elastic Network Adapter (ENA) is supported or required (\code{required} | \code{supported} | \code{unsupported}).
+\item \code{network-info.flexible-ena-queues-support} - Indicates whether an instance supports flexible ENA queues (\code{supported} | \code{unsupported}).
+\item \verb{network-info.encryption-in-transit-supported} - Indicates whether the instance type automatically encrypts in-transit traffic between instances (\code{true} | \code{false}).
+\item \code{network-info.ipv4-addresses-per-interface} - The maximum number of private IPv4 addresses per network interface.
+\item \code{network-info.ipv6-addresses-per-interface} - The maximum number of private IPv6 addresses per network interface.
+\item \code{network-info.ipv6-supported} - Indicates whether the instance type supports IPv6 (\code{true} | \code{false}).
+\item \code{network-info.maximum-network-cards} - The maximum number of network cards per instance.
+\item \code{network-info.maximum-network-interfaces} - The maximum number of network interfaces per instance.
+\item \code{network-info.network-performance} - The network performance (for example, "25 Gigabit").
+\item \code{nitro-enclaves-support} - Indicates whether Nitro Enclaves is supported (\code{supported} | \code{unsupported}).
+\item \code{nitro-tpm-support} - Indicates whether NitroTPM is supported (\code{supported} | \code{unsupported}).
+\item \code{nitro-tpm-info.supported-versions} - The supported NitroTPM version (\code{2.0}).
+\item \code{processor-info.supported-architecture} - The CPU architecture (\code{arm64} | \code{i386} | \code{x86_64}).
+\item \verb{processor-info.sustained-clock-speed-in-ghz} - The CPU clock speed, in GHz.
+\item \code{processor-info.supported-features} - The supported CPU features (\code{amd-sev-snp}).
+\item \code{reboot-migration-support} - Indicates whether enabling reboot migration is supported (\code{supported} | \code{unsupported}).
 \item \code{supported-boot-mode} - The boot mode (\code{legacy-bios} | \code{uefi}).
-\item \code{supported-root-device-type} - The root device type (\code{ebs} |
-\code{instance-store}).
-\item \code{supported-usage-class} - The usage class (\code{on-demand} | \code{spot} |
-\code{capacity-block}).
-\item \code{supported-virtualization-type} - The virtualization type (\code{hvm} |
-\code{paravirtual}).
-\item \code{vcpu-info.default-cores} - The default number of cores for the
-instance type.
-\item \code{vcpu-info.default-threads-per-core} - The default number of threads
-per core for the instance type.
-\item \code{vcpu-info.default-vcpus} - The default number of vCPUs for the
-instance type.
-\item \code{vcpu-info.valid-cores} - The number of cores that can be configured
-for the instance type.
-\item \code{vcpu-info.valid-threads-per-core} - The number of threads per core
-that can be configured for the instance type. For example, "1" or
-"1,2".
+\item \code{supported-root-device-type} - The root device type (\code{ebs} | \code{instance-store}).
+\item \code{supported-usage-class} - The usage class (\code{on-demand} | \code{spot} | \code{capacity-block}).
+\item \code{supported-virtualization-type} - The virtualization type (\code{hvm} | \code{paravirtual}).
+\item \code{vcpu-info.default-cores} - The default number of cores for the instance type.
+\item \code{vcpu-info.default-threads-per-core} - The default number of threads per core for the instance type.
+\item \code{vcpu-info.default-vcpus} - The default number of vCPUs for the instance type.
+\item \code{vcpu-info.valid-cores} - The number of cores that can be configured for the instance type.
+\item \code{vcpu-info.valid-threads-per-core} - The number of threads per core that can be configured for the instance type. For example, "1" or "1,2".
 }}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
+
+\item{IncludeUnsupportedInRegion}{If \code{true}, the response includes instance types that are not supported in the current Region, in addition to the supported types. Default: \code{false}.}
 }
 \description{
-Describes the specified instance types. By default, all instance types for the current Region are described. Alternatively, you can filter the results.
+Describes the specified instance types. By default, all instance types for the current Region are described. Alternatively, you can filter the results. To include instance types that are not supported in the current Region, set \code{IncludeUnsupportedInRegion} to \code{true}.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_describe_instance_types/} for full documentation.
 }

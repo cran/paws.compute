@@ -14,62 +14,47 @@ eks_update_cluster_config(
   zonalShiftConfig = NULL,
   computeConfig = NULL,
   kubernetesNetworkConfig = NULL,
-  storageConfig = NULL
+  storageConfig = NULL,
+  remoteNetworkConfig = NULL,
+  deletionProtection = NULL,
+  controlPlaneScalingConfig = NULL
 )
 }
 \arguments{
 \item{name}{[required] The name of the Amazon EKS cluster to update.}
 
-\item{resourcesVpcConfig}{}
+\item{resourcesVpcConfig}{An object representing the VPC configuration to use for an Amazon EKS cluster.}
 
-\item{logging}{Enable or disable exporting the Kubernetes control plane logs for your
-cluster to CloudWatch Logs . By default, cluster control plane logs
-aren't exported to CloudWatch Logs . For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html}{Amazon EKS cluster control plane logs}
-in the \emph{Amazon EKS User Guide} .
+\item{logging}{Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs . By default, cluster control plane logs aren't exported to CloudWatch Logs . For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html}{Amazon EKS cluster control plane logs} in the \emph{Amazon EKS User Guide} .
 
-CloudWatch Logs ingestion, archive storage, and data scanning rates
-apply to exported control plane logs. For more information, see
-\href{https://aws.amazon.com/cloudwatch/pricing/}{CloudWatch Pricing}.}
+CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see \href{https://aws.amazon.com/cloudwatch/pricing/}{CloudWatch Pricing}.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 
 \item{accessConfig}{The access configuration for the cluster.}
 
-\item{upgradePolicy}{You can enable or disable extended support for clusters currently on
-standard support. You cannot disable extended support once it starts.
-You must enable extended support before your cluster exits standard
-support.}
+\item{upgradePolicy}{You can enable or disable extended support for clusters currently on standard support. You cannot disable extended support once it starts. You must enable extended support before your cluster exits standard support.}
 
-\item{zonalShiftConfig}{Enable or disable ARC zonal shift for the cluster. If zonal shift is
-enabled, Amazon Web Services configures zonal autoshift for the cluster.
+\item{zonalShiftConfig}{Enable or disable ARC zonal shift for the cluster. If zonal shift is enabled, Amazon Web Services configures zonal autoshift for the cluster.
 
-Zonal shift is a feature of Amazon Application Recovery Controller
-(ARC). ARC zonal shift is designed to be a temporary measure that allows
-you to move traffic for a resource away from an impaired AZ until the
-zonal shift expires or you cancel it. You can extend the zonal shift if
-necessary.
+Zonal shift is a feature of Amazon Application Recovery Controller (ARC). ARC zonal shift is designed to be a temporary measure that allows you to move traffic for a resource away from an impaired AZ until the zonal shift expires or you cancel it. You can extend the zonal shift if necessary.
 
-You can start a zonal shift for an EKS cluster, or you can allow Amazon
-Web Services to do it for you by enabling \emph{zonal autoshift}. This shift
-updates the flow of east-to-west network traffic in your cluster to only
-consider network endpoints for Pods running on worker nodes in healthy
-AZs. Additionally, any ALB or NLB handling ingress traffic for
-applications in your EKS cluster will automatically route traffic to
-targets in the healthy AZs. For more information about zonal shift in
-EKS, see \href{https://docs.aws.amazon.com/eks/latest/userguide/zone-shift.html}{Learn about Amazon Application Recovery Controller (ARC) Zonal Shift in Amazon EKS}
-in the \emph{Amazon EKS User Guide} .}
+You can start a zonal shift for an EKS cluster, or you can allow Amazon Web Services to do it for you by enabling \emph{zonal autoshift}. This shift updates the flow of east-to-west network traffic in your cluster to only consider network endpoints for Pods running on worker nodes in healthy AZs. Additionally, any ALB or NLB handling ingress traffic for applications in your EKS cluster will automatically route traffic to targets in the healthy AZs. For more information about zonal shift in EKS, see \href{https://docs.aws.amazon.com/eks/latest/userguide/zone-shift.html}{Learn about Amazon Application Recovery Controller (ARC) Zonal Shift in Amazon EKS} in the \emph{Amazon EKS User Guide} .}
 
-\item{computeConfig}{Update the configuration of the compute capability of your EKS Auto Mode
-cluster. For example, enable the capability.}
+\item{computeConfig}{Update the configuration of the compute capability of your EKS Auto Mode cluster. For example, enable the capability.}
 
-\item{kubernetesNetworkConfig}{}
+\item{kubernetesNetworkConfig}{The Kubernetes network configuration for the cluster.}
 
-\item{storageConfig}{Update the configuration of the block storage capability of your EKS
-Auto Mode cluster. For example, enable the capability.}
+\item{storageConfig}{Update the configuration of the block storage capability of your EKS Auto Mode cluster. For example, enable the capability.}
+
+\item{remoteNetworkConfig}{The configuration in the cluster for EKS Hybrid Nodes. You can add, change, or remove this configuration after the cluster is created.}
+
+\item{deletionProtection}{Specifies whether to enable or disable deletion protection for the cluster. When enabled (\code{true}), the cluster cannot be deleted until deletion protection is explicitly disabled. When disabled (\code{false}), the cluster can be deleted normally.}
+
+\item{controlPlaneScalingConfig}{The control plane scaling tier configuration. For more information, see EKS Provisioned Control Plane in the Amazon EKS User Guide.}
 }
 \description{
-Updates an Amazon EKS cluster configuration. Your cluster continues to function during the update. The response output includes an update ID that you can use to track the status of your cluster update with \code{\link[=eks_describe_update]{describe_update}}"/\>.
+Updates an Amazon EKS cluster configuration. Your cluster continues to function during the update. The response output includes an update ID that you can use to track the status of your cluster update with \code{\link[=eks_describe_update]{describe_update}}.
 
 See \url{https://www.paws-r-sdk.com/docs/eks_update_cluster_config/} for full documentation.
 }

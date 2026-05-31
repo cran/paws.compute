@@ -16,29 +16,19 @@ lightsail_set_ip_address_type(
 
 The resource values are \code{Distribution}, \code{Instance}, and \code{LoadBalancer}.
 
-Distribution-related APIs are available only in the N. Virginia
-(\code{us-east-1}) Amazon Web Services Region. Set your Amazon Web Services
-Region configuration to \code{us-east-1} to create, view, or edit
-distributions.}
+Distribution-related APIs are available only in the N. Virginia (\code{us-east-1}) Amazon Web Services Region. Set your Amazon Web Services Region configuration to \code{us-east-1} to create, view, or edit distributions.}
 
 \item{resourceName}{[required] The name of the resource for which to set the IP address type.}
 
 \item{ipAddressType}{[required] The IP address type to set for the specified resource.
 
-The possible values are \code{ipv4} for IPv4 only, \code{ipv6} for IPv6 only, and
-\code{dualstack} for IPv4 and IPv6.}
+The possible values are \code{ipv4} for IPv4 only, \code{ipv6} for IPv6 only, and \code{dualstack} for IPv4 and IPv6.}
 
-\item{acceptBundleUpdate}{Required parameter to accept the instance bundle update when changing
-to, and from, IPv6-only.
+\item{acceptBundleUpdate}{Required parameter to accept the instance bundle update when changing to, and from, IPv6-only.
 
-An instance bundle will change when switching from \code{dual-stack} or
-\code{ipv4}, to \code{ipv6}. It also changes when switching from \code{ipv6}, to
-\code{dual-stack} or \code{ipv4}.
+An instance bundle will change when switching from \code{dual-stack} or \code{ipv4}, to \code{ipv6}. It also changes when switching from \code{ipv6}, to \code{dual-stack} or \code{ipv4}.
 
-You must include this parameter in the command to update the bundle. For
-example, if you switch from \code{dual-stack} to \code{ipv6}, the bundle will be
-updated, and billing for the IPv6-only instance bundle begins
-immediately.}
+You must include this parameter in the command to update the bundle. For example, if you switch from \code{dual-stack} to \code{ipv6}, the bundle will be updated, and billing for the IPv6-only instance bundle begins immediately.}
 }
 \description{
 Sets the IP address type for an Amazon Lightsail resource.

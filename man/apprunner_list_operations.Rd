@@ -7,21 +7,15 @@
 apprunner_list_operations(ServiceArn, NextToken = NULL, MaxResults = NULL)
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want a
-list of operations for.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want a list of operations for.}
 
-\item{NextToken}{A token from a previous result page. It's used for a paginated request.
-The request retrieves the next result page. All other parameter values
-must be identical to the ones specified in the initial request.
+\item{NextToken}{A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones specified in the initial request.
 
-If you don't specify \code{NextToken}, the request retrieves the first result
-page.}
+If you don't specify \code{NextToken}, the request retrieves the first result page.}
 
-\item{MaxResults}{The maximum number of results to include in each response (result page).
-It's used for a paginated request.
+\item{MaxResults}{The maximum number of results to include in each response (result page). It's used for a paginated request.
 
-If you don't specify \code{MaxResults}, the request retrieves all available
-results in a single response.}
+If you don't specify \code{MaxResults}, the request retrieves all available results in a single response.}
 }
 \description{
 Return a list of operations that occurred on an App Runner service.

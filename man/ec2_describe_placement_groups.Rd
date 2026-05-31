@@ -14,40 +14,25 @@ ec2_describe_placement_groups(
 \arguments{
 \item{GroupIds}{The IDs of the placement groups.}
 
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{GroupNames}{The names of the placement groups.
 
 Constraints:
 \itemize{
-\item You can specify a name only if the placement group is owned by your
-account.
-\item If a placement group is \emph{shared} with your account, specifying the
-name results in an error. You must use the \code{GroupId} parameter
-instead.
+\item You can specify a name only if the placement group is owned by your account.
+\item If a placement group is \emph{shared} with your account, specifying the name results in an error. You must use the \code{GroupId} parameter instead.
 }}
 
 \item{Filters}{The filters.
 \itemize{
 \item \code{group-name} - The name of the placement group.
 \item \code{group-arn} - The Amazon Resource Name (ARN) of the placement group.
-\item \code{spread-level} - The spread level for the placement group (\code{host} |
-\code{rack}).
-\item \code{state} - The state of the placement group (\code{pending} | \code{available}
-| \code{deleting} | \code{deleted}).
-\item \code{strategy} - The strategy of the placement group (\code{cluster} |
-\code{spread} | \code{partition}).
-\item \verb{tag:<key>} - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources that have a tag with a specific key,
-regardless of the tag value.
+\item \code{spread-level} - The spread level for the placement group (\code{host} | \code{rack}).
+\item \code{state} - The state of the placement group (\code{pending} | \code{available} | \code{deleting} | \code{deleted}).
+\item \code{strategy} - The strategy of the placement group (\code{cluster} | \code{spread} | \code{partition}).
+\item \verb{tag:<key>} - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources that have a tag with a specific key, regardless of the tag value.
 }}
 }
 \description{

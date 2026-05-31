@@ -9,25 +9,19 @@ lightsail_delete_bucket(bucketName, forceDelete = NULL)
 \arguments{
 \item{bucketName}{[required] The name of the bucket to delete.
 
-Use the \code{\link[=lightsail_get_buckets]{get_buckets}} action to get a list of
-bucket names that you can specify.}
+Use the \code{\link[=lightsail_get_buckets]{get_buckets}} action to get a list of bucket names that you can specify.}
 
 \item{forceDelete}{A Boolean value that indicates whether to force delete the bucket.
 
-You must force delete the bucket if it has one of the following
-conditions:
+You must force delete the bucket if it has one of the following conditions:
 \itemize{
 \item The bucket is the origin of a distribution.
-\item The bucket has instances that were granted access to it using the
-\code{\link[=lightsail_set_resource_access_for_bucket]{set_resource_access_for_bucket}}
-action.
+\item The bucket has instances that were granted access to it using the \code{\link[=lightsail_set_resource_access_for_bucket]{set_resource_access_for_bucket}} action.
 \item The bucket has objects.
 \item The bucket has access keys.
 }
 
-Force deleting a bucket might impact other resources that rely on the
-bucket, such as instances, distributions, or software that use the
-issued access keys.}
+Force deleting a bucket might impact other resources that rely on the bucket, such as instances, distributions, or software that use the issued access keys.}
 }
 \description{
 Deletes a Amazon Lightsail bucket.

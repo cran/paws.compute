@@ -11,18 +11,11 @@ ecs_update_container_instances_state(
 )
 }
 \arguments{
-\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that
-hosts the container instance to update. If you do not specify a cluster,
-the default cluster is assumed.}
+\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that hosts the container instance to update. If you do not specify a cluster, the default cluster is assumed.}
 
 \item{containerInstances}{[required] A list of up to 10 container instance IDs or full ARN entries.}
 
-\item{status}{[required] The container instance state to update the container instance with. The
-only valid values for this action are \code{ACTIVE} and \code{DRAINING}. A
-container instance can only be updated to \code{DRAINING} status once it has
-reached an \code{ACTIVE} state. If a container instance is in \code{REGISTERING},
-\code{DEREGISTERING}, or \code{REGISTRATION_FAILED} state you can describe the
-container instance but can't update the container instance state.}
+\item{status}{[required] The container instance state to update the container instance with. The only valid values for this action are \code{ACTIVE} and \code{DRAINING}. A container instance can only be updated to \code{DRAINING} status once it has reached an \code{ACTIVE} state. If a container instance is in \code{REGISTERING}, \code{DEREGISTERING}, or \code{REGISTRATION_FAILED} state you can describe the container instance but can't update the container instance state.}
 }
 \description{
 Modifies the status of an Amazon ECS container instance.

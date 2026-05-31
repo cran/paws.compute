@@ -19,8 +19,7 @@ ecs_submit_task_state_change(
 )
 }
 \arguments{
-\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that
-hosts the task.}
+\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task.}
 
 \item{task}{The task ID or full ARN of the task in the state change request.}
 

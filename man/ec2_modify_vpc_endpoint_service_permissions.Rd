@@ -12,22 +12,16 @@ ec2_modify_vpc_endpoint_service_permissions(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ServiceId}{[required] The ID of the service.}
 
-\item{AddAllowedPrincipals}{The Amazon Resource Names (ARN) of the principals. Permissions are
-granted to the principals in this list. To grant permissions to all
-principals, specify an asterisk (*).}
+\item{AddAllowedPrincipals}{The Amazon Resource Names (ARN) of the principals. Permissions are granted to the principals in this list. To grant permissions to all principals, specify an asterisk (*).}
 
-\item{RemoveAllowedPrincipals}{The Amazon Resource Names (ARN) of the principals. Permissions are
-revoked for principals in this list.}
+\item{RemoveAllowedPrincipals}{The Amazon Resource Names (ARN) of the principals. Permissions are revoked for principals in this list.}
 }
 \description{
-Modifies the permissions for your VPC endpoint service. You can add or remove permissions for service consumers (Amazon Web Services accounts, users, and IAM roles) to connect to your endpoint service.
+Modifies the permissions for your VPC endpoint service. You can add or remove permissions for service consumers (Amazon Web Services accounts, users, and IAM roles) to connect to your endpoint service. Principal ARNs with path components aren't supported.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_modify_vpc_endpoint_service_permissions/} for full documentation.
 }

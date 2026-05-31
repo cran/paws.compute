@@ -15,92 +15,53 @@ batch_list_jobs(
 )
 }
 \arguments{
-\item{jobQueue}{The name or full Amazon Resource Name (ARN) of the job queue used to
-list jobs.}
+\item{jobQueue}{The name or full Amazon Resource Name (ARN) of the job queue used to list jobs.}
 
-\item{arrayJobId}{The job ID for an array job. Specifying an array job ID with this
-parameter lists all child jobs from within the specified array.}
+\item{arrayJobId}{The job ID for an array job. Specifying an array job ID with this parameter lists all child jobs from within the specified array.}
 
-\item{multiNodeJobId}{The job ID for a multi-node parallel job. Specifying a multi-node
-parallel job ID with this parameter lists all nodes that are associated
-with the specified job.}
+\item{multiNodeJobId}{The job ID for a multi-node parallel job. Specifying a multi-node parallel job ID with this parameter lists all nodes that are associated with the specified job.}
 
-\item{jobStatus}{The job status used to filter jobs in the specified queue. If the
-\code{filters} parameter is specified, the \code{jobStatus} parameter is ignored
-and jobs with any status are returned. If you don't specify a status,
-only \code{RUNNING} jobs are returned.}
+\item{jobStatus}{The job status used to filter jobs in the specified queue. If the \code{filters} parameter is specified, the \code{jobStatus} parameter is ignored and jobs with any status are returned. The exception is the \code{SHARE_IDENTIFIER} filter and \code{jobStatus} can be used together. If you don't specify a status, only \code{RUNNING} jobs are returned.
 
-\item{maxResults}{The maximum number of results returned by \code{\link[=batch_list_jobs]{list_jobs}}
-in a paginated output. When this parameter is used,
-\code{\link[=batch_list_jobs]{list_jobs}} returns up to \code{maxResults} results in a
-single page and a \code{nextToken} response element, if applicable. The
-remaining results of the initial request can be seen by sending another
-\code{\link[=batch_list_jobs]{list_jobs}} request with the returned \code{nextToken}
-value.
+Array job parents are updated to \code{PENDING} when any child job is updated to \code{RUNNABLE} and remain in \code{PENDING} status while child jobs are running. To view these jobs, filter by \code{PENDING} status until all child jobs reach a terminal state.}
+
+\item{maxResults}{The maximum number of results returned by \code{\link[=batch_list_jobs]{list_jobs}} in a paginated output. When this parameter is used, \code{\link[=batch_list_jobs]{list_jobs}} returns up to \code{maxResults} results in a single page and a \code{nextToken} response element, if applicable. The remaining results of the initial request can be seen by sending another \code{\link[=batch_list_jobs]{list_jobs}} request with the returned \code{nextToken} value.
 
 The following outlines key parameters and limitations:
 \itemize{
 \item The minimum value is 1.
 \item When \code{--job-status} is used, Batch returns up to 1000 values.
 \item When \code{--filters} is used, Batch returns up to 100 values.
-\item If neither parameter is used, then \code{\link[=batch_list_jobs]{list_jobs}}
-returns up to 1000 results (jobs that are in the \code{RUNNING} status)
-and a \code{nextToken} value, if applicable.
+\item If neither parameter is used, then \code{\link[=batch_list_jobs]{list_jobs}} returns up to 1000 results (jobs that are in the \code{RUNNING} status) and a \code{nextToken} value, if applicable.
 }}
 
-\item{nextToken}{The \code{nextToken} value returned from a previous paginated
-\code{\link[=batch_list_jobs]{list_jobs}} request where \code{maxResults} was used and
-the results exceeded the value of that parameter. Pagination continues
-from the end of the previous results that returned the \code{nextToken}
-value. This value is \code{null} when there are no more results to return.
+\item{nextToken}{The \code{nextToken} value returned from a previous paginated \code{\link[=batch_list_jobs]{list_jobs}} request where \code{maxResults} was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the \code{nextToken} value. This value is \code{null} when there are no more results to return.
 
-Treat this token as an opaque identifier that's only used to retrieve
-the next items in a list and not for other programmatic purposes.}
+Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.}
 
-\item{filters}{The filter to apply to the query. Only one filter can be used at a time.
-When the filter is used, \code{jobStatus} is ignored. The filter doesn't
-apply to child jobs in an array or multi-node parallel (MNP) jobs. The
-results are sorted by the \code{createdAt} field, with the most recent jobs
-being first.
+\item{filters}{The filter to apply to the query. Only one filter can be used at a time. When the filter is used, \code{jobStatus} is ignored with the exception that \code{SHARE_IDENTIFIER} and \code{jobStatus} can be used together. The filter doesn't apply to child jobs in an array or multi-node parallel (MNP) jobs. The results are sorted by the \code{createdAt} field, with the most recent jobs being first.
+
+The \code{SHARE_IDENTIFIER} filter and the \code{jobStatus} field can be used together to filter results.
 
 \strong{JOB_NAME}
 
-The value of the filter is a case-insensitive match for the job name. If
-the value ends with an asterisk (\emph{), the filter matches any job name
-that begins with the string before the '}'. This corresponds to the
-\code{jobName} value. For example, \code{test1} matches both \code{Test1} and \code{test1},
-and \verb{test1*} matches both \code{test1} and \code{Test10}. When the \code{JOB_NAME}
-filter is used, the results are grouped by the job name and version.
+The value of the filter is a case-insensitive match for the job name. If the value ends with an asterisk (\emph{), the filter matches any job name that begins with the string before the '}'. This corresponds to the \code{jobName} value. For example, \code{test1} matches both \code{Test1} and \code{test1}, and \verb{test1*} matches both \code{test1} and \code{Test10}. When the \code{JOB_NAME} filter is used, the results are grouped by the job name and version.
 
 \strong{JOB_DEFINITION}
 
-The value for the filter is the name or Amazon Resource Name (ARN) of
-the job definition. This corresponds to the \code{jobDefinition} value. The
-value is case sensitive. When the value for the filter is the job
-definition name, the results include all the jobs that used any revision
-of that job definition name. If the value ends with an asterisk (\emph{),
-the filter matches any job definition name that begins with the string
-before the '}'. For example, \code{jd1} matches only \code{jd1}, and \verb{jd1*}
-matches both \code{jd1} and \code{jd1A}. The version of the job definition that's
-used doesn't affect the sort order. When the \code{JOB_DEFINITION} filter is
-used and the ARN is used (which is in the form
-\verb{arn:$\{Partition\}:batch:$\{Region\}:$\{Account\}:job-definition/$\{JobDefinitionName\}:$\{Revision\}}),
-the results include jobs that used the specified revision of the job
-definition. Asterisk (*) isn't supported when the ARN is used.
+The value for the filter is the name or Amazon Resource Name (ARN) of the job definition. This corresponds to the \code{jobDefinition} value. The value is case sensitive. When the value for the filter is the job definition name, the results include all the jobs that used any revision of that job definition name. If the value ends with an asterisk (\emph{), the filter matches any job definition name that begins with the string before the '}'. For example, \code{jd1} matches only \code{jd1}, and \verb{jd1*} matches both \code{jd1} and \code{jd1A}. The version of the job definition that's used doesn't affect the sort order. When the \code{JOB_DEFINITION} filter is used and the ARN is used (which is in the form \verb{arn:$\{Partition\}:batch:$\{Region\}:$\{Account\}:job-definition/$\{JobDefinitionName\}:$\{Revision\}}), the results include jobs that used the specified revision of the job definition. Asterisk (*) isn't supported when the ARN is used.
 
 \strong{BEFORE_CREATED_AT}
 
-The value for the filter is the time that's before the job was created.
-This corresponds to the \code{createdAt} value. The value is a string
-representation of the number of milliseconds since 00:00:00 UTC
-(midnight) on January 1, 1970.
+The value for the filter is the time that's before the job was created. This corresponds to the \code{createdAt} value. The value is a string representation of the number of milliseconds since 00:00:00 UTC (midnight) on January 1, 1970.
 
 \strong{AFTER_CREATED_AT}
 
-The value for the filter is the time that's after the job was created.
-This corresponds to the \code{createdAt} value. The value is a string
-representation of the number of milliseconds since 00:00:00 UTC
-(midnight) on January 1, 1970.}
+The value for the filter is the time that's after the job was created. This corresponds to the \code{createdAt} value. The value is a string representation of the number of milliseconds since 00:00:00 UTC (midnight) on January 1, 1970.
+
+\strong{SHARE_IDENTIFIER}
+
+The value for the filter is the fairshare scheduling share identifier.}
 }
 \description{
 Returns a list of Batch jobs.

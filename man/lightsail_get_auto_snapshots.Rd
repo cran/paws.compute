@@ -7,8 +7,7 @@
 lightsail_get_auto_snapshots(resourceName)
 }
 \arguments{
-\item{resourceName}{[required] The name of the source instance or disk from which to get automatic
-snapshot information.}
+\item{resourceName}{[required] The name of the source instance or disk from which to get automatic snapshot information.}
 }
 \description{
 Returns the available automatic snapshots for an instance or disk. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.

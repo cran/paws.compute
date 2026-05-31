@@ -11,15 +11,11 @@ ec2_disassociate_client_vpn_target_network(
 )
 }
 \arguments{
-\item{ClientVpnEndpointId}{[required] The ID of the Client VPN endpoint from which to disassociate the target
-network.}
+\item{ClientVpnEndpointId}{[required] The ID of the Client VPN endpoint from which to disassociate the target network.}
 
 \item{AssociationId}{[required] The ID of the target network association.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Disassociates a target network from the specified Client VPN endpoint. When you disassociate the last target network from a Client VPN, the following happens:

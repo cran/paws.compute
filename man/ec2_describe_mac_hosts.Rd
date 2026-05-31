@@ -15,18 +15,13 @@ ec2_describe_mac_hosts(
 \arguments{
 \item{Filters}{The filters.
 \itemize{
-\item \code{availability-zone} - The Availability Zone of the EC2 Mac Dedicated
-Host.
-\item \code{instance-type} - The instance type size that the EC2 Mac Dedicated
-Host is configured to support.
+\item \code{availability-zone} - The Availability Zone of the EC2 Mac Dedicated Host.
+\item \code{instance-type} - The instance type size that the EC2 Mac Dedicated Host is configured to support.
 }}
 
 \item{HostIds}{The IDs of the EC2 Mac Dedicated Hosts.}
 
-\item{MaxResults}{The maximum number of results to return for the request in a single
-page. The remaining results can be seen by sending another request with
-the returned \code{nextToken} value. This value can be between 5 and 500. If
-\code{maxResults} is given a larger value than 500, you receive an error.}
+\item{MaxResults}{The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the returned \code{nextToken} value. This value can be between 5 and 500. If \code{maxResults} is given a larger value than 500, you receive an error.}
 
 \item{NextToken}{The token to use to retrieve the next page of results.}
 }

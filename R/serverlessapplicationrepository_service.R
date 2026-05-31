@@ -5,39 +5,31 @@ NULL
 #' AWSServerlessApplicationRepository
 #'
 #' @description
-#' The AWS Serverless Application Repository makes it easy for developers
-#' and enterprises to quickly find and deploy serverless applications in
-#' the AWS Cloud. For more information about serverless applications, see
-#' Serverless Computing and Applications on the AWS website.
+#' The AWS Serverless Application Repository makes it easy for developers and enterprises to quickly find
+#' and deploy serverless applications in the AWS Cloud. For more information about serverless applications,
+#' see Serverless Computing and Applications on the AWS website.
 #' 
-#' The AWS Serverless Application Repository is deeply integrated with the
-#' AWS Lambda console, so that developers of all levels can get started
-#' with serverless computing without needing to learn anything new. You can
-#' use category keywords to browse for applications such as web and mobile
-#' backends, data processing applications, or chatbots. You can also search
-#' for applications by name, publisher, or event source. To use an
-#' application, you simply choose it, configure any required fields, and
-#' deploy it with a few clicks.
+#' The AWS Serverless Application Repository is deeply integrated with the AWS Lambda console, so that developers of
+#' all levels can get started with serverless computing without needing to learn anything new. You can use category
+#' keywords to browse for applications such as web and mobile backends, data processing applications, or chatbots.
+#' You can also search for applications by name, publisher, or event source. To use an application, you simply choose it,
+#' configure any required fields, and deploy it with a few clicks.
 #' 
-#' You can also easily publish applications, sharing them publicly with the
-#' community at large, or privately within your team or across your
-#' organization. To publish a serverless application (or app), you can use
-#' the AWS Management Console, AWS Command Line Interface (AWS CLI), or AWS
-#' SDKs to upload the code. Along with the code, you upload a simple
-#' manifest file, also known as the AWS Serverless Application Model (AWS
-#' SAM) template. For more information about AWS SAM, see AWS Serverless
-#' Application Model (AWS SAM) on the AWS Labs GitHub repository.
+#' You can also easily publish applications, sharing them publicly with the community at large, or privately
+#' within your team or across your organization. To publish a serverless application (or app), you can use the
+#' AWS Management Console, AWS Command Line Interface (AWS CLI), or AWS SDKs to upload the code. Along with the
+#' code, you upload a simple manifest file, also known as the AWS Serverless Application Model (AWS SAM) template.
+#' For more information about AWS SAM, see AWS Serverless Application Model (AWS SAM) on the AWS Labs
+#' GitHub repository.
 #' 
-#' The AWS Serverless Application Repository Developer Guide contains more
-#' information about the two developer experiences available:
+#' The AWS Serverless Application Repository Developer Guide contains more information about the two developer
+#' experiences available:
 #' 
-#' -   Consuming Applications – Browse for applications and view
-#'     information about them, including source code and readme files. Also
-#'     install, configure, and deploy applications of your choosing.
+#' -   Consuming Applications – Browse for applications and view information about them, including
+#'     source code and readme files. Also install, configure, and deploy applications of your choosing.
 #' 
-#'     Publishing Applications – Configure and upload applications to make
-#'     them available to other developers, and publish new versions of
-#'     applications.
+#'     Publishing Applications – Configure and upload applications to make them available to other
+#'     developers, and publish new versions of applications.
 #'
 #' @param
 #' config
@@ -167,7 +159,7 @@ serverlessapplicationrepository <- function(config = list(), credentials = list(
 
 .serverlessapplicationrepository$metadata <- list(
   service_name = "serverlessrepo",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "serverlessrepo.{region}.amazonaws.eu", global = FALSE)),
   service_id = "ServerlessApplicationRepository",
   api_version = "2017-09-08",
   signing_name = "serverlessrepo",

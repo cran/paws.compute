@@ -10,7 +10,9 @@ ec2_create_vpn_connection(
   Type,
   VpnGatewayId = NULL,
   TransitGatewayId = NULL,
+  VpnConcentratorId = NULL,
   TagSpecifications = NULL,
+  PreSharedKeyStorage = NULL,
   DryRun = NULL,
   Options = NULL
 )
@@ -20,18 +22,17 @@ ec2_create_vpn_connection(
 
 \item{Type}{[required] The type of VPN connection (\code{ipsec.1}).}
 
-\item{VpnGatewayId}{The ID of the virtual private gateway. If you specify a virtual private
-gateway, you cannot specify a transit gateway.}
+\item{VpnGatewayId}{The ID of the virtual private gateway. If you specify a virtual private gateway, you cannot specify a transit gateway.}
 
-\item{TransitGatewayId}{The ID of the transit gateway. If you specify a transit gateway, you
-cannot specify a virtual private gateway.}
+\item{TransitGatewayId}{The ID of the transit gateway. If you specify a transit gateway, you cannot specify a virtual private gateway.}
+
+\item{VpnConcentratorId}{The ID of the VPN concentrator to associate with the VPN connection.}
 
 \item{TagSpecifications}{The tags to apply to the VPN connection.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{PreSharedKeyStorage}{Specifies the storage mode for the pre-shared key (PSK). Valid values are \code{Standard}" (stored in the Site-to-Site VPN service) or \code{SecretsManager} (stored in Amazon Web Services Secrets Manager).}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Options}{The options for the VPN connection.}
 }

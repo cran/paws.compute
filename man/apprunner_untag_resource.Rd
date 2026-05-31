@@ -7,8 +7,7 @@
 apprunner_untag_resource(ResourceArn, TagKeys)
 }
 \arguments{
-\item{ResourceArn}{[required] The Amazon Resource Name (ARN) of the resource that you want to remove
-tags from.
+\item{ResourceArn}{[required] The Amazon Resource Name (ARN) of the resource that you want to remove tags from.
 
 It must be the ARN of an App Runner resource.}
 

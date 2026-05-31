@@ -11,10 +11,7 @@ ec2_describe_bundle_tasks(BundleIds = NULL, DryRun = NULL, Filters = NULL)
 
 Default: Describes all your bundle tasks.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
@@ -22,14 +19,11 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 \item \code{error-code} - If the task failed, the error code returned.
 \item \code{error-message} - If the task failed, the error message returned.
 \item \code{instance-id} - The ID of the instance.
-\item \code{progress} - The level of task completion, as a percentage (for
-example, 20\%).
+\item \code{progress} - The level of task completion, as a percentage (for example, 20\%).
 \item \code{s3-bucket} - The Amazon S3 bucket to store the AMI.
 \item \code{s3-prefix} - The beginning of the AMI name.
-\item \code{start-time} - The time the task started (for example,
-2013-09-15T17:15:20.000Z).
-\item \code{state} - The state of the task (\code{pending} | \verb{waiting-for-shutdown}
-| \code{bundling} | \code{storing} | \code{cancelling} | \code{complete} | \code{failed}).
+\item \code{start-time} - The time the task started (for example, 2013-09-15T17:15:20.000Z).
+\item \code{state} - The state of the task (\code{pending} | \verb{waiting-for-shutdown} | \code{bundling} | \code{storing} | \code{cancelling} | \code{complete} | \code{failed}).
 \item \code{update-time} - The time of the most recent update for the task.
 }}
 }

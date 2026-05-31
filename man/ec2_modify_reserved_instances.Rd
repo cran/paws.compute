@@ -14,8 +14,7 @@ ec2_modify_reserved_instances(
 \arguments{
 \item{ReservedInstancesIds}{[required] The IDs of the Reserved Instances to modify.}
 
-\item{ClientToken}{A unique, case-sensitive token you provide to ensure idempotency of your
-modification request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
+\item{ClientToken}{A unique, case-sensitive token you provide to ensure idempotency of your modification request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
 
 \item{TargetConfigurations}{[required] The configuration settings for the Reserved Instances to modify.}
 }

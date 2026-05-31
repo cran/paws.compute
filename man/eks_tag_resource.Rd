@@ -10,9 +10,7 @@ eks_tag_resource(resourceArn, tags)
 \arguments{
 \item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource to add tags to.}
 
-\item{tags}{[required] Metadata that assists with categorization and organization. Each tag
-consists of a key and an optional value. You define both. Tags don't
-propagate to any other cluster or Amazon Web Services resources.}
+\item{tags}{[required] Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.}
 }
 \description{
 Associates the specified tags to an Amazon EKS resource with the specified \code{resourceArn}. If existing tags on a resource are not specified in the request parameters, they aren't changed. When a resource is deleted, the tags associated with that resource are also deleted. Tags that you create for Amazon EKS resources don't propagate to any other resources associated with the cluster. For example, if you tag a cluster with this operation, that tag doesn't automatically propagate to the subnets and nodes associated with the cluster.

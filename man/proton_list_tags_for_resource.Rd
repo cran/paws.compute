@@ -9,9 +9,7 @@ proton_list_tags_for_resource(maxResults = NULL, nextToken = NULL, resourceArn)
 \arguments{
 \item{maxResults}{The maximum number of tags to list.}
 
-\item{nextToken}{A token that indicates the location of the next resource tag in the
-array of resource tags, after the list of resource tags that was
-previously requested.}
+\item{nextToken}{A token that indicates the location of the next resource tag in the array of resource tags, after the list of resource tags that was previously requested.}
 
 \item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource for the listed tags.}
 }

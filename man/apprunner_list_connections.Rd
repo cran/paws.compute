@@ -12,21 +12,15 @@ apprunner_list_connections(
 )
 }
 \arguments{
-\item{ConnectionName}{If specified, only this connection is returned. If not specified, the
-result isn't filtered by name.}
+\item{ConnectionName}{If specified, only this connection is returned. If not specified, the result isn't filtered by name.}
 
-\item{MaxResults}{The maximum number of results to include in each response (result page).
-Used for a paginated request.
+\item{MaxResults}{The maximum number of results to include in each response (result page). Used for a paginated request.
 
-If you don't specify \code{MaxResults}, the request retrieves all available
-results in a single response.}
+If you don't specify \code{MaxResults}, the request retrieves all available results in a single response.}
 
-\item{NextToken}{A token from a previous result page. Used for a paginated request. The
-request retrieves the next result page. All other parameter values must
-be identical to the ones specified in the initial request.
+\item{NextToken}{A token from a previous result page. Used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones specified in the initial request.
 
-If you don't specify \code{NextToken}, the request retrieves the first result
-page.}
+If you don't specify \code{NextToken}, the request retrieves the first result page.}
 }
 \description{
 Returns a list of App Runner connections that are associated with your Amazon Web Services account.

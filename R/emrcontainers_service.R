@@ -5,30 +5,15 @@ NULL
 #' Amazon EMR Containers
 #'
 #' @description
-#' Amazon EMR on EKS provides a deployment option for Amazon EMR that
-#' allows you to run open-source big data frameworks on Amazon Elastic
-#' Kubernetes Service (Amazon EKS). With this deployment option, you can
-#' focus on running analytics workloads while Amazon EMR on EKS builds,
-#' configures, and manages containers for open-source applications. For
-#' more information about Amazon EMR on EKS concepts and tasks, see [What
-#' is Amazon EMR on
-#' EKS](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/emr-eks.html).
+#' Amazon EMR on EKS provides a deployment option for Amazon EMR that allows you to run open-source big data frameworks on Amazon Elastic Kubernetes Service (Amazon EKS). With this deployment option, you can focus on running analytics workloads while Amazon EMR on EKS builds, configures, and manages containers for open-source applications. For more information about Amazon EMR on EKS concepts and tasks, see [What is Amazon EMR on EKS](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/emr-eks.html).
 #' 
-#' *Amazon EMR containers* is the API name for Amazon EMR on EKS. The
-#' `emr-containers` prefix is used in the following scenarios:
+#' *Amazon EMR containers* is the API name for Amazon EMR on EKS. The `emr-containers` prefix is used in the following scenarios:
 #' 
-#' -   It is the prefix in the CLI commands for Amazon EMR on EKS. For
-#'     example, `aws emr-containers start-job-run`.
+#' -   It is the prefix in the CLI commands for Amazon EMR on EKS. For example, `aws emr-containers start-job-run`.
 #' 
-#' -   It is the prefix before IAM policy actions for Amazon EMR on EKS.
-#'     For example, `"Action": [ "emr-containers:StartJobRun"]`. For more
-#'     information, see [Policy actions for Amazon EMR on
-#'     EKS](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-actions).
+#' -   It is the prefix before IAM policy actions for Amazon EMR on EKS. For example, `"Action": [ "emr-containers:StartJobRun"]`. For more information, see [Policy actions for Amazon EMR on EKS](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-actions).
 #' 
-#' -   It is the prefix used in Amazon EMR on EKS service endpoints. For
-#'     example, `emr-containers.us-east-2.amazonaws.com`. For more
-#'     information, see [Amazon EMR on EKSService
-#'     Endpoints](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/service-quotas.html#service-endpoints).
+#' -   It is the prefix used in Amazon EMR on EKS service endpoints. For example, `emr-containers.us-east-2.amazonaws.com`. For more information, see [Amazon EMR on EKSService Endpoints](https://docs.aws.amazon.com/emr/latest/EMR-on-EKS-DevelopmentGuide/service-quotas.html#service-endpoints).
 #'
 #' @param
 #' config
@@ -167,7 +152,7 @@ emrcontainers <- function(config = list(), credentials = list(), endpoint = NULL
 
 .emrcontainers$metadata <- list(
   service_name = "emrcontainers",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "emr-containers.{region}.amazonaws.eu", global = FALSE)),
   service_id = "EMR containers",
   api_version = "2020-10-01",
   signing_name = "emr-containers",

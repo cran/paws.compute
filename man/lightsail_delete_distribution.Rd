@@ -10,8 +10,7 @@ lightsail_delete_distribution(distributionName = NULL)
 \arguments{
 \item{distributionName}{The name of the distribution to delete.
 
-Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get
-a list of distribution names that you can specify.}
+Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get a list of distribution names that you can specify.}
 }
 \description{
 Deletes your Amazon Lightsail content delivery network (CDN) distribution.

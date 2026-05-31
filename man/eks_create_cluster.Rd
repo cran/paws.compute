@@ -21,106 +21,61 @@ eks_create_cluster(
   zonalShiftConfig = NULL,
   remoteNetworkConfig = NULL,
   computeConfig = NULL,
-  storageConfig = NULL
+  storageConfig = NULL,
+  deletionProtection = NULL,
+  controlPlaneScalingConfig = NULL
 )
 }
 \arguments{
-\item{name}{[required] The unique name to give to your cluster. The name can contain only
-alphanumeric characters (case-sensitive), hyphens, and underscores. It
-must start with an alphanumeric character and can't be longer than 100
-characters. The name must be unique within the Amazon Web Services
-Region and Amazon Web Services account that you're creating the cluster
-in.}
+\item{name}{[required] The unique name to give to your cluster. The name can contain only alphanumeric characters (case-sensitive), hyphens, and underscores. It must start with an alphanumeric character and can't be longer than 100 characters. The name must be unique within the Amazon Web Services Region and Amazon Web Services account that you're creating the cluster in.}
 
-\item{version}{The desired Kubernetes version for your cluster. If you don't specify a
-value here, the default version available in Amazon EKS is used.
+\item{version}{The desired Kubernetes version for your cluster. If you don't specify a value here, the default version available in Amazon EKS is used.
 
 The default version might not be the latest version available.}
 
-\item{roleArn}{[required] The Amazon Resource Name (ARN) of the IAM role that provides permissions
-for the Kubernetes control plane to make calls to Amazon Web Services
-API operations on your behalf. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/cluster-iam-role.html}{Amazon EKS Service IAM Role}
-in the \emph{Amazon EKS User Guide} .}
+\item{roleArn}{[required] The Amazon Resource Name (ARN) of the IAM role that provides permissions for the Kubernetes control plane to make calls to Amazon Web Services API operations on your behalf. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/cluster-iam-role.html}{Amazon EKS Service IAM Role} in the \emph{Amazon EKS User Guide} .}
 
-\item{resourcesVpcConfig}{[required] The VPC configuration that's used by the cluster control plane. Amazon
-EKS VPC resources have specific requirements to work properly with
-Kubernetes. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/network-reqs.html}{Cluster VPC Considerations}
-and \href{https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html}{Cluster Security Group Considerations}
-in the \emph{Amazon EKS User Guide}. You must specify at least two subnets.
-You can specify up to five security groups. However, we recommend that
-you use a dedicated security group for your cluster control plane.}
+\item{resourcesVpcConfig}{[required] The VPC configuration that's used by the cluster control plane. Amazon EKS VPC resources have specific requirements to work properly with Kubernetes. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/network-reqs.html}{Cluster VPC Considerations} and \href{https://docs.aws.amazon.com/eks/latest/userguide/sec-group-reqs.html}{Cluster Security Group Considerations} in the \emph{Amazon EKS User Guide}. You must specify at least two subnets. You can specify up to five security groups. However, we recommend that you use a dedicated security group for your cluster control plane.}
 
 \item{kubernetesNetworkConfig}{The Kubernetes network configuration for the cluster.}
 
-\item{logging}{Enable or disable exporting the Kubernetes control plane logs for your
-cluster to CloudWatch Logs . By default, cluster control plane logs
-aren't exported to CloudWatch Logs . For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html}{Amazon EKS Cluster control plane logs}
-in the \emph{Amazon EKS User Guide} .
+\item{logging}{Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs . By default, cluster control plane logs aren't exported to CloudWatch Logs . For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html}{Amazon EKS Cluster control plane logs} in the \emph{Amazon EKS User Guide} .
 
-CloudWatch Logs ingestion, archive storage, and data scanning rates
-apply to exported control plane logs. For more information, see
-\href{https://aws.amazon.com/cloudwatch/pricing/}{CloudWatch Pricing}.}
+CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see \href{https://aws.amazon.com/cloudwatch/pricing/}{CloudWatch Pricing}.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 
-\item{tags}{Metadata that assists with categorization and organization. Each tag
-consists of a key and an optional value. You define both. Tags don't
-propagate to any other cluster or Amazon Web Services resources.}
+\item{tags}{Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.}
 
 \item{encryptionConfig}{The encryption configuration for the cluster.}
 
-\item{outpostConfig}{An object representing the configuration of your local Amazon EKS
-cluster on an Amazon Web Services Outpost. Before creating a local
-cluster on an Outpost, review \href{https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html}{Local clusters for Amazon EKS on Amazon Web Services Outposts}
-in the \emph{Amazon EKS User Guide}. This object isn't available for creating
-Amazon EKS clusters on the Amazon Web Services cloud.}
+\item{outpostConfig}{An object representing the configuration of your local Amazon EKS cluster on an Amazon Web Services Outpost. Before creating a local cluster on an Outpost, review \href{https://docs.aws.amazon.com/eks/latest/userguide/eks-outposts-local-cluster-overview.html}{Local clusters for Amazon EKS on Amazon Web Services Outposts} in the \emph{Amazon EKS User Guide}. This object isn't available for creating Amazon EKS clusters on the Amazon Web Services cloud.}
 
 \item{accessConfig}{The access configuration for the cluster.}
 
-\item{bootstrapSelfManagedAddons}{If you set this value to \code{False} when creating a cluster, the default
-networking add-ons will not be installed.
+\item{bootstrapSelfManagedAddons}{If you set this value to \code{False} when creating a cluster, the default networking add-ons will not be installed.
 
-The default networking addons include vpc-cni, coredns, and kube-proxy.
+The default networking add-ons include \code{vpc-cni}, \code{coredns}, and \code{kube-proxy}.
 
-Use this option when you plan to install third-party alternative add-ons
-or self-manage the default networking add-ons.}
+Use this option when you plan to install third-party alternative add-ons or self-manage the default networking add-ons.}
 
-\item{upgradePolicy}{New clusters, by default, have extended support enabled. You can disable
-extended support when creating a cluster by setting this value to
-\code{STANDARD}.}
+\item{upgradePolicy}{New clusters, by default, have extended support enabled. You can disable extended support when creating a cluster by setting this value to \code{STANDARD}.}
 
-\item{zonalShiftConfig}{Enable or disable ARC zonal shift for the cluster. If zonal shift is
-enabled, Amazon Web Services configures zonal autoshift for the cluster.
+\item{zonalShiftConfig}{Enable or disable ARC zonal shift for the cluster. If zonal shift is enabled, Amazon Web Services configures zonal autoshift for the cluster.
 
-Zonal shift is a feature of Amazon Application Recovery Controller
-(ARC). ARC zonal shift is designed to be a temporary measure that allows
-you to move traffic for a resource away from an impaired AZ until the
-zonal shift expires or you cancel it. You can extend the zonal shift if
-necessary.
+Zonal shift is a feature of Amazon Application Recovery Controller (ARC). ARC zonal shift is designed to be a temporary measure that allows you to move traffic for a resource away from an impaired AZ until the zonal shift expires or you cancel it. You can extend the zonal shift if necessary.
 
-You can start a zonal shift for an Amazon EKS cluster, or you can allow
-Amazon Web Services to do it for you by enabling \emph{zonal autoshift}. This
-shift updates the flow of east-to-west network traffic in your cluster
-to only consider network endpoints for Pods running on worker nodes in
-healthy AZs. Additionally, any ALB or NLB handling ingress traffic for
-applications in your Amazon EKS cluster will automatically route traffic
-to targets in the healthy AZs. For more information about zonal shift in
-EKS, see \href{https://docs.aws.amazon.com/eks/latest/userguide/zone-shift.html}{Learn about Amazon Application Recovery Controller (ARC) Zonal Shift in Amazon EKS}
-in the \emph{Amazon EKS User Guide} .}
+You can start a zonal shift for an Amazon EKS cluster, or you can allow Amazon Web Services to do it for you by enabling \emph{zonal autoshift}. This shift updates the flow of east-to-west network traffic in your cluster to only consider network endpoints for Pods running on worker nodes in healthy AZs. Additionally, any ALB or NLB handling ingress traffic for applications in your Amazon EKS cluster will automatically route traffic to targets in the healthy AZs. For more information about zonal shift in EKS, see \href{https://docs.aws.amazon.com/eks/latest/userguide/zone-shift.html}{Learn about Amazon Application Recovery Controller (ARC) Zonal Shift in Amazon EKS} in the \emph{Amazon EKS User Guide} .}
 
-\item{remoteNetworkConfig}{The configuration in the cluster for EKS Hybrid Nodes. You can't change
-or update this configuration after the cluster is created.}
+\item{remoteNetworkConfig}{The configuration in the cluster for EKS Hybrid Nodes. You can add, change, or remove this configuration after the cluster is created.}
 
-\item{computeConfig}{Enable or disable the compute capability of EKS Auto Mode when creating
-your EKS Auto Mode cluster. If the compute capability is enabled, EKS
-Auto Mode will create and delete EC2 Managed Instances in your Amazon
-Web Services account}
+\item{computeConfig}{Enable or disable the compute capability of EKS Auto Mode when creating your EKS Auto Mode cluster. If the compute capability is enabled, EKS Auto Mode will create and delete EC2 Managed Instances in your Amazon Web Services account}
 
-\item{storageConfig}{Enable or disable the block storage capability of EKS Auto Mode when
-creating your EKS Auto Mode cluster. If the block storage capability is
-enabled, EKS Auto Mode will create and delete EBS volumes in your Amazon
-Web Services account.}
+\item{storageConfig}{Enable or disable the block storage capability of EKS Auto Mode when creating your EKS Auto Mode cluster. If the block storage capability is enabled, EKS Auto Mode will create and delete EBS volumes in your Amazon Web Services account.}
+
+\item{deletionProtection}{Indicates whether to enable deletion protection for the cluster. When enabled, the cluster cannot be deleted unless deletion protection is first disabled. This helps prevent accidental cluster deletion. Default value is \code{false}.}
+
+\item{controlPlaneScalingConfig}{The control plane scaling tier configuration. For more information, see EKS Provisioned Control Plane in the Amazon EKS User Guide.}
 }
 \description{
 Creates an Amazon EKS control plane.

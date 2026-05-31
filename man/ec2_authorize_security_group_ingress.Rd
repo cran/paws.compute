@@ -21,75 +21,45 @@ ec2_authorize_security_group_ingress(
 \arguments{
 \item{CidrIp}{The IPv4 address range, in CIDR format.
 
-Amazon Web Services
-\href{https://en.wikipedia.org/wiki/Canonicalization}{canonicalizes} IPv4 and
-IPv6 CIDRs. For example, if you specify 100.68.0.18/18 for the CIDR
-block, Amazon Web Services canonicalizes the CIDR block to
-100.68.0.0/18. Any subsequent DescribeSecurityGroups and
-DescribeSecurityGroupRules calls will return the canonicalized form of
-the CIDR block. Additionally, if you attempt to add another rule with
-the non-canonical form of the CIDR (such as 100.68.0.18/18) and there is
-already a rule for the canonicalized form of the CIDR block (such as
-100.68.0.0/18), the API throws an duplicate rule error.
+Amazon Web Services \href{https://en.wikipedia.org/wiki/Canonicalization}{canonicalizes} IPv4 and IPv6 CIDRs. For example, if you specify 100.68.0.18/18 for the CIDR block, Amazon Web Services canonicalizes the CIDR block to 100.68.0.0/18. Any subsequent DescribeSecurityGroups and DescribeSecurityGroupRules calls will return the canonicalized form of the CIDR block. Additionally, if you attempt to add another rule with the non-canonical form of the CIDR (such as 100.68.0.18/18) and there is already a rule for the canonicalized form of the CIDR block (such as 100.68.0.0/18), the API throws an duplicate rule error.
 
 To specify an IPv6 address range, use IP permissions instead.
 
-To specify multiple rules and descriptions for the rules, use IP
-permissions instead.}
+To specify multiple rules and descriptions for the rules, use IP permissions instead.}
 
-\item{FromPort}{If the protocol is TCP or UDP, this is the start of the port range. If
-the protocol is ICMP, this is the ICMP type or -1 (all ICMP types).
+\item{FromPort}{If the protocol is TCP or UDP, this is the start of the port range. If the protocol is ICMP, this is the ICMP type or -1 (all ICMP types).
 
-To specify multiple rules and descriptions for the rules, use IP
-permissions instead.}
+To specify multiple rules and descriptions for the rules, use IP permissions instead.}
 
 \item{GroupId}{The ID of the security group.}
 
-\item{GroupName}{[Default VPC] The name of the security group. For security groups for
-a default VPC you can specify either the ID or the name of the security
-group. For security groups for a nondefault VPC, you must specify the ID
-of the security group.}
+\item{GroupName}{[Default VPC] The name of the security group. For security groups for a default VPC you can specify either the ID or the name of the security group. For security groups for a nondefault VPC, you must specify the ID of the security group.}
 
 \item{IpPermissions}{The permissions for the security group rules.}
 
-\item{IpProtocol}{The IP protocol name (\code{tcp}, \code{udp}, \code{icmp}) or number (see \href{http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml}{Protocol Numbers}).
-To specify all protocols, use \code{-1}.
+\item{IpProtocol}{The IP protocol name (\code{tcp}, \code{udp}, \code{icmp}) or number (see \href{http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml}{Protocol Numbers}). To specify all protocols, use \code{-1}.
 
 To specify \code{icmpv6}, use IP permissions instead.
 
-If you specify a protocol other than one of the supported values,
-traffic is allowed on all ports, regardless of any ports that you
-specify.
+If you specify a protocol other than one of the supported values, traffic is allowed on all ports, regardless of any ports that you specify.
 
-To specify multiple rules and descriptions for the rules, use IP
-permissions instead.}
+To specify multiple rules and descriptions for the rules, use IP permissions instead.}
 
 \item{SourceSecurityGroupName}{[Default VPC] The name of the source security group.
 
-The rule grants full ICMP, UDP, and TCP access. To create a rule with a
-specific protocol and port range, specify a set of IP permissions
-instead.}
+The rule grants full ICMP, UDP, and TCP access. To create a rule with a specific protocol and port range, specify a set of IP permissions instead.}
 
-\item{SourceSecurityGroupOwnerId}{The Amazon Web Services account ID for the source security group, if the
-source security group is in a different account.
+\item{SourceSecurityGroupOwnerId}{The Amazon Web Services account ID for the source security group, if the source security group is in a different account.
 
-The rule grants full ICMP, UDP, and TCP access. To create a rule with a
-specific protocol and port range, use IP permissions instead.}
+The rule grants full ICMP, UDP, and TCP access. To create a rule with a specific protocol and port range, use IP permissions instead.}
 
-\item{ToPort}{If the protocol is TCP or UDP, this is the end of the port range. If the
-protocol is ICMP, this is the ICMP code or -1 (all ICMP codes). If the
-start port is -1 (all ICMP types), then the end port must be -1 (all
-ICMP codes).
+\item{ToPort}{If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP, this is the ICMP code or -1 (all ICMP codes). If the start port is -1 (all ICMP types), then the end port must be -1 (all ICMP codes).
 
-To specify multiple rules and descriptions for the rules, use IP
-permissions instead.}
+To specify multiple rules and descriptions for the rules, use IP permissions instead.}
 
 \item{TagSpecifications}{The tags applied to the security group rule.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Adds the specified inbound (ingress) rules to a security group.

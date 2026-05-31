@@ -7,26 +7,24 @@
 lightsail_get_buckets(
   bucketName = NULL,
   pageToken = NULL,
-  includeConnectedResources = NULL
+  includeConnectedResources = NULL,
+  includeCors = NULL
 )
 }
 \arguments{
 \item{bucketName}{The name of the bucket for which to return information.
 
-When omitted, the response includes all of your buckets in the Amazon
-Web Services Region where the request is made.}
+When omitted, the response includes all of your buckets in the Amazon Web Services Region where the request is made.}
 
 \item{pageToken}{The token to advance to the next page of results from your request.
 
-To get a page token, perform an initial
-\code{\link[=lightsail_get_buckets]{get_buckets}} request. If your results are
-paginated, the response will return a next page token that you can
-specify as the page token in a subsequent request.}
+To get a page token, perform an initial \code{\link[=lightsail_get_buckets]{get_buckets}} request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.}
 
-\item{includeConnectedResources}{A Boolean value that indicates whether to include Lightsail instances
-that were given access to the bucket using the
-\code{\link[=lightsail_set_resource_access_for_bucket]{set_resource_access_for_bucket}}
-action.}
+\item{includeConnectedResources}{A Boolean value that indicates whether to include Lightsail instances that were given access to the bucket using the \code{\link[=lightsail_set_resource_access_for_bucket]{set_resource_access_for_bucket}} action.}
+
+\item{includeCors}{A Boolean value that indicates whether to include Lightsail bucket CORS configuration in the response. For more information, see \href{https://docs.aws.amazon.com/lightsail/latest/userguide/configure-cors.html}{Configuring cross-origin resource sharing (CORS)}.
+
+This parameter is only supported when getting a single bucket with \code{bucketName} specified. The default value for this parameter is \code{False}.}
 }
 \description{
 Returns information about one or more Amazon Lightsail buckets. The information returned includes the synchronization status of the Amazon Simple Storage Service (Amazon S3) account-level block public access feature for your Lightsail buckets.

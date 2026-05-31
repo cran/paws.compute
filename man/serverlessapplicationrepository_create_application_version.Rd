@@ -18,13 +18,11 @@ serverlessapplicationrepository_create_application_version(
 
 \item{SemanticVersion}{[required] The semantic version of the new version.}
 
-\item{SourceCodeArchiveUrl}{A link to the S3 object that contains the ZIP archive of the source code
-for this version of your application.
+\item{SourceCodeArchiveUrl}{A link to the S3 object that contains the ZIP archive of the source code for this version of your application.
 
 Maximum size 50 MB}
 
-\item{SourceCodeUrl}{A link to a public repository for the source code of your application,
-for example the URL of a specific GitHub commit.}
+\item{SourceCodeUrl}{A link to a public repository for the source code of your application, for example the URL of a specific GitHub commit.}
 
 \item{TemplateBody}{The raw packaged AWS SAM template of your application.}
 

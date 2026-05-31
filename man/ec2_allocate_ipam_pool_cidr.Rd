@@ -13,55 +13,44 @@ ec2_allocate_ipam_pool_cidr(
   Description = NULL,
   PreviewNextCidr = NULL,
   AllowedCidrs = NULL,
-  DisallowedCidrs = NULL
+  DisallowedCidrs = NULL,
+  TagSpecifications = NULL
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamPoolId}{[required] The ID of the IPAM pool from which you would like to allocate a CIDR.}
 
-\item{Cidr}{The CIDR you would like to allocate from the IPAM pool. Note the
-following:
+\item{Cidr}{The CIDR you would like to allocate from the IPAM pool. Note the following:
 \itemize{
-\item If there is no DefaultNetmaskLength allocation rule set on the pool,
-you must specify either the NetmaskLength or the CIDR.
-\item If the DefaultNetmaskLength allocation rule is set on the pool, you
-can specify either the NetmaskLength or the CIDR and the
-DefaultNetmaskLength allocation rule will be ignored.
+\item If there is no DefaultNetmaskLength allocation rule set on the pool, you must specify either the NetmaskLength or the CIDR.
+\item If the DefaultNetmaskLength allocation rule is set on the pool, you can specify either the NetmaskLength or the CIDR and the DefaultNetmaskLength allocation rule will be ignored.
 }
 
 Possible values: Any available IPv4 or IPv6 CIDR.}
 
-\item{NetmaskLength}{The netmask length of the CIDR you would like to allocate from the IPAM
-pool. Note the following:
+\item{NetmaskLength}{The netmask length of the CIDR you would like to allocate from the IPAM pool. Note the following:
 \itemize{
-\item If there is no DefaultNetmaskLength allocation rule set on the pool,
-you must specify either the NetmaskLength or the CIDR.
-\item If the DefaultNetmaskLength allocation rule is set on the pool, you
-can specify either the NetmaskLength or the CIDR and the
-DefaultNetmaskLength allocation rule will be ignored.
+\item If there is no DefaultNetmaskLength allocation rule set on the pool, you must specify either the NetmaskLength or the CIDR.
+\item If the DefaultNetmaskLength allocation rule is set on the pool, you can specify either the NetmaskLength or the CIDR and the DefaultNetmaskLength allocation rule will be ignored.
 }
 
-Possible netmask lengths for IPv4 addresses are 0 - 32. Possible netmask
-lengths for IPv6 addresses are 0 - 128.}
+Possible netmask lengths for IPv4 addresses are 0 - 32. Possible netmask lengths for IPv6 addresses are 0 - 128.}
 
-\item{ClientToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
 \item{Description}{A description for the allocation.}
 
 \item{PreviewNextCidr}{A preview of the next available CIDR in a pool.}
 
-\item{AllowedCidrs}{Include a particular CIDR range that can be returned by the pool.
-Allowed CIDRs are only allowed if using netmask length for allocation.}
+\item{AllowedCidrs}{Include a particular CIDR range that can be returned by the pool. Allowed CIDRs are only allowed if using netmask length for allocation.}
 
-\item{DisallowedCidrs}{Exclude a particular CIDR range from being returned by the pool.
-Disallowed CIDRs are only allowed if using netmask length for
-allocation.}
+\item{DisallowedCidrs}{Exclude a particular CIDR range from being returned by the pool. Disallowed CIDRs are only allowed if using netmask length for allocation.}
+
+\item{TagSpecifications}{The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+
+If you specify tags, the request is authorized against the allocation resource in addition to the pool resource.}
 }
 \description{
 Allocate a CIDR from an IPAM pool. The Region you use should be the IPAM pool locale. The locale is the Amazon Web Services Region where this IPAM pool is available for allocations.

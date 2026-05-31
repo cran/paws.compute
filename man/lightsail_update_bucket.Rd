@@ -9,32 +9,32 @@ lightsail_update_bucket(
   accessRules = NULL,
   versioning = NULL,
   readonlyAccessAccounts = NULL,
-  accessLogConfig = NULL
+  accessLogConfig = NULL,
+  cors = NULL
 )
 }
 \arguments{
 \item{bucketName}{[required] The name of the bucket to update.}
 
-\item{accessRules}{An object that sets the public accessibility of objects in the specified
-bucket.}
+\item{accessRules}{An object that sets the public accessibility of objects in the specified bucket.}
 
-\item{versioning}{Specifies whether to enable or suspend versioning of objects in the
-bucket.
+\item{versioning}{Specifies whether to enable or suspend versioning of objects in the bucket.
 
 The following options can be specified:
 \itemize{
 \item \code{Enabled} - Enables versioning of objects in the specified bucket.
-\item \code{Suspended} - Suspends versioning of objects in the specified
-bucket. Existing object versions are retained.
+\item \code{Suspended} - Suspends versioning of objects in the specified bucket. Existing object versions are retained.
 }}
 
-\item{readonlyAccessAccounts}{An array of strings to specify the Amazon Web Services account IDs that
-can access the bucket.
+\item{readonlyAccessAccounts}{An array of strings to specify the Amazon Web Services account IDs that can access the bucket.
 
-You can give a maximum of 10 Amazon Web Services accounts access to a
-bucket.}
+You can give a maximum of 10 Amazon Web Services accounts access to a bucket.}
 
 \item{accessLogConfig}{An object that describes the access log configuration for the bucket.}
+
+\item{cors}{Sets the cross-origin resource sharing (CORS) configuration for your bucket. If a CORS configuration exists, it is replaced with the specified configuration. For AWS CLI operations, this parameter can also be passed as a file. For more information, see \href{https://docs.aws.amazon.com/lightsail/latest/userguide/configure-cors.html}{Configuring cross-origin resource sharing (CORS)}.
+
+CORS information is only returned in a response when you update the CORS policy.}
 }
 \description{
 Updates an existing Amazon Lightsail bucket.

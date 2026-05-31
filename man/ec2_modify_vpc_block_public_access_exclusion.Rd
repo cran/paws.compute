@@ -11,21 +11,14 @@ ec2_modify_vpc_block_public_access_exclusion(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ExclusionId}{[required] The ID of an exclusion.}
 
 \item{InternetGatewayExclusionMode}{[required] The exclusion mode for internet gateway traffic.
 \itemize{
-\item \code{allow-bidirectional}: Allow all internet traffic to and from the
-excluded VPCs and subnets.
-\item \code{allow-egress}: Allow outbound internet traffic from the excluded
-VPCs and subnets. Block inbound internet traffic to the excluded
-VPCs and subnets. Only applies when VPC Block Public Access is set
-to Bidirectional.
+\item \code{allow-bidirectional}: Allow all internet traffic to and from the excluded VPCs and subnets.
+\item \code{allow-egress}: Allow outbound internet traffic from the excluded VPCs and subnets. Block inbound internet traffic to the excluded VPCs and subnets. Only applies when VPC Block Public Access is set to Bidirectional.
 }}
 }
 \description{

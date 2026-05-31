@@ -7,12 +7,9 @@
 imagebuilder_cancel_image_creation(imageBuildVersionArn, clientToken)
 }
 \arguments{
-\item{imageBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the image that you want to cancel
-creation for.}
+\item{imageBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the image that you want to cancel creation for.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 CancelImageCreation cancels the creation of Image. This operation can only be used on images in a non-terminal state.

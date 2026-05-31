@@ -12,23 +12,17 @@ ec2_delete_launch_template_versions(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{LaunchTemplateId}{The ID of the launch template.
 
-You must specify either the launch template ID or the launch template
-name, but not both.}
+You must specify either the launch template ID or the launch template name, but not both.}
 
 \item{LaunchTemplateName}{The name of the launch template.
 
-You must specify either the launch template ID or the launch template
-name, but not both.}
+You must specify either the launch template ID or the launch template name, but not both.}
 
-\item{Versions}{[required] The version numbers of one or more launch template versions to delete.
-You can specify up to 200 launch template version numbers.}
+\item{Versions}{[required] The version numbers of one or more launch template versions to delete. You can specify up to 200 launch template version numbers.}
 }
 \description{
 Deletes one or more versions of a launch template.

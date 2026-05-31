@@ -9,8 +9,10 @@ lambda_invoke(
   InvocationType = NULL,
   LogType = NULL,
   ClientContext = NULL,
+  DurableExecutionName = NULL,
   Payload = NULL,
-  Qualifier = NULL
+  Qualifier = NULL,
+  TenantId = NULL
 )
 }
 \arguments{
@@ -18,46 +20,33 @@ lambda_invoke(
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} – \verb{my-function} (name-only), \verb{my-function:v1}
-(with alias).
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
+\item \strong{Function name} – \verb{my-function} (name-only), \verb{my-function:v1} (with alias).
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
 \item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
-You can append a version number or alias to any of the formats. The
-length constraint applies only to the full ARN. If you specify only the
-function name, it is limited to 64 characters in length.}
+You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
 \item{InvocationType}{Choose from the following options.
 \itemize{
-\item \code{RequestResponse} (default) – Invoke the function synchronously.
-Keep the connection open until the function returns a response or
-times out. The API response includes the function response and
-additional data.
-\item \code{Event} – Invoke the function asynchronously. Send events that fail
-multiple times to the function's dead-letter queue (if one is
-configured). The API response only includes a status code.
-\item \code{DryRun} – Validate parameter values and verify that the user or
-role has permission to invoke the function.
+\item \code{RequestResponse} (default) – Invoke the function synchronously. Keep the connection open until the function returns a response or times out. The API response includes the function response and additional data.
+\item \code{Event} – Invoke the function asynchronously. Send events that fail multiple times to the function's dead-letter queue (if one is configured). The API response only includes a status code.
+\item \code{DryRun} – Validate parameter values and verify that the user or role has permission to invoke the function.
 }}
 
-\item{LogType}{Set to \code{Tail} to include the execution log in the response. Applies to
-synchronously invoked functions only.}
+\item{LogType}{Set to \code{Tail} to include the execution log in the response. Applies to synchronously invoked functions only.}
 
-\item{ClientContext}{Up to 3,583 bytes of base64-encoded data about the invoking client to
-pass to the function in the context object. Lambda passes the
-\code{ClientContext} object to your function for synchronous invocations
-only.}
+\item{ClientContext}{Up to 3,583 bytes of base64-encoded data about the invoking client to pass to the function in the context object. Lambda passes the \code{ClientContext} object to your function for synchronous invocations only.}
 
-\item{Payload}{The JSON that you want to provide to your Lambda function as input.
+\item{DurableExecutionName}{Optional unique name for the durable execution. When you start your special function, you can give it a unique name to identify this specific execution. It's like giving a nickname to a task.}
 
-You can enter the JSON directly. For example,
-\verb{--payload '\{ "key": "value" \}'}. You can also specify a file path. For
-example, \verb{--payload file://payload.json}.}
+\item{Payload}{The JSON that you want to provide to your Lambda function as input. The maximum payload size is 6 MB for synchronous invocations and 1 MB for asynchronous invocations.
 
-\item{Qualifier}{Specify a version or alias to invoke a published version of the
-function.}
+You can enter the JSON directly. For example, \verb{--payload '\{ "key": "value" \}'}. You can also specify a file path. For example, \verb{--payload file://payload.json}.}
+
+\item{Qualifier}{Specify a version or alias to invoke a published version of the function.}
+
+\item{TenantId}{The identifier of the tenant in a multi-tenant Lambda function.}
 }
 \description{
 Invokes a Lambda function. You can invoke a function synchronously (and wait for the response), or asynchronously. By default, Lambda invokes your function synchronously (i.e. the\code{InvocationType} is \code{RequestResponse}). To invoke a function asynchronously, set \code{InvocationType} to \code{Event}. Lambda passes the \code{ClientContext} object to your function for synchronous invocations only.

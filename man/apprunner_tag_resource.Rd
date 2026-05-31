@@ -7,14 +7,11 @@
 apprunner_tag_resource(ResourceArn, Tags)
 }
 \arguments{
-\item{ResourceArn}{[required] The Amazon Resource Name (ARN) of the resource that you want to update
-tags for.
+\item{ResourceArn}{[required] The Amazon Resource Name (ARN) of the resource that you want to update tags for.
 
 It must be the ARN of an App Runner resource.}
 
-\item{Tags}{[required] A list of tag key-value pairs to add or update. If a key is new to the
-resource, the tag is added with the provided value. If a key is already
-associated with the resource, the value of the tag is updated.}
+\item{Tags}{[required] A list of tag key-value pairs to add or update. If a key is new to the resource, the tag is added with the provided value. If a key is already associated with the resource, the value of the tag is updated.}
 }
 \description{
 Add tags to, or update the tag values of, an App Runner resource. A tag is a key-value pair.

@@ -13,73 +13,36 @@ ec2_describe_route_tables(
 )
 }
 \arguments{
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{RouteTableIds}{The IDs of the route tables.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{association.gateway-id} - The ID of the gateway involved in the
-association.
-\item \code{association.route-table-association-id} - The ID of an association
-ID for the route table.
-\item \code{association.route-table-id} - The ID of the route table involved in
-the association.
-\item \code{association.subnet-id} - The ID of the subnet involved in the
-association.
-\item \code{association.main} - Indicates whether the route table is the main
-route table for the VPC (\code{true} | \code{false}). Route tables that do not
-have an association ID are not returned in the response.
-\item \code{owner-id} - The ID of the Amazon Web Services account that owns the
-route table.
+\item \code{association.gateway-id} - The ID of the gateway involved in the association.
+\item \code{association.route-table-association-id} - The ID of an association ID for the route table.
+\item \code{association.route-table-id} - The ID of the route table involved in the association.
+\item \code{association.subnet-id} - The ID of the subnet involved in the association.
+\item \code{association.main} - Indicates whether the route table is the main route table for the VPC (\code{true} | \code{false}). Route tables that do not have an association ID are not returned in the response.
+\item \code{owner-id} - The ID of the Amazon Web Services account that owns the route table.
 \item \code{route-table-id} - The ID of the route table.
-\item \code{route.destination-cidr-block} - The IPv4 CIDR range specified in a
-route in the table.
-\item \code{route.destination-ipv6-cidr-block} - The IPv6 CIDR range specified
-in a route in the route table.
-\item \code{route.destination-prefix-list-id} - The ID (prefix) of the Amazon
-Web Services service specified in a route in the table.
-\item \code{route.egress-only-internet-gateway-id} - The ID of an egress-only
-Internet gateway specified in a route in the route table.
-\item \code{route.gateway-id} - The ID of a gateway specified in a route in the
-table.
-\item \code{route.instance-id} - The ID of an instance specified in a route in
-the table.
+\item \code{route.destination-cidr-block} - The IPv4 CIDR range specified in a route in the table.
+\item \code{route.destination-ipv6-cidr-block} - The IPv6 CIDR range specified in a route in the route table.
+\item \code{route.destination-prefix-list-id} - The ID (prefix) of the Amazon Web Services service specified in a route in the table.
+\item \code{route.egress-only-internet-gateway-id} - The ID of an egress-only Internet gateway specified in a route in the route table.
+\item \code{route.gateway-id} - The ID of a gateway specified in a route in the table.
+\item \code{route.instance-id} - The ID of an instance specified in a route in the table.
 \item \code{route.nat-gateway-id} - The ID of a NAT gateway.
 \item \code{route.transit-gateway-id} - The ID of a transit gateway.
-\item \code{route.origin} - Describes how the route was created.
-\code{\link[=ec2_create_route_table]{create_route_table}} indicates that the
-route was automatically created when the route table was created;
-\code{\link[=ec2_create_route]{create_route}} indicates that the route was
-manually added to the route table;
-\code{\link[=ec2_enable_vgw_route_propagation]{enable_vgw_route_propagation}}
-indicates that the route was propagated by route propagation.
-\item \code{route.state} - The state of a route in the route table (\code{active} |
-\code{blackhole}). The blackhole state indicates that the route's target
-isn't available (for example, the specified gateway isn't attached
-to the VPC, the specified NAT instance has been terminated, and so
-on).
-\item \code{route.vpc-peering-connection-id} - The ID of a VPC peering
-connection specified in a route in the table.
-\item \code{tag} - The key/value combination of a tag assigned to the resource.
-Use the tag key in the filter name and the tag value as the filter
-value. For example, to find all resources that have a tag with the
-key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the
-filter name and \code{TeamA} for the filter value.
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources assigned a tag with a specific key,
-regardless of the tag value.
+\item \code{route.origin} - Describes how the route was created. \code{\link[=ec2_create_route_table]{create_route_table}} indicates that the route was automatically created when the route table was created; \code{\link[=ec2_create_route]{create_route}} indicates that the route was manually added to the route table; \code{\link[=ec2_enable_vgw_route_propagation]{enable_vgw_route_propagation}} indicates that the route was propagated by route propagation.
+\item \code{route.state} - The state of a route in the route table (\code{active} | \code{blackhole}). The blackhole state indicates that the route's target isn't available (for example, the specified gateway isn't attached to the VPC, the specified NAT instance has been terminated, and so on).
+\item \code{route.vpc-peering-connection-id} - The ID of a VPC peering connection specified in a route in the table.
+\item \code{tag} - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
 \item \code{vpc-id} - The ID of the VPC for the route table.
 }}
 }

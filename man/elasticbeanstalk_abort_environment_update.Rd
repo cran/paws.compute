@@ -11,11 +11,9 @@ elasticbeanstalk_abort_environment_update(
 )
 }
 \arguments{
-\item{EnvironmentId}{This specifies the ID of the environment with the in-progress update
-that you want to cancel.}
+\item{EnvironmentId}{This specifies the ID of the environment with the in-progress update that you want to cancel.}
 
-\item{EnvironmentName}{This specifies the name of the environment with the in-progress update
-that you want to cancel.}
+\item{EnvironmentName}{This specifies the name of the environment with the in-progress update that you want to cancel.}
 }
 \description{
 Cancels in-progress environment configuration update or application version deployment.

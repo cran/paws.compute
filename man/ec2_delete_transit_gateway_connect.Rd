@@ -9,10 +9,7 @@ ec2_delete_transit_gateway_connect(TransitGatewayAttachmentId, DryRun = NULL)
 \arguments{
 \item{TransitGatewayAttachmentId}{[required] The ID of the Connect attachment.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes the specified Connect attachment. You must first delete any Connect peers for the attachment.

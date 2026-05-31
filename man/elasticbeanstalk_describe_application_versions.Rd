@@ -12,20 +12,15 @@ elasticbeanstalk_describe_application_versions(
 )
 }
 \arguments{
-\item{ApplicationName}{Specify an application name to show only application versions for that
-application.}
+\item{ApplicationName}{Specify an application name to show only application versions for that application.}
 
 \item{VersionLabels}{Specify a version label to show a specific application version.}
 
-\item{MaxRecords}{For a paginated request. Specify a maximum number of application
-versions to include in each response.
+\item{MaxRecords}{For a paginated request. Specify a maximum number of application versions to include in each response.
 
-If no \code{MaxRecords} is specified, all available application versions are
-retrieved in a single response.}
+If no \code{MaxRecords} is specified, all available application versions are retrieved in a single response.}
 
-\item{NextToken}{For a paginated request. Specify a token from a previous response page
-to retrieve the next response page. All other parameter values must be
-identical to the ones specified in the initial request.
+\item{NextToken}{For a paginated request. Specify a token from a previous response page to retrieve the next response page. All other parameter values must be identical to the ones specified in the initial request.
 
 If no \code{NextToken} is specified, the first page is retrieved.}
 }

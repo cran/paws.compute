@@ -15,8 +15,7 @@ eks_associate_encryption_config(
 
 \item{encryptionConfig}{[required] The configuration you are using for encryption.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 }
 \description{
 Associates an encryption configuration to an existing cluster.

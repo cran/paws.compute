@@ -7,12 +7,9 @@
 imagebuilder_cancel_lifecycle_execution(lifecycleExecutionId, clientToken)
 }
 \arguments{
-\item{lifecycleExecutionId}{[required] Identifies the specific runtime instance of the image lifecycle to
-cancel.}
+\item{lifecycleExecutionId}{[required] Identifies the specific runtime instance of the image lifecycle to cancel.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 Cancel a specific image lifecycle policy runtime instance.

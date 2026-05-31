@@ -12,10 +12,7 @@ ec2_disable_vgw_route_propagation(GatewayId, RouteTableId, DryRun = NULL)
 
 \item{RouteTableId}{[required] The ID of the route table.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Disables a virtual private gateway (VGW) from propagating routes to a specified route table of a VPC.

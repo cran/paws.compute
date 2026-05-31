@@ -17,17 +17,12 @@ ec2_describe_iam_instance_profile_associations(
 \item{Filters}{The filters.
 \itemize{
 \item \code{instance-id} - The ID of the instance.
-\item \code{state} - The state of the association (\code{associating} | \code{associated}
-| \code{disassociating}).
+\item \code{state} - The state of the association (\code{associating} | \code{associated} | \code{disassociating}).
 }}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 }
 \description{
 Describes your IAM instance profile associations.

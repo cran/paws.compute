@@ -8,12 +8,9 @@ resource}
 apprunner_describe_observability_configuration(ObservabilityConfigurationArn)
 }
 \arguments{
-\item{ObservabilityConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner observability
-configuration that you want a description for.
+\item{ObservabilityConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner observability configuration that you want a description for.
 
-The ARN can be a full observability configuration ARN, or a partial ARN
-ending with either \code{.../name } or \code{.../name/revision }. If a revision
-isn't specified, the latest active revision is described.}
+The ARN can be a full observability configuration ARN, or a partial ARN ending with either \code{.../name } or \code{.../name/revision }. If a revision isn't specified, the latest active revision is described.}
 }
 \description{
 Return a full description of an App Runner observability configuration resource.

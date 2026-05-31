@@ -8,19 +8,16 @@ Lightsail bucket}
 lightsail_set_resource_access_for_bucket(resourceName, bucketName, access)
 }
 \arguments{
-\item{resourceName}{[required] The name of the Lightsail instance for which to set bucket access. The
-instance must be in a running or stopped state.}
+\item{resourceName}{[required] The name of the Lightsail instance for which to set bucket access. The instance must be in a running or stopped state.}
 
-\item{bucketName}{[required] The name of the bucket for which to set access to another Lightsail
-resource.}
+\item{bucketName}{[required] The name of the bucket for which to set access to another Lightsail resource.}
 
 \item{access}{[required] The access setting.
 
 The following access settings are available:
 \itemize{
 \item \code{allow} - Allows access to the bucket and its objects.
-\item \code{deny} - Denies access to the bucket and its objects. Use this
-setting to remove access for a resource previously set to \code{allow}.
+\item \code{deny} - Denies access to the bucket and its objects. Use this setting to remove access for a resource previously set to \code{allow}.
 }}
 }
 \description{

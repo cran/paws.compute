@@ -17,10 +17,7 @@ ec2instanceconnect_send_serial_console_ssh_public_key(
 
 Default: 0}
 
-\item{SSHPublicKey}{[required] The public key material. To use the public key, you must have the
-matching private key. For information about the supported key formats
-and lengths, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws}{Requirements for key pairs}
-in the \emph{Amazon EC2 User Guide}.}
+\item{SSHPublicKey}{[required] The public key material. To use the public key, you must have the matching private key. For information about the supported key formats and lengths, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws}{Requirements for key pairs} in the \emph{Amazon EC2 User Guide}.}
 }
 \description{
 Pushes an SSH public key to the specified EC2 instance. The key remains for 60 seconds, which gives you 60 seconds to establish a serial console connection to the instance using SSH. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-serial-console.html}{EC2 Serial Console} in the \emph{Amazon EC2 User Guide}.

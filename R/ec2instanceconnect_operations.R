@@ -12,10 +12,8 @@ NULL
 #' See [https://www.paws-r-sdk.com/docs/ec2instanceconnect_send_ssh_public_key/](https://www.paws-r-sdk.com/docs/ec2instanceconnect_send_ssh_public_key/) for full documentation.
 #'
 #' @param InstanceId &#91;required&#93; The ID of the EC2 instance.
-#' @param InstanceOSUser &#91;required&#93; The OS user on the EC2 instance for whom the key can be used to
-#' authenticate.
-#' @param SSHPublicKey &#91;required&#93; The public key material. To use the public key, you must have the
-#' matching private key.
+#' @param InstanceOSUser &#91;required&#93; The OS user on the EC2 instance for whom the key can be used to authenticate.
+#' @param SSHPublicKey &#91;required&#93; The public key material. To use the public key, you must have the matching private key.
 #' @param AvailabilityZone The Availability Zone in which the EC2 instance was launched.
 #'
 #' @keywords internal
@@ -51,11 +49,7 @@ ec2instanceconnect_send_ssh_public_key <- function(InstanceId, InstanceOSUser, S
 #' @param SerialPort The serial port of the EC2 instance. Currently only port 0 is supported.
 #' 
 #' Default: 0
-#' @param SSHPublicKey &#91;required&#93; The public key material. To use the public key, you must have the
-#' matching private key. For information about the supported key formats
-#' and lengths, see [Requirements for key
-#' pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws)
-#' in the *Amazon EC2 User Guide*.
+#' @param SSHPublicKey &#91;required&#93; The public key material. To use the public key, you must have the matching private key. For information about the supported key formats and lengths, see [Requirements for key pairs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html#how-to-generate-your-own-key-and-import-it-to-aws) in the *Amazon EC2 User Guide*.
 #'
 #' @keywords internal
 #'

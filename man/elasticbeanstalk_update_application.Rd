@@ -7,14 +7,11 @@
 elasticbeanstalk_update_application(ApplicationName, Description = NULL)
 }
 \arguments{
-\item{ApplicationName}{[required] The name of the application to update. If no such application is found,
-\code{\link[=elasticbeanstalk_update_application]{update_application}} returns an
-\code{InvalidParameterValue} error.}
+\item{ApplicationName}{[required] The name of the application to update. If no such application is found, \code{\link[=elasticbeanstalk_update_application]{update_application}} returns an \code{InvalidParameterValue} error.}
 
 \item{Description}{A new description for the application.
 
-Default: If not specified, AWS Elastic Beanstalk does not update the
-description.}
+Default: If not specified, AWS Elastic Beanstalk does not update the description.}
 }
 \description{
 Updates the specified application to have the specified properties.

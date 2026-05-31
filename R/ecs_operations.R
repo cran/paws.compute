@@ -3,51 +3,79 @@
 #' @include ecs_service.R
 NULL
 
-#' Creates a new capacity provider
+#' Continues or rolls back an Amazon ECS service deployment that is paused
+#' at a lifecycle hook
 #'
 #' @description
-#' Creates a new capacity provider. Capacity providers are associated with an Amazon ECS cluster and are used in capacity provider strategies to facilitate cluster auto scaling.
+#' Continues or rolls back an Amazon ECS service deployment that is paused at a lifecycle hook.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_continue_service_deployment/](https://www.paws-r-sdk.com/docs/ecs_continue_service_deployment/) for full documentation.
+#'
+#' @param serviceDeploymentArn &#91;required&#93; The ARN of the service deployment to continue or roll back.
+#' @param hookId &#91;required&#93; The ID of the paused lifecycle hook to act on. You can find the `hookId` by calling [`describe_service_deployments`][ecs_describe_service_deployments] and inspecting the `lifecycleHookDetails` field of the service deployment.
+#' @param action The action to take on the paused lifecycle hook. Valid values are:
+#' 
+#' -   `CONTINUE` - Proceeds the deployment to the next lifecycle stage.
+#' 
+#' -   `ROLLBACK` - Rolls back the deployment to the previous service revision.
+#' 
+#' If no value is specified, the default action is `CONTINUE`.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_continue_service_deployment
+ecs_continue_service_deployment <- function(serviceDeploymentArn, hookId, action = NULL) {
+  op <- new_operation(
+    name = "ContinueServiceDeployment",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$continue_service_deployment_input(serviceDeploymentArn = serviceDeploymentArn, hookId = hookId, action = action)
+  output <- .ecs$continue_service_deployment_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$continue_service_deployment <- ecs_continue_service_deployment
+
+#' Creates a capacity provider
+#'
+#' @description
+#' Creates a capacity provider. Capacity providers are associated with a cluster and are used in capacity provider strategies to facilitate cluster auto scaling. You can create capacity providers for Amazon ECS Managed Instances and EC2 instances. Fargate has the predefined `FARGATE` and `FARGATE_SPOT` capacity providers.
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_create_capacity_provider/](https://www.paws-r-sdk.com/docs/ecs_create_capacity_provider/) for full documentation.
 #'
-#' @param name &#91;required&#93; The name of the capacity provider. Up to 255 characters are allowed.
-#' They include letters (both upper and lowercase letters), numbers,
-#' underscores (_), and hyphens (-). The name can't be prefixed with
-#' "`aws`", "`ecs`", or "`fargate`".
-#' @param autoScalingGroupProvider &#91;required&#93; The details of the Auto Scaling group for the capacity provider.
-#' @param tags The metadata that you apply to the capacity provider to categorize and
-#' organize them more conveniently. Each tag consists of a key and an
-#' optional value. You define both of them.
+#' @param name &#91;required&#93; The name of the capacity provider. Up to 255 characters are allowed. They include letters (both upper and lowercase letters), numbers, underscores (_), and hyphens (-). The name can't be prefixed with "`aws`", "`ecs`", or "`fargate`".
+#' @param cluster The name of the cluster to associate with the capacity provider. When you create a capacity provider with Amazon ECS Managed Instances, it becomes available only within the specified cluster.
+#' @param autoScalingGroupProvider The details of the Auto Scaling group for the capacity provider.
+#' @param managedInstancesProvider The configuration for the Amazon ECS Managed Instances provider. This configuration specifies how Amazon ECS manages Amazon EC2 instances on your behalf, including the infrastructure role, instance launch template, and tag propagation settings.
+#' @param tags The metadata that you apply to the capacity provider to categorize and organize them more conveniently. Each tag consists of a key and an optional value. You define both of them.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
 #'
 #' @keywords internal
 #'
 #' @rdname ecs_create_capacity_provider
-ecs_create_capacity_provider <- function(name, autoScalingGroupProvider, tags = NULL) {
+ecs_create_capacity_provider <- function(name, cluster = NULL, autoScalingGroupProvider = NULL, managedInstancesProvider = NULL, tags = NULL) {
   op <- new_operation(
     name = "CreateCapacityProvider",
     http_method = "POST",
@@ -56,7 +84,7 @@ ecs_create_capacity_provider <- function(name, autoScalingGroupProvider, tags = 
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .ecs$create_capacity_provider_input(name = name, autoScalingGroupProvider = autoScalingGroupProvider, tags = tags)
+  input <- .ecs$create_capacity_provider_input(name = name, cluster = cluster, autoScalingGroupProvider = autoScalingGroupProvider, managedInstancesProvider = managedInstancesProvider, tags = tags)
   output <- .ecs$create_capacity_provider_output()
   config <- get_config()
   svc <- .ecs$service(config, op)
@@ -73,94 +101,39 @@ ecs_create_capacity_provider <- function(name, autoScalingGroupProvider, tags = 
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_create_cluster/](https://www.paws-r-sdk.com/docs/ecs_create_cluster/) for full documentation.
 #'
-#' @param clusterName The name of your cluster. If you don't specify a name for your cluster,
-#' you create a cluster that's named `default`. Up to 255 letters
-#' (uppercase and lowercase), numbers, underscores, and hyphens are
-#' allowed.
-#' @param tags The metadata that you apply to the cluster to help you categorize and
-#' organize them. Each tag consists of a key and an optional value. You
-#' define both.
+#' @param clusterName The name of your cluster. If you don't specify a name for your cluster, you create a cluster that's named `default`. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.
+#' @param tags The metadata that you apply to the cluster to help you categorize and organize them. Each tag consists of a key and an optional value. You define both.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
-#' @param settings The setting to use when creating a cluster. This parameter is used to
-#' turn on CloudWatch Container Insights for a cluster. If this value is
-#' specified, it overrides the `containerInsights` value set with
-#' [`put_account_setting`][ecs_put_account_setting] or
-#' [`put_account_setting_default`][ecs_put_account_setting_default].
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#' @param settings The setting to use when creating a cluster. This parameter is used to turn on CloudWatch Container Insights for a cluster. If this value is specified, it overrides the `containerInsights` value set with [`put_account_setting`][ecs_put_account_setting] or [`put_account_setting_default`][ecs_put_account_setting_default].
 #' @param configuration The `execute` command configuration for the cluster.
-#' @param capacityProviders The short name of one or more capacity providers to associate with the
-#' cluster. A capacity provider must be associated with a cluster before it
-#' can be included as part of the default capacity provider strategy of the
-#' cluster or used in a capacity provider strategy when calling the
-#' [`create_service`][ecs_create_service] or [`run_task`][ecs_run_task]
-#' actions.
+#' @param capacityProviders The short name of one or more capacity providers to associate with the cluster. A capacity provider must be associated with a cluster before it can be included as part of the default capacity provider strategy of the cluster or used in a capacity provider strategy when calling the [`create_service`][ecs_create_service] or [`run_task`][ecs_run_task] actions.
 #' 
-#' If specifying a capacity provider that uses an Auto Scaling group, the
-#' capacity provider must be created but not associated with another
-#' cluster. New Auto Scaling group capacity providers can be created with
-#' the [`create_capacity_provider`][ecs_create_capacity_provider] API
-#' operation.
+#' If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must be created but not associated with another cluster. New Auto Scaling group capacity providers can be created with the [`create_capacity_provider`][ecs_create_capacity_provider] API operation.
 #' 
-#' To use a Fargate capacity provider, specify either the `FARGATE` or
-#' `FARGATE_SPOT` capacity providers. The Fargate capacity providers are
-#' available to all accounts and only need to be associated with a cluster
-#' to be used.
+#' To use a Fargate capacity provider, specify either the `FARGATE` or `FARGATE_SPOT` capacity providers. The Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
 #' 
-#' The
-#' [PutCapacityProvider](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/)
-#' API operation is used to update the list of available capacity providers
-#' for a cluster after the cluster is created.
-#' @param defaultCapacityProviderStrategy The capacity provider strategy to set as the default for the cluster.
-#' After a default capacity provider strategy is set for a cluster, when
-#' you call the [`create_service`][ecs_create_service] or
-#' [`run_task`][ecs_run_task] APIs with no capacity provider strategy or
-#' launch type specified, the default capacity provider strategy for the
-#' cluster is used.
+#' The [PutCapacityProvider](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/) API operation is used to update the list of available capacity providers for a cluster after the cluster is created.
+#' @param defaultCapacityProviderStrategy The capacity provider strategy to set as the default for the cluster. After a default capacity provider strategy is set for a cluster, when you call the [`create_service`][ecs_create_service] or [`run_task`][ecs_run_task] APIs with no capacity provider strategy or launch type specified, the default capacity provider strategy for the cluster is used.
 #' 
-#' If a default capacity provider strategy isn't defined for a cluster when
-#' it was created, it can be defined later with the
-#' [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers]
-#' API operation.
-#' @param serviceConnectDefaults Use this parameter to set a default Service Connect namespace. After you
-#' set a default Service Connect namespace, any new services with Service
-#' Connect turned on that are created in the cluster are added as client
-#' services in the namespace. This setting only applies to new services
-#' that set the `enabled` parameter to `true` in the
-#' `ServiceConnectConfiguration`. You can set the namespace of each service
-#' individually in the `ServiceConnectConfiguration` to override this
-#' default parameter.
+#' If a default capacity provider strategy isn't defined for a cluster when it was created, it can be defined later with the [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers] API operation.
+#' @param serviceConnectDefaults Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace, any new services with Service Connect turned on that are created in the cluster are added as client services in the namespace. This setting only applies to new services that set the `enabled` parameter to `true` in the `ServiceConnectConfiguration`. You can set the namespace of each service individually in the `ServiceConnectConfiguration` to override this default parameter.
 #' 
-#' Tasks that run in a namespace can use short names to connect to services
-#' in the namespace. Tasks can connect to services across all of the
-#' clusters in the namespace. Tasks connect through a managed proxy
-#' container that collects logs and metrics for increased visibility. Only
-#' the tasks that Amazon ECS services create are supported with Service
-#' Connect. For more information, see [Service
-#' Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see [Service Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html) in the *Amazon Elastic Container Service Developer Guide*.
 #'
 #' @keywords internal
 #'
@@ -184,6 +157,122 @@ ecs_create_cluster <- function(clusterName = NULL, tags = NULL, settings = NULL,
 }
 .ecs$operations$create_cluster <- ecs_create_cluster
 
+#' Creates a new daemon in the specified cluster and capacity providers
+#'
+#' @description
+#' Creates a new daemon in the specified cluster and capacity providers. A daemon deploys cross-cutting software agents such as security monitoring, telemetry, and logging independently across your Amazon ECS infrastructure.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_create_daemon/](https://www.paws-r-sdk.com/docs/ecs_create_daemon/) for full documentation.
+#'
+#' @param daemonName &#91;required&#93; The name of the daemon. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.
+#' @param clusterArn The Amazon Resource Name (ARN) of the cluster to create the daemon in.
+#' @param daemonTaskDefinitionArn &#91;required&#93; The Amazon Resource Name (ARN) of the daemon task definition to use for the daemon.
+#' @param capacityProviderArns &#91;required&#93; The Amazon Resource Names (ARNs) of the capacity providers to associate with the daemon. The daemon deploys tasks on container instances managed by these capacity providers.
+#' @param deploymentConfiguration Optional deployment parameters that control how the daemon rolls out updates, including the drain percentage, alarm-based rollback, and bake time.
+#' @param tags The metadata that you apply to the daemon to help you categorize and organize them. Each tag consists of a key and an optional value. You define both of them.
+#' 
+#' The following basic restrictions apply to tags:
+#' 
+#' -   Maximum number of tags per resource - 50
+#' 
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
+#' 
+#' -   Maximum key length - 128 Unicode characters in UTF-8
+#' 
+#' -   Maximum value length - 256 Unicode characters in UTF-8
+#' 
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
+#' 
+#' -   Tag keys and values are case-sensitive.
+#' 
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#' @param propagateTags Specifies whether to propagate the tags from the daemon to the daemon tasks. If you don't specify a value, the tags aren't propagated. You can only propagate tags to daemon tasks during task creation. To add tags to a task after task creation, use the [`tag_resource`][ecs_tag_resource] API action.
+#' @param enableECSManagedTags Specifies whether to turn on Amazon ECS managed tags for the tasks in the daemon. For more information, see [Tagging your Amazon ECS resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param enableExecuteCommand Determines whether the execute command functionality is turned on for the daemon. If `true`, the execute command functionality is turned on for all tasks in the daemon.
+#' @param clientToken An identifier that you provide to ensure the idempotency of the request. It must be unique and is case sensitive. Up to 36 ASCII characters in the range of 33-126 (inclusive) are allowed.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_create_daemon
+ecs_create_daemon <- function(daemonName, clusterArn = NULL, daemonTaskDefinitionArn, capacityProviderArns, deploymentConfiguration = NULL, tags = NULL, propagateTags = NULL, enableECSManagedTags = NULL, enableExecuteCommand = NULL, clientToken = NULL) {
+  op <- new_operation(
+    name = "CreateDaemon",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$create_daemon_input(daemonName = daemonName, clusterArn = clusterArn, daemonTaskDefinitionArn = daemonTaskDefinitionArn, capacityProviderArns = capacityProviderArns, deploymentConfiguration = deploymentConfiguration, tags = tags, propagateTags = propagateTags, enableECSManagedTags = enableECSManagedTags, enableExecuteCommand = enableExecuteCommand, clientToken = clientToken)
+  output <- .ecs$create_daemon_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$create_daemon <- ecs_create_daemon
+
+#' Creates an Express service that simplifies deploying containerized web
+#' applications on Amazon ECS with managed Amazon Web Services
+#' infrastructure
+#'
+#' @description
+#' Creates an Express service that simplifies deploying containerized web applications on Amazon ECS with managed Amazon Web Services infrastructure. This operation provisions and configures Application Load Balancers, target groups, security groups, and auto-scaling policies automatically.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_create_express_gateway_service/](https://www.paws-r-sdk.com/docs/ecs_create_express_gateway_service/) for full documentation.
+#'
+#' @param executionRoleArn &#91;required&#93; The Amazon Resource Name (ARN) of the task execution role that grants the Amazon ECS container agent permission to make Amazon Web Services API calls on your behalf. This role is required for Amazon ECS to pull container images from Amazon ECR, send container logs to Amazon CloudWatch Logs, and retrieve sensitive data from Amazon Web Services Systems Manager Parameter Store or Amazon Web Services Secrets Manager.
+#' 
+#' The execution role must include the `AmazonECSTaskExecutionRolePolicy` managed policy or equivalent permissions. For Express services, this role is used during task startup and runtime for container management operations.
+#' @param infrastructureRoleArn &#91;required&#93; The Amazon Resource Name (ARN) of the infrastructure role that grants Amazon ECS permission to create and manage Amazon Web Services resources on your behalf for the Express service. This role is used to provision and manage Application Load Balancers, target groups, security groups, auto-scaling policies, and other Amazon Web Services infrastructure components.
+#' 
+#' The infrastructure role must include permissions for Elastic Load Balancing, Application Auto Scaling, Amazon EC2 (for security groups), and other services required for managed infrastructure. This role is only used during Express service creation, updates, and deletion operations.
+#' @param serviceName The name of the Express service. This name must be unique within the specified cluster and can contain up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens. The name is used to identify the service in the Amazon ECS console and API operations.
+#' 
+#' If you don't specify a service name, Amazon ECS generates a unique name for the service. The service name becomes part of the service ARN and cannot be changed after the service is created.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster on which to create the Express service. If you do not specify a cluster, the `default` cluster is assumed.
+#' @param healthCheckPath The path on the container that the Application Load Balancer uses for health checks. This should be a valid HTTP endpoint that returns a successful response (HTTP 200) when the application is healthy.
+#' 
+#' If not specified, the default health check path is `/ping`. The health check path must start with a forward slash and can include query parameters. Examples: `/health`, `/api/status`, `/ping?format=json`.
+#' @param primaryContainer &#91;required&#93; The primary container configuration for the Express service. This defines the main application container that will receive traffic from the Application Load Balancer.
+#' 
+#' The primary container must specify at minimum a container image. You can also configure the container port (defaults to 80), logging configuration, environment variables, secrets, and startup commands. The container image can be from Amazon ECR, Docker Hub, or any other container registry accessible to your execution role.
+#' @param taskRoleArn The Amazon Resource Name (ARN) of the IAM role that containers in this task can assume. This role allows your application code to access other Amazon Web Services services securely.
+#' 
+#' The task role is different from the execution role. While the execution role is used by the Amazon ECS agent to set up the task, the task role is used by your application code running inside the container to make Amazon Web Services API calls. If your application doesn't need to access Amazon Web Services services, you can omit this parameter.
+#' @param networkConfiguration The network configuration for the Express service tasks. This specifies the VPC subnets and security groups for the tasks.
+#' 
+#' For Express services, you can specify custom security groups and subnets. If not provided, Amazon ECS will use the default VPC configuration and create appropriate security groups automatically. The network configuration determines how your service integrates with your VPC and what network access it has.
+#' @param cpu The number of CPU units used by the task. This parameter determines the CPU allocation for each task in the Express service. The default value for an Express service is 256 (.25 vCPU).
+#' @param memory The amount of memory (in MiB) used by the task. This parameter determines the memory allocation for each task in the Express service. The default value for an express service is 512 MiB.
+#' @param scalingTarget The auto-scaling configuration for the Express service. This defines how the service automatically adjusts the number of running tasks based on demand.
+#' 
+#' You can specify the minimum and maximum number of tasks, the scaling metric (CPU utilization, memory utilization, or request count per target), and the target value for the metric. If not specified, the default target value for an Express service is 60.
+#' @param tags The metadata that you apply to the Express service to help categorize and organize it. Each tag consists of a key and an optional value. You can apply up to 50 tags to a service.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_create_express_gateway_service
+ecs_create_express_gateway_service <- function(executionRoleArn, infrastructureRoleArn, serviceName = NULL, cluster = NULL, healthCheckPath = NULL, primaryContainer, taskRoleArn = NULL, networkConfiguration = NULL, cpu = NULL, memory = NULL, scalingTarget = NULL, tags = NULL) {
+  op <- new_operation(
+    name = "CreateExpressGatewayService",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$create_express_gateway_service_input(executionRoleArn = executionRoleArn, infrastructureRoleArn = infrastructureRoleArn, serviceName = serviceName, cluster = cluster, healthCheckPath = healthCheckPath, primaryContainer = primaryContainer, taskRoleArn = taskRoleArn, networkConfiguration = networkConfiguration, cpu = cpu, memory = memory, scalingTarget = scalingTarget, tags = tags)
+  output <- .ecs$create_express_gateway_service_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$create_express_gateway_service <- ecs_create_express_gateway_service
+
 #' Runs and maintains your desired number of tasks from a specified task
 #' definition
 #'
@@ -192,273 +281,115 @@ ecs_create_cluster <- function(clusterName = NULL, tags = NULL, settings = NULL,
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_create_service/](https://www.paws-r-sdk.com/docs/ecs_create_service/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' you run your service on. If you do not specify a cluster, the default
-#' cluster is assumed.
-#' @param serviceName &#91;required&#93; The name of your service. Up to 255 letters (uppercase and lowercase),
-#' numbers, underscores, and hyphens are allowed. Service names must be
-#' unique within a cluster, but you can have similarly named services in
-#' multiple clusters within a Region or across multiple Regions.
-#' @param taskDefinition The `family` and `revision` (`family:revision`) or full ARN of the task
-#' definition to run in your service. If a `revision` isn't specified, the
-#' latest `ACTIVE` revision is used.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that you run your service on. If you do not specify a cluster, the default cluster is assumed.
+#' @param serviceName &#91;required&#93; The name of your service. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed. Service names must be unique within a cluster, but you can have similarly named services in multiple clusters within a Region or across multiple Regions.
+#' @param taskDefinition The `family` and `revision` (`family:revision`) or full ARN of the task definition to run in your service. If a `revision` isn't specified, the latest `ACTIVE` revision is used.
 #' 
-#' A task definition must be specified if the service uses either the `ECS`
-#' or `CODE_DEPLOY` deployment controllers.
+#' A task definition must be specified if the service uses either the `ECS` or `CODE_DEPLOY` deployment controllers.
 #' 
-#' For more information about deployment types, see [Amazon ECS deployment
-#' types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/).
+#' For more information about deployment types, see [Amazon ECS deployment types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/).
 #' @param availabilityZoneRebalancing Indicates whether to use Availability Zone rebalancing for the service.
 #' 
-#' For more information, see [Balancing an Amazon ECS service across
-#' Availability
-#' Zones](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-rebalancing.html)
-#' in the *Amazon Elastic Container Service Developer Guide* .
-#' @param loadBalancers A load balancer object representing the load balancers to use with your
-#' service. For more information, see [Service load
-#' balancing](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' For more information, see [Balancing an Amazon ECS service across Availability Zones](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-rebalancing.html) in the *Amazon Elastic Container Service Developer Guide* .
 #' 
-#' If the service uses the rolling update (`ECS`) deployment controller and
-#' using either an Application Load Balancer or Network Load Balancer, you
-#' must specify one or more target group ARNs to attach to the service. The
-#' service-linked role is required for services that use multiple target
-#' groups. For more information, see [Using service-linked roles for Amazon
-#' ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' The default behavior of `AvailabilityZoneRebalancing` differs between create and update requests:
 #' 
-#' If the service uses the `CODE_DEPLOY` deployment controller, the service
-#' is required to use either an Application Load Balancer or Network Load
-#' Balancer. When creating an CodeDeploy deployment group, you specify two
-#' target groups (referred to as a `targetGroupPair`). During a deployment,
-#' CodeDeploy determines which task set in your service has the status
-#' `PRIMARY`, and it associates one target group with it. Then, it also
-#' associates the other target group with the replacement task set. The
-#' load balancer can also have up to two listeners: a required listener for
-#' production traffic and an optional listener that you can use to perform
-#' validation tests with Lambda functions before routing production traffic
-#' to it.
+#' -   For create service requests, when no value is specified for `AvailabilityZoneRebalancing`, Amazon ECS defaults the value to `ENABLED`.
 #' 
-#' If you use the `CODE_DEPLOY` deployment controller, these values can be
-#' changed when updating the service.
+#' -   For update service requests, when no value is specified for `AvailabilityZoneRebalancing`, Amazon ECS defaults to the existing service’s `AvailabilityZoneRebalancing` value. If the service never had an `AvailabilityZoneRebalancing` value set, Amazon ECS treats this as `DISABLED`.
+#' @param loadBalancers A load balancer object representing the load balancers to use with your service. For more information, see [Service load balancing](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-load-balancing.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' For Application Load Balancers and Network Load Balancers, this object
-#' must contain the load balancer target group ARN, the container name, and
-#' the container port to access from the load balancer. The container name
-#' must be as it appears in a container definition. The load balancer name
-#' parameter must be omitted. When a task from this service is placed on a
-#' container instance, the container instance and port combination is
-#' registered as a target in the target group that's specified here.
+#' If the service uses the `ECS` deployment controller and using either an Application Load Balancer or Network Load Balancer, you must specify one or more target group ARNs to attach to the service. The service-linked role is required for services that use multiple target groups. For more information, see [Using service-linked roles for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' For Classic Load Balancers, this object must contain the load balancer
-#' name, the container name , and the container port to access from the
-#' load balancer. The container name must be as it appears in a container
-#' definition. The target group ARN parameter must be omitted. When a task
-#' from this service is placed on a container instance, the container
-#' instance is registered with the load balancer that's specified here.
+#' If the service uses the `CODE_DEPLOY` deployment controller, the service is required to use either an Application Load Balancer or Network Load Balancer. When creating an CodeDeploy deployment group, you specify two target groups (referred to as a `targetGroupPair`). During a deployment, CodeDeploy determines which task set in your service has the status `PRIMARY`, and it associates one target group with it. Then, it also associates the other target group with the replacement task set. The load balancer can also have up to two listeners: a required listener for production traffic and an optional listener that you can use to perform validation tests with Lambda functions before routing production traffic to it.
 #' 
-#' Services with tasks that use the `awsvpc` network mode (for example,
-#' those with the Fargate launch type) only support Application Load
-#' Balancers and Network Load Balancers. Classic Load Balancers aren't
-#' supported. Also, when you create any target groups for these services,
-#' you must choose `ip` as the target type, not `instance`. This is because
-#' tasks that use the `awsvpc` network mode are associated with an elastic
-#' network interface, not an Amazon EC2 instance.
-#' @param serviceRegistries The details of the service discovery registry to associate with this
-#' service. For more information, see [Service
-#' discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
+#' If you use the `CODE_DEPLOY` deployment controller, these values can be changed when updating the service.
 #' 
-#' Each service may be associated with one service registry. Multiple
-#' service registries for each service isn't supported.
-#' @param desiredCount The number of instantiations of the specified task definition to place
-#' and keep running in your service.
+#' For Application Load Balancers and Network Load Balancers, this object must contain the load balancer target group ARN, the container name, and the container port to access from the load balancer. The container name must be as it appears in a container definition. The load balancer name parameter must be omitted. When a task from this service is placed on a container instance, the container instance and port combination is registered as a target in the target group that's specified here.
 #' 
-#' This is required if `schedulingStrategy` is `REPLICA` or isn't
-#' specified. If `schedulingStrategy` is `DAEMON` then this isn't required.
-#' @param clientToken An identifier that you provide to ensure the idempotency of the request.
-#' It must be unique and is case sensitive. Up to 36 ASCII characters in
-#' the range of 33-126 (inclusive) are allowed.
-#' @param launchType The infrastructure that you run your service on. For more information,
-#' see [Amazon ECS launch
-#' types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' For Classic Load Balancers, this object must contain the load balancer name, the container name , and the container port to access from the load balancer. The container name must be as it appears in a container definition. The target group ARN parameter must be omitted. When a task from this service is placed on a container instance, the container instance is registered with the load balancer that's specified here.
 #' 
-#' The `FARGATE` launch type runs your tasks on Fargate On-Demand
-#' infrastructure.
+#' Services with tasks that use the `awsvpc` network mode (for example, those with the Fargate launch type) only support Application Load Balancers and Network Load Balancers. Classic Load Balancers aren't supported. Also, when you create any target groups for these services, you must choose `ip` as the target type, not `instance`. This is because tasks that use the `awsvpc` network mode are associated with an elastic network interface, not an Amazon EC2 instance.
+#' @param serviceRegistries The details of the service discovery registry to associate with this service. For more information, see [Service discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
 #' 
-#' Fargate Spot infrastructure is available for use but a capacity provider
-#' strategy must be used. For more information, see [Fargate capacity
-#' providers](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-capacity-providers.html)
-#' in the *Amazon ECS Developer Guide*.
+#' Each service may be associated with one service registry. Multiple service registries for each service isn't supported.
+#' @param desiredCount The number of instantiations of the specified task definition to place and keep running in your service.
 #' 
-#' The `EC2` launch type runs your tasks on Amazon EC2 instances registered
-#' to your cluster.
+#' This is required if `schedulingStrategy` is `REPLICA` or isn't specified. If `schedulingStrategy` is `DAEMON` then this isn't required.
+#' @param clientToken An identifier that you provide to ensure the idempotency of the request. It must be unique and is case sensitive. Up to 36 ASCII characters in the range of 33-126 (inclusive) are allowed.
+#' @param launchType The infrastructure that you run your service on. For more information, see [Amazon ECS launch types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-configuration.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' The `EXTERNAL` launch type runs your tasks on your on-premises server or
-#' virtual machine (VM) capacity registered to your cluster.
+#' If you want to use Amazon ECS Managed Instances, you must use the `capacityProviderStrategy` request parameter and omit the `launchType` request parameter.
 #' 
-#' A service can use either a launch type or a capacity provider strategy.
-#' If a `launchType` is specified, the `capacityProviderStrategy` parameter
-#' must be omitted.
+#' The `FARGATE` launch type runs your tasks on Fargate On-Demand infrastructure.
+#' 
+#' Fargate Spot infrastructure is available for use but a capacity provider strategy must be used. For more information, see [Fargate capacity providers](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-capacity-providers.html) in the *Amazon ECS Developer Guide*.
+#' 
+#' The `EC2` launch type runs your tasks on Amazon EC2 instances registered to your cluster.
+#' 
+#' The `EXTERNAL` launch type runs your tasks on your on-premises server or virtual machine (VM) capacity registered to your cluster.
+#' 
+#' A service can use either a launch type or a capacity provider strategy. If a `launchType` is specified, the `capacityProviderStrategy` parameter must be omitted.
 #' @param capacityProviderStrategy The capacity provider strategy to use for the service.
 #' 
-#' If a `capacityProviderStrategy` is specified, the `launchType` parameter
-#' must be omitted. If no `capacityProviderStrategy` or `launchType` is
-#' specified, the `defaultCapacityProviderStrategy` for the cluster is
-#' used.
+#' If you want to use Amazon ECS Managed Instances, you must use the `capacityProviderStrategy` request parameter and omit the `launchType` request parameter.
 #' 
-#' A capacity provider strategy can contain a maximum of 20 capacity
-#' providers.
-#' @param platformVersion The platform version that your tasks in the service are running on. A
-#' platform version is specified only for tasks using the Fargate launch
-#' type. If one isn't specified, the `LATEST` platform version is used. For
-#' more information, see [Fargate platform
-#' versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform-fargate.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param role The name or full Amazon Resource Name (ARN) of the IAM role that allows
-#' Amazon ECS to make calls to your load balancer on your behalf. This
-#' parameter is only permitted if you are using a load balancer with your
-#' service and your task definition doesn't use the `awsvpc` network mode.
-#' If you specify the `role` parameter, you must also specify a load
-#' balancer object with the `loadBalancers` parameter.
+#' If a `capacityProviderStrategy` is specified, the `launchType` parameter must be omitted. If no `capacityProviderStrategy` or `launchType` is specified, the `defaultCapacityProviderStrategy` for the cluster is used.
 #' 
-#' If your account has already created the Amazon ECS service-linked role,
-#' that role is used for your service unless you specify a role here. The
-#' service-linked role is required if your task definition uses the
-#' `awsvpc` network mode or if the service is configured to use service
-#' discovery, an external deployment controller, multiple target groups, or
-#' Elastic Inference accelerators in which case you don't specify a role
-#' here. For more information, see [Using service-linked roles for Amazon
-#' ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' A capacity provider strategy can contain a maximum of 20 capacity providers.
+#' @param platformVersion The platform version that your tasks in the service are running on. A platform version is specified only for tasks using the Fargate launch type. If one isn't specified, the `LATEST` platform version is used. For more information, see [Fargate platform versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform-fargate.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param role The name or full Amazon Resource Name (ARN) of the IAM role that allows Amazon ECS to make calls to your load balancer on your behalf. This parameter is only permitted if you are using a load balancer with your service and your task definition doesn't use the `awsvpc` network mode. If you specify the `role` parameter, you must also specify a load balancer object with the `loadBalancers` parameter.
 #' 
-#' If your specified role has a path other than `/`, then you must either
-#' specify the full role ARN (this is recommended) or prefix the role name
-#' with the path. For example, if a role with the name `bar` has a path of
-#' `/foo/` then you would specify `/foo/bar` as the role name. For more
-#' information, see [Friendly names and
-#' paths](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names)
-#' in the *IAM User Guide*.
-#' @param deploymentConfiguration Optional deployment parameters that control how many tasks run during
-#' the deployment and the ordering of stopping and starting tasks.
-#' @param placementConstraints An array of placement constraint objects to use for tasks in your
-#' service. You can specify a maximum of 10 constraints for each task. This
-#' limit includes constraints in the task definition and those specified at
-#' runtime.
-#' @param placementStrategy The placement strategy objects to use for tasks in your service. You can
-#' specify a maximum of 5 strategy rules for each service.
-#' @param networkConfiguration The network configuration for the service. This parameter is required
-#' for task definitions that use the `awsvpc` network mode to receive their
-#' own elastic network interface, and it isn't supported for other network
-#' modes. For more information, see [Task
-#' networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param healthCheckGracePeriodSeconds The period of time, in seconds, that the Amazon ECS service scheduler
-#' ignores unhealthy Elastic Load Balancing, VPC Lattice, and container
-#' health checks after a task has first started. If you don't specify a
-#' health check grace period value, the default value of `0` is used. If
-#' you don't use any of the health checks, then
-#' `healthCheckGracePeriodSeconds` is unused.
+#' If your account has already created the Amazon ECS service-linked role, that role is used for your service unless you specify a role here. The service-linked role is required if your task definition uses the `awsvpc` network mode or if the service is configured to use service discovery, an external deployment controller, multiple target groups, or Elastic Inference accelerators in which case you don't specify a role here. For more information, see [Using service-linked roles for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using-service-linked-roles.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' If your service's tasks take a while to start and respond to health
-#' checks, you can specify a health check grace period of up to
-#' 2,147,483,647 seconds (about 69 years). During that time, the Amazon ECS
-#' service scheduler ignores health check status. This grace period can
-#' prevent the service scheduler from marking tasks as unhealthy and
-#' stopping them before they have time to come up.
-#' @param schedulingStrategy The scheduling strategy to use for the service. For more information,
-#' see
-#' [Services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html).
+#' If your specified role has a path other than `/`, then you must either specify the full role ARN (this is recommended) or prefix the role name with the path. For example, if a role with the name `bar` has a path of `/foo/` then you would specify `/foo/bar` as the role name. For more information, see [Friendly names and paths](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names) in the *IAM User Guide*.
+#' @param deploymentConfiguration Optional deployment parameters that control how many tasks run during the deployment and the ordering of stopping and starting tasks.
+#' @param placementConstraints An array of placement constraint objects to use for tasks in your service. You can specify a maximum of 10 constraints for each task. This limit includes constraints in the task definition and those specified at runtime.
+#' @param placementStrategy The placement strategy objects to use for tasks in your service. You can specify a maximum of 5 strategy rules for each service.
+#' @param networkConfiguration The network configuration for the service. This parameter is required for task definitions that use the `awsvpc` network mode to receive their own elastic network interface, and it isn't supported for other network modes. For more information, see [Task networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param healthCheckGracePeriodSeconds The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy Elastic Load Balancing, VPC Lattice, and container health checks after a task has first started. If you do not specify a health check grace period value, the default value of 0 is used. If you do not use any of the health checks, then `healthCheckGracePeriodSeconds` is unused.
+#' 
+#' If your service has more running tasks than desired, unhealthy tasks in the grace period might be stopped to reach the desired count.
+#' @param schedulingStrategy The scheduling strategy to use for the service. For more information, see [Services](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs_services.html).
 #' 
 #' There are two service scheduler strategies available:
 #' 
-#' -   `REPLICA`-The replica scheduling strategy places and maintains the
-#'     desired number of tasks across your cluster. By default, the service
-#'     scheduler spreads tasks across Availability Zones. You can use task
-#'     placement strategies and constraints to customize task placement
-#'     decisions. This scheduler strategy is required if the service uses
-#'     the `CODE_DEPLOY` or `EXTERNAL` deployment controller types.
+#' -   `REPLICA`-The replica scheduling strategy places and maintains the desired number of tasks across your cluster. By default, the service scheduler spreads tasks across Availability Zones. You can use task placement strategies and constraints to customize task placement decisions. This scheduler strategy is required if the service uses the `CODE_DEPLOY` or `EXTERNAL` deployment controller types.
 #' 
-#' -   `DAEMON`-The daemon scheduling strategy deploys exactly one task on
-#'     each active container instance that meets all of the task placement
-#'     constraints that you specify in your cluster. The service scheduler
-#'     also evaluates the task placement constraints for running tasks and
-#'     will stop tasks that don't meet the placement constraints. When
-#'     you're using this strategy, you don't need to specify a desired
-#'     number of tasks, a task placement strategy, or use Service Auto
-#'     Scaling policies.
+#' -   `DAEMON`-The daemon scheduling strategy deploys exactly one task on each active container instance that meets all of the task placement constraints that you specify in your cluster. The service scheduler also evaluates the task placement constraints for running tasks and will stop tasks that don't meet the placement constraints. When you're using this strategy, you don't need to specify a desired number of tasks, a task placement strategy, or use Service Auto Scaling policies.
 #' 
-#'     Tasks using the Fargate launch type or the `CODE_DEPLOY` or
-#'     `EXTERNAL` deployment controller types don't support the `DAEMON`
-#'     scheduling strategy.
-#' @param deploymentController The deployment controller to use for the service. If no deployment
-#' controller is specified, the default value of `ECS` is used.
-#' @param tags The metadata that you apply to the service to help you categorize and
-#' organize them. Each tag consists of a key and an optional value, both of
-#' which you define. When a service is deleted, the tags are deleted as
-#' well.
+#'     Tasks using the Fargate launch type or the `CODE_DEPLOY` or `EXTERNAL` deployment controller types don't support the `DAEMON` scheduling strategy.
+#' @param deploymentController The deployment controller to use for the service. If no deployment controller is specified, the default value of `ECS` is used.
+#' @param tags The metadata that you apply to the service to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define. When a service is deleted, the tags are deleted as well.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
-#' @param enableECSManagedTags Specifies whether to turn on Amazon ECS managed tags for the tasks
-#' within the service. For more information, see [Tagging your Amazon ECS
-#' resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#' @param enableECSManagedTags Specifies whether to turn on Amazon ECS managed tags for the tasks within the service. For more information, see [Tagging your Amazon ECS resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' When you use Amazon ECS managed tags, you need to set the
-#' `propagateTags` request parameter.
-#' @param propagateTags Specifies whether to propagate the tags from the task definition to the
-#' task. If no value is specified, the tags aren't propagated. Tags can
-#' only be propagated to the task during task creation. To add tags to a
-#' task after task creation, use the [`tag_resource`][ecs_tag_resource] API
-#' action.
+#' When you use Amazon ECS managed tags, you must set the `propagateTags` request parameter.
+#' @param propagateTags Specifies whether to propagate the tags from the task definition to the task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the task during task creation. To add tags to a task after task creation, use the [`tag_resource`][ecs_tag_resource] API action.
 #' 
-#' You must set this to a value other than `NONE` when you use Cost
-#' Explorer. For more information, see [Amazon ECS usage
-#' reports](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/usage-reports.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' You must set this to a value other than `NONE` when you use Cost Explorer. For more information, see [Amazon ECS usage reports](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/usage-reports.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
 #' The default is `NONE`.
-#' @param enableExecuteCommand Determines whether the execute command functionality is turned on for
-#' the service. If `true`, this enables execute command functionality on
-#' all containers in the service tasks.
-#' @param serviceConnectConfiguration The configuration for this service to discover and connect to services,
-#' and be discovered by, and connected from, other services within a
-#' namespace.
+#' @param enableExecuteCommand Determines whether the execute command functionality is turned on for the service. If `true`, this enables execute command functionality on all containers in the service tasks.
+#' @param serviceConnectConfiguration The configuration for this service to discover and connect to services, and be discovered by, and connected from, other services within a namespace.
 #' 
-#' Tasks that run in a namespace can use short names to connect to services
-#' in the namespace. Tasks can connect to services across all of the
-#' clusters in the namespace. Tasks connect through a managed proxy
-#' container that collects logs and metrics for increased visibility. Only
-#' the tasks that Amazon ECS services create are supported with Service
-#' Connect. For more information, see [Service
-#' Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param volumeConfigurations The configuration for a volume specified in the task definition as a
-#' volume that is configured at launch time. Currently, the only supported
-#' volume type is an Amazon EBS volume.
+#' Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see [Service Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param volumeConfigurations The configuration for a volume specified in the task definition as a volume that is configured at launch time. Currently, the only supported volume type is an Amazon EBS volume.
 #' @param vpcLatticeConfigurations The VPC Lattice configuration for the service being created.
 #'
 #' @keywords internal
@@ -490,97 +421,47 @@ ecs_create_service <- function(cluster = NULL, serviceName, taskDefinition = NUL
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_create_task_set/](https://www.paws-r-sdk.com/docs/ecs_create_task_set/) for full documentation.
 #'
-#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service to
-#' create the task set in.
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the service to create the task set in.
-#' @param externalId An optional non-unique tag that identifies this task set in external
-#' systems. If the task set is associated with a service discovery
-#' registry, the tasks in this task set will have the
-#' `ECS_TASK_SET_EXTERNAL_ID` Cloud Map attribute set to the provided
-#' value.
-#' @param taskDefinition &#91;required&#93; The task definition for the tasks in the task set to use. If a revision
-#' isn't specified, the latest `ACTIVE` revision is used.
+#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service to create the task set in.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to create the task set in.
+#' @param externalId An optional non-unique tag that identifies this task set in external systems. If the task set is associated with a service discovery registry, the tasks in this task set will have the `ECS_TASK_SET_EXTERNAL_ID` Cloud Map attribute set to the provided value.
+#' @param taskDefinition &#91;required&#93; The task definition for the tasks in the task set to use. If a revision isn't specified, the latest `ACTIVE` revision is used.
 #' @param networkConfiguration An object representing the network configuration for a task set.
-#' @param loadBalancers A load balancer object representing the load balancer to use with the
-#' task set. The supported load balancer types are either an Application
-#' Load Balancer or a Network Load Balancer.
-#' @param serviceRegistries The details of the service discovery registries to assign to this task
-#' set. For more information, see [Service
-#' discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
-#' @param launchType The launch type that new tasks in the task set uses. For more
-#' information, see [Amazon ECS launch
-#' types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' @param loadBalancers A load balancer object representing the load balancer to use with the task set. The supported load balancer types are either an Application Load Balancer or a Network Load Balancer.
+#' @param serviceRegistries The details of the service discovery registries to assign to this task set. For more information, see [Service discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
+#' @param launchType The launch type that new tasks in the task set uses. For more information, see [Amazon ECS launch types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-configuration.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' If a `launchType` is specified, the `capacityProviderStrategy` parameter
-#' must be omitted.
+#' If a `launchType` is specified, the `capacityProviderStrategy` parameter must be omitted.
 #' @param capacityProviderStrategy The capacity provider strategy to use for the task set.
 #' 
-#' A capacity provider strategy consists of one or more capacity providers
-#' along with the `base` and `weight` to assign to them. A capacity
-#' provider must be associated with the cluster to be used in a capacity
-#' provider strategy. The
-#' [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers]
-#' API is used to associate a capacity provider with a cluster. Only
-#' capacity providers with an `ACTIVE` or `UPDATING` status can be used.
+#' A capacity provider strategy consists of one or more capacity providers along with the `base` and `weight` to assign to them. A capacity provider must be associated with the cluster to be used in a capacity provider strategy. The [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers] API is used to associate a capacity provider with a cluster. Only capacity providers with an `ACTIVE` or `UPDATING` status can be used.
 #' 
-#' If a `capacityProviderStrategy` is specified, the `launchType` parameter
-#' must be omitted. If no `capacityProviderStrategy` or `launchType` is
-#' specified, the `defaultCapacityProviderStrategy` for the cluster is
-#' used.
+#' If a `capacityProviderStrategy` is specified, the `launchType` parameter must be omitted. If no `capacityProviderStrategy` or `launchType` is specified, the `defaultCapacityProviderStrategy` for the cluster is used.
 #' 
-#' If specifying a capacity provider that uses an Auto Scaling group, the
-#' capacity provider must already be created. New capacity providers can be
-#' created with the
-#' [CreateCapacityProviderProvider](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/)API
-#' operation.
+#' If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must already be created. New capacity providers can be created with the [CreateCapacityProviderProvider](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/)API operation.
 #' 
-#' To use a Fargate capacity provider, specify either the `FARGATE` or
-#' `FARGATE_SPOT` capacity providers. The Fargate capacity providers are
-#' available to all accounts and only need to be associated with a cluster
-#' to be used.
+#' To use a Fargate capacity provider, specify either the `FARGATE` or `FARGATE_SPOT` capacity providers. The Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
 #' 
-#' The
-#' [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers]
-#' API operation is used to update the list of available capacity providers
-#' for a cluster after the cluster is created.
-#' @param platformVersion The platform version that the tasks in the task set uses. A platform
-#' version is specified only for tasks using the Fargate launch type. If
-#' one isn't specified, the `LATEST` platform version is used.
-#' @param scale A floating-point percentage of the desired number of tasks to place and
-#' keep running in the task set.
-#' @param clientToken An identifier that you provide to ensure the idempotency of the request.
-#' It must be unique and is case sensitive. Up to 36 ASCII characters in
-#' the range of 33-126 (inclusive) are allowed.
-#' @param tags The metadata that you apply to the task set to help you categorize and
-#' organize them. Each tag consists of a key and an optional value. You
-#' define both. When a service is deleted, the tags are deleted.
+#' The [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers] API operation is used to update the list of available capacity providers for a cluster after the cluster is created.
+#' @param platformVersion The platform version that the tasks in the task set uses. A platform version is specified only for tasks using the Fargate launch type. If one isn't specified, the `LATEST` platform version is used.
+#' @param scale A floating-point percentage of the desired number of tasks to place and keep running in the task set.
+#' @param clientToken An identifier that you provide to ensure the idempotency of the request. It must be unique and is case sensitive. Up to 36 ASCII characters in the range of 33-126 (inclusive) are allowed.
+#' @param tags The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of a key and an optional value. You define both. When a service is deleted, the tags are deleted.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
 #'
 #' @keywords internal
 #'
@@ -612,19 +493,10 @@ ecs_create_task_set <- function(service, cluster, externalId = NULL, taskDefinit
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_delete_account_setting/](https://www.paws-r-sdk.com/docs/ecs_delete_account_setting/) for full documentation.
 #'
-#' @param name &#91;required&#93; The resource name to disable the account setting for. If
-#' `serviceLongArnFormat` is specified, the ARN for your Amazon ECS
-#' services is affected. If `taskLongArnFormat` is specified, the ARN and
-#' resource ID for your Amazon ECS tasks is affected. If
-#' `containerInstanceLongArnFormat` is specified, the ARN and resource ID
-#' for your Amazon ECS container instances is affected. If `awsvpcTrunking`
-#' is specified, the ENI limit for your Amazon ECS container instances is
-#' affected.
-#' @param principalArn The Amazon Resource Name (ARN) of the principal. It can be an user,
-#' role, or the root user. If you specify the root user, it disables the
-#' account setting for all users, roles, and the root user of the account
-#' unless a user or role explicitly overrides these settings. If this field
-#' is omitted, the setting is changed only for the authenticated user.
+#' @param name &#91;required&#93; The resource name to disable the account setting for. If `serviceLongArnFormat` is specified, the ARN for your Amazon ECS services is affected. If `taskLongArnFormat` is specified, the ARN and resource ID for your Amazon ECS tasks is affected. If `containerInstanceLongArnFormat` is specified, the ARN and resource ID for your Amazon ECS container instances is affected. If `awsvpcTrunking` is specified, the ENI limit for your Amazon ECS container instances is affected.
+#' @param principalArn The Amazon Resource Name (ARN) of the principal. It can be a user, role, or the root user. If you specify the root user, it disables the account setting for all users, roles, and the root user of the account unless a user or role explicitly overrides these settings. If this field is omitted, the setting is changed only for the authenticated user.
+#' 
+#' In order to use this parameter, you must be the root user, or the principal.
 #'
 #' @keywords internal
 #'
@@ -655,14 +527,8 @@ ecs_delete_account_setting <- function(name, principalArn = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_delete_attributes/](https://www.paws-r-sdk.com/docs/ecs_delete_attributes/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' contains the resource to delete attributes. If you do not specify a
-#' cluster, the default cluster is assumed.
-#' @param attributes &#91;required&#93; The attributes to delete from your resource. You can specify up to 10
-#' attributes for each request. For custom attributes, specify the
-#' attribute name and target ID, but don't specify the value. If you
-#' specify the target ID using the short form, you must also specify the
-#' target type.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that contains the resource to delete attributes. If you do not specify a cluster, the default cluster is assumed.
+#' @param attributes &#91;required&#93; The attributes to delete from your resource. You can specify up to 10 attributes for each request. For custom attributes, specify the attribute name and target ID, but don't specify the value. If you specify the target ID using the short form, you must also specify the target type.
 #'
 #' @keywords internal
 #'
@@ -693,13 +559,13 @@ ecs_delete_attributes <- function(cluster = NULL, attributes) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_delete_capacity_provider/](https://www.paws-r-sdk.com/docs/ecs_delete_capacity_provider/) for full documentation.
 #'
-#' @param capacityProvider &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the capacity
-#' provider to delete.
+#' @param capacityProvider &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the capacity provider to delete.
+#' @param cluster The name of the cluster that contains the capacity provider to delete. Managed instances capacity providers are cluster-scoped and can only be deleted from their associated cluster.
 #'
 #' @keywords internal
 #'
 #' @rdname ecs_delete_capacity_provider
-ecs_delete_capacity_provider <- function(capacityProvider) {
+ecs_delete_capacity_provider <- function(capacityProvider, cluster = NULL) {
   op <- new_operation(
     name = "DeleteCapacityProvider",
     http_method = "POST",
@@ -708,7 +574,7 @@ ecs_delete_capacity_provider <- function(capacityProvider) {
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .ecs$delete_capacity_provider_input(capacityProvider = capacityProvider)
+  input <- .ecs$delete_capacity_provider_input(capacityProvider = capacityProvider, cluster = cluster)
   output <- .ecs$delete_capacity_provider_output()
   config <- get_config()
   svc <- .ecs$service(config, op)
@@ -725,8 +591,7 @@ ecs_delete_capacity_provider <- function(capacityProvider) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_delete_cluster/](https://www.paws-r-sdk.com/docs/ecs_delete_cluster/) for full documentation.
 #'
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster to
-#' delete.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster to delete.
 #'
 #' @keywords internal
 #'
@@ -750,6 +615,100 @@ ecs_delete_cluster <- function(cluster) {
 }
 .ecs$operations$delete_cluster <- ecs_delete_cluster
 
+#' Deletes the specified daemon
+#'
+#' @description
+#' Deletes the specified daemon. The daemon must be in an `ACTIVE` state to be deleted. Deleting a daemon stops all running daemon tasks on the associated container instances. Amazon ECS drains existing container instances and provisions new instances without the deleted daemon. Amazon ECS automatically launches replacement tasks for your Amazon ECS services.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_delete_daemon/](https://www.paws-r-sdk.com/docs/ecs_delete_daemon/) for full documentation.
+#'
+#' @param daemonArn &#91;required&#93; The Amazon Resource Name (ARN) of the daemon to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_delete_daemon
+ecs_delete_daemon <- function(daemonArn) {
+  op <- new_operation(
+    name = "DeleteDaemon",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$delete_daemon_input(daemonArn = daemonArn)
+  output <- .ecs$delete_daemon_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$delete_daemon <- ecs_delete_daemon
+
+#' Deletes the specified daemon task definition
+#'
+#' @description
+#' Deletes the specified daemon task definition. After a daemon task definition is deleted, no new daemons can be created using this definition. Existing daemons that reference the deleted daemon task definition continue to run.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_delete_daemon_task_definition/](https://www.paws-r-sdk.com/docs/ecs_delete_daemon_task_definition/) for full documentation.
+#'
+#' @param daemonTaskDefinition &#91;required&#93; The `family` and `revision` (`family:revision`) or full Amazon Resource Name (ARN) of the daemon task definition to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_delete_daemon_task_definition
+ecs_delete_daemon_task_definition <- function(daemonTaskDefinition) {
+  op <- new_operation(
+    name = "DeleteDaemonTaskDefinition",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$delete_daemon_task_definition_input(daemonTaskDefinition = daemonTaskDefinition)
+  output <- .ecs$delete_daemon_task_definition_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$delete_daemon_task_definition <- ecs_delete_daemon_task_definition
+
+#' Deletes an Express service and removes all associated Amazon Web
+#' Services resources
+#'
+#' @description
+#' Deletes an Express service and removes all associated Amazon Web Services resources. This operation stops service tasks, removes the Application Load Balancer, target groups, security groups, auto-scaling policies, and other managed infrastructure components.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_delete_express_gateway_service/](https://www.paws-r-sdk.com/docs/ecs_delete_express_gateway_service/) for full documentation.
+#'
+#' @param serviceArn &#91;required&#93; The Amazon Resource Name (ARN) of the Express service to delete. The ARN uniquely identifies the service within your Amazon Web Services account and region.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_delete_express_gateway_service
+ecs_delete_express_gateway_service <- function(serviceArn) {
+  op <- new_operation(
+    name = "DeleteExpressGatewayService",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$delete_express_gateway_service_input(serviceArn = serviceArn)
+  output <- .ecs$delete_express_gateway_service_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$delete_express_gateway_service <- ecs_delete_express_gateway_service
+
 #' Deletes a specified service within a cluster
 #'
 #' @description
@@ -757,13 +716,9 @@ ecs_delete_cluster <- function(cluster) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_delete_service/](https://www.paws-r-sdk.com/docs/ecs_delete_service/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the service to delete. If you do not specify a cluster, the
-#' default cluster is assumed.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to delete. If you do not specify a cluster, the default cluster is assumed.
 #' @param service &#91;required&#93; The name of the service to delete.
-#' @param force If `true`, allows you to delete a service even if it wasn't scaled down
-#' to zero tasks. It's only necessary to use this if the service uses the
-#' `REPLICA` scheduling strategy.
+#' @param force If `true`, allows you to delete a service even if it wasn't scaled down to zero tasks. It's only necessary to use this if the service uses the `REPLICA` scheduling strategy.
 #'
 #' @keywords internal
 #'
@@ -794,9 +749,7 @@ ecs_delete_service <- function(cluster = NULL, service, force = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_delete_task_definitions/](https://www.paws-r-sdk.com/docs/ecs_delete_task_definitions/) for full documentation.
 #'
-#' @param taskDefinitions &#91;required&#93; The `family` and `revision` (`family:revision`) or full Amazon Resource
-#' Name (ARN) of the task definition to delete. You must specify a
-#' `revision`.
+#' @param taskDefinitions &#91;required&#93; The `family` and `revision` (`family:revision`) or full Amazon Resource Name (ARN) of the task definition to delete. You must specify a `revision`.
 #' 
 #' You can specify up to 10 task definitions as a comma separated list.
 #'
@@ -829,14 +782,10 @@ ecs_delete_task_definitions <- function(taskDefinitions) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_delete_task_set/](https://www.paws-r-sdk.com/docs/ecs_delete_task_set/) for full documentation.
 #'
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the service that the task set found in to delete.
-#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service that
-#' hosts the task set to delete.
-#' @param taskSet &#91;required&#93; The task set ID or full Amazon Resource Name (ARN) of the task set to
-#' delete.
-#' @param force If `true`, you can delete a task set even if it hasn't been scaled down
-#' to zero.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set found in to delete.
+#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service that hosts the task set to delete.
+#' @param taskSet &#91;required&#93; The task set ID or full Amazon Resource Name (ARN) of the task set to delete.
+#' @param force If `true`, you can delete a task set even if it hasn't been scaled down to zero.
 #'
 #' @keywords internal
 #'
@@ -867,27 +816,11 @@ ecs_delete_task_set <- function(cluster, service, taskSet, force = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_deregister_container_instance/](https://www.paws-r-sdk.com/docs/ecs_deregister_container_instance/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the container instance to deregister. If you do not specify a
-#' cluster, the default cluster is assumed.
-#' @param containerInstance &#91;required&#93; The container instance ID or full ARN of the container instance to
-#' deregister. For more information about the ARN format, see [Amazon
-#' Resource Name
-#' (ARN)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids)
-#' in the *Amazon ECS Developer Guide*.
-#' @param force Forces the container instance to be deregistered. If you have tasks
-#' running on the container instance when you deregister it with the
-#' `force` option, these tasks remain running until you terminate the
-#' instance or the tasks stop through some other means, but they're
-#' orphaned (no longer monitored or accounted for by Amazon ECS). If an
-#' orphaned task on your container instance is part of an Amazon ECS
-#' service, then the service scheduler starts another copy of that task, on
-#' a different container instance if possible.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that hosts the container instance to deregister. If you do not specify a cluster, the default cluster is assumed.
+#' @param containerInstance &#91;required&#93; The container instance ID or full ARN of the container instance to deregister. For more information about the ARN format, see [Amazon Resource Name (ARN)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids) in the *Amazon ECS Developer Guide*.
+#' @param force Forces the container instance to be deregistered. If you have tasks running on the container instance when you deregister it with the `force` option, these tasks remain running until you terminate the instance or the tasks stop through some other means, but they're orphaned (no longer monitored or accounted for by Amazon ECS). If an orphaned task on your container instance is part of an Amazon ECS service, then the service scheduler starts another copy of that task, on a different container instance if possible.
 #' 
-#' Any containers in orphaned service tasks that are registered with a
-#' Classic Load Balancer or an Application Load Balancer target group are
-#' deregistered. They begin connection draining according to the settings
-#' on the load balancer or target group.
+#' Any containers in orphaned service tasks that are registered with a Classic Load Balancer or an Application Load Balancer target group are deregistered. They begin connection draining according to the settings on the load balancer or target group.
 #'
 #' @keywords internal
 #'
@@ -918,9 +851,7 @@ ecs_deregister_container_instance <- function(cluster = NULL, containerInstance,
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_deregister_task_definition/](https://www.paws-r-sdk.com/docs/ecs_deregister_task_definition/) for full documentation.
 #'
-#' @param taskDefinition &#91;required&#93; The `family` and `revision` (`family:revision`) or full Amazon Resource
-#' Name (ARN) of the task definition to deregister. You must specify a
-#' `revision`.
+#' @param taskDefinition &#91;required&#93; The `family` and `revision` (`family:revision`) or full Amazon Resource Name (ARN) of the task definition to deregister. You must specify a `revision`.
 #'
 #' @keywords internal
 #'
@@ -951,39 +882,18 @@ ecs_deregister_task_definition <- function(taskDefinition) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_describe_capacity_providers/](https://www.paws-r-sdk.com/docs/ecs_describe_capacity_providers/) for full documentation.
 #'
-#' @param capacityProviders The short name or full Amazon Resource Name (ARN) of one or more
-#' capacity providers. Up to `100` capacity providers can be described in
-#' an action.
-#' @param include Specifies whether or not you want to see the resource tags for the
-#' capacity provider. If `TAGS` is specified, the tags are included in the
-#' response. If this field is omitted, tags aren't included in the
-#' response.
-#' @param maxResults The maximum number of account setting results returned by
-#' [`describe_capacity_providers`][ecs_describe_capacity_providers] in
-#' paginated output. When this parameter is used,
-#' [`describe_capacity_providers`][ecs_describe_capacity_providers] only
-#' returns `maxResults` results in a single page along with a `nextToken`
-#' response element. The remaining results of the initial request can be
-#' seen by sending another
-#' [`describe_capacity_providers`][ecs_describe_capacity_providers] request
-#' with the returned `nextToken` value. This value can be between 1 and 10.
-#' If this parameter is not used, then
-#' [`describe_capacity_providers`][ecs_describe_capacity_providers] returns
-#' up to 10 results and a `nextToken` value if applicable.
-#' @param nextToken The `nextToken` value returned from a previous paginated
-#' [`describe_capacity_providers`][ecs_describe_capacity_providers] request
-#' where `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value.
+#' @param capacityProviders The short name or full Amazon Resource Name (ARN) of one or more capacity providers. Up to `100` capacity providers can be described in an action.
+#' @param cluster The name of the cluster to describe capacity providers for. When specified, only capacity providers associated with this cluster are returned, including Amazon ECS Managed Instances capacity providers.
+#' @param include Specifies whether or not you want to see the resource tags for the capacity provider. If `TAGS` is specified, the tags are included in the response. If this field is omitted, tags aren't included in the response.
+#' @param maxResults The maximum number of account setting results returned by [`describe_capacity_providers`][ecs_describe_capacity_providers] in paginated output. When this parameter is used, [`describe_capacity_providers`][ecs_describe_capacity_providers] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`describe_capacity_providers`][ecs_describe_capacity_providers] request with the returned `nextToken` value. This value can be between 1 and 10. If this parameter is not used, then [`describe_capacity_providers`][ecs_describe_capacity_providers] returns up to 10 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`describe_capacity_providers`][ecs_describe_capacity_providers] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
 #' @rdname ecs_describe_capacity_providers
-ecs_describe_capacity_providers <- function(capacityProviders = NULL, include = NULL, maxResults = NULL, nextToken = NULL) {
+ecs_describe_capacity_providers <- function(capacityProviders = NULL, cluster = NULL, include = NULL, maxResults = NULL, nextToken = NULL) {
   op <- new_operation(
     name = "DescribeCapacityProviders",
     http_method = "POST",
@@ -992,7 +902,7 @@ ecs_describe_capacity_providers <- function(capacityProviders = NULL, include = 
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .ecs$describe_capacity_providers_input(capacityProviders = capacityProviders, include = include, maxResults = maxResults, nextToken = nextToken)
+  input <- .ecs$describe_capacity_providers_input(capacityProviders = capacityProviders, cluster = cluster, include = include, maxResults = maxResults, nextToken = nextToken)
   output <- .ecs$describe_capacity_providers_output()
   config <- get_config()
   svc <- .ecs$service(config, op)
@@ -1009,27 +919,18 @@ ecs_describe_capacity_providers <- function(capacityProviders = NULL, include = 
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_describe_clusters/](https://www.paws-r-sdk.com/docs/ecs_describe_clusters/) for full documentation.
 #'
-#' @param clusters A list of up to 100 cluster names or full cluster Amazon Resource Name
-#' (ARN) entries. If you do not specify a cluster, the default cluster is
-#' assumed.
-#' @param include Determines whether to include additional information about the clusters
-#' in the response. If this field is omitted, this information isn't
-#' included.
+#' @param clusters A list of up to 100 cluster names or full cluster Amazon Resource Name (ARN) entries. If you do not specify a cluster, the default cluster is assumed.
+#' @param include Determines whether to include additional information about the clusters in the response. If this field is omitted, this information isn't included.
 #' 
-#' If `ATTACHMENTS` is specified, the attachments for the container
-#' instances or tasks within the cluster are included, for example the
-#' capacity providers.
+#' If `ATTACHMENTS` is specified, the attachments for the container instances or tasks within the cluster are included, for example the capacity providers.
 #' 
 #' If `SETTINGS` is specified, the settings for the cluster are included.
 #' 
-#' If `CONFIGURATIONS` is specified, the configuration for the cluster is
-#' included.
+#' If `CONFIGURATIONS` is specified, the configuration for the cluster is included.
 #' 
-#' If `STATISTICS` is specified, the task and service count is included,
-#' separated by launch type.
+#' If `STATISTICS` is specified, the task and service count is included, separated by launch type.
 #' 
-#' If `TAGS` is specified, the metadata tags associated with the cluster
-#' are included.
+#' If `TAGS` is specified, the metadata tags associated with the cluster are included.
 #'
 #' @keywords internal
 #'
@@ -1060,18 +961,9 @@ ecs_describe_clusters <- function(clusters = NULL, include = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_describe_container_instances/](https://www.paws-r-sdk.com/docs/ecs_describe_container_instances/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the container instances to describe. If you do not specify a
-#' cluster, the default cluster is assumed. This parameter is required if
-#' the container instance or container instances you are describing were
-#' launched in any cluster other than the default cluster.
-#' @param containerInstances &#91;required&#93; A list of up to 100 container instance IDs or full Amazon Resource Name
-#' (ARN) entries.
-#' @param include Specifies whether you want to see the resource tags for the container
-#' instance. If `TAGS` is specified, the tags are included in the response.
-#' If `CONTAINER_INSTANCE_HEALTH` is specified, the container instance
-#' health is included in the response. If this field is omitted, tags and
-#' container instance health status aren't included in the response.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that hosts the container instances to describe. If you do not specify a cluster, the default cluster is assumed. This parameter is required if the container instance or container instances you are describing were launched in any cluster other than the default cluster.
+#' @param containerInstances &#91;required&#93; A list of up to 100 container instance IDs or full Amazon Resource Name (ARN) entries.
+#' @param include Specifies whether you want to see the resource tags for the container instance. If `TAGS` is specified, the tags are included in the response. If `CONTAINER_INSTANCE_HEALTH` is specified, the container instance health is included in the response. If this field is omitted, tags and container instance health status aren't included in the response.
 #'
 #' @keywords internal
 #'
@@ -1094,6 +986,164 @@ ecs_describe_container_instances <- function(cluster = NULL, containerInstances,
   return(response)
 }
 .ecs$operations$describe_container_instances <- ecs_describe_container_instances
+
+#' Describes the specified daemon
+#'
+#' @description
+#' Describes the specified daemon.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_describe_daemon/](https://www.paws-r-sdk.com/docs/ecs_describe_daemon/) for full documentation.
+#'
+#' @param daemonArn &#91;required&#93; The Amazon Resource Name (ARN) of the daemon to describe.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_describe_daemon
+ecs_describe_daemon <- function(daemonArn) {
+  op <- new_operation(
+    name = "DescribeDaemon",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$describe_daemon_input(daemonArn = daemonArn)
+  output <- .ecs$describe_daemon_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$describe_daemon <- ecs_describe_daemon
+
+#' Describes one or more of your daemon deployments
+#'
+#' @description
+#' Describes one or more of your daemon deployments.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_describe_daemon_deployments/](https://www.paws-r-sdk.com/docs/ecs_describe_daemon_deployments/) for full documentation.
+#'
+#' @param daemonDeploymentArns &#91;required&#93; The ARN of the daemon deployments to describe. You can specify up to 20 ARNs.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_describe_daemon_deployments
+ecs_describe_daemon_deployments <- function(daemonDeploymentArns) {
+  op <- new_operation(
+    name = "DescribeDaemonDeployments",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$describe_daemon_deployments_input(daemonDeploymentArns = daemonDeploymentArns)
+  output <- .ecs$describe_daemon_deployments_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$describe_daemon_deployments <- ecs_describe_daemon_deployments
+
+#' Describes one or more of your daemon revisions
+#'
+#' @description
+#' Describes one or more of your daemon revisions.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_describe_daemon_revisions/](https://www.paws-r-sdk.com/docs/ecs_describe_daemon_revisions/) for full documentation.
+#'
+#' @param daemonRevisionArns &#91;required&#93; The ARN of the daemon revisions to describe. You can specify up to 20 ARNs.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_describe_daemon_revisions
+ecs_describe_daemon_revisions <- function(daemonRevisionArns) {
+  op <- new_operation(
+    name = "DescribeDaemonRevisions",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$describe_daemon_revisions_input(daemonRevisionArns = daemonRevisionArns)
+  output <- .ecs$describe_daemon_revisions_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$describe_daemon_revisions <- ecs_describe_daemon_revisions
+
+#' Describes a daemon task definition
+#'
+#' @description
+#' Describes a daemon task definition. You can specify a `family` and `revision` to find information about a specific daemon task definition, or you can simply specify the family to find the latest `ACTIVE` revision in that family.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_describe_daemon_task_definition/](https://www.paws-r-sdk.com/docs/ecs_describe_daemon_task_definition/) for full documentation.
+#'
+#' @param daemonTaskDefinition &#91;required&#93; The `family` for the latest `ACTIVE` revision, `family` and `revision` (`family:revision`) for a specific revision in the family, or full Amazon Resource Name (ARN) of the daemon task definition to describe.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_describe_daemon_task_definition
+ecs_describe_daemon_task_definition <- function(daemonTaskDefinition) {
+  op <- new_operation(
+    name = "DescribeDaemonTaskDefinition",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$describe_daemon_task_definition_input(daemonTaskDefinition = daemonTaskDefinition)
+  output <- .ecs$describe_daemon_task_definition_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$describe_daemon_task_definition <- ecs_describe_daemon_task_definition
+
+#' Retrieves detailed information about an Express service, including
+#' current status, configuration, managed infrastructure, and service
+#' revisions
+#'
+#' @description
+#' Retrieves detailed information about an Express service, including current status, configuration, managed infrastructure, and service revisions.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_describe_express_gateway_service/](https://www.paws-r-sdk.com/docs/ecs_describe_express_gateway_service/) for full documentation.
+#'
+#' @param serviceArn &#91;required&#93; The Amazon Resource Name (ARN) of the Express service to describe. The ARN uniquely identifies the service within your Amazon Web Services account and region.
+#' @param include Specifies additional information to include in the response. Valid values are `TAGS` to include resource tags associated with the Express service.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_describe_express_gateway_service
+ecs_describe_express_gateway_service <- function(serviceArn, include = NULL) {
+  op <- new_operation(
+    name = "DescribeExpressGatewayService",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$describe_express_gateway_service_input(serviceArn = serviceArn, include = include)
+  output <- .ecs$describe_express_gateway_service_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$describe_express_gateway_service <- ecs_describe_express_gateway_service
 
 #' Describes one or more of your service deployments
 #'
@@ -1139,8 +1189,7 @@ ecs_describe_service_deployments <- function(serviceDeploymentArns) {
 #' 
 #' You can specify a maximum of 20 ARNs.
 #' 
-#' You can call [`list_service_deployments`][ecs_list_service_deployments]
-#' to get the ARNs.
+#' You can call [`list_service_deployments`][ecs_list_service_deployments] to get the ARNs.
 #'
 #' @keywords internal
 #'
@@ -1171,16 +1220,9 @@ ecs_describe_service_revisions <- function(serviceRevisionArns) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_describe_services/](https://www.paws-r-sdk.com/docs/ecs_describe_services/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN)the cluster that hosts
-#' the service to describe. If you do not specify a cluster, the default
-#' cluster is assumed. This parameter is required if the service or
-#' services you are describing were launched in any cluster other than the
-#' default cluster.
-#' @param services &#91;required&#93; A list of services to describe. You may specify up to 10 services to
-#' describe in a single operation.
-#' @param include Determines whether you want to see the resource tags for the service. If
-#' `TAGS` is specified, the tags are included in the response. If this
-#' field is omitted, tags aren't included in the response.
+#' @param cluster The short name or full Amazon Resource Name (ARN)the cluster that hosts the service to describe. If you do not specify a cluster, the default cluster is assumed. This parameter is required if the service or services you are describing were launched in any cluster other than the default cluster.
+#' @param services &#91;required&#93; A list of services to describe. You may specify up to 10 services to describe in a single operation.
+#' @param include Determines whether you want to see the resource tags for the service. If `TAGS` is specified, the tags are included in the response. If this field is omitted, tags aren't included in the response.
 #'
 #' @keywords internal
 #'
@@ -1211,12 +1253,8 @@ ecs_describe_services <- function(cluster = NULL, services, include = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_describe_task_definition/](https://www.paws-r-sdk.com/docs/ecs_describe_task_definition/) for full documentation.
 #'
-#' @param taskDefinition &#91;required&#93; The `family` for the latest `ACTIVE` revision, `family` and `revision`
-#' (`family:revision`) for a specific revision in the family, or full
-#' Amazon Resource Name (ARN) of the task definition to describe.
-#' @param include Determines whether to see the resource tags for the task definition. If
-#' `TAGS` is specified, the tags are included in the response. If this
-#' field is omitted, tags aren't included in the response.
+#' @param taskDefinition &#91;required&#93; The `family` for the latest `ACTIVE` revision, `family` and `revision` (`family:revision`) for a specific revision in the family, or full Amazon Resource Name (ARN) of the task definition to describe.
+#' @param include Determines whether to see the resource tags for the task definition. If `TAGS` is specified, the tags are included in the response. If this field is omitted, tags aren't included in the response.
 #'
 #' @keywords internal
 #'
@@ -1247,14 +1285,10 @@ ecs_describe_task_definition <- function(taskDefinition, include = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_describe_task_sets/](https://www.paws-r-sdk.com/docs/ecs_describe_task_sets/) for full documentation.
 #'
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the service that the task sets exist in.
-#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service that
-#' the task sets exist in.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task sets exist in.
+#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service that the task sets exist in.
 #' @param taskSets The ID or full Amazon Resource Name (ARN) of task sets to describe.
-#' @param include Specifies whether to see the resource tags for the task set. If `TAGS`
-#' is specified, the tags are included in the response. If this field is
-#' omitted, tags aren't included in the response.
+#' @param include Specifies whether to see the resource tags for the task set. If `TAGS` is specified, the tags are included in the response. If this field is omitted, tags aren't included in the response.
 #'
 #' @keywords internal
 #'
@@ -1285,14 +1319,9 @@ ecs_describe_task_sets <- function(cluster, service, taskSets = NULL, include = 
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_describe_tasks/](https://www.paws-r-sdk.com/docs/ecs_describe_tasks/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the task or tasks to describe. If you do not specify a cluster,
-#' the default cluster is assumed. This parameter is required. If you do
-#' not specify a value, the `default` cluster is used.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task or tasks to describe. If you do not specify a cluster, the default cluster is assumed.
 #' @param tasks &#91;required&#93; A list of up to 100 task IDs or full ARN entries.
-#' @param include Specifies whether you want to see the resource tags for the task. If
-#' `TAGS` is specified, the tags are included in the response. If this
-#' field is omitted, tags aren't included in the response.
+#' @param include Specifies whether you want to see the resource tags for the task. If `TAGS` is specified, the tags are included in the response. If this field is omitted, tags aren't included in the response.
 #'
 #' @keywords internal
 #'
@@ -1324,12 +1353,8 @@ ecs_describe_tasks <- function(cluster = NULL, tasks, include = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_discover_poll_endpoint/](https://www.paws-r-sdk.com/docs/ecs_discover_poll_endpoint/) for full documentation.
 #'
-#' @param containerInstance The container instance ID or full ARN of the container instance. For
-#' more information about the ARN format, see [Amazon Resource Name
-#' (ARN)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids)
-#' in the *Amazon ECS Developer Guide*.
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' the container instance belongs to.
+#' @param containerInstance The container instance ID or full ARN of the container instance. For more information about the ARN format, see [Amazon Resource Name (ARN)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids) in the *Amazon ECS Developer Guide*.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.
 #'
 #' @keywords internal
 #'
@@ -1360,15 +1385,11 @@ ecs_discover_poll_endpoint <- function(containerInstance = NULL, cluster = NULL)
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_execute_command/](https://www.paws-r-sdk.com/docs/ecs_execute_command/) for full documentation.
 #'
-#' @param cluster The Amazon Resource Name (ARN) or short name of the cluster the task is
-#' running in. If you do not specify a cluster, the default cluster is
-#' assumed.
-#' @param container The name of the container to execute the command on. A container name
-#' only needs to be specified for tasks containing multiple containers.
+#' @param cluster The Amazon Resource Name (ARN) or short name of the cluster the task is running in. If you do not specify a cluster, the default cluster is assumed.
+#' @param container The name of the container to execute the command on. A container name only needs to be specified for tasks containing multiple containers.
 #' @param command &#91;required&#93; The command to run on the container.
 #' @param interactive &#91;required&#93; Use this flag to run your command in interactive mode.
-#' @param task &#91;required&#93; The Amazon Resource Name (ARN) or ID of the task the container is part
-#' of.
+#' @param task &#91;required&#93; The Amazon Resource Name (ARN) or ID of the task the container is part of.
 #'
 #' @keywords internal
 #'
@@ -1399,8 +1420,7 @@ ecs_execute_command <- function(cluster = NULL, container = NULL, command, inter
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_get_task_protection/](https://www.paws-r-sdk.com/docs/ecs_get_task_protection/) for full documentation.
 #'
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the service that the task sets exist in.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task sets exist in.
 #' @param tasks A list of up to 100 task IDs or full ARN entries.
 #'
 #' @keywords internal
@@ -1433,39 +1453,17 @@ ecs_get_task_protection <- function(cluster, tasks = NULL) {
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_account_settings/](https://www.paws-r-sdk.com/docs/ecs_list_account_settings/) for full documentation.
 #'
 #' @param name The name of the account setting you want to list the settings for.
-#' @param value The value of the account settings to filter results with. You must also
-#' specify an account setting name to use this parameter.
-#' @param principalArn The ARN of the principal, which can be a user, role, or the root user.
-#' If this field is omitted, the account settings are listed only for the
-#' authenticated user.
+#' @param value The value of the account settings to filter results with. You must also specify an account setting name to use this parameter.
+#' @param principalArn The ARN of the principal, which can be a user, role, or the root user. If this field is omitted, the account settings are listed only for the authenticated user.
 #' 
-#' Federated users assume the account setting of the root user and can't
-#' have explicit account settings set for them.
-#' @param effectiveSettings Determines whether to return the effective settings. If `true`, the
-#' account settings for the root user or the default setting for the
-#' `principalArn` are returned. If `false`, the account settings for the
-#' `principalArn` are returned if they're set. Otherwise, no account
-#' settings are returned.
-#' @param nextToken The `nextToken` value returned from a
-#' [`list_account_settings`][ecs_list_account_settings] request indicating
-#' that more results are available to fulfill the request and further calls
-#' will be needed. If `maxResults` was provided, it's possible the number
-#' of results to be fewer than `maxResults`.
+#' In order to use this parameter, you must be the root user, or the principal.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of account setting results returned by
-#' [`list_account_settings`][ecs_list_account_settings] in paginated
-#' output. When this parameter is used,
-#' [`list_account_settings`][ecs_list_account_settings] only returns
-#' `maxResults` results in a single page along with a `nextToken` response
-#' element. The remaining results of the initial request can be seen by
-#' sending another [`list_account_settings`][ecs_list_account_settings]
-#' request with the returned `nextToken` value. This value can be between 1
-#' and 10. If this parameter isn't used, then
-#' [`list_account_settings`][ecs_list_account_settings] returns up to 10
-#' results and a `nextToken` value if applicable.
+#' Federated users assume the account setting of the root user and can't have explicit account settings set for them.
+#' @param effectiveSettings Determines whether to return the effective settings. If `true`, the account settings for the root user or the default setting for the `principalArn` are returned. If `false`, the account settings for the `principalArn` are returned if they're set. Otherwise, no account settings are returned.
+#' @param nextToken The `nextToken` value returned from a [`list_account_settings`][ecs_list_account_settings] request indicating that more results are available to fulfill the request and further calls will be needed. If `maxResults` was provided, it's possible the number of results to be fewer than `maxResults`.
+#' 
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of account setting results returned by [`list_account_settings`][ecs_list_account_settings] in paginated output. When this parameter is used, [`list_account_settings`][ecs_list_account_settings] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_account_settings`][ecs_list_account_settings] request with the returned `nextToken` value. This value can be between 1 and 10. If this parameter isn't used, then [`list_account_settings`][ecs_list_account_settings] returns up to 10 results and a `nextToken` value if applicable.
 #'
 #' @keywords internal
 #'
@@ -1497,32 +1495,14 @@ ecs_list_account_settings <- function(name = NULL, value = NULL, principalArn = 
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_attributes/](https://www.paws-r-sdk.com/docs/ecs_list_attributes/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to list
-#' attributes. If you do not specify a cluster, the default cluster is
-#' assumed.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to list attributes. If you do not specify a cluster, the default cluster is assumed.
 #' @param targetType &#91;required&#93; The type of the target to list attributes with.
 #' @param attributeName The name of the attribute to filter the results with.
-#' @param attributeValue The value of the attribute to filter results with. You must also specify
-#' an attribute name to use this parameter.
-#' @param nextToken The `nextToken` value returned from a
-#' [`list_attributes`][ecs_list_attributes] request indicating that more
-#' results are available to fulfill the request and further calls are
-#' needed. If `maxResults` was provided, it's possible the number of
-#' results to be fewer than `maxResults`.
+#' @param attributeValue The value of the attribute to filter results with. You must also specify an attribute name to use this parameter.
+#' @param nextToken The `nextToken` value returned from a [`list_attributes`][ecs_list_attributes] request indicating that more results are available to fulfill the request and further calls are needed. If `maxResults` was provided, it's possible the number of results to be fewer than `maxResults`.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of cluster results that
-#' [`list_attributes`][ecs_list_attributes] returned in paginated output.
-#' When this parameter is used, [`list_attributes`][ecs_list_attributes]
-#' only returns `maxResults` results in a single page along with a
-#' `nextToken` response element. The remaining results of the initial
-#' request can be seen by sending another
-#' [`list_attributes`][ecs_list_attributes] request with the returned
-#' `nextToken` value. This value can be between 1 and 100. If this
-#' parameter isn't used, then [`list_attributes`][ecs_list_attributes]
-#' returns up to 100 results and a `nextToken` value if applicable.
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of cluster results that [`list_attributes`][ecs_list_attributes] returned in paginated output. When this parameter is used, [`list_attributes`][ecs_list_attributes] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_attributes`][ecs_list_attributes] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_attributes`][ecs_list_attributes] returns up to 100 results and a `nextToken` value if applicable.
 #'
 #' @keywords internal
 #'
@@ -1553,25 +1533,10 @@ ecs_list_attributes <- function(cluster = NULL, targetType, attributeName = NULL
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_clusters/](https://www.paws-r-sdk.com/docs/ecs_list_clusters/) for full documentation.
 #'
-#' @param nextToken The `nextToken` value returned from a
-#' [`list_clusters`][ecs_list_clusters] request indicating that more
-#' results are available to fulfill the request and further calls are
-#' needed. If `maxResults` was provided, it's possible the number of
-#' results to be fewer than `maxResults`.
+#' @param nextToken The `nextToken` value returned from a [`list_clusters`][ecs_list_clusters] request indicating that more results are available to fulfill the request and further calls are needed. If `maxResults` was provided, it's possible the number of results to be fewer than `maxResults`.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of cluster results that
-#' [`list_clusters`][ecs_list_clusters] returned in paginated output. When
-#' this parameter is used, [`list_clusters`][ecs_list_clusters] only
-#' returns `maxResults` results in a single page along with a `nextToken`
-#' response element. The remaining results of the initial request can be
-#' seen by sending another [`list_clusters`][ecs_list_clusters] request
-#' with the returned `nextToken` value. This value can be between 1 and
-#' 100. If this parameter isn't used, then
-#' [`list_clusters`][ecs_list_clusters] returns up to 100 results and a
-#' `nextToken` value if applicable.
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of cluster results that [`list_clusters`][ecs_list_clusters] returned in paginated output. When this parameter is used, [`list_clusters`][ecs_list_clusters] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_clusters`][ecs_list_clusters] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_clusters`][ecs_list_clusters] returns up to 100 results and a `nextToken` value if applicable.
 #'
 #' @keywords internal
 #'
@@ -1602,42 +1567,13 @@ ecs_list_clusters <- function(nextToken = NULL, maxResults = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_container_instances/](https://www.paws-r-sdk.com/docs/ecs_list_container_instances/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the container instances to list. If you do not specify a cluster,
-#' the default cluster is assumed.
-#' @param filter You can filter the results of a
-#' [`list_container_instances`][ecs_list_container_instances] operation
-#' with cluster query language statements. For more information, see
-#' [Cluster Query
-#' Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param nextToken The `nextToken` value returned from a
-#' [`list_container_instances`][ecs_list_container_instances] request
-#' indicating that more results are available to fulfill the request and
-#' further calls are needed. If `maxResults` was provided, it's possible
-#' the number of results to be fewer than `maxResults`.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that hosts the container instances to list. If you do not specify a cluster, the default cluster is assumed.
+#' @param filter You can filter the results of a [`list_container_instances`][ecs_list_container_instances] operation with cluster query language statements. For more information, see [Cluster Query Language](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param nextToken The `nextToken` value returned from a [`list_container_instances`][ecs_list_container_instances] request indicating that more results are available to fulfill the request and further calls are needed. If `maxResults` was provided, it's possible the number of results to be fewer than `maxResults`.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of container instance results that
-#' [`list_container_instances`][ecs_list_container_instances] returned in
-#' paginated output. When this parameter is used,
-#' [`list_container_instances`][ecs_list_container_instances] only returns
-#' `maxResults` results in a single page along with a `nextToken` response
-#' element. The remaining results of the initial request can be seen by
-#' sending another
-#' [`list_container_instances`][ecs_list_container_instances] request with
-#' the returned `nextToken` value. This value can be between 1 and 100. If
-#' this parameter isn't used, then
-#' [`list_container_instances`][ecs_list_container_instances] returns up to
-#' 100 results and a `nextToken` value if applicable.
-#' @param status Filters the container instances by status. For example, if you specify
-#' the `DRAINING` status, the results include only container instances that
-#' have been set to `DRAINING` using
-#' [`update_container_instances_state`][ecs_update_container_instances_state].
-#' If you don't specify this parameter, the default is to include container
-#' instances set to all states other than `INACTIVE`.
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of container instance results that [`list_container_instances`][ecs_list_container_instances] returned in paginated output. When this parameter is used, [`list_container_instances`][ecs_list_container_instances] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_container_instances`][ecs_list_container_instances] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_container_instances`][ecs_list_container_instances] returns up to 100 results and a `nextToken` value if applicable.
+#' @param status Filters the container instances by status. For example, if you specify the `DRAINING` status, the results include only container instances that have been set to `DRAINING` using [`update_container_instances_state`][ecs_update_container_instances_state]. If you don't specify this parameter, the The default is to include container instances set to all states other than `INACTIVE`.
 #'
 #' @keywords internal
 #'
@@ -1661,6 +1597,119 @@ ecs_list_container_instances <- function(cluster = NULL, filter = NULL, nextToke
 }
 .ecs$operations$list_container_instances <- ecs_list_container_instances
 
+#' Returns a list of daemon deployments for a specified daemon
+#'
+#' @description
+#' Returns a list of daemon deployments for a specified daemon. You can filter the results by status or creation time.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_list_daemon_deployments/](https://www.paws-r-sdk.com/docs/ecs_list_daemon_deployments/) for full documentation.
+#'
+#' @param daemonArn &#91;required&#93; The Amazon Resource Name (ARN) of the daemon to list deployments for.
+#' @param status An optional filter to narrow the [`list_daemon_deployments`][ecs_list_daemon_deployments] results by deployment status. If you don't specify a status, all deployments are returned.
+#' @param createdAt An optional filter to narrow the [`list_daemon_deployments`][ecs_list_daemon_deployments] results by creation time. If you don't specify a time range, all deployments are returned.
+#' @param maxResults The maximum number of daemon deployment results that [`list_daemon_deployments`][ecs_list_daemon_deployments] returned in paginated output. When this parameter is used, [`list_daemon_deployments`][ecs_list_daemon_deployments] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_daemon_deployments`][ecs_list_daemon_deployments] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_daemon_deployments`][ecs_list_daemon_deployments] returns up to 20 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a [`list_daemon_deployments`][ecs_list_daemon_deployments] request indicating that more results are available to fulfill the request and further calls will be needed. If `maxResults` was provided, it's possible for the number of results to be fewer than `maxResults`.
+#' 
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_list_daemon_deployments
+ecs_list_daemon_deployments <- function(daemonArn, status = NULL, createdAt = NULL, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListDaemonDeployments",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$list_daemon_deployments_input(daemonArn = daemonArn, status = status, createdAt = createdAt, maxResults = maxResults, nextToken = nextToken)
+  output <- .ecs$list_daemon_deployments_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$list_daemon_deployments <- ecs_list_daemon_deployments
+
+#' Returns a list of daemon task definitions that are registered to your
+#' account
+#'
+#' @description
+#' Returns a list of daemon task definitions that are registered to your account. You can filter the results by family name, status, or both to find daemon task definitions that match your criteria.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_list_daemon_task_definitions/](https://www.paws-r-sdk.com/docs/ecs_list_daemon_task_definitions/) for full documentation.
+#'
+#' @param familyPrefix The full family name to filter the [`list_daemon_task_definitions`][ecs_list_daemon_task_definitions] results with. Specifying a `familyPrefix` limits the listed daemon task definitions to daemon task definition families that start with the `familyPrefix` string.
+#' @param family The exact name of the daemon task definition family to filter results with.
+#' @param revision The revision filter to apply. Specify `LAST_REGISTERED` to return only the last registered revision for each daemon task definition family.
+#' @param status The daemon task definition status to filter the [`list_daemon_task_definitions`][ecs_list_daemon_task_definitions] results with. By default, only `ACTIVE` daemon task definitions are listed. If you set this parameter to `DELETE_IN_PROGRESS`, only daemon task definitions that are in the process of being deleted are listed. If you set this parameter to `ALL`, all daemon task definitions are listed regardless of status.
+#' @param sort The order to sort the results. Valid values are `ASC` and `DESC`. By default (`ASC`), daemon task definitions are listed in ascending order by family name and revision number.
+#' @param nextToken The `nextToken` value returned from a [`list_daemon_task_definitions`][ecs_list_daemon_task_definitions] request indicating that more results are available to fulfill the request and further calls will be needed. If `maxResults` was provided, it's possible for the number of results to be fewer than `maxResults`.
+#' 
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of daemon task definition results that [`list_daemon_task_definitions`][ecs_list_daemon_task_definitions] returned in paginated output. When this parameter is used, [`list_daemon_task_definitions`][ecs_list_daemon_task_definitions] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_daemon_task_definitions`][ecs_list_daemon_task_definitions] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_daemon_task_definitions`][ecs_list_daemon_task_definitions] returns up to 100 results and a `nextToken` value if applicable.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_list_daemon_task_definitions
+ecs_list_daemon_task_definitions <- function(familyPrefix = NULL, family = NULL, revision = NULL, status = NULL, sort = NULL, nextToken = NULL, maxResults = NULL) {
+  op <- new_operation(
+    name = "ListDaemonTaskDefinitions",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$list_daemon_task_definitions_input(familyPrefix = familyPrefix, family = family, revision = revision, status = status, sort = sort, nextToken = nextToken, maxResults = maxResults)
+  output <- .ecs$list_daemon_task_definitions_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$list_daemon_task_definitions <- ecs_list_daemon_task_definitions
+
+#' Returns a list of daemons
+#'
+#' @description
+#' Returns a list of daemons. You can filter the results by cluster or capacity provider.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_list_daemons/](https://www.paws-r-sdk.com/docs/ecs_list_daemons/) for full documentation.
+#'
+#' @param clusterArn The Amazon Resource Name (ARN) of the cluster to filter daemons by. If not specified, daemons from all clusters are returned.
+#' @param capacityProviderArns The Amazon Resource Names (ARNs) of the capacity providers to filter daemons by. Only daemons associated with the specified capacity providers are returned.
+#' @param maxResults The maximum number of daemon results that [`list_daemons`][ecs_list_daemons] returned in paginated output. When this parameter is used, [`list_daemons`][ecs_list_daemons] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_daemons`][ecs_list_daemons] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_daemons`][ecs_list_daemons] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a [`list_daemons`][ecs_list_daemons] request indicating that more results are available to fulfill the request and further calls will be needed. If `maxResults` was provided, it's possible for the number of results to be fewer than `maxResults`.
+#' 
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_list_daemons
+ecs_list_daemons <- function(clusterArn = NULL, capacityProviderArns = NULL, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListDaemons",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$list_daemons_input(clusterArn = clusterArn, capacityProviderArns = capacityProviderArns, maxResults = maxResults, nextToken = nextToken)
+  output <- .ecs$list_daemons_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$list_daemons <- ecs_list_daemons
+
 #' This operation lists all the service deployments that meet the specified
 #' filter criteria
 #'
@@ -1670,34 +1719,11 @@ ecs_list_container_instances <- function(cluster = NULL, filter = NULL, nextToke
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_service_deployments/](https://www.paws-r-sdk.com/docs/ecs_list_service_deployments/) for full documentation.
 #'
 #' @param service &#91;required&#93; The ARN or name of the service
-#' @param cluster The cluster that hosts the service. This can either be the cluster name
-#' or ARN. Starting April 15, 2023, Amazon Web Services will not onboard
-#' new customers to Amazon Elastic Inference (EI), and will help current
-#' customers migrate their workloads to options that offer better price and
-#' performance. If you don't specify a cluster, `default` is used.
-#' @param status An optional filter you can use to narrow the results. If you do not
-#' specify a status, then all status values are included in the result.
-#' @param createdAt An optional filter you can use to narrow the results by the service
-#' creation date. If you do not specify a value, the result includes all
-#' services created before the current time. The format is yyyy-MM-dd
-#' HH:mm:ss.SSSSSS.
-#' @param nextToken The `nextToken` value returned from a
-#' [`list_service_deployments`][ecs_list_service_deployments] request
-#' indicating that more results are available to fulfill the request and
-#' further calls are needed. If you provided `maxResults`, it's possible
-#' the number of results is fewer than `maxResults`.
-#' @param maxResults The maximum number of service deployment results that
-#' [`list_service_deployments`][ecs_list_service_deployments] returned in
-#' paginated output. When this parameter is used,
-#' [`list_service_deployments`][ecs_list_service_deployments] only returns
-#' `maxResults` results in a single page along with a `nextToken` response
-#' element. The remaining results of the initial request can be seen by
-#' sending another
-#' [`list_service_deployments`][ecs_list_service_deployments] request with
-#' the returned `nextToken` value. This value can be between 1 and 100. If
-#' this parameter isn't used, then
-#' [`list_service_deployments`][ecs_list_service_deployments] returns up to
-#' 20 results and a `nextToken` value if applicable.
+#' @param cluster The cluster that hosts the service. This can either be the cluster name or ARN. Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and will help current customers migrate their workloads to options that offer better price and performance. If you don't specify a cluster, `default` is used.
+#' @param status An optional filter you can use to narrow the results. If you do not specify a status, then all status values are included in the result.
+#' @param createdAt An optional filter you can use to narrow the results by the service creation date. If you do not specify a value, the result includes all services created before the current time. The format is yyyy-MM-dd HH:mm:ss.SSSSSS.
+#' @param nextToken The `nextToken` value returned from a [`list_service_deployments`][ecs_list_service_deployments] request indicating that more results are available to fulfill the request and further calls are needed. If you provided `maxResults`, it's possible the number of results is fewer than `maxResults`.
+#' @param maxResults The maximum number of service deployment results that [`list_service_deployments`][ecs_list_service_deployments] returned in paginated output. When this parameter is used, [`list_service_deployments`][ecs_list_service_deployments] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_service_deployments`][ecs_list_service_deployments] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_service_deployments`][ecs_list_service_deployments] returns up to 20 results and a `nextToken` value if applicable.
 #'
 #' @keywords internal
 #'
@@ -1728,37 +1754,19 @@ ecs_list_service_deployments <- function(service, cluster = NULL, status = NULL,
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_services/](https://www.paws-r-sdk.com/docs/ecs_list_services/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to use
-#' when filtering the [`list_services`][ecs_list_services] results. If you
-#' do not specify a cluster, the default cluster is assumed.
-#' @param nextToken The `nextToken` value returned from a
-#' [`list_services`][ecs_list_services] request indicating that more
-#' results are available to fulfill the request and further calls will be
-#' needed. If `maxResults` was provided, it is possible the number of
-#' results to be fewer than `maxResults`.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to use when filtering the [`list_services`][ecs_list_services] results. If you do not specify a cluster, the default cluster is assumed.
+#' @param nextToken The `nextToken` value returned from a [`list_services`][ecs_list_services] request indicating that more results are available to fulfill the request and further calls will be needed. If `maxResults` was provided, it is possible the number of results to be fewer than `maxResults`.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of service results that
-#' [`list_services`][ecs_list_services] returned in paginated output. When
-#' this parameter is used, [`list_services`][ecs_list_services] only
-#' returns `maxResults` results in a single page along with a `nextToken`
-#' response element. The remaining results of the initial request can be
-#' seen by sending another [`list_services`][ecs_list_services] request
-#' with the returned `nextToken` value. This value can be between 1 and
-#' 100. If this parameter isn't used, then
-#' [`list_services`][ecs_list_services] returns up to 10 results and a
-#' `nextToken` value if applicable.
-#' @param launchType The launch type to use when filtering the
-#' [`list_services`][ecs_list_services] results.
-#' @param schedulingStrategy The scheduling strategy to use when filtering the
-#' [`list_services`][ecs_list_services] results.
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of service results that [`list_services`][ecs_list_services] returned in paginated output. When this parameter is used, [`list_services`][ecs_list_services] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_services`][ecs_list_services] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_services`][ecs_list_services] returns up to 10 results and a `nextToken` value if applicable.
+#' @param launchType The launch type to use when filtering the [`list_services`][ecs_list_services] results.
+#' @param schedulingStrategy The scheduling strategy to use when filtering the [`list_services`][ecs_list_services] results.
+#' @param resourceManagementType The resourceManagementType type to use when filtering the [`list_services`][ecs_list_services] results.
 #'
 #' @keywords internal
 #'
 #' @rdname ecs_list_services
-ecs_list_services <- function(cluster = NULL, nextToken = NULL, maxResults = NULL, launchType = NULL, schedulingStrategy = NULL) {
+ecs_list_services <- function(cluster = NULL, nextToken = NULL, maxResults = NULL, launchType = NULL, schedulingStrategy = NULL, resourceManagementType = NULL) {
   op <- new_operation(
     name = "ListServices",
     http_method = "POST",
@@ -1767,7 +1775,7 @@ ecs_list_services <- function(cluster = NULL, nextToken = NULL, maxResults = NUL
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "serviceArns"),
     stream_api = FALSE
   )
-  input <- .ecs$list_services_input(cluster = cluster, nextToken = nextToken, maxResults = maxResults, launchType = launchType, schedulingStrategy = schedulingStrategy)
+  input <- .ecs$list_services_input(cluster = cluster, nextToken = nextToken, maxResults = maxResults, launchType = launchType, schedulingStrategy = schedulingStrategy, resourceManagementType = resourceManagementType)
   output <- .ecs$list_services_output()
   config <- get_config()
   svc <- .ecs$service(config, op)
@@ -1785,34 +1793,11 @@ ecs_list_services <- function(cluster = NULL, nextToken = NULL, maxResults = NUL
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_services_by_namespace/](https://www.paws-r-sdk.com/docs/ecs_list_services_by_namespace/) for full documentation.
 #'
-#' @param namespace &#91;required&#93; The namespace name or full Amazon Resource Name (ARN) of the Cloud Map
-#' namespace to list the services in.
+#' @param namespace &#91;required&#93; The namespace name or full Amazon Resource Name (ARN) of the Cloud Map namespace to list the services in.
 #' 
-#' Tasks that run in a namespace can use short names to connect to services
-#' in the namespace. Tasks can connect to services across all of the
-#' clusters in the namespace. Tasks connect through a managed proxy
-#' container that collects logs and metrics for increased visibility. Only
-#' the tasks that Amazon ECS services create are supported with Service
-#' Connect. For more information, see [Service
-#' Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param nextToken The `nextToken` value that's returned from a
-#' [`list_services_by_namespace`][ecs_list_services_by_namespace] request.
-#' It indicates that more results are available to fulfill the request and
-#' further calls are needed. If `maxResults` is returned, it is possible
-#' the number of results is less than `maxResults`.
-#' @param maxResults The maximum number of service results that
-#' [`list_services_by_namespace`][ecs_list_services_by_namespace] returns
-#' in paginated output. When this parameter is used,
-#' [`list_services_by_namespace`][ecs_list_services_by_namespace] only
-#' returns `maxResults` results in a single page along with a `nextToken`
-#' response element. The remaining results of the initial request can be
-#' seen by sending another
-#' [`list_services_by_namespace`][ecs_list_services_by_namespace] request
-#' with the returned `nextToken` value. This value can be between 1 and
-#' 100. If this parameter isn't used, then
-#' [`list_services_by_namespace`][ecs_list_services_by_namespace] returns
-#' up to 10 results and a `nextToken` value if applicable.
+#' Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see [Service Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param nextToken The `nextToken` value that's returned from a [`list_services_by_namespace`][ecs_list_services_by_namespace] request. It indicates that more results are available to fulfill the request and further calls are needed. If `maxResults` is returned, it is possible the number of results is less than `maxResults`.
+#' @param maxResults The maximum number of service results that [`list_services_by_namespace`][ecs_list_services_by_namespace] returns in paginated output. When this parameter is used, [`list_services_by_namespace`][ecs_list_services_by_namespace] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_services_by_namespace`][ecs_list_services_by_namespace] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_services_by_namespace`][ecs_list_services_by_namespace] returns up to 10 results and a `nextToken` value if applicable.
 #'
 #' @keywords internal
 #'
@@ -1843,9 +1828,7 @@ ecs_list_services_by_namespace <- function(namespace, nextToken = NULL, maxResul
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/ecs_list_tags_for_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list the
-#' tags for. Currently, the supported resources are Amazon ECS tasks,
-#' services, task definitions, clusters, and container instances.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource to list the tags for. Currently, the supported resources are Amazon ECS tasks, services, task definitions, clusters, and container instances.
 #'
 #' @keywords internal
 #'
@@ -1877,40 +1860,12 @@ ecs_list_tags_for_resource <- function(resourceArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_task_definition_families/](https://www.paws-r-sdk.com/docs/ecs_list_task_definition_families/) for full documentation.
 #'
-#' @param familyPrefix The `familyPrefix` is a string that's used to filter the results of
-#' [`list_task_definition_families`][ecs_list_task_definition_families]. If
-#' you specify a `familyPrefix`, only task definition family names that
-#' begin with the `familyPrefix` string are returned.
-#' @param status The task definition family status to filter the
-#' [`list_task_definition_families`][ecs_list_task_definition_families]
-#' results with. By default, both `ACTIVE` and `INACTIVE` task definition
-#' families are listed. If this parameter is set to `ACTIVE`, only task
-#' definition families that have an `ACTIVE` task definition revision are
-#' returned. If this parameter is set to `INACTIVE`, only task definition
-#' families that do not have any `ACTIVE` task definition revisions are
-#' returned. If you paginate the resulting output, be sure to keep the
-#' `status` value constant in each subsequent request.
-#' @param nextToken The `nextToken` value returned from a
-#' [`list_task_definition_families`][ecs_list_task_definition_families]
-#' request indicating that more results are available to fulfill the
-#' request and further calls will be needed. If `maxResults` was provided,
-#' it is possible the number of results to be fewer than `maxResults`.
+#' @param familyPrefix The `familyPrefix` is a string that's used to filter the results of [`list_task_definition_families`][ecs_list_task_definition_families]. If you specify a `familyPrefix`, only task definition family names that begin with the `familyPrefix` string are returned.
+#' @param status The task definition family status to filter the [`list_task_definition_families`][ecs_list_task_definition_families] results with. By default, both `ACTIVE` and `INACTIVE` task definition families are listed. If this parameter is set to `ACTIVE`, only task definition families that have an `ACTIVE` task definition revision are returned. If this parameter is set to `INACTIVE`, only task definition families that do not have any `ACTIVE` task definition revisions are returned. If you paginate the resulting output, be sure to keep the `status` value constant in each subsequent request.
+#' @param nextToken The `nextToken` value returned from a [`list_task_definition_families`][ecs_list_task_definition_families] request indicating that more results are available to fulfill the request and further calls will be needed. If `maxResults` was provided, it is possible the number of results to be fewer than `maxResults`.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of task definition family results that
-#' [`list_task_definition_families`][ecs_list_task_definition_families]
-#' returned in paginated output. When this parameter is used,
-#' [`list_task_definitions`][ecs_list_task_definitions] only returns
-#' `maxResults` results in a single page along with a `nextToken` response
-#' element. The remaining results of the initial request can be seen by
-#' sending another
-#' [`list_task_definition_families`][ecs_list_task_definition_families]
-#' request with the returned `nextToken` value. This value can be between 1
-#' and 100. If this parameter isn't used, then
-#' [`list_task_definition_families`][ecs_list_task_definition_families]
-#' returns up to 100 results and a `nextToken` value if applicable.
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of task definition family results that [`list_task_definition_families`][ecs_list_task_definition_families] returned in paginated output. When this parameter is used, [`list_task_definitions`][ecs_list_task_definitions] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_task_definition_families`][ecs_list_task_definition_families] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_task_definition_families`][ecs_list_task_definition_families] returns up to 100 results and a `nextToken` value if applicable.
 #'
 #' @keywords internal
 #'
@@ -1941,43 +1896,13 @@ ecs_list_task_definition_families <- function(familyPrefix = NULL, status = NULL
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_task_definitions/](https://www.paws-r-sdk.com/docs/ecs_list_task_definitions/) for full documentation.
 #'
-#' @param familyPrefix The full family name to filter the
-#' [`list_task_definitions`][ecs_list_task_definitions] results with.
-#' Specifying a `familyPrefix` limits the listed task definitions to task
-#' definition revisions that belong to that family.
-#' @param status The task definition status to filter the
-#' [`list_task_definitions`][ecs_list_task_definitions] results with. By
-#' default, only `ACTIVE` task definitions are listed. By setting this
-#' parameter to `INACTIVE`, you can view task definitions that are
-#' `INACTIVE` as long as an active task or service still references them.
-#' If you paginate the resulting output, be sure to keep the `status` value
-#' constant in each subsequent request.
-#' @param sort The order to sort the results in. Valid values are `ASC` and `DESC`. By
-#' default, (`ASC`) task definitions are listed lexicographically by family
-#' name and in ascending numerical order by revision so that the newest
-#' task definitions in a family are listed last. Setting this parameter to
-#' `DESC` reverses the sort order on family name and revision. This is so
-#' that the newest task definitions in a family are listed first.
-#' @param nextToken The `nextToken` value returned from a
-#' [`list_task_definitions`][ecs_list_task_definitions] request indicating
-#' that more results are available to fulfill the request and further calls
-#' will be needed. If `maxResults` was provided, it is possible the number
-#' of results to be fewer than `maxResults`.
+#' @param familyPrefix The full family name to filter the [`list_task_definitions`][ecs_list_task_definitions] results with. Specifying a `familyPrefix` limits the listed task definitions to task definition revisions that belong to that family.
+#' @param status The task definition status to filter the [`list_task_definitions`][ecs_list_task_definitions] results with. By default, only `ACTIVE` task definitions are listed. By setting this parameter to `INACTIVE`, you can view task definitions that are `INACTIVE` as long as an active task or service still references them. If you paginate the resulting output, be sure to keep the `status` value constant in each subsequent request.
+#' @param sort The order to sort the results in. Valid values are `ASC` and `DESC`. By default, (`ASC`) task definitions are listed lexicographically by family name and in ascending numerical order by revision so that the newest task definitions in a family are listed last. Setting this parameter to `DESC` reverses the sort order on family name and revision. This is so that the newest task definitions in a family are listed first.
+#' @param nextToken The `nextToken` value returned from a [`list_task_definitions`][ecs_list_task_definitions] request indicating that more results are available to fulfill the request and further calls will be needed. If `maxResults` was provided, it is possible the number of results to be fewer than `maxResults`.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of task definition results that
-#' [`list_task_definitions`][ecs_list_task_definitions] returned in
-#' paginated output. When this parameter is used,
-#' [`list_task_definitions`][ecs_list_task_definitions] only returns
-#' `maxResults` results in a single page along with a `nextToken` response
-#' element. The remaining results of the initial request can be seen by
-#' sending another [`list_task_definitions`][ecs_list_task_definitions]
-#' request with the returned `nextToken` value. This value can be between 1
-#' and 100. If this parameter isn't used, then
-#' [`list_task_definitions`][ecs_list_task_definitions] returns up to 100
-#' results and a `nextToken` value if applicable.
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of task definition results that [`list_task_definitions`][ecs_list_task_definitions] returned in paginated output. When this parameter is used, [`list_task_definitions`][ecs_list_task_definitions] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_task_definitions`][ecs_list_task_definitions] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_task_definitions`][ecs_list_task_definitions] returns up to 100 results and a `nextToken` value if applicable.
 #'
 #' @keywords internal
 #'
@@ -2008,61 +1933,27 @@ ecs_list_task_definitions <- function(familyPrefix = NULL, status = NULL, sort =
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_list_tasks/](https://www.paws-r-sdk.com/docs/ecs_list_tasks/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to use
-#' when filtering the [`list_tasks`][ecs_list_tasks] results. If you do not
-#' specify a cluster, the default cluster is assumed.
-#' @param containerInstance The container instance ID or full ARN of the container instance to use
-#' when filtering the [`list_tasks`][ecs_list_tasks] results. Specifying a
-#' `containerInstance` limits the results to tasks that belong to that
-#' container instance.
-#' @param family The name of the task definition family to use when filtering the
-#' [`list_tasks`][ecs_list_tasks] results. Specifying a `family` limits the
-#' results to tasks that belong to that family.
-#' @param nextToken The `nextToken` value returned from a [`list_tasks`][ecs_list_tasks]
-#' request indicating that more results are available to fulfill the
-#' request and further calls will be needed. If `maxResults` was provided,
-#' it's possible the number of results to be fewer than `maxResults`.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to use when filtering the [`list_tasks`][ecs_list_tasks] results. If you do not specify a cluster, the default cluster is assumed.
+#' @param containerInstance The container instance ID or full ARN of the container instance to use when filtering the [`list_tasks`][ecs_list_tasks] results. Specifying a `containerInstance` limits the results to tasks that belong to that container instance.
+#' @param family The name of the task definition family to use when filtering the [`list_tasks`][ecs_list_tasks] results. Specifying a `family` limits the results to tasks that belong to that family.
+#' @param nextToken The `nextToken` value returned from a [`list_tasks`][ecs_list_tasks] request indicating that more results are available to fulfill the request and further calls will be needed. If `maxResults` was provided, it's possible the number of results to be fewer than `maxResults`.
 #' 
-#' This token should be treated as an opaque identifier that is only used
-#' to retrieve the next items in a list and not for other programmatic
-#' purposes.
-#' @param maxResults The maximum number of task results that [`list_tasks`][ecs_list_tasks]
-#' returned in paginated output. When this parameter is used,
-#' [`list_tasks`][ecs_list_tasks] only returns `maxResults` results in a
-#' single page along with a `nextToken` response element. The remaining
-#' results of the initial request can be seen by sending another
-#' [`list_tasks`][ecs_list_tasks] request with the returned `nextToken`
-#' value. This value can be between 1 and 100. If this parameter isn't
-#' used, then [`list_tasks`][ecs_list_tasks] returns up to 100 results and
-#' a `nextToken` value if applicable.
-#' @param startedBy The `startedBy` value to filter the task results with. Specifying a
-#' `startedBy` value limits the results to tasks that were started with
-#' that value.
+#' This token should be treated as an opaque identifier that is only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param maxResults The maximum number of task results that [`list_tasks`][ecs_list_tasks] returned in paginated output. When this parameter is used, [`list_tasks`][ecs_list_tasks] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_tasks`][ecs_list_tasks] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_tasks`][ecs_list_tasks] returns up to 100 results and a `nextToken` value if applicable.
+#' @param startedBy The `startedBy` value to filter the task results with. Specifying a `startedBy` value limits the results to tasks that were started with that value.
 #' 
-#' When you specify `startedBy` as the filter, it must be the only filter
-#' that you use.
-#' @param serviceName The name of the service to use when filtering the
-#' [`list_tasks`][ecs_list_tasks] results. Specifying a `serviceName`
-#' limits the results to tasks that belong to that service.
-#' @param desiredStatus The task desired status to use when filtering the
-#' [`list_tasks`][ecs_list_tasks] results. Specifying a `desiredStatus` of
-#' `STOPPED` limits the results to tasks that Amazon ECS has set the
-#' desired status to `STOPPED`. This can be useful for debugging tasks that
-#' aren't starting properly or have died or finished. The default status
-#' filter is `RUNNING`, which shows tasks that Amazon ECS has set the
-#' desired status to `RUNNING`.
+#' When you specify `startedBy` as the filter, it must be the only filter that you use.
+#' @param serviceName The name of the service to use when filtering the [`list_tasks`][ecs_list_tasks] results. Specifying a `serviceName` limits the results to tasks that belong to that service.
+#' @param desiredStatus The task desired status to use when filtering the [`list_tasks`][ecs_list_tasks] results. Specifying a `desiredStatus` of `STOPPED` limits the results to tasks that Amazon ECS has set the desired status to `STOPPED`. This can be useful for debugging tasks that aren't starting properly or have died or finished. The default status filter is `RUNNING`, which shows tasks that Amazon ECS has set the desired status to `RUNNING`.
 #' 
-#' Although you can filter results based on a desired status of `PENDING`,
-#' this doesn't return any results. Amazon ECS never sets the desired
-#' status of a task to that value (only a task's `lastStatus` may have a
-#' value of `PENDING`).
-#' @param launchType The launch type to use when filtering the [`list_tasks`][ecs_list_tasks]
-#' results.
+#' Although you can filter results based on a desired status of `PENDING`, this doesn't return any results. Amazon ECS never sets the desired status of a task to that value (only a task's `lastStatus` may have a value of `PENDING`).
+#' @param launchType The launch type to use when filtering the [`list_tasks`][ecs_list_tasks] results.
+#' @param daemonName The name of the daemon to use when filtering the [`list_tasks`][ecs_list_tasks] results. Specifying a `daemonName` limits the results to tasks that belong to that daemon.
 #'
 #' @keywords internal
 #'
 #' @rdname ecs_list_tasks
-ecs_list_tasks <- function(cluster = NULL, containerInstance = NULL, family = NULL, nextToken = NULL, maxResults = NULL, startedBy = NULL, serviceName = NULL, desiredStatus = NULL, launchType = NULL) {
+ecs_list_tasks <- function(cluster = NULL, containerInstance = NULL, family = NULL, nextToken = NULL, maxResults = NULL, startedBy = NULL, serviceName = NULL, desiredStatus = NULL, launchType = NULL, daemonName = NULL) {
   op <- new_operation(
     name = "ListTasks",
     http_method = "POST",
@@ -2071,7 +1962,7 @@ ecs_list_tasks <- function(cluster = NULL, containerInstance = NULL, family = NU
     paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "taskArns"),
     stream_api = FALSE
   )
-  input <- .ecs$list_tasks_input(cluster = cluster, containerInstance = containerInstance, family = family, nextToken = nextToken, maxResults = maxResults, startedBy = startedBy, serviceName = serviceName, desiredStatus = desiredStatus, launchType = launchType)
+  input <- .ecs$list_tasks_input(cluster = cluster, containerInstance = containerInstance, family = family, nextToken = nextToken, maxResults = maxResults, startedBy = startedBy, serviceName = serviceName, desiredStatus = desiredStatus, launchType = launchType, daemonName = daemonName)
   output <- .ecs$list_tasks_output()
   config <- get_config()
   svc <- .ecs$service(config, op)
@@ -2092,132 +1983,55 @@ ecs_list_tasks <- function(cluster = NULL, containerInstance = NULL, family = NU
 #' 
 #' The following are the valid values for the account setting name.
 #' 
-#' -   `serviceLongArnFormat` - When modified, the Amazon Resource Name
-#'     (ARN) and resource ID format of the resource type for a specified
-#'     user, role, or the root user for an account is affected. The opt-in
-#'     and opt-out account setting must be set for each Amazon ECS resource
-#'     separately. The ARN and resource ID format of a resource is defined
-#'     by the opt-in status of the user or role that created the resource.
-#'     You must turn on this setting to use Amazon ECS features such as
-#'     resource tagging.
+#' -   `serviceLongArnFormat` - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
 #' 
-#' -   `taskLongArnFormat` - When modified, the Amazon Resource Name (ARN)
-#'     and resource ID format of the resource type for a specified user,
-#'     role, or the root user for an account is affected. The opt-in and
-#'     opt-out account setting must be set for each Amazon ECS resource
-#'     separately. The ARN and resource ID format of a resource is defined
-#'     by the opt-in status of the user or role that created the resource.
-#'     You must turn on this setting to use Amazon ECS features such as
-#'     resource tagging.
+#' -   `taskLongArnFormat` - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
 #' 
-#' -   `fargateFIPSMode` - When turned on, you can run Fargate workloads in
-#'     a manner that is compliant with Federal Information Processing
-#'     Standard (FIPS-140). For more information, see [Fargate Federal
-#'     Information Processing Standard
-#'     (FIPS-140)](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-fips-compliance.html).
+#' -   `containerInstanceLongArnFormat` - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
 #' 
-#' -   `containerInstanceLongArnFormat` - When modified, the Amazon
-#'     Resource Name (ARN) and resource ID format of the resource type for
-#'     a specified user, role, or the root user for an account is affected.
-#'     The opt-in and opt-out account setting must be set for each Amazon
-#'     ECS resource separately. The ARN and resource ID format of a
-#'     resource is defined by the opt-in status of the user or role that
-#'     created the resource. You must turn on this setting to use Amazon
-#'     ECS features such as resource tagging.
+#' -   `awsvpcTrunking` - When modified, the elastic network interface (ENI) limit for any new container instances that support the feature is changed. If `awsvpcTrunking` is turned on, any new container instances that support the feature are launched have the increased ENI limits available to them. For more information, see [Elastic Network Interface Trunking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-eni.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' -   `awsvpcTrunking` - When modified, the elastic network interface
-#'     (ENI) limit for any new container instances that support the feature
-#'     is changed. If `awsvpcTrunking` is turned on, any new container
-#'     instances that support the feature are launched have the increased
-#'     ENI limits available to them. For more information, see [Elastic
-#'     Network Interface
-#'     Trunking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-eni.html)
-#'     in the *Amazon Elastic Container Service Developer Guide*.
+#' -   `containerInsights` - Container Insights with enhanced observability provides all the Container Insights metrics, plus additional task and container metrics. This version supports enhanced observability for Amazon ECS clusters using the Amazon EC2 and Fargate launch types. After you configure Container Insights with enhanced observability on Amazon ECS, Container Insights auto-collects detailed infrastructure telemetry from the cluster level down to the container level in your environment and displays these critical performance data in curated dashboards removing the heavy lifting in observability set-up.
 #' 
-#' -   `containerInsights` - Container Insights with enhanced observability
-#'     provides all the Container Insights metrics, plus additional task
-#'     and container metrics. This version supports enhanced observability
-#'     for Amazon ECS clusters using the Amazon EC2 and Fargate launch
-#'     types. After you configure Container Insights with enhanced
-#'     observability on Amazon ECS, Container Insights auto-collects
-#'     detailed infrastructure telemetry from the cluster level down to the
-#'     container level in your environment and displays these critical
-#'     performance data in curated dashboards removing the heavy lifting in
-#'     observability set-up.
+#'     To use Container Insights with enhanced observability, set the `containerInsights` account setting to `enhanced`.
 #' 
-#'     To use Container Insights with enhanced observability, set the
-#'     `containerInsights` account setting to `enhanced`.
+#'     To use Container Insights, set the `containerInsights` account setting to `enabled`.
 #' 
-#'     To use Container Insights, set the `containerInsights` account
-#'     setting to `enabled`.
+#'     For more information, see [Monitor Amazon ECS containers using Container Insights with enhanced observability](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-container-insights.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#'     For more information, see [Monitor Amazon ECS containers using
-#'     Container Insights with enhanced
-#'     observability](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-container-insights.html)
-#'     in the *Amazon Elastic Container Service Developer Guide*.
+#' -   `dualStackIPv6` - When turned on, when using a VPC in dual stack mode, your tasks using the `awsvpc` network mode can have an IPv6 address assigned. For more information on using IPv6 with tasks launched on Amazon EC2 instances, see [Using a VPC in dual-stack mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html#task-networking-vpc-dual-stack). For more information on using IPv6 with tasks launched on Fargate, see [Using a VPC in dual-stack mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-task-networking.html#fargate-task-networking-vpc-dual-stack).
 #' 
-#' -   `dualStackIPv6` - When turned on, when using a VPC in dual stack
-#'     mode, your tasks using the `awsvpc` network mode can have an IPv6
-#'     address assigned. For more information on using IPv6 with tasks
-#'     launched on Amazon EC2 instances, see [Using a VPC in dual-stack
-#'     mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html#task-networking-vpc-dual-stack).
-#'     For more information on using IPv6 with tasks launched on Fargate,
-#'     see [Using a VPC in dual-stack
-#'     mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-task-networking.html#fargate-task-networking-vpc-dual-stack).
+#' -   `fargateTaskRetirementWaitPeriod` - When Amazon Web Services determines that a security or infrastructure update is needed for an Amazon ECS task hosted on Fargate, the tasks need to be stopped and new tasks launched to replace them. Use `fargateTaskRetirementWaitPeriod` to configure the wait time to retire a Fargate task. For information about the Fargate tasks maintenance, see [Amazon Web Services Fargate task maintenance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-maintenance.html) in the *Amazon ECS Developer Guide*.
 #' 
-#' -   `fargateTaskRetirementWaitPeriod` - When Amazon Web Services
-#'     determines that a security or infrastructure update is needed for an
-#'     Amazon ECS task hosted on Fargate, the tasks need to be stopped and
-#'     new tasks launched to replace them. Use
-#'     `fargateTaskRetirementWaitPeriod` to configure the wait time to
-#'     retire a Fargate task. For information about the Fargate tasks
-#'     maintenance, see [Amazon Web Services Fargate task
-#'     maintenance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-maintenance.html)
-#'     in the *Amazon ECS Developer Guide*.
+#' -   `fargateEventWindows` - When Amazon Web Services determines that a security or infrastructure update is needed for an Amazon ECS task hosted on Fargate, the tasks need to be stopped and new tasks launched to replace them. Use `fargateEventWindows` to use EC2 Event Windows associated with Fargate tasks to configure time windows for task retirement.
 #' 
-#' -   `tagResourceAuthorization` - Amazon ECS is introducing tagging
-#'     authorization for resource creation. Users must have permissions for
-#'     actions that create the resource, such as `ecsCreateCluster`. If
-#'     tags are specified when you create a resource, Amazon Web Services
-#'     performs additional authorization to verify if users or roles have
-#'     permissions to create tags. Therefore, you must grant explicit
-#'     permissions to use the `ecs:TagResource` action. For more
-#'     information, see [Grant permission to tag resources on
-#'     creation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/supported-iam-actions-tagging.html)
-#'     in the *Amazon ECS Developer Guide*.
+#' -   `tagResourceAuthorization` - Amazon ECS is introducing tagging authorization for resource creation. Users must have permissions for actions that create the resource, such as `ecsCreateCluster`. If tags are specified when you create a resource, Amazon Web Services performs additional authorization to verify if users or roles have permissions to create tags. Therefore, you must grant explicit permissions to use the `ecs:TagResource` action. For more information, see [Grant permission to tag resources on creation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/supported-iam-actions-tagging.html) in the *Amazon ECS Developer Guide*.
 #' 
-#' -   `guardDutyActivate` - The `guardDutyActivate` parameter is read-only
-#'     in Amazon ECS and indicates whether Amazon ECS Runtime Monitoring is
-#'     enabled or disabled by your security administrator in your Amazon
-#'     ECS account. Amazon GuardDuty controls this account setting on your
-#'     behalf. For more information, see [Protecting Amazon ECS workloads
-#'     with Amazon ECS Runtime
-#'     Monitoring](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-guard-duty-integration.html).
-#' @param value &#91;required&#93; The account setting value for the specified principal ARN. Accepted
-#' values are `enabled`, `disabled`, `enhanced`, `on`, and `off`.
+#' -   `defaultLogDriverMode` - Amazon ECS supports setting a default delivery mode of log messages from a container to the `logDriver` that you specify in the container's `logConfiguration`. The delivery mode affects application stability when the flow of logs from the container to the log driver is interrupted. The `defaultLogDriverMode` setting supports two values: `blocking` and `non-blocking`. If you don't specify a delivery mode in your container definition's `logConfiguration`, the mode you specify using this account setting will be used as the default. For more information about log delivery modes, see [LogConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html).
 #' 
-#' When you specify `fargateTaskRetirementWaitPeriod` for the `name`, the
-#' following are the valid values:
+#'     On June 25, 2025, Amazon ECS changed the default log driver mode from `blocking` to `non-blocking` to prioritize task availability over logging. To continue using the `blocking` mode after this change, do one of the following:
 #' 
-#' -   `0` - Amazon Web Services sends the notification, and immediately
-#'     retires the affected tasks.
+#'     -   Set the `mode` option in your container definition's `logConfiguration` as `blocking`.
 #' 
-#' -   `7` - Amazon Web Services sends the notification, and waits 7
-#'     calendar days to retire the tasks.
+#'     -   Set the `defaultLogDriverMode` account setting to `blocking`.
 #' 
-#' -   `14` - Amazon Web Services sends the notification, and waits 14
-#'     calendar days to retire the tasks.
-#' @param principalArn The ARN of the principal, which can be a user, role, or the root user.
-#' If you specify the root user, it modifies the account setting for all
-#' users, roles, and the root user of the account unless a user or role
-#' explicitly overrides these settings. If this field is omitted, the
-#' setting is changed only for the authenticated user.
+#' -   `guardDutyActivate` - The `guardDutyActivate` parameter is read-only in Amazon ECS and indicates whether Amazon ECS Runtime Monitoring is enabled or disabled by your security administrator in your Amazon ECS account. Amazon GuardDuty controls this account setting on your behalf. For more information, see [Protecting Amazon ECS workloads with Amazon ECS Runtime Monitoring](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-guard-duty-integration.html).
+#' @param value &#91;required&#93; The account setting value for the specified principal ARN. Accepted values are `enabled`, `disabled`, `enhanced`, `on`, and `off`.
 #' 
-#' You must use the root user when you set the Fargate wait time
-#' (`fargateTaskRetirementWaitPeriod`).
+#' When you specify `fargateTaskRetirementWaitPeriod` for the `name`, the following are the valid values:
 #' 
-#' Federated users assume the account setting of the root user and can't
-#' have explicit account settings set for them.
+#' -   `0` - Amazon Web Services sends the notification, and immediately retires the affected tasks.
+#' 
+#' -   `7` - Amazon Web Services sends the notification, and waits 7 calendar days to retire the tasks.
+#' 
+#' -   `14` - Amazon Web Services sends the notification, and waits 14 calendar days to retire the tasks.
+#' @param principalArn The ARN of the principal, which can be a user, role, or the root user. If you specify the root user, it modifies the account setting for all users, roles, and the root user of the account unless a user or role explicitly overrides these settings. If this field is omitted, the setting is changed only for the authenticated user.
+#' 
+#' In order to use this parameter, you must be the root user, or the principal.
+#' 
+#' You must use the root user when you set the Fargate wait time (`fargateTaskRetirementWaitPeriod`).
+#' 
+#' Federated users assume the account setting of the root user and can't have explicit account settings set for them.
 #'
 #' @keywords internal
 #'
@@ -2253,118 +2067,50 @@ ecs_put_account_setting <- function(name, value, principalArn = NULL) {
 #' 
 #' The following are the valid values for the account setting name.
 #' 
-#' -   `serviceLongArnFormat` - When modified, the Amazon Resource Name
-#'     (ARN) and resource ID format of the resource type for a specified
-#'     user, role, or the root user for an account is affected. The opt-in
-#'     and opt-out account setting must be set for each Amazon ECS resource
-#'     separately. The ARN and resource ID format of a resource is defined
-#'     by the opt-in status of the user or role that created the resource.
-#'     You must turn on this setting to use Amazon ECS features such as
-#'     resource tagging.
+#' -   `serviceLongArnFormat` - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
 #' 
-#' -   `taskLongArnFormat` - When modified, the Amazon Resource Name (ARN)
-#'     and resource ID format of the resource type for a specified user,
-#'     role, or the root user for an account is affected. The opt-in and
-#'     opt-out account setting must be set for each Amazon ECS resource
-#'     separately. The ARN and resource ID format of a resource is defined
-#'     by the opt-in status of the user or role that created the resource.
-#'     You must turn on this setting to use Amazon ECS features such as
-#'     resource tagging.
+#' -   `taskLongArnFormat` - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
 #' 
-#' -   `containerInstanceLongArnFormat` - When modified, the Amazon
-#'     Resource Name (ARN) and resource ID format of the resource type for
-#'     a specified user, role, or the root user for an account is affected.
-#'     The opt-in and opt-out account setting must be set for each Amazon
-#'     ECS resource separately. The ARN and resource ID format of a
-#'     resource is defined by the opt-in status of the user or role that
-#'     created the resource. You must turn on this setting to use Amazon
-#'     ECS features such as resource tagging.
+#' -   `containerInstanceLongArnFormat` - When modified, the Amazon Resource Name (ARN) and resource ID format of the resource type for a specified user, role, or the root user for an account is affected. The opt-in and opt-out account setting must be set for each Amazon ECS resource separately. The ARN and resource ID format of a resource is defined by the opt-in status of the user or role that created the resource. You must turn on this setting to use Amazon ECS features such as resource tagging.
 #' 
-#' -   `awsvpcTrunking` - When modified, the elastic network interface
-#'     (ENI) limit for any new container instances that support the feature
-#'     is changed. If `awsvpcTrunking` is turned on, any new container
-#'     instances that support the feature are launched have the increased
-#'     ENI limits available to them. For more information, see [Elastic
-#'     Network Interface
-#'     Trunking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-eni.html)
-#'     in the *Amazon Elastic Container Service Developer Guide*.
+#' -   `awsvpcTrunking` - When modified, the elastic network interface (ENI) limit for any new container instances that support the feature is changed. If `awsvpcTrunking` is turned on, any new container instances that support the feature are launched have the increased ENI limits available to them. For more information, see [Elastic Network Interface Trunking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/container-instance-eni.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' -   `containerInsights` - Container Insights with enhanced observability
-#'     provides all the Container Insights metrics, plus additional task
-#'     and container metrics. This version supports enhanced observability
-#'     for Amazon ECS clusters using the Amazon EC2 and Fargate launch
-#'     types. After you configure Container Insights with enhanced
-#'     observability on Amazon ECS, Container Insights auto-collects
-#'     detailed infrastructure telemetry from the cluster level down to the
-#'     container level in your environment and displays these critical
-#'     performance data in curated dashboards removing the heavy lifting in
-#'     observability set-up.
+#' -   `containerInsights` - Container Insights with enhanced observability provides all the Container Insights metrics, plus additional task and container metrics. This version supports enhanced observability for Amazon ECS clusters using the Amazon EC2 and Fargate launch types. After you configure Container Insights with enhanced observability on Amazon ECS, Container Insights auto-collects detailed infrastructure telemetry from the cluster level down to the container level in your environment and displays these critical performance data in curated dashboards removing the heavy lifting in observability set-up.
 #' 
-#'     To use Container Insights with enhanced observability, set the
-#'     `containerInsights` account setting to `enhanced`.
+#'     To use Container Insights with enhanced observability, set the `containerInsights` account setting to `enhanced`.
 #' 
-#'     To use Container Insights, set the `containerInsights` account
-#'     setting to `enabled`.
+#'     To use Container Insights, set the `containerInsights` account setting to `enabled`.
 #' 
-#'     For more information, see [Monitor Amazon ECS containers using
-#'     Container Insights with enhanced
-#'     observability](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-container-insights.html)
-#'     in the *Amazon Elastic Container Service Developer Guide*.
+#'     For more information, see [Monitor Amazon ECS containers using Container Insights with enhanced observability](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cloudwatch-container-insights.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' -   `dualStackIPv6` - When turned on, when using a VPC in dual stack
-#'     mode, your tasks using the `awsvpc` network mode can have an IPv6
-#'     address assigned. For more information on using IPv6 with tasks
-#'     launched on Amazon EC2 instances, see [Using a VPC in dual-stack
-#'     mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html#task-networking-vpc-dual-stack).
-#'     For more information on using IPv6 with tasks launched on Fargate,
-#'     see [Using a VPC in dual-stack
-#'     mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-task-networking.html#fargate-task-networking-vpc-dual-stack).
+#' -   `dualStackIPv6` - When turned on, when using a VPC in dual stack mode, your tasks using the `awsvpc` network mode can have an IPv6 address assigned. For more information on using IPv6 with tasks launched on Amazon EC2 instances, see [Using a VPC in dual-stack mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking-awsvpc.html#task-networking-vpc-dual-stack). For more information on using IPv6 with tasks launched on Fargate, see [Using a VPC in dual-stack mode](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-task-networking.html#fargate-task-networking-vpc-dual-stack).
 #' 
-#' -   `fargateFIPSMode` - If you specify `fargateFIPSMode`, Fargate FIPS
-#'     140 compliance is affected.
+#' -   `fargateFIPSMode` - If you specify `fargateFIPSMode`, Fargate FIPS 140 compliance is affected.
 #' 
-#' -   `fargateTaskRetirementWaitPeriod` - When Amazon Web Services
-#'     determines that a security or infrastructure update is needed for an
-#'     Amazon ECS task hosted on Fargate, the tasks need to be stopped and
-#'     new tasks launched to replace them. Use
-#'     `fargateTaskRetirementWaitPeriod` to configure the wait time to
-#'     retire a Fargate task. For information about the Fargate tasks
-#'     maintenance, see [Amazon Web Services Fargate task
-#'     maintenance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-maintenance.html)
-#'     in the *Amazon ECS Developer Guide*.
+#' -   `fargateTaskRetirementWaitPeriod` - When Amazon Web Services determines that a security or infrastructure update is needed for an Amazon ECS task hosted on Fargate, the tasks need to be stopped and new tasks launched to replace them. Use `fargateTaskRetirementWaitPeriod` to configure the wait time to retire a Fargate task. For information about the Fargate tasks maintenance, see [Amazon Web Services Fargate task maintenance](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-maintenance.html) in the *Amazon ECS Developer Guide*.
 #' 
-#' -   `tagResourceAuthorization` - Amazon ECS is introducing tagging
-#'     authorization for resource creation. Users must have permissions for
-#'     actions that create the resource, such as `ecsCreateCluster`. If
-#'     tags are specified when you create a resource, Amazon Web Services
-#'     performs additional authorization to verify if users or roles have
-#'     permissions to create tags. Therefore, you must grant explicit
-#'     permissions to use the `ecs:TagResource` action. For more
-#'     information, see [Grant permission to tag resources on
-#'     creation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/supported-iam-actions-tagging.html)
-#'     in the *Amazon ECS Developer Guide*.
+#' -   `fargateEventWindows` - When Amazon Web Services determines that a security or infrastructure update is needed for an Amazon ECS task hosted on Fargate, the tasks need to be stopped and new tasks launched to replace them. Use `fargateEventWindows` to use EC2 Event Windows associated with Fargate tasks to configure time windows for task retirement.
 #' 
-#' -   `guardDutyActivate` - The `guardDutyActivate` parameter is read-only
-#'     in Amazon ECS and indicates whether Amazon ECS Runtime Monitoring is
-#'     enabled or disabled by your security administrator in your Amazon
-#'     ECS account. Amazon GuardDuty controls this account setting on your
-#'     behalf. For more information, see [Protecting Amazon ECS workloads
-#'     with Amazon ECS Runtime
-#'     Monitoring](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-guard-duty-integration.html).
-#' @param value &#91;required&#93; The account setting value for the specified principal ARN. Accepted
-#' values are `enabled`, `disabled`, `on`, `enhanced`, and `off`.
+#' -   `tagResourceAuthorization` - Amazon ECS is introducing tagging authorization for resource creation. Users must have permissions for actions that create the resource, such as `ecsCreateCluster`. If tags are specified when you create a resource, Amazon Web Services performs additional authorization to verify if users or roles have permissions to create tags. Therefore, you must grant explicit permissions to use the `ecs:TagResource` action. For more information, see [Grant permission to tag resources on creation](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/supported-iam-actions-tagging.html) in the *Amazon ECS Developer Guide*.
 #' 
-#' When you specify `fargateTaskRetirementWaitPeriod` for the `name`, the
-#' following are the valid values:
+#' -   `defaultLogDriverMode` -Amazon ECS supports setting a default delivery mode of log messages from a container to the `logDriver` that you specify in the container's `logConfiguration`. The delivery mode affects application stability when the flow of logs from the container to the log driver is interrupted. The `defaultLogDriverMode` setting supports two values: `blocking` and `non-blocking`. If you don't specify a delivery mode in your container definition's `logConfiguration`, the mode you specify using this account setting will be used as the default. For more information about log delivery modes, see [LogConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_LogConfiguration.html).
 #' 
-#' -   `0` - Amazon Web Services sends the notification, and immediately
-#'     retires the affected tasks.
+#'     On June 25, 2025, Amazon ECS changed the default log driver mode from `blocking` to `non-blocking` to prioritize task availability over logging. To continue using the `blocking` mode after this change, do one of the following:
 #' 
-#' -   `7` - Amazon Web Services sends the notification, and waits 7
-#'     calendar days to retire the tasks.
+#'     -   Set the `mode` option in your container definition's `logConfiguration` as `blocking`.
 #' 
-#' -   `14` - Amazon Web Services sends the notification, and waits 14
-#'     calendar days to retire the tasks.
+#'     -   Set the `defaultLogDriverMode` account setting to `blocking`.
+#' 
+#' -   `guardDutyActivate` - The `guardDutyActivate` parameter is read-only in Amazon ECS and indicates whether Amazon ECS Runtime Monitoring is enabled or disabled by your security administrator in your Amazon ECS account. Amazon GuardDuty controls this account setting on your behalf. For more information, see [Protecting Amazon ECS workloads with Amazon ECS Runtime Monitoring](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-guard-duty-integration.html).
+#' @param value &#91;required&#93; The account setting value for the specified principal ARN. Accepted values are `enabled`, `disabled`, `on`, `enhanced`, and `off`.
+#' 
+#' When you specify `fargateTaskRetirementWaitPeriod` for the `name`, the following are the valid values:
+#' 
+#' -   `0` - Amazon Web Services sends the notification, and immediately retires the affected tasks.
+#' 
+#' -   `7` - Amazon Web Services sends the notification, and waits 7 calendar days to retire the tasks.
+#' 
+#' -   `14` - Amazon Web Services sends the notification, and waits 14 calendar days to retire the tasks.
 #'
 #' @keywords internal
 #'
@@ -2395,12 +2141,8 @@ ecs_put_account_setting_default <- function(name, value) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_put_attributes/](https://www.paws-r-sdk.com/docs/ecs_put_attributes/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' contains the resource to apply attributes. If you do not specify a
-#' cluster, the default cluster is assumed.
-#' @param attributes &#91;required&#93; The attributes to apply to your resource. You can specify up to 10
-#' custom attributes for each resource. You can specify up to 10 attributes
-#' in a single call.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that contains the resource to apply attributes. If you do not specify a cluster, the default cluster is assumed.
+#' @param attributes &#91;required&#93; The attributes to apply to your resource. You can specify up to 10 custom attributes for each resource. You can specify up to 10 attributes in a single call.
 #'
 #' @keywords internal
 #'
@@ -2432,46 +2174,21 @@ ecs_put_attributes <- function(cluster = NULL, attributes) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_put_cluster_capacity_providers/](https://www.paws-r-sdk.com/docs/ecs_put_cluster_capacity_providers/) for full documentation.
 #'
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster to
-#' modify the capacity provider settings for. If you don't specify a
-#' cluster, the default cluster is assumed.
-#' @param capacityProviders &#91;required&#93; The name of one or more capacity providers to associate with the
-#' cluster.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster to modify the capacity provider settings for. If you don't specify a cluster, the default cluster is assumed.
+#' @param capacityProviders &#91;required&#93; The name of one or more capacity providers to associate with the cluster.
 #' 
-#' If specifying a capacity provider that uses an Auto Scaling group, the
-#' capacity provider must already be created. New capacity providers can be
-#' created with the
-#' [`create_capacity_provider`][ecs_create_capacity_provider] API
-#' operation.
+#' If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must already be created. New capacity providers can be created with the [`create_capacity_provider`][ecs_create_capacity_provider] API operation.
 #' 
-#' To use a Fargate capacity provider, specify either the `FARGATE` or
-#' `FARGATE_SPOT` capacity providers. The Fargate capacity providers are
-#' available to all accounts and only need to be associated with a cluster
-#' to be used.
+#' To use a Fargate capacity provider, specify either the `FARGATE` or `FARGATE_SPOT` capacity providers. The Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
 #' @param defaultCapacityProviderStrategy &#91;required&#93; The capacity provider strategy to use by default for the cluster.
 #' 
-#' When creating a service or running a task on a cluster, if no capacity
-#' provider or launch type is specified then the default capacity provider
-#' strategy for the cluster is used.
+#' When creating a service or running a task on a cluster, if no capacity provider or launch type is specified then the default capacity provider strategy for the cluster is used.
 #' 
-#' A capacity provider strategy consists of one or more capacity providers
-#' along with the `base` and `weight` to assign to them. A capacity
-#' provider must be associated with the cluster to be used in a capacity
-#' provider strategy. The
-#' [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers]
-#' API is used to associate a capacity provider with a cluster. Only
-#' capacity providers with an `ACTIVE` or `UPDATING` status can be used.
+#' A capacity provider strategy consists of one or more capacity providers along with the `base` and `weight` to assign to them. A capacity provider must be associated with the cluster to be used in a capacity provider strategy. The [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers] API is used to associate a capacity provider with a cluster. Only capacity providers with an `ACTIVE` or `UPDATING` status can be used.
 #' 
-#' If specifying a capacity provider that uses an Auto Scaling group, the
-#' capacity provider must already be created. New capacity providers can be
-#' created with the
-#' [`create_capacity_provider`][ecs_create_capacity_provider] API
-#' operation.
+#' If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must already be created. New capacity providers can be created with the [`create_capacity_provider`][ecs_create_capacity_provider] API operation.
 #' 
-#' To use a Fargate capacity provider, specify either the `FARGATE` or
-#' `FARGATE_SPOT` capacity providers. The Fargate capacity providers are
-#' available to all accounts and only need to be associated with a cluster
-#' to be used.
+#' To use a Fargate capacity provider, specify either the `FARGATE` or `FARGATE_SPOT` capacity providers. The Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
 #'
 #' @keywords internal
 #'
@@ -2503,52 +2220,31 @@ ecs_put_cluster_capacity_providers <- function(cluster, capacityProviders, defau
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_register_container_instance/](https://www.paws-r-sdk.com/docs/ecs_register_container_instance/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to
-#' register your container instance with. If you do not specify a cluster,
-#' the default cluster is assumed.
-#' @param instanceIdentityDocument The instance identity document for the EC2 instance to register. This
-#' document can be found by running the following command from the
-#' instance:
-#' `curl http://169.254.169.254/latest/dynamic/instance-identity/document/`
-#' @param instanceIdentityDocumentSignature The instance identity document signature for the EC2 instance to
-#' register. This signature can be found by running the following command
-#' from the instance:
-#' `curl http://169.254.169.254/latest/dynamic/instance-identity/signature/`
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to register your container instance with. If you do not specify a cluster, the default cluster is assumed.
+#' @param instanceIdentityDocument The instance identity document for the EC2 instance to register. This document can be found by running the following command from the instance: `curl http://169.254.169.254/latest/dynamic/instance-identity/document/`
+#' @param instanceIdentityDocumentSignature The instance identity document signature for the EC2 instance to register. This signature can be found by running the following command from the instance: `curl http://169.254.169.254/latest/dynamic/instance-identity/signature/`
 #' @param totalResources The resources available on the instance.
-#' @param versionInfo The version information for the Amazon ECS container agent and Docker
-#' daemon that runs on the container instance.
+#' @param versionInfo The version information for the Amazon ECS container agent and Docker daemon that runs on the container instance.
 #' @param containerInstanceArn The ARN of the container instance (if it was previously registered).
 #' @param attributes The container instance attributes that this container instance supports.
-#' @param platformDevices The devices that are available on the container instance. The only
-#' supported device type is a GPU.
-#' @param tags The metadata that you apply to the container instance to help you
-#' categorize and organize them. Each tag consists of a key and an optional
-#' value. You define both.
+#' @param platformDevices The devices that are available on the container instance. The supported device types are GPUs and Neuron devices.
+#' @param tags The metadata that you apply to the container instance to help you categorize and organize them. Each tag consists of a key and an optional value. You define both.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
 #'
 #' @keywords internal
 #'
@@ -2572,6 +2268,61 @@ ecs_register_container_instance <- function(cluster = NULL, instanceIdentityDocu
 }
 .ecs$operations$register_container_instance <- ecs_register_container_instance
 
+#' Registers a new daemon task definition from the supplied family and
+#' containerDefinitions
+#'
+#' @description
+#' Registers a new daemon task definition from the supplied `family` and `containerDefinitions`. Optionally, you can add data volumes to your containers with the `volumes` parameter. For more information, see [Daemon task definitions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/) in the *Amazon Elastic Container Service Developer Guide*.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_register_daemon_task_definition/](https://www.paws-r-sdk.com/docs/ecs_register_daemon_task_definition/) for full documentation.
+#'
+#' @param family &#91;required&#93; You must specify a `family` for a daemon task definition. This family is used as a name for your daemon task definition. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.
+#' @param taskRoleArn The short name or full Amazon Resource Name (ARN) of the IAM role that containers in this daemon task can assume. All containers in this daemon task are granted the permissions that are specified in this role.
+#' @param executionRoleArn The Amazon Resource Name (ARN) of the task execution role that grants the Amazon ECS container agent permission to make Amazon Web Services API calls on your behalf. The task execution role is required for daemon tasks that pull container images from Amazon ECR or send container logs to CloudWatch.
+#' @param containerDefinitions &#91;required&#93; A list of container definitions in JSON format that describe the containers that make up your daemon task.
+#' @param cpu The number of CPU units used by the daemon task. It can be expressed as an integer using CPU units (for example, `1024`).
+#' @param memory The amount of memory (in MiB) used by the daemon task. It can be expressed as an integer using MiB (for example, `1024`).
+#' @param volumes A list of volume definitions in JSON format that containers in your daemon task can use.
+#' @param tags The metadata that you apply to the daemon task definition to help you categorize and organize them. Each tag consists of a key and an optional value. You define both of them.
+#' 
+#' The following basic restrictions apply to tags:
+#' 
+#' -   Maximum number of tags per resource - 50
+#' 
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
+#' 
+#' -   Maximum key length - 128 Unicode characters in UTF-8
+#' 
+#' -   Maximum value length - 256 Unicode characters in UTF-8
+#' 
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
+#' 
+#' -   Tag keys and values are case-sensitive.
+#' 
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_register_daemon_task_definition
+ecs_register_daemon_task_definition <- function(family, taskRoleArn = NULL, executionRoleArn = NULL, containerDefinitions, cpu = NULL, memory = NULL, volumes = NULL, tags = NULL) {
+  op <- new_operation(
+    name = "RegisterDaemonTaskDefinition",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$register_daemon_task_definition_input(family = family, taskRoleArn = taskRoleArn, executionRoleArn = executionRoleArn, containerDefinitions = containerDefinitions, cpu = cpu, memory = memory, volumes = volumes, tags = tags)
+  output <- .ecs$register_daemon_task_definition_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$register_daemon_task_definition <- ecs_register_daemon_task_definition
+
 #' Registers a new task definition from the supplied family and
 #' containerDefinitions
 #'
@@ -2580,268 +2331,112 @@ ecs_register_container_instance <- function(cluster = NULL, instanceIdentityDocu
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_register_task_definition/](https://www.paws-r-sdk.com/docs/ecs_register_task_definition/) for full documentation.
 #'
-#' @param family &#91;required&#93; You must specify a `family` for a task definition. You can use it track
-#' multiple versions of the same task definition. The `family` is used as a
-#' name for your task definition. Up to 255 letters (uppercase and
-#' lowercase), numbers, underscores, and hyphens are allowed.
-#' @param taskRoleArn The short name or full Amazon Resource Name (ARN) of the IAM role that
-#' containers in this task can assume. All containers in this task are
-#' granted the permissions that are specified in this role. For more
-#' information, see [IAM Roles for
-#' Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param executionRoleArn The Amazon Resource Name (ARN) of the task execution role that grants
-#' the Amazon ECS container agent permission to make Amazon Web Services
-#' API calls on your behalf. For informationabout the required IAM roles
-#' for Amazon ECS, see [IAM roles for Amazon
-#' ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/security-ecs-iam-role-overview.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param networkMode The Docker networking mode to use for the containers in the task. The
-#' valid values are `none`, `bridge`, `awsvpc`, and `host`. If no network
-#' mode is specified, the default is `bridge`.
+#' @param family &#91;required&#93; You must specify a `family` for a task definition. You can use it track multiple versions of the same task definition. The `family` is used as a name for your task definition. Up to 255 letters (uppercase and lowercase), numbers, underscores, and hyphens are allowed.
+#' @param taskRoleArn The short name or full Amazon Resource Name (ARN) of the IAM role that containers in this task can assume. All containers in this task are granted the permissions that are specified in this role. For more information, see [IAM Roles for Tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-iam-roles.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param executionRoleArn The Amazon Resource Name (ARN) of the task execution role that grants the Amazon ECS container agent permission to make Amazon Web Services API calls on your behalf. For informationabout the required IAM roles for Amazon ECS, see [IAM roles for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/security-ecs-iam-role-overview.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param networkMode The Docker networking mode to use for the containers in the task. The valid values are `none`, `bridge`, `awsvpc`, and `host`. If no network mode is specified, the default is `bridge`.
 #' 
-#' For Amazon ECS tasks on Fargate, the `awsvpc` network mode is required.
-#' For Amazon ECS tasks on Amazon EC2 Linux instances, any network mode can
-#' be used. For Amazon ECS tasks on Amazon EC2 Windows instances,
-#' `<default>` or `awsvpc` can be used. If the network mode is set to
-#' `none`, you cannot specify port mappings in your container definitions,
-#' and the tasks containers do not have external connectivity. The `host`
-#' and `awsvpc` network modes offer the highest networking performance for
-#' containers because they use the EC2 network stack instead of the
-#' virtualized network stack provided by the `bridge` mode.
+#' For Amazon ECS tasks on Fargate, the `awsvpc` network mode is required. For Amazon ECS tasks on Amazon EC2 Linux instances, any network mode can be used. For Amazon ECS tasks on Amazon EC2 Windows instances, `<default>` or `awsvpc` can be used. If the network mode is set to `none`, you cannot specify port mappings in your container definitions, and the tasks containers do not have external connectivity. The `host` and `awsvpc` network modes offer the highest networking performance for containers because they use the EC2 network stack instead of the virtualized network stack provided by the `bridge` mode.
 #' 
-#' With the `host` and `awsvpc` network modes, exposed container ports are
-#' mapped directly to the corresponding host port (for the `host` network
-#' mode) or the attached elastic network interface port (for the `awsvpc`
-#' network mode), so you cannot take advantage of dynamic host port
-#' mappings.
+#' With the `host` and `awsvpc` network modes, exposed container ports are mapped directly to the corresponding host port (for the `host` network mode) or the attached elastic network interface port (for the `awsvpc` network mode), so you cannot take advantage of dynamic host port mappings.
 #' 
-#' When using the `host` network mode, you should not run containers using
-#' the root user (UID 0). It is considered best practice to use a non-root
-#' user.
+#' When using the `host` network mode, you should not run containers using the root user (UID 0). It is considered best practice to use a non-root user.
 #' 
-#' If the network mode is `awsvpc`, the task is allocated an elastic
-#' network interface, and you must specify a
-#' [NetworkConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_NetworkConfiguration.html)
-#' value when you create a service or run a task with the task definition.
-#' For more information, see [Task
-#' Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' If the network mode is `awsvpc`, the task is allocated an elastic network interface, and you must specify a [NetworkConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_NetworkConfiguration.html) value when you create a service or run a task with the task definition. For more information, see [Task Networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' If the network mode is `host`, you cannot run multiple instantiations of
-#' the same task on a single container instance when port mappings are
-#' used.
-#' @param containerDefinitions &#91;required&#93; A list of container definitions in JSON format that describe the
-#' different containers that make up your task.
-#' @param volumes A list of volume definitions in JSON format that containers in your task
-#' might use.
-#' @param placementConstraints An array of placement constraint objects to use for the task. You can
-#' specify a maximum of 10 constraints for each task. This limit includes
-#' constraints in the task definition and those specified at runtime.
-#' @param requiresCompatibilities The task launch type that Amazon ECS validates the task definition
-#' against. A client exception is returned if the task definition doesn't
-#' validate against the compatibilities specified. If no value is
-#' specified, the parameter is omitted from the response.
-#' @param cpu The number of CPU units used by the task. It can be expressed as an
-#' integer using CPU units (for example, `1024`) or as a string using vCPUs
-#' (for example, `1 vCPU` or `1 vcpu`) in a task definition. String values
-#' are converted to an integer indicating the CPU units when the task
-#' definition is registered.
+#' If the network mode is `host`, you cannot run multiple instantiations of the same task on a single container instance when port mappings are used.
+#' @param containerDefinitions &#91;required&#93; A list of container definitions in JSON format that describe the different containers that make up your task.
+#' @param volumes A list of volume definitions in JSON format that containers in your task might use.
+#' @param placementConstraints An array of placement constraint objects to use for the task. You can specify a maximum of 10 constraints for each task. This limit includes constraints in the task definition and those specified at runtime.
+#' @param requiresCompatibilities The task launch type that Amazon ECS validates the task definition against. A client exception is returned if the task definition doesn't validate against the compatibilities specified. If no value is specified, the parameter is omitted from the response.
+#' @param cpu The number of CPU units used by the task. It can be expressed as an integer using CPU units (for example, `1024`) or as a string using vCPUs (for example, `1 vCPU` or `1 vcpu`) in a task definition. String values are converted to an integer indicating the CPU units when the task definition is registered.
 #' 
-#' Task-level CPU and memory parameters are ignored for Windows containers.
-#' We recommend specifying container-level resources for Windows
-#' containers.
+#' Task-level CPU and memory parameters are ignored for Windows containers. We recommend specifying container-level resources for Windows containers.
 #' 
-#' If you're using the EC2 launch type or external launch type, this field
-#' is optional. Supported values are between `128` CPU units (`0.125`
-#' vCPUs) and `196608` CPU units (`192` vCPUs). If you do not specify a
-#' value, the parameter is ignored.
+#' If you're using the EC2 launch type or external launch type, this field is optional. Supported values are between `128` CPU units (`0.125` vCPUs) and `196608` CPU units (`192` vCPUs). If you do not specify a value, the parameter is ignored.
 #' 
-#' If you're using the Fargate launch type, this field is required and you
-#' must use one of the following values, which determines your range of
-#' supported values for the `memory` parameter:
+#' This field is required for Fargate. For information about the valid values, see [Task size](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param memory The amount of memory (in MiB) used by the task. It can be expressed as an integer using MiB (for example ,`1024`) or as a string using GB (for example, `1GB` or `1 GB`) in a task definition. String values are converted to an integer indicating the MiB when the task definition is registered.
 #' 
-#' The CPU units cannot be less than 1 vCPU when you use Windows containers
-#' on Fargate.
-#' 
-#' -   256 (.25 vCPU) - Available `memory` values: 512 (0.5 GB), 1024 (1
-#'     GB), 2048 (2 GB)
-#' 
-#' -   512 (.5 vCPU) - Available `memory` values: 1024 (1 GB), 2048 (2 GB),
-#'     3072 (3 GB), 4096 (4 GB)
-#' 
-#' -   1024 (1 vCPU) - Available `memory` values: 2048 (2 GB), 3072 (3 GB),
-#'     4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB)
-#' 
-#' -   2048 (2 vCPU) - Available `memory` values: 4096 (4 GB) and 16384 (16
-#'     GB) in increments of 1024 (1 GB)
-#' 
-#' -   4096 (4 vCPU) - Available `memory` values: 8192 (8 GB) and 30720 (30
-#'     GB) in increments of 1024 (1 GB)
-#' 
-#' -   8192 (8 vCPU) - Available `memory` values: 16 GB and 60 GB in 4 GB
-#'     increments
-#' 
-#'     This option requires Linux platform `1.4.0` or later.
-#' 
-#' -   16384 (16vCPU) - Available `memory` values: 32GB and 120 GB in 8 GB
-#'     increments
-#' 
-#'     This option requires Linux platform `1.4.0` or later.
-#' @param memory The amount of memory (in MiB) used by the task. It can be expressed as
-#' an integer using MiB (for example ,`1024`) or as a string using GB (for
-#' example, `1GB` or `1 GB`) in a task definition. String values are
-#' converted to an integer indicating the MiB when the task definition is
-#' registered.
-#' 
-#' Task-level CPU and memory parameters are ignored for Windows containers.
-#' We recommend specifying container-level resources for Windows
-#' containers.
+#' Task-level CPU and memory parameters are ignored for Windows containers. We recommend specifying container-level resources for Windows containers.
 #' 
 #' If using the EC2 launch type, this field is optional.
 #' 
-#' If using the Fargate launch type, this field is required and you must
-#' use one of the following values. This determines your range of supported
-#' values for the `cpu` parameter.
+#' If using the Fargate launch type, this field is required and you must use one of the following values. This determines your range of supported values for the `cpu` parameter.
 #' 
-#' The CPU units cannot be less than 1 vCPU when you use Windows containers
-#' on Fargate.
+#' The CPU units cannot be less than 1 vCPU when you use Windows containers on Fargate.
 #' 
-#' -   512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available `cpu` values: 256
-#'     (.25 vCPU)
+#' -   512 (0.5 GB), 1024 (1 GB), 2048 (2 GB) - Available `cpu` values: 256 (.25 vCPU)
 #' 
-#' -   1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available `cpu`
-#'     values: 512 (.5 vCPU)
+#' -   1024 (1 GB), 2048 (2 GB), 3072 (3 GB), 4096 (4 GB) - Available `cpu` values: 512 (.5 vCPU)
 #' 
-#' -   2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB),
-#'     7168 (7 GB), 8192 (8 GB) - Available `cpu` values: 1024 (1 vCPU)
+#' -   2048 (2 GB), 3072 (3 GB), 4096 (4 GB), 5120 (5 GB), 6144 (6 GB), 7168 (7 GB), 8192 (8 GB) - Available `cpu` values: 1024 (1 vCPU)
 #' 
-#' -   Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) -
-#'     Available `cpu` values: 2048 (2 vCPU)
+#' -   Between 4096 (4 GB) and 16384 (16 GB) in increments of 1024 (1 GB) - Available `cpu` values: 2048 (2 vCPU)
 #' 
-#' -   Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) -
-#'     Available `cpu` values: 4096 (4 vCPU)
+#' -   Between 8192 (8 GB) and 30720 (30 GB) in increments of 1024 (1 GB) - Available `cpu` values: 4096 (4 vCPU)
 #' 
-#' -   Between 16 GB and 60 GB in 4 GB increments - Available `cpu` values:
-#'     8192 (8 vCPU)
+#' -   Between 16 GB and 60 GB in 4 GB increments - Available `cpu` values: 8192 (8 vCPU)
 #' 
 #'     This option requires Linux platform `1.4.0` or later.
 #' 
-#' -   Between 32GB and 120 GB in 8 GB increments - Available `cpu` values:
-#'     16384 (16 vCPU)
+#' -   Between 32GB and 120 GB in 8 GB increments - Available `cpu` values: 16384 (16 vCPU)
 #' 
 #'     This option requires Linux platform `1.4.0` or later.
-#' @param tags The metadata that you apply to the task definition to help you
-#' categorize and organize them. Each tag consists of a key and an optional
-#' value. You define both of them.
+#' @param tags The metadata that you apply to the task definition to help you categorize and organize them. Each tag consists of a key and an optional value. You define both of them.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
-#' @param pidMode The process namespace to use for the containers in the task. The valid
-#' values are `host` or `task`. On Fargate for Linux containers, the only
-#' valid value is `task`. For example, monitoring sidecars might need
-#' `pidMode` to access information about other containers running in the
-#' same task.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#' @param pidMode The process namespace to use for the containers in the task. The valid values are `host` or `task`. On Fargate for Linux containers, the only valid value is `task`. For example, monitoring sidecars might need `pidMode` to access information about other containers running in the same task.
 #' 
-#' If `host` is specified, all containers within the tasks that specified
-#' the `host` PID mode on the same container instance share the same
-#' process namespace with the host Amazon EC2 instance.
+#' If `host` is specified, all containers within the tasks that specified the `host` PID mode on the same container instance share the same process namespace with the host Amazon EC2 instance.
 #' 
-#' If `task` is specified, all containers within the specified task share
-#' the same process namespace.
+#' If `task` is specified, all containers within the specified task share the same process namespace.
 #' 
-#' If no value is specified, the default is a private namespace for each
-#' container.
+#' If no value is specified, the The default is a private namespace for each container.
 #' 
-#' If the `host` PID mode is used, there's a heightened risk of undesired
-#' process namespace exposure.
+#' If the `host` PID mode is used, there's a heightened risk of undesired process namespace exposure.
 #' 
 #' This parameter is not supported for Windows containers.
 #' 
-#' This parameter is only supported for tasks that are hosted on Fargate if
-#' the tasks are using platform version `1.4.0` or later (Linux). This
-#' isn't supported for Windows containers on Fargate.
-#' @param ipcMode The IPC resource namespace to use for the containers in the task. The
-#' valid values are `host`, `task`, or `none`. If `host` is specified, then
-#' all containers within the tasks that specified the `host` IPC mode on
-#' the same container instance share the same IPC resources with the host
-#' Amazon EC2 instance. If `task` is specified, all containers within the
-#' specified task share the same IPC resources. If `none` is specified,
-#' then IPC resources within the containers of a task are private and not
-#' shared with other containers in a task or on the container instance. If
-#' no value is specified, then the IPC resource namespace sharing depends
-#' on the Docker daemon setting on the container instance.
+#' This parameter is only supported for tasks that are hosted on Fargate if the tasks are using platform version `1.4.0` or later (Linux). This isn't supported for Windows containers on Fargate.
+#' @param ipcMode The IPC resource namespace to use for the containers in the task. The valid values are `host`, `task`, or `none`. If `host` is specified, then all containers within the tasks that specified the `host` IPC mode on the same container instance share the same IPC resources with the host Amazon EC2 instance. If `task` is specified, all containers within the specified task share the same IPC resources. If `none` is specified, then IPC resources within the containers of a task are private and not shared with other containers in a task or on the container instance. If no value is specified, then the IPC resource namespace sharing depends on the Docker daemon setting on the container instance.
 #' 
-#' If the `host` IPC mode is used, be aware that there is a heightened risk
-#' of undesired IPC namespace expose.
+#' If the `host` IPC mode is used, be aware that there is a heightened risk of undesired IPC namespace expose.
 #' 
-#' If you are setting namespaced kernel parameters using `systemControls`
-#' for the containers in the task, the following will apply to your IPC
-#' resource namespace. For more information, see [System
-#' Controls](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' If you are setting namespaced kernel parameters using `systemControls` for the containers in the task, the following will apply to your IPC resource namespace. For more information, see [System Controls](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' -   For tasks that use the `host` IPC mode, IPC namespace related
-#'     `systemControls` are not supported.
+#' -   For tasks that use the `host` IPC mode, IPC namespace related `systemControls` are not supported.
 #' 
-#' -   For tasks that use the `task` IPC mode, IPC namespace related
-#'     `systemControls` will apply to all containers within a task.
+#' -   For tasks that use the `task` IPC mode, IPC namespace related `systemControls` will apply to all containers within a task.
 #' 
-#' This parameter is not supported for Windows containers or tasks run on
-#' Fargate.
+#' This parameter is not supported for Windows containers or tasks run on Fargate.
 #' @param proxyConfiguration The configuration details for the App Mesh proxy.
 #' 
-#' For tasks hosted on Amazon EC2 instances, the container instances
-#' require at least version `1.26.0` of the container agent and at least
-#' version `1.26.0-1` of the `ecs-init` package to use a proxy
-#' configuration. If your container instances are launched from the Amazon
-#' ECS-optimized AMI version `20190301` or later, then they contain the
-#' required versions of the container agent and `ecs-init`. For more
-#' information, see [Amazon ECS-optimized AMI
-#' versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html#ecs-optimized-ami-linux-releasenotes)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param inferenceAccelerators The Elastic Inference accelerators to use for the containers in the
-#' task.
-#' @param ephemeralStorage The amount of ephemeral storage to allocate for the task. This parameter
-#' is used to expand the total amount of ephemeral storage available,
-#' beyond the default amount, for tasks hosted on Fargate. For more
-#' information, see [Using data volumes in
-#' tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html)
-#' in the *Amazon ECS Developer Guide*.
+#' For tasks hosted on Amazon EC2 instances, the container instances require at least version `1.26.0` of the container agent and at least version `1.26.0-1` of the `ecs-init` package to use a proxy configuration. If your container instances are launched from the Amazon ECS-optimized AMI version `20190301` or later, then they contain the required versions of the container agent and `ecs-init`. For more information, see [Amazon ECS-optimized AMI versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-optimized_AMI.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param inferenceAccelerators The Elastic Inference accelerators to use for the containers in the task.
+#' @param ephemeralStorage The amount of ephemeral storage to allocate for the task. This parameter is used to expand the total amount of ephemeral storage available, beyond the default amount, for tasks hosted on Fargate. For more information, see [Using data volumes in tasks](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_data_volumes.html) in the *Amazon ECS Developer Guide*.
 #' 
-#' For tasks using the Fargate launch type, the task requires the following
-#' platforms:
+#' For tasks using the Fargate launch type, the task requires the following platforms:
 #' 
 #' -   Linux platform version `1.4.0` or later.
 #' 
 #' -   Windows platform version `1.0.0` or later.
-#' @param runtimePlatform The operating system that your tasks definitions run on. A platform
-#' family is specified only for tasks using the Fargate launch type.
-#' @param enableFaultInjection Enables fault injection when you register your task definition and
-#' allows for fault injection requests to be accepted from the task's
-#' containers. The default value is `false`.
+#' @param runtimePlatform The operating system that your tasks definitions run on.
+#' @param enableFaultInjection Enables fault injection when you register your task definition and allows for fault injection requests to be accepted from the task's containers. The default value is `false`.
 #'
 #' @keywords internal
 #'
@@ -2874,164 +2469,81 @@ ecs_register_task_definition <- function(family, taskRoleArn = NULL, executionRo
 #'
 #' @param capacityProviderStrategy The capacity provider strategy to use for the task.
 #' 
-#' If a `capacityProviderStrategy` is specified, the `launchType` parameter
-#' must be omitted. If no `capacityProviderStrategy` or `launchType` is
-#' specified, the `defaultCapacityProviderStrategy` for the cluster is
-#' used.
+#' If you want to use Amazon ECS Managed Instances, you must use the `capacityProviderStrategy` request parameter and omit the `launchType` request parameter.
 #' 
-#' When you use cluster auto scaling, you must specify
-#' `capacityProviderStrategy` and not `launchType`.
+#' If a `capacityProviderStrategy` is specified, the `launchType` parameter must be omitted. If no `capacityProviderStrategy` or `launchType` is specified, the `defaultCapacityProviderStrategy` for the cluster is used.
 #' 
-#' A capacity provider strategy can contain a maximum of 20 capacity
-#' providers.
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to run
-#' your task on. If you do not specify a cluster, the default cluster is
-#' assumed.
-#' @param count The number of instantiations of the specified task to place on your
-#' cluster. You can specify up to 10 tasks for each call.
-#' @param enableECSManagedTags Specifies whether to use Amazon ECS managed tags for the task. For more
-#' information, see [Tagging Your Amazon ECS
-#' Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param enableExecuteCommand Determines whether to use the execute command functionality for the
-#' containers in this task. If `true`, this enables execute command
-#' functionality on all containers in the task.
+#' When you use cluster auto scaling, you must specify `capacityProviderStrategy` and not `launchType`.
 #' 
-#' If `true`, then the task definition must have a task role, or you must
-#' provide one as an override.
-#' @param group The name of the task group to associate with the task. The default value
-#' is the family name of the task definition (for example,
-#' `family:my-family-name`).
-#' @param launchType The infrastructure to run your standalone task on. For more information,
-#' see [Amazon ECS launch
-#' types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' A capacity provider strategy can contain a maximum of 20 capacity providers.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster to run your task on. If you do not specify a cluster, the default cluster is assumed.
 #' 
-#' The `FARGATE` launch type runs your tasks on Fargate On-Demand
-#' infrastructure.
+#' Each account receives a default cluster the first time you use the service, but you may also create other clusters.
+#' @param count The number of instantiations of the specified task to place on your cluster. You can specify up to 10 tasks for each call.
+#' @param enableECSManagedTags Specifies whether to use Amazon ECS managed tags for the task. For more information, see [Tagging Your Amazon ECS Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param enableExecuteCommand Determines whether to use the execute command functionality for the containers in this task. If `true`, this enables execute command functionality on all containers in the task.
 #' 
-#' Fargate Spot infrastructure is available for use but a capacity provider
-#' strategy must be used. For more information, see [Fargate capacity
-#' providers](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-capacity-providers.html)
-#' in the *Amazon ECS Developer Guide*.
+#' If `true`, then the task definition must have a task role, or you must provide one as an override.
+#' @param group The name of the task group to associate with the task. The default value is the family name of the task definition (for example, `family:my-family-name`).
+#' @param launchType The infrastructure to run your standalone task on. For more information, see [Amazon ECS launch types](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-configuration.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' The `EC2` launch type runs your tasks on Amazon EC2 instances registered
-#' to your cluster.
+#' If you want to use Amazon ECS Managed Instances, you must use the `capacityProviderStrategy` request parameter and omit the `launchType` request parameter.
 #' 
-#' The `EXTERNAL` launch type runs your tasks on your on-premises server or
-#' virtual machine (VM) capacity registered to your cluster.
+#' The `FARGATE` launch type runs your tasks on Fargate On-Demand infrastructure.
 #' 
-#' A task can use either a launch type or a capacity provider strategy. If
-#' a `launchType` is specified, the `capacityProviderStrategy` parameter
-#' must be omitted.
+#' Fargate Spot infrastructure is available for use but a capacity provider strategy must be used. For more information, see [Fargate capacity providers](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/fargate-capacity-providers.html) in the *Amazon ECS Developer Guide*.
 #' 
-#' When you use cluster auto scaling, you must specify
-#' `capacityProviderStrategy` and not `launchType`.
-#' @param networkConfiguration The network configuration for the task. This parameter is required for
-#' task definitions that use the `awsvpc` network mode to receive their own
-#' elastic network interface, and it isn't supported for other network
-#' modes. For more information, see [Task
-#' networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param overrides A list of container overrides in JSON format that specify the name of a
-#' container in the specified task definition and the overrides it should
-#' receive. You can override the default command for a container (that's
-#' specified in the task definition or Docker image) with a `command`
-#' override. You can also override existing environment variables (that are
-#' specified in the task definition or Docker image) on a container or add
-#' new environment variables to it with an `environment` override.
+#' The `EC2` launch type runs your tasks on Amazon EC2 instances registered to your cluster.
 #' 
-#' A total of 8192 characters are allowed for overrides. This limit
-#' includes the JSON formatting characters of the override structure.
-#' @param placementConstraints An array of placement constraint objects to use for the task. You can
-#' specify up to 10 constraints for each task (including constraints in the
-#' task definition and those specified at runtime).
-#' @param placementStrategy The placement strategy objects to use for the task. You can specify a
-#' maximum of 5 strategy rules for each task.
-#' @param platformVersion The platform version the task uses. A platform version is only specified
-#' for tasks hosted on Fargate. If one isn't specified, the `LATEST`
-#' platform version is used. For more information, see [Fargate platform
-#' versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform-fargate.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param propagateTags Specifies whether to propagate the tags from the task definition to the
-#' task. If no value is specified, the tags aren't propagated. Tags can
-#' only be propagated to the task during task creation. To add tags to a
-#' task after task creation, use the[`tag_resource`][ecs_tag_resource] API
-#' action.
+#' The `EXTERNAL` launch type runs your tasks on your on-premises server or virtual machine (VM) capacity registered to your cluster.
 #' 
-#' An error will be received if you specify the `SERVICE` option when
-#' running a task.
-#' @param referenceId This parameter is only used by Amazon ECS. It is not intended for use by
-#' customers.
-#' @param startedBy An optional tag specified when a task is started. For example, if you
-#' automatically trigger a task to run a batch process job, you could apply
-#' a unique identifier for that job to your task with the `startedBy`
-#' parameter. You can then identify which tasks belong to that job by
-#' filtering the results of a [`list_tasks`][ecs_list_tasks] call with the
-#' `startedBy` value. Up to 128 letters (uppercase and lowercase), numbers,
-#' hyphens (-), forward slash (/), and underscores (_) are allowed.
+#' A task can use either a launch type or a capacity provider strategy. If a `launchType` is specified, the `capacityProviderStrategy` parameter must be omitted.
 #' 
-#' If a task is started by an Amazon ECS service, then the `startedBy`
-#' parameter contains the deployment ID of the service that starts it.
-#' @param tags The metadata that you apply to the task to help you categorize and
-#' organize them. Each tag consists of a key and an optional value, both of
-#' which you define.
+#' When you use cluster auto scaling, you must specify `capacityProviderStrategy` and not `launchType`.
+#' @param networkConfiguration The network configuration for the task. This parameter is required for task definitions that use the `awsvpc` network mode to receive their own elastic network interface, and it isn't supported for other network modes. For more information, see [Task networking](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-networking.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param overrides A list of container overrides in JSON format that specify the name of a container in the specified task definition and the overrides it should receive. You can override the default command for a container (that's specified in the task definition or Docker image) with a `command` override. You can also override existing environment variables (that are specified in the task definition or Docker image) on a container or add new environment variables to it with an `environment` override.
+#' 
+#' A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the override structure.
+#' @param placementConstraints An array of placement constraint objects to use for the task. You can specify up to 10 constraints for each task (including constraints in the task definition and those specified at runtime).
+#' @param placementStrategy The placement strategy objects to use for the task. You can specify a maximum of 5 strategy rules for each task.
+#' @param platformVersion The platform version the task uses. A platform version is only specified for tasks hosted on Fargate. If one isn't specified, the `LATEST` platform version is used. For more information, see [Fargate platform versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform-fargate.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param propagateTags Specifies whether to propagate the tags from the task definition to the task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the task during task creation. To add tags to a task after task creation, use the[`tag_resource`][ecs_tag_resource] API action.
+#' 
+#' An error will be received if you specify the `SERVICE` option when running a task.
+#' @param referenceId This parameter is only used by Amazon ECS. It is not intended for use by customers.
+#' @param startedBy An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch process job, you could apply a unique identifier for that job to your task with the `startedBy` parameter. You can then identify which tasks belong to that job by filtering the results of a [`list_tasks`][ecs_list_tasks] call with the `startedBy` value. Up to 128 letters (uppercase and lowercase), numbers, hyphens (-), forward slash (/), and underscores (_) are allowed.
+#' 
+#' If a task is started by an Amazon ECS service, then the `startedBy` parameter contains the deployment ID of the service that starts it.
+#' @param tags The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
-#' @param taskDefinition &#91;required&#93; The `family` and `revision` (`family:revision`) or full ARN of the task
-#' definition to run. If a `revision` isn't specified, the latest `ACTIVE`
-#' revision is used.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#' @param taskDefinition &#91;required&#93; The `family` and `revision` (`family:revision`) or full ARN of the task definition to run. If a `revision` isn't specified, the latest `ACTIVE` revision is used.
 #' 
-#' The full ARN value must match the value that you specified as the
-#' `Resource` of the principal's permissions policy.
+#' The full ARN value must match the value that you specified as the `Resource` of the principal's permissions policy.
 #' 
-#' When you specify a task definition, you must either specify a specific
-#' revision, or all revisions in the ARN.
+#' When you specify a task definition, you must either specify a specific revision, or all revisions in the ARN.
 #' 
-#' To specify a specific revision, include the revision number in the ARN.
-#' For example, to specify revision 2, use
-#' `arn:aws:ecs:us-east-1:111122223333:task-definition/TaskFamilyName:2`.
+#' To specify a specific revision, include the revision number in the ARN. For example, to specify revision 2, use `arn:aws:ecs:us-east-1:111122223333:task-definition/TaskFamilyName:2`.
 #' 
-#' To specify all revisions, use the wildcard (*) in the ARN. For example,
-#' to specify all revisions, use
-#' `arn:aws:ecs:us-east-1:111122223333:task-definition/TaskFamilyName:*`.
+#' To specify all revisions, use the wildcard (*) in the ARN. For example, to specify all revisions, use `arn:aws:ecs:us-east-1:111122223333:task-definition/TaskFamilyName:*`.
 #' 
-#' For more information, see [Policy Resources for Amazon
-#' ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-resources)
-#' in the Amazon Elastic Container Service Developer Guide.
-#' @param clientToken An identifier that you provide to ensure the idempotency of the request.
-#' It must be unique and is case sensitive. Up to 64 characters are
-#' allowed. The valid characters are characters in the range of 33-126,
-#' inclusive. For more information, see [Ensuring
-#' idempotency](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/ECS_Idempotency.html).
-#' @param volumeConfigurations The details of the volume that was `configuredAtLaunch`. You can
-#' configure the size, volumeType, IOPS, throughput, snapshot and
-#' encryption in in
-#' [TaskManagedEBSVolumeConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html).
-#' The `name` of the volume must match the `name` from the task definition.
+#' For more information, see [Policy Resources for Amazon ECS](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/security_iam_service-with-iam.html#security_iam_service-with-iam-id-based-policies-resources) in the Amazon Elastic Container Service Developer Guide.
+#' @param clientToken An identifier that you provide to ensure the idempotency of the request. It must be unique and is case sensitive. Up to 64 characters are allowed. The valid characters are characters in the range of 33-126, inclusive. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_Idempotency.html).
+#' @param volumeConfigurations The details of the volume that was `configuredAtLaunch`. You can configure the size, volumeType, IOPS, throughput, snapshot and encryption in [TaskManagedEBSVolumeConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html). The `name` of the volume must match the `name` from the task definition.
 #'
 #' @keywords internal
 #'
@@ -3063,86 +2575,39 @@ ecs_run_task <- function(capacityProviderStrategy = NULL, cluster = NULL, count 
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_start_task/](https://www.paws-r-sdk.com/docs/ecs_start_task/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster where
-#' to start your task. If you do not specify a cluster, the default cluster
-#' is assumed.
-#' @param containerInstances &#91;required&#93; The container instance IDs or full ARN entries for the container
-#' instances where you would like to place your task. You can specify up to
-#' 10 container instances.
-#' @param enableECSManagedTags Specifies whether to use Amazon ECS managed tags for the task. For more
-#' information, see [Tagging Your Amazon ECS
-#' Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param enableExecuteCommand Whether or not the execute command functionality is turned on for the
-#' task. If `true`, this turns on the execute command functionality on all
-#' containers in the task.
-#' @param group The name of the task group to associate with the task. The default value
-#' is the family name of the task definition (for example,
-#' family:my-family-name).
-#' @param networkConfiguration The VPC subnet and security group configuration for tasks that receive
-#' their own elastic network interface by using the `awsvpc` networking
-#' mode.
-#' @param overrides A list of container overrides in JSON format that specify the name of a
-#' container in the specified task definition and the overrides it
-#' receives. You can override the default command for a container (that's
-#' specified in the task definition or Docker image) with a `command`
-#' override. You can also override existing environment variables (that are
-#' specified in the task definition or Docker image) on a container or add
-#' new environment variables to it with an `environment` override.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster where to start your task. If you do not specify a cluster, the default cluster is assumed.
+#' @param containerInstances &#91;required&#93; The container instance IDs or full ARN entries for the container instances where you would like to place your task. You can specify up to 10 container instances.
+#' @param enableECSManagedTags Specifies whether to use Amazon ECS managed tags for the task. For more information, see [Tagging Your Amazon ECS Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param enableExecuteCommand Whether or not the execute command functionality is turned on for the task. If `true`, this turns on the execute command functionality on all containers in the task.
+#' @param group The name of the task group to associate with the task. The default value is the family name of the task definition (for example, family:my-family-name).
+#' @param networkConfiguration The VPC subnet and security group configuration for tasks that receive their own elastic network interface by using the `awsvpc` networking mode.
+#' @param overrides A list of container overrides in JSON format that specify the name of a container in the specified task definition and the overrides it receives. You can override the default command for a container (that's specified in the task definition or Docker image) with a `command` override. You can also override existing environment variables (that are specified in the task definition or Docker image) on a container or add new environment variables to it with an `environment` override.
 #' 
-#' A total of 8192 characters are allowed for overrides. This limit
-#' includes the JSON formatting characters of the override structure.
-#' @param propagateTags Specifies whether to propagate the tags from the task definition or the
-#' service to the task. If no value is specified, the tags aren't
-#' propagated.
-#' @param referenceId This parameter is only used by Amazon ECS. It is not intended for use by
-#' customers.
-#' @param startedBy An optional tag specified when a task is started. For example, if you
-#' automatically trigger a task to run a batch process job, you could apply
-#' a unique identifier for that job to your task with the `startedBy`
-#' parameter. You can then identify which tasks belong to that job by
-#' filtering the results of a [`list_tasks`][ecs_list_tasks] call with the
-#' `startedBy` value. Up to 36 letters (uppercase and lowercase), numbers,
-#' hyphens (-), forward slash (/), and underscores (_) are allowed.
+#' A total of 8192 characters are allowed for overrides. This limit includes the JSON formatting characters of the override structure.
+#' @param propagateTags Specifies whether to propagate the tags from the task definition or the service to the task. If no value is specified, the tags aren't propagated.
+#' @param referenceId This parameter is only used by Amazon ECS. It is not intended for use by customers.
+#' @param startedBy An optional tag specified when a task is started. For example, if you automatically trigger a task to run a batch process job, you could apply a unique identifier for that job to your task with the `startedBy` parameter. You can then identify which tasks belong to that job by filtering the results of a [`list_tasks`][ecs_list_tasks] call with the `startedBy` value. Up to 36 letters (uppercase and lowercase), numbers, hyphens (-), forward slash (/), and underscores (_) are allowed.
 #' 
-#' If a task is started by an Amazon ECS service, the `startedBy` parameter
-#' contains the deployment ID of the service that starts it.
-#' @param tags The metadata that you apply to the task to help you categorize and
-#' organize them. Each tag consists of a key and an optional value, both of
-#' which you define.
+#' If a task is started by an Amazon ECS service, the `startedBy` parameter contains the deployment ID of the service that starts it.
+#' @param tags The metadata that you apply to the task to help you categorize and organize them. Each tag consists of a key and an optional value, both of which you define.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
-#' @param taskDefinition &#91;required&#93; The `family` and `revision` (`family:revision`) or full ARN of the task
-#' definition to start. If a `revision` isn't specified, the latest
-#' `ACTIVE` revision is used.
-#' @param volumeConfigurations The details of the volume that was `configuredAtLaunch`. You can
-#' configure the size, volumeType, IOPS, throughput, snapshot and
-#' encryption in
-#' [TaskManagedEBSVolumeConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html).
-#' The `name` of the volume must match the `name` from the task definition.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
+#' @param taskDefinition &#91;required&#93; The `family` and `revision` (`family:revision`) or full ARN of the task definition to start. If a `revision` isn't specified, the latest `ACTIVE` revision is used.
+#' @param volumeConfigurations The details of the volume that was `configuredAtLaunch`. You can configure the size, volumeType, IOPS, throughput, snapshot and encryption in [TaskManagedEBSVolumeConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_TaskManagedEBSVolumeConfiguration.html). The `name` of the volume must match the `name` from the task definition.
 #'
 #' @keywords internal
 #'
@@ -3166,6 +2631,40 @@ ecs_start_task <- function(cluster = NULL, containerInstances, enableECSManagedT
 }
 .ecs$operations$start_task <- ecs_start_task
 
+#' Stops an ongoing service deployment
+#'
+#' @description
+#' Stops an ongoing service deployment.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_stop_service_deployment/](https://www.paws-r-sdk.com/docs/ecs_stop_service_deployment/) for full documentation.
+#'
+#' @param serviceDeploymentArn &#91;required&#93; The ARN of the service deployment that you want to stop.
+#' @param stopType How you want Amazon ECS to stop the service.
+#' 
+#' The valid values are `ROLLBACK`.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_stop_service_deployment
+ecs_stop_service_deployment <- function(serviceDeploymentArn, stopType = NULL) {
+  op <- new_operation(
+    name = "StopServiceDeployment",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$stop_service_deployment_input(serviceDeploymentArn = serviceDeploymentArn, stopType = stopType)
+  output <- .ecs$stop_service_deployment_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$stop_service_deployment <- ecs_stop_service_deployment
+
 #' Stops a running task
 #'
 #' @description
@@ -3173,15 +2672,9 @@ ecs_start_task <- function(cluster = NULL, containerInstances, enableECSManagedT
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_stop_task/](https://www.paws-r-sdk.com/docs/ecs_stop_task/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the task to stop. If you do not specify a cluster, the default
-#' cluster is assumed.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task to stop. If you do not specify a cluster, the default cluster is assumed.
 #' @param task &#91;required&#93; Thefull Amazon Resource Name (ARN) of the task.
-#' @param reason An optional message specified when a task is stopped. For example, if
-#' you're using a custom scheduler, you can use this parameter to specify
-#' the reason for stopping the task here, and the message appears in
-#' subsequent [`describe_tasks`][ecs_describe_tasks]\> API operations on
-#' this task.
+#' @param reason An optional message specified when a task is stopped. For example, if you're using a custom scheduler, you can use this parameter to specify the reason for stopping the task here, and the message appears in subsequent [`describe_tasks`][ecs_describe_tasks]\> API operations on this task.
 #'
 #' @keywords internal
 #'
@@ -3213,8 +2706,7 @@ ecs_stop_task <- function(cluster = NULL, task, reason = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_submit_attachment_state_changes/](https://www.paws-r-sdk.com/docs/ecs_submit_attachment_state_changes/) for full documentation.
 #'
-#' @param cluster The short name or full ARN of the cluster that hosts the container
-#' instance the attachment belongs to.
+#' @param cluster The short name or full ARN of the cluster that hosts the container instance the attachment belongs to.
 #' @param attachments &#91;required&#93; Any attachments associated with the state change request.
 #'
 #' @keywords internal
@@ -3248,8 +2740,7 @@ ecs_submit_attachment_state_changes <- function(cluster = NULL, attachments) {
 #' See [https://www.paws-r-sdk.com/docs/ecs_submit_container_state_change/](https://www.paws-r-sdk.com/docs/ecs_submit_container_state_change/) for full documentation.
 #'
 #' @param cluster The short name or full ARN of the cluster that hosts the container.
-#' @param task The task ID or full Amazon Resource Name (ARN) of the task that hosts
-#' the container.
+#' @param task The task ID or full Amazon Resource Name (ARN) of the task that hosts the container.
 #' @param containerName The name of the container.
 #' @param runtimeId The ID of the Docker container.
 #' @param status The status of the state change request.
@@ -3287,8 +2778,7 @@ ecs_submit_container_state_change <- function(cluster = NULL, task = NULL, conta
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_submit_task_state_change/](https://www.paws-r-sdk.com/docs/ecs_submit_task_state_change/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the task.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that hosts the task.
 #' @param task The task ID or full ARN of the task in the state change request.
 #' @param status The status of the state change request.
 #' @param reason The reason for the state change request.
@@ -3329,51 +2819,34 @@ ecs_submit_task_state_change <- function(cluster = NULL, task = NULL, status = N
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_tag_resource/](https://www.paws-r-sdk.com/docs/ecs_tag_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource to add tags to.
-#' Currently, the supported resources are Amazon ECS capacity providers,
-#' tasks, services, task definitions, clusters, and container instances.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource to add tags to. Currently, the supported resources are Amazon ECS capacity providers, tasks, services, task definitions, clusters, and container instances.
 #' 
-#' In order to tag a service that has the following ARN format, you need to
-#' migrate the service to the long ARN. For more information, see [Migrate
-#' an Amazon ECS short service ARN to a long
-#' ARN](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-arn-migration.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' In order to tag a service that has the following ARN format, you need to migrate the service to the long ARN. For more information, see [Migrate an Amazon ECS short service ARN to a long ARN](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-arn-migration.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
 #' `arn:aws:ecs:region:aws_account_id:service/service-name`
 #' 
-#' After the migration is complete, the service has the long ARN format, as
-#' shown below. Use this ARN to tag the service.
+#' After the migration is complete, the service has the long ARN format, as shown below. Use this ARN to tag the service.
 #' 
 #' `arn:aws:ecs:region:aws_account_id:service/cluster-name/service-name`
 #' 
-#' If you try to tag a service with a short ARN, you receive an
-#' `InvalidParameterException` error.
+#' If you try to tag a service with a short ARN, you receive an `InvalidParameterException` error.
 #' @param tags &#91;required&#93; The tags to add to the resource. A tag is an array of key-value pairs.
 #' 
 #' The following basic restrictions apply to tags:
 #' 
 #' -   Maximum number of tags per resource - 50
 #' 
-#' -   For each resource, each tag key must be unique, and each tag key can
-#'     have only one value.
+#' -   For each resource, each tag key must be unique, and each tag key can have only one value.
 #' 
 #' -   Maximum key length - 128 Unicode characters in UTF-8
 #' 
 #' -   Maximum value length - 256 Unicode characters in UTF-8
 #' 
-#' -   If your tagging schema is used across multiple services and
-#'     resources, remember that other services may have restrictions on
-#'     allowed characters. Generally allowed characters are: letters,
-#'     numbers, and spaces representable in UTF-8, and the following
-#'     characters: + - = . _ : / @@.
+#' -   If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @@.
 #' 
 #' -   Tag keys and values are case-sensitive.
 #' 
-#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of
-#'     such as a prefix for either keys or values as it is reserved for
-#'     Amazon Web Services use. You cannot edit or delete tag keys or
-#'     values with this prefix. Tags with this prefix do not count against
-#'     your tags per resource limit.
+#' -   Do not use `aws:`, `AWS:`, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
 #'
 #' @keywords internal
 #'
@@ -3404,9 +2877,7 @@ ecs_tag_resource <- function(resourceArn, tags) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_untag_resource/](https://www.paws-r-sdk.com/docs/ecs_untag_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource to delete tags from.
-#' Currently, the supported resources are Amazon ECS capacity providers,
-#' tasks, services, task definitions, clusters, and container instances.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource to delete tags from. Currently, the supported resources are Amazon ECS capacity providers, tasks, services, task definitions, clusters, and container instances.
 #' @param tagKeys &#91;required&#93; The keys of the tags to be removed.
 #'
 #' @keywords internal
@@ -3439,13 +2910,14 @@ ecs_untag_resource <- function(resourceArn, tagKeys) {
 #' See [https://www.paws-r-sdk.com/docs/ecs_update_capacity_provider/](https://www.paws-r-sdk.com/docs/ecs_update_capacity_provider/) for full documentation.
 #'
 #' @param name &#91;required&#93; The name of the capacity provider to update.
-#' @param autoScalingGroupProvider &#91;required&#93; An object that represent the parameters to update for the Auto Scaling
-#' group capacity provider.
+#' @param cluster The name of the cluster that contains the capacity provider to update. Managed instances capacity providers are cluster-scoped and can only be updated within their associated cluster.
+#' @param autoScalingGroupProvider An object that represent the parameters to update for the Auto Scaling group capacity provider.
+#' @param managedInstancesProvider The updated configuration for the Amazon ECS Managed Instances provider. You can modify the infrastructure role, instance launch template, and tag propagation settings. Changes take effect for new instances launched after the update.
 #'
 #' @keywords internal
 #'
 #' @rdname ecs_update_capacity_provider
-ecs_update_capacity_provider <- function(name, autoScalingGroupProvider) {
+ecs_update_capacity_provider <- function(name, cluster = NULL, autoScalingGroupProvider = NULL, managedInstancesProvider = NULL) {
   op <- new_operation(
     name = "UpdateCapacityProvider",
     http_method = "POST",
@@ -3454,7 +2926,7 @@ ecs_update_capacity_provider <- function(name, autoScalingGroupProvider) {
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .ecs$update_capacity_provider_input(name = name, autoScalingGroupProvider = autoScalingGroupProvider)
+  input <- .ecs$update_capacity_provider_input(name = name, cluster = cluster, autoScalingGroupProvider = autoScalingGroupProvider, managedInstancesProvider = managedInstancesProvider)
   output <- .ecs$update_capacity_provider_output()
   config <- get_config()
   svc <- .ecs$service(config, op)
@@ -3474,23 +2946,9 @@ ecs_update_capacity_provider <- function(name, autoScalingGroupProvider) {
 #' @param cluster &#91;required&#93; The name of the cluster to modify the settings for.
 #' @param settings The cluster settings for your cluster.
 #' @param configuration The execute command configuration for the cluster.
-#' @param serviceConnectDefaults Use this parameter to set a default Service Connect namespace. After you
-#' set a default Service Connect namespace, any new services with Service
-#' Connect turned on that are created in the cluster are added as client
-#' services in the namespace. This setting only applies to new services
-#' that set the `enabled` parameter to `true` in the
-#' `ServiceConnectConfiguration`. You can set the namespace of each service
-#' individually in the `ServiceConnectConfiguration` to override this
-#' default parameter.
+#' @param serviceConnectDefaults Use this parameter to set a default Service Connect namespace. After you set a default Service Connect namespace, any new services with Service Connect turned on that are created in the cluster are added as client services in the namespace. This setting only applies to new services that set the `enabled` parameter to `true` in the `ServiceConnectConfiguration`. You can set the namespace of each service individually in the `ServiceConnectConfiguration` to override this default parameter.
 #' 
-#' Tasks that run in a namespace can use short names to connect to services
-#' in the namespace. Tasks can connect to services across all of the
-#' clusters in the namespace. Tasks connect through a managed proxy
-#' container that collects logs and metrics for increased visibility. Only
-#' the tasks that Amazon ECS services create are supported with Service
-#' Connect. For more information, see [Service
-#' Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see [Service Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html) in the *Amazon Elastic Container Service Developer Guide*.
 #'
 #' @keywords internal
 #'
@@ -3522,18 +2980,9 @@ ecs_update_cluster <- function(cluster, settings = NULL, configuration = NULL, s
 #' See [https://www.paws-r-sdk.com/docs/ecs_update_cluster_settings/](https://www.paws-r-sdk.com/docs/ecs_update_cluster_settings/) for full documentation.
 #'
 #' @param cluster &#91;required&#93; The name of the cluster to modify the settings for.
-#' @param settings &#91;required&#93; The setting to use by default for a cluster. This parameter is used to
-#' turn on CloudWatch Container Insights for a cluster. If this value is
-#' specified, it overrides the `containerInsights` value set with
-#' [`put_account_setting`][ecs_put_account_setting] or
-#' [`put_account_setting_default`][ecs_put_account_setting_default].
+#' @param settings &#91;required&#93; The setting to use by default for a cluster. This parameter is used to turn on CloudWatch Container Insights for a cluster. If this value is specified, it overrides the `containerInsights` value set with [`put_account_setting`][ecs_put_account_setting] or [`put_account_setting_default`][ecs_put_account_setting_default].
 #' 
-#' Currently, if you delete an existing cluster that does not have
-#' Container Insights turned on, and then create a new cluster with the
-#' same name with Container Insights tuned on, Container Insights will not
-#' actually be turned on. If you want to preserve the same name for your
-#' existing cluster and turn on Container Insights, you must wait 7 days
-#' before you can re-create it.
+#' Currently, if you delete an existing cluster that does not have Container Insights turned on, and then create a new cluster with the same name with Container Insights tuned on, Container Insights will not actually be turned on. If you want to preserve the same name for your existing cluster and turn on Container Insights, you must wait 7 days before you can re-create it.
 #'
 #' @keywords internal
 #'
@@ -3564,11 +3013,8 @@ ecs_update_cluster_settings <- function(cluster, settings) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_update_container_agent/](https://www.paws-r-sdk.com/docs/ecs_update_container_agent/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' your container instance is running on. If you do not specify a cluster,
-#' the default cluster is assumed.
-#' @param containerInstance &#91;required&#93; The container instance ID or full ARN entries for the container instance
-#' where you would like to update the Amazon ECS container agent.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that your container instance is running on. If you do not specify a cluster, the default cluster is assumed.
+#' @param containerInstance &#91;required&#93; The container instance ID or full ARN entries for the container instance where you would like to update the Amazon ECS container agent.
 #'
 #' @keywords internal
 #'
@@ -3599,16 +3045,9 @@ ecs_update_container_agent <- function(cluster = NULL, containerInstance) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_update_container_instances_state/](https://www.paws-r-sdk.com/docs/ecs_update_container_instances_state/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the container instance to update. If you do not specify a cluster,
-#' the default cluster is assumed.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that hosts the container instance to update. If you do not specify a cluster, the default cluster is assumed.
 #' @param containerInstances &#91;required&#93; A list of up to 10 container instance IDs or full ARN entries.
-#' @param status &#91;required&#93; The container instance state to update the container instance with. The
-#' only valid values for this action are `ACTIVE` and `DRAINING`. A
-#' container instance can only be updated to `DRAINING` status once it has
-#' reached an `ACTIVE` state. If a container instance is in `REGISTERING`,
-#' `DEREGISTERING`, or `REGISTRATION_FAILED` state you can describe the
-#' container instance but can't update the container instance state.
+#' @param status &#91;required&#93; The container instance state to update the container instance with. The only valid values for this action are `ACTIVE` and `DRAINING`. A container instance can only be updated to `DRAINING` status once it has reached an `ACTIVE` state. If a container instance is in `REGISTERING`, `DEREGISTERING`, or `REGISTRATION_FAILED` state you can describe the container instance but can't update the container instance state.
 #'
 #' @keywords internal
 #'
@@ -3632,6 +3071,82 @@ ecs_update_container_instances_state <- function(cluster = NULL, containerInstan
 }
 .ecs$operations$update_container_instances_state <- ecs_update_container_instances_state
 
+#' Updates the specified daemon
+#'
+#' @description
+#' Updates the specified daemon. When you update a daemon, a new deployment is triggered that progressively rolls out the changes to the container instances associated with the daemon's capacity providers. For more information, see [Daemon deployments](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/) in the *Amazon Elastic Container Service Developer Guide*.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_update_daemon/](https://www.paws-r-sdk.com/docs/ecs_update_daemon/) for full documentation.
+#'
+#' @param daemonArn &#91;required&#93; The Amazon Resource Name (ARN) of the daemon to update.
+#' @param daemonTaskDefinitionArn &#91;required&#93; The Amazon Resource Name (ARN) of the daemon task definition to use for the updated daemon.
+#' @param capacityProviderArns &#91;required&#93; The Amazon Resource Names (ARNs) of the capacity providers to associate with the daemon.
+#' @param deploymentConfiguration Optional deployment parameters that control how the daemon rolls out updates, including the drain percentage, alarm-based rollback, and bake time.
+#' @param propagateTags Specifies whether to propagate the tags from the daemon to the daemon tasks. If you don't specify a value, the tags aren't propagated. You can only propagate tags to daemon tasks during task creation.
+#' @param enableECSManagedTags Specifies whether to turn on Amazon ECS managed tags for the tasks in the daemon. For more information, see [Tagging your Amazon ECS resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param enableExecuteCommand If `true`, the execute command functionality is turned on for all tasks in the daemon. If `false`, the execute command functionality is turned off.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_update_daemon
+ecs_update_daemon <- function(daemonArn, daemonTaskDefinitionArn, capacityProviderArns, deploymentConfiguration = NULL, propagateTags = NULL, enableECSManagedTags = NULL, enableExecuteCommand = NULL) {
+  op <- new_operation(
+    name = "UpdateDaemon",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$update_daemon_input(daemonArn = daemonArn, daemonTaskDefinitionArn = daemonTaskDefinitionArn, capacityProviderArns = capacityProviderArns, deploymentConfiguration = deploymentConfiguration, propagateTags = propagateTags, enableECSManagedTags = enableECSManagedTags, enableExecuteCommand = enableExecuteCommand)
+  output <- .ecs$update_daemon_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$update_daemon <- ecs_update_daemon
+
+#' Updates an existing Express service configuration
+#'
+#' @description
+#' Updates an existing Express service configuration. Modifies container settings, resource allocation, auto-scaling configuration, and other service parameters without recreating the service.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ecs_update_express_gateway_service/](https://www.paws-r-sdk.com/docs/ecs_update_express_gateway_service/) for full documentation.
+#'
+#' @param serviceArn &#91;required&#93; The Amazon Resource Name (ARN) of the Express service to update.
+#' @param executionRoleArn The Amazon Resource Name (ARN) of the task execution role for the Express service.
+#' @param healthCheckPath The path on the container for Application Load Balancer health checks.
+#' @param primaryContainer The primary container configuration for the Express service.
+#' @param taskRoleArn The Amazon Resource Name (ARN) of the IAM role for containers in this task.
+#' @param networkConfiguration The network configuration for the Express service tasks. By default, the network configuration for an Express service uses the default VPC.
+#' @param cpu The number of CPU units used by the task.
+#' @param memory The amount of memory (in MiB) used by the task.
+#' @param scalingTarget The auto-scaling configuration for the Express service.
+#'
+#' @keywords internal
+#'
+#' @rdname ecs_update_express_gateway_service
+ecs_update_express_gateway_service <- function(serviceArn, executionRoleArn = NULL, healthCheckPath = NULL, primaryContainer = NULL, taskRoleArn = NULL, networkConfiguration = NULL, cpu = NULL, memory = NULL, scalingTarget = NULL) {
+  op <- new_operation(
+    name = "UpdateExpressGatewayService",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .ecs$update_express_gateway_service_input(serviceArn = serviceArn, executionRoleArn = executionRoleArn, healthCheckPath = healthCheckPath, primaryContainer = primaryContainer, taskRoleArn = taskRoleArn, networkConfiguration = networkConfiguration, cpu = cpu, memory = memory, scalingTarget = scalingTarget)
+  output <- .ecs$update_express_gateway_service_output()
+  config <- get_config()
+  svc <- .ecs$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ecs$operations$update_express_gateway_service <- ecs_update_express_gateway_service
+
 #' Modifies the parameters of a service
 #'
 #' @description
@@ -3639,189 +3154,139 @@ ecs_update_container_instances_state <- function(cluster = NULL, containerInstan
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_update_service/](https://www.paws-r-sdk.com/docs/ecs_update_service/) for full documentation.
 #'
-#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that
-#' your service runs on. If you do not specify a cluster, the default
-#' cluster is assumed.
+#' @param cluster The short name or full Amazon Resource Name (ARN) of the cluster that your service runs on. If you do not specify a cluster, the default cluster is assumed.
+#' 
+#' You can't change the cluster name.
 #' @param service &#91;required&#93; The name of the service to update.
-#' @param desiredCount The number of instantiations of the task to place and keep running in
-#' your service.
-#' @param taskDefinition The `family` and `revision` (`family:revision`) or full ARN of the task
-#' definition to run in your service. If a `revision` is not specified, the
-#' latest `ACTIVE` revision is used. If you modify the task definition with
-#' [`update_service`][ecs_update_service], Amazon ECS spawns a task with
-#' the new version of the task definition and then stops an old task after
-#' the new version is running.
-#' @param capacityProviderStrategy The capacity provider strategy to update the service to use.
+#' @param desiredCount The number of instantiations of the task to place and keep running in your service.
 #' 
-#' if the service uses the default capacity provider strategy for the
-#' cluster, the service can be updated to use one or more capacity
-#' providers as opposed to the default capacity provider strategy. However,
-#' when a service is using a capacity provider strategy that's not the
-#' default capacity provider strategy, the service can't be updated to use
-#' the cluster's default capacity provider strategy.
+#' This parameter doesn't trigger a new service deployment.
+#' @param taskDefinition The `family` and `revision` (`family:revision`) or full ARN of the task definition to run in your service. If a `revision` is not specified, the latest `ACTIVE` revision is used. If you modify the task definition with [`update_service`][ecs_update_service], Amazon ECS spawns a task with the new version of the task definition and then stops an old task after the new version is running.
 #' 
-#' A capacity provider strategy consists of one or more capacity providers
-#' along with the `base` and `weight` to assign to them. A capacity
-#' provider must be associated with the cluster to be used in a capacity
-#' provider strategy. The
-#' [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers]
-#' API is used to associate a capacity provider with a cluster. Only
-#' capacity providers with an `ACTIVE` or `UPDATING` status can be used.
+#' This parameter triggers a new service deployment.
+#' @param capacityProviderStrategy The details of a capacity provider strategy. You can set a capacity provider when you create a cluster, run a task, or update a service.
 #' 
-#' If specifying a capacity provider that uses an Auto Scaling group, the
-#' capacity provider must already be created. New capacity providers can be
-#' created with the
-#' [CreateClusterCapacityProvider](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/)
-#' API operation.
+#' If you want to use Amazon ECS Managed Instances, you must use the `capacityProviderStrategy` request parameter.
 #' 
-#' To use a Fargate capacity provider, specify either the `FARGATE` or
-#' `FARGATE_SPOT` capacity providers. The Fargate capacity providers are
-#' available to all accounts and only need to be associated with a cluster
-#' to be used.
+#' When you use Fargate, the capacity providers are `FARGATE` or `FARGATE_SPOT`.
 #' 
-#' The
-#' [`put_cluster_capacity_providers`][ecs_put_cluster_capacity_providers]API
-#' operation is used to update the list of available capacity providers for
-#' a cluster after the cluster is created.
-#' @param deploymentConfiguration Optional deployment parameters that control how many tasks run during
-#' the deployment and the ordering of stopping and starting tasks.
+#' When you use Amazon EC2, the capacity providers are Auto Scaling groups.
+#' 
+#' You can change capacity providers for rolling deployments and blue/green deployments.
+#' 
+#' The following list provides the valid transitions:
+#' 
+#' -   Update the Fargate launch type to an Auto Scaling group capacity provider.
+#' 
+#' -   Update the Amazon EC2 launch type to a Fargate capacity provider.
+#' 
+#' -   Update the Fargate capacity provider to an Auto Scaling group capacity provider.
+#' 
+#' -   Update the Amazon EC2 capacity provider to a Fargate capacity provider.
+#' 
+#' -   Update the Auto Scaling group or Fargate capacity provider back to the launch type.
+#' 
+#'     Pass an empty list in the `capacityProviderStrategy` parameter.
+#' 
+#' For information about Amazon Web Services CDK considerations, see [Amazon Web Services CDK considerations](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/update-service-parameters.html).
+#' 
+#' This parameter doesn't trigger a new service deployment.
+#' @param deploymentConfiguration Optional deployment parameters that control how many tasks run during the deployment and the ordering of stopping and starting tasks.
+#' 
+#' This parameter doesn't trigger a new service deployment.
 #' @param availabilityZoneRebalancing Indicates whether to use Availability Zone rebalancing for the service.
 #' 
-#' For more information, see [Balancing an Amazon ECS service across
-#' Availability
-#' Zones](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-rebalancing.html)
-#' in the *Amazon Elastic Container Service Developer Guide* .
-#' @param networkConfiguration An object representing the network configuration for the service.
-#' @param placementConstraints An array of task placement constraint objects to update the service to
-#' use. If no value is specified, the existing placement constraints for
-#' the service will remain unchanged. If this value is specified, it will
-#' override any existing placement constraints defined for the service. To
-#' remove all existing placement constraints, specify an empty array.
+#' For more information, see [Balancing an Amazon ECS service across Availability Zones](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-rebalancing.html) in the *Amazon Elastic Container Service Developer Guide* .
 #' 
-#' You can specify a maximum of 10 constraints for each task. This limit
-#' includes constraints in the task definition and those specified at
-#' runtime.
-#' @param placementStrategy The task placement strategy objects to update the service to use. If no
-#' value is specified, the existing placement strategy for the service will
-#' remain unchanged. If this value is specified, it will override the
-#' existing placement strategy defined for the service. To remove an
-#' existing placement strategy, specify an empty object.
+#' The default behavior of `AvailabilityZoneRebalancing` differs between create and update requests:
+#' 
+#' -   For create service requests, when no value is specified for `AvailabilityZoneRebalancing`, Amazon ECS defaults the value to `ENABLED`.
+#' 
+#' -   For update service requests, when no value is specified for `AvailabilityZoneRebalancing`, Amazon ECS defaults to the existing service’s `AvailabilityZoneRebalancing` value. If the service never had an `AvailabilityZoneRebalancing` value set, Amazon ECS treats this as `DISABLED`.
+#' 
+#' This parameter doesn't trigger a new service deployment.
+#' @param networkConfiguration An object representing the network configuration for the service.
+#' 
+#' This parameter triggers a new service deployment.
+#' @param placementConstraints An array of task placement constraint objects to update the service to use. If no value is specified, the existing placement constraints for the service will remain unchanged. If this value is specified, it will override any existing placement constraints defined for the service. To remove all existing placement constraints, specify an empty array.
+#' 
+#' You can specify a maximum of 10 constraints for each task. This limit includes constraints in the task definition and those specified at runtime.
+#' 
+#' This parameter doesn't trigger a new service deployment.
+#' @param placementStrategy The task placement strategy objects to update the service to use. If no value is specified, the existing placement strategy for the service will remain unchanged. If this value is specified, it will override the existing placement strategy defined for the service. To remove an existing placement strategy, specify an empty object.
 #' 
 #' You can specify a maximum of five strategy rules for each service.
-#' @param platformVersion The platform version that your tasks in the service run on. A platform
-#' version is only specified for tasks using the Fargate launch type. If a
-#' platform version is not specified, the `LATEST` platform version is
-#' used. For more information, see [Fargate Platform
-#' Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform-fargate.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param forceNewDeployment Determines whether to force a new deployment of the service. By default,
-#' deployments aren't forced. You can use this option to start a new
-#' deployment with no service definition changes. For example, you can
-#' update a service's tasks to use a newer Docker image with the same
-#' image/tag combination (`my_image:latest`) or to roll Fargate tasks onto
-#' a newer platform version.
-#' @param healthCheckGracePeriodSeconds The period of time, in seconds, that the Amazon ECS service scheduler
-#' ignores unhealthy Elastic Load Balancing, VPC Lattice, and container
-#' health checks after a task has first started. If you don't specify a
-#' health check grace period value, the default value of `0` is used. If
-#' you don't use any of the health checks, then
-#' `healthCheckGracePeriodSeconds` is unused.
 #' 
-#' If your service's tasks take a while to start and respond to health
-#' checks, you can specify a health check grace period of up to
-#' 2,147,483,647 seconds (about 69 years). During that time, the Amazon ECS
-#' service scheduler ignores health check status. This grace period can
-#' prevent the service scheduler from marking tasks as unhealthy and
-#' stopping them before they have time to come up.
-#' @param enableExecuteCommand If `true`, this enables execute command functionality on all task
-#' containers.
+#' This parameter doesn't trigger a new service deployment.
+#' @param platformVersion The platform version that your tasks in the service run on. A platform version is only specified for tasks using the Fargate launch type. If a platform version is not specified, the `LATEST` platform version is used. For more information, see [Fargate Platform Versions](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/platform-fargate.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
-#' If you do not want to override the value that was set when the service
-#' was created, you can set this to `null` when performing this action.
-#' @param enableECSManagedTags Determines whether to turn on Amazon ECS managed tags for the tasks in
-#' the service. For more information, see [Tagging Your Amazon ECS
-#' Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' This parameter triggers a new service deployment.
+#' @param forceNewDeployment Determines whether to force a new deployment of the service. By default, deployments aren't forced. You can use this option to start a new deployment with no service definition changes. For example, you can update a service's tasks to use a newer Docker image with the same image/tag combination (`my_image:latest`) or to roll Fargate tasks onto a newer platform version.
+#' @param healthCheckGracePeriodSeconds The period of time, in seconds, that the Amazon ECS service scheduler ignores unhealthy Elastic Load Balancing, VPC Lattice, and container health checks after a task has first started. If you don't specify a health check grace period value, the default value of `0` is used. If you don't use any of the health checks, then `healthCheckGracePeriodSeconds` is unused.
 #' 
-#' Only tasks launched after the update will reflect the update. To update
-#' the tags on all tasks, set `forceNewDeployment` to `true`, so that
-#' Amazon ECS starts new tasks with the updated tags.
-#' @param loadBalancers A list of Elastic Load Balancing load balancer objects. It contains the
-#' load balancer name, the container name, and the container port to access
-#' from the load balancer. The container name is as it appears in a
-#' container definition.
+#' If your service's tasks take a while to start and respond to health checks, you can specify a health check grace period of up to 2,147,483,647 seconds (about 69 years). During that time, the Amazon ECS service scheduler ignores health check status. This grace period can prevent the service scheduler from marking tasks as unhealthy and stopping them before they have time to come up.
 #' 
-#' When you add, update, or remove a load balancer configuration, Amazon
-#' ECS starts new tasks with the updated Elastic Load Balancing
-#' configuration, and then stops the old tasks when the new tasks are
-#' running.
+#' If your service has more running tasks than desired, unhealthy tasks in the grace period might be stopped to reach the desired count.
 #' 
-#' For services that use rolling updates, you can add, update, or remove
-#' Elastic Load Balancing target groups. You can update from a single
-#' target group to multiple target groups and from multiple target groups
-#' to a single target group.
+#' This parameter doesn't trigger a new service deployment.
+#' @param deploymentController The deployment controller to use for the service.
+#' @param enableExecuteCommand If `true`, this enables execute command functionality on all task containers.
 #' 
-#' For services that use blue/green deployments, you can update Elastic
-#' Load Balancing target groups by using ` CreateDeployment ` through
-#' CodeDeploy. Note that multiple target groups are not supported for
-#' blue/green deployments. For more information see [Register multiple
-#' target groups with a
-#' service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' If you do not want to override the value that was set when the service was created, you can set this to `null` when performing this action.
 #' 
-#' For services that use the external deployment controller, you can add,
-#' update, or remove load balancers by using
-#' [`create_task_set`][ecs_create_task_set]. Note that multiple target
-#' groups are not supported for external deployments. For more information
-#' see [Register multiple target groups with a
-#' service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
+#' This parameter doesn't trigger a new service deployment.
+#' @param enableECSManagedTags Determines whether to turn on Amazon ECS managed tags for the tasks in the service. For more information, see [Tagging Your Amazon ECS Resources](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-using-tags.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' 
+#' Only tasks launched after the update will reflect the update. To update the tags on all tasks, set `forceNewDeployment` to `true`, so that Amazon ECS starts new tasks with the updated tags.
+#' 
+#' This parameter doesn't trigger a new service deployment.
+#' @param loadBalancers You must have a service-linked role when you update this property
+#' 
+#' A list of Elastic Load Balancing load balancer objects. It contains the load balancer name, the container name, and the container port to access from the load balancer. The container name is as it appears in a container definition.
+#' 
+#' When you add, update, or remove a load balancer configuration, Amazon ECS starts new tasks with the updated Elastic Load Balancing configuration, and then stops the old tasks when the new tasks are running.
+#' 
+#' For services that use rolling updates, you can add, update, or remove Elastic Load Balancing target groups. You can update from a single target group to multiple target groups and from multiple target groups to a single target group.
+#' 
+#' For services that use blue/green deployments, you can update Elastic Load Balancing target groups by using ` CreateDeployment ` through CodeDeploy. Note that multiple target groups are not supported for blue/green deployments. For more information see [Register multiple target groups with a service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' 
+#' For services that use the external deployment controller, you can add, update, or remove load balancers by using [`create_task_set`][ecs_create_task_set]. Note that multiple target groups are not supported for external deployments. For more information see [Register multiple target groups with a service](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/register-multiple-targetgroups.html) in the *Amazon Elastic Container Service Developer Guide*.
 #' 
 #' You can remove existing `loadBalancers` by passing an empty list.
-#' @param propagateTags Determines whether to propagate the tags from the task definition or the
-#' service to the task. If no value is specified, the tags aren't
-#' propagated.
 #' 
-#' Only tasks launched after the update will reflect the update. To update
-#' the tags on all tasks, set `forceNewDeployment` to `true`, so that
-#' Amazon ECS starts new tasks with the updated tags.
-#' @param serviceRegistries The details for the service discovery registries to assign to this
-#' service. For more information, see [Service
-#' Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
+#' This parameter triggers a new service deployment.
+#' @param propagateTags Determines whether to propagate the tags from the task definition or the service to the task. If no value is specified, the tags aren't propagated.
 #' 
-#' When you add, update, or remove the service registries configuration,
-#' Amazon ECS starts new tasks with the updated service registries
-#' configuration, and then stops the old tasks when the new tasks are
-#' running.
+#' Only tasks launched after the update will reflect the update. To update the tags on all tasks, set `forceNewDeployment` to `true`, so that Amazon ECS starts new tasks with the updated tags.
+#' 
+#' This parameter doesn't trigger a new service deployment.
+#' @param serviceRegistries You must have a service-linked role when you update this property.
+#' 
+#' For more information about the role see the [`create_service`][ecs_create_service] request parameter [`role`](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_CreateService.html#ECS-CreateService-request-role) .
+#' 
+#' The details for the service discovery registries to assign to this service. For more information, see [Service Discovery](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html).
+#' 
+#' When you add, update, or remove the service registries configuration, Amazon ECS starts new tasks with the updated service registries configuration, and then stops the old tasks when the new tasks are running.
 #' 
 #' You can remove existing `serviceRegistries` by passing an empty list.
-#' @param serviceConnectConfiguration The configuration for this service to discover and connect to services,
-#' and be discovered by, and connected from, other services within a
-#' namespace.
 #' 
-#' Tasks that run in a namespace can use short names to connect to services
-#' in the namespace. Tasks can connect to services across all of the
-#' clusters in the namespace. Tasks connect through a managed proxy
-#' container that collects logs and metrics for increased visibility. Only
-#' the tasks that Amazon ECS services create are supported with Service
-#' Connect. For more information, see [Service
-#' Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param volumeConfigurations The details of the volume that was `configuredAtLaunch`. You can
-#' configure the size, volumeType, IOPS, throughput, snapshot and
-#' encryption in
-#' [ServiceManagedEBSVolumeConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html).
-#' The `name` of the volume must match the `name` from the task definition.
-#' If set to null, no new deployment is triggered. Otherwise, if this
-#' configuration differs from the existing one, it triggers a new
-#' deployment.
-#' @param vpcLatticeConfigurations An object representing the VPC Lattice configuration for the service
-#' being updated.
+#' This parameter triggers a new service deployment.
+#' @param serviceConnectConfiguration The configuration for this service to discover and connect to services, and be discovered by, and connected from, other services within a namespace.
+#' 
+#' Tasks that run in a namespace can use short names to connect to services in the namespace. Tasks can connect to services across all of the clusters in the namespace. Tasks connect through a managed proxy container that collects logs and metrics for increased visibility. Only the tasks that Amazon ECS services create are supported with Service Connect. For more information, see [Service Connect](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-connect.html) in the *Amazon Elastic Container Service Developer Guide*.
+#' 
+#' This parameter triggers a new service deployment.
+#' @param volumeConfigurations The details of the volume that was `configuredAtLaunch`. You can configure the size, volumeType, IOPS, throughput, snapshot and encryption in [ServiceManagedEBSVolumeConfiguration](https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_ServiceManagedEBSVolumeConfiguration.html). The `name` of the volume must match the `name` from the task definition. If set to null, no new deployment is triggered. Otherwise, if this configuration differs from the existing one, it triggers a new deployment.
+#' 
+#' This parameter triggers a new service deployment.
+#' @param vpcLatticeConfigurations An object representing the VPC Lattice configuration for the service being updated.
+#' 
+#' This parameter triggers a new service deployment.
 #'
 #' @keywords internal
 #'
 #' @rdname ecs_update_service
-ecs_update_service <- function(cluster = NULL, service, desiredCount = NULL, taskDefinition = NULL, capacityProviderStrategy = NULL, deploymentConfiguration = NULL, availabilityZoneRebalancing = NULL, networkConfiguration = NULL, placementConstraints = NULL, placementStrategy = NULL, platformVersion = NULL, forceNewDeployment = NULL, healthCheckGracePeriodSeconds = NULL, enableExecuteCommand = NULL, enableECSManagedTags = NULL, loadBalancers = NULL, propagateTags = NULL, serviceRegistries = NULL, serviceConnectConfiguration = NULL, volumeConfigurations = NULL, vpcLatticeConfigurations = NULL) {
+ecs_update_service <- function(cluster = NULL, service, desiredCount = NULL, taskDefinition = NULL, capacityProviderStrategy = NULL, deploymentConfiguration = NULL, availabilityZoneRebalancing = NULL, networkConfiguration = NULL, placementConstraints = NULL, placementStrategy = NULL, platformVersion = NULL, forceNewDeployment = NULL, healthCheckGracePeriodSeconds = NULL, deploymentController = NULL, enableExecuteCommand = NULL, enableECSManagedTags = NULL, loadBalancers = NULL, propagateTags = NULL, serviceRegistries = NULL, serviceConnectConfiguration = NULL, volumeConfigurations = NULL, vpcLatticeConfigurations = NULL) {
   op <- new_operation(
     name = "UpdateService",
     http_method = "POST",
@@ -3830,7 +3295,7 @@ ecs_update_service <- function(cluster = NULL, service, desiredCount = NULL, tas
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .ecs$update_service_input(cluster = cluster, service = service, desiredCount = desiredCount, taskDefinition = taskDefinition, capacityProviderStrategy = capacityProviderStrategy, deploymentConfiguration = deploymentConfiguration, availabilityZoneRebalancing = availabilityZoneRebalancing, networkConfiguration = networkConfiguration, placementConstraints = placementConstraints, placementStrategy = placementStrategy, platformVersion = platformVersion, forceNewDeployment = forceNewDeployment, healthCheckGracePeriodSeconds = healthCheckGracePeriodSeconds, enableExecuteCommand = enableExecuteCommand, enableECSManagedTags = enableECSManagedTags, loadBalancers = loadBalancers, propagateTags = propagateTags, serviceRegistries = serviceRegistries, serviceConnectConfiguration = serviceConnectConfiguration, volumeConfigurations = volumeConfigurations, vpcLatticeConfigurations = vpcLatticeConfigurations)
+  input <- .ecs$update_service_input(cluster = cluster, service = service, desiredCount = desiredCount, taskDefinition = taskDefinition, capacityProviderStrategy = capacityProviderStrategy, deploymentConfiguration = deploymentConfiguration, availabilityZoneRebalancing = availabilityZoneRebalancing, networkConfiguration = networkConfiguration, placementConstraints = placementConstraints, placementStrategy = placementStrategy, platformVersion = platformVersion, forceNewDeployment = forceNewDeployment, healthCheckGracePeriodSeconds = healthCheckGracePeriodSeconds, deploymentController = deploymentController, enableExecuteCommand = enableExecuteCommand, enableECSManagedTags = enableECSManagedTags, loadBalancers = loadBalancers, propagateTags = propagateTags, serviceRegistries = serviceRegistries, serviceConnectConfiguration = serviceConnectConfiguration, volumeConfigurations = volumeConfigurations, vpcLatticeConfigurations = vpcLatticeConfigurations)
   output <- .ecs$update_service_output()
   config <- get_config()
   svc <- .ecs$service(config, op)
@@ -3847,12 +3312,9 @@ ecs_update_service <- function(cluster = NULL, service, desiredCount = NULL, tas
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_update_service_primary_task_set/](https://www.paws-r-sdk.com/docs/ecs_update_service_primary_task_set/) for full documentation.
 #'
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the service that the task set exists in.
-#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service that
-#' the task set exists in.
-#' @param primaryTaskSet &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the task set to set
-#' as the primary task set in the deployment.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set exists in.
+#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service that the task set exists in.
+#' @param primaryTaskSet &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the task set to set as the primary task set in the deployment.
 #'
 #' @keywords internal
 #'
@@ -3883,20 +3345,12 @@ ecs_update_service_primary_task_set <- function(cluster, service, primaryTaskSet
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_update_task_protection/](https://www.paws-r-sdk.com/docs/ecs_update_task_protection/) for full documentation.
 #'
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the service that the task sets exist in.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task sets exist in.
 #' @param tasks &#91;required&#93; A list of up to 10 task IDs or full ARN entries.
-#' @param protectionEnabled &#91;required&#93; Specify `true` to mark a task for protection and `false` to unset
-#' protection, making it eligible for termination.
-#' @param expiresInMinutes If you set `protectionEnabled` to `true`, you can specify the duration
-#' for task protection in minutes. You can specify a value from 1 minute to
-#' up to 2,880 minutes (48 hours). During this time, your task will not be
-#' terminated by scale-in events from Service Auto Scaling or deployments.
-#' After this time period lapses, `protectionEnabled` will be reset to
-#' `false`.
+#' @param protectionEnabled &#91;required&#93; Specify `true` to mark a task for protection and `false` to unset protection, making it eligible for termination.
+#' @param expiresInMinutes If you set `protectionEnabled` to `true`, you can specify the duration for task protection in minutes. You can specify a value from 1 minute to up to 2,880 minutes (48 hours). During this time, your task will not be terminated by scale-in events from Service Auto Scaling or deployments. After this time period lapses, `protectionEnabled` will be reset to `false`.
 #' 
-#' If you don’t specify the time, then the task is automatically protected
-#' for 120 minutes (2 hours).
+#' If you don’t specify the time, then the task is automatically protected for 120 minutes (2 hours).
 #'
 #' @keywords internal
 #'
@@ -3927,14 +3381,10 @@ ecs_update_task_protection <- function(cluster, tasks, protectionEnabled, expire
 #'
 #' See [https://www.paws-r-sdk.com/docs/ecs_update_task_set/](https://www.paws-r-sdk.com/docs/ecs_update_task_set/) for full documentation.
 #'
-#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that
-#' hosts the service that the task set is found in.
-#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service that
-#' the task set is found in.
-#' @param taskSet &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the task set to
-#' update.
-#' @param scale &#91;required&#93; A floating-point percentage of the desired number of tasks to place and
-#' keep running in the task set.
+#' @param cluster &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set is found in.
+#' @param service &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.
+#' @param taskSet &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the task set to update.
+#' @param scale &#91;required&#93; A floating-point percentage of the desired number of tasks to place and keep running in the task set.
 #'
 #' @keywords internal
 #'

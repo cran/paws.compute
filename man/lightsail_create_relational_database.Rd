@@ -27,65 +27,44 @@ Constraints:
 \item The first and last character must be a letter or number.
 }}
 
-\item{availabilityZone}{The Availability Zone in which to create your new database. Use the
-\verb{us-east-2a} case-sensitive format.
+\item{availabilityZone}{The Availability Zone in which to create your new database. Use the \verb{us-east-2a} case-sensitive format.
 
-You can get a list of Availability Zones by using the \verb{get regions}
-operation. Be sure to add the
-\verb{include relational database Availability Zones} parameter to your
-request.}
+You can get a list of Availability Zones by using the \verb{get regions} operation. Be sure to add the \verb{include relational database Availability Zones} parameter to your request.}
 
-\item{relationalDatabaseBlueprintId}{[required] The blueprint ID for your new database. A blueprint describes the major
-engine version of a database.
+\item{relationalDatabaseBlueprintId}{[required] The blueprint ID for your new database. A blueprint describes the major engine version of a database.
 
-You can get a list of database blueprints IDs by using the
-\verb{get relational database blueprints} operation.}
+You can get a list of database blueprints IDs by using the \verb{get relational database blueprints} operation.}
 
-\item{relationalDatabaseBundleId}{[required] The bundle ID for your new database. A bundle describes the performance
-specifications for your database.
+\item{relationalDatabaseBundleId}{[required] The bundle ID for your new database. A bundle describes the performance specifications for your database.
 
-You can get a list of database bundle IDs by using the
-\verb{get relational database bundles} operation.}
+You can get a list of database bundle IDs by using the \verb{get relational database bundles} operation.}
 
-\item{masterDatabaseName}{[required] The meaning of this parameter differs according to the database engine
-you use.
+\item{masterDatabaseName}{[required] The meaning of this parameter differs according to the database engine you use.
 
 \strong{MySQL}
 
-The name of the database to create when the Lightsail database resource
-is created. If this parameter isn't specified, no database is created in
-the database resource.
+The name of the database to create when the Lightsail database resource is created. If this parameter isn't specified, no database is created in the database resource.
 
 Constraints:
 \itemize{
 \item Must contain 1 to 64 letters or numbers.
-\item Must begin with a letter. Subsequent characters can be letters,
-underscores, or digits (0- 9).
+\item Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
 \item Can't be a word reserved by the specified database engine.
 
-For more information about reserved words in MySQL, see the Keywords
-and Reserved Words articles for \href{https://dev.mysql.com/doc/refman/8.4/en/keywords.html}{MySQL 5.6}, \href{https://dev.mysql.com/doc/refman/5.7/en/keywords.html}{MySQL 5.7}, and
-\href{https://dev.mysql.com/doc/refman/8.0/en/keywords.html}{MySQL 8.0}.
+For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for \href{https://dev.mysql.com/doc/refman/9.7/en/keywords.html}{MySQL 5.6}, \href{https://dev.mysql.com/doc/refman/5.7/en/keywords.html}{MySQL 5.7}, and \href{https://dev.mysql.com/doc/refman/8.0/en/keywords.html}{MySQL 8.0}.
 }
 
 \strong{PostgreSQL}
 
-The name of the database to create when the Lightsail database resource
-is created. If this parameter isn't specified, a database named
-\code{postgres} is created in the database resource.
+The name of the database to create when the Lightsail database resource is created. If this parameter isn't specified, a database named \code{postgres} is created in the database resource.
 
 Constraints:
 \itemize{
 \item Must contain 1 to 63 letters or numbers.
-\item Must begin with a letter. Subsequent characters can be letters,
-underscores, or digits (0- 9).
+\item Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
 \item Can't be a word reserved by the specified database engine.
 
-For more information about reserved words in PostgreSQL, see the SQL
-Key Words articles for \href{https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html}{PostgreSQL 9.6},
-\href{https://www.postgresql.org/docs/10/sql-keywords-appendix.html}{PostgreSQL 10},
-\href{https://www.postgresql.org/docs/11/sql-keywords-appendix.html}{PostgreSQL 11},
-and \href{https://www.postgresql.org/docs/12/sql-keywords-appendix.html}{PostgreSQL 12}.
+For more information about reserved words in PostgreSQL, see the SQL Key Words articles for \href{https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html}{PostgreSQL 9.6}, \href{https://www.postgresql.org/docs/10/sql-keywords-appendix.html}{PostgreSQL 10}, \href{https://www.postgresql.org/docs/11/sql-keywords-appendix.html}{PostgreSQL 11}, and \href{https://www.postgresql.org/docs/12/sql-keywords-appendix.html}{PostgreSQL 12}.
 }}
 
 \item{masterUsername}{[required] The name for the master user.
@@ -99,9 +78,7 @@ Constraints:
 \item First character must be a letter.
 \item Can't be a reserved word for the chosen database engine.
 
-For more information about reserved words in MySQL 5.6 or 5.7, see
-the Keywords and Reserved Words articles for \href{https://dev.mysql.com/doc/refman/8.4/en/keywords.html}{MySQL 5.6}, \href{https://dev.mysql.com/doc/refman/5.7/en/keywords.html}{MySQL 5.7}, or
-\href{https://dev.mysql.com/doc/refman/8.0/en/keywords.html}{MySQL 8.0}.
+For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for \href{https://dev.mysql.com/doc/refman/9.7/en/keywords.html}{MySQL 5.6}, \href{https://dev.mysql.com/doc/refman/5.7/en/keywords.html}{MySQL 5.7}, or \href{https://dev.mysql.com/doc/refman/8.0/en/keywords.html}{MySQL 8.0}.
 }
 
 \strong{PostgreSQL}
@@ -113,15 +90,10 @@ Constraints:
 \item First character must be a letter.
 \item Can't be a reserved word for the chosen database engine.
 
-For more information about reserved words in MySQL 5.6 or 5.7, see
-the Keywords and Reserved Words articles for \href{https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html}{PostgreSQL 9.6},
-\href{https://www.postgresql.org/docs/10/sql-keywords-appendix.html}{PostgreSQL 10},
-\href{https://www.postgresql.org/docs/11/sql-keywords-appendix.html}{PostgreSQL 11},
-and \href{https://www.postgresql.org/docs/12/sql-keywords-appendix.html}{PostgreSQL 12}.
+For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for \href{https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html}{PostgreSQL 9.6}, \href{https://www.postgresql.org/docs/10/sql-keywords-appendix.html}{PostgreSQL 10}, \href{https://www.postgresql.org/docs/11/sql-keywords-appendix.html}{PostgreSQL 11}, and \href{https://www.postgresql.org/docs/12/sql-keywords-appendix.html}{PostgreSQL 12}.
 }}
 
-\item{masterUserPassword}{The password for the master user. The password can include any printable
-ASCII character except "/", """, or "@". It cannot contain spaces.
+\item{masterUserPassword}{The password for the master user. The password can include any printable ASCII character except "/", """, or "@". It cannot contain spaces.
 
 \strong{MySQL}
 
@@ -131,13 +103,9 @@ Constraints: Must contain from 8 to 41 characters.
 
 Constraints: Must contain from 8 to 128 characters.}
 
-\item{preferredBackupWindow}{The daily time range during which automated backups are created for your
-new database if automated backups are enabled.
+\item{preferredBackupWindow}{The daily time range during which automated backups are created for your new database if automated backups are enabled.
 
-The default is a 30-minute window selected at random from an 8-hour
-block of time for each AWS Region. For more information about the
-preferred backup window time blocks for each region, see the \href{https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow}{Working With Backups}
-guide in the Amazon Relational Database Service documentation.
+The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. For more information about the preferred backup window time blocks for each region, see the \href{https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow}{Working With Backups} guide in the Amazon Relational Database Service documentation.
 
 Constraints:
 \itemize{
@@ -149,12 +117,9 @@ Example: \code{16:00-16:30}
 \item Must be at least 30 minutes.
 }}
 
-\item{preferredMaintenanceWindow}{The weekly time range during which system maintenance can occur on your
-new database.
+\item{preferredMaintenanceWindow}{The weekly time range during which system maintenance can occur on your new database.
 
-The default is a 30-minute window selected at random from an 8-hour
-block of time for each AWS Region, occurring on a random day of the
-week.
+The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring on a random day of the week.
 
 Constraints:
 \itemize{
@@ -165,16 +130,11 @@ Constraints:
 \item Example: \code{Tue:17:00-Tue:17:30}
 }}
 
-\item{publiclyAccessible}{Specifies the accessibility options for your new database. A value of
-\code{true} specifies a database that is available to resources outside of
-your Lightsail account. A value of \code{false} specifies a database that is
-available only to your Lightsail resources in the same region as your
-database.}
+\item{publiclyAccessible}{Specifies the accessibility options for your new database. A value of \code{true} specifies a database that is available to resources outside of your Lightsail account. A value of \code{false} specifies a database that is available only to your Lightsail resources in the same region as your database.}
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 }
 \description{
 Creates a new database in Amazon Lightsail.

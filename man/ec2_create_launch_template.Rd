@@ -15,13 +15,11 @@ ec2_create_launch_template(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency
-of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
+\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If a client token isn't specified, a randomly generated token is used in the request to ensure idempotency.
+
+For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
 
 Constraint: Maximum 128 ASCII characters.}
 
@@ -33,13 +31,9 @@ Constraint: Maximum 128 ASCII characters.}
 
 \item{Operator}{Reserved for internal use.}
 
-\item{TagSpecifications}{The tags to apply to the launch template on creation. To tag the launch
-template, the resource type must be \code{launch-template}.
+\item{TagSpecifications}{The tags to apply to the launch template on creation. To tag the launch template, the resource type must be \code{launch-template}.
 
-To specify the tags for the resources that are created when an instance
-is launched, you must use the \code{TagSpecifications} parameter in the
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html}{launch template data}
-structure.}
+To specify the tags for the resources that are created when an instance is launched, you must use the \code{TagSpecifications} parameter in the \href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestLaunchTemplateData.html}{launch template data} structure.}
 }
 \description{
 Creates a launch template.

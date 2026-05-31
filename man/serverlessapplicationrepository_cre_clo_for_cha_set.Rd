@@ -23,87 +23,73 @@ serverlessapplicationrepository_create_cloud_formation_change_set(
 \arguments{
 \item{ApplicationId}{[required] The Amazon Resource Name (ARN) of the application.}
 
-\item{Capabilities}{A list of values that you must specify before you can deploy certain
-applications. Some applications might include resources that can affect
-permissions in your AWS account, for example, by creating new AWS
-Identity and Access Management (IAM) users. For those applications, you
-must explicitly acknowledge their capabilities by specifying this
-parameter.
+\item{Capabilities}{A list of values that you must specify before you can deploy certain applications.
+Some applications might include resources that can affect permissions in your AWS
+account, for example, by creating new AWS Identity and Access Management (IAM) users.
+For those applications, you must explicitly acknowledge their capabilities by
+specifying this parameter.
 
 The only valid values are CAPABILITY_IAM, CAPABILITY_NAMED_IAM,
 CAPABILITY_RESOURCE_POLICY, and CAPABILITY_AUTO_EXPAND.
 
 The following resources require you to specify CAPABILITY_IAM or
 CAPABILITY_NAMED_IAM:
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-group.html}{AWS::IAM::Group},
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-instanceprofile.html}{AWS::IAM::InstanceProfile},
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html}{AWS::IAM::Policy},
-and
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html}{AWS::IAM::Role}.
-If the application contains IAM resources, you can specify either
-CAPABILITY_IAM or CAPABILITY_NAMED_IAM. If the application contains IAM
-resources with custom names, you must specify CAPABILITY_NAMED_IAM.
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-iam-group.html}{AWS::IAM::Group},
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-iam-instanceprofile.html}{AWS::IAM::InstanceProfile},
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-iam-policy.html}{AWS::IAM::Policy}, and
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-iam-role.html}{AWS::IAM::Role}.
+If the application contains IAM resources, you can specify either CAPABILITY_IAM
+or CAPABILITY_NAMED_IAM. If the application contains IAM resources
+with custom names, you must specify CAPABILITY_NAMED_IAM.
 
-The following resources require you to specify
-CAPABILITY_RESOURCE_POLICY:
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html}{AWS::Lambda::Permission},
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-policy.html}{AWS::IAM:Policy},
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-applicationautoscaling-scalingpolicy.html}{AWS::ApplicationAutoScaling::ScalingPolicy},
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-s3-bucketpolicy.html}{AWS::S3::BucketPolicy},
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sqs-queuepolicy.html}{AWS::SQS::QueuePolicy},
-and
-\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sns-topicpolicy.html}{AWS::SNS:TopicPolicy}.
+The following resources require you to specify CAPABILITY_RESOURCE_POLICY:
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-lambda-permission.html}{AWS::Lambda::Permission},
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-iam-policy.html}{AWS::IAM:Policy},
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-applicationautoscaling-scalingpolicy.html}{AWS::ApplicationAutoScaling::ScalingPolicy},
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-s3-bucketpolicy.html}{AWS::S3::BucketPolicy},
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-sqs-queuepolicy.html}{AWS::SQS::QueuePolicy}, and
+\href{https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-resource-sns-topicpolicy.html}{AWS::SNS:TopicPolicy}.
 
-Applications that contain one or more nested applications require you to
-specify CAPABILITY_AUTO_EXPAND.
+Applications that contain one or more nested applications require you to specify
+CAPABILITY_AUTO_EXPAND.
 
-If your application template contains any of the above resources, we
-recommend that you review all permissions associated with the
-application before deploying. If you don't specify this parameter for an
-application that requires capabilities, the call will fail.}
+If your application template contains any of the above resources, we recommend that you review
+all permissions associated with the application before deploying. If you don't specify
+this parameter for an application that requires capabilities, the call will fail.}
 
-\item{ChangeSetName}{This property corresponds to the parameter of the same name for the \emph{AWS
-CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
+\item{ChangeSetName}{This property corresponds to the parameter of the same name for the \emph{AWS CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
 API.}
 
-\item{ClientToken}{This property corresponds to the parameter of the same name for the \emph{AWS
-CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
+\item{ClientToken}{This property corresponds to the parameter of the same name for the \emph{AWS CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
 API.}
 
-\item{Description}{This property corresponds to the parameter of the same name for the \emph{AWS
-CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
+\item{Description}{This property corresponds to the parameter of the same name for the \emph{AWS CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
 API.}
 
-\item{NotificationArns}{This property corresponds to the parameter of the same name for the \emph{AWS
-CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
+\item{NotificationArns}{This property corresponds to the parameter of the same name for the \emph{AWS CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
 API.}
 
 \item{ParameterOverrides}{A list of parameter values for the parameters of the application.}
 
-\item{ResourceTypes}{This property corresponds to the parameter of the same name for the \emph{AWS
-CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
+\item{ResourceTypes}{This property corresponds to the parameter of the same name for the \emph{AWS CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
 API.}
 
-\item{RollbackConfiguration}{This property corresponds to the parameter of the same name for the \emph{AWS
-CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
+\item{RollbackConfiguration}{This property corresponds to the parameter of the same name for the \emph{AWS CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
 API.}
 
 \item{SemanticVersion}{The semantic version of the application:
 
 \url{https://semver.org/}}
 
-\item{StackName}{[required] This property corresponds to the parameter of the same name for the \emph{AWS
-CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
+\item{StackName}{[required] This property corresponds to the parameter of the same name for the \emph{AWS CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
 API.}
 
-\item{Tags}{This property corresponds to the parameter of the same name for the \emph{AWS
-CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
+\item{Tags}{This property corresponds to the parameter of the same name for the \emph{AWS CloudFormation \href{https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateChangeSet.html}{CreateChangeSet}}
 API.}
 
 \item{TemplateId}{The UUID returned by CreateCloudFormationTemplate.
 
-Pattern:
-[0-9a-fA-F]\{8\}\\-[0-9a-fA-F]\{4\}\\-[0-9a-fA-F]\{4\}\\-[0-9a-fA-F]\{4\}\\-[0-9a-fA-F]\{12\}}
+Pattern: [0-9a-fA-F]\{8\}\\-[0-9a-fA-F]\{4\}\\-[0-9a-fA-F]\{4\}\\-[0-9a-fA-F]\{4\}\\-[0-9a-fA-F]\{12\}}
 }
 \description{
 Creates an AWS CloudFormation change set for the given application.

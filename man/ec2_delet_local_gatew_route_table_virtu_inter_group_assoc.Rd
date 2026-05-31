@@ -10,13 +10,9 @@ ec2_delete_local_gateway_route_table_virtual_interface_group_association(
 )
 }
 \arguments{
-\item{LocalGatewayRouteTableVirtualInterfaceGroupAssociationId}{[required] The ID of the local gateway route table virtual interface group
-association.}
+\item{LocalGatewayRouteTableVirtualInterfaceGroupAssociationId}{[required] The ID of the local gateway route table virtual interface group association.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes a local gateway route table virtual interface group association.

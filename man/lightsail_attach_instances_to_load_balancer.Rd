@@ -9,15 +9,11 @@ lightsail_attach_instances_to_load_balancer(loadBalancerName, instanceNames)
 \arguments{
 \item{loadBalancerName}{[required] The name of the load balancer.}
 
-\item{instanceNames}{[required] An array of strings representing the instance name(s) you want to attach
-to your load balancer.
+\item{instanceNames}{[required] An array of strings representing the instance name(s) you want to attach to your load balancer.
 
-An instance must be \code{running} before you can attach it to your load
-balancer.
+An instance must be \code{running} before you can attach it to your load balancer.
 
-There are no additional limits on the number of instances you can attach
-to your load balancer, aside from the limit of Lightsail instances you
-can create in your account (20).}
+There are no additional limits on the number of instances you can attach to your load balancer, aside from the limit of Lightsail instances you can create in your account (20).}
 }
 \description{
 Attaches one or more Lightsail instances to a load balancer.

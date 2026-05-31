@@ -9,10 +9,7 @@ ec2_delete_subnet(SubnetId, DryRun = NULL)
 \arguments{
 \item{SubnetId}{[required] The ID of the subnet.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes the specified subnet. You must terminate all running instances in the subnet before you can delete the subnet.

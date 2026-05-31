@@ -9,10 +9,7 @@ ec2_create_internet_gateway(TagSpecifications = NULL, DryRun = NULL)
 \arguments{
 \item{TagSpecifications}{The tags to assign to the internet gateway.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates an internet gateway for use with a VPC. After creating the internet gateway, you attach it to a VPC using \code{\link[=ec2_attach_internet_gateway]{attach_internet_gateway}}.

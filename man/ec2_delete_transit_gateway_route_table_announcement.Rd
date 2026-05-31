@@ -13,10 +13,7 @@ ec2_delete_transit_gateway_route_table_announcement(
 \arguments{
 \item{TransitGatewayRouteTableAnnouncementId}{[required] The transit gateway route table ID that's being deleted.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Advertises to the transit gateway that a transit gateway route table is deleted.

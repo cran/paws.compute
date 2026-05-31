@@ -15,9 +15,7 @@ proton_list_environments(
 
 \item{maxResults}{The maximum number of environments to list.}
 
-\item{nextToken}{A token that indicates the location of the next environment in the array
-of environments, after the list of environments that was previously
-requested.}
+\item{nextToken}{A token that indicates the location of the next environment in the array of environments, after the list of environments that was previously requested.}
 }
 \description{
 List environments with detail data summaries.

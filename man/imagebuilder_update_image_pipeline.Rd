@@ -18,48 +18,43 @@ imagebuilder_update_image_pipeline(
   clientToken,
   imageScanningConfiguration = NULL,
   workflows = NULL,
-  executionRole = NULL
+  loggingConfiguration = NULL,
+  executionRole = NULL,
+  imageTags = NULL
 )
 }
 \arguments{
-\item{imagePipelineArn}{[required] The Amazon Resource Name (ARN) of the image pipeline that you want to
-update.}
+\item{imagePipelineArn}{[required] The Amazon Resource Name (ARN) of the image pipeline that you want to update.}
 
 \item{description}{The description of the image pipeline.}
 
-\item{imageRecipeArn}{The Amazon Resource Name (ARN) of the image recipe that will be used to
-configure images updated by this image pipeline.}
+\item{imageRecipeArn}{The Amazon Resource Name (ARN) of the image recipe that will be used to configure images updated by this image pipeline.}
 
 \item{containerRecipeArn}{The Amazon Resource Name (ARN) of the container pipeline to update.}
 
-\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration that
-Image Builder uses to build images that this image pipeline has updated.}
+\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration that Image Builder uses to build images that this image pipeline has updated.}
 
-\item{distributionConfigurationArn}{The Amazon Resource Name (ARN) of the distribution configuration that
-Image Builder uses to configure and distribute images that this image
-pipeline has updated.}
+\item{distributionConfigurationArn}{The Amazon Resource Name (ARN) of the distribution configuration that Image Builder uses to configure and distribute images that this image pipeline has updated.}
 
 \item{imageTestsConfiguration}{The image test configuration of the image pipeline.}
 
-\item{enhancedImageMetadataEnabled}{Collects additional information about the image being created, including
-the operating system (OS) version and package list. This information is
-used to enhance the overall experience of using EC2 Image Builder.
-Enabled by default.}
+\item{enhancedImageMetadataEnabled}{Collects additional information about the image being created, including the operating system (OS) version and package list. This information is used to enhance the overall experience of using EC2 Image Builder. Enabled by default.}
 
 \item{schedule}{The schedule of the image pipeline.}
 
 \item{status}{The status of the image pipeline.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 
 \item{imageScanningConfiguration}{Contains settings for vulnerability scans.}
 
 \item{workflows}{Contains the workflows to run for the pipeline.}
 
-\item{executionRole}{The name or Amazon Resource Name (ARN) for the IAM role you create that
-grants Image Builder access to perform workflow actions.}
+\item{loggingConfiguration}{Update logging configuration for the output image that's created when the pipeline runs.}
+
+\item{executionRole}{The name or Amazon Resource Name (ARN) for the IAM role you create that grants Image Builder access to perform workflow actions.}
+
+\item{imageTags}{The tags to be applied to the images produced by this pipeline.}
 }
 \description{
 Updates an image pipeline. Image pipelines enable you to automate the creation and distribution of images. You must specify exactly one recipe for your image, using either a \code{containerRecipeArn} or an \code{imageRecipeArn}.

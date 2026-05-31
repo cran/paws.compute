@@ -16,17 +16,13 @@ imagebuilder_send_workflow_step_action(
 \arguments{
 \item{stepExecutionId}{[required] Uniquely identifies the workflow step that sent the step action.}
 
-\item{imageBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the image build version to send action
-for.}
+\item{imageBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the image build version to send action for.}
 
-\item{action}{[required] The action for the image creation process to take while a workflow
-\code{WaitForAction} step waits for an asynchronous action to complete.}
+\item{action}{[required] The action for the image creation process to take while a workflow \code{WaitForAction} step waits for an asynchronous action to complete.}
 
 \item{reason}{The reason why this action is sent.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 Pauses or resumes image creation when the associated workflow runs a \code{WaitForAction} step.

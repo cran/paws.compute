@@ -15,25 +15,18 @@ ec2_describe_client_vpn_authorization_rules(
 \arguments{
 \item{ClientVpnEndpointId}{[required] The ID of the Client VPN endpoint.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{NextToken}{The token to retrieve the next page of results.}
 
 \item{Filters}{One or more filters. Filter names and values are case-sensitive.
 \itemize{
 \item \code{description} - The description of the authorization rule.
-\item \code{destination-cidr} - The CIDR of the network to which the
-authorization rule applies.
-\item \code{group-id} - The ID of the Active Directory group to which the
-authorization rule grants access.
+\item \code{destination-cidr} - The CIDR of the network to which the authorization rule applies.
+\item \code{group-id} - The ID of the Active Directory group to which the authorization rule grants access.
 }}
 
-\item{MaxResults}{The maximum number of results to return for the request in a single
-page. The remaining results can be seen by sending another request with
-the nextToken value.}
+\item{MaxResults}{The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the nextToken value.}
 }
 \description{
 Describes the authorization rules for a specified Client VPN endpoint.

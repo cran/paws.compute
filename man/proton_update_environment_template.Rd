@@ -13,8 +13,7 @@ proton_update_environment_template(
 \arguments{
 \item{description}{A description of the environment template update.}
 
-\item{displayName}{The name of the environment template to update as displayed in the
-developer interface.}
+\item{displayName}{The name of the environment template to update as displayed in the developer interface.}
 
 \item{name}{[required] The name of the environment template to update.}
 }

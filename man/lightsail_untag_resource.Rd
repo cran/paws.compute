@@ -10,8 +10,7 @@ lightsail_untag_resource(resourceName, resourceArn = NULL, tagKeys)
 \arguments{
 \item{resourceName}{[required] The name of the resource from which you are removing a tag.}
 
-\item{resourceArn}{The Amazon Resource Name (ARN) of the resource from which you want to
-remove a tag.}
+\item{resourceArn}{The Amazon Resource Name (ARN) of the resource from which you want to remove a tag.}
 
 \item{tagKeys}{[required] The tag keys to delete from the specified resource.}
 }

@@ -17,25 +17,17 @@ ec2_get_coip_pool_usage(
 
 \item{Filters}{One or more filters.
 \itemize{
-\item \code{coip-address-usage.allocation-id} - The allocation ID of the
-address.
-\item \code{coip-address-usage.aws-account-id} - The ID of the Amazon Web
-Services account that is using the customer-owned IP address.
-\item \code{coip-address-usage.aws-service} - The Amazon Web Services service
-that is using the customer-owned IP address.
+\item \code{coip-address-usage.allocation-id} - The allocation ID of the address.
+\item \code{coip-address-usage.aws-account-id} - The ID of the Amazon Web Services account that is using the customer-owned IP address.
+\item \code{coip-address-usage.aws-service} - The Amazon Web Services service that is using the customer-owned IP address.
 \item \code{coip-address-usage.co-ip} - The customer-owned IP address.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes the allocations from the specified customer-owned address pool.

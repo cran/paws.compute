@@ -11,14 +11,9 @@ ec2_enable_image_block_public_access(
 )
 }
 \arguments{
-\item{ImageBlockPublicAccessState}{[required] Specify \code{block-new-sharing} to enable block public access for AMIs at
-the account level in the specified Region. This will block any attempt
-to publicly share your AMIs in the specified Region.}
+\item{ImageBlockPublicAccessState}{[required] Specify \code{block-new-sharing} to enable block public access for AMIs at the account level in the specified Region. This will block any attempt to publicly share your AMIs in the specified Region.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Enables \emph{block public access for AMIs} at the account level in the specified Amazon Web Services Region. This prevents the public sharing of your AMIs. However, if you already have public AMIs, they will remain publicly available.

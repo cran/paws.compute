@@ -16,25 +16,19 @@ imagebuilder_start_resource_state_update(
 )
 }
 \arguments{
-\item{resourceArn}{[required] The ARN of the Image Builder resource that is updated. The state update
-might also impact associated resources.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the Image Builder resource that is updated. The state update might also impact associated resources.}
 
 \item{state}{[required] Indicates the lifecycle action to take for this request.}
 
-\item{executionRole}{The name or Amazon Resource Name (ARN) of the IAM role that’s used to
-update image state.}
+\item{executionRole}{The name or Amazon Resource Name (ARN) of the IAM role that’s used to update image state.}
 
 \item{includeResources}{A list of image resources to update state for.}
 
-\item{exclusionRules}{Skip action on the image resource and associated resources if specified
-exclusion rules are met.}
+\item{exclusionRules}{Skip action on the image resource and associated resources if specified exclusion rules are met.}
 
-\item{updateAt}{The timestamp that indicates when resources are updated by a lifecycle
-action.}
+\item{updateAt}{The timestamp that indicates when resources are updated by a lifecycle action.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 Begin asynchronous resource state update for lifecycle changes to the specified image resources.

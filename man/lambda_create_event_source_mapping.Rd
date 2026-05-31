@@ -31,18 +31,17 @@ lambda_create_event_source_mapping(
   DocumentDBEventSourceConfig = NULL,
   KMSKeyArn = NULL,
   MetricsConfig = NULL,
+  LoggingConfig = NULL,
   ProvisionedPollerConfig = NULL
 )
 }
 \arguments{
 \item{EventSourceArn}{The Amazon Resource Name (ARN) of the event source.
 \itemize{
-\item \strong{Amazon Kinesis} – The ARN of the data stream or a stream
-consumer.
+\item \strong{Amazon Kinesis} – The ARN of the data stream or a stream consumer.
 \item \strong{Amazon DynamoDB Streams} – The ARN of the stream.
 \item \strong{Amazon Simple Queue Service} – The ARN of the queue.
-\item \strong{Amazon Managed Streaming for Apache Kafka} – The ARN of the
-cluster or the ARN of the VPC connection (for \href{https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc}{cross-account event source mappings}).
+\item \strong{Amazon Managed Streaming for Apache Kafka} – The ARN of the cluster or the ARN of the VPC connection (for \href{https://docs.aws.amazon.com/lambda/latest/dg/with-msk.html#msk-multi-vpc}{cross-account event source mappings}).
 \item \strong{Amazon MQ} – The ARN of the broker.
 \item \strong{Amazon DocumentDB} – The ARN of the DocumentDB change stream.
 }}
@@ -52,123 +51,79 @@ cluster or the ARN of the VPC connection (for \href{https://docs.aws.amazon.com/
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} – \code{MyFunction}.
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
-\item \strong{Version or Alias ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD}.
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
+\item \strong{Version or Alias ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction:PROD}.
 \item \strong{Partial ARN} – \verb{123456789012:function:MyFunction}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it's limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it's limited to 64 characters in length.}
 
-\item{Enabled}{When true, the event source mapping is active. When false, Lambda pauses
-polling and invocation.
+\item{Enabled}{When true, the event source mapping is active. When false, Lambda pauses polling and invocation.
 
 Default: True}
 
-\item{BatchSize}{The maximum number of records in each batch that Lambda pulls from your
-stream or queue and sends to your function. Lambda passes all of the
-records in the batch to the function in a single call, up to the payload
-limit for synchronous invocation (6 MB).
+\item{BatchSize}{The maximum number of records in each batch that Lambda pulls from your stream or queue and sends to your function. Lambda passes all of the records in the batch to the function in a single call, up to the payload limit for synchronous invocation (6 MB).
 \itemize{
 \item \strong{Amazon Kinesis} – Default 100. Max 10,000.
 \item \strong{Amazon DynamoDB Streams} – Default 100. Max 10,000.
-\item \strong{Amazon Simple Queue Service} – Default 10. For standard queues
-the max is 10,000. For FIFO queues the max is 10.
-\item \strong{Amazon Managed Streaming for Apache Kafka} – Default 100. Max
-10,000.
+\item \strong{Amazon Simple Queue Service} – Default 10. For standard queues the max is 10,000. For FIFO queues the max is 10.
+\item \strong{Amazon Managed Streaming for Apache Kafka} – Default 100. Max 10,000.
 \item \strong{Self-managed Apache Kafka} – Default 100. Max 10,000.
 \item \strong{Amazon MQ (ActiveMQ and RabbitMQ)} – Default 100. Max 10,000.
 \item \strong{DocumentDB} – Default 100. Max 10,000.
 }}
 
-\item{FilterCriteria}{An object that defines the filter criteria that determine whether Lambda
-should process an event. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html}{Lambda event filtering}.}
+\item{FilterCriteria}{An object that defines the filter criteria that determine whether Lambda should process an event. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html}{Lambda event filtering}.}
 
-\item{MaximumBatchingWindowInSeconds}{The maximum amount of time, in seconds, that Lambda spends gathering
-records before invoking the function. You can configure
-\code{MaximumBatchingWindowInSeconds} to any value from 0 seconds to 300
-seconds in increments of seconds.
+\item{MaximumBatchingWindowInSeconds}{The maximum amount of time, in seconds, that Lambda spends gathering records before invoking the function. You can configure \code{MaximumBatchingWindowInSeconds} to any value from 0 seconds to 300 seconds in increments of seconds.
 
-For Kinesis, DynamoDB, and Amazon SQS event sources, the default
-batching window is 0 seconds. For Amazon MSK, Self-managed Apache Kafka,
-Amazon MQ, and DocumentDB event sources, the default batching window is
-500 ms. Note that because you can only change
-\code{MaximumBatchingWindowInSeconds} in increments of seconds, you cannot
-revert back to the 500 ms default batching window after you have changed
-it. To restore the default batching window, you must create a new event
-source mapping.
+For Kinesis, DynamoDB, and Amazon SQS event sources, the default batching window is 0 seconds. For Amazon MSK, Self-managed Apache Kafka, Amazon MQ, and DocumentDB event sources, the default batching window is 500 ms. Note that because you can only change \code{MaximumBatchingWindowInSeconds} in increments of seconds, you cannot revert back to the 500 ms default batching window after you have changed it. To restore the default batching window, you must create a new event source mapping.
 
-Related setting: For Kinesis, DynamoDB, and Amazon SQS event sources,
-when you set \code{BatchSize} to a value greater than 10, you must set
-\code{MaximumBatchingWindowInSeconds} to at least 1.}
+Related setting: For Kinesis, DynamoDB, and Amazon SQS event sources, when you set \code{BatchSize} to a value greater than 10, you must set \code{MaximumBatchingWindowInSeconds} to at least 1.}
 
-\item{ParallelizationFactor}{(Kinesis and DynamoDB Streams only) The number of batches to process
-from each shard concurrently.}
+\item{ParallelizationFactor}{(Kinesis and DynamoDB Streams only) The number of batches to process from each shard concurrently.}
 
-\item{StartingPosition}{The position in a stream from which to start reading. Required for
-Amazon Kinesis and Amazon DynamoDB Stream event sources. \code{AT_TIMESTAMP}
-is supported only for Amazon Kinesis streams, Amazon DocumentDB, Amazon
-MSK, and self-managed Apache Kafka.}
+\item{StartingPosition}{The position in a stream from which to start reading. Required for Amazon Kinesis and Amazon DynamoDB Stream event sources. \code{AT_TIMESTAMP} is supported only for Amazon Kinesis streams, Amazon DocumentDB, Amazon MSK, and self-managed Apache Kafka.}
 
-\item{StartingPositionTimestamp}{With \code{StartingPosition} set to \code{AT_TIMESTAMP}, the time from which to
-start reading. \code{StartingPositionTimestamp} cannot be in the future.}
+\item{StartingPositionTimestamp}{With \code{StartingPosition} set to \code{AT_TIMESTAMP}, the time from which to start reading. \code{StartingPositionTimestamp} cannot be in the future.}
 
-\item{DestinationConfig}{(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Kafka only) A
-configuration object that specifies the destination of an event after
-Lambda processes it.}
+\item{DestinationConfig}{(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) A configuration object that specifies the destination of an event after Lambda processes it.}
 
-\item{MaximumRecordAgeInSeconds}{(Kinesis and DynamoDB Streams only) Discard records older than the
-specified age. The default value is infinite (-1).}
+\item{MaximumRecordAgeInSeconds}{(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) Discard records older than the specified age. The default value is infinite (-1).}
 
-\item{BisectBatchOnFunctionError}{(Kinesis and DynamoDB Streams only) If the function returns an error,
-split the batch in two and retry.}
+\item{BisectBatchOnFunctionError}{(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) If the function returns an error, split the batch in two and retry.}
 
-\item{MaximumRetryAttempts}{(Kinesis and DynamoDB Streams only) Discard records after the specified
-number of retries. The default value is infinite (-1). When set to
-infinite (-1), failed records are retried until the record expires.}
+\item{MaximumRetryAttempts}{(Kinesis, DynamoDB Streams, Amazon MSK, and self-managed Apache Kafka) Discard records after the specified number of retries. The default value is infinite (-1). When set to infinite (-1), failed records are retried until the record expires.}
 
 \item{Tags}{A list of tags to apply to the event source mapping.}
 
-\item{TumblingWindowInSeconds}{(Kinesis and DynamoDB Streams only) The duration in seconds of a
-processing window for DynamoDB and Kinesis Streams event sources. A
-value of 0 seconds indicates no tumbling window.}
+\item{TumblingWindowInSeconds}{(Kinesis and DynamoDB Streams only) The duration in seconds of a processing window for DynamoDB and Kinesis Streams event sources. A value of 0 seconds indicates no tumbling window.}
 
 \item{Topics}{The name of the Kafka topic.}
 
 \item{Queues}{(MQ) The name of the Amazon MQ broker destination queue to consume.}
 
-\item{SourceAccessConfigurations}{An array of authentication protocols or VPC components required to
-secure your event source.}
+\item{SourceAccessConfigurations}{An array of authentication protocols or VPC components required to secure your event source.}
 
 \item{SelfManagedEventSource}{The self-managed Apache Kafka cluster to receive records from.}
 
-\item{FunctionResponseTypes}{(Kinesis, DynamoDB Streams, and Amazon SQS) A list of current response
-type enums applied to the event source mapping.}
+\item{FunctionResponseTypes}{(Kinesis, DynamoDB Streams, Amazon MSK, self-managed Apache Kafka, and Amazon SQS) A list of current response type enums applied to the event source mapping.}
 
-\item{AmazonManagedKafkaEventSourceConfig}{Specific configuration settings for an Amazon Managed Streaming for
-Apache Kafka (Amazon MSK) event source.}
+\item{AmazonManagedKafkaEventSourceConfig}{Specific configuration settings for an Amazon Managed Streaming for Apache Kafka (Amazon MSK) event source.}
 
-\item{SelfManagedKafkaEventSourceConfig}{Specific configuration settings for a self-managed Apache Kafka event
-source.}
+\item{SelfManagedKafkaEventSourceConfig}{Specific configuration settings for a self-managed Apache Kafka event source.}
 
-\item{ScalingConfig}{(Amazon SQS only) The scaling configuration for the event source. For
-more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency}{Configuring maximum concurrency for Amazon SQS event sources}.}
+\item{ScalingConfig}{(Amazon SQS only) The scaling configuration for the event source. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html#events-sqs-max-concurrency}{Configuring maximum concurrency for Amazon SQS event sources}.}
 
 \item{DocumentDBEventSourceConfig}{Specific configuration settings for a DocumentDB event source.}
 
-\item{KMSKeyArn}{The ARN of the Key Management Service (KMS) customer managed key that
-Lambda uses to encrypt your function's \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics}{filter criteria}.
-By default, Lambda does not encrypt your filter criteria object. Specify
-this property to encrypt data using your own customer managed key.}
+\item{KMSKeyArn}{The ARN of the Key Management Service (KMS) customer managed key that Lambda uses to encrypt your function's \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html#filtering-basics}{filter criteria}. By default, Lambda does not encrypt your filter criteria object. Specify this property to encrypt data using your own customer managed key.}
 
-\item{MetricsConfig}{The metrics configuration for your event source. For more information,
-see \href{https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics}{Event source mapping metrics}.}
+\item{MetricsConfig}{The metrics configuration for your event source. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics-types.html#event-source-mapping-metrics}{Event source mapping metrics}.}
 
-\item{ProvisionedPollerConfig}{(Amazon MSK and self-managed Apache Kafka only) The Provisioned Mode
-configuration for the event source. For more information, see
-\href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode}{Provisioned Mode}.}
+\item{LoggingConfig}{(Amazon MSK, and self-managed Apache Kafka only) The logging configuration for your event source. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/esm-logging.html}{Event source mapping logging}.}
+
+\item{ProvisionedPollerConfig}{(Amazon SQS, Amazon MSK, and self-managed Apache Kafka only) The provisioned mode configuration for the event source. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventsourcemapping.html#invocation-eventsourcemapping-provisioned-mode}{provisioned mode}.}
 }
 \description{
 Creates a mapping between an event source and an Lambda function. Lambda reads items from the event source and invokes the function.

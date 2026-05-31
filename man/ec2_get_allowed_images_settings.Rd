@@ -8,10 +8,7 @@ Allowed AMIs criteria at the account level in the specified Region}
 ec2_get_allowed_images_settings(DryRun = NULL)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Gets the current state of the Allowed AMIs setting and the list of Allowed AMIs criteria at the account level in the specified Region.

@@ -13,17 +13,11 @@ ec2_create_ipam_resource_discovery(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Description}{A description for the IPAM resource discovery.}
 
-\item{OperatingRegions}{Operating Regions for the IPAM resource discovery. Operating Regions are
-Amazon Web Services Regions where the IPAM is allowed to manage IP
-address CIDRs. IPAM only discovers and monitors resources in the Amazon
-Web Services Regions you select as operating Regions.}
+\item{OperatingRegions}{Operating Regions for the IPAM resource discovery. Operating Regions are Amazon Web Services Regions where the IPAM is allowed to manage IP address CIDRs. IPAM only discovers and monitors resources in the Amazon Web Services Regions you select as operating Regions.}
 
 \item{TagSpecifications}{Tag specifications for the IPAM resource discovery.}
 

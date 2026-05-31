@@ -7,8 +7,7 @@
 lightsail_get_bucket_bundles(includeInactive = NULL)
 }
 \arguments{
-\item{includeInactive}{A Boolean value that indicates whether to include inactive (unavailable)
-bundles in the response of your request.}
+\item{includeInactive}{A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.}
 }
 \description{
 Returns the bundles that you can apply to a Amazon Lightsail bucket.

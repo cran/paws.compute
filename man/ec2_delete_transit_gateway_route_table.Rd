@@ -12,10 +12,7 @@ ec2_delete_transit_gateway_route_table(
 \arguments{
 \item{TransitGatewayRouteTableId}{[required] The ID of the transit gateway route table.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes the specified transit gateway route table. If there are any route tables associated with the transit gateway route table, you must first run \code{\link[=ec2_disassociate_route_table]{disassociate_route_table}} before you can delete the transit gateway route table. This removes any route tables associated with the transit gateway route table.

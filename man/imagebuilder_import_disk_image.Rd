@@ -14,39 +14,39 @@ imagebuilder_import_disk_image(
   executionRole = NULL,
   infrastructureConfigurationArn,
   uri,
+  loggingConfiguration = NULL,
   tags = NULL,
+  registerImageOptions = NULL,
+  windowsConfiguration = NULL,
   clientToken
 )
 }
 \arguments{
 \item{name}{[required] The name of the image resource that's created from the import.}
 
-\item{semanticVersion}{[required] The semantic version to attach to the image that's created during the
-import process. This version follows the semantic version syntax.}
+\item{semanticVersion}{[required] The semantic version to attach to the image that's created during the import process. This version follows the semantic version syntax.}
 
 \item{description}{The description for your disk image import.}
 
-\item{platform}{[required] The operating system platform for the imported image. Allowed values
-include the following: \code{Windows}.}
+\item{platform}{[required] The operating system platform for the imported image. Allowed values include the following: \code{Windows}.}
 
-\item{osVersion}{[required] The operating system version for the imported image. Allowed values
-include the following: \verb{Microsoft Windows 11}.}
+\item{osVersion}{[required] The operating system version for the imported image. Allowed values include the following: \verb{Microsoft Windows 11}.}
 
-\item{executionRole}{The name or Amazon Resource Name (ARN) for the IAM role you create that
-grants Image Builder access to perform workflow actions to import an
-image from a Microsoft ISO file.}
+\item{executionRole}{The name or Amazon Resource Name (ARN) for the IAM role you create that grants Image Builder access to perform workflow actions to import an image from a Microsoft ISO file.}
 
-\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration
-resource that's used for launching the EC2 instance on which the ISO
-image is built.}
+\item{infrastructureConfigurationArn}{[required] The Amazon Resource Name (ARN) of the infrastructure configuration resource that's used for launching the EC2 instance on which the ISO image is built.}
 
 \item{uri}{[required] The \code{uri} of the ISO disk file that's stored in Amazon S3.}
 
+\item{loggingConfiguration}{Define logging configuration for the image build process.}
+
 \item{tags}{Tags that are attached to image resources created from the import.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{registerImageOptions}{Configures Secure Boot and UEFI settings for the imported image.}
+
+\item{windowsConfiguration}{Specifies Windows settings for ISO imports.}
+
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 }
 \description{
 Import a Windows operating system image from a verified Microsoft ISO disk file. The following disk images are supported:

@@ -21,101 +21,53 @@ ecs_create_task_set(
 )
 }
 \arguments{
-\item{service}{[required] The short name or full Amazon Resource Name (ARN) of the service to
-create the task set in.}
+\item{service}{[required] The short name or full Amazon Resource Name (ARN) of the service to create the task set in.}
 
-\item{cluster}{[required] The short name or full Amazon Resource Name (ARN) of the cluster that
-hosts the service to create the task set in.}
+\item{cluster}{[required] The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to create the task set in.}
 
-\item{externalId}{An optional non-unique tag that identifies this task set in external
-systems. If the task set is associated with a service discovery
-registry, the tasks in this task set will have the
-\code{ECS_TASK_SET_EXTERNAL_ID} Cloud Map attribute set to the provided
-value.}
+\item{externalId}{An optional non-unique tag that identifies this task set in external systems. If the task set is associated with a service discovery registry, the tasks in this task set will have the \code{ECS_TASK_SET_EXTERNAL_ID} Cloud Map attribute set to the provided value.}
 
-\item{taskDefinition}{[required] The task definition for the tasks in the task set to use. If a revision
-isn't specified, the latest \code{ACTIVE} revision is used.}
+\item{taskDefinition}{[required] The task definition for the tasks in the task set to use. If a revision isn't specified, the latest \code{ACTIVE} revision is used.}
 
 \item{networkConfiguration}{An object representing the network configuration for a task set.}
 
-\item{loadBalancers}{A load balancer object representing the load balancer to use with the
-task set. The supported load balancer types are either an Application
-Load Balancer or a Network Load Balancer.}
+\item{loadBalancers}{A load balancer object representing the load balancer to use with the task set. The supported load balancer types are either an Application Load Balancer or a Network Load Balancer.}
 
-\item{serviceRegistries}{The details of the service discovery registries to assign to this task
-set. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html}{Service discovery}.}
+\item{serviceRegistries}{The details of the service discovery registries to assign to this task set. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-discovery.html}{Service discovery}.}
 
-\item{launchType}{The launch type that new tasks in the task set uses. For more
-information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/launch_types.html}{Amazon ECS launch types}
-in the \emph{Amazon Elastic Container Service Developer Guide}.
+\item{launchType}{The launch type that new tasks in the task set uses. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-configuration.html}{Amazon ECS launch types} in the \emph{Amazon Elastic Container Service Developer Guide}.
 
-If a \code{launchType} is specified, the \code{capacityProviderStrategy} parameter
-must be omitted.}
+If a \code{launchType} is specified, the \code{capacityProviderStrategy} parameter must be omitted.}
 
 \item{capacityProviderStrategy}{The capacity provider strategy to use for the task set.
 
-A capacity provider strategy consists of one or more capacity providers
-along with the \code{base} and \code{weight} to assign to them. A capacity
-provider must be associated with the cluster to be used in a capacity
-provider strategy. The
-\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
-API is used to associate a capacity provider with a cluster. Only
-capacity providers with an \code{ACTIVE} or \code{UPDATING} status can be used.
+A capacity provider strategy consists of one or more capacity providers along with the \code{base} and \code{weight} to assign to them. A capacity provider must be associated with the cluster to be used in a capacity provider strategy. The \code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}} API is used to associate a capacity provider with a cluster. Only capacity providers with an \code{ACTIVE} or \code{UPDATING} status can be used.
 
-If a \code{capacityProviderStrategy} is specified, the \code{launchType} parameter
-must be omitted. If no \code{capacityProviderStrategy} or \code{launchType} is
-specified, the \code{defaultCapacityProviderStrategy} for the cluster is
-used.
+If a \code{capacityProviderStrategy} is specified, the \code{launchType} parameter must be omitted. If no \code{capacityProviderStrategy} or \code{launchType} is specified, the \code{defaultCapacityProviderStrategy} for the cluster is used.
 
-If specifying a capacity provider that uses an Auto Scaling group, the
-capacity provider must already be created. New capacity providers can be
-created with the
-\href{https://docs.aws.amazon.com/AmazonECS/latest/APIReference/}{CreateCapacityProviderProvider}API
-operation.
+If specifying a capacity provider that uses an Auto Scaling group, the capacity provider must already be created. New capacity providers can be created with the \href{https://docs.aws.amazon.com/AmazonECS/latest/APIReference/}{CreateCapacityProviderProvider}API operation.
 
-To use a Fargate capacity provider, specify either the \code{FARGATE} or
-\code{FARGATE_SPOT} capacity providers. The Fargate capacity providers are
-available to all accounts and only need to be associated with a cluster
-to be used.
+To use a Fargate capacity provider, specify either the \code{FARGATE} or \code{FARGATE_SPOT} capacity providers. The Fargate capacity providers are available to all accounts and only need to be associated with a cluster to be used.
 
-The
-\code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}}
-API operation is used to update the list of available capacity providers
-for a cluster after the cluster is created.}
+The \code{\link[=ecs_put_cluster_capacity_providers]{put_cluster_capacity_providers}} API operation is used to update the list of available capacity providers for a cluster after the cluster is created.}
 
-\item{platformVersion}{The platform version that the tasks in the task set uses. A platform
-version is specified only for tasks using the Fargate launch type. If
-one isn't specified, the \code{LATEST} platform version is used.}
+\item{platformVersion}{The platform version that the tasks in the task set uses. A platform version is specified only for tasks using the Fargate launch type. If one isn't specified, the \code{LATEST} platform version is used.}
 
-\item{scale}{A floating-point percentage of the desired number of tasks to place and
-keep running in the task set.}
+\item{scale}{A floating-point percentage of the desired number of tasks to place and keep running in the task set.}
 
-\item{clientToken}{An identifier that you provide to ensure the idempotency of the request.
-It must be unique and is case sensitive. Up to 36 ASCII characters in
-the range of 33-126 (inclusive) are allowed.}
+\item{clientToken}{An identifier that you provide to ensure the idempotency of the request. It must be unique and is case sensitive. Up to 36 ASCII characters in the range of 33-126 (inclusive) are allowed.}
 
-\item{tags}{The metadata that you apply to the task set to help you categorize and
-organize them. Each tag consists of a key and an optional value. You
-define both. When a service is deleted, the tags are deleted.
+\item{tags}{The metadata that you apply to the task set to help you categorize and organize them. Each tag consists of a key and an optional value. You define both. When a service is deleted, the tags are deleted.
 
 The following basic restrictions apply to tags:
 \itemize{
 \item Maximum number of tags per resource - 50
-\item For each resource, each tag key must be unique, and each tag key can
-have only one value.
+\item For each resource, each tag key must be unique, and each tag key can have only one value.
 \item Maximum key length - 128 Unicode characters in UTF-8
 \item Maximum value length - 256 Unicode characters in UTF-8
-\item If your tagging schema is used across multiple services and
-resources, remember that other services may have restrictions on
-allowed characters. Generally allowed characters are: letters,
-numbers, and spaces representable in UTF-8, and the following
-characters: + - = . _ : / @.
+\item If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.
 \item Tag keys and values are case-sensitive.
-\item Do not use \verb{aws:}, \verb{AWS:}, or any upper or lowercase combination of
-such as a prefix for either keys or values as it is reserved for
-Amazon Web Services use. You cannot edit or delete tag keys or
-values with this prefix. Tags with this prefix do not count against
-your tags per resource limit.
+\item Do not use \verb{aws:}, \verb{AWS:}, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
 }}
 }
 \description{

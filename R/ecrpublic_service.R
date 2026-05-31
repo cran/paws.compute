@@ -5,16 +5,7 @@ NULL
 #' Amazon Elastic Container Registry Public
 #'
 #' @description
-#' Amazon Elastic Container Registry Public (Amazon ECR Public) is a
-#' managed container image registry service. Amazon ECR provides both
-#' public and private registries to host your container images. You can use
-#' the Docker CLI or your preferred client to push, pull, and manage
-#' images. Amazon ECR provides a secure, scalable, and reliable registry
-#' for your Docker or Open Container Initiative (OCI) images. Amazon ECR
-#' supports public repositories with this API. For information about the
-#' Amazon ECR API for private repositories, see [Amazon Elastic Container
-#' Registry API
-#' Reference](https://docs.aws.amazon.com/AmazonECR/latest/APIReference/Welcome.html).
+#' Amazon Elastic Container Registry Public (Amazon ECR Public) is a managed container image registry service. Amazon ECR provides both public and private registries to host your container images. You can use the Docker CLI or your preferred client to push, pull, and manage images. Amazon ECR provides a secure, scalable, and reliable registry for your Docker or Open Container Initiative (OCI) images. Amazon ECR supports public repositories with this API. For information about the Amazon ECR API for private repositories, see [Amazon Elastic Container Registry API Reference](https://docs.aws.amazon.com/AmazonECR/latest/APIReference/Welcome.html).
 #'
 #' @param
 #' config
@@ -153,7 +144,7 @@ ecrpublic <- function(config = list(), credentials = list(), endpoint = NULL, re
 
 .ecrpublic$metadata <- list(
   service_name = "ecrpublic",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.csp.hci.ic.gov", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "api.ecr-public.{region}.amazonaws.eu", global = FALSE)),
   service_id = "ECR PUBLIC",
   api_version = "2020-10-30",
   signing_name = "ecr-public",

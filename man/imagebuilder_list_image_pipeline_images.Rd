@@ -12,8 +12,7 @@ imagebuilder_list_image_pipeline_images(
 )
 }
 \arguments{
-\item{imagePipelineArn}{[required] The Amazon Resource Name (ARN) of the image pipeline whose images you
-want to view.}
+\item{imagePipelineArn}{[required] The Amazon Resource Name (ARN) of the image pipeline whose images you want to view.}
 
 \item{filters}{Use the following filters to streamline results:
 \itemize{
@@ -21,10 +20,9 @@ want to view.}
 \item \code{version}
 }}
 
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 }
 \description{
 Returns a list of images created by the specified pipeline.

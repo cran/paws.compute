@@ -7,8 +7,7 @@
 apprunner_delete_connection(ConnectionArn)
 }
 \arguments{
-\item{ConnectionArn}{[required] The Amazon Resource Name (ARN) of the App Runner connection that you
-want to delete.}
+\item{ConnectionArn}{[required] The Amazon Resource Name (ARN) of the App Runner connection that you want to delete.}
 }
 \description{
 Delete an App Runner connection. You must first ensure that there are no running App Runner services that use this connection. If there are any, the \code{\link[=apprunner_delete_connection]{delete_connection}} action fails.

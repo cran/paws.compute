@@ -14,8 +14,7 @@ ec2_modify_local_gateway_route(
 )
 }
 \arguments{
-\item{DestinationCidrBlock}{The CIDR block used for destination matches. The value that you provide
-must match the CIDR of an existing route in the table.}
+\item{DestinationCidrBlock}{The CIDR block used for destination matches. The value that you provide must match the CIDR of an existing route in the table.}
 
 \item{LocalGatewayRouteTableId}{[required] The ID of the local gateway route table.}
 
@@ -23,14 +22,9 @@ must match the CIDR of an existing route in the table.}
 
 \item{NetworkInterfaceId}{The ID of the network interface.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{DestinationPrefixListId}{The ID of the prefix list. Use a prefix list in place of
-\code{DestinationCidrBlock}. You cannot use \code{DestinationPrefixListId} and
-\code{DestinationCidrBlock} in the same request.}
+\item{DestinationPrefixListId}{The ID of the prefix list. Use a prefix list in place of \code{DestinationCidrBlock}. You cannot use \code{DestinationPrefixListId} and \code{DestinationCidrBlock} in the same request.}
 }
 \description{
 Modifies the specified local gateway route.

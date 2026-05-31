@@ -15,9 +15,7 @@ emrserverless_list_applications(
 
 \item{maxResults}{The maximum number of applications that can be listed.}
 
-\item{states}{An optional filter for application states. Note that if this filter
-contains multiple states, the resulting list will be grouped by the
-state.}
+\item{states}{An optional filter for application states. Note that if this filter contains multiple states, the resulting list will be grouped by the state.}
 }
 \description{
 Lists applications based on a set of parameters.

@@ -11,13 +11,11 @@ imagebuilder_list_lifecycle_executions(
 )
 }
 \arguments{
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource for which to get a list
-of lifecycle runtime instances.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource for which to get a list of lifecycle runtime instances.}
 }
 \description{
 Get the lifecycle runtime history for the specified resource.

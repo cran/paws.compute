@@ -12,15 +12,11 @@ elasticbeanstalk_describe_environment_resources(
 \arguments{
 \item{EnvironmentId}{The ID of the environment to retrieve AWS resource usage data.
 
-Condition: You must specify either this or an EnvironmentName, or both.
-If you do not specify either, AWS Elastic Beanstalk returns
-\code{MissingRequiredParameter} error.}
+Condition: You must specify either this or an EnvironmentName, or both. If you do not specify either, AWS Elastic Beanstalk returns \code{MissingRequiredParameter} error.}
 
 \item{EnvironmentName}{The name of the environment to retrieve AWS resource usage data.
 
-Condition: You must specify either this or an EnvironmentId, or both. If
-you do not specify either, AWS Elastic Beanstalk returns
-\code{MissingRequiredParameter} error.}
+Condition: You must specify either this or an EnvironmentId, or both. If you do not specify either, AWS Elastic Beanstalk returns \code{MissingRequiredParameter} error.}
 }
 \description{
 Returns AWS resources for this environment.

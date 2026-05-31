@@ -9,12 +9,9 @@ apprunner_update_default_auto_scaling_configuration(
 )
 }
 \arguments{
-\item{AutoScalingConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner auto scaling
-configuration that you want to set as the default.
+\item{AutoScalingConfigurationArn}{[required] The Amazon Resource Name (ARN) of the App Runner auto scaling configuration that you want to set as the default.
 
-The ARN can be a full auto scaling configuration ARN, or a partial ARN
-ending with either \code{.../name } or \code{.../name/revision }. If a revision
-isn't specified, the latest active revision is set as the default.}
+The ARN can be a full auto scaling configuration ARN, or a partial ARN ending with either \code{.../name } or \code{.../name/revision }. If a revision isn't specified, the latest active revision is set as the default.}
 }
 \description{
 Update an auto scaling configuration to be the default. The existing default auto scaling configuration will be set to non-default automatically.

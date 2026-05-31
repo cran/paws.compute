@@ -15,28 +15,18 @@ ec2_describe_elastic_gpus(
 \arguments{
 \item{ElasticGpuIds}{The Elastic Graphics accelerator IDs.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{availability-zone} - The Availability Zone in which the Elastic
-Graphics accelerator resides.
-\item \code{elastic-gpu-health} - The status of the Elastic Graphics
-accelerator (\code{OK} | \code{IMPAIRED}).
-\item \code{elastic-gpu-state} - The state of the Elastic Graphics accelerator
-(\code{ATTACHED}).
-\item \code{elastic-gpu-type} - The type of Elastic Graphics accelerator; for
-example, \code{eg1.medium}.
-\item \code{instance-id} - The ID of the instance to which the Elastic Graphics
-accelerator is associated.
+\item \code{availability-zone} - The Availability Zone in which the Elastic Graphics accelerator resides.
+\item \code{elastic-gpu-health} - The status of the Elastic Graphics accelerator (\code{OK} | \code{IMPAIRED}).
+\item \code{elastic-gpu-state} - The state of the Elastic Graphics accelerator (\code{ATTACHED}).
+\item \code{elastic-gpu-type} - The type of Elastic Graphics accelerator; for example, \code{eg1.medium}.
+\item \code{instance-id} - The ID of the instance to which the Elastic Graphics accelerator is associated.
 }}
 
-\item{MaxResults}{The maximum number of results to return in a single call. To retrieve
-the remaining results, make another call with the returned \code{NextToken}
-value. This value can be between 5 and 1000.}
+\item{MaxResults}{The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned \code{NextToken} value. This value can be between 5 and 1000.}
 
 \item{NextToken}{The token to request the next page of results.}
 }

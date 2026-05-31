@@ -7,8 +7,7 @@
 proton_delete_service_sync_config(serviceName)
 }
 \arguments{
-\item{serviceName}{[required] The name of the service that you want to delete the service sync
-configuration for.}
+\item{serviceName}{[required] The name of the service that you want to delete the service sync configuration for.}
 }
 \description{
 Delete the Proton Ops file.

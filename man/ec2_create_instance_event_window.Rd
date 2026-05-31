@@ -14,35 +14,25 @@ ec2_create_instance_event_window(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Name}{The name of the event window.}
 
-\item{TimeRanges}{The time range for the event window. If you specify a time range, you
-can't specify a cron expression.}
+\item{TimeRanges}{The time range for the event window. If you specify a time range, you can't specify a cron expression.}
 
-\item{CronExpression}{The cron expression for the event window, for example,
-\verb{* 0-4,20-23 * * 1,5}. If you specify a cron expression, you can't
-specify a time range.
+\item{CronExpression}{The cron expression for the event window, for example, \verb{* 0-4,20-23 * * 1,5}. If you specify a cron expression, you can't specify a time range.
 
 Constraints:
 \itemize{
 \item Only hour and day of the week values are supported.
-\item For day of the week values, you can specify either integers \code{0}
-through \code{6}, or alternative single values \code{SUN} through \code{SAT}.
+\item For day of the week values, you can specify either integers \code{0} through \code{6}, or alternative single values \code{SUN} through \code{SAT}.
 \item The minute, month, and year must be specified by \code{*}.
-\item The hour value must be one or a multiple range, for example, \code{0-4}
-or \verb{0-4,20-23}.
+\item The hour value must be one or a multiple range, for example, \code{0-4} or \verb{0-4,20-23}.
 \item Each hour range must be \>= 2 hours, for example, \code{0-2} or \code{20-23}.
-\item The event window must be \>= 4 hours. The combined total time ranges
-in the event window must be \>= 4 hours.
+\item The event window must be \>= 4 hours. The combined total time ranges in the event window must be \>= 4 hours.
 }
 
-For more information about cron expressions, see
-\href{https://en.wikipedia.org/wiki/Cron}{cron} on the \emph{Wikipedia website}.}
+For more information about cron expressions, see \href{https://en.wikipedia.org/wiki/Cron}{cron} on the \emph{Wikipedia website}.}
 
 \item{TagSpecifications}{The tags to apply to the event window.}
 }

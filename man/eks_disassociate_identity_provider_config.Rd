@@ -15,8 +15,7 @@ eks_disassociate_identity_provider_config(
 
 \item{identityProviderConfig}{[required] An object representing an identity provider configuration.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 }
 \description{
 Disassociates an identity provider configuration from a cluster.

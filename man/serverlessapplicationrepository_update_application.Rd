@@ -27,8 +27,7 @@ Pattern "^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$";}
 
 Minimum length=1. Maximum length=256}
 
-\item{HomePageUrl}{A URL with more information about the application, for example the
-location of your GitHub repository for the application.}
+\item{HomePageUrl}{A URL with more information about the application, for example the location of your GitHub repository for the application.}
 
 \item{Labels}{Labels to improve discovery of apps in search results.
 
@@ -36,13 +35,11 @@ Minimum length=1. Maximum length=127. Maximum number of labels: 10
 
 Pattern: "^[a-zA-Z0-9+\\-_:\\/@]+$";}
 
-\item{ReadmeBody}{A text readme file in Markdown language that contains a more detailed
-description of the application and how it works.
+\item{ReadmeBody}{A text readme file in Markdown language that contains a more detailed description of the application and how it works.
 
 Maximum size 5 MB}
 
-\item{ReadmeUrl}{A link to the readme file in Markdown language that contains a more
-detailed description of the application and how it works.
+\item{ReadmeUrl}{A link to the readme file in Markdown language that contains a more detailed description of the application and how it works.
 
 Maximum size 5 MB}
 }

@@ -9,11 +9,9 @@ eks_update_eks_anywhere_subscription(id, autoRenew, clientRequestToken = NULL)
 \arguments{
 \item{id}{[required] The ID of the subscription.}
 
-\item{autoRenew}{[required] A boolean indicating whether or not to automatically renew the
-subscription.}
+\item{autoRenew}{[required] A boolean indicating whether or not to automatically renew the subscription.}
 
-\item{clientRequestToken}{Unique, case-sensitive identifier to ensure the idempotency of the
-request.}
+\item{clientRequestToken}{Unique, case-sensitive identifier to ensure the idempotency of the request.}
 }
 \description{
 Update an EKS Anywhere Subscription. Only auto renewal and tags can be updated after subscription creation.

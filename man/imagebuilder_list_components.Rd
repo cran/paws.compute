@@ -14,11 +14,7 @@ imagebuilder_list_components(
 )
 }
 \arguments{
-\item{owner}{Filters results based on the type of owner for the component. By
-default, this request returns a list of components that your account
-owns. To see results for other types of owners, you can specify
-components that Amazon manages, third party components, or components
-that other accounts have shared with you.}
+\item{owner}{Filters results based on the type of owner for the component. By default, this request returns a list of components that your account owns. To see results for other types of owners, you can specify components that Amazon manages, third party components, or components that other accounts have shared with you.}
 
 \item{filters}{Use the following filters to streamline results:
 \itemize{
@@ -32,10 +28,9 @@ that other accounts have shared with you.}
 
 \item{byName}{Returns the list of components for the specified name.}
 
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 }
 \description{
 Returns the list of components that can be filtered by name, or by using the listed \code{filters} to streamline results. Newly created components can take up to two minutes to appear in the ListComponents API Results.

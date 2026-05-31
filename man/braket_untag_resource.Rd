@@ -7,8 +7,7 @@
 braket_untag_resource(resourceArn, tagKeys)
 }
 \arguments{
-\item{resourceArn}{[required] Specify the \code{resourceArn} for the resource from which to remove the
-tags.}
+\item{resourceArn}{[required] Specify the \code{resourceArn} for the resource from which to remove the tags.}
 
 \item{tagKeys}{[required] Specify the keys for the tags to remove from the resource.}
 }

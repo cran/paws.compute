@@ -7,13 +7,9 @@
 eks_describe_addon_configuration(addonName, addonVersion)
 }
 \arguments{
-\item{addonName}{[required] The name of the add-on. The name must match one of the names returned by
-\code{\link[=eks_describe_addon_versions]{describe_addon_versions}}.}
+\item{addonName}{[required] The name of the add-on. The name must match one of the names returned by \code{\link[=eks_describe_addon_versions]{describe_addon_versions}}.}
 
-\item{addonVersion}{[required] The version of the add-on. The version must match one of the versions
-returned by
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html}{\code{describe_addon_versions}}
-.}
+\item{addonVersion}{[required] The version of the add-on. The version must match one of the versions returned by \href{https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html}{\code{describe_addon_versions}} .}
 }
 \description{
 Returns configuration options.

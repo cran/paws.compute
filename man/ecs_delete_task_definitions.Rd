@@ -7,9 +7,7 @@
 ecs_delete_task_definitions(taskDefinitions)
 }
 \arguments{
-\item{taskDefinitions}{[required] The \code{family} and \code{revision} (\code{family:revision}) or full Amazon Resource
-Name (ARN) of the task definition to delete. You must specify a
-\code{revision}.
+\item{taskDefinitions}{[required] The \code{family} and \code{revision} (\code{family:revision}) or full Amazon Resource Name (ARN) of the task definition to delete. You must specify a \code{revision}.
 
 You can specify up to 10 task definitions as a comma separated list.}
 }

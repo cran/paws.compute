@@ -20,79 +20,45 @@ computeoptimizer_put_recommendation_preferences(
 \arguments{
 \item{resourceType}{[required] The target resource type of the recommendation preference to create.
 
-The \code{Ec2Instance} option encompasses standalone instances and instances
-that are part of Auto Scaling groups. The \code{AutoScalingGroup} option
-encompasses only instances that are part of an Auto Scaling group.}
+The \code{Ec2Instance} option encompasses standalone instances and instances that are part of Auto Scaling groups. The \code{AutoScalingGroup} option encompasses only instances that are part of an Auto Scaling group.}
 
-\item{scope}{An object that describes the scope of the recommendation preference to
-create.
+\item{scope}{An object that describes the scope of the recommendation preference to create.
 
-You can create recommendation preferences at the organization level (for
-management accounts of an organization only), account level, and
-resource level. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html}{Activating enhanced infrastructure metrics}
-in the \emph{Compute Optimizer User Guide}.
+You can create recommendation preferences at the organization level (for management accounts of an organization only), account level, and resource level. For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html}{Activating enhanced infrastructure metrics} in the \emph{Compute Optimizer User Guide}.
 
-You cannot create recommendation preferences for Auto Scaling groups at
-the organization and account levels. You can create recommendation
-preferences for Auto Scaling groups only at the resource level by
-specifying a scope name of \code{ResourceArn} and a scope value of the Auto
-Scaling group Amazon Resource Name (ARN). This will configure the
-preference for all instances that are part of the specified Auto Scaling
-group. You also cannot create recommendation preferences at the resource
-level for instances that are part of an Auto Scaling group. You can
-create recommendation preferences at the resource level only for
-standalone instances.}
+You cannot create recommendation preferences for Auto Scaling groups at the organization and account levels. You can create recommendation preferences for Auto Scaling groups only at the resource level by specifying a scope name of \code{ResourceArn} and a scope value of the Auto Scaling group Amazon Resource Name (ARN). This will configure the preference for all instances that are part of the specified Auto Scaling group. You also cannot create recommendation preferences at the resource level for instances that are part of an Auto Scaling group. You can create recommendation preferences at the resource level only for standalone instances.}
 
-\item{enhancedInfrastructureMetrics}{The status of the enhanced infrastructure metrics recommendation
-preference to create or update.
+\item{enhancedInfrastructureMetrics}{The status of the enhanced infrastructure metrics recommendation preference to create or update.
 
-Specify the \code{Active} status to activate the preference, or specify
-\code{Inactive} to deactivate the preference.
+Specify the \code{Active} status to activate the preference, or specify \code{Inactive} to deactivate the preference.
 
-For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html}{Enhanced infrastructure metrics}
-in the \emph{Compute Optimizer User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/enhanced-infrastructure-metrics.html}{Enhanced infrastructure metrics} in the \emph{Compute Optimizer User Guide}.}
 
-\item{inferredWorkloadTypes}{The status of the inferred workload types recommendation preference to
-create or update.
+\item{inferredWorkloadTypes}{The status of the inferred workload types recommendation preference to create or update.
 
-The inferred workload type feature is active by default. To deactivate
-it, create a recommendation preference.
+The inferred workload type feature is active by default. To deactivate it, create a recommendation preference.
 
-Specify the \code{Inactive} status to deactivate the feature, or specify
-\code{Active} to activate it.
+Specify the \code{Inactive} status to deactivate the feature, or specify \code{Active} to activate it.
 
-For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/}{Inferred workload types} in the
-\emph{Compute Optimizer User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/}{Inferred workload types} in the \emph{Compute Optimizer User Guide}.}
 
-\item{externalMetricsPreference}{The provider of the external metrics recommendation preference to create
-or update.
+\item{externalMetricsPreference}{The provider of the external metrics recommendation preference to create or update.
 
-Specify a valid provider in the \code{source} field to activate the
-preference. To delete this preference, see the
-\code{\link[=computeoptimizer_delete_recommendation_preferences]{delete_recommendation_preferences}}
-action.
+Specify a valid provider in the \code{source} field to activate the preference. To delete this preference, see the \code{\link[=computeoptimizer_delete_recommendation_preferences]{delete_recommendation_preferences}} action.
 
 This preference can only be set for the \code{Ec2Instance} resource type.
 
-For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/external-metrics-ingestion.html}{External metrics ingestion}
-in the \emph{Compute Optimizer User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/external-metrics-ingestion.html}{External metrics ingestion} in the \emph{Compute Optimizer User Guide}.}
 
-\item{lookBackPeriod}{The preference to control the number of days the utilization metrics of
-the Amazon Web Services resource are analyzed. When this preference
-isn't specified, we use the default value \code{DAYS_14}.
+\item{lookBackPeriod}{The preference to control the number of days the utilization metrics of the Amazon Web Services resource are analyzed. When this preference isn't specified, we use the default value \code{DAYS_14}.
 
-You can only set this preference for the Amazon EC2 instance and Auto
-Scaling group resource types.
+You can only set this preference for the Amazon EC2 instance and Auto Scaling group resource types.
 \itemize{
-\item Amazon EC2 instance lookback preferences can be set at the
-organization, account, and resource levels.
-\item Auto Scaling group lookback preferences can only be set at the
-resource level.
+\item Amazon EC2 instance lookback preferences can be set at the organization, account, and resource levels.
+\item Auto Scaling group lookback preferences can only be set at the resource level.
 }}
 
-\item{utilizationPreferences}{The preference to control the resource’s CPU utilization threshold, CPU
-utilization headroom, and memory utilization headroom. When this
-preference isn't specified, we use the following default values.
+\item{utilizationPreferences}{The preference to control the resource’s CPU utilization threshold, CPU utilization headroom, and memory utilization headroom. When this preference isn't specified, we use the following default values.
 
 CPU utilization:
 \itemize{
@@ -103,31 +69,21 @@ CPU utilization:
 Memory utilization:
 \itemize{
 \item \code{PERCENT_20} for headroom
-\item You can only set CPU and memory utilization preferences for the
-Amazon EC2 instance resource type.
+\item You can only set CPU and memory utilization preferences for the Amazon EC2 instance resource type.
 \item The threshold setting isn’t available for memory utilization.
 }}
 
-\item{preferredResources}{The preference to control which resource type values are considered when
-generating rightsizing recommendations. You can specify this preference
-as a combination of include and exclude lists. You must specify either
-an \code{includeList} or \code{excludeList}. If the preference is an empty set of
-resource type values, an error occurs.
+\item{preferredResources}{The preference to control which resource type values are considered when generating rightsizing recommendations. You can specify this preference as a combination of include and exclude lists. You must specify either an \code{includeList} or \code{excludeList}. If the preference is an empty set of resource type values, an error occurs.
 
-You can only set this preference for the Amazon EC2 instance and Auto
-Scaling group resource types.}
+You can only set this preference for the Amazon EC2 instance and Auto Scaling group resource types.}
 
-\item{savingsEstimationMode}{The status of the savings estimation mode preference to create or
-update.
+\item{savingsEstimationMode}{The status of the savings estimation mode preference to create or update.
 
-Specify the \code{AfterDiscounts} status to activate the preference, or
-specify \code{BeforeDiscounts} to deactivate the preference.
+Specify the \code{AfterDiscounts} status to activate the preference, or specify \code{BeforeDiscounts} to deactivate the preference.
 
-Only the account manager or delegated administrator of your organization
-can activate this preference.
+Only the account manager or delegated administrator of your organization can activate this preference.
 
-For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/savings-estimation-mode.html}{Savings estimation mode}
-in the \emph{Compute Optimizer User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/compute-optimizer/latest/ug/savings-estimation-mode.html}{Savings estimation mode} in the \emph{Compute Optimizer User Guide}.}
 }
 \description{
 Creates a new recommendation preference or updates an existing recommendation preference, such as enhanced infrastructure metrics.

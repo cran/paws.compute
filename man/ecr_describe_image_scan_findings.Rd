@@ -13,33 +13,15 @@ ecr_describe_image_scan_findings(
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the repository in which to describe the image scan findings
-for. If you do not specify a registry, the default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the repository in which to describe the image scan findings for. If you do not specify a registry, the default registry is assumed.}
 
 \item{repositoryName}{[required] The repository for the image for which to describe the scan findings.}
 
-\item{imageId}{[required]}
+\item{imageId}{[required] An object with identifying information for an image in an Amazon ECR repository.}
 
-\item{nextToken}{The \code{nextToken} value returned from a previous paginated
-\code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}}
-request where \code{maxResults} was used and the results exceeded the value
-of that parameter. Pagination continues from the end of the previous
-results that returned the \code{nextToken} value. This value is null when
-there are no more results to return.}
+\item{nextToken}{The \code{nextToken} value returned from a previous paginated \code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}} request where \code{maxResults} was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the \code{nextToken} value. This value is null when there are no more results to return.}
 
-\item{maxResults}{The maximum number of image scan results returned by
-\code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}} in
-paginated output. When this parameter is used,
-\code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}} only
-returns \code{maxResults} results in a single page along with a \code{nextToken}
-response element. The remaining results of the initial request can be
-seen by sending another
-\code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}}
-request with the returned \code{nextToken} value. This value can be between 1
-and 1000. If this parameter is not used, then
-\code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}}
-returns up to 100 results and a \code{nextToken} value, if applicable.}
+\item{maxResults}{The maximum number of image scan results returned by \code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}} in paginated output. When this parameter is used, \code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}} only returns \code{maxResults} results in a single page along with a \code{nextToken} response element. The remaining results of the initial request can be seen by sending another \code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}} request with the returned \code{nextToken} value. This value can be between 1 and 1000. If this parameter is not used, then \code{\link[=ecr_describe_image_scan_findings]{describe_image_scan_findings}} returns up to 100 results and a \code{nextToken} value, if applicable.}
 }
 \description{
 Returns the scan findings for the specified image.

@@ -9,10 +9,7 @@ ec2_delete_traffic_mirror_filter_rule(TrafficMirrorFilterRuleId, DryRun = NULL)
 \arguments{
 \item{TrafficMirrorFilterRuleId}{[required] The ID of the Traffic Mirror rule.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes the specified Traffic Mirror rule.

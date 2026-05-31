@@ -7,8 +7,7 @@
 imagebuilder_get_workflow(workflowBuildVersionArn)
 }
 \arguments{
-\item{workflowBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the workflow resource that you want to
-get.}
+\item{workflowBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the workflow resource that you want to get.}
 }
 \description{
 Get a workflow resource object.

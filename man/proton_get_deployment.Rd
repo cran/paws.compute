@@ -19,8 +19,7 @@ proton_get_deployment(
 
 \item{id}{[required] The ID of the deployment that you want to get the detailed data for.}
 
-\item{serviceInstanceName}{The name of the service instance associated with the given deployment
-ID. \code{serviceName} must be specified to identify the service instance.}
+\item{serviceInstanceName}{The name of the service instance associated with the given deployment ID. \code{serviceName} must be specified to identify the service instance.}
 
 \item{serviceName}{The name of the service associated with the given deployment ID.}
 }

@@ -11,10 +11,7 @@ ec2_modify_address_attribute(AllocationId, DomainName = NULL, DryRun = NULL)
 
 \item{DomainName}{The domain name to modify for the IP address.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Modifies an attribute of the specified Elastic IP address. For requirements, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html#Using_Elastic_Addressing_Reverse_DNS}{Using reverse DNS for email applications}.

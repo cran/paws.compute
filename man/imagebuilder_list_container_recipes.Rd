@@ -12,9 +12,7 @@ imagebuilder_list_container_recipes(
 )
 }
 \arguments{
-\item{owner}{Returns container recipes belonging to the specified owner, that have
-been shared with you. You can omit this field to return container
-recipes belonging to your account.}
+\item{owner}{Returns container recipes belonging to the specified owner, that have been shared with you. You can omit this field to return container recipes belonging to your account.}
 
 \item{filters}{Use the following filters to streamline results:
 \itemize{
@@ -24,10 +22,9 @@ recipes belonging to your account.}
 \item \code{platform}
 }}
 
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 }
 \description{
 Returns a list of container recipes.

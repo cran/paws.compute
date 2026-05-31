@@ -15,30 +15,21 @@ lightsail_get_certificates(
 \arguments{
 \item{certificateStatuses}{The status of the certificates for which to return information.
 
-For example, specify \code{ISSUED} to return only certificates with an
-\code{ISSUED} status.
+For example, specify \code{ISSUED} to return only certificates with an \code{ISSUED} status.
 
-When omitted, the response includes all of your certificates in the
-Amazon Web Services Region where the request is made, regardless of
-their current status.}
+When omitted, the response includes all of your certificates in the Amazon Web Services Region where the request is made, regardless of their current status.}
 
-\item{includeCertificateDetails}{Indicates whether to include detailed information about the certificates
-in the response.
+\item{includeCertificateDetails}{Indicates whether to include detailed information about the certificates in the response.
 
-When omitted, the response includes only the certificate names, Amazon
-Resource Names (ARNs), domain names, and tags.}
+When omitted, the response includes only the certificate names, Amazon Resource Names (ARNs), domain names, and tags.}
 
 \item{certificateName}{The name for the certificate for which to return information.
 
-When omitted, the response includes all of your certificates in the
-Amazon Web Services Region where the request is made.}
+When omitted, the response includes all of your certificates in the Amazon Web Services Region where the request is made.}
 
 \item{pageToken}{The token to advance to the next page of results from your request.
 
-To get a page token, perform an initial
-\code{\link[=lightsail_get_certificates]{get_certificates}} request. If your
-results are paginated, the response will return a next page token that
-you can specify as the page token in a subsequent request.}
+To get a page token, perform an initial \code{\link[=lightsail_get_certificates]{get_certificates}} request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.}
 }
 \description{
 Returns information about one or more Amazon Lightsail SSL/TLS certificates.

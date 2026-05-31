@@ -15,29 +15,19 @@ ec2_assign_private_ip_addresses(
 )
 }
 \arguments{
-\item{Ipv4Prefixes}{One or more IPv4 prefixes assigned to the network interface. You can't
-use this option if you use the \code{Ipv4PrefixCount} option.}
+\item{Ipv4Prefixes}{One or more IPv4 prefixes assigned to the network interface. You can't use this option if you use the \code{Ipv4PrefixCount} option.}
 
-\item{Ipv4PrefixCount}{The number of IPv4 prefixes that Amazon Web Services automatically
-assigns to the network interface. You can't use this option if you use
-the \verb{Ipv4 Prefixes} option.}
+\item{Ipv4PrefixCount}{The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface. You can't use this option if you use the \verb{Ipv4 Prefixes} option.}
 
 \item{NetworkInterfaceId}{[required] The ID of the network interface.}
 
-\item{PrivateIpAddresses}{The IP addresses to be assigned as a secondary private IP address to the
-network interface. You can't specify this parameter when also specifying
-a number of secondary IP addresses.
+\item{PrivateIpAddresses}{The IP addresses to be assigned as a secondary private IP address to the network interface. You can't specify this parameter when also specifying a number of secondary IP addresses.
 
-If you don't specify an IP address, Amazon EC2 automatically selects an
-IP address within the subnet range.}
+If you don't specify an IP address, Amazon EC2 automatically selects an IP address within the subnet range.}
 
-\item{SecondaryPrivateIpAddressCount}{The number of secondary IP addresses to assign to the network interface.
-You can't specify this parameter when also specifying private IP
-addresses.}
+\item{SecondaryPrivateIpAddressCount}{The number of secondary IP addresses to assign to the network interface. You can't specify this parameter when also specifying private IP addresses.}
 
-\item{AllowReassignment}{Indicates whether to allow an IP address that is already assigned to
-another network interface or instance to be reassigned to the specified
-network interface.}
+\item{AllowReassignment}{Indicates whether to allow an IP address that is already assigned to another network interface or instance to be reassigned to the specified network interface.}
 }
 \description{
 Assigns the specified secondary private IP addresses to the specified network interface.

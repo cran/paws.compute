@@ -12,9 +12,7 @@ proton_list_environment_provisioned_resources(
 \arguments{
 \item{environmentName}{[required] The environment name.}
 
-\item{nextToken}{A token that indicates the location of the next environment provisioned
-resource in the array of environment provisioned resources, after the
-list of environment provisioned resources that was previously requested.}
+\item{nextToken}{A token that indicates the location of the next environment provisioned resource in the array of environment provisioned resources, after the list of environment provisioned resources that was previously requested.}
 }
 \description{
 List the provisioned resources for your environment.

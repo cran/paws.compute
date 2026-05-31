@@ -14,13 +14,9 @@ ec2_delete_transit_gateway_route(
 \arguments{
 \item{TransitGatewayRouteTableId}{[required] The ID of the transit gateway route table.}
 
-\item{DestinationCidrBlock}{[required] The CIDR range for the route. This must match the CIDR for the route
-exactly.}
+\item{DestinationCidrBlock}{[required] The CIDR range for the route. This must match the CIDR for the route exactly.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes the specified route from the specified transit gateway route table.

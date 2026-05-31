@@ -18,31 +18,19 @@ ec2_search_local_gateway_routes(
 \item{Filters}{One or more filters.
 \itemize{
 \item \code{prefix-list-id} - The ID of the prefix list.
-\item \code{route-search.exact-match} - The exact match of the specified
-filter.
-\item \code{route-search.longest-prefix-match} - The longest prefix that
-matches the route.
-\item \code{route-search.subnet-of-match} - The routes with a subnet that match
-the specified CIDR filter.
-\item \code{route-search.supernet-of-match} - The routes with a CIDR that
-encompass the CIDR filter. For example, if you have 10.0.1.0/29 and
-10.0.1.0/31 routes in your route table and you specify
-\code{supernet-of-match} as 10.0.1.0/30, then the result returns
-10.0.1.0/29.
+\item \code{route-search.exact-match} - The exact match of the specified filter.
+\item \code{route-search.longest-prefix-match} - The longest prefix that matches the route.
+\item \code{route-search.subnet-of-match} - The routes with a subnet that match the specified CIDR filter.
+\item \code{route-search.supernet-of-match} - The routes with a CIDR that encompass the CIDR filter. For example, if you have 10.0.1.0/29 and 10.0.1.0/31 routes in your route table and you specify \code{supernet-of-match} as 10.0.1.0/30, then the result returns 10.0.1.0/29.
 \item \code{state} - The state of the route.
 \item \code{type} - The route type.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Searches for routes in the specified local gateway route table.

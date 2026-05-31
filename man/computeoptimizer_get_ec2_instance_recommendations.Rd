@@ -14,31 +14,23 @@ computeoptimizer_get_ec2_instance_recommendations(
 )
 }
 \arguments{
-\item{instanceArns}{The Amazon Resource Name (ARN) of the instances for which to return
-recommendations.}
+\item{instanceArns}{The Amazon Resource Name (ARN) of the instances for which to return recommendations.}
 
 \item{nextToken}{The token to advance to the next page of instance recommendations.}
 
-\item{maxResults}{The maximum number of instance recommendations to return with a single
-request.
+\item{maxResults}{The maximum number of instance recommendations to return with a single request.
 
-To retrieve the remaining results, make another request with the
-returned \code{nextToken} value.}
+To retrieve the remaining results, make another request with the returned \code{nextToken} value.}
 
-\item{filters}{An array of objects to specify a filter that returns a more specific
-list of instance recommendations.}
+\item{filters}{An array of objects to specify a filter that returns a more specific list of instance recommendations.}
 
-\item{accountIds}{The ID of the Amazon Web Services account for which to return instance
-recommendations.
+\item{accountIds}{The ID of the Amazon Web Services account for which to return instance recommendations.
 
-If your account is the management account of an organization, use this
-parameter to specify the member account for which you want to return
-instance recommendations.
+If your account is the management account of an organization, use this parameter to specify the member account for which you want to return instance recommendations.
 
 Only one account ID can be specified per request.}
 
-\item{recommendationPreferences}{An object to specify the preferences for the Amazon EC2 instance
-recommendations to return in the response.}
+\item{recommendationPreferences}{An object to specify the preferences for the Amazon EC2 instance recommendations to return in the response.}
 }
 \description{
 Returns Amazon EC2 instance recommendations.

@@ -7,8 +7,7 @@
 apprunner_list_tags_for_resource(ResourceArn)
 }
 \arguments{
-\item{ResourceArn}{[required] The Amazon Resource Name (ARN) of the resource that a tag list is
-requested for.
+\item{ResourceArn}{[required] The Amazon Resource Name (ARN) of the resource that a tag list is requested for.
 
 It must be the ARN of an App Runner resource.}
 }

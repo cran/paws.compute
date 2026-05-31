@@ -15,10 +15,7 @@ ec2_import_key_pair(
 \arguments{
 \item{TagSpecifications}{The tags to apply to the imported key pair.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{KeyName}{[required] A unique name for the key pair.}
 

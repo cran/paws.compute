@@ -12,14 +12,11 @@ imagebuilder_get_marketplace_resource(
 )
 }
 \arguments{
-\item{resourceType}{[required] Specifies which type of Amazon Web Services Marketplace resource Image
-Builder retrieves.}
+\item{resourceType}{[required] Specifies which type of Amazon Web Services Marketplace resource Image Builder retrieves.}
 
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) that uniquely identifies an Amazon Web
-Services Marketplace resource.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) that uniquely identifies an Amazon Web Services Marketplace resource.}
 
-\item{resourceLocation}{The bucket path that you can specify to download the resource from
-Amazon S3.}
+\item{resourceLocation}{The bucket path that you can specify to download the resource from Amazon S3.}
 }
 \description{
 Verify the subscription and perform resource dependency checks on the requested Amazon Web Services Marketplace resource. For Amazon Web Services Marketplace components, the response contains fields to download the components and their artifacts.

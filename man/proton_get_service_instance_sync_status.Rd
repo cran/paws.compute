@@ -7,8 +7,7 @@
 proton_get_service_instance_sync_status(serviceInstanceName, serviceName)
 }
 \arguments{
-\item{serviceInstanceName}{[required] The name of the service instance that you want the sync status input
-for.}
+\item{serviceInstanceName}{[required] The name of the service instance that you want the sync status input for.}
 
 \item{serviceName}{[required] The name of the service that the service instance belongs to.}
 }

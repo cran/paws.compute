@@ -22,45 +22,31 @@ ec2_modify_vpc_endpoint(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{VpcEndpointId}{[required] The ID of the endpoint.}
 
-\item{ResetPolicy}{(Gateway endpoint) Specify \code{true} to reset the policy document to the
-default policy. The default policy allows full access to the service.}
+\item{ResetPolicy}{(Gateway endpoint) Specify \code{true} to reset the policy document to the default policy. The default policy allows full access to the service.}
 
-\item{PolicyDocument}{(Interface and gateway endpoints) A policy to attach to the endpoint
-that controls access to the service. The policy must be in valid JSON
-format.}
+\item{PolicyDocument}{(Interface and gateway endpoints) A policy to attach to the endpoint that controls access to the service. The policy must be in valid JSON format.}
 
-\item{AddRouteTableIds}{(Gateway endpoint) The IDs of the route tables to associate with the
-endpoint.}
+\item{AddRouteTableIds}{(Gateway endpoint) The IDs of the route tables to associate with the endpoint.}
 
-\item{RemoveRouteTableIds}{(Gateway endpoint) The IDs of the route tables to disassociate from the
-endpoint.}
+\item{RemoveRouteTableIds}{(Gateway endpoint) The IDs of the route tables to disassociate from the endpoint.}
 
-\item{AddSubnetIds}{(Interface and Gateway Load Balancer endpoints) The IDs of the subnets
-in which to serve the endpoint. For a Gateway Load Balancer endpoint,
-you can specify only one subnet.}
+\item{AddSubnetIds}{(Interface and Gateway Load Balancer endpoints) The IDs of the subnets in which to serve the endpoint. For a Gateway Load Balancer endpoint, you can specify only one subnet.}
 
-\item{RemoveSubnetIds}{(Interface endpoint) The IDs of the subnets from which to remove the
-endpoint.}
+\item{RemoveSubnetIds}{(Interface endpoint) The IDs of the subnets from which to remove the endpoint.}
 
-\item{AddSecurityGroupIds}{(Interface endpoint) The IDs of the security groups to associate with
-the endpoint network interfaces.}
+\item{AddSecurityGroupIds}{(Interface endpoint) The IDs of the security groups to associate with the endpoint network interfaces.}
 
-\item{RemoveSecurityGroupIds}{(Interface endpoint) The IDs of the security groups to disassociate from
-the endpoint network interfaces.}
+\item{RemoveSecurityGroupIds}{(Interface endpoint) The IDs of the security groups to disassociate from the endpoint network interfaces.}
 
 \item{IpAddressType}{The IP address type for the endpoint.}
 
 \item{DnsOptions}{The DNS options for the endpoint.}
 
-\item{PrivateDnsEnabled}{(Interface endpoint) Indicates whether a private hosted zone is
-associated with the VPC.}
+\item{PrivateDnsEnabled}{(Interface endpoint) Indicates whether a private hosted zone is associated with the VPC.}
 
 \item{SubnetConfigurations}{The subnet configurations for the endpoint.}
 }

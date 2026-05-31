@@ -10,9 +10,7 @@ proton_list_service_pipeline_provisioned_resources(
 )
 }
 \arguments{
-\item{nextToken}{A token that indicates the location of the next provisioned resource in
-the array of provisioned resources, after the list of provisioned
-resources that was previously requested.}
+\item{nextToken}{A token that indicates the location of the next provisioned resource in the array of provisioned resources, after the list of provisioned resources that was previously requested.}
 
 \item{serviceName}{[required] The name of the service whose pipeline's provisioned resources you want.}
 }

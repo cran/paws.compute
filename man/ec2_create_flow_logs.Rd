@@ -23,89 +23,58 @@ ec2_create_flow_logs(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
 
-\item{DeliverLogsPermissionArn}{The ARN of the IAM role that allows Amazon EC2 to publish flow logs to
-the log destination.
+\item{DeliverLogsPermissionArn}{The ARN of the IAM role that allows Amazon EC2 to publish flow logs to the log destination.
 
-This parameter is required if the destination type is
-\code{cloud-watch-logs}, or if the destination type is
-\code{kinesis-data-firehose} and the delivery stream and the resources to
-monitor are in different accounts.}
+This parameter is required if the destination type is \code{cloud-watch-logs}, or if the destination type is \code{kinesis-data-firehose} and the delivery stream and the resources to monitor are in different accounts.}
 
-\item{DeliverCrossAccountRole}{The ARN of the IAM role that allows Amazon EC2 to publish flow logs
-across accounts.}
+\item{DeliverCrossAccountRole}{The ARN of the IAM role that allows Amazon EC2 to publish flow logs across accounts.}
 
-\item{LogGroupName}{The name of a new or existing CloudWatch Logs log group where Amazon EC2
-publishes your flow logs.
+\item{LogGroupName}{The name of a new or existing CloudWatch Logs log group where Amazon EC2 publishes your flow logs.
 
-This parameter is valid only if the destination type is
-\code{cloud-watch-logs}.}
+This parameter is valid only if the destination type is \code{cloud-watch-logs}.}
 
-\item{ResourceIds}{[required] The IDs of the resources to monitor. For example, if the resource type
-is \code{VPC}, specify the IDs of the VPCs.
+\item{ResourceIds}{[required] The IDs of the resources to monitor. For example, if the resource type is \code{VPC}, specify the IDs of the VPCs.
 
-Constraints: Maximum of 25 for transit gateway resource types. Maximum
-of 1000 for the other resource types.}
+Constraints: Maximum of 25 for transit gateway resource types. Maximum of 1000 for the other resource types.}
 
 \item{ResourceType}{[required] The type of resource to monitor.}
 
-\item{TrafficType}{The type of traffic to monitor (accepted traffic, rejected traffic, or
-all traffic). This parameter is not supported for transit gateway
-resource types. It is required for the other resource types.}
+\item{TrafficType}{The type of traffic to monitor (accepted traffic, rejected traffic, or all traffic). This parameter is not supported for transit gateway resource types. It is required for the other resource types.}
 
 \item{LogDestinationType}{The type of destination for the flow log data.
 
 Default: \code{cloud-watch-logs}}
 
-\item{LogDestination}{The destination for the flow log data. The meaning of this parameter
-depends on the destination type.
+\item{LogDestination}{The destination for the flow log data. The meaning of this parameter depends on the destination type.
 \itemize{
-\item If the destination type is \code{cloud-watch-logs}, specify the ARN of a
-CloudWatch Logs log group. For example:
+\item If the destination type is \code{cloud-watch-logs}, specify the ARN of a CloudWatch Logs log group. For example:
 
 arn:aws:logs:\emph{region}:\emph{account_id}:log-group:\emph{my_group}
 
 Alternatively, use the \code{LogGroupName} parameter.
-\item If the destination type is \code{s3}, specify the ARN of an S3 bucket.
-For example:
+\item If the destination type is \code{s3}, specify the ARN of an S3 bucket. For example:
 
 arn:aws:s3:::\emph{my_bucket}/\emph{my_subfolder}/
 
-The subfolder is optional. Note that you can't use \code{AWSLogs} as a
-subfolder name.
-\item If the destination type is \code{kinesis-data-firehose}, specify the ARN
-of a Kinesis Data Firehose delivery stream. For example:
+The subfolder is optional. Note that you can't use \code{AWSLogs} as a subfolder name.
+\item If the destination type is \code{kinesis-data-firehose}, specify the ARN of a Kinesis Data Firehose delivery stream. For example:
 
 arn:aws:firehose:\emph{region}:\emph{account_id}:deliverystream:\emph{my_stream}
 }}
 
-\item{LogFormat}{The fields to include in the flow log record. List the fields in the
-order in which they should appear. If you omit this parameter, the flow
-log is created using the default format. If you specify this parameter,
-you must include at least one field. For more information about the
-available fields, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/flow-log-records.html}{Flow log records}
-in the \emph{Amazon VPC User Guide} or \href{https://docs.aws.amazon.com/vpc/latest/tgw/tgw-flow-logs.html#flow-log-records}{Transit Gateway Flow Log records}
-in the \emph{Amazon Web Services Transit Gateway Guide}.
+\item{LogFormat}{The fields to include in the flow log record. List the fields in the order in which they should appear. If you omit this parameter, the flow log is created using the default format. If you specify this parameter, you must include at least one field. For more information about the available fields, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/flow-log-records.html}{Flow log records} in the \emph{Amazon VPC User Guide} or \href{https://docs.aws.amazon.com/vpc/latest/tgw/tgw-flow-logs.html#flow-log-records}{Transit Gateway Flow Log records} in the \emph{Amazon Web Services Transit Gateway Guide}.
 
 Specify the fields using the \verb{$\{field-id\}} format, separated by spaces.}
 
 \item{TagSpecifications}{The tags to apply to the flow logs.}
 
-\item{MaxAggregationInterval}{The maximum interval of time during which a flow of packets is captured
-and aggregated into a flow log record. The possible values are 60
-seconds (1 minute) or 600 seconds (10 minutes). This parameter must be
-60 seconds for transit gateway resource types.
+\item{MaxAggregationInterval}{The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. The possible values are 60 seconds (1 minute) or 600 seconds (10 minutes). This parameter must be 60 seconds for transit gateway resource types.
 
-When a network interface is attached to a \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html}{Nitro-based instance},
-the aggregation interval is always 60 seconds or less, regardless of the
-value that you specify.
+When a network interface is attached to a \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html}{Nitro-based instance}, the aggregation interval is always 60 seconds or less, regardless of the value that you specify.
 
 Default: 600}
 

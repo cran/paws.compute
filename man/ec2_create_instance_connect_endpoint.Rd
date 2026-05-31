@@ -10,35 +10,41 @@ ec2_create_instance_connect_endpoint(
   SecurityGroupIds = NULL,
   PreserveClientIp = NULL,
   ClientToken = NULL,
-  TagSpecifications = NULL
+  TagSpecifications = NULL,
+  IpAddressType = NULL
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{SubnetId}{[required] The ID of the subnet in which to create the EC2 Instance Connect
-Endpoint.}
+\item{SubnetId}{[required] The ID of the subnet in which to create the EC2 Instance Connect Endpoint.}
 
-\item{SecurityGroupIds}{One or more security groups to associate with the endpoint. If you don't
-specify a security group, the default security group for your VPC will
-be associated with the endpoint.}
+\item{SecurityGroupIds}{One or more security groups to associate with the endpoint. If you don't specify a security group, the default security group for your VPC will be associated with the endpoint.}
 
-\item{PreserveClientIp}{Indicates whether the client IP address is preserved as the source. The
-following are the possible values.
+\item{PreserveClientIp}{Indicates whether the client IP address is preserved as the source. The following are the possible values.
 \itemize{
 \item \code{true} - Use the client IP address as the source.
 \item \code{false} - Use the network interface IP address as the source.
 }
 
+\code{PreserveClientIp} is only supported on IPv4 EC2 Instance Connect Endpoints. To use \code{PreserveClientIp}, the value for \code{IpAddressType} must be \code{ipv4}.
+
 Default: \code{false}}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 
 \item{TagSpecifications}{The tags to apply to the EC2 Instance Connect Endpoint during creation.}
+
+\item{IpAddressType}{The IP address type of the endpoint.
+
+If no value is specified, the default value is determined by the IP address type of the subnet:
+\itemize{
+\item \code{dualstack} - If the subnet has both IPv4 and IPv6 CIDRs
+\item \code{ipv4} - If the subnet has only IPv4 CIDRs
+\item \code{ipv6} - If the subnet has only IPv6 CIDRs
+}
+
+\code{PreserveClientIp} is only supported on IPv4 EC2 Instance Connect Endpoints. To use \code{PreserveClientIp}, the value for \code{IpAddressType} must be \code{ipv4}.}
 }
 \description{
 Creates an EC2 Instance Connect Endpoint.

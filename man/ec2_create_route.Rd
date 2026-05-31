@@ -11,6 +11,7 @@ ec2_create_route(
   LocalGatewayId = NULL,
   CarrierGatewayId = NULL,
   CoreNetworkArn = NULL,
+  OdbNetworkArn = NULL,
   DryRun = NULL,
   RouteTableId,
   DestinationCidrBlock = NULL,
@@ -26,8 +27,7 @@ ec2_create_route(
 \arguments{
 \item{DestinationPrefixListId}{The ID of a prefix list used for the destination match.}
 
-\item{VpcEndpointId}{The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints
-only.}
+\item{VpcEndpointId}{The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.}
 
 \item{TransitGatewayId}{The ID of a transit gateway.}
 
@@ -35,33 +35,25 @@ only.}
 
 \item{CarrierGatewayId}{The ID of the carrier gateway.
 
-You can only use this option when the VPC contains a subnet which is
-associated with a Wavelength Zone.}
+You can only use this option when the VPC contains a subnet which is associated with a Wavelength Zone.}
 
 \item{CoreNetworkArn}{The Amazon Resource Name (ARN) of the core network.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{OdbNetworkArn}{The Amazon Resource Name (ARN) of the ODB network.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{RouteTableId}{[required] The ID of the route table for the route.}
 
-\item{DestinationCidrBlock}{The IPv4 CIDR address block used for the destination match. Routing
-decisions are based on the most specific match. We modify the specified
-CIDR block to its canonical form; for example, if you specify
-\verb{100.68.0.18/18}, we modify it to \verb{100.68.0.0/18}.}
+\item{DestinationCidrBlock}{The IPv4 CIDR address block used for the destination match. Routing decisions are based on the most specific match. We modify the specified CIDR block to its canonical form; for example, if you specify \verb{100.68.0.18/18}, we modify it to \verb{100.68.0.0/18}.}
 
-\item{GatewayId}{The ID of an internet gateway or virtual private gateway attached to
-your VPC.}
+\item{GatewayId}{The ID of an internet gateway or virtual private gateway attached to your VPC.}
 
-\item{DestinationIpv6CidrBlock}{The IPv6 CIDR block used for the destination match. Routing decisions
-are based on the most specific match.}
+\item{DestinationIpv6CidrBlock}{The IPv6 CIDR block used for the destination match. Routing decisions are based on the most specific match.}
 
 \item{EgressOnlyInternetGatewayId}{[IPv6 traffic only] The ID of an egress-only internet gateway.}
 
-\item{InstanceId}{The ID of a NAT instance in your VPC. The operation fails if you specify
-an instance ID unless exactly one network interface is attached.}
+\item{InstanceId}{The ID of a NAT instance in your VPC. The operation fails if you specify an instance ID unless exactly one network interface is attached.}
 
 \item{NetworkInterfaceId}{The ID of a network interface.}
 

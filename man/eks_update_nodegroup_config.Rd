@@ -12,6 +12,7 @@ eks_update_nodegroup_config(
   scalingConfig = NULL,
   updateConfig = NULL,
   nodeRepairConfig = NULL,
+  warmPoolConfig = NULL,
   clientRequestToken = NULL
 )
 }
@@ -20,21 +21,19 @@ eks_update_nodegroup_config(
 
 \item{nodegroupName}{[required] The name of the managed node group to update.}
 
-\item{labels}{The Kubernetes \code{labels} to apply to the nodes in the node group after
-the update.}
+\item{labels}{The Kubernetes \code{labels} to apply to the nodes in the node group after the update.}
 
-\item{taints}{The Kubernetes taints to be applied to the nodes in the node group after
-the update. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html}{Node taints on managed node groups}.}
+\item{taints}{The Kubernetes taints to be applied to the nodes in the node group after the update. For more information, see \href{https://docs.aws.amazon.com/eks/latest/userguide/node-taints-managed-node-groups.html}{Node taints on managed node groups}.}
 
-\item{scalingConfig}{The scaling configuration details for the Auto Scaling group after the
-update.}
+\item{scalingConfig}{The scaling configuration details for the Auto Scaling group after the update.}
 
 \item{updateConfig}{The node group update configuration.}
 
 \item{nodeRepairConfig}{The node auto repair configuration for the node group.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{warmPoolConfig}{The warm pool configuration to apply to the node group. You can use this to add a warm pool to an existing node group or modify the settings of an existing warm pool.}
+
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 }
 \description{
 Updates an Amazon EKS managed node group configuration. Your node group continues to function during the update. The response output includes an update ID that you can use to track the status of your node group update with the \href{https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeUpdate.html}{\code{describe_update}} API operation. You can update the Kubernetes labels and taints for a node group and the scaling and version update configuration.

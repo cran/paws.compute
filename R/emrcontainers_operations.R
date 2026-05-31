@@ -82,10 +82,8 @@ emrcontainers_create_job_template <- function(name, clientToken, jobTemplateData
 #' @param type &#91;required&#93; The type of the managed endpoint.
 #' @param releaseLabel &#91;required&#93; The Amazon EMR release version.
 #' @param executionRoleArn &#91;required&#93; The ARN of the execution role.
-#' @param certificateArn The certificate ARN provided by users for the managed endpoint. This
-#' field is under deprecation and will be removed in future releases.
-#' @param configurationOverrides The configuration settings that will be used to override existing
-#' configurations.
+#' @param certificateArn The certificate ARN provided by users for the managed endpoint. This field is under deprecation and will be removed in future releases.
+#' @param configurationOverrides The configuration settings that will be used to override existing configurations.
 #' @param clientToken &#91;required&#93; The client idempotency token for this create call.
 #' @param tags The tags of the managed endpoint.
 #'
@@ -118,16 +116,16 @@ emrcontainers_create_managed_endpoint <- function(name, virtualClusterId, type, 
 #'
 #' See [https://www.paws-r-sdk.com/docs/emrcontainers_create_security_configuration/](https://www.paws-r-sdk.com/docs/emrcontainers_create_security_configuration/) for full documentation.
 #'
-#' @param clientToken &#91;required&#93; The client idempotency token to use when creating the security
-#' configuration.
+#' @param clientToken &#91;required&#93; The client idempotency token to use when creating the security configuration.
 #' @param name &#91;required&#93; The name of the security configuration.
+#' @param containerProvider The container provider associated with the security configuration.
 #' @param securityConfigurationData &#91;required&#93; Security configuration input for the request.
 #' @param tags The tags to add to the security configuration.
 #'
 #' @keywords internal
 #'
 #' @rdname emrcontainers_create_security_configuration
-emrcontainers_create_security_configuration <- function(clientToken, name, securityConfigurationData, tags = NULL) {
+emrcontainers_create_security_configuration <- function(clientToken, name, containerProvider = NULL, securityConfigurationData, tags = NULL) {
   op <- new_operation(
     name = "CreateSecurityConfiguration",
     http_method = "POST",
@@ -136,7 +134,7 @@ emrcontainers_create_security_configuration <- function(clientToken, name, secur
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .emrcontainers$create_security_configuration_input(clientToken = clientToken, name = name, securityConfigurationData = securityConfigurationData, tags = tags)
+  input <- .emrcontainers$create_security_configuration_input(clientToken = clientToken, name = name, containerProvider = containerProvider, securityConfigurationData = securityConfigurationData, tags = tags)
   output <- .emrcontainers$create_security_configuration_output()
   config <- get_config()
   svc <- .emrcontainers$service(config, op)
@@ -442,12 +440,9 @@ emrcontainers_describe_virtual_cluster <- function(id) {
 #' @param endpointIdentifier &#91;required&#93; The ARN of the managed endpoint for which the request is submitted.
 #' @param virtualClusterIdentifier &#91;required&#93; The ARN of the Virtual Cluster which the Managed Endpoint belongs to.
 #' @param executionRoleArn &#91;required&#93; The IAM Execution Role ARN that will be used by the job run.
-#' @param credentialType &#91;required&#93; Type of the token requested. Currently supported and default value of
-#' this field is “TOKEN.”
-#' @param durationInSeconds Duration in seconds for which the session token is valid. The default
-#' duration is 15 minutes and the maximum is 12 hours.
-#' @param logContext String identifier used to separate sections of the execution logs
-#' uploaded to S3.
+#' @param credentialType &#91;required&#93; Type of the token requested. Currently supported and default value of this field is “TOKEN.”
+#' @param durationInSeconds Duration in seconds for which the session token is valid. The default duration is 15 minutes and the maximum is 12 hours.
+#' @param logContext String identifier used to separate sections of the execution logs uploaded to S3.
 #' @param clientToken The client idempotency token of the job run request.
 #'
 #' @keywords internal
@@ -653,17 +648,13 @@ emrcontainers_list_tags_for_resource <- function(resourceArn) {
 #' See [https://www.paws-r-sdk.com/docs/emrcontainers_list_virtual_clusters/](https://www.paws-r-sdk.com/docs/emrcontainers_list_virtual_clusters/) for full documentation.
 #'
 #' @param containerProviderId The container provider ID of the virtual cluster.
-#' @param containerProviderType The container provider type of the virtual cluster. Amazon EKS is the
-#' only supported type as of now.
+#' @param containerProviderType The container provider type of the virtual cluster. Amazon EKS is the only supported type as of now.
 #' @param createdAfter The date and time after which the virtual clusters are created.
 #' @param createdBefore The date and time before which the virtual clusters are created.
 #' @param states The states of the requested virtual clusters.
 #' @param maxResults The maximum number of virtual clusters that can be listed.
 #' @param nextToken The token for the next set of virtual clusters to return.
-#' @param eksAccessEntryIntegrated Optional Boolean that specifies whether the operation should return the
-#' virtual clusters that have the access entry integration enabled or
-#' disabled. If not specified, the operation returns all applicable virtual
-#' clusters.
+#' @param eksAccessEntryIntegrated Optional Boolean that specifies whether the operation should return the virtual clusters that have the access entry integration enabled or disabled. If not specified, the operation returns all applicable virtual clusters.
 #'
 #' @keywords internal
 #'

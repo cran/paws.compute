@@ -9,10 +9,7 @@ ec2_delete_vpn_connection(VpnConnectionId, DryRun = NULL)
 \arguments{
 \item{VpnConnectionId}{[required] The ID of the VPN connection.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes the specified VPN connection.

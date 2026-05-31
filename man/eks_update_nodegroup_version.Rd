@@ -20,43 +20,17 @@ eks_update_nodegroup_version(
 
 \item{nodegroupName}{[required] The name of the managed node group to update.}
 
-\item{version}{The Kubernetes version to update to. If no version is specified, then
-the Kubernetes version of the node group does not change. You can
-specify the Kubernetes version of the cluster to update the node group
-to the latest AMI version of the cluster's Kubernetes version. If you
-specify \code{launchTemplate}, and your launch template uses a custom AMI,
-then don't specify \code{version}, or the node group update will fail. For
-more information about using launch templates with Amazon EKS, see
-\href{https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html}{Customizing managed nodes with launch templates}
-in the \emph{Amazon EKS User Guide}.}
+\item{version}{The Kubernetes version to update to. If no version is specified, then the node group will be updated to match the cluster's current Kubernetes version, and the latest available AMI for that version will be used. You can also specify the Kubernetes version of the cluster to update the node group to the latest AMI version of the cluster's Kubernetes version. If you specify \code{launchTemplate}, and your launch template uses a custom AMI, then don't specify \code{version}, or the node group update will fail. For more information about using launch templates with Amazon EKS, see \href{https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html}{Customizing managed nodes with launch templates} in the \emph{Amazon EKS User Guide}.}
 
-\item{releaseVersion}{The AMI version of the Amazon EKS optimized AMI to use for the update.
-By default, the latest available AMI version for the node group's
-Kubernetes version is used. For information about Linux versions, see
-\href{https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html}{Amazon EKS optimized Amazon Linux AMI versions}
-in the \emph{Amazon EKS User Guide}. Amazon EKS managed node groups support
-the November 2022 and later releases of the Windows AMIs. For
-information about Windows versions, see \href{https://docs.aws.amazon.com/eks/latest/userguide/eks-ami-versions-windows.html}{Amazon EKS optimized Windows AMI versions}
-in the \emph{Amazon EKS User Guide}.
+\item{releaseVersion}{The AMI version of the Amazon EKS optimized AMI to use for the update. By default, the latest available AMI version for the node group's Kubernetes version is used. For information about Linux versions, see \href{https://docs.aws.amazon.com/eks/latest/userguide/eks-linux-ami-versions.html}{Amazon EKS optimized Amazon Linux AMI versions} in the \emph{Amazon EKS User Guide}. Amazon EKS managed node groups support the November 2022 and later releases of the Windows AMIs. For information about Windows versions, see \href{https://docs.aws.amazon.com/eks/latest/userguide/eks-ami-versions-windows.html}{Amazon EKS optimized Windows AMI versions} in the \emph{Amazon EKS User Guide}.
 
-If you specify \code{launchTemplate}, and your launch template uses a custom
-AMI, then don't specify \code{releaseVersion}, or the node group update will
-fail. For more information about using launch templates with Amazon EKS,
-see \href{https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html}{Customizing managed nodes with launch templates}
-in the \emph{Amazon EKS User Guide}.}
+If you specify \code{launchTemplate}, and your launch template uses a custom AMI, then don't specify \code{releaseVersion}, or the node group update will fail. For more information about using launch templates with Amazon EKS, see \href{https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html}{Customizing managed nodes with launch templates} in the \emph{Amazon EKS User Guide}.}
 
-\item{launchTemplate}{An object representing a node group's launch template specification. You
-can only update a node group using a launch template if the node group
-was originally deployed with a launch template.}
+\item{launchTemplate}{An object representing a node group's launch template specification. You can only update a node group using a launch template if the node group was originally deployed with a launch template. When updating, you must specify the same launch template ID or name that was used to create the node group.}
 
-\item{force}{Force the update if any \code{Pod} on the existing node group can't be
-drained due to a \code{Pod} disruption budget issue. If an update fails
-because all Pods can't be drained, you can force the update after it
-fails to terminate the old node whether or not any \code{Pod} is running on
-the node.}
+\item{force}{Force the update if any \code{Pod} on the existing node group can't be drained due to a \code{Pod} disruption budget issue. If an update fails because all Pods can't be drained, you can force the update after it fails to terminate the old node whether or not any \code{Pod} is running on the node.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 }
 \description{
 Updates the Kubernetes version or AMI version of an Amazon EKS managed node group.

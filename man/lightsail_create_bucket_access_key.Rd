@@ -7,8 +7,7 @@
 lightsail_create_bucket_access_key(bucketName)
 }
 \arguments{
-\item{bucketName}{[required] The name of the bucket that the new access key will belong to, and grant
-access to.}
+\item{bucketName}{[required] The name of the bucket that the new access key will belong to, and grant access to.}
 }
 \description{
 Creates a new access key for the specified Amazon Lightsail bucket. Access keys consist of an access key ID and corresponding secret access key.

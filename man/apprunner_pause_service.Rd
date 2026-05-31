@@ -7,8 +7,7 @@
 apprunner_pause_service(ServiceArn)
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want
-to pause.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want to pause.}
 }
 \description{
 Pause an active App Runner service. App Runner reduces compute capacity for the service to zero and loses state (for example, ephemeral storage is removed).

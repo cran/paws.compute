@@ -10,10 +10,7 @@ ec2_withdraw_byoip_cidr(Cidr, DryRun = NULL)
 \arguments{
 \item{Cidr}{[required] The address range, in CIDR notation.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Stops advertising an address range that is provisioned as an address pool.

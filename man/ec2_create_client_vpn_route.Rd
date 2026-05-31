@@ -7,7 +7,7 @@
 ec2_create_client_vpn_route(
   ClientVpnEndpointId,
   DestinationCidrBlock,
-  TargetVpcSubnetId,
+  TargetVpcSubnetId = NULL,
   Description = NULL,
   ClientToken = NULL,
   DryRun = NULL
@@ -16,33 +16,25 @@ ec2_create_client_vpn_route(
 \arguments{
 \item{ClientVpnEndpointId}{[required] The ID of the Client VPN endpoint to which to add the route.}
 
-\item{DestinationCidrBlock}{[required] The IPv4 address range, in CIDR notation, of the route destination. For
-example:
+\item{DestinationCidrBlock}{[required] The IPv4 address range, in CIDR notation, of the route destination. For example:
 \itemize{
 \item To add a route for Internet access, enter \verb{0.0.0.0/0}
-\item To add a route for a peered VPC, enter the peered VPC's IPv4 CIDR
-range
-\item To add a route for an on-premises network, enter the Amazon Web
-Services Site-to-Site VPN connection's IPv4 CIDR range
+\item To add a route for a peered VPC, enter the peered VPC's IPv4 CIDR range
+\item To add a route for an on-premises network, enter the Amazon Web Services Site-to-Site VPN connection's IPv4 CIDR range
 \item To add a route for the local network, enter the client CIDR range
 }}
 
-\item{TargetVpcSubnetId}{[required] The ID of the subnet through which you want to route traffic. The
-specified subnet must be an existing target network of the Client VPN
-endpoint.
+\item{TargetVpcSubnetId}{The ID of the subnet through which you want to route traffic. The specified subnet must be an existing target network of the Client VPN endpoint.
 
-Alternatively, if you're adding a route for the local network, specify
-\code{local}.}
+Alternatively, if you're adding a route for the local network, specify \code{local}.
+
+This parameter is required for VPC-based Client VPN endpoints. For Transit Gateway-based endpoints, this parameter is not required.}
 
 \item{Description}{A brief description of the route.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Adds a route to a network to a Client VPN endpoint. Each Client VPN endpoint has a route table that describes the available destination network routes. Each route in the route table specifies the path for traﬃc to specific resources or networks.

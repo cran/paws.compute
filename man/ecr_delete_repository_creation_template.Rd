@@ -7,8 +7,7 @@
 ecr_delete_repository_creation_template(prefix)
 }
 \arguments{
-\item{prefix}{[required] The repository namespace prefix associated with the repository creation
-template.}
+\item{prefix}{[required] The repository namespace prefix associated with the repository creation template.}
 }
 \description{
 Deletes a repository creation template.

@@ -12,13 +12,11 @@ lambda_get_alias(FunctionName, Name)
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} - \code{MyFunction}.
-\item \strong{Function ARN} -
-\verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
+\item \strong{Function ARN} - \verb{arn:aws:lambda:us-west-2:123456789012:function:MyFunction}.
 \item \strong{Partial ARN} - \verb{123456789012:function:MyFunction}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it is limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
 \item{Name}{[required] The name of the alias.}
 }

@@ -16,21 +16,13 @@ ec2_restore_snapshot_tier(
 \arguments{
 \item{SnapshotId}{[required] The ID of the snapshot to restore.}
 
-\item{TemporaryRestoreDays}{Specifies the number of days for which to temporarily restore an
-archived snapshot. Required for temporary restores only. The snapshot
-will be automatically re-archived after this period.
+\item{TemporaryRestoreDays}{Specifies the number of days for which to temporarily restore an archived snapshot. Required for temporary restores only. The snapshot will be automatically re-archived after this period.
 
-To temporarily restore an archived snapshot, specify the number of days
-and omit the \strong{PermanentRestore} parameter or set it to \code{false}.}
+To temporarily restore an archived snapshot, specify the number of days and omit the \strong{PermanentRestore} parameter or set it to \code{false}.}
 
-\item{PermanentRestore}{Indicates whether to permanently restore an archived snapshot. To
-permanently restore an archived snapshot, specify \code{true} and omit the
-\strong{RestoreSnapshotTierRequest$TemporaryRestoreDays} parameter.}
+\item{PermanentRestore}{Indicates whether to permanently restore an archived snapshot. To permanently restore an archived snapshot, specify \code{true} and omit the \strong{RestoreSnapshotTierRequest$TemporaryRestoreDays} parameter.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Restores an archived Amazon EBS snapshot for use temporarily or permanently, or modifies the restore period or restore type for a snapshot that was previously temporarily restored.

@@ -7,9 +7,7 @@
 ecs_deregister_task_definition(taskDefinition)
 }
 \arguments{
-\item{taskDefinition}{[required] The \code{family} and \code{revision} (\code{family:revision}) or full Amazon Resource
-Name (ARN) of the task definition to deregister. You must specify a
-\code{revision}.}
+\item{taskDefinition}{[required] The \code{family} and \code{revision} (\code{family:revision}) or full Amazon Resource Name (ARN) of the task definition to deregister. You must specify a \code{revision}.}
 }
 \description{
 Deregisters the specified task definition by family and revision. Upon deregistration, the task definition is marked as \code{INACTIVE}. Existing tasks and services that reference an \code{INACTIVE} task definition continue to run without disruption. Existing services that reference an \code{INACTIVE} task definition can still scale up or down by modifying the service's desired count. If you want to delete a task definition revision, you must first deregister the task definition revision.

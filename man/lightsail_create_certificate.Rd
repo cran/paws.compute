@@ -17,19 +17,15 @@ lightsail_create_certificate(
 
 \item{domainName}{[required] The domain name (\code{example.com}) for the certificate.}
 
-\item{subjectAlternativeNames}{An array of strings that specify the alternate domains (\code{example2.com})
-and subdomains (\code{blog.example.com}) for the certificate.
+\item{subjectAlternativeNames}{An array of strings that specify the alternate domains (\code{example2.com}) and subdomains (\code{blog.example.com}) for the certificate.
 
-You can specify a maximum of nine alternate domains (in addition to the
-primary domain name).
+You can specify a maximum of nine alternate domains (in addition to the primary domain name).
 
 Wildcard domain entries (\verb{*.example.com}) are not supported.}
 
-\item{tags}{The tag keys and optional values to add to the certificate during
-create.
+\item{tags}{The tag keys and optional values to add to the certificate during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 }
 \description{
 Creates an SSL/TLS certificate for an Amazon Lightsail content delivery network (CDN) distribution and a container service.

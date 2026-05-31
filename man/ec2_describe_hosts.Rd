@@ -12,36 +12,23 @@ ec2_describe_hosts(
 )
 }
 \arguments{
-\item{HostIds}{The IDs of the Dedicated Hosts. The IDs are used for targeted instance
-launches.}
+\item{HostIds}{The IDs of the Dedicated Hosts. The IDs are used for targeted instance launches.}
 
 \item{NextToken}{The token to use to retrieve the next page of results.}
 
-\item{MaxResults}{The maximum number of results to return for the request in a single
-page. The remaining results can be seen by sending another request with
-the returned \code{nextToken} value. This value can be between 5 and 500. If
-\code{maxResults} is given a larger value than 500, you receive an error.
+\item{MaxResults}{The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the returned \code{nextToken} value. This value can be between 5 and 500. If \code{maxResults} is given a larger value than 500, you receive an error.
 
-You cannot specify this parameter and the host IDs parameter in the same
-request.}
+You cannot specify this parameter and the host IDs parameter in the same request.}
 
 \item{Filter}{The filters.
 \itemize{
-\item \code{auto-placement} - Whether auto-placement is enabled or disabled
-(\code{on} | \code{off}).
+\item \code{auto-placement} - Whether auto-placement is enabled or disabled (\code{on} | \code{off}).
 \item \code{availability-zone} - The Availability Zone of the host.
-\item \code{client-token} - The idempotency token that you provided when you
-allocated the host.
-\item \code{host-reservation-id} - The ID of the reservation assigned to this
-host.
-\item \code{instance-type} - The instance type size that the Dedicated Host is
-configured to support.
-\item \code{state} - The allocation state of the Dedicated Host (\code{available} |
-\code{under-assessment} | \code{permanent-failure} | \code{released} |
-\code{released-permanent-failure}).
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources assigned a tag with a specific key,
-regardless of the tag value.
+\item \code{client-token} - The idempotency token that you provided when you allocated the host.
+\item \code{host-reservation-id} - The ID of the reservation assigned to this host.
+\item \code{instance-type} - The instance type size that the Dedicated Host is configured to support.
+\item \code{state} - The allocation state of the Dedicated Host (\code{available} | \code{under-assessment} | \code{permanent-failure} | \code{released} | \code{released-permanent-failure}).
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
 }}
 }
 \description{

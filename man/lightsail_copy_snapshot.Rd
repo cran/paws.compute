@@ -20,50 +20,36 @@ lightsail_copy_snapshot(
 
 Constraint:
 \itemize{
-\item Define this parameter only when copying a manual snapshot as another
-manual snapshot.
+\item Define this parameter only when copying a manual snapshot as another manual snapshot.
 }}
 
-\item{sourceResourceName}{The name of the source instance or disk from which the source automatic
-snapshot was created.
+\item{sourceResourceName}{The name of the source instance or disk from which the source automatic snapshot was created.
 
 Constraint:
 \itemize{
-\item Define this parameter only when copying an automatic snapshot as a
-manual snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
+\item Define this parameter only when copying an automatic snapshot as a manual snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
 }}
 
-\item{restoreDate}{The date of the source automatic snapshot to copy. Use the
-\verb{get auto snapshots} operation to identify the dates of the available
-automatic snapshots.
+\item{restoreDate}{The date of the source automatic snapshot to copy. Use the \verb{get auto snapshots} operation to identify the dates of the available automatic snapshots.
 
 Constraints:
 \itemize{
 \item Must be specified in \code{YYYY-MM-DD} format.
-\item This parameter cannot be defined together with the
-\verb{use latest restorable auto snapshot} parameter. The \verb{restore date}
-and \verb{use latest restorable auto snapshot} parameters are mutually
-exclusive.
-\item Define this parameter only when copying an automatic snapshot as a
-manual snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
+\item This parameter cannot be defined together with the \verb{use latest restorable auto snapshot} parameter. The \verb{restore date} and \verb{use latest restorable auto snapshot} parameters are mutually exclusive.
+\item Define this parameter only when copying an automatic snapshot as a manual snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
 }}
 
-\item{useLatestRestorableAutoSnapshot}{A Boolean value to indicate whether to use the latest available
-automatic snapshot of the specified source instance or disk.
+\item{useLatestRestorableAutoSnapshot}{A Boolean value to indicate whether to use the latest available automatic snapshot of the specified source instance or disk.
 
 Constraints:
 \itemize{
-\item This parameter cannot be defined together with the \verb{restore date}
-parameter. The \verb{use latest restorable auto snapshot} and
-\verb{restore date} parameters are mutually exclusive.
-\item Define this parameter only when copying an automatic snapshot as a
-manual snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
+\item This parameter cannot be defined together with the \verb{restore date} parameter. The \verb{use latest restorable auto snapshot} and \verb{restore date} parameters are mutually exclusive.
+\item Define this parameter only when copying an automatic snapshot as a manual snapshot. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.
 }}
 
 \item{targetSnapshotName}{[required] The name of the new manual snapshot to be created as a copy.}
 
-\item{sourceRegion}{[required] The Amazon Web Services Region where the source manual or automatic
-snapshot is located.}
+\item{sourceRegion}{[required] The Amazon Web Services Region where the source manual or automatic snapshot is located.}
 }
 \description{
 Copies a manual snapshot of an instance or disk as another manual snapshot, or copies an automatic snapshot of an instance or disk as a manual snapshot. This operation can also be used to copy a manual or automatic snapshot of an instance or a disk from one Amazon Web Services Region to another in Amazon Lightsail.

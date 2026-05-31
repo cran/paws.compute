@@ -19,10 +19,7 @@ ec2_modify_fpga_image_attribute(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{FpgaImageId}{[required] The ID of the AFI.}
 
@@ -30,15 +27,11 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{OperationType}{The operation type.}
 
-\item{UserIds}{The Amazon Web Services account IDs. This parameter is valid only when
-modifying the \code{loadPermission} attribute.}
+\item{UserIds}{The Amazon Web Services account IDs. This parameter is valid only when modifying the \code{loadPermission} attribute.}
 
-\item{UserGroups}{The user groups. This parameter is valid only when modifying the
-\code{loadPermission} attribute.}
+\item{UserGroups}{The user groups. This parameter is valid only when modifying the \code{loadPermission} attribute.}
 
-\item{ProductCodes}{The product codes. After you add a product code to an AFI, it can't be
-removed. This parameter is valid only when modifying the \code{productCodes}
-attribute.}
+\item{ProductCodes}{The product codes. After you add a product code to an AFI, it can't be removed. This parameter is valid only when modifying the \code{productCodes} attribute.}
 
 \item{LoadPermission}{The load permission for the AFI.}
 

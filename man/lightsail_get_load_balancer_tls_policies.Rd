@@ -10,11 +10,7 @@ lightsail_get_load_balancer_tls_policies(pageToken = NULL)
 \arguments{
 \item{pageToken}{The token to advance to the next page of results from your request.
 
-To get a page token, perform an initial
-\code{\link[=lightsail_get_load_balancer_tls_policies]{get_load_balancer_tls_policies}}
-request. If your results are paginated, the response will return a next
-page token that you can specify as the page token in a subsequent
-request.}
+To get a page token, perform an initial \code{\link[=lightsail_get_load_balancer_tls_policies]{get_load_balancer_tls_policies}} request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.}
 }
 \description{
 Returns a list of TLS security policies that you can apply to Lightsail load balancers.

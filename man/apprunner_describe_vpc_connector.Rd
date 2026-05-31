@@ -7,8 +7,7 @@
 apprunner_describe_vpc_connector(VpcConnectorArn)
 }
 \arguments{
-\item{VpcConnectorArn}{[required] The Amazon Resource Name (ARN) of the App Runner VPC connector that you
-want a description for.
+\item{VpcConnectorArn}{[required] The Amazon Resource Name (ARN) of the App Runner VPC connector that you want a description for.
 
 The ARN must be a full VPC connector ARN.}
 }

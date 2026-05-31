@@ -12,17 +12,11 @@ ec2_import_client_vpn_client_certificate_revocation_list(
 )
 }
 \arguments{
-\item{ClientVpnEndpointId}{[required] The ID of the Client VPN endpoint to which the client certificate
-revocation list applies.}
+\item{ClientVpnEndpointId}{[required] The ID of the Client VPN endpoint to which the client certificate revocation list applies.}
 
-\item{CertificateRevocationList}{[required] The client certificate revocation list file. For more information, see
-\href{https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-certificates.html#cvpn-working-certificates-generate}{Generate a Client Certificate Revocation List}
-in the \emph{Client VPN Administrator Guide}.}
+\item{CertificateRevocationList}{[required] The client certificate revocation list file. For more information, see \href{https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/cvpn-working-certificates.html#cvpn-working-certificates-generate}{Generate a Client Certificate Revocation List} in the \emph{Client VPN Administrator Guide}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Uploads a client certificate revocation list to the specified Client VPN endpoint. Uploading a client certificate revocation list overwrites the existing client certificate revocation list.

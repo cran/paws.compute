@@ -7,11 +7,9 @@
 apprunner_disassociate_custom_domain(ServiceArn, DomainName)
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want
-to disassociate a custom domain name from.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want to disassociate a custom domain name from.}
 
-\item{DomainName}{[required] The domain name that you want to disassociate from the App Runner
-service.}
+\item{DomainName}{[required] The domain name that you want to disassociate from the App Runner service.}
 }
 \description{
 Disassociate a custom domain name from an App Runner service.

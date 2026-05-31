@@ -27,11 +27,9 @@ emrcontainers_create_managed_endpoint(
 
 \item{executionRoleArn}{[required] The ARN of the execution role.}
 
-\item{certificateArn}{The certificate ARN provided by users for the managed endpoint. This
-field is under deprecation and will be removed in future releases.}
+\item{certificateArn}{The certificate ARN provided by users for the managed endpoint. This field is under deprecation and will be removed in future releases.}
 
-\item{configurationOverrides}{The configuration settings that will be used to override existing
-configurations.}
+\item{configurationOverrides}{The configuration settings that will be used to override existing configurations.}
 
 \item{clientToken}{[required] The client idempotency token for this create call.}
 

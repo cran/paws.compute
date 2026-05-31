@@ -19,9 +19,7 @@ lambda_remove_layer_version_permission(
 
 \item{StatementId}{[required] The identifier that was specified when the statement was added.}
 
-\item{RevisionId}{Only update the policy if the revision ID matches the ID specified. Use
-this option to avoid modifying a policy that has changed since you last
-read it.}
+\item{RevisionId}{Only update the policy if the revision ID matches the ID specified. Use this option to avoid modifying a policy that has changed since you last read it.}
 }
 \description{
 Removes a statement from the permissions policy for a version of an \href{https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html}{Lambda layer}. For more information, see \code{\link[=lambda_add_layer_version_permission]{add_layer_version_permission}}.

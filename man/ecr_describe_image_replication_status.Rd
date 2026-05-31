@@ -13,10 +13,9 @@ ecr_describe_image_replication_status(
 \arguments{
 \item{repositoryName}{[required] The name of the repository that the image is in.}
 
-\item{imageId}{[required]}
+\item{imageId}{[required] An object with identifying information for an image in an Amazon ECR repository.}
 
-\item{registryId}{The Amazon Web Services account ID associated with the registry. If you
-do not specify a registry, the default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry. If you do not specify a registry, the default registry is assumed.}
 }
 \description{
 Returns the replication status for a specified image.

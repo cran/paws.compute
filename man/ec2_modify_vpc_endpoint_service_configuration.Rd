@@ -22,33 +22,23 @@ ec2_modify_vpc_endpoint_service_configuration(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ServiceId}{[required] The ID of the service.}
 
-\item{PrivateDnsName}{(Interface endpoint configuration) The private DNS name to assign to the
-endpoint service.}
+\item{PrivateDnsName}{(Interface endpoint configuration) The private DNS name to assign to the endpoint service.}
 
-\item{RemovePrivateDnsName}{(Interface endpoint configuration) Removes the private DNS name of the
-endpoint service.}
+\item{RemovePrivateDnsName}{(Interface endpoint configuration) Removes the private DNS name of the endpoint service.}
 
-\item{AcceptanceRequired}{Indicates whether requests to create an endpoint to the service must be
-accepted.}
+\item{AcceptanceRequired}{Indicates whether requests to create an endpoint to the service must be accepted.}
 
-\item{AddNetworkLoadBalancerArns}{The Amazon Resource Names (ARNs) of Network Load Balancers to add to the
-service configuration.}
+\item{AddNetworkLoadBalancerArns}{The Amazon Resource Names (ARNs) of Network Load Balancers to add to the service configuration.}
 
-\item{RemoveNetworkLoadBalancerArns}{The Amazon Resource Names (ARNs) of Network Load Balancers to remove
-from the service configuration.}
+\item{RemoveNetworkLoadBalancerArns}{The Amazon Resource Names (ARNs) of Network Load Balancers to remove from the service configuration.}
 
-\item{AddGatewayLoadBalancerArns}{The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to the
-service configuration.}
+\item{AddGatewayLoadBalancerArns}{The Amazon Resource Names (ARNs) of Gateway Load Balancers to add to the service configuration.}
 
-\item{RemoveGatewayLoadBalancerArns}{The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove
-from the service configuration.}
+\item{RemoveGatewayLoadBalancerArns}{The Amazon Resource Names (ARNs) of Gateway Load Balancers to remove from the service configuration.}
 
 \item{AddSupportedIpAddressTypes}{The IP address types to add to the service configuration.}
 

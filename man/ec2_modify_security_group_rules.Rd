@@ -11,10 +11,7 @@ ec2_modify_security_group_rules(GroupId, SecurityGroupRules, DryRun = NULL)
 
 \item{SecurityGroupRules}{[required] Information about the security group properties to update.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Modifies the rules of a security group.

@@ -16,46 +16,33 @@ ec2_create_launch_template_version(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency
-of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
+\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If a client token isn't specified, a randomly generated token is used in the request to ensure idempotency.
+
+For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.
 
 Constraint: Maximum 128 ASCII characters.}
 
 \item{LaunchTemplateId}{The ID of the launch template.
 
-You must specify either the launch template ID or the launch template
-name, but not both.}
+You must specify either the launch template ID or the launch template name, but not both.}
 
 \item{LaunchTemplateName}{The name of the launch template.
 
-You must specify either the launch template ID or the launch template
-name, but not both.}
+You must specify either the launch template ID or the launch template name, but not both.}
 
-\item{SourceVersion}{The version of the launch template on which to base the new version.
-Snapshots applied to the block device mapping are ignored when creating
-a new version unless they are explicitly included.
+\item{SourceVersion}{The version of the launch template on which to base the new version. Snapshots applied to the block device mapping are ignored when creating a new version unless they are explicitly included.
 
-If you specify this parameter, the new version inherits the launch
-parameters from the source version. If you specify additional launch
-parameters for the new version, they overwrite any corresponding launch
-parameters inherited from the source version.
+If you specify this parameter, the new version inherits the launch parameters from the source version. If you specify additional launch parameters for the new version, they overwrite any corresponding launch parameters inherited from the source version.
 
-If you omit this parameter, the new version contains only the launch
-parameters that you specify for the new version.}
+If you omit this parameter, the new version contains only the launch parameters that you specify for the new version.}
 
 \item{VersionDescription}{A description for the version of the launch template.}
 
 \item{LaunchTemplateData}{[required] The information for the launch template.}
 
-\item{ResolveAlias}{If \code{true}, and if a Systems Manager parameter is specified for
-\code{ImageId}, the AMI ID is displayed in the response for \code{imageID}. For
-more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id}{Use a Systems Manager parameter instead of an AMI ID}
-in the \emph{Amazon EC2 User Guide}.
+\item{ResolveAlias}{If \code{true}, and if a Systems Manager parameter is specified for \code{ImageId}, the AMI ID is displayed in the response for \code{imageID}. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id}{Use a Systems Manager parameter instead of an AMI ID} in the \emph{Amazon EC2 User Guide}.
 
 Default: \code{false}}
 }

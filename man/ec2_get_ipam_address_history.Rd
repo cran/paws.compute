@@ -16,28 +16,19 @@ ec2_get_ipam_address_history(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{Cidr}{[required] The CIDR you want the history of. The CIDR can be an IPv4 or IPv6 IP
-address range. If you enter a /16 IPv4 CIDR, you will get records that
-match it exactly. You will not get records for any subnets within the
-/16 CIDR.}
+\item{Cidr}{[required] The CIDR you want the history of. The CIDR can be an IPv4 or IPv6 IP address range. If you enter a /16 IPv4 CIDR, you will get records that match it exactly. You will not get records for any subnets within the /16 CIDR.}
 
 \item{IpamScopeId}{[required] The ID of the IPAM scope that the CIDR is in.}
 
 \item{VpcId}{The ID of the VPC you want your history records filtered by.}
 
-\item{StartTime}{The start of the time period for which you are looking for history. If
-you omit this option, it will default to the value of EndTime.}
+\item{StartTime}{The start of the time period for which you are looking for history. If you omit this option, it will default to the value of EndTime.}
 
-\item{EndTime}{The end of the time period for which you are looking for history. If you
-omit this option, it will default to the current time.}
+\item{EndTime}{The end of the time period for which you are looking for history. If you omit this option, it will default to the current time.}
 
-\item{MaxResults}{The maximum number of historical results you would like returned per
-page. Defaults to 100.}
+\item{MaxResults}{The maximum number of historical results you would like returned per page. Defaults to 100.}
 
 \item{NextToken}{The token for the next page of results.}
 }

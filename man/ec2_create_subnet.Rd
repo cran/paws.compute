@@ -25,31 +25,21 @@ ec2_create_subnet(
 
 \item{AvailabilityZone}{The Availability Zone or Local Zone for the subnet.
 
-Default: Amazon Web Services selects one for you. If you create more
-than one subnet in your VPC, we do not necessarily select a different
-zone for each subnet.
+Default: Amazon Web Services selects one for you. If you create more than one subnet in your VPC, we do not necessarily select a different zone for each subnet.
 
-To create a subnet in a Local Zone, set this value to the Local Zone ID,
-for example \verb{us-west-2-lax-1a}. For information about the Regions that
-support Local Zones, see \href{https://docs.aws.amazon.com/local-zones/latest/ug/available-local-zones.html}{Available Local Zones}.
+To create a subnet in a Local Zone, set this value to the Local Zone ID, for example \verb{us-west-2-lax-1a}. For information about the Regions that support Local Zones, see \href{https://docs.aws.amazon.com/local-zones/latest/ug/available-local-zones.html}{Available Local Zones}.
 
-To create a subnet in an Outpost, set this value to the Availability
-Zone for the Outpost and specify the Outpost ARN.}
+To create a subnet in an Outpost, set this value to the Availability Zone for the Outpost and specify the Outpost ARN.}
 
 \item{AvailabilityZoneId}{The AZ ID or the Local Zone ID of the subnet.}
 
-\item{CidrBlock}{The IPv4 network range for the subnet, in CIDR notation. For example,
-\verb{10.0.0.0/24}. We modify the specified CIDR block to its canonical form;
-for example, if you specify \verb{100.68.0.18/18}, we modify it to
-\verb{100.68.0.0/18}.
+\item{CidrBlock}{The IPv4 network range for the subnet, in CIDR notation. For example, \verb{10.0.0.0/24}. We modify the specified CIDR block to its canonical form; for example, if you specify \verb{100.68.0.18/18}, we modify it to \verb{100.68.0.0/18}.
 
 This parameter is not supported for an IPv6 only subnet.}
 
-\item{Ipv6CidrBlock}{The IPv6 network range for the subnet, in CIDR notation. This parameter
-is required for an IPv6 only subnet.}
+\item{Ipv6CidrBlock}{The IPv6 network range for the subnet, in CIDR notation. This parameter is required for an IPv6 only subnet.}
 
-\item{OutpostArn}{The Amazon Resource Name (ARN) of the Outpost. If you specify an Outpost
-ARN, you must also specify the Availability Zone of the Outpost subnet.}
+\item{OutpostArn}{The Amazon Resource Name (ARN) of the Outpost. If you specify an Outpost ARN, you must also specify the Availability Zone of the Outpost subnet.}
 
 \item{VpcId}{[required] The ID of the VPC.}
 
@@ -63,10 +53,7 @@ ARN, you must also specify the Availability Zone of the Outpost subnet.}
 
 \item{Ipv6NetmaskLength}{An IPv6 netmask length for the subnet.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a subnet in the specified VPC. For an IPv4 only subnet, specify an IPv4 CIDR block. If the VPC has an IPv6 CIDR block, you can create an IPv6 only subnet or a dual stack subnet instead. For an IPv6 only subnet, specify an IPv6 CIDR block. For a dual stack subnet, specify both an IPv4 CIDR block and an IPv6 CIDR block.

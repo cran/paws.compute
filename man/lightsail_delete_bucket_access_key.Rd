@@ -11,8 +11,7 @@ lightsail_delete_bucket_access_key(bucketName, accessKeyId)
 
 \item{accessKeyId}{[required] The ID of the access key to delete.
 
-Use the \code{\link[=lightsail_get_bucket_access_keys]{get_bucket_access_keys}}
-action to get a list of access key IDs that you can specify.}
+Use the \code{\link[=lightsail_get_bucket_access_keys]{get_bucket_access_keys}} action to get a list of access key IDs that you can specify.}
 }
 \description{
 Deletes an access key for the specified Amazon Lightsail bucket.

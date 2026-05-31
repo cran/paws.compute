@@ -6,20 +6,24 @@
 specified Availability Zones}
 \usage{
 ec2_disable_fast_snapshot_restores(
-  AvailabilityZones,
+  AvailabilityZones = NULL,
+  AvailabilityZoneIds = NULL,
   SourceSnapshotIds,
   DryRun = NULL
 )
 }
 \arguments{
-\item{AvailabilityZones}{[required] One or more Availability Zones. For example, \verb{us-east-2a}.}
+\item{AvailabilityZones}{One or more Availability Zones. For example, \verb{us-east-2a}.
+
+Either \code{AvailabilityZone} or \code{AvailabilityZoneId} must be specified in the request, but not both.}
+
+\item{AvailabilityZoneIds}{One or more Availability Zone IDs. For example, \code{use2-az1}.
+
+Either \code{AvailabilityZone} or \code{AvailabilityZoneId} must be specified in the request, but not both.}
 
 \item{SourceSnapshotIds}{[required] The IDs of one or more snapshots. For example, \verb{snap-1234567890abcdef0}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Disables fast snapshot restores for the specified snapshots in the specified Availability Zones.

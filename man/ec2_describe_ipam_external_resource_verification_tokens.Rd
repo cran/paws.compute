@@ -13,13 +13,9 @@ ec2_describe_ipam_external_resource_verification_tokens(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{Filters}{One or more filters for the request. For more information about
-filtering, see \href{https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html}{Filtering CLI output}.
+\item{Filters}{One or more filters for the request. For more information about filtering, see \href{https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html}{Filtering CLI output}.
 
 Available filters:
 \itemize{
@@ -41,7 +37,7 @@ Available filters:
 \item{IpamExternalResourceVerificationTokenIds}{Verification token IDs.}
 }
 \description{
-Describe verification tokens. A verification token is an Amazon Web Services-generated random value that you can use to prove ownership of an external resource. For example, you can use a verification token to validate that you control a public IP address range when you bring an IP address range to Amazon Web Services (BYOIP).
+Describe verification tokens.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_describe_ipam_external_resource_verification_tokens/} for full documentation.
 }

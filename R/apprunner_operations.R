@@ -11,14 +11,9 @@ NULL
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_associate_custom_domain/](https://www.paws-r-sdk.com/docs/apprunner_associate_custom_domain/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
-#' to associate a custom domain name with.
-#' @param DomainName &#91;required&#93; A custom domain endpoint to associate. Specify a root domain (for
-#' example, `example.com`), a subdomain (for example, `login.example.com`
-#' or `admin.login.example.com`), or a wildcard (for example,
-#' `*.example.com`).
-#' @param EnableWWWSubdomain Set to `true` to associate the subdomain `www.DomainName ` with the App
-#' Runner service in addition to the base domain.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want to associate a custom domain name with.
+#' @param DomainName &#91;required&#93; A custom domain endpoint to associate. Specify a root domain (for example, `example.com`), a subdomain (for example, `login.example.com` or `admin.login.example.com`), or a wildcard (for example, `*.example.com`).
+#' @param EnableWWWSubdomain Set to `true` to associate the subdomain `www.DomainName ` with the App Runner service in addition to the base domain.
 #' 
 #' Default: `true`
 #'
@@ -51,56 +46,31 @@ apprunner_associate_custom_domain <- function(ServiceArn, DomainName, EnableWWWS
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_create_auto_scaling_configuration/](https://www.paws-r-sdk.com/docs/apprunner_create_auto_scaling_configuration/) for full documentation.
 #'
-#' @param AutoScalingConfigurationName &#91;required&#93; A name for the auto scaling configuration. When you use it for the first
-#' time in an Amazon Web Services Region, App Runner creates revision
-#' number `1` of this name. When you use the same name in subsequent calls,
-#' App Runner creates incremental revisions of the configuration.
+#' @param AutoScalingConfigurationName &#91;required&#93; A name for the auto scaling configuration. When you use it for the first time in an Amazon Web Services Region, App Runner creates revision number `1` of this name. When you use the same name in subsequent calls, App Runner creates incremental revisions of the configuration.
 #' 
-#' Prior to the release of [Auto scale configuration
-#' enhancements](https://docs.aws.amazon.com/apprunner/latest/relnotes/release-2023-09-22-auto-scale-config.html),
-#' the name `DefaultConfiguration` was reserved.
+#' Prior to the release of [Auto scale configuration enhancements](https://docs.aws.amazon.com/apprunner/latest/relnotes/release-2023-09-22-auto-scale-config.html), the name `DefaultConfiguration` was reserved.
 #' 
-#' This restriction is no longer in place. You can now manage
-#' `DefaultConfiguration` the same way you manage your custom auto scaling
-#' configurations. This means you can do the following with the
-#' `DefaultConfiguration` that App Runner provides:
+#' This restriction is no longer in place. You can now manage `DefaultConfiguration` the same way you manage your custom auto scaling configurations. This means you can do the following with the `DefaultConfiguration` that App Runner provides:
 #' 
 #' -   Create new revisions of the `DefaultConfiguration`.
 #' 
 #' -   Delete the revisions of the `DefaultConfiguration`.
 #' 
-#' -   Delete the auto scaling configuration for which the App Runner
-#'     `DefaultConfiguration` was created.
+#' -   Delete the auto scaling configuration for which the App Runner `DefaultConfiguration` was created.
 #' 
-#' -   If you delete the auto scaling configuration you can create another
-#'     custom auto scaling configuration with the same
-#'     `DefaultConfiguration` name. The original `DefaultConfiguration`
-#'     resource provided by App Runner remains in your account unless you
-#'     make changes to it.
-#' @param MaxConcurrency The maximum number of concurrent requests that you want an instance to
-#' process. If the number of concurrent requests exceeds this limit, App
-#' Runner scales up your service.
+#' -   If you delete the auto scaling configuration you can create another custom auto scaling configuration with the same `DefaultConfiguration` name. The original `DefaultConfiguration` resource provided by App Runner remains in your account unless you make changes to it.
+#' @param MaxConcurrency The maximum number of concurrent requests that you want an instance to process. If the number of concurrent requests exceeds this limit, App Runner scales up your service.
 #' 
 #' Default: `100`
-#' @param MinSize The minimum number of instances that App Runner provisions for your
-#' service. The service always has at least `MinSize` provisioned
-#' instances. Some of them actively serve traffic. The rest of them
-#' (provisioned and inactive instances) are a cost-effective compute
-#' capacity reserve and are ready to be quickly activated. You pay for
-#' memory usage of all the provisioned instances. You pay for CPU usage of
-#' only the active subset.
+#' @param MinSize The minimum number of instances that App Runner provisions for your service. The service always has at least `MinSize` provisioned instances. Some of them actively serve traffic. The rest of them (provisioned and inactive instances) are a cost-effective compute capacity reserve and are ready to be quickly activated. You pay for memory usage of all the provisioned instances. You pay for CPU usage of only the active subset.
 #' 
-#' App Runner temporarily doubles the number of provisioned instances
-#' during deployments, to maintain the same capacity for both old and new
-#' code.
+#' App Runner temporarily doubles the number of provisioned instances during deployments, to maintain the same capacity for both old and new code.
 #' 
 #' Default: `1`
-#' @param MaxSize The maximum number of instances that your service scales up to. At most
-#' `MaxSize` instances actively serve traffic for your service.
+#' @param MaxSize The maximum number of instances that your service scales up to. At most `MaxSize` instances actively serve traffic for your service.
 #' 
 #' Default: `25`
-#' @param Tags A list of metadata items that you can associate with your auto scaling
-#' configuration resource. A tag is a key-value pair.
+#' @param Tags A list of metadata items that you can associate with your auto scaling configuration resource. A tag is a key-value pair.
 #'
 #' @keywords internal
 #'
@@ -131,12 +101,9 @@ apprunner_create_auto_scaling_configuration <- function(AutoScalingConfiguration
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_create_connection/](https://www.paws-r-sdk.com/docs/apprunner_create_connection/) for full documentation.
 #'
-#' @param ConnectionName &#91;required&#93; A name for the new connection. It must be unique across all App Runner
-#' connections for the Amazon Web Services account in the Amazon Web
-#' Services Region.
+#' @param ConnectionName &#91;required&#93; A name for the new connection. It must be unique across all App Runner connections for the Amazon Web Services account in the Amazon Web Services Region.
 #' @param ProviderType &#91;required&#93; The source repository provider.
-#' @param Tags A list of metadata items that you can associate with your connection
-#' resource. A tag is a key-value pair.
+#' @param Tags A list of metadata items that you can associate with your connection resource. A tag is a key-value pair.
 #'
 #' @keywords internal
 #'
@@ -167,23 +134,13 @@ apprunner_create_connection <- function(ConnectionName, ProviderType, Tags = NUL
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_create_observability_configuration/](https://www.paws-r-sdk.com/docs/apprunner_create_observability_configuration/) for full documentation.
 #'
-#' @param ObservabilityConfigurationName &#91;required&#93; A name for the observability configuration. When you use it for the
-#' first time in an Amazon Web Services Region, App Runner creates revision
-#' number `1` of this name. When you use the same name in subsequent calls,
-#' App Runner creates incremental revisions of the configuration.
+#' @param ObservabilityConfigurationName &#91;required&#93; A name for the observability configuration. When you use it for the first time in an Amazon Web Services Region, App Runner creates revision number `1` of this name. When you use the same name in subsequent calls, App Runner creates incremental revisions of the configuration.
 #' 
-#' The name `DefaultConfiguration` is reserved. You can't use it to create
-#' a new observability configuration, and you can't create a revision of
-#' it.
+#' The name `DefaultConfiguration` is reserved. You can't use it to create a new observability configuration, and you can't create a revision of it.
 #' 
-#' When you want to use your own observability configuration for your App
-#' Runner service, *create a configuration with a different name*, and then
-#' provide it when you create or update your service.
-#' @param TraceConfiguration The configuration of the tracing feature within this observability
-#' configuration. If you don't specify it, App Runner doesn't enable
-#' tracing.
-#' @param Tags A list of metadata items that you can associate with your observability
-#' configuration resource. A tag is a key-value pair.
+#' When you want to use your own observability configuration for your App Runner service, *create a configuration with a different name*, and then provide it when you create or update your service.
+#' @param TraceConfiguration The configuration of the tracing feature within this observability configuration. If you don't specify it, App Runner doesn't enable tracing.
+#' @param Tags A list of metadata items that you can associate with your observability configuration resource. A tag is a key-value pair.
 #'
 #' @keywords internal
 #'
@@ -214,32 +171,18 @@ apprunner_create_observability_configuration <- function(ObservabilityConfigurat
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_create_service/](https://www.paws-r-sdk.com/docs/apprunner_create_service/) for full documentation.
 #'
-#' @param ServiceName &#91;required&#93; A name for the App Runner service. It must be unique across all the
-#' running App Runner services in your Amazon Web Services account in the
-#' Amazon Web Services Region.
-#' @param SourceConfiguration &#91;required&#93; The source to deploy to the App Runner service. It can be a code or an
-#' image repository.
+#' @param ServiceName &#91;required&#93; A name for the App Runner service. It must be unique across all the running App Runner services in your Amazon Web Services account in the Amazon Web Services Region.
+#' @param SourceConfiguration &#91;required&#93; The source to deploy to the App Runner service. It can be a code or an image repository.
 #' @param InstanceConfiguration The runtime configuration of instances (scaling units) of your service.
-#' @param Tags An optional list of metadata items that you can associate with the App
-#' Runner service resource. A tag is a key-value pair.
-#' @param EncryptionConfiguration An optional custom encryption key that App Runner uses to encrypt the
-#' copy of your source repository that it maintains and your service logs.
-#' By default, App Runner uses an Amazon Web Services managed key.
-#' @param HealthCheckConfiguration The settings for the health check that App Runner performs to monitor
-#' the health of the App Runner service.
-#' @param AutoScalingConfigurationArn The Amazon Resource Name (ARN) of an App Runner automatic scaling
-#' configuration resource that you want to associate with your service. If
-#' not provided, App Runner associates the latest revision of a default
-#' auto scaling configuration.
+#' @param Tags An optional list of metadata items that you can associate with the App Runner service resource. A tag is a key-value pair.
+#' @param EncryptionConfiguration An optional custom encryption key that App Runner uses to encrypt the copy of your source repository that it maintains and your service logs. By default, App Runner uses an Amazon Web Services managed key.
+#' @param HealthCheckConfiguration The settings for the health check that App Runner performs to monitor the health of the App Runner service.
+#' @param AutoScalingConfigurationArn The Amazon Resource Name (ARN) of an App Runner automatic scaling configuration resource that you want to associate with your service. If not provided, App Runner associates the latest revision of a default auto scaling configuration.
 #' 
-#' Specify an ARN with a name and a revision number to associate that
-#' revision. For example:
-#' `arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration/high-availability/3`
+#' Specify an ARN with a name and a revision number to associate that revision. For example: `arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration/high-availability/3`
 #' 
-#' Specify just the name to associate the latest revision. For example:
-#' `arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration/high-availability`
-#' @param NetworkConfiguration Configuration settings related to network traffic of the web application
-#' that the App Runner service runs.
+#' Specify just the name to associate the latest revision. For example: `arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration/high-availability`
+#' @param NetworkConfiguration Configuration settings related to network traffic of the web application that the App Runner service runs.
 #' @param ObservabilityConfiguration The observability configuration of your service.
 #'
 #' @keywords internal
@@ -272,18 +215,11 @@ apprunner_create_service <- function(ServiceName, SourceConfiguration, InstanceC
 #' See [https://www.paws-r-sdk.com/docs/apprunner_create_vpc_connector/](https://www.paws-r-sdk.com/docs/apprunner_create_vpc_connector/) for full documentation.
 #'
 #' @param VpcConnectorName &#91;required&#93; A name for the VPC connector.
-#' @param Subnets &#91;required&#93; A list of IDs of subnets that App Runner should use when it associates
-#' your service with a custom Amazon VPC. Specify IDs of subnets of a
-#' single Amazon VPC. App Runner determines the Amazon VPC from the subnets
-#' you specify.
+#' @param Subnets &#91;required&#93; A list of IDs of subnets that App Runner should use when it associates your service with a custom Amazon VPC. Specify IDs of subnets of a single Amazon VPC. App Runner determines the Amazon VPC from the subnets you specify.
 #' 
-#' App Runner currently only provides support for IPv4.
-#' @param SecurityGroups A list of IDs of security groups that App Runner should use for access
-#' to Amazon Web Services resources under the specified subnets. If not
-#' specified, App Runner uses the default security group of the Amazon VPC.
-#' The default security group allows all outbound traffic.
-#' @param Tags A list of metadata items that you can associate with your VPC connector
-#' resource. A tag is a key-value pair.
+#' App Runner only supports subnets of IP address type *IPv4* and *dual stack* (IPv4 and IPv6).
+#' @param SecurityGroups A list of IDs of security groups that App Runner should use for access to Amazon Web Services resources under the specified subnets. If not specified, App Runner uses the default security group of the Amazon VPC. The default security group allows all outbound traffic.
+#' @param Tags A list of metadata items that you can associate with your VPC connector resource. A tag is a key-value pair.
 #'
 #' @keywords internal
 #'
@@ -314,16 +250,10 @@ apprunner_create_vpc_connector <- function(VpcConnectorName, Subnets, SecurityGr
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_create_vpc_ingress_connection/](https://www.paws-r-sdk.com/docs/apprunner_create_vpc_ingress_connection/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) for this App Runner service that is used
-#' to create the VPC Ingress Connection resource.
-#' @param VpcIngressConnectionName &#91;required&#93; A name for the VPC Ingress Connection resource. It must be unique across
-#' all the active VPC Ingress Connections in your Amazon Web Services
-#' account in the Amazon Web Services Region.
-#' @param IngressVpcConfiguration &#91;required&#93; Specifications for the customer’s Amazon VPC and the related Amazon Web
-#' Services PrivateLink VPC endpoint that are used to create the VPC
-#' Ingress Connection resource.
-#' @param Tags An optional list of metadata items that you can associate with the VPC
-#' Ingress Connection resource. A tag is a key-value pair.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) for this App Runner service that is used to create the VPC Ingress Connection resource.
+#' @param VpcIngressConnectionName &#91;required&#93; A name for the VPC Ingress Connection resource. It must be unique across all the active VPC Ingress Connections in your Amazon Web Services account in the Amazon Web Services Region.
+#' @param IngressVpcConfiguration &#91;required&#93; Specifications for the customer’s Amazon VPC and the related Amazon Web Services PrivateLink VPC endpoint that are used to create the VPC Ingress Connection resource.
+#' @param Tags An optional list of metadata items that you can associate with the VPC Ingress Connection resource. A tag is a key-value pair.
 #'
 #' @keywords internal
 #'
@@ -354,17 +284,12 @@ apprunner_create_vpc_ingress_connection <- function(ServiceArn, VpcIngressConnec
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_delete_auto_scaling_configuration/](https://www.paws-r-sdk.com/docs/apprunner_delete_auto_scaling_configuration/) for full documentation.
 #'
-#' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling
-#' configuration that you want to delete.
+#' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling configuration that you want to delete.
 #' 
-#' The ARN can be a full auto scaling configuration ARN, or a partial ARN
-#' ending with either `.../name ` or `.../name/revision `. If a revision
-#' isn't specified, the latest active revision is deleted.
-#' @param DeleteAllRevisions Set to `true` to delete all of the revisions associated with the
-#' `AutoScalingConfigurationArn` parameter value.
+#' The ARN can be a full auto scaling configuration ARN, or a partial ARN ending with either `.../name ` or `.../name/revision `. If a revision isn't specified, the latest active revision is deleted.
+#' @param DeleteAllRevisions Set to `true` to delete all of the revisions associated with the `AutoScalingConfigurationArn` parameter value.
 #' 
-#' When `DeleteAllRevisions` is set to `true`, the only valid value for the
-#' Amazon Resource Name (ARN) is a partial ARN ending with: `.../name`.
+#' When `DeleteAllRevisions` is set to `true`, the only valid value for the Amazon Resource Name (ARN) is a partial ARN ending with: `.../name`.
 #'
 #' @keywords internal
 #'
@@ -395,8 +320,7 @@ apprunner_delete_auto_scaling_configuration <- function(AutoScalingConfiguration
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_delete_connection/](https://www.paws-r-sdk.com/docs/apprunner_delete_connection/) for full documentation.
 #'
-#' @param ConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner connection that you
-#' want to delete.
+#' @param ConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner connection that you want to delete.
 #'
 #' @keywords internal
 #'
@@ -427,12 +351,9 @@ apprunner_delete_connection <- function(ConnectionArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_delete_observability_configuration/](https://www.paws-r-sdk.com/docs/apprunner_delete_observability_configuration/) for full documentation.
 #'
-#' @param ObservabilityConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner observability
-#' configuration that you want to delete.
+#' @param ObservabilityConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner observability configuration that you want to delete.
 #' 
-#' The ARN can be a full observability configuration ARN, or a partial ARN
-#' ending with either `.../name ` or `.../name/revision `. If a revision
-#' isn't specified, the latest active revision is deleted.
+#' The ARN can be a full observability configuration ARN, or a partial ARN ending with either `.../name ` or `.../name/revision `. If a revision isn't specified, the latest active revision is deleted.
 #'
 #' @keywords internal
 #'
@@ -463,8 +384,7 @@ apprunner_delete_observability_configuration <- function(ObservabilityConfigurat
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_delete_service/](https://www.paws-r-sdk.com/docs/apprunner_delete_service/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
-#' to delete.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want to delete.
 #'
 #' @keywords internal
 #'
@@ -495,8 +415,7 @@ apprunner_delete_service <- function(ServiceArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_delete_vpc_connector/](https://www.paws-r-sdk.com/docs/apprunner_delete_vpc_connector/) for full documentation.
 #'
-#' @param VpcConnectorArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC connector that you
-#' want to delete.
+#' @param VpcConnectorArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC connector that you want to delete.
 #' 
 #' The ARN must be a full VPC connector ARN.
 #'
@@ -530,8 +449,7 @@ apprunner_delete_vpc_connector <- function(VpcConnectorArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_delete_vpc_ingress_connection/](https://www.paws-r-sdk.com/docs/apprunner_delete_vpc_ingress_connection/) for full documentation.
 #'
-#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection
-#' that you want to delete.
+#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection that you want to delete.
 #'
 #' @keywords internal
 #'
@@ -563,12 +481,9 @@ apprunner_delete_vpc_ingress_connection <- function(VpcIngressConnectionArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_describe_auto_scaling_configuration/](https://www.paws-r-sdk.com/docs/apprunner_describe_auto_scaling_configuration/) for full documentation.
 #'
-#' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling
-#' configuration that you want a description for.
+#' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling configuration that you want a description for.
 #' 
-#' The ARN can be a full auto scaling configuration ARN, or a partial ARN
-#' ending with either `.../name ` or `.../name/revision `. If a revision
-#' isn't specified, the latest active revision is described.
+#' The ARN can be a full auto scaling configuration ARN, or a partial ARN ending with either `.../name ` or `.../name/revision `. If a revision isn't specified, the latest active revision is described.
 #'
 #' @keywords internal
 #'
@@ -600,19 +515,13 @@ apprunner_describe_auto_scaling_configuration <- function(AutoScalingConfigurati
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_describe_custom_domains/](https://www.paws-r-sdk.com/docs/apprunner_describe_custom_domains/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
-#' associated custom domain names to be described for.
-#' @param NextToken A token from a previous result page. It's used for a paginated request.
-#' The request retrieves the next result page. All other parameter values
-#' must be identical to the ones that are specified in the initial request.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want associated custom domain names to be described for.
+#' @param NextToken A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones that are specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
-#' @param MaxResults The maximum number of results that each response (result page) can
-#' include. It's used for a paginated request.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
+#' @param MaxResults The maximum number of results that each response (result page) can include. It's used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
 #'
 #' @keywords internal
 #'
@@ -644,12 +553,9 @@ apprunner_describe_custom_domains <- function(ServiceArn, NextToken = NULL, MaxR
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_describe_observability_configuration/](https://www.paws-r-sdk.com/docs/apprunner_describe_observability_configuration/) for full documentation.
 #'
-#' @param ObservabilityConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner observability
-#' configuration that you want a description for.
+#' @param ObservabilityConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner observability configuration that you want a description for.
 #' 
-#' The ARN can be a full observability configuration ARN, or a partial ARN
-#' ending with either `.../name ` or `.../name/revision `. If a revision
-#' isn't specified, the latest active revision is described.
+#' The ARN can be a full observability configuration ARN, or a partial ARN ending with either `.../name ` or `.../name/revision `. If a revision isn't specified, the latest active revision is described.
 #'
 #' @keywords internal
 #'
@@ -680,8 +586,7 @@ apprunner_describe_observability_configuration <- function(ObservabilityConfigur
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_describe_service/](https://www.paws-r-sdk.com/docs/apprunner_describe_service/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want a
-#' description for.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want a description for.
 #'
 #' @keywords internal
 #'
@@ -712,8 +617,7 @@ apprunner_describe_service <- function(ServiceArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_describe_vpc_connector/](https://www.paws-r-sdk.com/docs/apprunner_describe_vpc_connector/) for full documentation.
 #'
-#' @param VpcConnectorArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC connector that you
-#' want a description for.
+#' @param VpcConnectorArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC connector that you want a description for.
 #' 
 #' The ARN must be a full VPC connector ARN.
 #'
@@ -747,8 +651,7 @@ apprunner_describe_vpc_connector <- function(VpcConnectorArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_describe_vpc_ingress_connection/](https://www.paws-r-sdk.com/docs/apprunner_describe_vpc_ingress_connection/) for full documentation.
 #'
-#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection
-#' that you want a description for.
+#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner VPC Ingress Connection that you want a description for.
 #'
 #' @keywords internal
 #'
@@ -779,10 +682,8 @@ apprunner_describe_vpc_ingress_connection <- function(VpcIngressConnectionArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_disassociate_custom_domain/](https://www.paws-r-sdk.com/docs/apprunner_disassociate_custom_domain/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
-#' to disassociate a custom domain name from.
-#' @param DomainName &#91;required&#93; The domain name that you want to disassociate from the App Runner
-#' service.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want to disassociate a custom domain name from.
+#' @param DomainName &#91;required&#93; The domain name that you want to disassociate from the App Runner service.
 #'
 #' @keywords internal
 #'
@@ -814,28 +715,18 @@ apprunner_disassociate_custom_domain <- function(ServiceArn, DomainName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_auto_scaling_configurations/](https://www.paws-r-sdk.com/docs/apprunner_list_auto_scaling_configurations/) for full documentation.
 #'
-#' @param AutoScalingConfigurationName The name of the App Runner auto scaling configuration that you want to
-#' list. If specified, App Runner lists revisions that share this name. If
-#' not specified, App Runner returns revisions of all active
-#' configurations.
-#' @param LatestOnly Set to `true` to list only the latest revision for each requested
-#' configuration name.
+#' @param AutoScalingConfigurationName The name of the App Runner auto scaling configuration that you want to list. If specified, App Runner lists revisions that share this name. If not specified, App Runner returns revisions of all active configurations.
+#' @param LatestOnly Set to `true` to list only the latest revision for each requested configuration name.
 #' 
-#' Set to `false` to list all revisions for each requested configuration
-#' name.
+#' Set to `false` to list all revisions for each requested configuration name.
 #' 
 #' Default: `true`
-#' @param MaxResults The maximum number of results to include in each response (result page).
-#' It's used for a paginated request.
+#' @param MaxResults The maximum number of results to include in each response (result page). It's used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
-#' @param NextToken A token from a previous result page. It's used for a paginated request.
-#' The request retrieves the next result page. All other parameter values
-#' must be identical to the ones that are specified in the initial request.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
+#' @param NextToken A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones that are specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
 #'
 #' @keywords internal
 #'
@@ -867,19 +758,13 @@ apprunner_list_auto_scaling_configurations <- function(AutoScalingConfigurationN
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_connections/](https://www.paws-r-sdk.com/docs/apprunner_list_connections/) for full documentation.
 #'
-#' @param ConnectionName If specified, only this connection is returned. If not specified, the
-#' result isn't filtered by name.
-#' @param MaxResults The maximum number of results to include in each response (result page).
-#' Used for a paginated request.
+#' @param ConnectionName If specified, only this connection is returned. If not specified, the result isn't filtered by name.
+#' @param MaxResults The maximum number of results to include in each response (result page). Used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
-#' @param NextToken A token from a previous result page. Used for a paginated request. The
-#' request retrieves the next result page. All other parameter values must
-#' be identical to the ones specified in the initial request.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
+#' @param NextToken A token from a previous result page. Used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
 #'
 #' @keywords internal
 #'
@@ -911,28 +796,18 @@ apprunner_list_connections <- function(ConnectionName = NULL, MaxResults = NULL,
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_observability_configurations/](https://www.paws-r-sdk.com/docs/apprunner_list_observability_configurations/) for full documentation.
 #'
-#' @param ObservabilityConfigurationName The name of the App Runner observability configuration that you want to
-#' list. If specified, App Runner lists revisions that share this name. If
-#' not specified, App Runner returns revisions of all active
-#' configurations.
-#' @param LatestOnly Set to `true` to list only the latest revision for each requested
-#' configuration name.
+#' @param ObservabilityConfigurationName The name of the App Runner observability configuration that you want to list. If specified, App Runner lists revisions that share this name. If not specified, App Runner returns revisions of all active configurations.
+#' @param LatestOnly Set to `true` to list only the latest revision for each requested configuration name.
 #' 
-#' Set to `false` to list all revisions for each requested configuration
-#' name.
+#' Set to `false` to list all revisions for each requested configuration name.
 #' 
 #' Default: `true`
-#' @param MaxResults The maximum number of results to include in each response (result page).
-#' It's used for a paginated request.
+#' @param MaxResults The maximum number of results to include in each response (result page). It's used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
-#' @param NextToken A token from a previous result page. It's used for a paginated request.
-#' The request retrieves the next result page. All other parameter values
-#' must be identical to the ones that are specified in the initial request.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
+#' @param NextToken A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones that are specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
 #'
 #' @keywords internal
 #'
@@ -963,19 +838,13 @@ apprunner_list_observability_configurations <- function(ObservabilityConfigurati
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_operations/](https://www.paws-r-sdk.com/docs/apprunner_list_operations/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want a
-#' list of operations for.
-#' @param NextToken A token from a previous result page. It's used for a paginated request.
-#' The request retrieves the next result page. All other parameter values
-#' must be identical to the ones specified in the initial request.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want a list of operations for.
+#' @param NextToken A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
-#' @param MaxResults The maximum number of results to include in each response (result page).
-#' It's used for a paginated request.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
+#' @param MaxResults The maximum number of results to include in each response (result page). It's used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
 #'
 #' @keywords internal
 #'
@@ -1007,17 +876,12 @@ apprunner_list_operations <- function(ServiceArn, NextToken = NULL, MaxResults =
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_services/](https://www.paws-r-sdk.com/docs/apprunner_list_services/) for full documentation.
 #'
-#' @param NextToken A token from a previous result page. Used for a paginated request. The
-#' request retrieves the next result page. All other parameter values must
-#' be identical to the ones specified in the initial request.
+#' @param NextToken A token from a previous result page. Used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
-#' @param MaxResults The maximum number of results to include in each response (result page).
-#' It's used for a paginated request.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
+#' @param MaxResults The maximum number of results to include in each response (result page). It's used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
 #'
 #' @keywords internal
 #'
@@ -1049,23 +913,15 @@ apprunner_list_services <- function(NextToken = NULL, MaxResults = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_services_for_auto_scaling_configuration/](https://www.paws-r-sdk.com/docs/apprunner_list_services_for_auto_scaling_configuration/) for full documentation.
 #'
-#' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling
-#' configuration that you want to list the services for.
+#' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling configuration that you want to list the services for.
 #' 
-#' The ARN can be a full auto scaling configuration ARN, or a partial ARN
-#' ending with either `.../name ` or `.../name/revision `. If a revision
-#' isn't specified, the latest active revision is used.
-#' @param MaxResults The maximum number of results to include in each response (result page).
-#' It's used for a paginated request.
+#' The ARN can be a full auto scaling configuration ARN, or a partial ARN ending with either `.../name ` or `.../name/revision `. If a revision isn't specified, the latest active revision is used.
+#' @param MaxResults The maximum number of results to include in each response (result page). It's used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
-#' @param NextToken A token from a previous result page. It's used for a paginated request.
-#' The request retrieves the next result page. All other parameter values
-#' must be identical to the ones specified in the initial request.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
+#' @param NextToken A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
 #'
 #' @keywords internal
 #'
@@ -1096,8 +952,7 @@ apprunner_list_services_for_auto_scaling_configuration <- function(AutoScalingCo
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/apprunner_list_tags_for_resource/) for full documentation.
 #'
-#' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that a tag list is
-#' requested for.
+#' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that a tag list is requested for.
 #' 
 #' It must be the ARN of an App Runner resource.
 #'
@@ -1131,17 +986,12 @@ apprunner_list_tags_for_resource <- function(ResourceArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_vpc_connectors/](https://www.paws-r-sdk.com/docs/apprunner_list_vpc_connectors/) for full documentation.
 #'
-#' @param MaxResults The maximum number of results to include in each response (result page).
-#' It's used for a paginated request.
+#' @param MaxResults The maximum number of results to include in each response (result page). It's used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
-#' @param NextToken A token from a previous result page. It's used for a paginated request.
-#' The request retrieves the next result page. All other parameter values
-#' must be identical to the ones that are specified in the initial request.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
+#' @param NextToken A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones that are specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
 #'
 #' @keywords internal
 #'
@@ -1173,19 +1023,13 @@ apprunner_list_vpc_connectors <- function(MaxResults = NULL, NextToken = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_list_vpc_ingress_connections/](https://www.paws-r-sdk.com/docs/apprunner_list_vpc_ingress_connections/) for full documentation.
 #'
-#' @param Filter The VPC Ingress Connections to be listed based on either the Service Arn
-#' or Vpc Endpoint Id, or both.
-#' @param MaxResults The maximum number of results to include in each response (result page).
-#' It's used for a paginated request.
+#' @param Filter The VPC Ingress Connections to be listed based on either the Service Arn or Vpc Endpoint Id, or both.
+#' @param MaxResults The maximum number of results to include in each response (result page). It's used for a paginated request.
 #' 
-#' If you don't specify `MaxResults`, the request retrieves all available
-#' results in a single response.
-#' @param NextToken A token from a previous result page. It's used for a paginated request.
-#' The request retrieves the next result page. All other parameter values
-#' must be identical to the ones that are specified in the initial request.
+#' If you don't specify `MaxResults`, the request retrieves all available results in a single response.
+#' @param NextToken A token from a previous result page. It's used for a paginated request. The request retrieves the next result page. All other parameter values must be identical to the ones that are specified in the initial request.
 #' 
-#' If you don't specify `NextToken`, the request retrieves the first result
-#' page.
+#' If you don't specify `NextToken`, the request retrieves the first result page.
 #'
 #' @keywords internal
 #'
@@ -1216,8 +1060,7 @@ apprunner_list_vpc_ingress_connections <- function(Filter = NULL, MaxResults = N
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_pause_service/](https://www.paws-r-sdk.com/docs/apprunner_pause_service/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
-#' to pause.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want to pause.
 #'
 #' @keywords internal
 #'
@@ -1248,8 +1091,7 @@ apprunner_pause_service <- function(ServiceArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_resume_service/](https://www.paws-r-sdk.com/docs/apprunner_resume_service/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
-#' to resume.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want to resume.
 #'
 #' @keywords internal
 #'
@@ -1282,8 +1124,7 @@ apprunner_resume_service <- function(ServiceArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_start_deployment/](https://www.paws-r-sdk.com/docs/apprunner_start_deployment/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
-#' to manually deploy to.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want to manually deploy to.
 #'
 #' @keywords internal
 #'
@@ -1314,13 +1155,10 @@ apprunner_start_deployment <- function(ServiceArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_tag_resource/](https://www.paws-r-sdk.com/docs/apprunner_tag_resource/) for full documentation.
 #'
-#' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that you want to update
-#' tags for.
+#' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that you want to update tags for.
 #' 
 #' It must be the ARN of an App Runner resource.
-#' @param Tags &#91;required&#93; A list of tag key-value pairs to add or update. If a key is new to the
-#' resource, the tag is added with the provided value. If a key is already
-#' associated with the resource, the value of the tag is updated.
+#' @param Tags &#91;required&#93; A list of tag key-value pairs to add or update. If a key is new to the resource, the tag is added with the provided value. If a key is already associated with the resource, the value of the tag is updated.
 #'
 #' @keywords internal
 #'
@@ -1351,8 +1189,7 @@ apprunner_tag_resource <- function(ResourceArn, Tags) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_untag_resource/](https://www.paws-r-sdk.com/docs/apprunner_untag_resource/) for full documentation.
 #'
-#' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that you want to remove
-#' tags from.
+#' @param ResourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that you want to remove tags from.
 #' 
 #' It must be the ARN of an App Runner resource.
 #' @param TagKeys &#91;required&#93; A list of tag keys that you want to remove.
@@ -1386,12 +1223,9 @@ apprunner_untag_resource <- function(ResourceArn, TagKeys) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_update_default_auto_scaling_configuration/](https://www.paws-r-sdk.com/docs/apprunner_update_default_auto_scaling_configuration/) for full documentation.
 #'
-#' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling
-#' configuration that you want to set as the default.
+#' @param AutoScalingConfigurationArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner auto scaling configuration that you want to set as the default.
 #' 
-#' The ARN can be a full auto scaling configuration ARN, or a partial ARN
-#' ending with either `.../name ` or `.../name/revision `. If a revision
-#' isn't specified, the latest active revision is set as the default.
+#' The ARN can be a full auto scaling configuration ARN, or a partial ARN ending with either `.../name ` or `.../name/revision `. If a revision isn't specified, the latest active revision is set as the default.
 #'
 #' @keywords internal
 #'
@@ -1422,27 +1256,14 @@ apprunner_update_default_auto_scaling_configuration <- function(AutoScalingConfi
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_update_service/](https://www.paws-r-sdk.com/docs/apprunner_update_service/) for full documentation.
 #'
-#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want
-#' to update.
+#' @param ServiceArn &#91;required&#93; The Amazon Resource Name (ARN) of the App Runner service that you want to update.
 #' @param SourceConfiguration The source configuration to apply to the App Runner service.
 #' 
-#' You can change the configuration of the code or image repository that
-#' the service uses. However, you can't switch from code to image or the
-#' other way around. This means that you must provide the same structure
-#' member of `SourceConfiguration` that you originally included when you
-#' created the service. Specifically, you can include either
-#' `CodeRepository` or `ImageRepository`. To update the source
-#' configuration, set the values to members of the structure that you
-#' include.
-#' @param InstanceConfiguration The runtime configuration to apply to instances (scaling units) of your
-#' service.
-#' @param AutoScalingConfigurationArn The Amazon Resource Name (ARN) of an App Runner automatic scaling
-#' configuration resource that you want to associate with the App Runner
-#' service.
-#' @param HealthCheckConfiguration The settings for the health check that App Runner performs to monitor
-#' the health of the App Runner service.
-#' @param NetworkConfiguration Configuration settings related to network traffic of the web application
-#' that the App Runner service runs.
+#' You can change the configuration of the code or image repository that the service uses. However, you can't switch from code to image or the other way around. This means that you must provide the same structure member of `SourceConfiguration` that you originally included when you created the service. Specifically, you can include either `CodeRepository` or `ImageRepository`. To update the source configuration, set the values to members of the structure that you include.
+#' @param InstanceConfiguration The runtime configuration to apply to instances (scaling units) of your service.
+#' @param AutoScalingConfigurationArn The Amazon Resource Name (ARN) of an App Runner automatic scaling configuration resource that you want to associate with the App Runner service.
+#' @param HealthCheckConfiguration The settings for the health check that App Runner performs to monitor the health of the App Runner service.
+#' @param NetworkConfiguration Configuration settings related to network traffic of the web application that the App Runner service runs.
 #' @param ObservabilityConfiguration The observability configuration of your service.
 #'
 #' @keywords internal
@@ -1474,11 +1295,8 @@ apprunner_update_service <- function(ServiceArn, SourceConfiguration = NULL, Ins
 #'
 #' See [https://www.paws-r-sdk.com/docs/apprunner_update_vpc_ingress_connection/](https://www.paws-r-sdk.com/docs/apprunner_update_vpc_ingress_connection/) for full documentation.
 #'
-#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (Arn) for the App Runner VPC Ingress Connection
-#' resource that you want to update.
-#' @param IngressVpcConfiguration &#91;required&#93; Specifications for the customer’s Amazon VPC and the related Amazon Web
-#' Services PrivateLink VPC endpoint that are used to update the VPC
-#' Ingress Connection resource.
+#' @param VpcIngressConnectionArn &#91;required&#93; The Amazon Resource Name (Arn) for the App Runner VPC Ingress Connection resource that you want to update.
+#' @param IngressVpcConfiguration &#91;required&#93; Specifications for the customer’s Amazon VPC and the related Amazon Web Services PrivateLink VPC endpoint that are used to update the VPC Ingress Connection resource.
 #'
 #' @keywords internal
 #'

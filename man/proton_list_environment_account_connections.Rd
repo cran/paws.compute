@@ -13,18 +13,13 @@ proton_list_environment_account_connections(
 )
 }
 \arguments{
-\item{environmentName}{The environment name that's associated with each listed environment
-account connection.}
+\item{environmentName}{The environment name that's associated with each listed environment account connection.}
 
 \item{maxResults}{The maximum number of environment account connections to list.}
 
-\item{nextToken}{A token that indicates the location of the next environment account
-connection in the array of environment account connections, after the
-list of environment account connections that was previously requested.}
+\item{nextToken}{A token that indicates the location of the next environment account connection in the array of environment account connections, after the list of environment account connections that was previously requested.}
 
-\item{requestedBy}{[required] The type of account making the
-\code{\link[=proton_list_environment_account_connections]{list_environment_account_connections}}
-request.}
+\item{requestedBy}{[required] The type of account making the \code{\link[=proton_list_environment_account_connections]{list_environment_account_connections}} request.}
 
 \item{statuses}{The status details for each listed environment account connection.}
 }

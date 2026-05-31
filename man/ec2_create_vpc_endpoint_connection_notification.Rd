@@ -15,10 +15,7 @@ ec2_create_vpc_endpoint_connection_notification(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ServiceId}{The ID of the endpoint service.}
 
@@ -26,11 +23,9 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ConnectionNotificationArn}{[required] The ARN of the SNS topic for the notifications.}
 
-\item{ConnectionEvents}{[required] The endpoint events for which to receive notifications. Valid values are
-\code{Accept}, \code{Connect}, \code{Delete}, and \code{Reject}.}
+\item{ConnectionEvents}{[required] The endpoint events for which to receive notifications. Valid values are \code{Accept}, \code{Connect}, \code{Delete}, and \code{Reject}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
 }
 \description{
 Creates a connection notification for a specified VPC endpoint or VPC endpoint service. A connection notification notifies you of specific endpoint events. You must create an SNS topic to receive notifications. For more information, see \href{https://docs.aws.amazon.com/sns/latest/dg/sns-create-topic.html}{Creating an Amazon SNS topic} in the \emph{Amazon SNS Developer Guide}.

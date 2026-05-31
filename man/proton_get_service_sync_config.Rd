@@ -7,8 +7,7 @@
 proton_get_service_sync_config(serviceName)
 }
 \arguments{
-\item{serviceName}{[required] The name of the service that you want to get the service sync
-configuration for.}
+\item{serviceName}{[required] The name of the service that you want to get the service sync configuration for.}
 }
 \description{
 Get detailed information for the service sync configuration.

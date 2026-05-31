@@ -12,8 +12,7 @@ lightsail_stop_relational_database(
 \arguments{
 \item{relationalDatabaseName}{[required] The name of your database to stop.}
 
-\item{relationalDatabaseSnapshotName}{The name of your new database snapshot to be created before stopping
-your database.}
+\item{relationalDatabaseSnapshotName}{The name of your new database snapshot to be created before stopping your database.}
 }
 \description{
 Stops a specific database that is currently running in Amazon Lightsail.

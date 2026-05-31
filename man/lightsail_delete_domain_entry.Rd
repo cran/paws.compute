@@ -9,8 +9,7 @@ lightsail_delete_domain_entry(domainName, domainEntry)
 \arguments{
 \item{domainName}{[required] The name of the domain entry to delete.}
 
-\item{domainEntry}{[required] An array of key-value pairs containing information about your domain
-entries.}
+\item{domainEntry}{[required] An array of key-value pairs containing information about your domain entries.}
 }
 \description{
 Deletes a specific domain entry.

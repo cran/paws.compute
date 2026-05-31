@@ -13,17 +13,13 @@ ec2_get_ipam_pool_cidrs(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamPoolId}{[required] The ID of the IPAM pool you want the CIDR for.}
 
-\item{Filters}{One or more filters for the request. For more information about
-filtering, see \href{https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html}{Filtering CLI output}.}
+\item{Filters}{One or more filters for the request. For more information about filtering, see \href{https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html}{Filtering CLI output}.}
 
-\item{MaxResults}{The maximum number of results to return in the request.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
 \item{NextToken}{The token for the next page of results.}
 }

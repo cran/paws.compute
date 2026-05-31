@@ -13,23 +13,15 @@ ec2_update_security_group_rule_descriptions_egress(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{GroupId}{The ID of the security group. You must specify either the security group
-ID or the security group name in the request. For security groups in a
-nondefault VPC, you must specify the security group ID.}
+\item{GroupId}{The ID of the security group. You must specify either the security group ID or the security group name in the request. For security groups in a nondefault VPC, you must specify the security group ID.}
 
-\item{GroupName}{[Default VPC] The name of the security group. You must specify either
-the security group ID or the security group name.}
+\item{GroupName}{[Default VPC] The name of the security group. You must specify either the security group ID or the security group name.}
 
-\item{IpPermissions}{The IP permissions for the security group rule. You must specify either
-the IP permissions or the description.}
+\item{IpPermissions}{The IP permissions for the security group rule. You must specify either the IP permissions or the description.}
 
-\item{SecurityGroupRuleDescriptions}{The description for the egress security group rules. You must specify
-either the description or the IP permissions.}
+\item{SecurityGroupRuleDescriptions}{The description for the egress security group rules. You must specify either the description or the IP permissions.}
 }
 \description{
 Updates the description of an egress (outbound) security group rule. You can replace an existing description, or add a description to a rule that did not have one previously. You can remove a description for a security group rule by omitting the description parameter in the request.

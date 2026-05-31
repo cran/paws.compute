@@ -6,6 +6,7 @@
 \usage{
 ec2_describe_instances(
   InstanceIds = NULL,
+  IncludeManagedResources = NULL,
   DryRun = NULL,
   Filters = NULL,
   NextToken = NULL,
@@ -17,331 +18,155 @@ ec2_describe_instances(
 
 Default: Describes all your instances.}
 
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{IncludeManagedResources}{Indicates whether to include managed resources in the output. If this parameter is set to \code{true}, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.}
+
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{affinity} - The affinity setting for an instance running on a
-Dedicated Host (\code{default} | \code{host}).
-\item \code{architecture} - The instance architecture (\code{i386} | \code{x86_64} |
-\code{arm64}).
+\item \code{affinity} - The affinity setting for an instance running on a Dedicated Host (\code{default} | \code{host}).
+\item \code{architecture} - The instance architecture (\code{i386} | \code{x86_64} | \code{arm64}).
 \item \code{availability-zone} - The Availability Zone of the instance.
-\item \code{block-device-mapping.attach-time} - The attach time for an EBS
-volume mapped to the instance, for example,
-\verb{2022-09-15T17:15:20.000Z}.
-\item \code{block-device-mapping.delete-on-termination} - A Boolean that
-indicates whether the EBS volume is deleted on instance termination.
-\item \code{block-device-mapping.device-name} - The device name specified in
-the block device mapping (for example, \verb{/dev/sdh} or \code{xvdh}).
-\item \code{block-device-mapping.status} - The status for the EBS volume
-(\code{attaching} | \code{attached} | \code{detaching} | \code{detached}).
+\item \code{availability-zone-id} - The ID of the Availability Zone of the instance.
+\item \code{block-device-mapping.attach-time} - The attach time for an EBS volume mapped to the instance, for example, \verb{2022-09-15T17:15:20.000Z}.
+\item \code{block-device-mapping.delete-on-termination} - A Boolean that indicates whether the EBS volume is deleted on instance termination.
+\item \code{block-device-mapping.device-name} - The device name specified in the block device mapping (for example, \verb{/dev/sdh} or \code{xvdh}).
+\item \code{block-device-mapping.status} - The status for the EBS volume (\code{attaching} | \code{attached} | \code{detaching} | \code{detached}).
 \item \code{block-device-mapping.volume-id} - The volume ID of the EBS volume.
-\item \code{boot-mode} - The boot mode that was specified by the AMI
-(\code{legacy-bios} | \code{uefi} | \code{uefi-preferred}).
-\item \code{capacity-reservation-id} - The ID of the Capacity Reservation into
-which the instance was launched.
-\item \code{capacity-reservation-specification.capacity-reservation-preference} -
-The instance's Capacity Reservation preference (\code{open} | \code{none}).
-\item \code{capacity-reservation-specification.capacity-reservation-target.capacity-reservation-id} -
-The ID of the targeted Capacity Reservation.
-\item \code{capacity-reservation-specification.capacity-reservation-target.capacity-reservation-resource-group-arn} -
-The ARN of the targeted Capacity Reservation group.
-\item \code{client-token} - The idempotency token you provided when you
-launched the instance.
-\item \code{current-instance-boot-mode} - The boot mode that is used to launch
-the instance at launch or start (\code{legacy-bios} | \code{uefi}).
+\item \code{boot-mode} - The boot mode that was specified by the AMI (\code{legacy-bios} | \code{uefi} | \code{uefi-preferred}).
+\item \code{capacity-reservation-id} - The ID of the Capacity Reservation into which the instance was launched.
+\item \code{capacity-reservation-specification.capacity-reservation-preference} - The instance's Capacity Reservation preference (\code{open} | \code{none}).
+\item \code{capacity-reservation-specification.capacity-reservation-target.capacity-reservation-id} - The ID of the targeted Capacity Reservation.
+\item \code{capacity-reservation-specification.capacity-reservation-target.capacity-reservation-resource-group-arn} - The ARN of the targeted Capacity Reservation group.
+\item \code{client-token} - The idempotency token you provided when you launched the instance.
+\item \code{current-instance-boot-mode} - The boot mode that is used to launch the instance at launch or start (\code{legacy-bios} | \code{uefi}).
 \item \code{dns-name} - The public DNS name of the instance.
-\item \code{ebs-optimized} - A Boolean that indicates whether the instance is
-optimized for Amazon EBS I/O.
-\item \code{ena-support} - A Boolean that indicates whether the instance is
-enabled for enhanced networking with ENA.
-\item \code{enclave-options.enabled} - A Boolean that indicates whether the
-instance is enabled for Amazon Web Services Nitro Enclaves.
-\item \code{hibernation-options.configured} - A Boolean that indicates whether
-the instance is enabled for hibernation. A value of \code{true} means
-that the instance is enabled for hibernation.
-\item \code{host-id} - The ID of the Dedicated Host on which the instance is
-running, if applicable.
-\item \code{hypervisor} - The hypervisor type of the instance (\code{ovm} | \code{xen}).
-The value \code{xen} is used for both Xen and Nitro hypervisors.
-\item \code{iam-instance-profile.arn} - The instance profile associated with
-the instance. Specified as an ARN.
-\item \code{iam-instance-profile.id} - The instance profile associated with the
-instance. Specified as an ID.
+\item \code{ebs-optimized} - A Boolean that indicates whether the instance is optimized for Amazon EBS I/O.
+\item \code{ena-support} - A Boolean that indicates whether the instance is enabled for enhanced networking with ENA.
+\item \code{enclave-options.enabled} - A Boolean that indicates whether the instance is enabled for Amazon Web Services Nitro Enclaves.
+\item \code{hibernation-options.configured} - A Boolean that indicates whether the instance is enabled for hibernation. A value of \code{true} means that the instance is enabled for hibernation.
+\item \code{host-id} - The ID of the Dedicated Host on which the instance is running, if applicable.
+\item \code{hypervisor} - The hypervisor type of the instance (\code{ovm} | \code{xen}). The value \code{xen} is used for both Xen and Nitro hypervisors.
+\item \code{iam-instance-profile.arn} - The instance profile associated with the instance. Specified as an ARN.
+\item \code{iam-instance-profile.id} - The instance profile associated with the instance. Specified as an ID.
 \item \code{image-id} - The ID of the image used to launch the instance.
 \item \code{instance-id} - The ID of the instance.
-\item \code{instance-lifecycle} - Indicates whether this is a Spot Instance, a
-Scheduled Instance, or a Capacity Block (\code{spot} | \code{scheduled} |
-\code{capacity-block}).
-\item \code{instance-state-code} - The state of the instance, as a 16-bit
-unsigned integer. The high byte is used for internal purposes and
-should be ignored. The low byte is set based on the state
-represented. The valid values are: 0 (pending), 16 (running), 32
-(shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
-\item \code{instance-state-name} - The state of the instance (\code{pending} |
-\code{running} | \code{shutting-down} | \code{terminated} | \code{stopping} |
-\code{stopped}).
+\item \code{instance-lifecycle} - Indicates whether this is a Spot Instance, a Scheduled Instance, or a Capacity Block (\code{spot} | \code{scheduled} | \code{capacity-block}).
+\item \code{instance-state-code} - The state of the instance, as a 16-bit unsigned integer. The high byte is used for internal purposes and should be ignored. The low byte is set based on the state represented. The valid values are: 0 (pending), 16 (running), 32 (shutting-down), 48 (terminated), 64 (stopping), and 80 (stopped).
+\item \code{instance-state-name} - The state of the instance (\code{pending} | \code{running} | \code{shutting-down} | \code{terminated} | \code{stopping} | \code{stopped}).
 \item \code{instance-type} - The type of instance (for example, \code{t2.micro}).
 \item \code{instance.group-id} - The ID of the security group for the instance.
-\item \code{instance.group-name} - The name of the security group for the
-instance.
+\item \code{instance.group-name} - The name of the security group for the instance.
 \item \code{ip-address} - The public IPv4 address of the instance.
 \item \code{ipv6-address} - The IPv6 address of the instance.
 \item \code{kernel-id} - The kernel ID.
-\item \code{key-name} - The name of the key pair used when the instance was
-launched.
-\item \code{launch-index} - When launching multiple instances, this is the
-index for the instance in the launch group (for example, 0, 1, 2,
-and so on).
-\item \code{launch-time} - The time when the instance was launched, in the ISO
-8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
-example, \verb{2021-09-29T11:04:43.305Z}. You can use a wildcard (\code{*}),
-for example, \verb{2021-09-29T*}, which matches an entire day.
-\item \code{maintenance-options.auto-recovery} - The current automatic recovery
-behavior of the instance (\code{disabled} | \code{default}).
-\item \code{metadata-options.http-endpoint} - The status of access to the HTTP
-metadata endpoint on your instance (\code{enabled} | \code{disabled})
-\item \code{metadata-options.http-protocol-ipv4} - Indicates whether the IPv4
-endpoint is enabled (\code{disabled} | \code{enabled}).
-\item \code{metadata-options.http-protocol-ipv6} - Indicates whether the IPv6
-endpoint is enabled (\code{disabled} | \code{enabled}).
-\item \code{metadata-options.http-put-response-hop-limit} - The HTTP metadata
-request put response hop limit (integer, possible values \code{1} to
-\code{64})
-\item \code{metadata-options.http-tokens} - The metadata request authorization
-state (\code{optional} | \code{required})
-\item \code{metadata-options.instance-metadata-tags} - The status of access to
-instance tags from the instance metadata (\code{enabled} | \code{disabled})
-\item \code{metadata-options.state} - The state of the metadata option changes
-(\code{pending} | \code{applied}).
-\item \code{monitoring-state} - Indicates whether detailed monitoring is
-enabled (\code{disabled} | \code{enabled}).
-\item \code{network-interface.addresses.association.allocation-id} - The
-allocation ID.
-\item \code{network-interface.addresses.association.association-id} - The
-association ID.
-\item \code{network-interface.addresses.association.carrier-ip} - The carrier
-IP address.
-\item \code{network-interface.addresses.association.customer-owned-ip} - The
-customer-owned IP address.
-\item \code{network-interface.addresses.association.ip-owner-id} - The owner ID
-of the private IPv4 address associated with the network interface.
-\item \code{network-interface.addresses.association.public-dns-name} - The
-public DNS name.
-\item \code{network-interface.addresses.association.public-ip} - The ID of the
-association of an Elastic IP address (IPv4) with a network
-interface.
-\item \code{network-interface.addresses.primary} - Specifies whether the IPv4
-address of the network interface is the primary private IPv4
-address.
-\item \code{network-interface.addresses.private-dns-name} - The private DNS
-name.
-\item \code{network-interface.addresses.private-ip-address} - The private IPv4
-address associated with the network interface.
-\item \code{network-interface.association.allocation-id} - The allocation ID
-returned when you allocated the Elastic IP address (IPv4) for your
-network interface.
-\item \code{network-interface.association.association-id} - The association ID
-returned when the network interface was associated with an IPv4
-address.
-\item \code{network-interface.association.carrier-ip} - The customer-owned IP
-address.
-\item \code{network-interface.association.customer-owned-ip} - The
-customer-owned IP address.
-\item \code{network-interface.association.ip-owner-id} - The owner of the
-Elastic IP address (IPv4) associated with the network interface.
-\item \code{network-interface.association.public-dns-name} - The public DNS
-name.
-\item \code{network-interface.association.public-ip} - The address of the
-Elastic IP address (IPv4) bound to the network interface.
-\item \code{network-interface.attachment.attach-time} - The time that the
-network interface was attached to an instance.
-\item \code{network-interface.attachment.attachment-id} - The ID of the
-interface attachment.
-\item \code{network-interface.attachment.delete-on-termination} - Specifies
-whether the attachment is deleted when an instance is terminated.
-\item \code{network-interface.attachment.device-index} - The device index to
-which the network interface is attached.
-\item \code{network-interface.attachment.instance-id} - The ID of the instance
-to which the network interface is attached.
-\item \code{network-interface.attachment.instance-owner-id} - The owner ID of
-the instance to which the network interface is attached.
-\item \code{network-interface.attachment.network-card-index} - The index of the
-network card.
-\item \code{network-interface.attachment.status} - The status of the attachment
-(\code{attaching} | \code{attached} | \code{detaching} | \code{detached}).
-\item \code{network-interface.availability-zone} - The Availability Zone for
-the network interface.
-\item \code{network-interface.deny-all-igw-traffic} - A Boolean that indicates
-whether a network interface with an IPv6 address is unreachable from
-the public internet.
-\item \code{network-interface.description} - The description of the network
-interface.
-\item \code{network-interface.group-id} - The ID of a security group associated
-with the network interface.
-\item \code{network-interface.group-name} - The name of a security group
-associated with the network interface.
-\item \code{network-interface.ipv4-prefixes.ipv4-prefix} - The IPv4 prefixes
-that are assigned to the network interface.
-\item \code{network-interface.ipv6-address} - The IPv6 address associated with
-the network interface.
-\item \code{network-interface.ipv6-addresses.ipv6-address} - The IPv6 address
-associated with the network interface.
-\item \code{network-interface.ipv6-addresses.is-primary-ipv6} - A Boolean that
-indicates whether this is the primary IPv6 address.
-\item \code{network-interface.ipv6-native} - A Boolean that indicates whether
-this is an IPv6 only network interface.
-\item \code{network-interface.ipv6-prefixes.ipv6-prefix} - The IPv6 prefix
-assigned to the network interface.
-\item \code{network-interface.mac-address} - The MAC address of the network
-interface.
-\item \code{network-interface.network-interface-id} - The ID of the network
-interface.
-\item \code{network-interface.operator.managed} - A Boolean that indicates
-whether the instance has a managed network interface.
-\item \code{network-interface.operator.principal} - The principal that manages
-the network interface. Only valid for instances with managed network
-interfaces, where \code{managed} is \code{true}.
+\item \code{key-name} - The name of the key pair used when the instance was launched.
+\item \code{launch-index} - When launching multiple instances, this is the index for the instance in the launch group (for example, 0, 1, 2, and so on).
+\item \code{launch-time} - The time when the instance was launched, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, \verb{2021-09-29T11:04:43.305Z}. You can use a wildcard (\code{*}), for example, \verb{2021-09-29T*}, which matches an entire day.
+\item \code{maintenance-options.auto-recovery} - The current automatic recovery behavior of the instance (\code{disabled} | \code{default}).
+\item \code{metadata-options.http-endpoint} - The status of access to the HTTP metadata endpoint on your instance (\code{enabled} | \code{disabled})
+\item \code{metadata-options.http-protocol-ipv4} - Indicates whether the IPv4 endpoint is enabled (\code{disabled} | \code{enabled}).
+\item \code{metadata-options.http-protocol-ipv6} - Indicates whether the IPv6 endpoint is enabled (\code{disabled} | \code{enabled}).
+\item \code{metadata-options.http-put-response-hop-limit} - The HTTP metadata request put response hop limit (integer, possible values \code{1} to \code{64})
+\item \code{metadata-options.http-tokens} - The metadata request authorization state (\code{optional} | \code{required})
+\item \code{metadata-options.instance-metadata-tags} - The status of access to instance tags from the instance metadata (\code{enabled} | \code{disabled})
+\item \code{metadata-options.state} - The state of the metadata option changes (\code{pending} | \code{applied}).
+\item \code{monitoring-state} - Indicates whether detailed monitoring is enabled (\code{disabled} | \code{enabled}).
+\item \code{network-interface.addresses.association.allocation-id} - The allocation ID.
+\item \code{network-interface.addresses.association.association-id} - The association ID.
+\item \code{network-interface.addresses.association.carrier-ip} - The carrier IP address.
+\item \code{network-interface.addresses.association.customer-owned-ip} - The customer-owned IP address.
+\item \code{network-interface.addresses.association.ip-owner-id} - The owner ID of the private IPv4 address associated with the network interface.
+\item \code{network-interface.addresses.association.public-dns-name} - The public DNS name.
+\item \code{network-interface.addresses.association.public-ip} - The ID of the association of an Elastic IP address (IPv4) with a network interface.
+\item \code{network-interface.addresses.primary} - Specifies whether the IPv4 address of the network interface is the primary private IPv4 address.
+\item \code{network-interface.addresses.private-dns-name} - The private DNS name.
+\item \code{network-interface.addresses.private-ip-address} - The private IPv4 address associated with the network interface.
+\item \code{network-interface.association.allocation-id} - The allocation ID returned when you allocated the Elastic IP address (IPv4) for your network interface.
+\item \code{network-interface.association.association-id} - The association ID returned when the network interface was associated with an IPv4 address.
+\item \code{network-interface.association.carrier-ip} - The customer-owned IP address.
+\item \code{network-interface.association.customer-owned-ip} - The customer-owned IP address.
+\item \code{network-interface.association.ip-owner-id} - The owner of the Elastic IP address (IPv4) associated with the network interface.
+\item \code{network-interface.association.public-dns-name} - The public DNS name.
+\item \code{network-interface.association.public-ip} - The address of the Elastic IP address (IPv4) bound to the network interface.
+\item \code{network-interface.attachment.attach-time} - The time that the network interface was attached to an instance.
+\item \code{network-interface.attachment.attachment-id} - The ID of the interface attachment.
+\item \code{network-interface.attachment.delete-on-termination} - Specifies whether the attachment is deleted when an instance is terminated.
+\item \code{network-interface.attachment.device-index} - The device index to which the network interface is attached.
+\item \code{network-interface.attachment.instance-id} - The ID of the instance to which the network interface is attached.
+\item \code{network-interface.attachment.instance-owner-id} - The owner ID of the instance to which the network interface is attached.
+\item \code{network-interface.attachment.network-card-index} - The index of the network card.
+\item \code{network-interface.attachment.status} - The status of the attachment (\code{attaching} | \code{attached} | \code{detaching} | \code{detached}).
+\item \code{network-interface.availability-zone} - The Availability Zone for the network interface.
+\item \code{network-interface.deny-all-igw-traffic} - A Boolean that indicates whether a network interface with an IPv6 address is unreachable from the public internet.
+\item \code{network-interface.description} - The description of the network interface.
+\item \code{network-interface.group-id} - The ID of a security group associated with the network interface.
+\item \code{network-interface.group-name} - The name of a security group associated with the network interface.
+\item \code{network-interface.ipv4-prefixes.ipv4-prefix} - The IPv4 prefixes that are assigned to the network interface.
+\item \code{network-interface.ipv6-address} - The IPv6 address associated with the network interface.
+\item \code{network-interface.ipv6-addresses.ipv6-address} - The IPv6 address associated with the network interface.
+\item \code{network-interface.ipv6-addresses.is-primary-ipv6} - A Boolean that indicates whether this is the primary IPv6 address.
+\item \code{network-interface.ipv6-native} - A Boolean that indicates whether this is an IPv6 only network interface.
+\item \code{network-interface.ipv6-prefixes.ipv6-prefix} - The IPv6 prefix assigned to the network interface.
+\item \code{network-interface.mac-address} - The MAC address of the network interface.
+\item \code{network-interface.network-interface-id} - The ID of the network interface.
+\item \code{network-interface.operator.managed} - A Boolean that indicates whether the instance has a managed network interface.
+\item \code{network-interface.operator.principal} - The principal that manages the network interface. Only valid for instances with managed network interfaces, where \code{managed} is \code{true}.
 \item \code{network-interface.outpost-arn} - The ARN of the Outpost.
-\item \code{network-interface.owner-id} - The ID of the owner of the network
-interface.
-\item \code{network-interface.private-dns-name} - The private DNS name of the
-network interface.
+\item \code{network-interface.owner-id} - The ID of the owner of the network interface.
+\item \code{network-interface.private-dns-name} - The private DNS name of the network interface.
 \item \code{network-interface.private-ip-address} - The private IPv4 address.
 \item \code{network-interface.public-dns-name} - The public DNS name.
-\item \code{network-interface.requester-id} - The requester ID for the network
-interface.
-\item \code{network-interface.requester-managed} - Indicates whether the
-network interface is being managed by Amazon Web Services.
-\item \code{network-interface.status} - The status of the network interface
-(\code{available}) | \verb{in-use}).
-\item \code{network-interface.source-dest-check} - Whether the network
-interface performs source/destination checking. A value of \code{true}
-means that checking is enabled, and \code{false} means that checking is
-disabled. The value must be \code{false} for the network interface to
-perform network address translation (NAT) in your VPC.
-\item \code{network-interface.subnet-id} - The ID of the subnet for the network
-interface.
-\item \code{network-interface.tag-key} - The key of a tag assigned to the
-network interface.
-\item \code{network-interface.tag-value} - The value of a tag assigned to the
-network interface.
-\item \code{network-interface.vpc-id} - The ID of the VPC for the network
-interface.
-\item \code{network-performance-options.bandwidth-weighting} - Where the
-performance boost is applied, if applicable. Valid values:
-\code{default}, \code{vpc-1}, \code{ebs-1}.
-\item \code{operator.managed} - A Boolean that indicates whether this is a
-managed instance.
-\item \code{operator.principal} - The principal that manages the instance. Only
-valid for managed instances, where \code{managed} is \code{true}.
+\item \code{network-interface.requester-id} - The requester ID for the network interface.
+\item \code{network-interface.requester-managed} - Indicates whether the network interface is being managed by Amazon Web Services.
+\item \code{network-interface.status} - The status of the network interface (\code{available}) | \verb{in-use}).
+\item \code{network-interface.source-dest-check} - Whether the network interface performs source/destination checking. A value of \code{true} means that checking is enabled, and \code{false} means that checking is disabled. The value must be \code{false} for the network interface to perform network address translation (NAT) in your VPC.
+\item \code{network-interface.subnet-id} - The ID of the subnet for the network interface.
+\item \code{network-interface.tag-key} - The key of a tag assigned to the network interface.
+\item \code{network-interface.tag-value} - The value of a tag assigned to the network interface.
+\item \code{network-interface.vpc-id} - The ID of the VPC for the network interface.
+\item \code{network-performance-options.bandwidth-weighting} - Where the performance boost is applied, if applicable. Valid values: \code{default}, \code{vpc-1}, \code{ebs-1}.
+\item \code{operator.managed} - A Boolean that indicates whether this is a managed instance.
+\item \code{operator.principal} - The principal that manages the instance. Only valid for managed instances, where \code{managed} is \code{true}.
 \item \code{outpost-arn} - The Amazon Resource Name (ARN) of the Outpost.
-\item \code{owner-id} - The Amazon Web Services account ID of the instance
-owner.
-\item \code{placement-group-name} - The name of the placement group for the
-instance.
-\item \code{placement-partition-number} - The partition in which the instance
-is located.
-\item \code{platform} - The platform. To list only Windows instances, use
-\code{windows}.
-\item \code{platform-details} - The platform (\code{Linux/UNIX} |
-\verb{Red Hat BYOL Linux} | \verb{ Red Hat Enterprise Linux} |
-\verb{Red Hat Enterprise Linux with HA} |
-\verb{Red Hat Enterprise Linux with SQL Server Standard and HA} |
-\verb{Red Hat Enterprise Linux with SQL Server Enterprise and HA} |
-\verb{Red Hat Enterprise Linux with SQL Server Standard} |
-\verb{Red Hat Enterprise Linux with SQL Server Web} |
-\verb{Red Hat Enterprise Linux with SQL Server Enterprise} |
-\verb{SQL Server Enterprise} | \verb{SQL Server Standard} | \verb{SQL Server Web} |
-\verb{SUSE Linux} | \verb{Ubuntu Pro} | \code{Windows} | \verb{Windows BYOL} |
-\verb{Windows with SQL Server Enterprise} |
-\verb{Windows with SQL Server Standard} | \verb{Windows with SQL Server Web}).
+\item \code{owner-id} - The Amazon Web Services account ID of the instance owner.
+\item \code{placement-group-name} - The name of the placement group for the instance.
+\item \code{placement-partition-number} - The partition in which the instance is located.
+\item \code{platform} - The platform. To list only Windows instances, use \code{windows}.
+\item \code{platform-details} - The platform (\code{Linux/UNIX} | \verb{Red Hat BYOL Linux} | \verb{ Red Hat Enterprise Linux} | \verb{Red Hat Enterprise Linux with HA} | \verb{Red Hat Enterprise Linux with High Availability} | \verb{Red Hat Enterprise Linux with SQL Server Standard and HA} | \verb{Red Hat Enterprise Linux with SQL Server Enterprise and HA} | \verb{Red Hat Enterprise Linux with SQL Server Standard} | \verb{Red Hat Enterprise Linux with SQL Server Web} | \verb{Red Hat Enterprise Linux with SQL Server Enterprise} | \verb{SQL Server Enterprise} | \verb{SQL Server Standard} | \verb{SQL Server Web} | \verb{SUSE Linux} | \verb{Ubuntu Pro} | \code{Windows} | \verb{Windows BYOL} | \verb{Windows with SQL Server Enterprise} | \verb{Windows with SQL Server Standard} | \verb{Windows with SQL Server Web}).
 \item \code{private-dns-name} - The private IPv4 DNS name of the instance.
-\item \code{private-dns-name-options.enable-resource-name-dns-a-record} - A
-Boolean that indicates whether to respond to DNS queries for
-instance hostnames with DNS A records.
-\item \code{private-dns-name-options.enable-resource-name-dns-aaaa-record} - A
-Boolean that indicates whether to respond to DNS queries for
-instance hostnames with DNS AAAA records.
-\item \code{private-dns-name-options.hostname-type} - The type of hostname
-(\code{ip-name} | \code{resource-name}).
-\item \code{private-ip-address} - The private IPv4 address of the instance.
-This can only be used to filter by the primary IP address of the
-network interface attached to the instance. To filter by additional
-IP addresses assigned to the network interface, use the filter
-\code{network-interface.addresses.private-ip-address}.
-\item \code{product-code} - The product code associated with the AMI used to
-launch the instance.
-\item \code{product-code.type} - The type of product code (\code{devpay} |
-\code{marketplace}).
+\item \code{private-dns-name-options.enable-resource-name-dns-a-record} - A Boolean that indicates whether to respond to DNS queries for instance hostnames with DNS A records.
+\item \code{private-dns-name-options.enable-resource-name-dns-aaaa-record} - A Boolean that indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records.
+\item \code{private-dns-name-options.hostname-type} - The type of hostname (\code{ip-name} | \code{resource-name}).
+\item \code{private-ip-address} - The private IPv4 address of the instance. This can only be used to filter by the primary IP address of the network interface attached to the instance. To filter by additional IP addresses assigned to the network interface, use the filter \code{network-interface.addresses.private-ip-address}.
+\item \code{product-code} - The product code associated with the AMI used to launch the instance.
+\item \code{product-code.type} - The type of product code (\code{devpay} | \code{marketplace}).
 \item \code{ramdisk-id} - The RAM disk ID.
-\item \code{reason} - The reason for the current state of the instance (for
-example, shows "User Initiated [date]" when you stop or terminate
-the instance). Similar to the state-reason-code filter.
-\item \code{requester-id} - The ID of the entity that launched the instance on
-your behalf (for example, Amazon Web Services Management Console,
-Auto Scaling, and so on).
-\item \code{reservation-id} - The ID of the instance's reservation. A
-reservation ID is created any time you launch an instance. A
-reservation ID has a one-to-one relationship with an instance launch
-request, but can be associated with more than one instance if you
-launch multiple instances using the same launch request. For
-example, if you launch one instance, you get one reservation ID. If
-you launch ten instances using the same launch request, you also get
-one reservation ID.
-\item \code{root-device-name} - The device name of the root device volume (for
-example, \verb{/dev/sda1}).
-\item \code{root-device-type} - The type of the root device volume (\code{ebs} |
-\code{instance-store}).
-\item \code{source-dest-check} - Indicates whether the instance performs
-source/destination checking. A value of \code{true} means that checking
-is enabled, and \code{false} means that checking is disabled. The value
-must be \code{false} for the instance to perform network address
-translation (NAT) in your VPC.
+\item \code{reason} - The reason for the current state of the instance (for example, shows "User Initiated [date]" when you stop or terminate the instance). Similar to the state-reason-code filter.
+\item \code{requester-id} - The ID of the entity that launched the instance on your behalf (for example, Amazon Web Services Management Console, Auto Scaling, and so on).
+\item \code{reservation-id} - The ID of the instance's reservation. A reservation ID is created any time you launch an instance. A reservation ID has a one-to-one relationship with an instance launch request, but can be associated with more than one instance if you launch multiple instances using the same launch request. For example, if you launch one instance, you get one reservation ID. If you launch ten instances using the same launch request, you also get one reservation ID.
+\item \code{root-device-name} - The device name of the root device volume (for example, \verb{/dev/sda1}).
+\item \code{root-device-type} - The type of the root device volume (\code{ebs} | \code{instance-store}).
+\item \code{source-dest-check} - Indicates whether the instance performs source/destination checking. A value of \code{true} means that checking is enabled, and \code{false} means that checking is disabled. The value must be \code{false} for the instance to perform network address translation (NAT) in your VPC.
 \item \code{spot-instance-request-id} - The ID of the Spot Instance request.
 \item \code{state-reason-code} - The reason code for the state change.
 \item \code{state-reason-message} - A message that describes the state change.
 \item \code{subnet-id} - The ID of the subnet for the instance.
-\item \verb{tag:<key>} - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources that have a tag with a specific key,
-regardless of the tag value.
-\item \code{tenancy} - The tenancy of an instance (\code{dedicated} | \code{default} |
-\code{host}).
-\item \code{tpm-support} - Indicates if the instance is configured for NitroTPM
-support (\code{v2.0}).
-\item \code{usage-operation} - The usage operation value for the instance
-(\code{\link[=ec2_run_instances]{run_instances}} | \verb{RunInstances:00g0} |
-\code{RunInstances:0010} | \code{RunInstances:1010} | \code{RunInstances:1014} |
-\code{RunInstances:1110} | \code{RunInstances:0014} | \code{RunInstances:0210} |
-\code{RunInstances:0110} | \code{RunInstances:0100} | \code{RunInstances:0004} |
-\code{RunInstances:0200} | \verb{RunInstances:000g} | \verb{RunInstances:0g00} |
-\code{RunInstances:0002} | \code{RunInstances:0800} | \code{RunInstances:0102} |
-\code{RunInstances:0006} | \code{RunInstances:0202}).
-\item \code{usage-operation-update-time} - The time that the usage operation
-was last updated, for example, \verb{2022-09-15T17:15:20.000Z}.
-\item \code{virtualization-type} - The virtualization type of the instance
-(\code{paravirtual} | \code{hvm}).
+\item \verb{tag:<key>} - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources that have a tag with a specific key, regardless of the tag value.
+\item \code{tenancy} - The tenancy of an instance (\code{dedicated} | \code{default} | \code{host}).
+\item \code{tpm-support} - Indicates if the instance is configured for NitroTPM support (\code{v2.0}).
+\item \code{usage-operation} - The usage operation value for the instance (\code{\link[=ec2_run_instances]{run_instances}} | \verb{RunInstances:00g0} | \code{RunInstances:0010} | \code{RunInstances:1010} | \code{RunInstances:1014} | \code{RunInstances:1110} | \code{RunInstances:0014} | \code{RunInstances:0210} | \code{RunInstances:0110} | \code{RunInstances:0100} | \code{RunInstances:0004} | \code{RunInstances:0200} | \verb{RunInstances:000g} | \verb{RunInstances:0g00} | \code{RunInstances:0002} | \code{RunInstances:0800} | \code{RunInstances:0102} | \code{RunInstances:0006} | \code{RunInstances:0202}).
+\item \code{usage-operation-update-time} - The time that the usage operation was last updated, for example, \verb{2022-09-15T17:15:20.000Z}.
+\item \code{virtualization-type} - The virtualization type of the instance (\code{paravirtual} | \code{hvm}).
 \item \code{vpc-id} - The ID of the VPC that the instance is running in.
 }}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.
 
-You cannot specify this parameter and the instance IDs parameter in the
-same request.}
+You cannot specify this parameter and the instance IDs parameter in the same request.}
 }
 \description{
 Describes the specified instances or all instances.

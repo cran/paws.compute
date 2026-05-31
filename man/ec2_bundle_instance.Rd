@@ -11,15 +11,9 @@ ec2_bundle_instance(InstanceId, Storage, DryRun = NULL)
 
 Default: None}
 
-\item{Storage}{[required] The bucket in which to store the AMI. You can specify a bucket that you
-already own or a new bucket that Amazon EC2 creates on your behalf. If
-you specify a bucket that belongs to someone else, Amazon EC2 returns an
-error.}
+\item{Storage}{[required] The bucket in which to store the AMI. You can specify a bucket that you already own or a new bucket that Amazon EC2 creates on your behalf. If you specify a bucket that belongs to someone else, Amazon EC2 returns an error.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Bundles an Amazon instance store-backed Windows instance.

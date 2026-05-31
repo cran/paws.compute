@@ -13,19 +13,15 @@ ecs_execute_command(
 )
 }
 \arguments{
-\item{cluster}{The Amazon Resource Name (ARN) or short name of the cluster the task is
-running in. If you do not specify a cluster, the default cluster is
-assumed.}
+\item{cluster}{The Amazon Resource Name (ARN) or short name of the cluster the task is running in. If you do not specify a cluster, the default cluster is assumed.}
 
-\item{container}{The name of the container to execute the command on. A container name
-only needs to be specified for tasks containing multiple containers.}
+\item{container}{The name of the container to execute the command on. A container name only needs to be specified for tasks containing multiple containers.}
 
 \item{command}{[required] The command to run on the container.}
 
 \item{interactive}{[required] Use this flag to run your command in interactive mode.}
 
-\item{task}{[required] The Amazon Resource Name (ARN) or ID of the task the container is part
-of.}
+\item{task}{[required] The Amazon Resource Name (ARN) or ID of the task the container is part of.}
 }
 \description{
 Runs a command remotely on a container within a task.

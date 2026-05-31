@@ -9,8 +9,7 @@ the protocol}
 lightsail_put_instance_public_ports(portInfos, instanceName)
 }
 \arguments{
-\item{portInfos}{[required] An array of objects to describe the ports to open for the specified
-instance.}
+\item{portInfos}{[required] An array of objects to describe the ports to open for the specified instance.}
 
 \item{instanceName}{[required] The name of the instance for which to open ports.}
 }

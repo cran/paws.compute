@@ -8,8 +8,7 @@ browser-based SSH or RDP clients to authenticate an instance}
 lightsail_delete_known_host_keys(instanceName)
 }
 \arguments{
-\item{instanceName}{[required] The name of the instance for which you want to reset the host key or
-certificate.}
+\item{instanceName}{[required] The name of the instance for which you want to reset the host key or certificate.}
 }
 \description{
 Deletes the known host key or certificate used by the Amazon Lightsail browser-based SSH or RDP clients to authenticate an instance. This operation enables the Lightsail browser-based SSH or RDP clients to connect to the instance after a host key mismatch.

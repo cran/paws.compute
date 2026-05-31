@@ -28,8 +28,7 @@ eks_describe_cluster_versions(
 
 \item{clusterVersions}{List of specific cluster versions to describe.}
 
-\item{status}{This field is deprecated. Use \code{versionStatus} instead, as that field
-matches for input and output of this action.
+\item{status}{This field is deprecated. Use \code{versionStatus} instead, as that field matches for input and output of this action.
 
 Filter versions by their current status.}
 

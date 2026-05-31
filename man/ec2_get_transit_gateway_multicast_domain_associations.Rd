@@ -20,23 +20,16 @@ ec2_get_transit_gateway_multicast_domain_associations(
 \itemize{
 \item \code{resource-id} - The ID of the resource.
 \item \code{resource-type} - The type of resource. The valid value is: \code{vpc}.
-\item \code{state} - The state of the subnet association. Valid values are
-\code{associated} | \code{associating} | \code{disassociated} | \code{disassociating}.
+\item \code{state} - The state of the subnet association. Valid values are \code{associated} | \code{associating} | \code{disassociated} | \code{disassociating}.
 \item \code{subnet-id} - The ID of the subnet.
-\item \code{transit-gateway-attachment-id} - The id of the transit gateway
-attachment.
+\item \code{transit-gateway-attachment-id} - The id of the transit gateway attachment.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Gets information about the associations for the transit gateway multicast domain.

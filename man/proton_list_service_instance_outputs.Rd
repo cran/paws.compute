@@ -14,8 +14,7 @@ proton_list_service_instance_outputs(
 \arguments{
 \item{deploymentId}{The ID of the deployment whose outputs you want.}
 
-\item{nextToken}{A token that indicates the location of the next output in the array of
-outputs, after the list of outputs that was previously requested.}
+\item{nextToken}{A token that indicates the location of the next output in the array of outputs, after the list of outputs that was previously requested.}
 
 \item{serviceInstanceName}{[required] The name of the service instance whose outputs you want.}
 

@@ -12,10 +12,7 @@ ec2_export_verified_access_instance_client_configuration(
 \arguments{
 \item{VerifiedAccessInstanceId}{[required] The ID of the Verified Access instance.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Exports the client configuration for a Verified Access instance.

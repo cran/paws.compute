@@ -17,38 +17,15 @@ ecs_list_service_deployments(
 \arguments{
 \item{service}{[required] The ARN or name of the service}
 
-\item{cluster}{The cluster that hosts the service. This can either be the cluster name
-or ARN. Starting April 15, 2023, Amazon Web Services will not onboard
-new customers to Amazon Elastic Inference (EI), and will help current
-customers migrate their workloads to options that offer better price and
-performance. If you don't specify a cluster, \code{default} is used.}
+\item{cluster}{The cluster that hosts the service. This can either be the cluster name or ARN. Starting April 15, 2023, Amazon Web Services will not onboard new customers to Amazon Elastic Inference (EI), and will help current customers migrate their workloads to options that offer better price and performance. If you don't specify a cluster, \code{default} is used.}
 
-\item{status}{An optional filter you can use to narrow the results. If you do not
-specify a status, then all status values are included in the result.}
+\item{status}{An optional filter you can use to narrow the results. If you do not specify a status, then all status values are included in the result.}
 
-\item{createdAt}{An optional filter you can use to narrow the results by the service
-creation date. If you do not specify a value, the result includes all
-services created before the current time. The format is yyyy-MM-dd
-HH:mm:ss.SSSSSS.}
+\item{createdAt}{An optional filter you can use to narrow the results by the service creation date. If you do not specify a value, the result includes all services created before the current time. The format is yyyy-MM-dd HH:mm:ss.SSSSSS.}
 
-\item{nextToken}{The \code{nextToken} value returned from a
-\code{\link[=ecs_list_service_deployments]{list_service_deployments}} request
-indicating that more results are available to fulfill the request and
-further calls are needed. If you provided \code{maxResults}, it's possible
-the number of results is fewer than \code{maxResults}.}
+\item{nextToken}{The \code{nextToken} value returned from a \code{\link[=ecs_list_service_deployments]{list_service_deployments}} request indicating that more results are available to fulfill the request and further calls are needed. If you provided \code{maxResults}, it's possible the number of results is fewer than \code{maxResults}.}
 
-\item{maxResults}{The maximum number of service deployment results that
-\code{\link[=ecs_list_service_deployments]{list_service_deployments}} returned in
-paginated output. When this parameter is used,
-\code{\link[=ecs_list_service_deployments]{list_service_deployments}} only returns
-\code{maxResults} results in a single page along with a \code{nextToken} response
-element. The remaining results of the initial request can be seen by
-sending another
-\code{\link[=ecs_list_service_deployments]{list_service_deployments}} request with
-the returned \code{nextToken} value. This value can be between 1 and 100. If
-this parameter isn't used, then
-\code{\link[=ecs_list_service_deployments]{list_service_deployments}} returns up to
-20 results and a \code{nextToken} value if applicable.}
+\item{maxResults}{The maximum number of service deployment results that \code{\link[=ecs_list_service_deployments]{list_service_deployments}} returned in paginated output. When this parameter is used, \code{\link[=ecs_list_service_deployments]{list_service_deployments}} only returns \code{maxResults} results in a single page along with a \code{nextToken} response element. The remaining results of the initial request can be seen by sending another \code{\link[=ecs_list_service_deployments]{list_service_deployments}} request with the returned \code{nextToken} value. This value can be between 1 and 100. If this parameter isn't used, then \code{\link[=ecs_list_service_deployments]{list_service_deployments}} returns up to 20 results and a \code{nextToken} value if applicable.}
 }
 \description{
 This operation lists all the service deployments that meet the specified filter criteria.

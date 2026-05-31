@@ -11,38 +11,21 @@ lightsail_update_load_balancer_attribute(
 )
 }
 \arguments{
-\item{loadBalancerName}{[required] The name of the load balancer that you want to modify
-(\code{my-load-balancer}.}
+\item{loadBalancerName}{[required] The name of the load balancer that you want to modify (\code{my-load-balancer}.}
 
 \item{attributeName}{[required] The name of the attribute you want to update.}
 
 \item{attributeValue}{[required] The value that you want to specify for the attribute name.
 
-The following values are supported depending on what you specify for the
-\code{attributeName} request parameter:
+The following values are supported depending on what you specify for the \code{attributeName} request parameter:
 \itemize{
-\item If you specify \code{HealthCheckPath} for the \code{attributeName} request
-parameter, then the \code{attributeValue} request parameter must be the
-path to ping on the target (for example, \verb{/weather/us/wa/seattle}).
-\item If you specify \code{SessionStickinessEnabled} for the \code{attributeName}
-request parameter, then the \code{attributeValue} request parameter must
-be \code{true} to activate session stickiness or \code{false} to deactivate
-session stickiness.
-\item If you specify \code{SessionStickiness_LB_CookieDurationSeconds} for the
-\code{attributeName} request parameter, then the \code{attributeValue} request
-parameter must be an interger that represents the cookie duration in
-seconds.
-\item If you specify \code{HttpsRedirectionEnabled} for the \code{attributeName}
-request parameter, then the \code{attributeValue} request parameter must
-be \code{true} to activate HTTP to HTTPS redirection or \code{false} to
-deactivate HTTP to HTTPS redirection.
-\item If you specify \code{TlsPolicyName} for the \code{attributeName} request
-parameter, then the \code{attributeValue} request parameter must be the
-name of the TLS policy.
+\item If you specify \code{HealthCheckPath} for the \code{attributeName} request parameter, then the \code{attributeValue} request parameter must be the path to ping on the target (for example, \verb{/weather/us/wa/seattle}).
+\item If you specify \code{SessionStickinessEnabled} for the \code{attributeName} request parameter, then the \code{attributeValue} request parameter must be \code{true} to activate session stickiness or \code{false} to deactivate session stickiness.
+\item If you specify \code{SessionStickiness_LB_CookieDurationSeconds} for the \code{attributeName} request parameter, then the \code{attributeValue} request parameter must be an interger that represents the cookie duration in seconds.
+\item If you specify \code{HttpsRedirectionEnabled} for the \code{attributeName} request parameter, then the \code{attributeValue} request parameter must be \code{true} to activate HTTP to HTTPS redirection or \code{false} to deactivate HTTP to HTTPS redirection.
+\item If you specify \code{TlsPolicyName} for the \code{attributeName} request parameter, then the \code{attributeValue} request parameter must be the name of the TLS policy.
 
-Use the
-\code{\link[=lightsail_get_load_balancer_tls_policies]{get_load_balancer_tls_policies}}
-action to get a list of TLS policy names that you can specify.
+Use the \code{\link[=lightsail_get_load_balancer_tls_policies]{get_load_balancer_tls_policies}} action to get a list of TLS policy names that you can specify.
 }}
 }
 \description{

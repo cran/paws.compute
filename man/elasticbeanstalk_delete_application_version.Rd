@@ -15,9 +15,7 @@ elasticbeanstalk_delete_application_version(
 
 \item{VersionLabel}{[required] The label of the version to delete.}
 
-\item{DeleteSourceBundle}{Set to \code{true} to delete the source bundle from your storage bucket.
-Otherwise, the application version is deleted only from Elastic
-Beanstalk and the source bundle remains in Amazon S3.}
+\item{DeleteSourceBundle}{Set to \code{true} to delete the source bundle from your storage bucket. Otherwise, the application version is deleted only from Elastic Beanstalk and the source bundle remains in Amazon S3.}
 }
 \description{
 Deletes the specified version from the specified application.

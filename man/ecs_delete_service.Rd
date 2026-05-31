@@ -7,15 +7,11 @@
 ecs_delete_service(cluster = NULL, service, force = NULL)
 }
 \arguments{
-\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that
-hosts the service to delete. If you do not specify a cluster, the
-default cluster is assumed.}
+\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service to delete. If you do not specify a cluster, the default cluster is assumed.}
 
 \item{service}{[required] The name of the service to delete.}
 
-\item{force}{If \code{true}, allows you to delete a service even if it wasn't scaled down
-to zero tasks. It's only necessary to use this if the service uses the
-\code{REPLICA} scheduling strategy.}
+\item{force}{If \code{true}, allows you to delete a service even if it wasn't scaled down to zero tasks. It's only necessary to use this if the service uses the \code{REPLICA} scheduling strategy.}
 }
 \description{
 Deletes a specified service within a cluster. You can delete a service if you have no running tasks in it and the desired task count is zero. If the service is actively maintaining tasks, you can't delete it, and you must update the service to a desired task count of zero. For more information, see \code{\link[=ecs_update_service]{update_service}}.

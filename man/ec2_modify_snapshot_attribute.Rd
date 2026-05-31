@@ -15,8 +15,7 @@ ec2_modify_snapshot_attribute(
 )
 }
 \arguments{
-\item{Attribute}{The snapshot attribute to modify. Only volume creation permissions can
-be modified.}
+\item{Attribute}{The snapshot attribute to modify. Only volume creation permissions can be modified.}
 
 \item{CreateVolumePermission}{A JSON representation of the snapshot attribute modification.}
 
@@ -28,10 +27,7 @@ be modified.}
 
 \item{UserIds}{The account ID to modify for the snapshot.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Adds or removes permission settings for the specified snapshot. You may add or remove specified Amazon Web Services account IDs from a snapshot's list of create volume permissions, but you cannot do both in a single operation. If you need to both add and remove account IDs for a snapshot, you must use multiple operations. You can make up to 500 modifications to a snapshot in a single operation.

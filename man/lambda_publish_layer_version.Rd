@@ -20,19 +20,14 @@ lambda_publish_layer_version(
 
 \item{Content}{[required] The function layer archive.}
 
-\item{CompatibleRuntimes}{A list of compatible \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html}{function runtimes}.
-Used for filtering with \code{\link[=lambda_list_layers]{list_layers}} and
-\code{\link[=lambda_list_layer_versions]{list_layer_versions}}.
+\item{CompatibleRuntimes}{A list of compatible \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html}{function runtimes}. Used for filtering with \code{\link[=lambda_list_layers]{list_layers}} and \code{\link[=lambda_list_layer_versions]{list_layer_versions}}.
 
-The following list includes deprecated runtimes. For more information,
-see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy}{Runtime deprecation policy}.}
+The following list includes deprecated runtimes. For more information, see \href{https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html#runtime-support-policy}{Runtime deprecation policy}.}
 
 \item{LicenseInfo}{The layer's software license. It can be any of the following:
 \itemize{
-\item An \href{https://spdx.org/licenses/}{SPDX license identifier}. For
-example, \code{MIT}.
-\item The URL of a license hosted on the internet. For example,
-\verb{https://opensource.org/licenses/MIT}.
+\item An \href{https://spdx.org/licenses/}{SPDX license identifier}. For example, \code{MIT}.
+\item The URL of a license hosted on the internet. For example, \verb{https://opensource.org/licenses/MIT}.
 \item The full text of the license.
 }}
 

@@ -7,15 +7,11 @@
 ecrpublic_delete_repository(registryId = NULL, repositoryName, force = NULL)
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID that's associated with the public
-registry that contains the repository to delete. If you do not specify a
-registry, the default public registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID that's associated with the public registry that contains the repository to delete. If you do not specify a registry, the default public registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository to delete.}
 
-\item{force}{The force option can be used to delete a repository that contains
-images. If the force option is not used, the repository must be empty
-prior to deletion.}
+\item{force}{The force option can be used to delete a repository that contains images. If the force option is not used, the repository must be empty prior to deletion.}
 }
 \description{
 Deletes a repository in a public registry. If the repository contains images, you must either manually delete all images in the repository or use the \code{force} option. This option deletes all images on your behalf before deleting the repository.

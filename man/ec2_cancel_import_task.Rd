@@ -9,10 +9,7 @@ ec2_cancel_import_task(CancelReason = NULL, DryRun = NULL, ImportTaskId = NULL)
 \arguments{
 \item{CancelReason}{The reason for canceling the task.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ImportTaskId}{The ID of the import image or import snapshot task to be canceled.}
 }

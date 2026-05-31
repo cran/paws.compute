@@ -10,22 +10,15 @@ lightsail_attach_certificate_to_distribution(distributionName, certificateName)
 \arguments{
 \item{distributionName}{[required] The name of the distribution that the certificate will be attached to.
 
-Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get
-a list of distribution names that you can specify.}
+Use the \code{\link[=lightsail_get_distributions]{get_distributions}} action to get a list of distribution names that you can specify.}
 
 \item{certificateName}{[required] The name of the certificate to attach to a distribution.
 
-Only certificates with a status of \code{ISSUED} can be attached to a
-distribution.
+Only certificates with a status of \code{ISSUED} can be attached to a distribution.
 
-Use the \code{\link[=lightsail_get_certificates]{get_certificates}} action to get a
-list of certificate names that you can specify.
+Use the \code{\link[=lightsail_get_certificates]{get_certificates}} action to get a list of certificate names that you can specify.
 
-This is the name of the certificate resource type and is used only to
-reference the certificate in other API actions. It can be different than
-the domain name of the certificate. For example, your certificate name
-might be \code{WordPress-Blog-Certificate} and the domain name of the
-certificate might be \code{example.com}.}
+This is the name of the certificate resource type and is used only to reference the certificate in other API actions. It can be different than the domain name of the certificate. For example, your certificate name might be \code{WordPress-Blog-Certificate} and the domain name of the certificate might be \code{example.com}.}
 }
 \description{
 Attaches an SSL/TLS certificate to your Amazon Lightsail content delivery network (CDN) distribution.

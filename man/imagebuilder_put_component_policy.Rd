@@ -7,8 +7,7 @@
 imagebuilder_put_component_policy(componentArn, policy)
 }
 \arguments{
-\item{componentArn}{[required] The Amazon Resource Name (ARN) of the component that this policy should
-be applied to.}
+\item{componentArn}{[required] The Amazon Resource Name (ARN) of the component that this policy should be applied to.}
 
 \item{policy}{[required] The policy to apply.}
 }

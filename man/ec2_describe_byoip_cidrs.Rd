@@ -2,25 +2,21 @@
 % Please edit documentation in R/ec2_operations.R
 \name{ec2_describe_byoip_cidrs}
 \alias{ec2_describe_byoip_cidrs}
-\title{Describes the IP address ranges that were specified in calls to
-ProvisionByoipCidr}
+\title{Describes the IP address ranges that were provisioned for use with
+Amazon Web Services resources through through bring your own IP
+addresses (BYOIP)}
 \usage{
 ec2_describe_byoip_cidrs(DryRun = NULL, MaxResults, NextToken = NULL)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{MaxResults}{[required] The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{[required] The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 }
 \description{
-Describes the IP address ranges that were specified in calls to \code{\link[=ec2_provision_byoip_cidr]{provision_byoip_cidr}}.
+Describes the IP address ranges that were provisioned for use with Amazon Web Services resources through through bring your own IP addresses (BYOIP).
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_describe_byoip_cidrs/} for full documentation.
 }

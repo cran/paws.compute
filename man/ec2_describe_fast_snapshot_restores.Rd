@@ -14,26 +14,18 @@ ec2_describe_fast_snapshot_restores(
 \arguments{
 \item{Filters}{The filters. The possible values are:
 \itemize{
-\item \code{availability-zone}: The Availability Zone of the snapshot.
-\item \code{owner-id}: The ID of the Amazon Web Services account that enabled
-fast snapshot restore on the snapshot.
+\item \code{availability-zone}: The Availability Zone of the snapshot. For example, \verb{us-east-2a}.
+\item \code{availability-zone-id}: The ID of the Availability Zone of the snapshot. For example, \code{use2-az1}.
+\item \code{owner-id}: The ID of the Amazon Web Services account that enabled fast snapshot restore on the snapshot.
 \item \code{snapshot-id}: The ID of the snapshot.
-\item \code{state}: The state of fast snapshot restores for the snapshot
-(\code{enabling} | \code{optimizing} | \code{enabled} | \code{disabling} | \code{disabled}).
+\item \code{state}: The state of fast snapshot restores for the snapshot (\code{enabling} | \code{optimizing} | \code{enabled} | \code{disabling} | \code{disabled}).
 }}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes the state of fast snapshot restores for your snapshots.

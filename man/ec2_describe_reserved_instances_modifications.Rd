@@ -20,24 +20,16 @@ ec2_describe_reserved_instances_modifications(
 \item \code{client-token} - The idempotency token for the modification request.
 \item \code{create-date} - The time when the modification request was created.
 \item \code{effective-date} - The time when the modification becomes effective.
-\item \code{modification-result.reserved-instances-id} - The ID for the
-Reserved Instances created as part of the modification request. This
-ID is only available when the status of the modification is
-\code{fulfilled}.
-\item \code{modification-result.target-configuration.availability-zone} - The
-Availability Zone for the new Reserved Instances.
-\item \code{modification-result.target-configuration.instance-count } - The
-number of new Reserved Instances.
-\item \code{modification-result.target-configuration.instance-type} - The
-instance type of the new Reserved Instances.
+\item \code{modification-result.reserved-instances-id} - The ID for the Reserved Instances created as part of the modification request. This ID is only available when the status of the modification is \code{fulfilled}.
+\item \code{modification-result.target-configuration.availability-zone} - The Availability Zone for the new Reserved Instances.
+\item \code{modification-result.target-configuration.availability-zone-id} - The ID of the Availability Zone for the new Reserved Instances.
+\item \code{modification-result.target-configuration.instance-count } - The number of new Reserved Instances.
+\item \code{modification-result.target-configuration.instance-type} - The instance type of the new Reserved Instances.
 \item \code{reserved-instances-id} - The ID of the Reserved Instances modified.
-\item \code{reserved-instances-modification-id} - The ID of the modification
-request.
-\item \code{status} - The status of the Reserved Instances modification request
-(\code{processing} | \code{fulfilled} | \code{failed}).
+\item \code{reserved-instances-modification-id} - The ID of the modification request.
+\item \code{status} - The status of the Reserved Instances modification request (\code{processing} | \code{fulfilled} | \code{failed}).
 \item \code{status-message} - The reason for the status.
-\item \code{update-date} - The time when the modification request was last
-updated.
+\item \code{update-date} - The time when the modification request was last updated.
 }}
 }
 \description{

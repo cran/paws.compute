@@ -7,9 +7,7 @@
 emrserverless_list_tags_for_resource(resourceArn)
 }
 \arguments{
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) that identifies the resource to list the
-tags for. Currently, the supported resources are Amazon EMR Serverless
-applications and job runs.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) that identifies the resource to list the tags for. Currently, the supported resources are Amazon EMR Serverless applications and job runs.}
 }
 \description{
 Lists the tags assigned to the resources.

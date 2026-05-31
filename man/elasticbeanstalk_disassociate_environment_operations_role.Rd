@@ -7,8 +7,7 @@
 elasticbeanstalk_disassociate_environment_operations_role(EnvironmentName)
 }
 \arguments{
-\item{EnvironmentName}{[required] The name of the environment from which to disassociate the operations
-role.}
+\item{EnvironmentName}{[required] The name of the environment from which to disassociate the operations role.}
 }
 \description{
 Disassociate the operations role from an environment. After this call is made, Elastic Beanstalk uses the caller's permissions for permissions to downstream services during subsequent calls acting on this environment. For more information, see \href{https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/}{Operations roles} in the \emph{AWS Elastic Beanstalk Developer Guide}.

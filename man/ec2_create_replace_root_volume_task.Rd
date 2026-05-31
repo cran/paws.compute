@@ -15,44 +15,42 @@ ec2_create_replace_root_volume_task(
   DryRun = NULL,
   TagSpecifications = NULL,
   ImageId = NULL,
-  DeleteReplacedRootVolume = NULL
+  DeleteReplacedRootVolume = NULL,
+  VolumeInitializationRate = NULL
 )
 }
 \arguments{
 \item{InstanceId}{[required] The ID of the instance for which to replace the root volume.}
 
-\item{SnapshotId}{The ID of the snapshot from which to restore the replacement root
-volume. The specified snapshot must be a snapshot that you previously
-created from the original root volume.
+\item{SnapshotId}{The ID of the snapshot from which to restore the replacement root volume. The specified snapshot must be a snapshot that you previously created from the original root volume.
 
-If you want to restore the replacement root volume to the initial launch
-state, or if you want to restore the replacement root volume from an
-AMI, omit this parameter.}
+If you want to restore the replacement root volume to the initial launch state, or if you want to restore the replacement root volume from an AMI, omit this parameter.}
 
-\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency
-of the request. If you do not specify a client token, a randomly
-generated token is used for the request to ensure idempotency. For more
-information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a client token, a randomly generated token is used for the request to ensure idempotency. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{TagSpecifications}{The tags to apply to the root volume replacement task.}
 
-\item{ImageId}{The ID of the AMI to use to restore the root volume. The specified AMI
-must have the same product code, billing information, architecture type,
-and virtualization type as that of the instance.
+\item{ImageId}{The ID of the AMI to use to restore the root volume. The specified AMI must have the same product code, billing information, architecture type, and virtualization type as that of the instance.
 
-If you want to restore the replacement volume from a specific snapshot,
-or if you want to restore it to its launch state, omit this parameter.}
+If you want to restore the replacement volume from a specific snapshot, or if you want to restore it to its launch state, omit this parameter.}
 
-\item{DeleteReplacedRootVolume}{Indicates whether to automatically delete the original root volume after
-the root volume replacement task completes. To delete the original root
-volume, specify \code{true}. If you choose to keep the original root volume
-after the replacement task completes, you must manually delete it when
-you no longer need it.}
+\item{DeleteReplacedRootVolume}{Indicates whether to automatically delete the original root volume after the root volume replacement task completes. To delete the original root volume, specify \code{true}. If you choose to keep the original root volume after the replacement task completes, you must manually delete it when you no longer need it.}
+
+\item{VolumeInitializationRate}{Specifies the Amazon EBS Provisioned Rate for Volume Initialization (volume initialization rate), in MiB/s, at which to download the snapshot blocks from Amazon S3 to the replacement root volume. This is also known as \emph{volume initialization}. Specifying a volume initialization rate ensures that the volume is initialized at a predictable and consistent rate after creation.
+
+Omit this parameter if:
+\itemize{
+\item You want to create the volume using fast snapshot restore. You must specify a snapshot that is enabled for fast snapshot restore. In this case, the volume is fully initialized at creation.
+
+If you specify a snapshot that is enabled for fast snapshot restore and a volume initialization rate, the volume will be initialized at the specified rate instead of fast snapshot restore.
+\item You want to create a volume that is initialized at the default rate.
+}
+
+For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html}{Initialize Amazon EBS volumes} in the \emph{Amazon EC2 User Guide}.
+
+Valid range: 100 - 300 MiB/s}
 }
 \description{
 Replaces the EBS-backed root volume for a \code{running} instance with a new volume that is restored to the original root volume's launch state, that is restored to a specific snapshot taken from the original root volume, or that is restored from an AMI that has the same key characteristics as that of the instance.

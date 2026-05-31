@@ -16,29 +16,20 @@ ec2_get_security_groups_for_vpc(
 \arguments{
 \item{VpcId}{[required] The VPC ID where the security group can be used.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{Filters}{The filters. If using multiple filters, the results include security
-groups which match all filters.
+\item{Filters}{The filters. If using multiple filters, the results include security groups which match all filters.
 \itemize{
 \item \code{group-id}: The security group ID.
 \item \code{description}: The security group's description.
 \item \code{group-name}: The security group name.
 \item \code{owner-id}: The security group owner ID.
-\item \code{primary-vpc-id}: The VPC ID in which the security group was
-created.
+\item \code{primary-vpc-id}: The VPC ID in which the security group was created.
 }}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Gets security groups that can be associated by the Amazon Web Services account making the request with network interfaces in the specified VPC.

@@ -7,9 +7,7 @@
 ecs_list_tags_for_resource(resourceArn)
 }
 \arguments{
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) that identifies the resource to list the
-tags for. Currently, the supported resources are Amazon ECS tasks,
-services, task definitions, clusters, and container instances.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) that identifies the resource to list the tags for. Currently, the supported resources are Amazon ECS tasks, services, task definitions, clusters, and container instances.}
 }
 \description{
 List the tags for an Amazon ECS resource.

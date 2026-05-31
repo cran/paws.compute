@@ -13,13 +13,11 @@ imagebuilder_list_image_packages(
 )
 }
 \arguments{
-\item{imageBuildVersionArn}{[required] Filter results for the ListImagePackages request by the Image Build
-Version ARN}
+\item{imageBuildVersionArn}{[required] Filter results for the ListImagePackages request by the Image Build Version ARN}
 
-\item{maxResults}{The maximum items to return in a request.}
+\item{maxResults}{Specify the maximum number of items to return in a request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from
-a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
 }
 \description{
 List the Packages that are associated with an Image Build Version, as determined by Amazon Web Services Systems Manager Inventory at build time.

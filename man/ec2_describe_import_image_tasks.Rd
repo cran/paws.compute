@@ -14,13 +14,9 @@ ec2_describe_import_image_tasks(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{Filters}{Filter tasks using the \code{task-state} filter and one of the following
-values: \code{active}, \code{completed}, \code{deleting}, or \code{deleted}.}
+\item{Filters}{Filter tasks using the \code{task-state} filter and one of the following values: \code{active}, \code{completed}, \code{deleting}, or \code{deleted}.}
 
 \item{ImportTaskIds}{The IDs of the import image tasks.}
 

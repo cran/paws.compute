@@ -15,16 +15,11 @@ ec2_associate_transit_gateway_multicast_domain(
 \arguments{
 \item{TransitGatewayMulticastDomainId}{[required] The ID of the transit gateway multicast domain.}
 
-\item{TransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment to associate with the transit
-gateway multicast domain.}
+\item{TransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment to associate with the transit gateway multicast domain.}
 
-\item{SubnetIds}{[required] The IDs of the subnets to associate with the transit gateway multicast
-domain.}
+\item{SubnetIds}{[required] The IDs of the subnets to associate with the transit gateway multicast domain.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Associates the specified subnets and transit gateway attachments with the specified transit gateway multicast domain.

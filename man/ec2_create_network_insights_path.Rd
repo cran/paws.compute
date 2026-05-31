@@ -23,11 +23,9 @@ ec2_create_network_insights_path(
 
 \item{DestinationIp}{The IP address of the destination.}
 
-\item{Source}{[required] The ID or ARN of the source. If the resource is in another account, you
-must specify an ARN.}
+\item{Source}{[required] The ID or ARN of the source. If the resource is in another account, you must specify an ARN.}
 
-\item{Destination}{The ID or ARN of the destination. If the resource is in another account,
-you must specify an ARN.}
+\item{Destination}{The ID or ARN of the destination. If the resource is in another account, you must specify an ARN.}
 
 \item{Protocol}{[required] The protocol.}
 
@@ -35,21 +33,13 @@ you must specify an ARN.}
 
 \item{TagSpecifications}{The tags to add to the path.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{[required] Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
+\item{ClientToken}{[required] Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
 
-\item{FilterAtSource}{Scopes the analysis to network paths that match specific filters at the
-source. If you specify this parameter, you can't specify the parameters
-for the source IP address or the destination port.}
+\item{FilterAtSource}{Scopes the analysis to network paths that match specific filters at the source. If you specify this parameter, you can't specify the parameters for the source IP address or the destination port.}
 
-\item{FilterAtDestination}{Scopes the analysis to network paths that match specific filters at the
-destination. If you specify this parameter, you can't specify the
-parameter for the destination IP address.}
+\item{FilterAtDestination}{Scopes the analysis to network paths that match specific filters at the destination. If you specify this parameter, you can't specify the parameter for the destination IP address.}
 }
 \description{
 Creates a path to analyze for reachability.

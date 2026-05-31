@@ -13,15 +13,11 @@ ec2_get_reserved_instances_exchange_quote(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ReservedInstanceIds}{[required] The IDs of the Convertible Reserved Instances to exchange.}
 
-\item{TargetConfigurations}{The configuration of the target Convertible Reserved Instance to
-exchange for your current Convertible Reserved Instances.}
+\item{TargetConfigurations}{The configuration of the target Convertible Reserved Instance to exchange for your current Convertible Reserved Instances.}
 }
 \description{
 Returns a quote and exchange information for exchanging one or more specified Convertible Reserved Instances for a new Convertible Reserved Instance. If the exchange cannot be performed, the reason is returned in the response. Use \code{\link[=ec2_accept_reserved_instances_exchange_quote]{accept_reserved_instances_exchange_quote}} to perform the exchange.

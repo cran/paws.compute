@@ -14,17 +14,13 @@ ec2_get_ipam_pool_allocations(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamPoolId}{[required] The ID of the IPAM pool you want to see the allocations for.}
 
 \item{IpamPoolAllocationId}{The ID of the allocation.}
 
-\item{Filters}{One or more filters for the request. For more information about
-filtering, see \href{https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html}{Filtering CLI output}.}
+\item{Filters}{One or more filters for the request. For more information about filtering, see \href{https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html}{Filtering CLI output}.}
 
 \item{MaxResults}{The maximum number of results you would like returned per page.}
 

@@ -173,35 +173,18 @@ proton_cancel_service_pipeline_deployment <- function(serviceName) {
 #'
 #' @param clientToken The client token for the created component.
 #' @param description An optional customer-provided description of the component.
-#' @param environmentName The name of the Proton environment that you want to associate this
-#' component with. You must specify this when you don't specify
-#' `serviceInstanceName` and `serviceName`.
-#' @param manifest &#91;required&#93; A path to a manifest file that lists the Infrastructure as Code (IaC)
-#' file, template language, and rendering engine for infrastructure that a
-#' custom component provisions.
+#' @param environmentName The name of the Proton environment that you want to associate this component with. You must specify this when you don't specify `serviceInstanceName` and `serviceName`.
+#' @param manifest &#91;required&#93; A path to a manifest file that lists the Infrastructure as Code (IaC) file, template language, and rendering engine for infrastructure that a custom component provisions.
 #' @param name &#91;required&#93; The customer-provided name of the component.
-#' @param serviceInstanceName The name of the service instance that you want to attach this component
-#' to. If you don't specify this, the component isn't attached to any
-#' service instance. Specify both `serviceInstanceName` and `serviceName`
-#' or neither of them.
-#' @param serviceName The name of the service that `serviceInstanceName` is associated with.
-#' If you don't specify this, the component isn't attached to any service
-#' instance. Specify both `serviceInstanceName` and `serviceName` or
-#' neither of them.
-#' @param serviceSpec The service spec that you want the component to use to access service
-#' inputs. Set this only when you attach the component to a service
-#' instance.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton component. A tag is a key-value pair.
+#' @param serviceInstanceName The name of the service instance that you want to attach this component to. If you don't specify this, the component isn't attached to any service instance. Specify both `serviceInstanceName` and `serviceName` or neither of them.
+#' @param serviceName The name of the service that `serviceInstanceName` is associated with. If you don't specify this, the component isn't attached to any service instance. Specify both `serviceInstanceName` and `serviceName` or neither of them.
+#' @param serviceSpec The service spec that you want the component to use to access service inputs. Set this only when you attach the component to a service instance.
+#' @param tags An optional list of metadata items that you can associate with the Proton component. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
-#' @param templateFile &#91;required&#93; A path to the Infrastructure as Code (IaC) file describing
-#' infrastructure that a custom component provisions.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
+#' @param templateFile &#91;required&#93; A path to the Infrastructure as Code (IaC) file describing infrastructure that a custom component provisions.
 #' 
-#' Components support a single IaC file, even if you use Terraform as your
-#' template language.
+#' Components support a single IaC file, even if you use Terraform as your template language.
 #'
 #' @keywords internal
 #'
@@ -232,66 +215,32 @@ proton_create_component <- function(clientToken = NULL, description = NULL, envi
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_create_environment/](https://www.paws-r-sdk.com/docs/proton_create_environment/) for full documentation.
 #'
-#' @param codebuildRoleArn The Amazon Resource Name (ARN) of the IAM service role that allows
-#' Proton to provision infrastructure using CodeBuild-based provisioning on
-#' your behalf.
+#' @param codebuildRoleArn The Amazon Resource Name (ARN) of the IAM service role that allows Proton to provision infrastructure using CodeBuild-based provisioning on your behalf.
 #' 
-#' To use CodeBuild-based provisioning for the environment or for any
-#' service instance running in the environment, specify either the
-#' `environmentAccountConnectionId` or `codebuildRoleArn` parameter.
-#' @param componentRoleArn The Amazon Resource Name (ARN) of the IAM service role that Proton uses
-#' when provisioning directly defined components in this environment. It
-#' determines the scope of infrastructure that a component can provision.
+#' To use CodeBuild-based provisioning for the environment or for any service instance running in the environment, specify either the `environmentAccountConnectionId` or `codebuildRoleArn` parameter.
+#' @param componentRoleArn The Amazon Resource Name (ARN) of the IAM service role that Proton uses when provisioning directly defined components in this environment. It determines the scope of infrastructure that a component can provision.
 #' 
-#' You must specify `componentRoleArn` to allow directly defined components
-#' to be associated with this environment.
+#' You must specify `componentRoleArn` to allow directly defined components to be associated with this environment.
 #' 
-#' For more information about components, see [Proton
-#' components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html)
-#' in the *Proton User Guide*.
+#' For more information about components, see [Proton components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html) in the *Proton User Guide*.
 #' @param description A description of the environment that's being created and deployed.
-#' @param environmentAccountConnectionId The ID of the environment account connection that you provide if you're
-#' provisioning your environment infrastructure resources to an environment
-#' account. For more information, see [Environment account
-#' connections](https://docs.aws.amazon.com/proton/latest/userguide/ag-env-account-connections.html)
-#' in the *Proton User guide*.
+#' @param environmentAccountConnectionId The ID of the environment account connection that you provide if you're provisioning your environment infrastructure resources to an environment account. For more information, see [Environment account connections](https://docs.aws.amazon.com/proton/latest/userguide/ag-env-account-connections.html) in the *Proton User guide*.
 #' 
-#' To use Amazon Web Services-managed provisioning for the environment,
-#' specify either the `environmentAccountConnectionId` or
-#' `protonServiceRoleArn` parameter and omit the `provisioningRepository`
-#' parameter.
+#' To use Amazon Web Services-managed provisioning for the environment, specify either the `environmentAccountConnectionId` or `protonServiceRoleArn` parameter and omit the `provisioningRepository` parameter.
 #' @param name &#91;required&#93; The name of the environment.
-#' @param protonServiceRoleArn The Amazon Resource Name (ARN) of the Proton service role that allows
-#' Proton to make calls to other services on your behalf.
+#' @param protonServiceRoleArn The Amazon Resource Name (ARN) of the Proton service role that allows Proton to make calls to other services on your behalf.
 #' 
-#' To use Amazon Web Services-managed provisioning for the environment,
-#' specify either the `environmentAccountConnectionId` or
-#' `protonServiceRoleArn` parameter and omit the `provisioningRepository`
-#' parameter.
-#' @param provisioningRepository The linked repository that you use to host your rendered infrastructure
-#' templates for self-managed provisioning. A linked repository is a
-#' repository that has been registered with Proton. For more information,
-#' see [`create_repository`][proton_create_repository].
+#' To use Amazon Web Services-managed provisioning for the environment, specify either the `environmentAccountConnectionId` or `protonServiceRoleArn` parameter and omit the `provisioningRepository` parameter.
+#' @param provisioningRepository The linked repository that you use to host your rendered infrastructure templates for self-managed provisioning. A linked repository is a repository that has been registered with Proton. For more information, see [`create_repository`][proton_create_repository].
 #' 
-#' To use self-managed provisioning for the environment, specify this
-#' parameter and omit the `environmentAccountConnectionId` and
-#' `protonServiceRoleArn` parameters.
-#' @param spec &#91;required&#93; A YAML formatted string that provides inputs as defined in the
-#' environment template bundle schema file. For more information, see
-#' [Environments](https://docs.aws.amazon.com/proton/latest/userguide/ag-environments.html)
-#' in the *Proton User Guide*.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton environment. A tag is a key-value pair.
+#' To use self-managed provisioning for the environment, specify this parameter and omit the `environmentAccountConnectionId` and `protonServiceRoleArn` parameters.
+#' @param spec &#91;required&#93; A YAML formatted string that provides inputs as defined in the environment template bundle schema file. For more information, see [Environments](https://docs.aws.amazon.com/proton/latest/userguide/ag-environments.html) in the *Proton User Guide*.
+#' @param tags An optional list of metadata items that you can associate with the Proton environment. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
 #' @param templateMajorVersion &#91;required&#93; The major version of the environment template.
 #' @param templateMinorVersion The minor version of the environment template.
-#' @param templateName &#91;required&#93; The name of the environment template. For more information, see
-#' [Environment
-#' Templates](https://docs.aws.amazon.com/proton/latest/userguide/ag-templates.html)
-#' in the *Proton User Guide*.
+#' @param templateName &#91;required&#93; The name of the environment template. For more information, see [Environment Templates](https://docs.aws.amazon.com/proton/latest/userguide/ag-templates.html) in the *Proton User Guide*.
 #'
 #' @keywords internal
 #'
@@ -324,41 +273,19 @@ proton_create_environment <- function(codebuildRoleArn = NULL, componentRoleArn 
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_create_environment_account_connection/](https://www.paws-r-sdk.com/docs/proton_create_environment_account_connection/) for full documentation.
 #'
-#' @param clientToken When included, if two identical requests are made with the same client
-#' token, Proton returns the environment account connection that the first
-#' request created.
-#' @param codebuildRoleArn The Amazon Resource Name (ARN) of an IAM service role in the environment
-#' account. Proton uses this role to provision infrastructure resources
-#' using CodeBuild-based provisioning in the associated environment
-#' account.
-#' @param componentRoleArn The Amazon Resource Name (ARN) of the IAM service role that Proton uses
-#' when provisioning directly defined components in the associated
-#' environment account. It determines the scope of infrastructure that a
-#' component can provision in the account.
+#' @param clientToken When included, if two identical requests are made with the same client token, Proton returns the environment account connection that the first request created.
+#' @param codebuildRoleArn The Amazon Resource Name (ARN) of an IAM service role in the environment account. Proton uses this role to provision infrastructure resources using CodeBuild-based provisioning in the associated environment account.
+#' @param componentRoleArn The Amazon Resource Name (ARN) of the IAM service role that Proton uses when provisioning directly defined components in the associated environment account. It determines the scope of infrastructure that a component can provision in the account.
 #' 
-#' You must specify `componentRoleArn` to allow directly defined components
-#' to be associated with any environments running in this account.
+#' You must specify `componentRoleArn` to allow directly defined components to be associated with any environments running in this account.
 #' 
-#' For more information about components, see [Proton
-#' components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html)
-#' in the *Proton User Guide*.
-#' @param environmentName &#91;required&#93; The name of the Proton environment that's created in the associated
-#' management account.
-#' @param managementAccountId &#91;required&#93; The ID of the management account that accepts or rejects the environment
-#' account connection. You create and manage the Proton environment in this
-#' account. If the management account accepts the environment account
-#' connection, Proton can use the associated IAM role to provision
-#' environment infrastructure resources in the associated environment
-#' account.
-#' @param roleArn The Amazon Resource Name (ARN) of the IAM service role that's created in
-#' the environment account. Proton uses this role to provision
-#' infrastructure resources in the associated environment account.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton environment account connection. A tag is a key-value pair.
+#' For more information about components, see [Proton components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html) in the *Proton User Guide*.
+#' @param environmentName &#91;required&#93; The name of the Proton environment that's created in the associated management account.
+#' @param managementAccountId &#91;required&#93; The ID of the management account that accepts or rejects the environment account connection. You create and manage the Proton environment in this account. If the management account accepts the environment account connection, Proton can use the associated IAM role to provision environment infrastructure resources in the associated environment account.
+#' @param roleArn The Amazon Resource Name (ARN) of the IAM service role that's created in the environment account. Proton uses this role to provision infrastructure resources in the associated environment account.
+#' @param tags An optional list of metadata items that you can associate with the Proton environment account connection. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
 #'
 #' @keywords internal
 #'
@@ -393,14 +320,10 @@ proton_create_environment_account_connection <- function(clientToken = NULL, cod
 #' @param displayName The environment template name as displayed in the developer interface.
 #' @param encryptionKey A customer provided encryption key that Proton uses to encrypt data.
 #' @param name &#91;required&#93; The name of the environment template.
-#' @param provisioning When included, indicates that the environment template is for customer
-#' provisioned and managed infrastructure.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton environment template. A tag is a key-value pair.
+#' @param provisioning When included, indicates that the environment template is for customer provisioned and managed infrastructure.
+#' @param tags An optional list of metadata items that you can associate with the Proton environment template. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
 #'
 #' @keywords internal
 #'
@@ -431,23 +354,15 @@ proton_create_environment_template <- function(description = NULL, displayName =
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_create_environment_template_version/](https://www.paws-r-sdk.com/docs/proton_create_environment_template_version/) for full documentation.
 #'
-#' @param clientToken When included, if two identical requests are made with the same client
-#' token, Proton returns the environment template version that the first
-#' request created.
+#' @param clientToken When included, if two identical requests are made with the same client token, Proton returns the environment template version that the first request created.
 #' @param description A description of the new version of an environment template.
-#' @param majorVersion To create a new minor version of the environment template, include
-#' `major Version`.
+#' @param majorVersion To create a new minor version of the environment template, include `major Version`.
 #' 
-#' To create a new major and minor version of the environment template,
-#' exclude `major Version`.
-#' @param source &#91;required&#93; An object that includes the template bundle S3 bucket path and name for
-#' the new version of an template.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton environment template version. A tag is a key-value pair.
+#' To create a new major and minor version of the environment template, exclude `major Version`.
+#' @param source &#91;required&#93; An object that includes the template bundle S3 bucket path and name for the new version of an template.
+#' @param tags An optional list of metadata items that you can associate with the Proton environment template version. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
 #' @param templateName &#91;required&#93; The name of the environment template.
 #'
 #' @keywords internal
@@ -479,21 +394,13 @@ proton_create_environment_template_version <- function(clientToken = NULL, descr
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_create_repository/](https://www.paws-r-sdk.com/docs/proton_create_repository/) for full documentation.
 #'
-#' @param connectionArn &#91;required&#93; The Amazon Resource Name (ARN) of your AWS CodeStar connection that
-#' connects Proton to your repository provider account. For more
-#' information, see [Setting up for
-#' Proton](https://docs.aws.amazon.com/proton/latest/userguide/setting-up-for-service.html)
-#' in the *Proton User Guide*.
-#' @param encryptionKey The ARN of your customer Amazon Web Services Key Management Service
-#' (Amazon Web Services KMS) key.
+#' @param connectionArn &#91;required&#93; The Amazon Resource Name (ARN) of your AWS CodeStar connection that connects Proton to your repository provider account. For more information, see [Setting up for Proton](https://docs.aws.amazon.com/proton/latest/userguide/setting-up-for-service.html) in the *Proton User Guide*.
+#' @param encryptionKey The ARN of your customer Amazon Web Services Key Management Service (Amazon Web Services KMS) key.
 #' @param name &#91;required&#93; The repository name (for example, `myrepos/myrepo`).
 #' @param provider &#91;required&#93; The repository provider.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton repository. A tag is a key-value pair.
+#' @param tags An optional list of metadata items that you can associate with the Proton repository. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
 #'
 #' @keywords internal
 #'
@@ -524,34 +431,17 @@ proton_create_repository <- function(connectionArn, encryptionKey = NULL, name, 
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_create_service/](https://www.paws-r-sdk.com/docs/proton_create_service/) for full documentation.
 #'
-#' @param branchName The name of the code repository branch that holds the code that's
-#' deployed in Proton. *Don't* include this parameter if your service
-#' template *doesn't* include a service pipeline.
+#' @param branchName The name of the code repository branch that holds the code that's deployed in Proton. *Don't* include this parameter if your service template *doesn't* include a service pipeline.
 #' @param description A description of the Proton service.
 #' @param name &#91;required&#93; The service name.
-#' @param repositoryConnectionArn The Amazon Resource Name (ARN) of the repository connection. For more
-#' information, see [Setting up an AWS CodeStar
-#' connection](https://docs.aws.amazon.com/proton/latest/userguide/setting-up-for-service.html#setting-up-vcontrol)
-#' in the *Proton User Guide*. *Don't* include this parameter if your
-#' service template *doesn't* include a service pipeline.
-#' @param repositoryId The ID of the code repository. *Don't* include this parameter if your
-#' service template *doesn't* include a service pipeline.
-#' @param spec &#91;required&#93; A link to a spec file that provides inputs as defined in the service
-#' template bundle schema file. The spec file is in YAML format. *Don’t*
-#' include pipeline inputs in the spec if your service template *doesn’t*
-#' include a service pipeline. For more information, see [Create a
-#' service](https://docs.aws.amazon.com/proton/latest/userguide/ag-create-svc.html)
-#' in the *Proton User Guide*.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton service. A tag is a key-value pair.
+#' @param repositoryConnectionArn The Amazon Resource Name (ARN) of the repository connection. For more information, see [Setting up an AWS CodeStar connection](https://docs.aws.amazon.com/proton/latest/userguide/setting-up-for-service.html#setting-up-vcontrol) in the *Proton User Guide*. *Don't* include this parameter if your service template *doesn't* include a service pipeline.
+#' @param repositoryId The ID of the code repository. *Don't* include this parameter if your service template *doesn't* include a service pipeline.
+#' @param spec &#91;required&#93; A link to a spec file that provides inputs as defined in the service template bundle schema file. The spec file is in YAML format. *Don’t* include pipeline inputs in the spec if your service template *doesn’t* include a service pipeline. For more information, see [Create a service](https://docs.aws.amazon.com/proton/latest/userguide/ag-create-svc.html) in the *Proton User Guide*.
+#' @param tags An optional list of metadata items that you can associate with the Proton service. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
-#' @param templateMajorVersion &#91;required&#93; The major version of the service template that was used to create the
-#' service.
-#' @param templateMinorVersion The minor version of the service template that was used to create the
-#' service.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
+#' @param templateMajorVersion &#91;required&#93; The major version of the service template that was used to create the service.
+#' @param templateMinorVersion The minor version of the service template that was used to create the service.
 #' @param templateName &#91;required&#93; The name of the service template that's used to create the service.
 #'
 #' @keywords internal
@@ -587,16 +477,11 @@ proton_create_service <- function(branchName = NULL, description = NULL, name, r
 #' @param name &#91;required&#93; The name of the service instance to create.
 #' @param serviceName &#91;required&#93; The name of the service the service instance is added to.
 #' @param spec &#91;required&#93; The spec for the service instance you want to create.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton service instance. A tag is a key-value pair.
+#' @param tags An optional list of metadata items that you can associate with the Proton service instance. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
-#' @param templateMajorVersion To create a new major and minor version of the service template,
-#' *exclude* `major Version`.
-#' @param templateMinorVersion To create a new minor version of the service template, include a
-#' `major Version`.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
+#' @param templateMajorVersion To create a new major and minor version of the service template, *exclude* `major Version`.
+#' @param templateMinorVersion To create a new minor version of the service template, include a `major Version`.
 #'
 #' @keywords internal
 #'
@@ -663,22 +548,13 @@ proton_create_service_sync_config <- function(branch, filePath, repositoryName, 
 #' See [https://www.paws-r-sdk.com/docs/proton_create_service_template/](https://www.paws-r-sdk.com/docs/proton_create_service_template/) for full documentation.
 #'
 #' @param description A description of the service template.
-#' @param displayName The name of the service template as displayed in the developer
-#' interface.
+#' @param displayName The name of the service template as displayed in the developer interface.
 #' @param encryptionKey A customer provided encryption key that's used to encrypt data.
 #' @param name &#91;required&#93; The name of the service template.
-#' @param pipelineProvisioning By default, Proton provides a service pipeline for your service. When
-#' this parameter is included, it indicates that an Proton service pipeline
-#' *isn't* provided for your service. After it's included, it *can't* be
-#' changed. For more information, see [Template
-#' bundles](https://docs.aws.amazon.com/proton/latest/userguide/ag-template-authoring.html#ag-template-bundles)
-#' in the *Proton User Guide*.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton service template. A tag is a key-value pair.
+#' @param pipelineProvisioning By default, Proton provides a service pipeline for your service. When this parameter is included, it indicates that an Proton service pipeline *isn't* provided for your service. After it's included, it *can't* be changed. For more information, see [Template bundles](https://docs.aws.amazon.com/proton/latest/userguide/ag-template-authoring.html#ag-template-bundles) in the *Proton User Guide*.
+#' @param tags An optional list of metadata items that you can associate with the Proton service template. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
 #'
 #' @keywords internal
 #'
@@ -709,33 +585,19 @@ proton_create_service_template <- function(description = NULL, displayName = NUL
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_create_service_template_version/](https://www.paws-r-sdk.com/docs/proton_create_service_template_version/) for full documentation.
 #'
-#' @param clientToken When included, if two identical requests are made with the same client
-#' token, Proton returns the service template version that the first
-#' request created.
-#' @param compatibleEnvironmentTemplates &#91;required&#93; An array of environment template objects that are compatible with the
-#' new service template version. A service instance based on this service
-#' template version can run in environments based on compatible templates.
+#' @param clientToken When included, if two identical requests are made with the same client token, Proton returns the service template version that the first request created.
+#' @param compatibleEnvironmentTemplates &#91;required&#93; An array of environment template objects that are compatible with the new service template version. A service instance based on this service template version can run in environments based on compatible templates.
 #' @param description A description of the new version of a service template.
-#' @param majorVersion To create a new minor version of the service template, include a
-#' `major Version`.
+#' @param majorVersion To create a new minor version of the service template, include a `major Version`.
 #' 
-#' To create a new major and minor version of the service template,
-#' *exclude* `major Version`.
-#' @param source &#91;required&#93; An object that includes the template bundle S3 bucket path and name for
-#' the new version of a service template.
-#' @param supportedComponentSources An array of supported component sources. Components with supported
-#' sources can be attached to service instances based on this service
-#' template version.
+#' To create a new major and minor version of the service template, *exclude* `major Version`.
+#' @param source &#91;required&#93; An object that includes the template bundle S3 bucket path and name for the new version of a service template.
+#' @param supportedComponentSources An array of supported component sources. Components with supported sources can be attached to service instances based on this service template version.
 #' 
-#' For more information about components, see [Proton
-#' components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html)
-#' in the *Proton User Guide*.
-#' @param tags An optional list of metadata items that you can associate with the
-#' Proton service template version. A tag is a key-value pair.
+#' For more information about components, see [Proton components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html) in the *Proton User Guide*.
+#' @param tags An optional list of metadata items that you can associate with the Proton service template version. A tag is a key-value pair.
 #' 
-#' For more information, see [Proton resources and
-#' tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html)
-#' in the *Proton User Guide*.
+#' For more information, see [Proton resources and tagging](https://docs.aws.amazon.com/proton/latest/userguide/resources.html) in the *Proton User Guide*.
 #' @param templateName &#91;required&#93; The name of the service template.
 #'
 #' @keywords internal
@@ -771,9 +633,7 @@ proton_create_service_template_version <- function(clientToken = NULL, compatibl
 #' @param branch &#91;required&#93; The repository branch for your template.
 #' @param repositoryName &#91;required&#93; The repository name (for example, `myrepos/myrepo`).
 #' @param repositoryProvider &#91;required&#93; The provider type for your repository.
-#' @param subdirectory A repository subdirectory path to your template bundle directory. When
-#' included, Proton limits the template bundle search to this repository
-#' directory.
+#' @param subdirectory A repository subdirectory path to your template bundle directory. When included, Proton limits the template bundle search to this repository directory.
 #' @param templateName &#91;required&#93; The name of your registered template.
 #' @param templateType &#91;required&#93; The type of the registered template.
 #'
@@ -1060,8 +920,7 @@ proton_delete_service <- function(name) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_delete_service_sync_config/](https://www.paws-r-sdk.com/docs/proton_delete_service_sync_config/) for full documentation.
 #'
-#' @param serviceName &#91;required&#93; The name of the service that you want to delete the service sync
-#' configuration for.
+#' @param serviceName &#91;required&#93; The name of the service that you want to delete the service sync configuration for.
 #'
 #' @keywords internal
 #'
@@ -1255,8 +1114,7 @@ proton_get_component <- function(name) {
 #' @param componentName The name of a component that you want to get the detailed data for.
 #' @param environmentName The name of a environment that you want to get the detailed data for.
 #' @param id &#91;required&#93; The ID of the deployment that you want to get the detailed data for.
-#' @param serviceInstanceName The name of the service instance associated with the given deployment
-#' ID. `serviceName` must be specified to identify the service instance.
+#' @param serviceInstanceName The name of the service instance associated with the given deployment ID. `serviceName` must be specified to identify the service instance.
 #' @param serviceName The name of the service associated with the given deployment ID.
 #'
 #' @keywords internal
@@ -1320,8 +1178,7 @@ proton_get_environment <- function(name) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_get_environment_account_connection/](https://www.paws-r-sdk.com/docs/proton_get_environment_account_connection/) for full documentation.
 #'
-#' @param id &#91;required&#93; The ID of the environment account connection that you want to get the
-#' detailed data for.
+#' @param id &#91;required&#93; The ID of the environment account connection that you want to get the detailed data for.
 #'
 #' @keywords internal
 #'
@@ -1352,8 +1209,7 @@ proton_get_environment_account_connection <- function(id) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_get_environment_template/](https://www.paws-r-sdk.com/docs/proton_get_environment_template/) for full documentation.
 #'
-#' @param name &#91;required&#93; The name of the environment template that you want to get the detailed
-#' data for.
+#' @param name &#91;required&#93; The name of the environment template that you want to get the detailed data for.
 #'
 #' @keywords internal
 #'
@@ -1385,12 +1241,9 @@ proton_get_environment_template <- function(name) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_get_environment_template_version/](https://www.paws-r-sdk.com/docs/proton_get_environment_template_version/) for full documentation.
 #'
-#' @param majorVersion &#91;required&#93; To get environment template major version detail data, include
-#' `major Version`.
-#' @param minorVersion &#91;required&#93; To get environment template minor version detail data, include
-#' `minorVersion`.
-#' @param templateName &#91;required&#93; The name of the environment template a version of which you want to get
-#' detailed data for.
+#' @param majorVersion &#91;required&#93; To get environment template major version detail data, include `major Version`.
+#' @param minorVersion &#91;required&#93; To get environment template minor version detail data, include `minorVersion`.
+#' @param templateName &#91;required&#93; The name of the environment template a version of which you want to get detailed data for.
 #'
 #' @keywords internal
 #'
@@ -1549,8 +1402,7 @@ proton_get_service <- function(name) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_get_service_instance/](https://www.paws-r-sdk.com/docs/proton_get_service_instance/) for full documentation.
 #'
-#' @param name &#91;required&#93; The name of a service instance that you want to get the detailed data
-#' for.
+#' @param name &#91;required&#93; The name of a service instance that you want to get the detailed data for.
 #' @param serviceName &#91;required&#93; The name of the service that you want the service instance input for.
 #'
 #' @keywords internal
@@ -1582,8 +1434,7 @@ proton_get_service_instance <- function(name, serviceName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_get_service_instance_sync_status/](https://www.paws-r-sdk.com/docs/proton_get_service_instance_sync_status/) for full documentation.
 #'
-#' @param serviceInstanceName &#91;required&#93; The name of the service instance that you want the sync status input
-#' for.
+#' @param serviceInstanceName &#91;required&#93; The name of the service instance that you want the sync status input for.
 #' @param serviceName &#91;required&#93; The name of the service that the service instance belongs to.
 #'
 #' @keywords internal
@@ -1615,11 +1466,8 @@ proton_get_service_instance_sync_status <- function(serviceInstanceName, service
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_get_service_sync_blocker_summary/](https://www.paws-r-sdk.com/docs/proton_get_service_sync_blocker_summary/) for full documentation.
 #'
-#' @param serviceInstanceName The name of the service instance that you want to get the service sync
-#' blocker summary for. If given bothe the instance name and the service
-#' name, only the instance is blocked.
-#' @param serviceName &#91;required&#93; The name of the service that you want to get the service sync blocker
-#' summary for. If given only the service name, all instances are blocked.
+#' @param serviceInstanceName The name of the service instance that you want to get the service sync blocker summary for. If given bothe the instance name and the service name, only the instance is blocked.
+#' @param serviceName &#91;required&#93; The name of the service that you want to get the service sync blocker summary for. If given only the service name, all instances are blocked.
 #'
 #' @keywords internal
 #'
@@ -1650,8 +1498,7 @@ proton_get_service_sync_blocker_summary <- function(serviceInstanceName = NULL, 
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_get_service_sync_config/](https://www.paws-r-sdk.com/docs/proton_get_service_sync_config/) for full documentation.
 #'
-#' @param serviceName &#91;required&#93; The name of the service that you want to get the service sync
-#' configuration for.
+#' @param serviceName &#91;required&#93; The name of the service that you want to get the service sync configuration for.
 #'
 #' @keywords internal
 #'
@@ -1713,12 +1560,9 @@ proton_get_service_template <- function(name) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_get_service_template_version/](https://www.paws-r-sdk.com/docs/proton_get_service_template_version/) for full documentation.
 #'
-#' @param majorVersion &#91;required&#93; To get service template major version detail data, include
-#' `major Version`.
-#' @param minorVersion &#91;required&#93; To get service template minor version detail data, include
-#' `minorVersion`.
-#' @param templateName &#91;required&#93; The name of the service template a version of which you want to get
-#' detailed data for.
+#' @param majorVersion &#91;required&#93; To get service template major version detail data, include `major Version`.
+#' @param minorVersion &#91;required&#93; To get service template minor version detail data, include `minorVersion`.
+#' @param templateName &#91;required&#93; The name of the service template a version of which you want to get detailed data for.
 #'
 #' @keywords internal
 #'
@@ -1816,8 +1660,7 @@ proton_get_template_sync_status <- function(templateName, templateType, template
 #'
 #' @param componentName &#91;required&#93; The name of the component whose outputs you want.
 #' @param deploymentId The ID of the deployment whose outputs you want.
-#' @param nextToken A token that indicates the location of the next output in the array of
-#' outputs, after the list of outputs that was previously requested.
+#' @param nextToken A token that indicates the location of the next output in the array of outputs, after the list of outputs that was previously requested.
 #'
 #' @keywords internal
 #'
@@ -1849,9 +1692,7 @@ proton_list_component_outputs <- function(componentName, deploymentId = NULL, ne
 #' See [https://www.paws-r-sdk.com/docs/proton_list_component_provisioned_resources/](https://www.paws-r-sdk.com/docs/proton_list_component_provisioned_resources/) for full documentation.
 #'
 #' @param componentName &#91;required&#93; The name of the component whose provisioned resources you want.
-#' @param nextToken A token that indicates the location of the next provisioned resource in
-#' the array of provisioned resources, after the list of provisioned
-#' resources that was previously requested.
+#' @param nextToken A token that indicates the location of the next provisioned resource in the array of provisioned resources, after the list of provisioned resources that was previously requested.
 #'
 #' @keywords internal
 #'
@@ -1882,17 +1723,11 @@ proton_list_component_provisioned_resources <- function(componentName, nextToken
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_components/](https://www.paws-r-sdk.com/docs/proton_list_components/) for full documentation.
 #'
-#' @param environmentName The name of an environment for result list filtering. Proton returns
-#' components associated with the environment or attached to service
-#' instances running in it.
+#' @param environmentName The name of an environment for result list filtering. Proton returns components associated with the environment or attached to service instances running in it.
 #' @param maxResults The maximum number of components to list.
-#' @param nextToken A token that indicates the location of the next component in the array
-#' of components, after the list of components that was previously
-#' requested.
-#' @param serviceInstanceName The name of a service instance for result list filtering. Proton returns
-#' the component attached to the service instance, if any.
-#' @param serviceName The name of a service for result list filtering. Proton returns
-#' components attached to service instances of the service.
+#' @param nextToken A token that indicates the location of the next component in the array of components, after the list of components that was previously requested.
+#' @param serviceInstanceName The name of a service instance for result list filtering. Proton returns the component attached to the service instance, if any.
+#' @param serviceName The name of a service for result list filtering. Proton returns components attached to service instances of the service.
 #'
 #' @keywords internal
 #'
@@ -1923,18 +1758,12 @@ proton_list_components <- function(environmentName = NULL, maxResults = NULL, ne
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_deployments/](https://www.paws-r-sdk.com/docs/proton_list_deployments/) for full documentation.
 #'
-#' @param componentName The name of a component for result list filtering. Proton returns
-#' deployments associated with that component.
-#' @param environmentName The name of an environment for result list filtering. Proton returns
-#' deployments associated with the environment.
+#' @param componentName The name of a component for result list filtering. Proton returns deployments associated with that component.
+#' @param environmentName The name of an environment for result list filtering. Proton returns deployments associated with the environment.
 #' @param maxResults The maximum number of deployments to list.
-#' @param nextToken A token that indicates the location of the next deployment in the array
-#' of deployment, after the list of deployment that was previously
-#' requested.
-#' @param serviceInstanceName The name of a service instance for result list filtering. Proton returns
-#' the deployments associated with the service instance.
-#' @param serviceName The name of a service for result list filtering. Proton returns
-#' deployments associated with service instances of the service.
+#' @param nextToken A token that indicates the location of the next deployment in the array of deployment, after the list of deployment that was previously requested.
+#' @param serviceInstanceName The name of a service instance for result list filtering. Proton returns the deployments associated with the service instance.
+#' @param serviceName The name of a service for result list filtering. Proton returns deployments associated with service instances of the service.
 #'
 #' @keywords internal
 #'
@@ -1965,15 +1794,10 @@ proton_list_deployments <- function(componentName = NULL, environmentName = NULL
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_environment_account_connections/](https://www.paws-r-sdk.com/docs/proton_list_environment_account_connections/) for full documentation.
 #'
-#' @param environmentName The environment name that's associated with each listed environment
-#' account connection.
+#' @param environmentName The environment name that's associated with each listed environment account connection.
 #' @param maxResults The maximum number of environment account connections to list.
-#' @param nextToken A token that indicates the location of the next environment account
-#' connection in the array of environment account connections, after the
-#' list of environment account connections that was previously requested.
-#' @param requestedBy &#91;required&#93; The type of account making the
-#' [`list_environment_account_connections`][proton_list_environment_account_connections]
-#' request.
+#' @param nextToken A token that indicates the location of the next environment account connection in the array of environment account connections, after the list of environment account connections that was previously requested.
+#' @param requestedBy &#91;required&#93; The type of account making the [`list_environment_account_connections`][proton_list_environment_account_connections] request.
 #' @param statuses The status details for each listed environment account connection.
 #'
 #' @keywords internal
@@ -2007,9 +1831,7 @@ proton_list_environment_account_connections <- function(environmentName = NULL, 
 #'
 #' @param deploymentId The ID of the deployment whose outputs you want.
 #' @param environmentName &#91;required&#93; The environment name.
-#' @param nextToken A token that indicates the location of the next environment output in
-#' the array of environment outputs, after the list of environment outputs
-#' that was previously requested.
+#' @param nextToken A token that indicates the location of the next environment output in the array of environment outputs, after the list of environment outputs that was previously requested.
 #'
 #' @keywords internal
 #'
@@ -2041,9 +1863,7 @@ proton_list_environment_outputs <- function(deploymentId = NULL, environmentName
 #' See [https://www.paws-r-sdk.com/docs/proton_list_environment_provisioned_resources/](https://www.paws-r-sdk.com/docs/proton_list_environment_provisioned_resources/) for full documentation.
 #'
 #' @param environmentName &#91;required&#93; The environment name.
-#' @param nextToken A token that indicates the location of the next environment provisioned
-#' resource in the array of environment provisioned resources, after the
-#' list of environment provisioned resources that was previously requested.
+#' @param nextToken A token that indicates the location of the next environment provisioned resource in the array of environment provisioned resources, after the list of environment provisioned resources that was previously requested.
 #'
 #' @keywords internal
 #'
@@ -2074,16 +1894,11 @@ proton_list_environment_provisioned_resources <- function(environmentName, nextT
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_environment_template_versions/](https://www.paws-r-sdk.com/docs/proton_list_environment_template_versions/) for full documentation.
 #'
-#' @param majorVersion To view a list of minor of versions under a major version of an
-#' environment template, include `major Version`.
+#' @param majorVersion To view a list of minor of versions under a major version of an environment template, include `major Version`.
 #' 
-#' To view a list of major versions of an environment template, *exclude*
-#' `major Version`.
-#' @param maxResults The maximum number of major or minor versions of an environment template
-#' to list.
-#' @param nextToken A token that indicates the location of the next major or minor version
-#' in the array of major or minor versions of an environment template,
-#' after the list of major or minor versions that was previously requested.
+#' To view a list of major versions of an environment template, *exclude* `major Version`.
+#' @param maxResults The maximum number of major or minor versions of an environment template to list.
+#' @param nextToken A token that indicates the location of the next major or minor version in the array of major or minor versions of an environment template, after the list of major or minor versions that was previously requested.
 #' @param templateName &#91;required&#93; The name of the environment template.
 #'
 #' @keywords internal
@@ -2116,9 +1931,7 @@ proton_list_environment_template_versions <- function(majorVersion = NULL, maxRe
 #' See [https://www.paws-r-sdk.com/docs/proton_list_environment_templates/](https://www.paws-r-sdk.com/docs/proton_list_environment_templates/) for full documentation.
 #'
 #' @param maxResults The maximum number of environment templates to list.
-#' @param nextToken A token that indicates the location of the next environment template in
-#' the array of environment templates, after the list of environment
-#' templates that was previously requested.
+#' @param nextToken A token that indicates the location of the next environment template in the array of environment templates, after the list of environment templates that was previously requested.
 #'
 #' @keywords internal
 #'
@@ -2151,9 +1964,7 @@ proton_list_environment_templates <- function(maxResults = NULL, nextToken = NUL
 #'
 #' @param environmentTemplates An array of the versions of the environment template.
 #' @param maxResults The maximum number of environments to list.
-#' @param nextToken A token that indicates the location of the next environment in the array
-#' of environments, after the list of environments that was previously
-#' requested.
+#' @param nextToken A token that indicates the location of the next environment in the array of environments, after the list of environments that was previously requested.
 #'
 #' @keywords internal
 #'
@@ -2185,8 +1996,7 @@ proton_list_environments <- function(environmentTemplates = NULL, maxResults = N
 #' See [https://www.paws-r-sdk.com/docs/proton_list_repositories/](https://www.paws-r-sdk.com/docs/proton_list_repositories/) for full documentation.
 #'
 #' @param maxResults The maximum number of repositories to list.
-#' @param nextToken A token that indicates the location of the next repository in the array
-#' of repositories, after the list of repositories previously requested.
+#' @param nextToken A token that indicates the location of the next repository in the array of repositories, after the list of repositories previously requested.
 #'
 #' @keywords internal
 #'
@@ -2217,9 +2027,7 @@ proton_list_repositories <- function(maxResults = NULL, nextToken = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_repository_sync_definitions/](https://www.paws-r-sdk.com/docs/proton_list_repository_sync_definitions/) for full documentation.
 #'
-#' @param nextToken A token that indicates the location of the next repository sync
-#' definition in the array of repository sync definitions, after the list
-#' of repository sync definitions previously requested.
+#' @param nextToken A token that indicates the location of the next repository sync definition in the array of repository sync definitions, after the list of repository sync definitions previously requested.
 #' @param repositoryName &#91;required&#93; The repository name.
 #' @param repositoryProvider &#91;required&#93; The repository provider.
 #' @param syncType &#91;required&#93; The sync type. The only supported value is `TEMPLATE_SYNC`.
@@ -2254,8 +2062,7 @@ proton_list_repository_sync_definitions <- function(nextToken = NULL, repository
 #' See [https://www.paws-r-sdk.com/docs/proton_list_service_instance_outputs/](https://www.paws-r-sdk.com/docs/proton_list_service_instance_outputs/) for full documentation.
 #'
 #' @param deploymentId The ID of the deployment whose outputs you want.
-#' @param nextToken A token that indicates the location of the next output in the array of
-#' outputs, after the list of outputs that was previously requested.
+#' @param nextToken A token that indicates the location of the next output in the array of outputs, after the list of outputs that was previously requested.
 #' @param serviceInstanceName &#91;required&#93; The name of the service instance whose outputs you want.
 #' @param serviceName &#91;required&#93; The name of the service that `serviceInstanceName` is associated to.
 #'
@@ -2288,9 +2095,7 @@ proton_list_service_instance_outputs <- function(deploymentId = NULL, nextToken 
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_service_instance_provisioned_resources/](https://www.paws-r-sdk.com/docs/proton_list_service_instance_provisioned_resources/) for full documentation.
 #'
-#' @param nextToken A token that indicates the location of the next provisioned resource in
-#' the array of provisioned resources, after the list of provisioned
-#' resources that was previously requested.
+#' @param nextToken A token that indicates the location of the next provisioned resource in the array of provisioned resources, after the list of provisioned resources that was previously requested.
 #' @param serviceInstanceName &#91;required&#93; The name of the service instance whose provisioned resources you want.
 #' @param serviceName &#91;required&#93; The name of the service that `serviceInstanceName` is associated to.
 #'
@@ -2323,18 +2128,13 @@ proton_list_service_instance_provisioned_resources <- function(nextToken = NULL,
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_service_instances/](https://www.paws-r-sdk.com/docs/proton_list_service_instances/) for full documentation.
 #'
-#' @param filters An array of filtering criteria that scope down the result list. By
-#' default, all service instances in the Amazon Web Services account are
-#' returned.
+#' @param filters An array of filtering criteria that scope down the result list. By default, all service instances in the Amazon Web Services account are returned.
 #' @param maxResults The maximum number of service instances to list.
-#' @param nextToken A token that indicates the location of the next service in the array of
-#' service instances, after the list of service instances that was
-#' previously requested.
+#' @param nextToken A token that indicates the location of the next service in the array of service instances, after the list of service instances that was previously requested.
 #' @param serviceName The name of the service that the service instance belongs to.
 #' @param sortBy The field that the result list is sorted by.
 #' 
-#' When you choose to sort by `serviceName`, service instances within each
-#' service are sorted by service instance name.
+#' When you choose to sort by `serviceName`, service instances within each service are sorted by service instance name.
 #' 
 #' Default: `serviceName`
 #' @param sortOrder Result list sort order.
@@ -2371,8 +2171,7 @@ proton_list_service_instances <- function(filters = NULL, maxResults = NULL, nex
 #' See [https://www.paws-r-sdk.com/docs/proton_list_service_pipeline_outputs/](https://www.paws-r-sdk.com/docs/proton_list_service_pipeline_outputs/) for full documentation.
 #'
 #' @param deploymentId The ID of the deployment you want the outputs for.
-#' @param nextToken A token that indicates the location of the next output in the array of
-#' outputs, after the list of outputs that was previously requested.
+#' @param nextToken A token that indicates the location of the next output in the array of outputs, after the list of outputs that was previously requested.
 #' @param serviceName &#91;required&#93; The name of the service whose pipeline's outputs you want.
 #'
 #' @keywords internal
@@ -2404,9 +2203,7 @@ proton_list_service_pipeline_outputs <- function(deploymentId = NULL, nextToken 
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_service_pipeline_provisioned_resources/](https://www.paws-r-sdk.com/docs/proton_list_service_pipeline_provisioned_resources/) for full documentation.
 #'
-#' @param nextToken A token that indicates the location of the next provisioned resource in
-#' the array of provisioned resources, after the list of provisioned
-#' resources that was previously requested.
+#' @param nextToken A token that indicates the location of the next provisioned resource in the array of provisioned resources, after the list of provisioned resources that was previously requested.
 #' @param serviceName &#91;required&#93; The name of the service whose pipeline's provisioned resources you want.
 #'
 #' @keywords internal
@@ -2438,16 +2235,11 @@ proton_list_service_pipeline_provisioned_resources <- function(nextToken = NULL,
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_list_service_template_versions/](https://www.paws-r-sdk.com/docs/proton_list_service_template_versions/) for full documentation.
 #'
-#' @param majorVersion To view a list of minor of versions under a major version of a service
-#' template, include `major Version`.
+#' @param majorVersion To view a list of minor of versions under a major version of a service template, include `major Version`.
 #' 
-#' To view a list of major versions of a service template, *exclude*
-#' `major Version`.
-#' @param maxResults The maximum number of major or minor versions of a service template to
-#' list.
-#' @param nextToken A token that indicates the location of the next major or minor version
-#' in the array of major or minor versions of a service template, after the
-#' list of major or minor versions that was previously requested.
+#' To view a list of major versions of a service template, *exclude* `major Version`.
+#' @param maxResults The maximum number of major or minor versions of a service template to list.
+#' @param nextToken A token that indicates the location of the next major or minor version in the array of major or minor versions of a service template, after the list of major or minor versions that was previously requested.
 #' @param templateName &#91;required&#93; The name of the service template.
 #'
 #' @keywords internal
@@ -2480,9 +2272,7 @@ proton_list_service_template_versions <- function(majorVersion = NULL, maxResult
 #' See [https://www.paws-r-sdk.com/docs/proton_list_service_templates/](https://www.paws-r-sdk.com/docs/proton_list_service_templates/) for full documentation.
 #'
 #' @param maxResults The maximum number of service templates to list.
-#' @param nextToken A token that indicates the location of the next service template in the
-#' array of service templates, after the list of service templates
-#' previously requested.
+#' @param nextToken A token that indicates the location of the next service template in the array of service templates, after the list of service templates previously requested.
 #'
 #' @keywords internal
 #'
@@ -2514,8 +2304,7 @@ proton_list_service_templates <- function(maxResults = NULL, nextToken = NULL) {
 #' See [https://www.paws-r-sdk.com/docs/proton_list_services/](https://www.paws-r-sdk.com/docs/proton_list_services/) for full documentation.
 #'
 #' @param maxResults The maximum number of services to list.
-#' @param nextToken A token that indicates the location of the next service in the array of
-#' services, after the list of services that was previously requested.
+#' @param nextToken A token that indicates the location of the next service in the array of services, after the list of services that was previously requested.
 #'
 #' @keywords internal
 #'
@@ -2547,9 +2336,7 @@ proton_list_services <- function(maxResults = NULL, nextToken = NULL) {
 #' See [https://www.paws-r-sdk.com/docs/proton_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/proton_list_tags_for_resource/) for full documentation.
 #'
 #' @param maxResults The maximum number of tags to list.
-#' @param nextToken A token that indicates the location of the next resource tag in the
-#' array of resource tags, after the list of resource tags that was
-#' previously requested.
+#' @param nextToken A token that indicates the location of the next resource tag in the array of resource tags, after the list of resource tags that was previously requested.
 #' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource for the listed tags.
 #'
 #' @keywords internal
@@ -2583,8 +2370,7 @@ proton_list_tags_for_resource <- function(maxResults = NULL, nextToken = NULL, r
 #' See [https://www.paws-r-sdk.com/docs/proton_notify_resource_deployment_status_change/](https://www.paws-r-sdk.com/docs/proton_notify_resource_deployment_status_change/) for full documentation.
 #'
 #' @param deploymentId The deployment ID for your provisioned resource.
-#' @param outputs The provisioned resource state change detail data that's returned by
-#' Proton.
+#' @param outputs The provisioned resource state change detail data that's returned by Proton.
 #' @param resourceArn &#91;required&#93; The provisioned resource Amazon Resource Name (ARN).
 #' @param status The status of your provisioned resource.
 #' @param statusMessage The deployment status message for your provisioned resource.
@@ -2650,8 +2436,7 @@ proton_reject_environment_account_connection <- function(id) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_tag_resource/](https://www.paws-r-sdk.com/docs/proton_tag_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the Proton resource to apply customer
-#' tags to.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the Proton resource to apply customer tags to.
 #' @param tags &#91;required&#93; A list of customer tags to apply to the Proton resource.
 #'
 #' @keywords internal
@@ -2683,10 +2468,8 @@ proton_tag_resource <- function(resourceArn, tags) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_untag_resource/](https://www.paws-r-sdk.com/docs/proton_untag_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource to remove customer tags
-#' from.
-#' @param tagKeys &#91;required&#93; A list of customer tag keys that indicate the customer tags to be
-#' removed from the resource.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource to remove customer tags from.
+#' @param tagKeys &#91;required&#93; A list of customer tag keys that indicate the customer tags to be removed from the resource.
 #'
 #' @keywords internal
 #'
@@ -2718,25 +2501,12 @@ proton_untag_resource <- function(resourceArn, tagKeys) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_update_account_settings/](https://www.paws-r-sdk.com/docs/proton_update_account_settings/) for full documentation.
 #'
-#' @param deletePipelineProvisioningRepository Set to `true` to remove a configured pipeline repository from the
-#' account settings. Don't set this field if you are updating the
-#' configured pipeline repository.
-#' @param pipelineCodebuildRoleArn The Amazon Resource Name (ARN) of the service role you want to use for
-#' provisioning pipelines. Proton assumes this role for CodeBuild-based
-#' provisioning.
-#' @param pipelineProvisioningRepository A linked repository for pipeline provisioning. Specify it if you have
-#' environments configured for self-managed provisioning with services that
-#' include pipelines. A linked repository is a repository that has been
-#' registered with Proton. For more information, see
-#' [`create_repository`][proton_create_repository].
+#' @param deletePipelineProvisioningRepository Set to `true` to remove a configured pipeline repository from the account settings. Don't set this field if you are updating the configured pipeline repository.
+#' @param pipelineCodebuildRoleArn The Amazon Resource Name (ARN) of the service role you want to use for provisioning pipelines. Proton assumes this role for CodeBuild-based provisioning.
+#' @param pipelineProvisioningRepository A linked repository for pipeline provisioning. Specify it if you have environments configured for self-managed provisioning with services that include pipelines. A linked repository is a repository that has been registered with Proton. For more information, see [`create_repository`][proton_create_repository].
 #' 
-#' To remove a previously configured repository, set
-#' `deletePipelineProvisioningRepository` to `true`, and don't set
-#' `pipelineProvisioningRepository`.
-#' @param pipelineServiceRoleArn The Amazon Resource Name (ARN) of the service role you want to use for
-#' provisioning pipelines. Assumed by Proton for Amazon Web
-#' Services-managed provisioning, and by customer-owned automation for
-#' self-managed provisioning.
+#' To remove a previously configured repository, set `deletePipelineProvisioningRepository` to `true`, and don't set `pipelineProvisioningRepository`.
+#' @param pipelineServiceRoleArn The Amazon Resource Name (ARN) of the service role you want to use for provisioning pipelines. Assumed by Proton for Amazon Web Services-managed provisioning, and by customer-owned automation for self-managed provisioning.
 #' 
 #' To remove a previously configured ARN, specify an empty string.
 #'
@@ -2770,43 +2540,25 @@ proton_update_account_settings <- function(deletePipelineProvisioningRepository 
 #' See [https://www.paws-r-sdk.com/docs/proton_update_component/](https://www.paws-r-sdk.com/docs/proton_update_component/) for full documentation.
 #'
 #' @param clientToken The client token for the updated component.
-#' @param deploymentType &#91;required&#93; The deployment type. It defines the mode for updating a component, as
-#' follows:
+#' @param deploymentType &#91;required&#93; The deployment type. It defines the mode for updating a component, as follows:
 #' 
-#' ****
 #' 
 #' `NONE`
 #' 
-#' In this mode, a deployment *doesn't* occur. Only the requested metadata
-#' parameters are updated. You can only specify `description` in this mode.
+#' In this mode, a deployment *doesn't* occur. Only the requested metadata parameters are updated. You can only specify `description` in this mode.
 #' 
-#' ****
 #' 
 #' `CURRENT_VERSION`
 #' 
-#' In this mode, the component is deployed and updated with the new
-#' `serviceSpec`, `templateSource`, and/or `type` that you provide. Only
-#' requested parameters are updated.
+#' In this mode, the component is deployed and updated with the new `serviceSpec`, `templateSource`, and/or `type` that you provide. Only requested parameters are updated.
 #' @param description An optional customer-provided description of the component.
 #' @param name &#91;required&#93; The name of the component to update.
-#' @param serviceInstanceName The name of the service instance that you want to attach this component
-#' to. Don't specify to keep the component's current service instance
-#' attachment. Specify an empty string to detach the component from the
-#' service instance it's attached to. Specify non-empty values for both
-#' `serviceInstanceName` and `serviceName` or for neither of them.
-#' @param serviceName The name of the service that `serviceInstanceName` is associated with.
-#' Don't specify to keep the component's current service instance
-#' attachment. Specify an empty string to detach the component from the
-#' service instance it's attached to. Specify non-empty values for both
-#' `serviceInstanceName` and `serviceName` or for neither of them.
-#' @param serviceSpec The service spec that you want the component to use to access service
-#' inputs. Set this only when the component is attached to a service
-#' instance.
-#' @param templateFile A path to the Infrastructure as Code (IaC) file describing
-#' infrastructure that a custom component provisions.
+#' @param serviceInstanceName The name of the service instance that you want to attach this component to. Don't specify to keep the component's current service instance attachment. Specify an empty string to detach the component from the service instance it's attached to. Specify non-empty values for both `serviceInstanceName` and `serviceName` or for neither of them.
+#' @param serviceName The name of the service that `serviceInstanceName` is associated with. Don't specify to keep the component's current service instance attachment. Specify an empty string to detach the component from the service instance it's attached to. Specify non-empty values for both `serviceInstanceName` and `serviceName` or for neither of them.
+#' @param serviceSpec The service spec that you want the component to use to access service inputs. Set this only when the component is attached to a service instance.
+#' @param templateFile A path to the Infrastructure as Code (IaC) file describing infrastructure that a custom component provisions.
 #' 
-#' Components support a single IaC file, even if you use Terraform as your
-#' template language.
+#' Components support a single IaC file, even if you use Terraform as your template language.
 #'
 #' @keywords internal
 #'
@@ -2837,69 +2589,40 @@ proton_update_component <- function(clientToken = NULL, deploymentType, descript
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_update_environment/](https://www.paws-r-sdk.com/docs/proton_update_environment/) for full documentation.
 #'
-#' @param codebuildRoleArn The Amazon Resource Name (ARN) of the IAM service role that allows
-#' Proton to provision infrastructure using CodeBuild-based provisioning on
-#' your behalf.
-#' @param componentRoleArn The Amazon Resource Name (ARN) of the IAM service role that Proton uses
-#' when provisioning directly defined components in this environment. It
-#' determines the scope of infrastructure that a component can provision.
+#' @param codebuildRoleArn The Amazon Resource Name (ARN) of the IAM service role that allows Proton to provision infrastructure using CodeBuild-based provisioning on your behalf.
+#' @param componentRoleArn The Amazon Resource Name (ARN) of the IAM service role that Proton uses when provisioning directly defined components in this environment. It determines the scope of infrastructure that a component can provision.
 #' 
-#' The environment must have a `componentRoleArn` to allow directly defined
-#' components to be associated with the environment.
+#' The environment must have a `componentRoleArn` to allow directly defined components to be associated with the environment.
 #' 
-#' For more information about components, see [Proton
-#' components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html)
-#' in the *Proton User Guide*.
-#' @param deploymentType &#91;required&#93; There are four modes for updating an environment. The `deploymentType`
-#' field defines the mode.
+#' For more information about components, see [Proton components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html) in the *Proton User Guide*.
+#' @param deploymentType &#91;required&#93; There are four modes for updating an environment. The `deploymentType` field defines the mode.
 #' 
-#' ****
 #' 
 #' `NONE`
 #' 
-#' In this mode, a deployment *doesn't* occur. Only the requested metadata
-#' parameters are updated.
+#' In this mode, a deployment *doesn't* occur. Only the requested metadata parameters are updated.
 #' 
-#' ****
 #' 
 #' `CURRENT_VERSION`
 #' 
-#' In this mode, the environment is deployed and updated with the new spec
-#' that you provide. Only requested parameters are updated. *Don’t* include
-#' major or minor version parameters when you use this `deployment-type`.
+#' In this mode, the environment is deployed and updated with the new spec that you provide. Only requested parameters are updated. *Don’t* include major or minor version parameters when you use this `deployment-type`.
 #' 
-#' ****
 #' 
 #' `MINOR_VERSION`
 #' 
-#' In this mode, the environment is deployed and updated with the
-#' published, recommended (latest) minor version of the current major
-#' version in use, by default. You can also specify a different minor
-#' version of the current major version in use.
+#' In this mode, the environment is deployed and updated with the published, recommended (latest) minor version of the current major version in use, by default. You can also specify a different minor version of the current major version in use.
 #' 
-#' ****
 #' 
 #' `MAJOR_VERSION`
 #' 
-#' In this mode, the environment is deployed and updated with the
-#' published, recommended (latest) major and minor version of the current
-#' template, by default. You can also specify a different major version
-#' that is higher than the major version in use and a minor version
-#' (optional).
+#' In this mode, the environment is deployed and updated with the published, recommended (latest) major and minor version of the current template, by default. You can also specify a different major version that is higher than the major version in use and a minor version (optional).
 #' @param description A description of the environment update.
 #' @param environmentAccountConnectionId The ID of the environment account connection.
 #' 
-#' You can only update to a new environment account connection if it was
-#' created in the same environment account that the current environment
-#' account connection was created in and is associated with the current
-#' environment.
+#' You can only update to a new environment account connection if it was created in the same environment account that the current environment account connection was created in and is associated with the current environment.
 #' @param name &#91;required&#93; The name of the environment to update.
-#' @param protonServiceRoleArn The Amazon Resource Name (ARN) of the Proton service role that allows
-#' Proton to make API calls to other services your behalf.
-#' @param provisioningRepository The linked repository that you use to host your rendered infrastructure
-#' templates for self-managed provisioning. A linked repository is a
-#' repository that has been registered with Proton. For more information,
-#' see [`create_repository`][proton_create_repository].
+#' @param protonServiceRoleArn The Amazon Resource Name (ARN) of the Proton service role that allows Proton to make API calls to other services your behalf.
+#' @param provisioningRepository The linked repository that you use to host your rendered infrastructure templates for self-managed provisioning. A linked repository is a repository that has been registered with Proton. For more information, see [`create_repository`][proton_create_repository].
 #' @param spec The formatted specification that defines the update.
 #' @param templateMajorVersion The major version of the environment to update.
 #' @param templateMinorVersion The minor version of the environment to update.
@@ -2934,25 +2657,14 @@ proton_update_environment <- function(codebuildRoleArn = NULL, componentRoleArn 
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_update_environment_account_connection/](https://www.paws-r-sdk.com/docs/proton_update_environment_account_connection/) for full documentation.
 #'
-#' @param codebuildRoleArn The Amazon Resource Name (ARN) of an IAM service role in the environment
-#' account. Proton uses this role to provision infrastructure resources
-#' using CodeBuild-based provisioning in the associated environment
-#' account.
-#' @param componentRoleArn The Amazon Resource Name (ARN) of the IAM service role that Proton uses
-#' when provisioning directly defined components in the associated
-#' environment account. It determines the scope of infrastructure that a
-#' component can provision in the account.
+#' @param codebuildRoleArn The Amazon Resource Name (ARN) of an IAM service role in the environment account. Proton uses this role to provision infrastructure resources using CodeBuild-based provisioning in the associated environment account.
+#' @param componentRoleArn The Amazon Resource Name (ARN) of the IAM service role that Proton uses when provisioning directly defined components in the associated environment account. It determines the scope of infrastructure that a component can provision in the account.
 #' 
-#' The environment account connection must have a `componentRoleArn` to
-#' allow directly defined components to be associated with any environments
-#' running in the account.
+#' The environment account connection must have a `componentRoleArn` to allow directly defined components to be associated with any environments running in the account.
 #' 
-#' For more information about components, see [Proton
-#' components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html)
-#' in the *Proton User Guide*.
+#' For more information about components, see [Proton components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html) in the *Proton User Guide*.
 #' @param id &#91;required&#93; The ID of the environment account connection to update.
-#' @param roleArn The Amazon Resource Name (ARN) of the IAM service role that's associated
-#' with the environment account connection to update.
+#' @param roleArn The Amazon Resource Name (ARN) of the IAM service role that's associated with the environment account connection to update.
 #'
 #' @keywords internal
 #'
@@ -2984,8 +2696,7 @@ proton_update_environment_account_connection <- function(codebuildRoleArn = NULL
 #' See [https://www.paws-r-sdk.com/docs/proton_update_environment_template/](https://www.paws-r-sdk.com/docs/proton_update_environment_template/) for full documentation.
 #'
 #' @param description A description of the environment template update.
-#' @param displayName The name of the environment template to update as displayed in the
-#' developer interface.
+#' @param displayName The name of the environment template to update as displayed in the developer interface.
 #' @param name &#91;required&#93; The name of the environment template to update.
 #'
 #' @keywords internal
@@ -3018,10 +2729,8 @@ proton_update_environment_template <- function(description = NULL, displayName =
 #' See [https://www.paws-r-sdk.com/docs/proton_update_environment_template_version/](https://www.paws-r-sdk.com/docs/proton_update_environment_template_version/) for full documentation.
 #'
 #' @param description A description of environment template version to update.
-#' @param majorVersion &#91;required&#93; To update a major version of an environment template, include
-#' `major Version`.
-#' @param minorVersion &#91;required&#93; To update a minor version of an environment template, include
-#' `minorVersion`.
+#' @param majorVersion &#91;required&#93; To update a major version of an environment template, include `major Version`.
+#' @param minorVersion &#91;required&#93; To update a minor version of an environment template, include `minorVersion`.
 #' @param status The status of the environment template minor version to update.
 #' @param templateName &#91;required&#93; The name of the environment template.
 #'
@@ -3057,12 +2766,7 @@ proton_update_environment_template_version <- function(description = NULL, major
 #'
 #' @param description The edited service description.
 #' @param name &#91;required&#93; The name of the service to edit.
-#' @param spec Lists the service instances to add and the existing service instances to
-#' remain. Omit the existing service instances to delete from the list.
-#' *Don't* include edits to the existing service instances or pipeline. For
-#' more information, see [Edit a
-#' service](https://docs.aws.amazon.com/proton/latest/userguide/ag-svc-update.html)
-#' in the *Proton User Guide*.
+#' @param spec Lists the service instances to add and the existing service instances to remain. Omit the existing service instances to delete from the list. *Don't* include edits to the existing service instances or pipeline. For more information, see [Edit a service](https://docs.aws.amazon.com/proton/latest/userguide/ag-svc-update.html) in the *Proton User Guide*.
 #'
 #' @keywords internal
 #'
@@ -3094,42 +2798,27 @@ proton_update_service <- function(description = NULL, name, spec = NULL) {
 #' See [https://www.paws-r-sdk.com/docs/proton_update_service_instance/](https://www.paws-r-sdk.com/docs/proton_update_service_instance/) for full documentation.
 #'
 #' @param clientToken The client token of the service instance to update.
-#' @param deploymentType &#91;required&#93; The deployment type. It defines the mode for updating a service
-#' instance, as follows:
+#' @param deploymentType &#91;required&#93; The deployment type. It defines the mode for updating a service instance, as follows:
 #' 
-#' ****
 #' 
 #' `NONE`
 #' 
-#' In this mode, a deployment *doesn't* occur. Only the requested metadata
-#' parameters are updated.
+#' In this mode, a deployment *doesn't* occur. Only the requested metadata parameters are updated.
 #' 
-#' ****
 #' 
 #' `CURRENT_VERSION`
 #' 
-#' In this mode, the service instance is deployed and updated with the new
-#' spec that you provide. Only requested parameters are updated. *Don’t*
-#' include major or minor version parameters when you use this deployment
-#' type.
+#' In this mode, the service instance is deployed and updated with the new spec that you provide. Only requested parameters are updated. *Don’t* include major or minor version parameters when you use this deployment type.
 #' 
-#' ****
 #' 
 #' `MINOR_VERSION`
 #' 
-#' In this mode, the service instance is deployed and updated with the
-#' published, recommended (latest) minor version of the current major
-#' version in use, by default. You can also specify a different minor
-#' version of the current major version in use.
+#' In this mode, the service instance is deployed and updated with the published, recommended (latest) minor version of the current major version in use, by default. You can also specify a different minor version of the current major version in use.
 #' 
-#' ****
 #' 
 #' `MAJOR_VERSION`
 #' 
-#' In this mode, the service instance is deployed and updated with the
-#' published, recommended (latest) major and minor version of the current
-#' template, by default. You can specify a different major version that's
-#' higher than the major version in use and a minor version.
+#' In this mode, the service instance is deployed and updated with the published, recommended (latest) major and minor version of the current template, by default. You can specify a different major version that's higher than the major version in use and a minor version.
 #' @param name &#91;required&#93; The name of the service instance to update.
 #' @param serviceName &#91;required&#93; The name of the service that the service instance belongs to.
 #' @param spec The formatted specification that defines the service instance update.
@@ -3167,48 +2856,31 @@ proton_update_service_instance <- function(clientToken = NULL, deploymentType, n
 #'
 #' @param deploymentType &#91;required&#93; The deployment type.
 #' 
-#' There are four modes for updating a service pipeline. The
-#' `deploymentType` field defines the mode.
+#' There are four modes for updating a service pipeline. The `deploymentType` field defines the mode.
 #' 
-#' ****
 #' 
 #' `NONE`
 #' 
-#' In this mode, a deployment *doesn't* occur. Only the requested metadata
-#' parameters are updated.
+#' In this mode, a deployment *doesn't* occur. Only the requested metadata parameters are updated.
 #' 
-#' ****
 #' 
 #' `CURRENT_VERSION`
 #' 
-#' In this mode, the service pipeline is deployed and updated with the new
-#' spec that you provide. Only requested parameters are updated. *Don’t*
-#' include major or minor version parameters when you use this
-#' `deployment-type`.
+#' In this mode, the service pipeline is deployed and updated with the new spec that you provide. Only requested parameters are updated. *Don’t* include major or minor version parameters when you use this `deployment-type`.
 #' 
-#' ****
 #' 
 #' `MINOR_VERSION`
 #' 
-#' In this mode, the service pipeline is deployed and updated with the
-#' published, recommended (latest) minor version of the current major
-#' version in use, by default. You can specify a different minor version of
-#' the current major version in use.
+#' In this mode, the service pipeline is deployed and updated with the published, recommended (latest) minor version of the current major version in use, by default. You can specify a different minor version of the current major version in use.
 #' 
-#' ****
 #' 
 #' `MAJOR_VERSION`
 #' 
-#' In this mode, the service pipeline is deployed and updated with the
-#' published, recommended (latest) major and minor version of the current
-#' template, by default. You can specify a different major version that's
-#' higher than the major version in use and a minor version.
+#' In this mode, the service pipeline is deployed and updated with the published, recommended (latest) major and minor version of the current template, by default. You can specify a different major version that's higher than the major version in use and a minor version.
 #' @param serviceName &#91;required&#93; The name of the service to that the pipeline is associated with.
 #' @param spec &#91;required&#93; The spec for the service pipeline to update.
-#' @param templateMajorVersion The major version of the service template that was used to create the
-#' service that the pipeline is associated with.
-#' @param templateMinorVersion The minor version of the service template that was used to create the
-#' service that the pipeline is associated with.
+#' @param templateMajorVersion The major version of the service template that was used to create the service that the pipeline is associated with.
+#' @param templateMinorVersion The minor version of the service template that was used to create the service that the pipeline is associated with.
 #'
 #' @keywords internal
 #'
@@ -3271,8 +2943,7 @@ proton_update_service_sync_blocker <- function(id, resolvedReason) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_update_service_sync_config/](https://www.paws-r-sdk.com/docs/proton_update_service_sync_config/) for full documentation.
 #'
-#' @param branch &#91;required&#93; The name of the code repository branch where the Proton Ops file is
-#' found.
+#' @param branch &#91;required&#93; The name of the code repository branch where the Proton Ops file is found.
 #' @param filePath &#91;required&#93; The path to the Proton Ops file.
 #' @param repositoryName &#91;required&#93; The name of the repository where the Proton Ops file is found.
 #' @param repositoryProvider &#91;required&#93; The name of the repository provider where the Proton Ops file is found.
@@ -3308,8 +2979,7 @@ proton_update_service_sync_config <- function(branch, filePath, repositoryName, 
 #' See [https://www.paws-r-sdk.com/docs/proton_update_service_template/](https://www.paws-r-sdk.com/docs/proton_update_service_template/) for full documentation.
 #'
 #' @param description A description of the service template update.
-#' @param displayName The name of the service template to update that's displayed in the
-#' developer interface.
+#' @param displayName The name of the service template to update that's displayed in the developer interface.
 #' @param name &#91;required&#93; The name of the service template to update.
 #'
 #' @keywords internal
@@ -3341,25 +3011,16 @@ proton_update_service_template <- function(description = NULL, displayName = NUL
 #'
 #' See [https://www.paws-r-sdk.com/docs/proton_update_service_template_version/](https://www.paws-r-sdk.com/docs/proton_update_service_template_version/) for full documentation.
 #'
-#' @param compatibleEnvironmentTemplates An array of environment template objects that are compatible with this
-#' service template version. A service instance based on this service
-#' template version can run in environments based on compatible templates.
+#' @param compatibleEnvironmentTemplates An array of environment template objects that are compatible with this service template version. A service instance based on this service template version can run in environments based on compatible templates.
 #' @param description A description of a service template version to update.
-#' @param majorVersion &#91;required&#93; To update a major version of a service template, include
-#' `major Version`.
+#' @param majorVersion &#91;required&#93; To update a major version of a service template, include `major Version`.
 #' @param minorVersion &#91;required&#93; To update a minor version of a service template, include `minorVersion`.
 #' @param status The status of the service template minor version to update.
-#' @param supportedComponentSources An array of supported component sources. Components with supported
-#' sources can be attached to service instances based on this service
-#' template version.
+#' @param supportedComponentSources An array of supported component sources. Components with supported sources can be attached to service instances based on this service template version.
 #' 
-#' A change to `supportedComponentSources` doesn't impact existing
-#' component attachments to instances based on this template version. A
-#' change only affects later associations.
+#' A change to `supportedComponentSources` doesn't impact existing component attachments to instances based on this template version. A change only affects later associations.
 #' 
-#' For more information about components, see [Proton
-#' components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html)
-#' in the *Proton User Guide*.
+#' For more information about components, see [Proton components](https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html) in the *Proton User Guide*.
 #' @param templateName &#91;required&#93; The name of the service template.
 #'
 #' @keywords internal
@@ -3395,8 +3056,7 @@ proton_update_service_template_version <- function(compatibleEnvironmentTemplate
 #' @param branch &#91;required&#93; The repository branch for your template.
 #' @param repositoryName &#91;required&#93; The repository name (for example, `myrepos/myrepo`).
 #' @param repositoryProvider &#91;required&#93; The repository provider.
-#' @param subdirectory A subdirectory path to your template bundle version. When included,
-#' limits the template bundle search to this repository directory.
+#' @param subdirectory A subdirectory path to your template bundle version. When included, limits the template bundle search to this repository directory.
 #' @param templateName &#91;required&#93; The synced template name.
 #' @param templateType &#91;required&#93; The synced template type.
 #'

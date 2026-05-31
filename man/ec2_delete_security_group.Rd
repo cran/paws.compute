@@ -9,14 +9,9 @@ ec2_delete_security_group(GroupId = NULL, GroupName = NULL, DryRun = NULL)
 \arguments{
 \item{GroupId}{The ID of the security group.}
 
-\item{GroupName}{[Default VPC] The name of the security group. You can specify either
-the security group name or the security group ID. For security groups in
-a nondefault VPC, you must specify the security group ID.}
+\item{GroupName}{[Default VPC] The name of the security group. You can specify either the security group name or the security group ID. For security groups in a nondefault VPC, you must specify the security group ID.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Deletes a security group.

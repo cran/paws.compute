@@ -14,10 +14,7 @@ ec2_modify_spot_fleet_request(
 )
 }
 \arguments{
-\item{LaunchTemplateConfigs}{The launch template and overrides. You can only use this parameter if
-you specified a launch template (\code{LaunchTemplateConfigs}) in your Spot
-Fleet request. If you specified \code{LaunchSpecifications} in your Spot
-Fleet request, then omit this parameter.}
+\item{LaunchTemplateConfigs}{The launch template and overrides. You can only use this parameter if you specified a launch template (\code{LaunchTemplateConfigs}) in your Spot Fleet request. If you specified \code{LaunchSpecifications} in your Spot Fleet request, then omit this parameter.}
 
 \item{OnDemandTargetCapacity}{The number of On-Demand Instances in the fleet.}
 
@@ -27,9 +24,7 @@ Fleet request, then omit this parameter.}
 
 \item{TargetCapacity}{The size of the fleet.}
 
-\item{ExcessCapacityTerminationPolicy}{Indicates whether running instances should be terminated if the target
-capacity of the Spot Fleet request is decreased below the current size
-of the Spot Fleet.
+\item{ExcessCapacityTerminationPolicy}{Indicates whether running instances should be terminated if the target capacity of the Spot Fleet request is decreased below the current size of the Spot Fleet.
 
 Supported only for fleets of type \code{maintain}.}
 }

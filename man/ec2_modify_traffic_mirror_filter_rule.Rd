@@ -24,9 +24,7 @@ ec2_modify_traffic_mirror_filter_rule(
 
 \item{TrafficDirection}{The type of traffic to assign to the rule.}
 
-\item{RuleNumber}{The number of the Traffic Mirror rule. This number must be unique for
-each Traffic Mirror rule in a given direction. The rules are processed
-in ascending order by rule number.}
+\item{RuleNumber}{The number of the Traffic Mirror rule. This number must be unique for each Traffic Mirror rule in a given direction. The rules are processed in ascending order by rule number.}
 
 \item{RuleAction}{The action to assign to the rule.}
 
@@ -42,16 +40,11 @@ in ascending order by rule number.}
 
 \item{Description}{The description to assign to the Traffic Mirror rule.}
 
-\item{RemoveFields}{The properties that you want to remove from the Traffic Mirror filter
-rule.
+\item{RemoveFields}{The properties that you want to remove from the Traffic Mirror filter rule.
 
-When you remove a property from a Traffic Mirror filter rule, the
-property is set to the default.}
+When you remove a property from a Traffic Mirror filter rule, the property is set to the default.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Modifies the specified Traffic Mirror rule.

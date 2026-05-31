@@ -12,16 +12,11 @@ apprunner_associate_custom_domain(
 )
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want
-to associate a custom domain name with.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want to associate a custom domain name with.}
 
-\item{DomainName}{[required] A custom domain endpoint to associate. Specify a root domain (for
-example, \code{example.com}), a subdomain (for example, \code{login.example.com}
-or \code{admin.login.example.com}), or a wildcard (for example,
-\verb{*.example.com}).}
+\item{DomainName}{[required] A custom domain endpoint to associate. Specify a root domain (for example, \code{example.com}), a subdomain (for example, \code{login.example.com} or \code{admin.login.example.com}), or a wildcard (for example, \verb{*.example.com}).}
 
-\item{EnableWWWSubdomain}{Set to \code{true} to associate the subdomain \code{www.DomainName } with the App
-Runner service in addition to the base domain.
+\item{EnableWWWSubdomain}{Set to \code{true} to associate the subdomain \code{www.DomainName } with the App Runner service in addition to the base domain.
 
 Default: \code{true}}
 }

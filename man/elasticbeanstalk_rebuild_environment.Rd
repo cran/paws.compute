@@ -13,15 +13,11 @@ elasticbeanstalk_rebuild_environment(
 \arguments{
 \item{EnvironmentId}{The ID of the environment to rebuild.
 
-Condition: You must specify either this or an EnvironmentName, or both.
-If you do not specify either, AWS Elastic Beanstalk returns
-\code{MissingRequiredParameter} error.}
+Condition: You must specify either this or an EnvironmentName, or both. If you do not specify either, AWS Elastic Beanstalk returns \code{MissingRequiredParameter} error.}
 
 \item{EnvironmentName}{The name of the environment to rebuild.
 
-Condition: You must specify either this or an EnvironmentId, or both. If
-you do not specify either, AWS Elastic Beanstalk returns
-\code{MissingRequiredParameter} error.}
+Condition: You must specify either this or an EnvironmentId, or both. If you do not specify either, AWS Elastic Beanstalk returns \code{MissingRequiredParameter} error.}
 }
 \description{
 Deletes and recreates all of the AWS resources (for example: the Auto Scaling group, load balancer, etc.) for a specified environment and forces a restart.

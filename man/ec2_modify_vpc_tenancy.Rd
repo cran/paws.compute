@@ -11,10 +11,7 @@ ec2_modify_vpc_tenancy(VpcId, InstanceTenancy, DryRun = NULL)
 
 \item{InstanceTenancy}{[required] The instance tenancy attribute for the VPC.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Modifies the instance tenancy attribute of the specified VPC. You can change the instance tenancy attribute of a VPC to \code{default} only. You cannot change the instance tenancy attribute to \code{dedicated}.

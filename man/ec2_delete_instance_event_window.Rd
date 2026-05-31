@@ -11,13 +11,9 @@ ec2_delete_instance_event_window(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ForceDelete}{Specify \code{true} to force delete the event window. Use the force delete
-parameter if the event window is currently associated with targets.}
+\item{ForceDelete}{Specify \code{true} to force delete the event window. Use the force delete parameter if the event window is currently associated with targets.}
 
 \item{InstanceEventWindowId}{[required] The ID of the event window.}
 }

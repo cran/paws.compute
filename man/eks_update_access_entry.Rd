@@ -17,34 +17,15 @@ eks_update_access_entry(
 
 \item{principalArn}{[required] The ARN of the IAM principal for the \code{AccessEntry}.}
 
-\item{kubernetesGroups}{The value for \code{name} that you've specified for \code{kind: Group} as a
-\code{subject} in a Kubernetes \code{RoleBinding} or \code{ClusterRoleBinding} object.
-Amazon EKS doesn't confirm that the value for \code{name} exists in any
-bindings on your cluster. You can specify one or more names.
+\item{kubernetesGroups}{The value for \code{name} that you've specified for \code{kind: Group} as a \code{subject} in a Kubernetes \code{RoleBinding} or \code{ClusterRoleBinding} object. Amazon EKS doesn't confirm that the value for \code{name} exists in any bindings on your cluster. You can specify one or more names.
 
-Kubernetes authorizes the \code{principalArn} of the access entry to access
-any cluster objects that you've specified in a Kubernetes \code{Role} or
-\code{ClusterRole} object that is also specified in a binding's \code{roleRef}.
-For more information about creating Kubernetes \code{RoleBinding},
-\code{ClusterRoleBinding}, \code{Role}, or \code{ClusterRole} objects, see \href{https://kubernetes.io/docs/reference/access-authn-authz/rbac/}{Using RBAC Authorization in the Kubernetes documentation}.
+Kubernetes authorizes the \code{principalArn} of the access entry to access any cluster objects that you've specified in a Kubernetes \code{Role} or \code{ClusterRole} object that is also specified in a binding's \code{roleRef}. For more information about creating Kubernetes \code{RoleBinding}, \code{ClusterRoleBinding}, \code{Role}, or \code{ClusterRole} objects, see \href{https://kubernetes.io/docs/reference/access-authn-authz/rbac/}{Using RBAC Authorization in the Kubernetes documentation}.
 
-If you want Amazon EKS to authorize the \code{principalArn} (instead of, or
-in addition to Kubernetes authorizing the \code{principalArn}), you can
-associate one or more access policies to the access entry using
-\code{\link[=eks_associate_access_policy]{associate_access_policy}}. If you
-associate any access policies, the \code{principalARN} has all permissions
-assigned in the associated access policies and all permissions in any
-Kubernetes \code{Role} or \code{ClusterRole} objects that the group names are
-bound to.}
+If you want Amazon EKS to authorize the \code{principalArn} (instead of, or in addition to Kubernetes authorizing the \code{principalArn}), you can associate one or more access policies to the access entry using \code{\link[=eks_associate_access_policy]{associate_access_policy}}. If you associate any access policies, the \code{principalARN} has all permissions assigned in the associated access policies and all permissions in any Kubernetes \code{Role} or \code{ClusterRole} objects that the group names are bound to.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 
-\item{username}{The username to authenticate to Kubernetes with. We recommend not
-specifying a username and letting Amazon EKS specify it for you. For
-more information about the value Amazon EKS specifies for you, or
-constraints before specifying your own username, see \href{https://docs.aws.amazon.com/eks/latest/userguide/access-entries.html#creating-access-entries}{Creating access entries}
-in the \emph{Amazon EKS User Guide}.}
+\item{username}{The username to authenticate to Kubernetes with. We recommend not specifying a username and letting Amazon EKS specify it for you. For more information about the value Amazon EKS specifies for you, or constraints before specifying your own username, see \href{https://docs.aws.amazon.com/eks/latest/userguide/access-entries.html#creating-access-entries}{Creating access entries} in the \emph{Amazon EKS User Guide}.}
 }
 \description{
 Updates an access entry.

@@ -25,9 +25,7 @@ ec2_create_traffic_mirror_filter_rule(
 
 \item{TrafficDirection}{[required] The type of traffic.}
 
-\item{RuleNumber}{[required] The number of the Traffic Mirror rule. This number must be unique for
-each Traffic Mirror rule in a given direction. The rules are processed
-in ascending order by rule number.}
+\item{RuleNumber}{[required] The number of the Traffic Mirror rule. This number must be unique for each Traffic Mirror rule in a given direction. The rules are processed in ascending order by rule number.}
 
 \item{RuleAction}{[required] The action to take on the filtered traffic.}
 
@@ -37,8 +35,7 @@ in ascending order by rule number.}
 
 \item{Protocol}{The protocol, for example UDP, to assign to the Traffic Mirror rule.
 
-For information about the protocol value, see \href{https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml}{Protocol Numbers}
-on the Internet Assigned Numbers Authority (IANA) website.}
+For information about the protocol value, see \href{https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml}{Protocol Numbers} on the Internet Assigned Numbers Authority (IANA) website.}
 
 \item{DestinationCidrBlock}{[required] The destination CIDR block to assign to the Traffic Mirror rule.}
 
@@ -46,13 +43,9 @@ on the Internet Assigned Numbers Authority (IANA) website.}
 
 \item{Description}{The description of the Traffic Mirror rule.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
 
 \item{TagSpecifications}{Traffic Mirroring tags specifications.}
 }

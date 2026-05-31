@@ -19,52 +19,29 @@ lightsail_update_container_service(
 
 \item{power}{The power for the container service.
 
-The power specifies the amount of memory, vCPUs, and base monthly cost
-of each node of the container service. The \code{power} and \code{scale} of a
-container service makes up its configured capacity. To determine the
-monthly price of your container service, multiply the base price of the
-\code{power} with the \code{scale} (the number of nodes) of the service.
+The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the container service. The \code{power} and \code{scale} of a container service makes up its configured capacity. To determine the monthly price of your container service, multiply the base price of the \code{power} with the \code{scale} (the number of nodes) of the service.
 
-Use the
-\code{\link[=lightsail_get_container_service_powers]{get_container_service_powers}}
-action to view the specifications of each power option.}
+Use the \code{\link[=lightsail_get_container_service_powers]{get_container_service_powers}} action to view the specifications of each power option.}
 
 \item{scale}{The scale for the container service.
 
-The scale specifies the allocated compute nodes of the container
-service. The \code{power} and \code{scale} of a container service makes up its
-configured capacity. To determine the monthly price of your container
-service, multiply the base price of the \code{power} with the \code{scale} (the
-number of nodes) of the service.}
+The scale specifies the allocated compute nodes of the container service. The \code{power} and \code{scale} of a container service makes up its configured capacity. To determine the monthly price of your container service, multiply the base price of the \code{power} with the \code{scale} (the number of nodes) of the service.}
 
 \item{isDisabled}{A Boolean value to indicate whether the container service is disabled.}
 
-\item{publicDomainNames}{The public domain names to use with the container service, such as
-\code{example.com} and \code{www.example.com}.
+\item{publicDomainNames}{The public domain names to use with the container service, such as \code{example.com} and \code{www.example.com}.
 
-You can specify up to four public domain names for a container service.
-The domain names that you specify are used when you create a deployment
-with a container configured as the public endpoint of your container
-service.
+You can specify up to four public domain names for a container service. The domain names that you specify are used when you create a deployment with a container configured as the public endpoint of your container service.
 
-If you don't specify public domain names, then you can use the default
-domain of the container service.
+If you don't specify public domain names, then you can use the default domain of the container service.
 
-You must create and validate an SSL/TLS certificate before you can use
-public domain names with your container service. Use the
-\code{\link[=lightsail_create_certificate]{create_certificate}} action to create a
-certificate for the public domain names you want to use with your
-container service.
+You must create and validate an SSL/TLS certificate before you can use public domain names with your container service. Use the \code{\link[=lightsail_create_certificate]{create_certificate}} action to create a certificate for the public domain names you want to use with your container service.
 
-You can specify public domain names using a string to array map as shown
-in the example later on this page.}
+You can specify public domain names using a string to array map as shown in the example later on this page.}
 
-\item{privateRegistryAccess}{An object to describe the configuration for the container service to
-access private container image repositories, such as Amazon Elastic
-Container Registry (Amazon ECR) private repositories.
+\item{privateRegistryAccess}{An object to describe the configuration for the container service to access private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.
 
-For more information, see \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-container-service-ecr-private-repo-access.html}{Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service}
-in the \emph{Amazon Lightsail Developer Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-container-service-ecr-private-repo-access.html}{Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service} in the \emph{Amazon Lightsail Developer Guide}.}
 }
 \description{
 Updates the configuration of your Amazon Lightsail container service, such as its power, scale, and public domain names.

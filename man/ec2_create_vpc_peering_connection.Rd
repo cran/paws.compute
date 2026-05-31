@@ -15,23 +15,17 @@ ec2_create_vpc_peering_connection(
 )
 }
 \arguments{
-\item{PeerRegion}{The Region code for the accepter VPC, if the accepter VPC is located in
-a Region other than the Region in which you make the request.
+\item{PeerRegion}{The Region code for the accepter VPC, if the accepter VPC is located in a Region other than the Region in which you make the request.
 
 Default: The Region in which you make the request.}
 
 \item{TagSpecifications}{The tags to assign to the peering connection.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{VpcId}{[required] The ID of the requester VPC. You must specify this parameter in the
-request.}
+\item{VpcId}{[required] The ID of the requester VPC. You must specify this parameter in the request.}
 
-\item{PeerVpcId}{The ID of the VPC with which you are creating the VPC peering
-connection. You must specify this parameter in the request.}
+\item{PeerVpcId}{The ID of the VPC with which you are creating the VPC peering connection. You must specify this parameter in the request.}
 
 \item{PeerOwnerId}{The Amazon Web Services account ID of the owner of the accepter VPC.
 

@@ -13,20 +13,15 @@ ec2_disable_aws_network_performance_metric_subscription(
 )
 }
 \arguments{
-\item{Source}{The source Region or Availability Zone that the metric subscription is
-disabled for. For example, \code{us-east-1}.}
+\item{Source}{The source Region or Availability Zone that the metric subscription is disabled for. For example, \code{us-east-1}.}
 
-\item{Destination}{The target Region or Availability Zone that the metric subscription is
-disabled for. For example, \code{eu-north-1}.}
+\item{Destination}{The target Region or Availability Zone that the metric subscription is disabled for. For example, \code{eu-north-1}.}
 
 \item{Metric}{The metric used for the disabled subscription.}
 
 \item{Statistic}{The statistic used for the disabled subscription.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Disables Infrastructure Performance metric subscriptions.

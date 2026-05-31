@@ -7,12 +7,9 @@
 ecr_delete_pull_through_cache_rule(ecrRepositoryPrefix, registryId = NULL)
 }
 \arguments{
-\item{ecrRepositoryPrefix}{[required] The Amazon ECR repository prefix associated with the pull through cache
-rule to delete.}
+\item{ecrRepositoryPrefix}{[required] The Amazon ECR repository prefix associated with the pull through cache rule to delete.}
 
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the pull through cache rule. If you do not specify a registry,
-the default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the pull through cache rule. If you do not specify a registry, the default registry is assumed.}
 }
 \description{
 Deletes a pull through cache rule.

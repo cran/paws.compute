@@ -13,36 +13,23 @@ computeoptimizer_get_lambda_function_recommendations(
 )
 }
 \arguments{
-\item{functionArns}{The Amazon Resource Name (ARN) of the functions for which to return
-recommendations.
+\item{functionArns}{The Amazon Resource Name (ARN) of the functions for which to return recommendations.
 
-You can specify a qualified or unqualified ARN. If you specify an
-unqualified ARN without a function version suffix, Compute Optimizer
-will return recommendations for the latest (\verb{$LATEST}) version of the
-function. If you specify a qualified ARN with a version suffix, Compute
-Optimizer will return recommendations for the specified function
-version. For more information about using function versions, see \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html#versioning-versions-using}{Using versions}
-in the \emph{Lambda Developer Guide}.}
+You can specify a qualified or unqualified ARN. If you specify an unqualified ARN without a function version suffix, Compute Optimizer will return recommendations for the latest (\verb{$LATEST}) version of the function. If you specify a qualified ARN with a version suffix, Compute Optimizer will return recommendations for the specified function version. For more information about using function versions, see \href{https://docs.aws.amazon.com/lambda/latest/dg/configuration-versions.html#versioning-versions-using}{Using versions} in the \emph{Lambda Developer Guide}.}
 
-\item{accountIds}{The ID of the Amazon Web Services account for which to return function
-recommendations.
+\item{accountIds}{The ID of the Amazon Web Services account for which to return function recommendations.
 
-If your account is the management account of an organization, use this
-parameter to specify the member account for which you want to return
-function recommendations.
+If your account is the management account of an organization, use this parameter to specify the member account for which you want to return function recommendations.
 
 Only one account ID can be specified per request.}
 
-\item{filters}{An array of objects to specify a filter that returns a more specific
-list of function recommendations.}
+\item{filters}{An array of objects to specify a filter that returns a more specific list of function recommendations.}
 
 \item{nextToken}{The token to advance to the next page of function recommendations.}
 
-\item{maxResults}{The maximum number of function recommendations to return with a single
-request.
+\item{maxResults}{The maximum number of function recommendations to return with a single request.
 
-To retrieve the remaining results, make another request with the
-returned \code{nextToken} value.}
+To retrieve the remaining results, make another request with the returned \code{nextToken} value.}
 }
 \description{
 Returns Lambda function recommendations.

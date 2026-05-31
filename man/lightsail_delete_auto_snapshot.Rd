@@ -7,12 +7,9 @@
 lightsail_delete_auto_snapshot(resourceName, date)
 }
 \arguments{
-\item{resourceName}{[required] The name of the source instance or disk from which to delete the
-automatic snapshot.}
+\item{resourceName}{[required] The name of the source instance or disk from which to delete the automatic snapshot.}
 
-\item{date}{[required] The date of the automatic snapshot to delete in \code{YYYY-MM-DD} format. Use
-the \verb{get auto snapshots} operation to get the available automatic
-snapshots for a resource.}
+\item{date}{[required] The date of the automatic snapshot to delete in \code{YYYY-MM-DD} format. Use the \verb{get auto snapshots} operation to get the available automatic snapshots for a resource.}
 }
 \description{
 Deletes an automatic snapshot of an instance or disk. For more information, see the \href{https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html}{Amazon Lightsail Developer Guide}.

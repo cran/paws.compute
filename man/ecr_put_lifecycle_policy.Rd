@@ -11,9 +11,7 @@ ecr_put_lifecycle_policy(
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the repository. If you do not specify a registry, the default
-registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the repository. If you do not specify a registry, the default registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository to receive the policy.}
 

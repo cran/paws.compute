@@ -12,6 +12,7 @@ ec2_replace_route(
   LocalGatewayId = NULL,
   CarrierGatewayId = NULL,
   CoreNetworkArn = NULL,
+  OdbNetworkArn = NULL,
   DryRun = NULL,
   RouteTableId,
   DestinationCidrBlock = NULL,
@@ -27,11 +28,9 @@ ec2_replace_route(
 \arguments{
 \item{DestinationPrefixListId}{The ID of the prefix list for the route.}
 
-\item{VpcEndpointId}{The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints
-only.}
+\item{VpcEndpointId}{The ID of a VPC endpoint. Supported for Gateway Load Balancer endpoints only.}
 
-\item{LocalTarget}{Specifies whether to reset the local route to its default target
-(\code{local}).}
+\item{LocalTarget}{Specifies whether to reset the local route to its default target (\code{local}).}
 
 \item{TransitGatewayId}{The ID of a transit gateway.}
 
@@ -41,20 +40,17 @@ only.}
 
 \item{CoreNetworkArn}{The Amazon Resource Name (ARN) of the core network.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{OdbNetworkArn}{The Amazon Resource Name (ARN) of the ODB network.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{RouteTableId}{[required] The ID of the route table.}
 
-\item{DestinationCidrBlock}{The IPv4 CIDR address block used for the destination match. The value
-that you provide must match the CIDR of an existing route in the table.}
+\item{DestinationCidrBlock}{The IPv4 CIDR address block used for the destination match. The value that you provide must match the CIDR of an existing route in the table.}
 
 \item{GatewayId}{The ID of an internet gateway or virtual private gateway.}
 
-\item{DestinationIpv6CidrBlock}{The IPv6 CIDR address block used for the destination match. The value
-that you provide must match the CIDR of an existing route in the table.}
+\item{DestinationIpv6CidrBlock}{The IPv6 CIDR address block used for the destination match. The value that you provide must match the CIDR of an existing route in the table.}
 
 \item{EgressOnlyInternetGatewayId}{[IPv6 traffic only] The ID of an egress-only internet gateway.}
 

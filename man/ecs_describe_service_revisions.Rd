@@ -11,8 +11,7 @@ ecs_describe_service_revisions(serviceRevisionArns)
 
 You can specify a maximum of 20 ARNs.
 
-You can call \code{\link[=ecs_list_service_deployments]{list_service_deployments}}
-to get the ARNs.}
+You can call \code{\link[=ecs_list_service_deployments]{list_service_deployments}} to get the ARNs.}
 }
 \description{
 Describes one or more service revisions.

@@ -17,89 +17,45 @@ batch_create_compute_environment(
 )
 }
 \arguments{
-\item{computeEnvironmentName}{[required] The name for your compute environment. It can be up to 128 characters
-long. It can contain uppercase and lowercase letters, numbers, hyphens
-(-), and underscores (_).}
+\item{computeEnvironmentName}{[required] The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).}
 
-\item{type}{[required] The type of the compute environment: \code{MANAGED} or \code{UNMANAGED}. For more
-information, see \href{https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html}{Compute Environments}
-in the \emph{Batch User Guide}.}
+\item{type}{[required] The type of the compute environment: \code{MANAGED} or \code{UNMANAGED}. For more information, see \href{https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html}{Compute Environments} in the \emph{Batch User Guide}.}
 
-\item{state}{The state of the compute environment. If the state is \code{ENABLED}, then
-the compute environment accepts jobs from a queue and can scale out
-automatically based on queues.
+\item{state}{The state of the compute environment. A compute environment must be created in the \code{ENABLED} state.
 
-If the state is \code{ENABLED}, then the Batch scheduler can attempt to place
-jobs from an associated job queue on the compute resources within the
-environment. If the compute environment is managed, then it can scale
-its instances out or in automatically, based on the job queue demand.
+If the state is \code{ENABLED}, then the compute environment accepts jobs from a queue and can scale out automatically based on queues.
 
-If the state is \code{DISABLED}, then the Batch scheduler doesn't attempt to
-place jobs within the environment. Jobs in a \code{STARTING} or \code{RUNNING}
-state continue to progress normally. Managed compute environments in the
-\code{DISABLED} state don't scale out.
+If the state is \code{ENABLED}, then the Batch scheduler can attempt to place jobs from an associated job queue on the compute resources within the environment. If the compute environment is managed, then it can scale its instances out or in automatically, based on the job queue demand.
 
-Compute environments in a \code{DISABLED} state may continue to incur billing
-charges. To prevent additional charges, turn off and then delete the
-compute environment. For more information, see
-\href{https://docs.aws.amazon.com/batch/latest/APIReference/API_JobQueueDetail.html#compute_environment_state}{State}
-in the \emph{Batch User Guide}.
+If the state is \code{DISABLED}, then the Batch scheduler doesn't attempt to place jobs within the environment. Jobs in a \code{STARTING} or \code{RUNNING} state continue to progress normally. Managed compute environments in the \code{DISABLED} state don't scale out.
 
-When an instance is idle, the instance scales down to the \code{minvCpus}
-value. However, the instance size doesn't change. For example, consider
-a \code{c5.8xlarge} instance with a \code{minvCpus} value of \code{4} and a
-\code{desiredvCpus} value of \code{36}. This instance doesn't scale down to a
-\code{c5.large} instance.}
+Compute environments in a \code{DISABLED} state may continue to incur billing charges, for example, if they have running instances due to jobs that are still executing or a non-zero \code{minvCpus} setting. To prevent additional charges, disable and delete the compute environment.
 
-\item{unmanagedvCpus}{The maximum number of vCPUs for an unmanaged compute environment. This
-parameter is only used for fair-share scheduling to reserve vCPU
-capacity for new share identifiers. If this parameter isn't provided for
-a fair-share job queue, no vCPU capacity is reserved.
+When an instance is idle, the instance scales down to the \code{minvCpus} value. However, the instance size doesn't change. For example, consider a \code{c5.8xlarge} instance with a \code{minvCpus} value of \code{4} and a \code{desiredvCpus} value of \code{36}. This instance doesn't scale down to a \code{c5.large} instance.}
 
-This parameter is only supported when the \code{type} parameter is set to
-\code{UNMANAGED}.}
+\item{unmanagedvCpus}{The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair-share scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair-share job queue, no vCPU capacity is reserved.
 
-\item{computeResources}{Details about the compute resources managed by the compute environment.
-This parameter is required for managed compute environments. For more
-information, see \href{https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html}{Compute Environments}
-in the \emph{Batch User Guide}.}
+This parameter is only supported when the \code{type} parameter is set to \code{UNMANAGED}.}
 
-\item{serviceRole}{The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
-make calls to other Amazon Web Services services on your behalf. For
-more information, see \href{https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html}{Batch service IAM role}
-in the \emph{Batch User Guide}.
+\item{computeResources}{Details about the compute resources managed by the compute environment. This parameter is required for managed compute environments. For more information, see \href{https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html}{Compute Environments} in the \emph{Batch User Guide}.}
 
-If your account already created the Batch service-linked role, that role
-is used by default for your compute environment unless you specify a
-different role here. If the Batch service-linked role doesn't exist in
-your account, and no role is specified here, the service attempts to
-create the Batch service-linked role in your account.
+\item{serviceRole}{The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services services on your behalf. For more information, see \href{https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html}{Batch service IAM role} in the \emph{Batch User Guide}.
 
-If your specified role has a path other than \code{/}, then you must specify
-either the full role ARN (recommended) or prefix the role name with the
-path. For example, if a role with the name \code{bar} has a path of \verb{/foo/},
-specify \verb{/foo/bar} as the role name. For more information, see \href{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names}{Friendly names and paths}
-in the \emph{IAM User Guide}.
+If your account already created the Batch service-linked role, that role is used by default for your compute environment unless you specify a different role here. If the Batch service-linked role doesn't exist in your account, and no role is specified here, the service attempts to create the Batch service-linked role in your account.
 
-Depending on how you created your Batch service role, its ARN might
-contain the \code{service-role} path prefix. When you only specify the name
-of the service role, Batch assumes that your ARN doesn't use the
-\code{service-role} path prefix. Because of this, we recommend that you
-specify the full ARN of your service role when you create compute
-environments.}
+This automatic service-linked role creation only applies to \code{MANAGED} compute environments. For \code{UNMANAGED} compute environments, you must explicitly specify a \code{serviceRole}.
 
-\item{tags}{The tags that you apply to the compute environment to help you
-categorize and organize your resources. Each tag consists of a key and
-an optional value. For more information, see \href{https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html}{Tagging Amazon Web Services Resources}
-in \emph{Amazon Web Services General Reference}.
+If your specified role has a path other than \code{/}, then you must specify either the full role ARN (recommended) or prefix the role name with the path. For example, if a role with the name \code{bar} has a path of \verb{/foo/}, specify \verb{/foo/bar} as the role name. For more information, see \href{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names}{Friendly names and paths} in the \emph{IAM User Guide}.
 
-These tags can be updated or removed using the
-\code{\link[=batch_tag_resource]{tag_resource}} and
-\code{\link[=batch_untag_resource]{untag_resource}} API operations. These tags
-don't propagate to the underlying compute resources.}
+Depending on how you created your Batch service role, its ARN might contain the \code{service-role} path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the \code{service-role} path prefix. Because of this, we recommend that you specify the full ARN of your service role when you create compute environments.}
 
-\item{eksConfiguration}{The details for the Amazon EKS cluster that supports the compute
-environment.}
+\item{tags}{The tags that you apply to the compute environment to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see \href{https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html}{Tagging Amazon Web Services Resources} in \emph{Amazon Web Services General Reference}.
+
+These tags can be updated or removed using the \code{\link[=batch_tag_resource]{tag_resource}} and \code{\link[=batch_untag_resource]{untag_resource}} API operations. These tags don't propagate to the underlying compute resources.}
+
+\item{eksConfiguration}{The details for the Amazon EKS cluster that supports the compute environment.
+
+To create a compute environment that uses EKS resources, the caller must have permissions to call \code{eks:DescribeCluster}.}
 
 \item{context}{Reserved.}
 }

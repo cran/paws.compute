@@ -7,8 +7,7 @@
 apprunner_resume_service(ServiceArn)
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want
-to resume.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want to resume.}
 }
 \description{
 Resume an active App Runner service. App Runner provisions compute capacity for the service.

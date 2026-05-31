@@ -11,10 +11,7 @@ NULL
 #' See [https://www.paws-r-sdk.com/docs/batch_cancel_job/](https://www.paws-r-sdk.com/docs/batch_cancel_job/) for full documentation.
 #'
 #' @param jobId &#91;required&#93; The Batch job ID of the job to cancel.
-#' @param reason &#91;required&#93; A message to attach to the job that explains the reason for canceling
-#' it. This message is returned by future
-#' [`describe_jobs`][batch_describe_jobs] operations on the job. It is also
-#' recorded in the Batch activity logs.
+#' @param reason &#91;required&#93; A message to attach to the job that explains the reason for canceling it. This message is returned by future [`describe_jobs`][batch_describe_jobs] operations on the job. It is also recorded in the Batch activity logs.
 #' 
 #' This parameter has as limit of 1024 characters.
 #'
@@ -47,89 +44,38 @@ batch_cancel_job <- function(jobId, reason) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_create_compute_environment/](https://www.paws-r-sdk.com/docs/batch_create_compute_environment/) for full documentation.
 #'
-#' @param computeEnvironmentName &#91;required&#93; The name for your compute environment. It can be up to 128 characters
-#' long. It can contain uppercase and lowercase letters, numbers, hyphens
-#' (-), and underscores (_).
-#' @param type &#91;required&#93; The type of the compute environment: `MANAGED` or `UNMANAGED`. For more
-#' information, see [Compute
-#' Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
-#' in the *Batch User Guide*.
-#' @param state The state of the compute environment. If the state is `ENABLED`, then
-#' the compute environment accepts jobs from a queue and can scale out
-#' automatically based on queues.
+#' @param computeEnvironmentName &#91;required&#93; The name for your compute environment. It can be up to 128 characters long. It can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
+#' @param type &#91;required&#93; The type of the compute environment: `MANAGED` or `UNMANAGED`. For more information, see [Compute Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) in the *Batch User Guide*.
+#' @param state The state of the compute environment. A compute environment must be created in the `ENABLED` state.
 #' 
-#' If the state is `ENABLED`, then the Batch scheduler can attempt to place
-#' jobs from an associated job queue on the compute resources within the
-#' environment. If the compute environment is managed, then it can scale
-#' its instances out or in automatically, based on the job queue demand.
+#' If the state is `ENABLED`, then the compute environment accepts jobs from a queue and can scale out automatically based on queues.
 #' 
-#' If the state is `DISABLED`, then the Batch scheduler doesn't attempt to
-#' place jobs within the environment. Jobs in a `STARTING` or `RUNNING`
-#' state continue to progress normally. Managed compute environments in the
-#' `DISABLED` state don't scale out.
+#' If the state is `ENABLED`, then the Batch scheduler can attempt to place jobs from an associated job queue on the compute resources within the environment. If the compute environment is managed, then it can scale its instances out or in automatically, based on the job queue demand.
 #' 
-#' Compute environments in a `DISABLED` state may continue to incur billing
-#' charges. To prevent additional charges, turn off and then delete the
-#' compute environment. For more information, see
-#' [State](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobQueueDetail.html#compute_environment_state)
-#' in the *Batch User Guide*.
+#' If the state is `DISABLED`, then the Batch scheduler doesn't attempt to place jobs within the environment. Jobs in a `STARTING` or `RUNNING` state continue to progress normally. Managed compute environments in the `DISABLED` state don't scale out.
 #' 
-#' When an instance is idle, the instance scales down to the `minvCpus`
-#' value. However, the instance size doesn't change. For example, consider
-#' a `c5.8xlarge` instance with a `minvCpus` value of `4` and a
-#' `desiredvCpus` value of `36`. This instance doesn't scale down to a
-#' `c5.large` instance.
-#' @param unmanagedvCpus The maximum number of vCPUs for an unmanaged compute environment. This
-#' parameter is only used for fair-share scheduling to reserve vCPU
-#' capacity for new share identifiers. If this parameter isn't provided for
-#' a fair-share job queue, no vCPU capacity is reserved.
+#' Compute environments in a `DISABLED` state may continue to incur billing charges, for example, if they have running instances due to jobs that are still executing or a non-zero `minvCpus` setting. To prevent additional charges, disable and delete the compute environment.
 #' 
-#' This parameter is only supported when the `type` parameter is set to
-#' `UNMANAGED`.
-#' @param computeResources Details about the compute resources managed by the compute environment.
-#' This parameter is required for managed compute environments. For more
-#' information, see [Compute
-#' Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
-#' in the *Batch User Guide*.
-#' @param serviceRole The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
-#' make calls to other Amazon Web Services services on your behalf. For
-#' more information, see [Batch service IAM
-#' role](https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html)
-#' in the *Batch User Guide*.
+#' When an instance is idle, the instance scales down to the `minvCpus` value. However, the instance size doesn't change. For example, consider a `c5.8xlarge` instance with a `minvCpus` value of `4` and a `desiredvCpus` value of `36`. This instance doesn't scale down to a `c5.large` instance.
+#' @param unmanagedvCpus The maximum number of vCPUs for an unmanaged compute environment. This parameter is only used for fair-share scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair-share job queue, no vCPU capacity is reserved.
 #' 
-#' If your account already created the Batch service-linked role, that role
-#' is used by default for your compute environment unless you specify a
-#' different role here. If the Batch service-linked role doesn't exist in
-#' your account, and no role is specified here, the service attempts to
-#' create the Batch service-linked role in your account.
+#' This parameter is only supported when the `type` parameter is set to `UNMANAGED`.
+#' @param computeResources Details about the compute resources managed by the compute environment. This parameter is required for managed compute environments. For more information, see [Compute Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) in the *Batch User Guide*.
+#' @param serviceRole The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services services on your behalf. For more information, see [Batch service IAM role](https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html) in the *Batch User Guide*.
 #' 
-#' If your specified role has a path other than `/`, then you must specify
-#' either the full role ARN (recommended) or prefix the role name with the
-#' path. For example, if a role with the name `bar` has a path of `/foo/`,
-#' specify `/foo/bar` as the role name. For more information, see [Friendly
-#' names and
-#' paths](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names)
-#' in the *IAM User Guide*.
+#' If your account already created the Batch service-linked role, that role is used by default for your compute environment unless you specify a different role here. If the Batch service-linked role doesn't exist in your account, and no role is specified here, the service attempts to create the Batch service-linked role in your account.
 #' 
-#' Depending on how you created your Batch service role, its ARN might
-#' contain the `service-role` path prefix. When you only specify the name
-#' of the service role, Batch assumes that your ARN doesn't use the
-#' `service-role` path prefix. Because of this, we recommend that you
-#' specify the full ARN of your service role when you create compute
-#' environments.
-#' @param tags The tags that you apply to the compute environment to help you
-#' categorize and organize your resources. Each tag consists of a key and
-#' an optional value. For more information, see [Tagging Amazon Web
-#' Services
-#' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
-#' in *Amazon Web Services General Reference*.
+#' This automatic service-linked role creation only applies to `MANAGED` compute environments. For `UNMANAGED` compute environments, you must explicitly specify a `serviceRole`.
 #' 
-#' These tags can be updated or removed using the
-#' [`tag_resource`][batch_tag_resource] and
-#' [`untag_resource`][batch_untag_resource] API operations. These tags
-#' don't propagate to the underlying compute resources.
-#' @param eksConfiguration The details for the Amazon EKS cluster that supports the compute
-#' environment.
+#' If your specified role has a path other than `/`, then you must specify either the full role ARN (recommended) or prefix the role name with the path. For example, if a role with the name `bar` has a path of `/foo/`, specify `/foo/bar` as the role name. For more information, see [Friendly names and paths](https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html#identifiers-friendly-names) in the *IAM User Guide*.
+#' 
+#' Depending on how you created your Batch service role, its ARN might contain the `service-role` path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the `service-role` path prefix. Because of this, we recommend that you specify the full ARN of your service role when you create compute environments.
+#' @param tags The tags that you apply to the compute environment to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging Amazon Web Services Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html) in *Amazon Web Services General Reference*.
+#' 
+#' These tags can be updated or removed using the [`tag_resource`][batch_tag_resource] and [`untag_resource`][batch_untag_resource] API operations. These tags don't propagate to the underlying compute resources.
+#' @param eksConfiguration The details for the Amazon EKS cluster that supports the compute environment.
+#' 
+#' To create a compute environment that uses EKS resources, the caller must have permissions to call `eks:DescribeCluster`.
 #' @param context Reserved.
 #'
 #' @keywords internal
@@ -154,6 +100,44 @@ batch_create_compute_environment <- function(computeEnvironmentName, type, state
 }
 .batch$operations$create_compute_environment <- batch_create_compute_environment
 
+#' Creates an Batch consumable resource
+#'
+#' @description
+#' Creates an Batch consumable resource.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_create_consumable_resource/](https://www.paws-r-sdk.com/docs/batch_create_consumable_resource/) for full documentation.
+#'
+#' @param consumableResourceName &#91;required&#93; The name of the consumable resource. Must be unique.
+#' @param totalQuantity The total amount of the consumable resource that is available. Must be non-negative.
+#' @param resourceType Indicates whether the resource is available to be re-used after a job completes. Can be one of:
+#' 
+#' -   `REPLENISHABLE` (default)
+#' 
+#' -   `NON_REPLENISHABLE`
+#' @param tags The tags that you apply to the consumable resource to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging your Batch resources](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html).
+#'
+#' @keywords internal
+#'
+#' @rdname batch_create_consumable_resource
+batch_create_consumable_resource <- function(consumableResourceName, totalQuantity = NULL, resourceType = NULL, tags = NULL) {
+  op <- new_operation(
+    name = "CreateConsumableResource",
+    http_method = "POST",
+    http_path = "/v1/createconsumableresource",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$create_consumable_resource_input(consumableResourceName = consumableResourceName, totalQuantity = totalQuantity, resourceType = resourceType, tags = tags)
+  output <- .batch$create_consumable_resource_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$create_consumable_resource <- batch_create_consumable_resource
+
 #' Creates an Batch job queue
 #'
 #' @description
@@ -161,63 +145,28 @@ batch_create_compute_environment <- function(computeEnvironmentName, type, state
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_create_job_queue/](https://www.paws-r-sdk.com/docs/batch_create_job_queue/) for full documentation.
 #'
-#' @param jobQueueName &#91;required&#93; The name of the job queue. It can be up to 128 letters long. It can
-#' contain uppercase and lowercase letters, numbers, hyphens (-), and
-#' underscores (_).
-#' @param state The state of the job queue. If the job queue state is `ENABLED`, it is
-#' able to accept jobs. If the job queue state is `DISABLED`, new jobs
-#' can't be added to the queue, but jobs already in the queue can finish.
-#' @param schedulingPolicyArn The Amazon Resource Name (ARN) of the fair-share scheduling policy. Job
-#' queues that don't have a fair-share scheduling policy are scheduled in a
-#' first-in, first-out (FIFO) model. After a job queue has a fair-share
-#' scheduling policy, it can be replaced but can't be removed.
+#' @param jobQueueName &#91;required&#93; The name of the job queue. It can be up to 128 letters long. It can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
+#' @param state The state of the job queue. If the job queue state is `ENABLED`, it is able to accept jobs. If the job queue state is `DISABLED`, new jobs can't be added to the queue, but jobs already in the queue can finish.
+#' @param schedulingPolicyArn The Amazon Resource Name (ARN) of the fair-share scheduling policy. Job queues that don't have a fair-share scheduling policy are scheduled in a first-in, first-out (FIFO) model. After a job queue has a fair-share scheduling policy, it can be replaced but can't be removed.
 #' 
-#' The format is
-#' `aws:Partition:batch:Region:Account:scheduling-policy/Name `.
+#' The format is `aws:Partition:batch:Region:Account:scheduling-policy/Name `.
 #' 
-#' An example is
-#' `aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy`.
+#' An example is `aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy`.
 #' 
-#' A job queue without a fair-share scheduling policy is scheduled as a
-#' FIFO job queue and can't have a fair-share scheduling policy added. Jobs
-#' queues with a fair-share scheduling policy can have a maximum of 500
-#' active share identifiers. When the limit has been reached, submissions
-#' of any jobs that add a new share identifier fail.
-#' @param priority &#91;required&#93; The priority of the job queue. Job queues with a higher priority (or a
-#' higher integer value for the `priority` parameter) are evaluated first
-#' when associated with the same compute environment. Priority is
-#' determined in descending order. For example, a job queue with a priority
-#' value of `10` is given scheduling preference over a job queue with a
-#' priority value of `1`. All of the compute environments must be either
-#' EC2 (`EC2` or `SPOT`) or Fargate (`FARGATE` or `FARGATE_SPOT`); EC2 and
-#' Fargate compute environments can't be mixed.
-#' @param computeEnvironmentOrder &#91;required&#93; The set of compute environments mapped to a job queue and their order
-#' relative to each other. The job scheduler uses this parameter to
-#' determine which compute environment runs a specific job. Compute
-#' environments must be in the `VALID` state before you can associate them
-#' with a job queue. You can associate up to three compute environments
-#' with a job queue. All of the compute environments must be either EC2
-#' (`EC2` or `SPOT`) or Fargate (`FARGATE` or `FARGATE_SPOT`); EC2 and
-#' Fargate compute environments can't be mixed.
+#' A job queue without a fair-share scheduling policy is scheduled as a FIFO job queue and can't have a fair-share scheduling policy added. Jobs queues with a fair-share scheduling policy can have a maximum of 500 active share identifiers. When the limit has been reached, submissions of any jobs that add a new share identifier fail.
+#' @param priority &#91;required&#93; The priority of the job queue. Job queues with a higher priority (or a higher integer value for the `priority` parameter) are evaluated first when associated with the same compute environment. Priority is determined in descending order. For example, a job queue with a priority value of `10` is given scheduling preference over a job queue with a priority value of `1`. All of the compute environments must be either EC2 (`EC2` or `SPOT`) or Fargate (`FARGATE` or `FARGATE_SPOT`); EC2 and Fargate compute environments can't be mixed.
+#' @param computeEnvironmentOrder The set of compute environments mapped to a job queue and their order relative to each other. The job scheduler uses this parameter to determine which compute environment runs a specific job. Compute environments must be in the `VALID` state before you can associate them with a job queue. You can associate up to three compute environments with a job queue. All of the compute environments must be either EC2 (`EC2` or `SPOT`) or Fargate (`FARGATE` or `FARGATE_SPOT`); EC2 and Fargate compute environments can't be mixed.
 #' 
-#' All compute environments that are associated with a job queue must share
-#' the same architecture. Batch doesn't support mixing compute environment
-#' architecture types in a single job queue.
-#' @param tags The tags that you apply to the job queue to help you categorize and
-#' organize your resources. Each tag consists of a key and an optional
-#' value. For more information, see [Tagging your Batch
-#' resources](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html)
-#' in *Batch User Guide*.
-#' @param jobStateTimeLimitActions The set of actions that Batch performs on jobs that remain at the head
-#' of the job queue in the specified state longer than specified times.
-#' Batch will perform each action after `maxTimeSeconds` has passed.
-#' (**Note**: The minimum value for maxTimeSeconds is 600 (10 minutes) and
-#' its maximum value is 86,400 (24 hours).)
+#' All compute environments that are associated with a job queue must share the same architecture. Batch doesn't support mixing compute environment architecture types in a single job queue.
+#' @param serviceEnvironmentOrder A list of service environments that this job queue can use to allocate jobs. All serviceEnvironments must have the same type. A job queue can't have both a serviceEnvironmentOrder and a computeEnvironmentOrder field.
+#' @param jobQueueType The type of job queue. For service jobs that run on SageMaker Training, this value is `SAGEMAKER_TRAINING`. For regular container jobs, this value is `EKS`, `ECS`, or `ECS_FARGATE` depending on the compute environment.
+#' @param tags The tags that you apply to the job queue to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging your Batch resources](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html) in *Batch User Guide*.
+#' @param jobStateTimeLimitActions The set of actions that Batch performs on jobs that remain at the head of the job queue in the specified state longer than specified times. Batch will perform each action after `maxTimeSeconds` has passed. (**Note**: The minimum value for maxTimeSeconds is 600 (10 minutes) and its maximum value is 86,400 (24 hours).)
 #'
 #' @keywords internal
 #'
 #' @rdname batch_create_job_queue
-batch_create_job_queue <- function(jobQueueName, state = NULL, schedulingPolicyArn = NULL, priority, computeEnvironmentOrder, tags = NULL, jobStateTimeLimitActions = NULL) {
+batch_create_job_queue <- function(jobQueueName, state = NULL, schedulingPolicyArn = NULL, priority, computeEnvironmentOrder = NULL, serviceEnvironmentOrder = NULL, jobQueueType = NULL, tags = NULL, jobStateTimeLimitActions = NULL) {
   op <- new_operation(
     name = "CreateJobQueue",
     http_method = "POST",
@@ -226,7 +175,7 @@ batch_create_job_queue <- function(jobQueueName, state = NULL, schedulingPolicyA
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .batch$create_job_queue_input(jobQueueName = jobQueueName, state = state, schedulingPolicyArn = schedulingPolicyArn, priority = priority, computeEnvironmentOrder = computeEnvironmentOrder, tags = tags, jobStateTimeLimitActions = jobStateTimeLimitActions)
+  input <- .batch$create_job_queue_input(jobQueueName = jobQueueName, state = state, schedulingPolicyArn = schedulingPolicyArn, priority = priority, computeEnvironmentOrder = computeEnvironmentOrder, serviceEnvironmentOrder = serviceEnvironmentOrder, jobQueueType = jobQueueType, tags = tags, jobStateTimeLimitActions = jobStateTimeLimitActions)
   output <- .batch$create_job_queue_output()
   config <- get_config()
   svc <- .batch$service(config, op)
@@ -236,6 +185,43 @@ batch_create_job_queue <- function(jobQueueName, state = NULL, schedulingPolicyA
 }
 .batch$operations$create_job_queue <- batch_create_job_queue
 
+#' Creates an Batch quota share
+#'
+#' @description
+#' Creates an Batch quota share. Each quota share operates as a virtual queue with a configured compute capacity, resource sharing strategy, and borrow limits.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_create_quota_share/](https://www.paws-r-sdk.com/docs/batch_create_quota_share/) for full documentation.
+#'
+#' @param quotaShareName &#91;required&#93; The name of the quota share. It can be up to 128 characters long. It can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
+#' @param jobQueue &#91;required&#93; The Batch job queue associated with the quota share. This can be the job queue name or ARN. A job queue must be in the `VALID` state before you can associate it with a quota share.
+#' @param capacityLimits &#91;required&#93; A list that specifies the quantity and type of compute capacity allocated to the quota share.
+#' @param resourceSharingConfiguration &#91;required&#93; Specifies whether a quota share reserves, lends, or both lends and borrows idle compute capacity.
+#' @param preemptionConfiguration &#91;required&#93; Specifies the preemption behavior for jobs in a quota share.
+#' @param state The state of the quota share. If the quota share is `ENABLED`, it is able to accept jobs. If the quota share is `DISABLED`, new jobs won't be accepted but jobs already submitted can finish. The default state is `ENABLED`.
+#' @param tags The tags that you apply to the quota share to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging your Batch resources](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html) in *Batch User Guide*.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_create_quota_share
+batch_create_quota_share <- function(quotaShareName, jobQueue, capacityLimits, resourceSharingConfiguration, preemptionConfiguration, state = NULL, tags = NULL) {
+  op <- new_operation(
+    name = "CreateQuotaShare",
+    http_method = "POST",
+    http_path = "/v1/createquotashare",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$create_quota_share_input(quotaShareName = quotaShareName, jobQueue = jobQueue, capacityLimits = capacityLimits, resourceSharingConfiguration = resourceSharingConfiguration, preemptionConfiguration = preemptionConfiguration, state = state, tags = tags)
+  output <- .batch$create_quota_share_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$create_quota_share <- batch_create_quota_share
+
 #' Creates an Batch scheduling policy
 #'
 #' @description
@@ -243,24 +229,17 @@ batch_create_job_queue <- function(jobQueueName, state = NULL, schedulingPolicyA
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_create_scheduling_policy/](https://www.paws-r-sdk.com/docs/batch_create_scheduling_policy/) for full documentation.
 #'
-#' @param name &#91;required&#93; The name of the fair-share scheduling policy. It can be up to 128
-#' letters long. It can contain uppercase and lowercase letters, numbers,
-#' hyphens (-), and underscores (_).
-#' @param fairsharePolicy The fair-share scheduling policy details.
-#' @param tags The tags that you apply to the scheduling policy to help you categorize
-#' and organize your resources. Each tag consists of a key and an optional
-#' value. For more information, see [Tagging Amazon Web Services
-#' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
-#' in *Amazon Web Services General Reference*.
+#' @param name &#91;required&#93; The name of the fair-share scheduling policy. It can be up to 128 letters long. It can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
+#' @param quotaSharePolicy The quota share scheduling policy details. Only one of fairsharePolicy or quotaSharePolicy can be set. Once set, this policy type cannot be removed or changed to a fairSharePolicy.
+#' @param fairsharePolicy The fair-share scheduling policy details. Only one of fairsharePolicy or quotaSharePolicy can be set. Once set, this policy type cannot be removed or changed to a quotaSharePolicy.
+#' @param tags The tags that you apply to the scheduling policy to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging Amazon Web Services Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html) in *Amazon Web Services General Reference*.
 #' 
-#' These tags can be updated or removed using the
-#' [`tag_resource`][batch_tag_resource] and
-#' [`untag_resource`][batch_untag_resource] API operations.
+#' These tags can be updated or removed using the [`tag_resource`][batch_tag_resource] and [`untag_resource`][batch_untag_resource] API operations.
 #'
 #' @keywords internal
 #'
 #' @rdname batch_create_scheduling_policy
-batch_create_scheduling_policy <- function(name, fairsharePolicy = NULL, tags = NULL) {
+batch_create_scheduling_policy <- function(name, quotaSharePolicy = NULL, fairsharePolicy = NULL, tags = NULL) {
   op <- new_operation(
     name = "CreateSchedulingPolicy",
     http_method = "POST",
@@ -269,7 +248,7 @@ batch_create_scheduling_policy <- function(name, fairsharePolicy = NULL, tags = 
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .batch$create_scheduling_policy_input(name = name, fairsharePolicy = fairsharePolicy, tags = tags)
+  input <- .batch$create_scheduling_policy_input(name = name, quotaSharePolicy = quotaSharePolicy, fairsharePolicy = fairsharePolicy, tags = tags)
   output <- .batch$create_scheduling_policy_output()
   config <- get_config()
   svc <- .batch$service(config, op)
@@ -279,6 +258,41 @@ batch_create_scheduling_policy <- function(name, fairsharePolicy = NULL, tags = 
 }
 .batch$operations$create_scheduling_policy <- batch_create_scheduling_policy
 
+#' Creates a service environment for running service jobs
+#'
+#' @description
+#' Creates a service environment for running service jobs. Service environments define capacity limits for specific service types such as SageMaker Training jobs.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_create_service_environment/](https://www.paws-r-sdk.com/docs/batch_create_service_environment/) for full documentation.
+#'
+#' @param serviceEnvironmentName &#91;required&#93; The name for the service environment. It can be up to 128 characters long and can contain letters, numbers, hyphens (-), and underscores (_).
+#' @param serviceEnvironmentType &#91;required&#93; The type of service environment. For SageMaker Training jobs, specify `SAGEMAKER_TRAINING`.
+#' @param state The state of the service environment. Valid values are `ENABLED` and `DISABLED`. The default value is `ENABLED`.
+#' @param capacityLimits &#91;required&#93; The capacity limits for the service environment. The number of instances a job consumes is the total number of instances requested in the submit training job request resource configuration.
+#' @param tags The tags that you apply to the service environment to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging your Batch resources](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html).
+#'
+#' @keywords internal
+#'
+#' @rdname batch_create_service_environment
+batch_create_service_environment <- function(serviceEnvironmentName, serviceEnvironmentType, state = NULL, capacityLimits, tags = NULL) {
+  op <- new_operation(
+    name = "CreateServiceEnvironment",
+    http_method = "POST",
+    http_path = "/v1/createserviceenvironment",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$create_service_environment_input(serviceEnvironmentName = serviceEnvironmentName, serviceEnvironmentType = serviceEnvironmentType, state = state, capacityLimits = capacityLimits, tags = tags)
+  output <- .batch$create_service_environment_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$create_service_environment <- batch_create_service_environment
+
 #' Deletes an Batch compute environment
 #'
 #' @description
@@ -286,8 +300,7 @@ batch_create_scheduling_policy <- function(name, fairsharePolicy = NULL, tags = 
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_delete_compute_environment/](https://www.paws-r-sdk.com/docs/batch_delete_compute_environment/) for full documentation.
 #'
-#' @param computeEnvironment &#91;required&#93; The name or Amazon Resource Name (ARN) of the compute environment to
-#' delete.
+#' @param computeEnvironment &#91;required&#93; The name or Amazon Resource Name (ARN) of the compute environment to delete.
 #'
 #' @keywords internal
 #'
@@ -311,15 +324,45 @@ batch_delete_compute_environment <- function(computeEnvironment) {
 }
 .batch$operations$delete_compute_environment <- batch_delete_compute_environment
 
+#' Deletes the specified consumable resource
+#'
+#' @description
+#' Deletes the specified consumable resource.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_delete_consumable_resource/](https://www.paws-r-sdk.com/docs/batch_delete_consumable_resource/) for full documentation.
+#'
+#' @param consumableResource &#91;required&#93; The name or ARN of the consumable resource that will be deleted.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_delete_consumable_resource
+batch_delete_consumable_resource <- function(consumableResource) {
+  op <- new_operation(
+    name = "DeleteConsumableResource",
+    http_method = "POST",
+    http_path = "/v1/deleteconsumableresource",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$delete_consumable_resource_input(consumableResource = consumableResource)
+  output <- .batch$delete_consumable_resource_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$delete_consumable_resource <- batch_delete_consumable_resource
+
 #' Deletes the specified job queue
 #'
 #' @description
-#' Deletes the specified job queue. You must first disable submissions for a queue with the [`update_job_queue`][batch_update_job_queue] operation. All jobs in the queue are eventually terminated when you delete a job queue. The jobs are terminated at a rate of about 16 jobs each second.
+#' Deletes the specified job queue. You must first disable submissions for a queue with the [`update_job_queue`][batch_update_job_queue] operation. All jobs in the queue are eventually terminated when you delete a job queue.
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_delete_job_queue/](https://www.paws-r-sdk.com/docs/batch_delete_job_queue/) for full documentation.
 #'
-#' @param jobQueue &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the queue to
-#' delete.
+#' @param jobQueue &#91;required&#93; The short name or full Amazon Resource Name (ARN) of the queue to delete.
 #'
 #' @keywords internal
 #'
@@ -342,6 +385,37 @@ batch_delete_job_queue <- function(jobQueue) {
   return(response)
 }
 .batch$operations$delete_job_queue <- batch_delete_job_queue
+
+#' Deletes the specified quota share
+#'
+#' @description
+#' Deletes the specified quota share. You must first disable submissions for the share by updating the state to `DISABLED` using the [`update_quota_share`][batch_update_quota_share] operation. All jobs in the share are eventually terminated when you delete a quota share.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_delete_quota_share/](https://www.paws-r-sdk.com/docs/batch_delete_quota_share/) for full documentation.
+#'
+#' @param quotaShareArn &#91;required&#93; The Amazon Resource Name (ARN) of the quota share.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_delete_quota_share
+batch_delete_quota_share <- function(quotaShareArn) {
+  op <- new_operation(
+    name = "DeleteQuotaShare",
+    http_method = "POST",
+    http_path = "/v1/deletequotashare",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$delete_quota_share_input(quotaShareArn = quotaShareArn)
+  output <- .batch$delete_quota_share_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$delete_quota_share <- batch_delete_quota_share
 
 #' Deletes the specified scheduling policy
 #'
@@ -374,6 +448,37 @@ batch_delete_scheduling_policy <- function(arn) {
 }
 .batch$operations$delete_scheduling_policy <- batch_delete_scheduling_policy
 
+#' Deletes a Service environment
+#'
+#' @description
+#' Deletes a Service environment. Before you can delete a service environment, you must first set its state to `DISABLED` with the [`update_service_environment`][batch_update_service_environment] API operation and disassociate it from any job queues with the [`update_job_queue`][batch_update_job_queue] API operation.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_delete_service_environment/](https://www.paws-r-sdk.com/docs/batch_delete_service_environment/) for full documentation.
+#'
+#' @param serviceEnvironment &#91;required&#93; The name or ARN of the service environment to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_delete_service_environment
+batch_delete_service_environment <- function(serviceEnvironment) {
+  op <- new_operation(
+    name = "DeleteServiceEnvironment",
+    http_method = "POST",
+    http_path = "/v1/deleteserviceenvironment",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$delete_service_environment_input(serviceEnvironment = serviceEnvironment)
+  output <- .batch$delete_service_environment_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$delete_service_environment <- batch_delete_service_environment
+
 #' Deregisters an Batch job definition
 #'
 #' @description
@@ -381,8 +486,7 @@ batch_delete_scheduling_policy <- function(arn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_deregister_job_definition/](https://www.paws-r-sdk.com/docs/batch_deregister_job_definition/) for full documentation.
 #'
-#' @param jobDefinition &#91;required&#93; The name and revision (`name:revision`) or full Amazon Resource Name
-#' (ARN) of the job definition to deregister.
+#' @param jobDefinition &#91;required&#93; The name and revision (`name:revision`) or full Amazon Resource Name (ARN) of the job definition to deregister.
 #'
 #' @keywords internal
 #'
@@ -413,29 +517,11 @@ batch_deregister_job_definition <- function(jobDefinition) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_describe_compute_environments/](https://www.paws-r-sdk.com/docs/batch_describe_compute_environments/) for full documentation.
 #'
-#' @param computeEnvironments A list of up to 100 compute environment names or full Amazon Resource
-#' Name (ARN) entries.
-#' @param maxResults The maximum number of cluster results returned by
-#' [`describe_compute_environments`][batch_describe_compute_environments]
-#' in paginated output. When this parameter is used,
-#' [`describe_compute_environments`][batch_describe_compute_environments]
-#' only returns `maxResults` results in a single page along with a
-#' `nextToken` response element. The remaining results of the initial
-#' request can be seen by sending another
-#' [`describe_compute_environments`][batch_describe_compute_environments]
-#' request with the returned `nextToken` value. This value can be between 1
-#' and 100. If this parameter isn't used, then
-#' [`describe_compute_environments`][batch_describe_compute_environments]
-#' returns up to 100 results and a `nextToken` value if applicable.
-#' @param nextToken The `nextToken` value returned from a previous paginated
-#' [`describe_compute_environments`][batch_describe_compute_environments]
-#' request where `maxResults` was used and the results exceeded the value
-#' of that parameter. Pagination continues from the end of the previous
-#' results that returned the `nextToken` value. This value is `null` when
-#' there are no more results to return.
+#' @param computeEnvironments A list of up to 100 compute environment names or full Amazon Resource Name (ARN) entries.
+#' @param maxResults The maximum number of cluster results returned by [`describe_compute_environments`][batch_describe_compute_environments] in paginated output. When this parameter is used, [`describe_compute_environments`][batch_describe_compute_environments] only returns `maxResults` results in a single page along with a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`describe_compute_environments`][batch_describe_compute_environments] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`describe_compute_environments`][batch_describe_compute_environments] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`describe_compute_environments`][batch_describe_compute_environments] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
 #' 
-#' Treat this token as an opaque identifier that's only used to retrieve
-#' the next items in a list and not for other programmatic purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -459,6 +545,37 @@ batch_describe_compute_environments <- function(computeEnvironments = NULL, maxR
 }
 .batch$operations$describe_compute_environments <- batch_describe_compute_environments
 
+#' Returns a description of the specified consumable resource
+#'
+#' @description
+#' Returns a description of the specified consumable resource.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_consumable_resource/](https://www.paws-r-sdk.com/docs/batch_describe_consumable_resource/) for full documentation.
+#'
+#' @param consumableResource &#91;required&#93; The name or ARN of the consumable resource whose description will be returned.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_describe_consumable_resource
+batch_describe_consumable_resource <- function(consumableResource) {
+  op <- new_operation(
+    name = "DescribeConsumableResource",
+    http_method = "POST",
+    http_path = "/v1/describeconsumableresource",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$describe_consumable_resource_input(consumableResource = consumableResource)
+  output <- .batch$describe_consumable_resource_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$describe_consumable_resource <- batch_describe_consumable_resource
+
 #' Describes a list of job definitions
 #'
 #' @description
@@ -466,34 +583,13 @@ batch_describe_compute_environments <- function(computeEnvironments = NULL, maxR
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_describe_job_definitions/](https://www.paws-r-sdk.com/docs/batch_describe_job_definitions/) for full documentation.
 #'
-#' @param jobDefinitions A list of up to 100 job definitions. Each entry in the list can either
-#' be an ARN in the format
-#' `arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}`
-#' or a short version using the form `${JobDefinitionName}:${Revision}`.
-#' This parameter can't be used with other parameters.
-#' @param maxResults The maximum number of results returned by
-#' [`describe_job_definitions`][batch_describe_job_definitions] in
-#' paginated output. When this parameter is used,
-#' [`describe_job_definitions`][batch_describe_job_definitions] only
-#' returns `maxResults` results in a single page and a `nextToken` response
-#' element. The remaining results of the initial request can be seen by
-#' sending another
-#' [`describe_job_definitions`][batch_describe_job_definitions] request
-#' with the returned `nextToken` value. This value can be between 1 and
-#' 100. If this parameter isn't used, then
-#' [`describe_job_definitions`][batch_describe_job_definitions] returns up
-#' to 100 results and a `nextToken` value if applicable.
+#' @param jobDefinitions A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format `arn:aws:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}` or a short version using the form `${JobDefinitionName}:${Revision}`. This parameter can't be used with other parameters.
+#' @param maxResults The maximum number of results returned by [`describe_job_definitions`][batch_describe_job_definitions] in paginated output. When this parameter is used, [`describe_job_definitions`][batch_describe_job_definitions] only returns `maxResults` results in a single page and a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`describe_job_definitions`][batch_describe_job_definitions] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`describe_job_definitions`][batch_describe_job_definitions] returns up to 100 results and a `nextToken` value if applicable.
 #' @param jobDefinitionName The name of the job definition to describe.
 #' @param status The status used to filter job definitions.
-#' @param nextToken The `nextToken` value returned from a previous paginated
-#' [`describe_job_definitions`][batch_describe_job_definitions] request
-#' where `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is `null` when there are
-#' no more results to return.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`describe_job_definitions`][batch_describe_job_definitions] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
 #' 
-#' Treat this token as an opaque identifier that's only used to retrieve
-#' the next items in a list and not for other programmatic purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -524,28 +620,11 @@ batch_describe_job_definitions <- function(jobDefinitions = NULL, maxResults = N
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_describe_job_queues/](https://www.paws-r-sdk.com/docs/batch_describe_job_queues/) for full documentation.
 #'
-#' @param jobQueues A list of up to 100 queue names or full queue Amazon Resource Name (ARN)
-#' entries.
-#' @param maxResults The maximum number of results returned by
-#' [`describe_job_queues`][batch_describe_job_queues] in paginated output.
-#' When this parameter is used,
-#' [`describe_job_queues`][batch_describe_job_queues] only returns
-#' `maxResults` results in a single page and a `nextToken` response
-#' element. The remaining results of the initial request can be seen by
-#' sending another [`describe_job_queues`][batch_describe_job_queues]
-#' request with the returned `nextToken` value. This value can be between 1
-#' and 100. If this parameter isn't used, then
-#' [`describe_job_queues`][batch_describe_job_queues] returns up to 100
-#' results and a `nextToken` value if applicable.
-#' @param nextToken The `nextToken` value returned from a previous paginated
-#' [`describe_job_queues`][batch_describe_job_queues] request where
-#' `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is `null` when there are
-#' no more results to return.
+#' @param jobQueues A list of up to 100 queue names or full queue Amazon Resource Name (ARN) entries.
+#' @param maxResults The maximum number of results returned by [`describe_job_queues`][batch_describe_job_queues] in paginated output. When this parameter is used, [`describe_job_queues`][batch_describe_job_queues] only returns `maxResults` results in a single page and a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`describe_job_queues`][batch_describe_job_queues] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`describe_job_queues`][batch_describe_job_queues] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`describe_job_queues`][batch_describe_job_queues] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
 #' 
-#' Treat this token as an opaque identifier that's only used to retrieve
-#' the next items in a list and not for other programmatic purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -600,6 +679,37 @@ batch_describe_jobs <- function(jobs) {
 }
 .batch$operations$describe_jobs <- batch_describe_jobs
 
+#' Returns a description of the specified quota share
+#'
+#' @description
+#' Returns a description of the specified quota share.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_quota_share/](https://www.paws-r-sdk.com/docs/batch_describe_quota_share/) for full documentation.
+#'
+#' @param quotaShareArn &#91;required&#93; The Amazon Resource Name (ARN) of the quota share.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_describe_quota_share
+batch_describe_quota_share <- function(quotaShareArn) {
+  op <- new_operation(
+    name = "DescribeQuotaShare",
+    http_method = "POST",
+    http_path = "/v1/describequotashare",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$describe_quota_share_input(quotaShareArn = quotaShareArn)
+  output <- .batch$describe_quota_share_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$describe_quota_share <- batch_describe_quota_share
+
 #' Describes one or more of your scheduling policies
 #'
 #' @description
@@ -607,8 +717,7 @@ batch_describe_jobs <- function(jobs) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_describe_scheduling_policies/](https://www.paws-r-sdk.com/docs/batch_describe_scheduling_policies/) for full documentation.
 #'
-#' @param arns &#91;required&#93; A list of up to 100 scheduling policy Amazon Resource Name (ARN)
-#' entries.
+#' @param arns &#91;required&#93; A list of up to 100 scheduling policy Amazon Resource Name (ARN) entries.
 #'
 #' @keywords internal
 #'
@@ -632,11 +741,77 @@ batch_describe_scheduling_policies <- function(arns) {
 }
 .batch$operations$describe_scheduling_policies <- batch_describe_scheduling_policies
 
-#' Provides a list of the first 100 RUNNABLE jobs associated to a single
-#' job queue
+#' Describes one or more of your service environments
 #'
 #' @description
-#' Provides a list of the first 100 `RUNNABLE` jobs associated to a single job queue.
+#' Describes one or more of your service environments.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_service_environments/](https://www.paws-r-sdk.com/docs/batch_describe_service_environments/) for full documentation.
+#'
+#' @param serviceEnvironments An array of service environment names or ARN entries.
+#' @param maxResults The maximum number of results returned by [`describe_service_environments`][batch_describe_service_environments] in paginated output. When this parameter is used, [`describe_service_environments`][batch_describe_service_environments] only returns `maxResults` results in a single page and a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`describe_service_environments`][batch_describe_service_environments] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`describe_service_environments`][batch_describe_service_environments] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`describe_service_environments`][batch_describe_service_environments] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
+#' 
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_describe_service_environments
+batch_describe_service_environments <- function(serviceEnvironments = NULL, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "DescribeServiceEnvironments",
+    http_method = "POST",
+    http_path = "/v1/describeserviceenvironments",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "serviceEnvironments"),
+    stream_api = FALSE
+  )
+  input <- .batch$describe_service_environments_input(serviceEnvironments = serviceEnvironments, maxResults = maxResults, nextToken = nextToken)
+  output <- .batch$describe_service_environments_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$describe_service_environments <- batch_describe_service_environments
+
+#' The details of a service job
+#'
+#' @description
+#' The details of a service job.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_describe_service_job/](https://www.paws-r-sdk.com/docs/batch_describe_service_job/) for full documentation.
+#'
+#' @param jobId &#91;required&#93; The job ID for the service job to describe.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_describe_service_job
+batch_describe_service_job <- function(jobId) {
+  op <- new_operation(
+    name = "DescribeServiceJob",
+    http_method = "POST",
+    http_path = "/v1/describeservicejob",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$describe_service_job_input(jobId = jobId)
+  output <- .batch$describe_service_job_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$describe_service_job <- batch_describe_service_job
+
+#' Provides a snapshot of job queue state, including ordering of RUNNABLE
+#' jobs, as well as capacity utilization for already dispatched jobs
+#'
+#' @description
+#' Provides a snapshot of job queue state, including ordering of `RUNNABLE` jobs, as well as capacity utilization for already dispatched jobs. The first 100 `RUNNABLE` jobs in the job queue are listed in order of dispatch. For job queues with an attached quota-share policy, the first `RUNNABLE` job in each quota share is also listed. Capacity utilization for the job queue is provided, as well as break downs by share for job queues with attached fair-share or quota-share scheduling policies.
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_get_job_queue_snapshot/](https://www.paws-r-sdk.com/docs/batch_get_job_queue_snapshot/) for full documentation.
 #'
@@ -664,6 +839,45 @@ batch_get_job_queue_snapshot <- function(jobQueue) {
 }
 .batch$operations$get_job_queue_snapshot <- batch_get_job_queue_snapshot
 
+#' Returns a list of Batch consumable resources
+#'
+#' @description
+#' Returns a list of Batch consumable resources.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_list_consumable_resources/](https://www.paws-r-sdk.com/docs/batch_list_consumable_resources/) for full documentation.
+#'
+#' @param filters The filters to apply to the consumable resource list query. If used, only those consumable resources that match the filter are listed. Filter names and values can be:
+#' 
+#' -   name: `CONSUMABLE_RESOURCE_NAME `
+#' 
+#'     values: case-insensitive matches for the consumable resource name. If a filter value ends with an asterisk (*), it matches any consumable resource name that begins with the string before the '*'.
+#' @param maxResults The maximum number of results returned by [`list_consumable_resources`][batch_list_consumable_resources] in paginated output. When this parameter is used, [`list_consumable_resources`][batch_list_consumable_resources] only returns `maxResults` results in a single page and a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_consumable_resources`][batch_list_consumable_resources] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_consumable_resources`][batch_list_consumable_resources] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`list_consumable_resources`][batch_list_consumable_resources] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
+#' 
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_list_consumable_resources
+batch_list_consumable_resources <- function(filters = NULL, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListConsumableResources",
+    http_method = "POST",
+    http_path = "/v1/listconsumableresources",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "consumableResources"),
+    stream_api = FALSE
+  )
+  input <- .batch$list_consumable_resources_input(filters = filters, maxResults = maxResults, nextToken = nextToken)
+  output <- .batch$list_consumable_resources_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$list_consumable_resources <- batch_list_consumable_resources
+
 #' Returns a list of Batch jobs
 #'
 #' @description
@@ -671,24 +885,13 @@ batch_get_job_queue_snapshot <- function(jobQueue) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_list_jobs/](https://www.paws-r-sdk.com/docs/batch_list_jobs/) for full documentation.
 #'
-#' @param jobQueue The name or full Amazon Resource Name (ARN) of the job queue used to
-#' list jobs.
-#' @param arrayJobId The job ID for an array job. Specifying an array job ID with this
-#' parameter lists all child jobs from within the specified array.
-#' @param multiNodeJobId The job ID for a multi-node parallel job. Specifying a multi-node
-#' parallel job ID with this parameter lists all nodes that are associated
-#' with the specified job.
-#' @param jobStatus The job status used to filter jobs in the specified queue. If the
-#' `filters` parameter is specified, the `jobStatus` parameter is ignored
-#' and jobs with any status are returned. If you don't specify a status,
-#' only `RUNNING` jobs are returned.
-#' @param maxResults The maximum number of results returned by [`list_jobs`][batch_list_jobs]
-#' in a paginated output. When this parameter is used,
-#' [`list_jobs`][batch_list_jobs] returns up to `maxResults` results in a
-#' single page and a `nextToken` response element, if applicable. The
-#' remaining results of the initial request can be seen by sending another
-#' [`list_jobs`][batch_list_jobs] request with the returned `nextToken`
-#' value.
+#' @param jobQueue The name or full Amazon Resource Name (ARN) of the job queue used to list jobs.
+#' @param arrayJobId The job ID for an array job. Specifying an array job ID with this parameter lists all child jobs from within the specified array.
+#' @param multiNodeJobId The job ID for a multi-node parallel job. Specifying a multi-node parallel job ID with this parameter lists all nodes that are associated with the specified job.
+#' @param jobStatus The job status used to filter jobs in the specified queue. If the `filters` parameter is specified, the `jobStatus` parameter is ignored and jobs with any status are returned. The exception is the `SHARE_IDENTIFIER` filter and `jobStatus` can be used together. If you don't specify a status, only `RUNNING` jobs are returned.
+#' 
+#' Array job parents are updated to `PENDING` when any child job is updated to `RUNNABLE` and remain in `PENDING` status while child jobs are running. To view these jobs, filter by `PENDING` status until all child jobs reach a terminal state.
+#' @param maxResults The maximum number of results returned by [`list_jobs`][batch_list_jobs] in a paginated output. When this parameter is used, [`list_jobs`][batch_list_jobs] returns up to `maxResults` results in a single page and a `nextToken` response element, if applicable. The remaining results of the initial request can be seen by sending another [`list_jobs`][batch_list_jobs] request with the returned `nextToken` value.
 #' 
 #' The following outlines key parameters and limitations:
 #' 
@@ -698,61 +901,33 @@ batch_get_job_queue_snapshot <- function(jobQueue) {
 #' 
 #' -   When `--filters` is used, Batch returns up to 100 values.
 #' 
-#' -   If neither parameter is used, then [`list_jobs`][batch_list_jobs]
-#'     returns up to 1000 results (jobs that are in the `RUNNING` status)
-#'     and a `nextToken` value, if applicable.
-#' @param nextToken The `nextToken` value returned from a previous paginated
-#' [`list_jobs`][batch_list_jobs] request where `maxResults` was used and
-#' the results exceeded the value of that parameter. Pagination continues
-#' from the end of the previous results that returned the `nextToken`
-#' value. This value is `null` when there are no more results to return.
+#' -   If neither parameter is used, then [`list_jobs`][batch_list_jobs] returns up to 1000 results (jobs that are in the `RUNNING` status) and a `nextToken` value, if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`list_jobs`][batch_list_jobs] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
 #' 
-#' Treat this token as an opaque identifier that's only used to retrieve
-#' the next items in a list and not for other programmatic purposes.
-#' @param filters The filter to apply to the query. Only one filter can be used at a time.
-#' When the filter is used, `jobStatus` is ignored. The filter doesn't
-#' apply to child jobs in an array or multi-node parallel (MNP) jobs. The
-#' results are sorted by the `createdAt` field, with the most recent jobs
-#' being first.
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param filters The filter to apply to the query. Only one filter can be used at a time. When the filter is used, `jobStatus` is ignored with the exception that `SHARE_IDENTIFIER` and `jobStatus` can be used together. The filter doesn't apply to child jobs in an array or multi-node parallel (MNP) jobs. The results are sorted by the `createdAt` field, with the most recent jobs being first.
+#' 
+#' The `SHARE_IDENTIFIER` filter and the `jobStatus` field can be used together to filter results.
 #' 
 #' **JOB_NAME**
 #' 
-#' The value of the filter is a case-insensitive match for the job name. If
-#' the value ends with an asterisk (*), the filter matches any job name
-#' that begins with the string before the '*'. This corresponds to the
-#' `jobName` value. For example, `test1` matches both `Test1` and `test1`,
-#' and `test1*` matches both `test1` and `Test10`. When the `JOB_NAME`
-#' filter is used, the results are grouped by the job name and version.
+#' The value of the filter is a case-insensitive match for the job name. If the value ends with an asterisk (*), the filter matches any job name that begins with the string before the '*'. This corresponds to the `jobName` value. For example, `test1` matches both `Test1` and `test1`, and `test1*` matches both `test1` and `Test10`. When the `JOB_NAME` filter is used, the results are grouped by the job name and version.
 #' 
 #' **JOB_DEFINITION**
 #' 
-#' The value for the filter is the name or Amazon Resource Name (ARN) of
-#' the job definition. This corresponds to the `jobDefinition` value. The
-#' value is case sensitive. When the value for the filter is the job
-#' definition name, the results include all the jobs that used any revision
-#' of that job definition name. If the value ends with an asterisk (*),
-#' the filter matches any job definition name that begins with the string
-#' before the '*'. For example, `jd1` matches only `jd1`, and `jd1*`
-#' matches both `jd1` and `jd1A`. The version of the job definition that's
-#' used doesn't affect the sort order. When the `JOB_DEFINITION` filter is
-#' used and the ARN is used (which is in the form
-#' `arn:${Partition}:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}`),
-#' the results include jobs that used the specified revision of the job
-#' definition. Asterisk (*) isn't supported when the ARN is used.
+#' The value for the filter is the name or Amazon Resource Name (ARN) of the job definition. This corresponds to the `jobDefinition` value. The value is case sensitive. When the value for the filter is the job definition name, the results include all the jobs that used any revision of that job definition name. If the value ends with an asterisk (*), the filter matches any job definition name that begins with the string before the '*'. For example, `jd1` matches only `jd1`, and `jd1*` matches both `jd1` and `jd1A`. The version of the job definition that's used doesn't affect the sort order. When the `JOB_DEFINITION` filter is used and the ARN is used (which is in the form `arn:${Partition}:batch:${Region}:${Account}:job-definition/${JobDefinitionName}:${Revision}`), the results include jobs that used the specified revision of the job definition. Asterisk (*) isn't supported when the ARN is used.
 #' 
 #' **BEFORE_CREATED_AT**
 #' 
-#' The value for the filter is the time that's before the job was created.
-#' This corresponds to the `createdAt` value. The value is a string
-#' representation of the number of milliseconds since 00:00:00 UTC
-#' (midnight) on January 1, 1970.
+#' The value for the filter is the time that's before the job was created. This corresponds to the `createdAt` value. The value is a string representation of the number of milliseconds since 00:00:00 UTC (midnight) on January 1, 1970.
 #' 
 #' **AFTER_CREATED_AT**
 #' 
-#' The value for the filter is the time that's after the job was created.
-#' This corresponds to the `createdAt` value. The value is a string
-#' representation of the number of milliseconds since 00:00:00 UTC
-#' (midnight) on January 1, 1970.
+#' The value for the filter is the time that's after the job was created. This corresponds to the `createdAt` value. The value is a string representation of the number of milliseconds since 00:00:00 UTC (midnight) on January 1, 1970.
+#' 
+#' **SHARE_IDENTIFIER**
+#' 
+#' The value for the filter is the fairshare scheduling share identifier.
 #'
 #' @keywords internal
 #'
@@ -776,6 +951,85 @@ batch_list_jobs <- function(jobQueue = NULL, arrayJobId = NULL, multiNodeJobId =
 }
 .batch$operations$list_jobs <- batch_list_jobs
 
+#' Returns a list of Batch jobs that require a specific consumable resource
+#'
+#' @description
+#' Returns a list of Batch jobs that require a specific consumable resource.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_list_jobs_by_consumable_resource/](https://www.paws-r-sdk.com/docs/batch_list_jobs_by_consumable_resource/) for full documentation.
+#'
+#' @param consumableResource &#91;required&#93; The name or ARN of the consumable resource.
+#' @param filters The filters to apply to the job list query. If used, only those jobs requiring the specified consumable resource (`consumableResource`) and that match the value of the filters are listed. The filter names and values can be:
+#' 
+#' -   name: `JOB_STATUS`
+#' 
+#'     values: `SUBMITTED | PENDING | RUNNABLE | STARTING | RUNNING | SUCCEEDED | FAILED`
+#' 
+#' -   name: `JOB_NAME `
+#' 
+#'     The values are case-insensitive matches for the job name. If a filter value ends with an asterisk (*), it matches any job name that begins with the string before the '*'.
+#' @param maxResults The maximum number of results returned by [`list_jobs_by_consumable_resource`][batch_list_jobs_by_consumable_resource] in paginated output. When this parameter is used, [`list_jobs_by_consumable_resource`][batch_list_jobs_by_consumable_resource] only returns `maxResults` results in a single page and a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_jobs_by_consumable_resource`][batch_list_jobs_by_consumable_resource] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_jobs_by_consumable_resource`][batch_list_jobs_by_consumable_resource] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`list_jobs_by_consumable_resource`][batch_list_jobs_by_consumable_resource] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
+#' 
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_list_jobs_by_consumable_resource
+batch_list_jobs_by_consumable_resource <- function(consumableResource, filters = NULL, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListJobsByConsumableResource",
+    http_method = "POST",
+    http_path = "/v1/listjobsbyconsumableresource",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "jobs"),
+    stream_api = FALSE
+  )
+  input <- .batch$list_jobs_by_consumable_resource_input(consumableResource = consumableResource, filters = filters, maxResults = maxResults, nextToken = nextToken)
+  output <- .batch$list_jobs_by_consumable_resource_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$list_jobs_by_consumable_resource <- batch_list_jobs_by_consumable_resource
+
+#' Returns a list of Batch quota shares associated with a job queue
+#'
+#' @description
+#' Returns a list of Batch quota shares associated with a job queue.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_list_quota_shares/](https://www.paws-r-sdk.com/docs/batch_list_quota_shares/) for full documentation.
+#'
+#' @param jobQueue &#91;required&#93; The name or full Amazon Resource Name (ARN) of the job queue used to list quota shares.
+#' @param maxResults The maximum number of results returned by [`list_quota_shares`][batch_list_quota_shares] in paginated output. When this parameter is used, [`list_quota_shares`][batch_list_quota_shares] only returns `maxResults` results in a single page and a `nextToken` response element. You can see the remaining results of the initial request by sending another [`list_quota_shares`][batch_list_quota_shares] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, [`list_quota_shares`][batch_list_quota_shares] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value that's returned from a previous paginated [`list_quota_shares`][batch_list_quota_shares] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
+#' 
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_list_quota_shares
+batch_list_quota_shares <- function(jobQueue, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListQuotaShares",
+    http_method = "POST",
+    http_path = "/v1/listquotashares",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "quotaShares"),
+    stream_api = FALSE
+  )
+  input <- .batch$list_quota_shares_input(jobQueue = jobQueue, maxResults = maxResults, nextToken = nextToken)
+  output <- .batch$list_quota_shares_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$list_quota_shares <- batch_list_quota_shares
+
 #' Returns a list of Batch scheduling policies
 #'
 #' @description
@@ -783,27 +1037,10 @@ batch_list_jobs <- function(jobQueue = NULL, arrayJobId = NULL, multiNodeJobId =
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_list_scheduling_policies/](https://www.paws-r-sdk.com/docs/batch_list_scheduling_policies/) for full documentation.
 #'
-#' @param maxResults The maximum number of results that's returned by
-#' [`list_scheduling_policies`][batch_list_scheduling_policies] in
-#' paginated output. When this parameter is used,
-#' [`list_scheduling_policies`][batch_list_scheduling_policies] only
-#' returns `maxResults` results in a single page and a `nextToken` response
-#' element. You can see the remaining results of the initial request by
-#' sending another
-#' [`list_scheduling_policies`][batch_list_scheduling_policies] request
-#' with the returned `nextToken` value. This value can be between 1 and
-#' 100. If this parameter isn't used,
-#' [`list_scheduling_policies`][batch_list_scheduling_policies] returns up
-#' to 100 results and a `nextToken` value if applicable.
-#' @param nextToken The `nextToken` value that's returned from a previous paginated
-#' [`list_scheduling_policies`][batch_list_scheduling_policies] request
-#' where `maxResults` was used and the results exceeded the value of that
-#' parameter. Pagination continues from the end of the previous results
-#' that returned the `nextToken` value. This value is `null` when there are
-#' no more results to return.
+#' @param maxResults The maximum number of results that's returned by [`list_scheduling_policies`][batch_list_scheduling_policies] in paginated output. When this parameter is used, [`list_scheduling_policies`][batch_list_scheduling_policies] only returns `maxResults` results in a single page and a `nextToken` response element. You can see the remaining results of the initial request by sending another [`list_scheduling_policies`][batch_list_scheduling_policies] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, [`list_scheduling_policies`][batch_list_scheduling_policies] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value that's returned from a previous paginated [`list_scheduling_policies`][batch_list_scheduling_policies] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
 #' 
-#' Treat this token as an opaque identifier that's only used to retrieve
-#' the next items in a list and not for other programmatic purposes.
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
 #'
 #' @keywords internal
 #'
@@ -827,6 +1064,67 @@ batch_list_scheduling_policies <- function(maxResults = NULL, nextToken = NULL) 
 }
 .batch$operations$list_scheduling_policies <- batch_list_scheduling_policies
 
+#' Returns a list of service jobs for a specified job queue
+#'
+#' @description
+#' Returns a list of service jobs for a specified job queue.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_list_service_jobs/](https://www.paws-r-sdk.com/docs/batch_list_service_jobs/) for full documentation.
+#'
+#' @param jobQueue The name or ARN of the job queue with which to list service jobs.
+#' @param jobStatus The job status used to filter service jobs in the specified queue. If the `filters` parameter is specified, the `jobStatus` parameter is ignored and jobs with any status are returned. The exceptions are the `SHARE_IDENTIFIER` filter and `QUOTA_SHARE_NAME` filter, which can be used with `jobStatus`. If you don't specify a status, only `RUNNING` jobs are returned.
+#' 
+#' The `SHARE_IDENTIFIER` filter or `QUOTA_SHARE_NAME` filter can be used with the `jobStatus` field to filter results.
+#' @param maxResults The maximum number of results returned by [`list_service_jobs`][batch_list_service_jobs] in paginated output. When this parameter is used, [`list_service_jobs`][batch_list_service_jobs] only returns `maxResults` results in a single page and a `nextToken` response element. The remaining results of the initial request can be seen by sending another [`list_service_jobs`][batch_list_service_jobs] request with the returned `nextToken` value. This value can be between 1 and 100. If this parameter isn't used, then [`list_service_jobs`][batch_list_service_jobs] returns up to 100 results and a `nextToken` value if applicable.
+#' @param nextToken The `nextToken` value returned from a previous paginated [`list_service_jobs`][batch_list_service_jobs] request where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is `null` when there are no more results to return.
+#' 
+#' Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.
+#' @param filters The filter to apply to the query. Only one filter can be used at a time. When the filter is used, `jobStatus` is ignored with the exception that `SHARE_IDENTIFIER` or `QUOTA_SHARE_NAME` and `jobStatus` can be used together. The results are sorted by the `createdAt` field, with the most recent jobs being first.
+#' 
+#' The `SHARE_IDENTIFIER` or `QUOTA_SHARE_NAME` filter and the `jobStatus` field can be used together to filter results.
+#' 
+#' **JOB_NAME**
+#' 
+#' The value of the filter is a case-insensitive match for the job name. If the value ends with an asterisk (*), the filter matches any job name that begins with the string before the '*'. This corresponds to the `jobName` value. For example, `test1` matches both `Test1` and `test1`, and `test1*` matches both `test1` and `Test10`. When the `JOB_NAME` filter is used, the results are grouped by the job name and version.
+#' 
+#' **BEFORE_CREATED_AT**
+#' 
+#' The value for the filter is the time that's before the job was created. This corresponds to the `createdAt` value. The value is a string representation of the number of milliseconds since 00:00:00 UTC (midnight) on January 1, 1970.
+#' 
+#' **AFTER_CREATED_AT**
+#' 
+#' The value for the filter is the time that's after the job was created. This corresponds to the `createdAt` value. The value is a string representation of the number of milliseconds since 00:00:00 UTC (midnight) on January 1, 1970.
+#' 
+#' **SHARE_IDENTIFIER**
+#' 
+#' The value for the filter is the fairshare scheduling share identifier.
+#' 
+#' **QUOTA_SHARE_NAME**
+#' 
+#' The value for the filter is the quota management share name.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_list_service_jobs
+batch_list_service_jobs <- function(jobQueue = NULL, jobStatus = NULL, maxResults = NULL, nextToken = NULL, filters = NULL) {
+  op <- new_operation(
+    name = "ListServiceJobs",
+    http_method = "POST",
+    http_path = "/v1/listservicejobs",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", output_token = "nextToken", limit_key = "maxResults", result_key = "jobSummaryList"),
+    stream_api = FALSE
+  )
+  input <- .batch$list_service_jobs_input(jobQueue = jobQueue, jobStatus = jobStatus, maxResults = maxResults, nextToken = nextToken, filters = filters)
+  output <- .batch$list_service_jobs_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$list_service_jobs <- batch_list_service_jobs
+
 #' Lists the tags for an Batch resource
 #'
 #' @description
@@ -834,11 +1132,7 @@ batch_list_scheduling_policies <- function(maxResults = NULL, nextToken = NULL) 
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_list_tags_for_resource/](https://www.paws-r-sdk.com/docs/batch_list_tags_for_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource that tags
-#' are listed for. Batch resources that support tags are compute
-#' environments, jobs, job definitions, job queues, and scheduling
-#' policies. ARNs for child jobs of array and multi-node parallel (MNP)
-#' jobs aren't supported.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) that identifies the resource that tags are listed for. Batch resources that support tags are compute environments, jobs, job definitions, job queues, and scheduling policies. ARNs for child jobs of array and multi-node parallel (MNP) jobs aren't supported.
 #'
 #' @keywords internal
 #'
@@ -869,93 +1163,43 @@ batch_list_tags_for_resource <- function(resourceArn) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_register_job_definition/](https://www.paws-r-sdk.com/docs/batch_register_job_definition/) for full documentation.
 #'
-#' @param jobDefinitionName &#91;required&#93; The name of the job definition to register. It can be up to 128 letters
-#' long. It can contain uppercase and lowercase letters, numbers, hyphens
-#' (-), and underscores (_).
-#' @param type &#91;required&#93; The type of job definition. For more information about multi-node
-#' parallel jobs, see [Creating a multi-node parallel job
-#' definition](https://docs.aws.amazon.com/batch/latest/userguide/) in the
-#' *Batch User Guide*.
+#' @param jobDefinitionName &#91;required&#93; The name of the job definition to register. It can be up to 128 letters long. It can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
+#' @param type &#91;required&#93; The type of job definition. For more information about multi-node parallel jobs, see [Creating a multi-node parallel job definition](https://docs.aws.amazon.com/batch/latest/userguide/) in the *Batch User Guide*.
 #' 
-#' -   If the value is `container`, then one of the following is required:
-#'     `containerProperties`, `ecsProperties`, or `eksProperties`.
+#' -   If the value is `container`, then one of the following is required: `containerProperties`, `ecsProperties`, or `eksProperties`.
 #' 
 #' -   If the value is `multinode`, then `nodeProperties` is required.
 #' 
-#' If the job is run on Fargate resources, then `multinode` isn't
-#' supported.
-#' @param parameters Default parameter substitution placeholders to set in the job
-#' definition. Parameters are specified as a key-value pair mapping.
-#' Parameters in a [`submit_job`][batch_submit_job] request override any
-#' corresponding parameter defaults from the job definition.
-#' @param schedulingPriority The scheduling priority for jobs that are submitted with this job
-#' definition. This only affects jobs in job queues with a fair-share
-#' policy. Jobs with a higher scheduling priority are scheduled before jobs
-#' with a lower scheduling priority.
+#' If the job is run on Fargate resources, then `multinode` isn't supported.
+#' @param parameters Default parameter substitution placeholders to set in the job definition. Parameters are specified as a key-value pair mapping. Parameters in a [`submit_job`][batch_submit_job] request override any corresponding parameter defaults from the job definition.
+#' @param schedulingPriority The scheduling priority for jobs that are submitted with this job definition. This only affects jobs in job queues with a fair-share policy. Jobs with a higher scheduling priority are scheduled before jobs with a lower scheduling priority.
 #' 
-#' The minimum supported value is 0 and the maximum supported value is
-#' 9999.
-#' @param containerProperties An object with properties specific to Amazon ECS-based single-node
-#' container-based jobs. If the job definition's `type` parameter is
-#' `container`, then you must specify either `containerProperties` or
-#' `nodeProperties`. This must not be specified for Amazon EKS-based job
-#' definitions.
+#' The minimum supported value is 0 and the maximum supported value is 9999.
+#' @param containerProperties An object with properties specific to Amazon ECS-based single-node container-based jobs. If the job definition's `type` parameter is `container`, then you must specify either `containerProperties` or `nodeProperties`. This must not be specified for Amazon EKS-based job definitions.
 #' 
-#' If the job runs on Fargate resources, then you must not specify
-#' `nodeProperties`; use only `containerProperties`.
-#' @param nodeProperties An object with properties specific to multi-node parallel jobs. If you
-#' specify node properties for a job, it becomes a multi-node parallel job.
-#' For more information, see [Multi-node Parallel
-#' Jobs](https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html)
-#' in the *Batch User Guide*.
+#' If the job runs on Fargate resources, then you must not specify `nodeProperties`; use only `containerProperties`.
+#' @param nodeProperties An object with properties specific to multi-node parallel jobs. If you specify node properties for a job, it becomes a multi-node parallel job. For more information, see [Multi-node Parallel Jobs](https://docs.aws.amazon.com/batch/latest/userguide/multi-node-parallel-jobs.html) in the *Batch User Guide*.
 #' 
-#' If the job runs on Fargate resources, then you must not specify
-#' `nodeProperties`; use `containerProperties` instead.
+#' If the job runs on Fargate resources, then you must not specify `nodeProperties`; use `containerProperties` instead.
 #' 
-#' If the job runs on Amazon EKS resources, then you must not specify
-#' `nodeProperties`.
-#' @param retryStrategy The retry strategy to use for failed jobs that are submitted with this
-#' job definition. Any retry strategy that's specified during a
-#' [`submit_job`][batch_submit_job] operation overrides the retry strategy
-#' defined here. If a job is terminated due to a timeout, it isn't retried.
-#' @param propagateTags Specifies whether to propagate the tags from the job or job definition
-#' to the corresponding Amazon ECS task. If no value is specified, the tags
-#' are not propagated. Tags can only be propagated to the tasks during task
-#' creation. For tags with the same name, job tags are given priority over
-#' job definitions tags. If the total number of combined tags from the job
-#' and job definition is over 50, the job is moved to the `FAILED` state.
+#' If the job runs on Amazon EKS resources, then you must not specify `nodeProperties`.
+#' @param retryStrategy The retry strategy to use for failed jobs that are submitted with this job definition. Any retry strategy that's specified during a [`submit_job`][batch_submit_job] operation overrides the retry strategy defined here. If a job is terminated due to a timeout, it isn't retried.
+#' @param propagateTags Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If no value is specified, the tags are not propagated. Tags can only be propagated to the tasks during task creation. For tags with the same name, job tags are given priority over job definitions tags. If the total number of combined tags from the job and job definition is over 50, the job is moved to the `FAILED` state.
 #' 
-#' If the job runs on Amazon EKS resources, then you must not specify
-#' `propagateTags`.
-#' @param timeout The timeout configuration for jobs that are submitted with this job
-#' definition, after which Batch terminates your jobs if they have not
-#' finished. If a job is terminated due to a timeout, it isn't retried. The
-#' minimum value for the timeout is 60 seconds. Any timeout configuration
-#' that's specified during a [`submit_job`][batch_submit_job] operation
-#' overrides the timeout configuration defined here. For more information,
-#' see [Job
-#' Timeouts](https://docs.aws.amazon.com/batch/latest/userguide/job_timeouts.html)
-#' in the *Batch User Guide*.
-#' @param tags The tags that you apply to the job definition to help you categorize and
-#' organize your resources. Each tag consists of a key and an optional
-#' value. For more information, see [Tagging Amazon Web Services
-#' Resources](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html)
-#' in *Batch User Guide*.
-#' @param platformCapabilities The platform capabilities required by the job definition. If no value is
-#' specified, it defaults to `EC2`. To run the job on Fargate resources,
-#' specify `FARGATE`.
+#' If the job runs on Amazon EKS resources, then you must not specify `propagateTags`.
+#' @param timeout The timeout configuration for jobs that are submitted with this job definition, after which Batch terminates your jobs if they have not finished. If a job is terminated due to a timeout, it isn't retried. The minimum value for the timeout is 60 seconds. Any timeout configuration that's specified during a [`submit_job`][batch_submit_job] operation overrides the timeout configuration defined here. For more information, see [Job Timeouts](https://docs.aws.amazon.com/batch/latest/userguide/job_timeouts.html) in the *Batch User Guide*.
+#' @param tags The tags that you apply to the job definition to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging Amazon Web Services Resources](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html) in *Batch User Guide*.
+#' @param platformCapabilities The platform capabilities required by the job definition. If no value is specified, it defaults to `EC2`. To run the job on Fargate resources, specify `FARGATE`.
 #' 
-#' If the job runs on Amazon EKS resources, then you must not specify
-#' `platformCapabilities`.
-#' @param eksProperties An object with properties that are specific to Amazon EKS-based jobs.
-#' This must not be specified for Amazon ECS based job definitions.
-#' @param ecsProperties An object with properties that are specific to Amazon ECS-based jobs.
-#' This must not be specified for Amazon EKS-based job definitions.
+#' If the job runs on Amazon EKS resources, then you must not specify `platformCapabilities`.
+#' @param eksProperties An object with properties that are specific to Amazon EKS-based jobs. This must not be specified for Amazon ECS based job definitions.
+#' @param ecsProperties An object with properties that are specific to Amazon ECS-based jobs. This must not be specified for Amazon EKS-based job definitions.
+#' @param consumableResourceProperties Contains a list of consumable resources required by the job.
 #'
 #' @keywords internal
 #'
 #' @rdname batch_register_job_definition
-batch_register_job_definition <- function(jobDefinitionName, type, parameters = NULL, schedulingPriority = NULL, containerProperties = NULL, nodeProperties = NULL, retryStrategy = NULL, propagateTags = NULL, timeout = NULL, tags = NULL, platformCapabilities = NULL, eksProperties = NULL, ecsProperties = NULL) {
+batch_register_job_definition <- function(jobDefinitionName, type, parameters = NULL, schedulingPriority = NULL, containerProperties = NULL, nodeProperties = NULL, retryStrategy = NULL, propagateTags = NULL, timeout = NULL, tags = NULL, platformCapabilities = NULL, eksProperties = NULL, ecsProperties = NULL, consumableResourceProperties = NULL) {
   op <- new_operation(
     name = "RegisterJobDefinition",
     http_method = "POST",
@@ -964,7 +1208,7 @@ batch_register_job_definition <- function(jobDefinitionName, type, parameters = 
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .batch$register_job_definition_input(jobDefinitionName = jobDefinitionName, type = type, parameters = parameters, schedulingPriority = schedulingPriority, containerProperties = containerProperties, nodeProperties = nodeProperties, retryStrategy = retryStrategy, propagateTags = propagateTags, timeout = timeout, tags = tags, platformCapabilities = platformCapabilities, eksProperties = eksProperties, ecsProperties = ecsProperties)
+  input <- .batch$register_job_definition_input(jobDefinitionName = jobDefinitionName, type = type, parameters = parameters, schedulingPriority = schedulingPriority, containerProperties = containerProperties, nodeProperties = nodeProperties, retryStrategy = retryStrategy, propagateTags = propagateTags, timeout = timeout, tags = tags, platformCapabilities = platformCapabilities, eksProperties = eksProperties, ecsProperties = ecsProperties, consumableResourceProperties = consumableResourceProperties)
   output <- .batch$register_job_definition_output()
   config <- get_config()
   svc <- .batch$service(config, op)
@@ -981,102 +1225,36 @@ batch_register_job_definition <- function(jobDefinitionName, type, parameters = 
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_submit_job/](https://www.paws-r-sdk.com/docs/batch_submit_job/) for full documentation.
 #'
-#' @param jobName &#91;required&#93; The name of the job. It can be up to 128 letters long. The first
-#' character must be alphanumeric, can contain uppercase and lowercase
-#' letters, numbers, hyphens (-), and underscores (_).
-#' @param jobQueue &#91;required&#93; The job queue where the job is submitted. You can specify either the
-#' name or the Amazon Resource Name (ARN) of the queue.
-#' @param shareIdentifier The share identifier for the job. Don't specify this parameter if the
-#' job queue doesn't have a fair-share scheduling policy. If the job queue
-#' has a fair-share scheduling policy, then this parameter must be
-#' specified.
+#' @param jobName &#91;required&#93; The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
+#' @param jobQueue &#91;required&#93; The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name (ARN) of the queue.
+#' @param shareIdentifier The share identifier for the job. Don't specify this parameter if the job queue doesn't have a fair-share scheduling policy. If the job queue has a fair-share scheduling policy, then this parameter must be specified.
 #' 
-#' This string is limited to 255 alphanumeric characters, and can be
-#' followed by an asterisk (*).
-#' @param schedulingPriorityOverride The scheduling priority for the job. This only affects jobs in job
-#' queues with a fair-share policy. Jobs with a higher scheduling priority
-#' are scheduled before jobs with a lower scheduling priority. This
-#' overrides any scheduling priority in the job definition and works only
-#' within a single share identifier.
+#' This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).
+#' @param schedulingPriorityOverride The scheduling priority for the job. This only affects jobs in job queues with a fair-share policy. Jobs with a higher scheduling priority are scheduled before jobs with a lower scheduling priority. This overrides any scheduling priority in the job definition and works only within a single share identifier.
 #' 
-#' The minimum supported value is 0 and the maximum supported value is
-#' 9999.
-#' @param arrayProperties The array properties for the submitted job, such as the size of the
-#' array. The array size can be between 2 and 10,000. If you specify array
-#' properties for a job, it becomes an array job. For more information, see
-#' [Array
-#' Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html)
-#' in the *Batch User Guide*.
-#' @param dependsOn A list of dependencies for the job. A job can depend upon a maximum of
-#' 20 jobs. You can specify a `SEQUENTIAL` type dependency without
-#' specifying a job ID for array jobs so that each child array job
-#' completes sequentially, starting at index 0. You can also specify an
-#' `N_TO_N` type dependency with a job ID for array jobs. In that case,
-#' each index child of this job must wait for the corresponding index child
-#' of each dependency to complete before it can begin.
-#' @param jobDefinition &#91;required&#93; The job definition used by this job. This value can be one of
-#' `definition-name`, `definition-name:revision`, or the Amazon Resource
-#' Name (ARN) for the job definition, with or without the revision
-#' (`arn:aws:batch:region:account:job-definition/definition-name:revision `,
-#' or `arn:aws:batch:region:account:job-definition/definition-name `).
+#' The minimum supported value is 0 and the maximum supported value is 9999.
+#' @param arrayProperties The array properties for the submitted job, such as the size of the array. The array size can be between 2 and 10,000. If you specify array properties for a job, it becomes an array job. For more information, see [Array Jobs](https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html) in the *Batch User Guide*.
+#' @param dependsOn A list of dependencies for the job. A job can depend upon a maximum of 20 jobs. You can specify a `SEQUENTIAL` type dependency without specifying a job ID for array jobs so that each child array job completes sequentially, starting at index 0. You can also specify an `N_TO_N` type dependency with a job ID for array jobs. In that case, each index child of this job must wait for the corresponding index child of each dependency to complete before it can begin.
+#' @param jobDefinition &#91;required&#93; The job definition used by this job. This value can be one of `definition-name`, `definition-name:revision`, or the Amazon Resource Name (ARN) for the job definition, with or without the revision (`arn:aws:batch:region:account:job-definition/definition-name:revision `, or `arn:aws:batch:region:account:job-definition/definition-name `).
 #' 
-#' If the revision is not specified, then the latest active revision is
-#' used.
-#' @param parameters Additional parameters passed to the job that replace parameter
-#' substitution placeholders that are set in the job definition. Parameters
-#' are specified as a key and value pair mapping. Parameters in a
-#' [`submit_job`][batch_submit_job] request override any corresponding
-#' parameter defaults from the job definition.
-#' @param containerOverrides An object with properties that override the defaults for the job
-#' definition that specify the name of a container in the specified job
-#' definition and the overrides it should receive. You can override the
-#' default command for a container, which is specified in the job
-#' definition or the Docker image, with a `command` override. You can also
-#' override existing environment variables on a container or add new
-#' environment variables to it with an `environment` override.
-#' @param nodeOverrides A list of node overrides in JSON format that specify the node range to
-#' target and the container overrides for that node range.
+#' If the revision is not specified, then the latest active revision is used.
+#' @param parameters Additional parameters passed to the job that replace parameter substitution placeholders that are set in the job definition. Parameters are specified as a key and value pair mapping. Parameters in a [`submit_job`][batch_submit_job] request override any corresponding parameter defaults from the job definition.
+#' @param containerOverrides An object with properties that override the defaults for the job definition that specify the name of a container in the specified job definition and the overrides it should receive. You can override the default command for a container, which is specified in the job definition or the Docker image, with a `command` override. You can also override existing environment variables on a container or add new environment variables to it with an `environment` override.
+#' @param nodeOverrides A list of node overrides in JSON format that specify the node range to target and the container overrides for that node range.
 #' 
-#' This parameter isn't applicable to jobs that are running on Fargate
-#' resources; use `containerOverrides` instead.
-#' @param retryStrategy The retry strategy to use for failed jobs from this
-#' [`submit_job`][batch_submit_job] operation. When a retry strategy is
-#' specified here, it overrides the retry strategy defined in the job
-#' definition.
-#' @param propagateTags Specifies whether to propagate the tags from the job or job definition
-#' to the corresponding Amazon ECS task. If no value is specified, the tags
-#' aren't propagated. Tags can only be propagated to the tasks during task
-#' creation. For tags with the same name, job tags are given priority over
-#' job definitions tags. If the total number of combined tags from the job
-#' and job definition is over 50, the job is moved to the `FAILED` state.
-#' When specified, this overrides the tag propagation setting in the job
-#' definition.
-#' @param timeout The timeout configuration for this [`submit_job`][batch_submit_job]
-#' operation. You can specify a timeout duration after which Batch
-#' terminates your jobs if they haven't finished. If a job is terminated
-#' due to a timeout, it isn't retried. The minimum value for the timeout is
-#' 60 seconds. This configuration overrides any timeout configuration
-#' specified in the job definition. For array jobs, child jobs have the
-#' same timeout configuration as the parent job. For more information, see
-#' [Job
-#' Timeouts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/)
-#' in the *Amazon Elastic Container Service Developer Guide*.
-#' @param tags The tags that you apply to the job request to help you categorize and
-#' organize your resources. Each tag consists of a key and an optional
-#' value. For more information, see [Tagging Amazon Web Services
-#' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
-#' in *Amazon Web Services General Reference*.
-#' @param eksPropertiesOverride An object, with properties that override defaults for the job
-#' definition, can only be specified for jobs that are run on Amazon EKS
-#' resources.
-#' @param ecsPropertiesOverride An object, with properties that override defaults for the job
-#' definition, can only be specified for jobs that are run on Amazon ECS
-#' resources.
+#' This parameter isn't applicable to jobs that are running on Fargate resources; use `containerOverrides` instead.
+#' @param retryStrategy The retry strategy to use for failed jobs from this [`submit_job`][batch_submit_job] operation. When a retry strategy is specified here, it overrides the retry strategy defined in the job definition.
+#' @param propagateTags Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation. For tags with the same name, job tags are given priority over job definitions tags. If the total number of combined tags from the job and job definition is over 50, the job is moved to the `FAILED` state. When specified, this overrides the tag propagation setting in the job definition.
+#' @param timeout The timeout configuration for this [`submit_job`][batch_submit_job] operation. You can specify a timeout duration after which Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it isn't retried. The minimum value for the timeout is 60 seconds. This configuration overrides any timeout configuration specified in the job definition. For array jobs, child jobs have the same timeout configuration as the parent job. For more information, see [Job Timeouts](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/) in the *Amazon Elastic Container Service Developer Guide*.
+#' @param tags The tags that you apply to the job request to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging Amazon Web Services Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html) in *Amazon Web Services General Reference*.
+#' @param eksPropertiesOverride An object, with properties that override defaults for the job definition, can only be specified for jobs that are run on Amazon EKS resources.
+#' @param ecsPropertiesOverride An object, with properties that override defaults for the job definition, can only be specified for jobs that are run on Amazon ECS resources.
+#' @param consumableResourcePropertiesOverride An object that contains overrides for the consumable resources of a job.
 #'
 #' @keywords internal
 #'
 #' @rdname batch_submit_job
-batch_submit_job <- function(jobName, jobQueue, shareIdentifier = NULL, schedulingPriorityOverride = NULL, arrayProperties = NULL, dependsOn = NULL, jobDefinition, parameters = NULL, containerOverrides = NULL, nodeOverrides = NULL, retryStrategy = NULL, propagateTags = NULL, timeout = NULL, tags = NULL, eksPropertiesOverride = NULL, ecsPropertiesOverride = NULL) {
+batch_submit_job <- function(jobName, jobQueue, shareIdentifier = NULL, schedulingPriorityOverride = NULL, arrayProperties = NULL, dependsOn = NULL, jobDefinition, parameters = NULL, containerOverrides = NULL, nodeOverrides = NULL, retryStrategy = NULL, propagateTags = NULL, timeout = NULL, tags = NULL, eksPropertiesOverride = NULL, ecsPropertiesOverride = NULL, consumableResourcePropertiesOverride = NULL) {
   op <- new_operation(
     name = "SubmitJob",
     http_method = "POST",
@@ -1085,7 +1263,7 @@ batch_submit_job <- function(jobName, jobQueue, shareIdentifier = NULL, scheduli
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .batch$submit_job_input(jobName = jobName, jobQueue = jobQueue, shareIdentifier = shareIdentifier, schedulingPriorityOverride = schedulingPriorityOverride, arrayProperties = arrayProperties, dependsOn = dependsOn, jobDefinition = jobDefinition, parameters = parameters, containerOverrides = containerOverrides, nodeOverrides = nodeOverrides, retryStrategy = retryStrategy, propagateTags = propagateTags, timeout = timeout, tags = tags, eksPropertiesOverride = eksPropertiesOverride, ecsPropertiesOverride = ecsPropertiesOverride)
+  input <- .batch$submit_job_input(jobName = jobName, jobQueue = jobQueue, shareIdentifier = shareIdentifier, schedulingPriorityOverride = schedulingPriorityOverride, arrayProperties = arrayProperties, dependsOn = dependsOn, jobDefinition = jobDefinition, parameters = parameters, containerOverrides = containerOverrides, nodeOverrides = nodeOverrides, retryStrategy = retryStrategy, propagateTags = propagateTags, timeout = timeout, tags = tags, eksPropertiesOverride = eksPropertiesOverride, ecsPropertiesOverride = ecsPropertiesOverride, consumableResourcePropertiesOverride = consumableResourcePropertiesOverride)
   output <- .batch$submit_job_output()
   config <- get_config()
   svc <- .batch$service(config, op)
@@ -1095,6 +1273,48 @@ batch_submit_job <- function(jobName, jobQueue, shareIdentifier = NULL, scheduli
 }
 .batch$operations$submit_job <- batch_submit_job
 
+#' Submits a service job to a specified job queue to run on SageMaker AI
+#'
+#' @description
+#' Submits a service job to a specified job queue to run on SageMaker AI. A service job is a unit of work that you submit to Batch for execution on SageMaker AI.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_submit_service_job/](https://www.paws-r-sdk.com/docs/batch_submit_service_job/) for full documentation.
+#'
+#' @param jobName &#91;required&#93; The name of the service job. It can be up to 128 characters long. It can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).
+#' @param jobQueue &#91;required&#93; The job queue into which the service job is submitted. You can specify either the name or the ARN of the queue. The job queue must have the type `SAGEMAKER_TRAINING`.
+#' @param retryStrategy The retry strategy to use for failed service jobs that are submitted with this service job request.
+#' @param schedulingPriority The scheduling priority of the service job. Valid values are integers between 0 and 9999.
+#' @param serviceRequestPayload &#91;required&#93; The request, in JSON, for the service that the SubmitServiceJob operation is queueing.
+#' @param serviceJobType &#91;required&#93; The type of service job. For SageMaker Training jobs, specify `SAGEMAKER_TRAINING`.
+#' @param shareIdentifier The share identifier for the service job. Don't specify this parameter if the job queue doesn't have a fair-share scheduling policy. If the job queue has a fair-share scheduling policy, then this parameter must be specified.
+#' @param quotaShareName The quota share for the service job. Don't specify this parameter if the job queue doesn't have a quota share scheduling policy. If the job queue has a quota share scheduling policy, then this parameter must be specified.
+#' @param preemptionConfiguration Specifies the service job behavior when preempted.
+#' @param timeoutConfig The timeout configuration for the service job. If none is specified, Batch defers to the default timeout of the underlying service handling the job.
+#' @param tags The tags that you apply to the service job request. Each tag consists of a key and an optional value. For more information, see [Tagging your Batch resources](https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html).
+#' @param clientToken A unique identifier for the request. This token is used to ensure idempotency of requests. If this parameter is specified and two submit requests with identical payloads and `clientToken`s are received, these requests are considered the same request and the second request is rejected.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_submit_service_job
+batch_submit_service_job <- function(jobName, jobQueue, retryStrategy = NULL, schedulingPriority = NULL, serviceRequestPayload, serviceJobType, shareIdentifier = NULL, quotaShareName = NULL, preemptionConfiguration = NULL, timeoutConfig = NULL, tags = NULL, clientToken = NULL) {
+  op <- new_operation(
+    name = "SubmitServiceJob",
+    http_method = "POST",
+    http_path = "/v1/submitservicejob",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$submit_service_job_input(jobName = jobName, jobQueue = jobQueue, retryStrategy = retryStrategy, schedulingPriority = schedulingPriority, serviceRequestPayload = serviceRequestPayload, serviceJobType = serviceJobType, shareIdentifier = shareIdentifier, quotaShareName = quotaShareName, preemptionConfiguration = preemptionConfiguration, timeoutConfig = timeoutConfig, tags = tags, clientToken = clientToken)
+  output <- .batch$submit_service_job_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$submit_service_job <- batch_submit_service_job
+
 #' Associates the specified tags to a resource with the specified
 #' resourceArn
 #'
@@ -1103,15 +1323,8 @@ batch_submit_job <- function(jobName, jobQueue, shareIdentifier = NULL, scheduli
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_tag_resource/](https://www.paws-r-sdk.com/docs/batch_tag_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that tags are added to.
-#' Batch resources that support tags are compute environments, jobs, job
-#' definitions, job queues, and scheduling policies. ARNs for child jobs of
-#' array and multi-node parallel (MNP) jobs aren't supported.
-#' @param tags &#91;required&#93; The tags that you apply to the resource to help you categorize and
-#' organize your resources. Each tag consists of a key and an optional
-#' value. For more information, see [Tagging Amazon Web Services
-#' Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html)
-#' in *Amazon Web Services General Reference*.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource that tags are added to. Batch resources that support tags are compute environments, jobs, job definitions, job queues, and scheduling policies. ARNs for child jobs of array and multi-node parallel (MNP) jobs aren't supported.
+#' @param tags &#91;required&#93; The tags that you apply to the resource to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see [Tagging Amazon Web Services Resources](https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html) in *Amazon Web Services General Reference*.
 #'
 #' @keywords internal
 #'
@@ -1143,10 +1356,7 @@ batch_tag_resource <- function(resourceArn, tags) {
 #' See [https://www.paws-r-sdk.com/docs/batch_terminate_job/](https://www.paws-r-sdk.com/docs/batch_terminate_job/) for full documentation.
 #'
 #' @param jobId &#91;required&#93; The Batch job ID of the job to terminate.
-#' @param reason &#91;required&#93; A message to attach to the job that explains the reason for canceling
-#' it. This message is returned by future
-#' [`describe_jobs`][batch_describe_jobs] operations on the job. It is also
-#' recorded in the Batch activity logs.
+#' @param reason &#91;required&#93; A message to attach to the job that explains the reason for canceling it. This message is returned by future [`describe_jobs`][batch_describe_jobs] operations on the job. It is also recorded in the Batch activity logs.
 #' 
 #' This parameter has as limit of 1024 characters.
 #'
@@ -1172,6 +1382,38 @@ batch_terminate_job <- function(jobId, reason) {
 }
 .batch$operations$terminate_job <- batch_terminate_job
 
+#' Terminates a service job in a job queue
+#'
+#' @description
+#' Terminates a service job in a job queue.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_terminate_service_job/](https://www.paws-r-sdk.com/docs/batch_terminate_service_job/) for full documentation.
+#'
+#' @param jobId &#91;required&#93; The service job ID of the service job to terminate.
+#' @param reason &#91;required&#93; A message to attach to the service job that explains the reason for canceling it. This message is returned by [`describe_service_job`][batch_describe_service_job] operations on the service job.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_terminate_service_job
+batch_terminate_service_job <- function(jobId, reason) {
+  op <- new_operation(
+    name = "TerminateServiceJob",
+    http_method = "POST",
+    http_path = "/v1/terminateservicejob",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$terminate_service_job_input(jobId = jobId, reason = reason)
+  output <- .batch$terminate_service_job_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$terminate_service_job <- batch_terminate_service_job
+
 #' Deletes specified tags from an Batch resource
 #'
 #' @description
@@ -1179,10 +1421,7 @@ batch_terminate_job <- function(jobId, reason) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_untag_resource/](https://www.paws-r-sdk.com/docs/batch_untag_resource/) for full documentation.
 #'
-#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource from which to delete
-#' tags. Batch resources that support tags are compute environments, jobs,
-#' job definitions, job queues, and scheduling policies. ARNs for child
-#' jobs of array and multi-node parallel (MNP) jobs aren't supported.
+#' @param resourceArn &#91;required&#93; The Amazon Resource Name (ARN) of the resource from which to delete tags. Batch resources that support tags are compute environments, jobs, job definitions, job queues, and scheduling policies. ARNs for child jobs of array and multi-node parallel (MNP) jobs aren't supported.
 #' @param tagKeys &#91;required&#93; The keys of the tags to be removed.
 #'
 #' @keywords internal
@@ -1214,74 +1453,26 @@ batch_untag_resource <- function(resourceArn, tagKeys) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/batch_update_compute_environment/](https://www.paws-r-sdk.com/docs/batch_update_compute_environment/) for full documentation.
 #'
-#' @param computeEnvironment &#91;required&#93; The name or full Amazon Resource Name (ARN) of the compute environment
-#' to update.
-#' @param state The state of the compute environment. Compute environments in the
-#' `ENABLED` state can accept jobs from a queue and scale in or out
-#' automatically based on the workload demand of its associated queues.
+#' @param computeEnvironment &#91;required&#93; The name or full Amazon Resource Name (ARN) of the compute environment to update.
+#' @param state The state of the compute environment. Compute environments in the `ENABLED` state can accept jobs from a queue and scale in or out automatically based on the workload demand of its associated queues.
 #' 
-#' If the state is `ENABLED`, then the Batch scheduler can attempt to place
-#' jobs from an associated job queue on the compute resources within the
-#' environment. If the compute environment is managed, then it can scale
-#' its instances out or in automatically, based on the job queue demand.
+#' If the state is `ENABLED`, then the Batch scheduler can attempt to place jobs from an associated job queue on the compute resources within the environment. If the compute environment is managed, then it can scale its instances out or in automatically, based on the job queue demand.
 #' 
-#' If the state is `DISABLED`, then the Batch scheduler doesn't attempt to
-#' place jobs within the environment. Jobs in a `STARTING` or `RUNNING`
-#' state continue to progress normally. Managed compute environments in the
-#' `DISABLED` state don't scale out.
+#' If the state is `DISABLED`, then the Batch scheduler doesn't attempt to place jobs within the environment. Jobs in a `STARTING` or `RUNNING` state continue to progress normally. Managed compute environments in the `DISABLED` state don't scale out.
 #' 
-#' Compute environments in a `DISABLED` state may continue to incur billing
-#' charges. To prevent additional charges, turn off and then delete the
-#' compute environment. For more information, see
-#' [State](https://docs.aws.amazon.com/batch/latest/APIReference/API_JobQueueDetail.html#compute_environment_state)
-#' in the *Batch User Guide*.
+#' Compute environments in a `DISABLED` state may continue to incur billing charges, for example, if they have running instances due to jobs that are still executing or a non-zero `minvCpus` setting. To prevent additional charges, disable and delete the compute environment.
 #' 
-#' When an instance is idle, the instance scales down to the `minvCpus`
-#' value. However, the instance size doesn't change. For example, consider
-#' a `c5.8xlarge` instance with a `minvCpus` value of `4` and a
-#' `desiredvCpus` value of `36`. This instance doesn't scale down to a
-#' `c5.large` instance.
-#' @param unmanagedvCpus The maximum number of vCPUs expected to be used for an unmanaged compute
-#' environment. Don't specify this parameter for a managed compute
-#' environment. This parameter is only used for fair-share scheduling to
-#' reserve vCPU capacity for new share identifiers. If this parameter isn't
-#' provided for a fair-share job queue, no vCPU capacity is reserved.
-#' @param computeResources Details of the compute resources managed by the compute environment.
-#' Required for a managed compute environment. For more information, see
-#' [Compute
-#' Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html)
-#' in the *Batch User Guide*.
-#' @param serviceRole The full Amazon Resource Name (ARN) of the IAM role that allows Batch to
-#' make calls to other Amazon Web Services services on your behalf. For
-#' more information, see [Batch service IAM
-#' role](https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html)
-#' in the *Batch User Guide*.
+#' When an instance is idle, the instance scales down to the `minvCpus` value. However, the instance size doesn't change. For example, consider a `c5.8xlarge` instance with a `minvCpus` value of `4` and a `desiredvCpus` value of `36`. This instance doesn't scale down to a `c5.large` instance.
+#' @param unmanagedvCpus The maximum number of vCPUs expected to be used for an unmanaged compute environment. Don't specify this parameter for a managed compute environment. This parameter is only used for fair-share scheduling to reserve vCPU capacity for new share identifiers. If this parameter isn't provided for a fair-share job queue, no vCPU capacity is reserved.
+#' @param computeResources Details of the compute resources managed by the compute environment. Required for a managed compute environment. For more information, see [Compute Environments](https://docs.aws.amazon.com/batch/latest/userguide/compute_environments.html) in the *Batch User Guide*.
+#' @param serviceRole The full Amazon Resource Name (ARN) of the IAM role that allows Batch to make calls to other Amazon Web Services services on your behalf. For more information, see [Batch service IAM role](https://docs.aws.amazon.com/batch/latest/userguide/using-service-linked-roles.html) in the *Batch User Guide*.
 #' 
-#' If the compute environment has a service-linked role, it can't be
-#' changed to use a regular IAM role. Likewise, if the compute environment
-#' has a regular IAM role, it can't be changed to use a service-linked
-#' role. To update the parameters for the compute environment that require
-#' an infrastructure update to change, the **AWSServiceRoleForBatch**
-#' service-linked role must be used. For more information, see [Updating
-#' compute
-#' environments](https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html)
-#' in the *Batch User Guide*.
+#' If the compute environment has a service-linked role, it can't be changed to use a regular IAM role. Likewise, if the compute environment has a regular IAM role, it can't be changed to use a service-linked role. To update the parameters for the compute environment that require an infrastructure update to change, the **AWSServiceRoleForBatch** service-linked role must be used. For more information, see [Updating compute environments](https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html) in the *Batch User Guide*.
 #' 
-#' If your specified role has a path other than `/`, then you must either
-#' specify the full role ARN (recommended) or prefix the role name with the
-#' path.
+#' If your specified role has a path other than `/`, then you must either specify the full role ARN (recommended) or prefix the role name with the path.
 #' 
-#' Depending on how you created your Batch service role, its ARN might
-#' contain the `service-role` path prefix. When you only specify the name
-#' of the service role, Batch assumes that your ARN doesn't use the
-#' `service-role` path prefix. Because of this, we recommend that you
-#' specify the full ARN of your service role when you create compute
-#' environments.
-#' @param updatePolicy Specifies the updated infrastructure update policy for the compute
-#' environment. For more information about infrastructure updates, see
-#' [Updating compute
-#' environments](https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html)
-#' in the *Batch User Guide*.
+#' Depending on how you created your Batch service role, its ARN might contain the `service-role` path prefix. When you only specify the name of the service role, Batch assumes that your ARN doesn't use the `service-role` path prefix. Because of this, we recommend that you specify the full ARN of your service role when you create compute environments.
+#' @param updatePolicy Specifies the updated infrastructure update policy for the compute environment. For more information about infrastructure updates, see [Updating compute environments](https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html) in the *Batch User Guide*.
 #' @param context Reserved.
 #'
 #' @keywords internal
@@ -1306,6 +1497,52 @@ batch_update_compute_environment <- function(computeEnvironment, state = NULL, u
 }
 .batch$operations$update_compute_environment <- batch_update_compute_environment
 
+#' Updates a consumable resource
+#'
+#' @description
+#' Updates a consumable resource.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_update_consumable_resource/](https://www.paws-r-sdk.com/docs/batch_update_consumable_resource/) for full documentation.
+#'
+#' @param consumableResource &#91;required&#93; The name or ARN of the consumable resource to be updated.
+#' @param operation Indicates how the quantity of the consumable resource will be updated. Must be one of:
+#' 
+#' -   `SET`
+#' 
+#'     Sets the quantity of the resource to the value specified by the `quantity` parameter.
+#' 
+#' -   `ADD`
+#' 
+#'     Increases the quantity of the resource by the value specified by the `quantity` parameter.
+#' 
+#' -   `REMOVE`
+#' 
+#'     Reduces the quantity of the resource by the value specified by the `quantity` parameter.
+#' @param quantity The change in the total quantity of the consumable resource. The `operation` parameter determines whether the value specified here will be the new total quantity, or the amount by which the total quantity will be increased or reduced. Must be a non-negative value.
+#' @param clientToken If this parameter is specified and two update requests with identical payloads and `clientToken`s are received, these requests are considered the same request. Both requests will succeed, but the update will only happen once. A `clientToken` is valid for 8 hours.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_update_consumable_resource
+batch_update_consumable_resource <- function(consumableResource, operation = NULL, quantity = NULL, clientToken = NULL) {
+  op <- new_operation(
+    name = "UpdateConsumableResource",
+    http_method = "POST",
+    http_path = "/v1/updateconsumableresource",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$update_consumable_resource_input(consumableResource = consumableResource, operation = operation, quantity = quantity, clientToken = clientToken)
+  output <- .batch$update_consumable_resource_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$update_consumable_resource <- batch_update_consumable_resource
+
 #' Updates a job queue
 #'
 #' @description
@@ -1314,45 +1551,19 @@ batch_update_compute_environment <- function(computeEnvironment, state = NULL, u
 #' See [https://www.paws-r-sdk.com/docs/batch_update_job_queue/](https://www.paws-r-sdk.com/docs/batch_update_job_queue/) for full documentation.
 #'
 #' @param jobQueue &#91;required&#93; The name or the Amazon Resource Name (ARN) of the job queue.
-#' @param state Describes the queue's ability to accept new jobs. If the job queue state
-#' is `ENABLED`, it can accept jobs. If the job queue state is `DISABLED`,
-#' new jobs can't be added to the queue, but jobs already in the queue can
-#' finish.
-#' @param schedulingPolicyArn Amazon Resource Name (ARN) of the fair-share scheduling policy. Once a
-#' job queue is created, the fair-share scheduling policy can be replaced
-#' but not removed. The format is
-#' `aws:Partition:batch:Region:Account:scheduling-policy/Name `. For
-#' example,
-#' `aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy`.
-#' @param priority The priority of the job queue. Job queues with a higher priority (or a
-#' higher integer value for the `priority` parameter) are evaluated first
-#' when associated with the same compute environment. Priority is
-#' determined in descending order. For example, a job queue with a priority
-#' value of `10` is given scheduling preference over a job queue with a
-#' priority value of `1`. All of the compute environments must be either
-#' EC2 (`EC2` or `SPOT`) or Fargate (`FARGATE` or `FARGATE_SPOT`). EC2 and
-#' Fargate compute environments can't be mixed.
-#' @param computeEnvironmentOrder Details the set of compute environments mapped to a job queue and their
-#' order relative to each other. This is one of the parameters used by the
-#' job scheduler to determine which compute environment runs a given job.
-#' Compute environments must be in the `VALID` state before you can
-#' associate them with a job queue. All of the compute environments must be
-#' either EC2 (`EC2` or `SPOT`) or Fargate (`FARGATE` or `FARGATE_SPOT`).
-#' EC2 and Fargate compute environments can't be mixed.
+#' @param state Describes the queue's ability to accept new jobs. If the job queue state is `ENABLED`, it can accept jobs. If the job queue state is `DISABLED`, new jobs can't be added to the queue, but jobs already in the queue can finish.
+#' @param schedulingPolicyArn Amazon Resource Name (ARN) of the fair-share scheduling policy. Once a job queue is created, the fair-share scheduling policy can be replaced but not removed. The format is `aws:Partition:batch:Region:Account:scheduling-policy/Name `. For example, `aws:aws:batch:us-west-2:123456789012:scheduling-policy/MySchedulingPolicy`.
+#' @param priority The priority of the job queue. Job queues with a higher priority (or a higher integer value for the `priority` parameter) are evaluated first when associated with the same compute environment. Priority is determined in descending order. For example, a job queue with a priority value of `10` is given scheduling preference over a job queue with a priority value of `1`. All of the compute environments must be either EC2 (`EC2` or `SPOT`) or Fargate (`FARGATE` or `FARGATE_SPOT`). EC2 and Fargate compute environments can't be mixed.
+#' @param computeEnvironmentOrder Details the set of compute environments mapped to a job queue and their order relative to each other. This is one of the parameters used by the job scheduler to determine which compute environment runs a given job. Compute environments must be in the `VALID` state before you can associate them with a job queue. All of the compute environments must be either EC2 (`EC2` or `SPOT`) or Fargate (`FARGATE` or `FARGATE_SPOT`). EC2 and Fargate compute environments can't be mixed.
 #' 
-#' All compute environments that are associated with a job queue must share
-#' the same architecture. Batch doesn't support mixing compute environment
-#' architecture types in a single job queue.
-#' @param jobStateTimeLimitActions The set of actions that Batch perform on jobs that remain at the head of
-#' the job queue in the specified state longer than specified times. Batch
-#' will perform each action after `maxTimeSeconds` has passed. (**Note**:
-#' The minimum value for maxTimeSeconds is 600 (10 minutes) and its maximum
-#' value is 86,400 (24 hours).)
+#' All compute environments that are associated with a job queue must share the same architecture. Batch doesn't support mixing compute environment architecture types in a single job queue.
+#' @param serviceEnvironmentOrder The order of the service environment associated with the job queue. Job queues with a higher priority are evaluated first when associated with the same service environment.
+#' @param jobStateTimeLimitActions The set of actions that Batch perform on jobs that remain at the head of the job queue in the specified state longer than specified times. Batch will perform each action after `maxTimeSeconds` has passed. (**Note**: The minimum value for maxTimeSeconds is 600 (10 minutes) and its maximum value is 86,400 (24 hours).)
 #'
 #' @keywords internal
 #'
 #' @rdname batch_update_job_queue
-batch_update_job_queue <- function(jobQueue, state = NULL, schedulingPolicyArn = NULL, priority = NULL, computeEnvironmentOrder = NULL, jobStateTimeLimitActions = NULL) {
+batch_update_job_queue <- function(jobQueue, state = NULL, schedulingPolicyArn = NULL, priority = NULL, computeEnvironmentOrder = NULL, serviceEnvironmentOrder = NULL, jobStateTimeLimitActions = NULL) {
   op <- new_operation(
     name = "UpdateJobQueue",
     http_method = "POST",
@@ -1361,7 +1572,7 @@ batch_update_job_queue <- function(jobQueue, state = NULL, schedulingPolicyArn =
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .batch$update_job_queue_input(jobQueue = jobQueue, state = state, schedulingPolicyArn = schedulingPolicyArn, priority = priority, computeEnvironmentOrder = computeEnvironmentOrder, jobStateTimeLimitActions = jobStateTimeLimitActions)
+  input <- .batch$update_job_queue_input(jobQueue = jobQueue, state = state, schedulingPolicyArn = schedulingPolicyArn, priority = priority, computeEnvironmentOrder = computeEnvironmentOrder, serviceEnvironmentOrder = serviceEnvironmentOrder, jobStateTimeLimitActions = jobStateTimeLimitActions)
   output <- .batch$update_job_queue_output()
   config <- get_config()
   svc <- .batch$service(config, op)
@@ -1371,6 +1582,41 @@ batch_update_job_queue <- function(jobQueue, state = NULL, schedulingPolicyArn =
 }
 .batch$operations$update_job_queue <- batch_update_job_queue
 
+#' Updates a quota share
+#'
+#' @description
+#' Updates a quota share.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_update_quota_share/](https://www.paws-r-sdk.com/docs/batch_update_quota_share/) for full documentation.
+#'
+#' @param quotaShareArn &#91;required&#93; The Amazon Resource Name (ARN) of the quota share to update.
+#' @param capacityLimits A list that specifies the quantity and type of compute capacity allocated to the quota share.
+#' @param resourceSharingConfiguration Specifies whether a quota share reserves, lends, or both lends and borrows idle compute capacity.
+#' @param preemptionConfiguration Specifies the preemption behavior for jobs in a quota share.
+#' @param state The state of the quota share. If the quota share is `ENABLED`, it is able to accept jobs. If the quota share is `DISABLED`, new jobs won't be accepted but jobs already submitted can finish.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_update_quota_share
+batch_update_quota_share <- function(quotaShareArn, capacityLimits = NULL, resourceSharingConfiguration = NULL, preemptionConfiguration = NULL, state = NULL) {
+  op <- new_operation(
+    name = "UpdateQuotaShare",
+    http_method = "POST",
+    http_path = "/v1/updatequotashare",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$update_quota_share_input(quotaShareArn = quotaShareArn, capacityLimits = capacityLimits, resourceSharingConfiguration = resourceSharingConfiguration, preemptionConfiguration = preemptionConfiguration, state = state)
+  output <- .batch$update_quota_share_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$update_quota_share <- batch_update_quota_share
+
 #' Updates a scheduling policy
 #'
 #' @description
@@ -1379,12 +1625,13 @@ batch_update_job_queue <- function(jobQueue, state = NULL, schedulingPolicyArn =
 #' See [https://www.paws-r-sdk.com/docs/batch_update_scheduling_policy/](https://www.paws-r-sdk.com/docs/batch_update_scheduling_policy/) for full documentation.
 #'
 #' @param arn &#91;required&#93; The Amazon Resource Name (ARN) of the scheduling policy to update.
-#' @param fairsharePolicy The fair-share policy scheduling details.
+#' @param quotaSharePolicy The quota share scheduling policy details. Once set during creation, a quotaSharePolicy cannot be removed or changed to a fairsharePolicy.
+#' @param fairsharePolicy The fair-share policy scheduling details. Once set during creation, a fairsharePolicy cannot be removed or changed to a quotaSharePolicy.
 #'
 #' @keywords internal
 #'
 #' @rdname batch_update_scheduling_policy
-batch_update_scheduling_policy <- function(arn, fairsharePolicy = NULL) {
+batch_update_scheduling_policy <- function(arn, quotaSharePolicy = NULL, fairsharePolicy = NULL) {
   op <- new_operation(
     name = "UpdateSchedulingPolicy",
     http_method = "POST",
@@ -1393,7 +1640,7 @@ batch_update_scheduling_policy <- function(arn, fairsharePolicy = NULL) {
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .batch$update_scheduling_policy_input(arn = arn, fairsharePolicy = fairsharePolicy)
+  input <- .batch$update_scheduling_policy_input(arn = arn, quotaSharePolicy = quotaSharePolicy, fairsharePolicy = fairsharePolicy)
   output <- .batch$update_scheduling_policy_output()
   config <- get_config()
   svc <- .batch$service(config, op)
@@ -1402,3 +1649,70 @@ batch_update_scheduling_policy <- function(arn, fairsharePolicy = NULL) {
   return(response)
 }
 .batch$operations$update_scheduling_policy <- batch_update_scheduling_policy
+
+#' Updates a service environment
+#'
+#' @description
+#' Updates a service environment. You can update the state of a service environment from `ENABLED` to `DISABLED` to prevent new service jobs from being placed in the service environment.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_update_service_environment/](https://www.paws-r-sdk.com/docs/batch_update_service_environment/) for full documentation.
+#'
+#' @param serviceEnvironment &#91;required&#93; The name or ARN of the service environment to update.
+#' @param state The state of the service environment.
+#' @param capacityLimits The capacity limits for the service environment. This defines the maximum resources that can be used by service jobs in this environment.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_update_service_environment
+batch_update_service_environment <- function(serviceEnvironment, state = NULL, capacityLimits = NULL) {
+  op <- new_operation(
+    name = "UpdateServiceEnvironment",
+    http_method = "POST",
+    http_path = "/v1/updateserviceenvironment",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$update_service_environment_input(serviceEnvironment = serviceEnvironment, state = state, capacityLimits = capacityLimits)
+  output <- .batch$update_service_environment_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$update_service_environment <- batch_update_service_environment
+
+#' Updates the priority of a specified service job in an Batch job queue
+#'
+#' @description
+#' Updates the priority of a specified service job in an Batch job queue.
+#'
+#' See [https://www.paws-r-sdk.com/docs/batch_update_service_job/](https://www.paws-r-sdk.com/docs/batch_update_service_job/) for full documentation.
+#'
+#' @param jobId &#91;required&#93; The Batch job ID of the job to update.
+#' @param schedulingPriority &#91;required&#93; The scheduling priority for the job. This only affects jobs in job queues with a quota-share or fair-share scheduling policy. Jobs with a higher scheduling priority are scheduled before jobs with a lower scheduling priority within a share.
+#' 
+#' The minimum supported value is 0 and the maximum supported value is 9999.
+#'
+#' @keywords internal
+#'
+#' @rdname batch_update_service_job
+batch_update_service_job <- function(jobId, schedulingPriority) {
+  op <- new_operation(
+    name = "UpdateServiceJob",
+    http_method = "POST",
+    http_path = "/v1/updateservicejob",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE
+  )
+  input <- .batch$update_service_job_input(jobId = jobId, schedulingPriority = schedulingPriority)
+  output <- .batch$update_service_job_output()
+  config <- get_config()
+  svc <- .batch$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.batch$operations$update_service_job <- batch_update_service_job

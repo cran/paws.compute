@@ -14,15 +14,11 @@ eks_associate_identity_provider_config(
 \arguments{
 \item{clusterName}{[required] The name of your cluster.}
 
-\item{oidc}{[required] An object representing an OpenID Connect (OIDC) identity provider
-configuration.}
+\item{oidc}{[required] An object representing an OpenID Connect (OIDC) identity provider configuration.}
 
-\item{tags}{Metadata that assists with categorization and organization. Each tag
-consists of a key and an optional value. You define both. Tags don't
-propagate to any other cluster or Amazon Web Services resources.}
+\item{tags}{Metadata that assists with categorization and organization. Each tag consists of a key and an optional value. You define both. Tags don't propagate to any other cluster or Amazon Web Services resources.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 }
 \description{
 Associates an identity provider configuration to a cluster.

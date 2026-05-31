@@ -8,44 +8,29 @@ resourceArn}
 ecs_tag_resource(resourceArn, tags)
 }
 \arguments{
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource to add tags to.
-Currently, the supported resources are Amazon ECS capacity providers,
-tasks, services, task definitions, clusters, and container instances.
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the resource to add tags to. Currently, the supported resources are Amazon ECS capacity providers, tasks, services, task definitions, clusters, and container instances.
 
-In order to tag a service that has the following ARN format, you need to
-migrate the service to the long ARN. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-arn-migration.html}{Migrate an Amazon ECS short service ARN to a long ARN}
-in the \emph{Amazon Elastic Container Service Developer Guide}.
+In order to tag a service that has the following ARN format, you need to migrate the service to the long ARN. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/service-arn-migration.html}{Migrate an Amazon ECS short service ARN to a long ARN} in the \emph{Amazon Elastic Container Service Developer Guide}.
 
 \code{arn:aws:ecs:region:aws_account_id:service/service-name}
 
-After the migration is complete, the service has the long ARN format, as
-shown below. Use this ARN to tag the service.
+After the migration is complete, the service has the long ARN format, as shown below. Use this ARN to tag the service.
 
 \code{arn:aws:ecs:region:aws_account_id:service/cluster-name/service-name}
 
-If you try to tag a service with a short ARN, you receive an
-\code{InvalidParameterException} error.}
+If you try to tag a service with a short ARN, you receive an \code{InvalidParameterException} error.}
 
 \item{tags}{[required] The tags to add to the resource. A tag is an array of key-value pairs.
 
 The following basic restrictions apply to tags:
 \itemize{
 \item Maximum number of tags per resource - 50
-\item For each resource, each tag key must be unique, and each tag key can
-have only one value.
+\item For each resource, each tag key must be unique, and each tag key can have only one value.
 \item Maximum key length - 128 Unicode characters in UTF-8
 \item Maximum value length - 256 Unicode characters in UTF-8
-\item If your tagging schema is used across multiple services and
-resources, remember that other services may have restrictions on
-allowed characters. Generally allowed characters are: letters,
-numbers, and spaces representable in UTF-8, and the following
-characters: + - = . _ : / @.
+\item If your tagging schema is used across multiple services and resources, remember that other services may have restrictions on allowed characters. Generally allowed characters are: letters, numbers, and spaces representable in UTF-8, and the following characters: + - = . _ : / @.
 \item Tag keys and values are case-sensitive.
-\item Do not use \verb{aws:}, \verb{AWS:}, or any upper or lowercase combination of
-such as a prefix for either keys or values as it is reserved for
-Amazon Web Services use. You cannot edit or delete tag keys or
-values with this prefix. Tags with this prefix do not count against
-your tags per resource limit.
+\item Do not use \verb{aws:}, \verb{AWS:}, or any upper or lowercase combination of such as a prefix for either keys or values as it is reserved for Amazon Web Services use. You cannot edit or delete tag keys or values with this prefix. Tags with this prefix do not count against your tags per resource limit.
 }}
 }
 \description{

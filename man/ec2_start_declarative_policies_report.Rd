@@ -13,13 +13,9 @@ ec2_start_declarative_policies_report(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{S3Bucket}{[required] The name of the S3 bucket where the report will be saved. The bucket
-must be in the same Region where the report generation request is made.}
+\item{S3Bucket}{[required] The name of the S3 bucket where the report will be saved. The bucket must be in the same Region where the report generation request is made.}
 
 \item{S3Prefix}{The prefix for your S3 object.}
 

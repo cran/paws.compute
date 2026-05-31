@@ -13,13 +13,9 @@ ec2_disassociate_transit_gateway_policy_table(
 \arguments{
 \item{TransitGatewayPolicyTableId}{[required] The ID of the disassociated policy table.}
 
-\item{TransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment to disassociate from the policy
-table.}
+\item{TransitGatewayAttachmentId}{[required] The ID of the transit gateway attachment to disassociate from the policy table.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Removes the association between an an attachment and a policy table.

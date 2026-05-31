@@ -7,8 +7,7 @@
 imagebuilder_get_image_policy(imageArn)
 }
 \arguments{
-\item{imageArn}{[required] The Amazon Resource Name (ARN) of the image whose policy you want to
-retrieve.}
+\item{imageArn}{[required] The Amazon Resource Name (ARN) of the image whose policy you want to retrieve.}
 }
 \description{
 Gets an image policy.

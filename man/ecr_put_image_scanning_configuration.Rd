@@ -12,17 +12,11 @@ ecr_put_image_scanning_configuration(
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the repository in which to update the image scanning
-configuration setting. If you do not specify a registry, the default
-registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the repository in which to update the image scanning configuration setting. If you do not specify a registry, the default registry is assumed.}
 
-\item{repositoryName}{[required] The name of the repository in which to update the image scanning
-configuration setting.}
+\item{repositoryName}{[required] The name of the repository in which to update the image scanning configuration setting.}
 
-\item{imageScanningConfiguration}{[required] The image scanning configuration for the repository. This setting
-determines whether images are scanned for known vulnerabilities after
-being pushed to the repository.}
+\item{imageScanningConfiguration}{[required] The image scanning configuration for the repository. This setting determines whether images are scanned for known vulnerabilities after being pushed to the repository.}
 }
 \description{
 The \code{\link[=ecr_put_image_scanning_configuration]{put_image_scanning_configuration}} API is being deprecated, in favor of specifying the image scanning configuration at the registry level. For more information, see \code{\link[=ecr_put_registry_scanning_configuration]{put_registry_scanning_configuration}}.

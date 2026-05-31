@@ -16,24 +16,15 @@ ec2_get_aws_network_performance_data(
 \arguments{
 \item{DataQueries}{A list of network performance data queries.}
 
-\item{StartTime}{The starting time for the performance data request. The starting time
-must be formatted as \code{yyyy-mm-ddThh:mm:ss}. For example,
-\verb{2022-06-10T12:00:00.000Z}.}
+\item{StartTime}{The starting time for the performance data request. The starting time must be formatted as \code{yyyy-mm-ddThh:mm:ss}. For example, \verb{2022-06-10T12:00:00.000Z}.}
 
-\item{EndTime}{The ending time for the performance data request. The end time must be
-formatted as \code{yyyy-mm-ddThh:mm:ss}. For example,
-\verb{2022-06-12T12:00:00.000Z}.}
+\item{EndTime}{The ending time for the performance data request. The end time must be formatted as \code{yyyy-mm-ddThh:mm:ss}. For example, \verb{2022-06-12T12:00:00.000Z}.}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Gets network performance data.

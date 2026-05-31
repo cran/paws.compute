@@ -18,8 +18,7 @@ ec2_create_key_pair(
 
 Constraints: Up to 255 ASCII characters}
 
-\item{KeyType}{The type of key pair. Note that ED25519 keys are not supported for
-Windows instances.
+\item{KeyType}{The type of key pair. Note that ED25519 keys are not supported for Windows instances.
 
 Default: \code{rsa}}
 
@@ -29,10 +28,7 @@ Default: \code{rsa}}
 
 Default: \code{pem}}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates an ED25519 or 2048-bit RSA key pair with the specified name and in the specified format. Amazon EC2 stores the public key and displays the private key for you to save to a file. The private key is returned as an unencrypted PEM encoded PKCS#1 private key or an unencrypted PPK formatted private key for use with PuTTY. If a key with the specified name already exists, Amazon EC2 returns an error.

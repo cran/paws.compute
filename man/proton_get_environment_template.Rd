@@ -7,8 +7,7 @@
 proton_get_environment_template(name)
 }
 \arguments{
-\item{name}{[required] The name of the environment template that you want to get the detailed
-data for.}
+\item{name}{[required] The name of the environment template that you want to get the detailed data for.}
 }
 \description{
 Get detailed data for an environment template.

@@ -15,8 +15,7 @@ ec2_create_instance_export_task(
 \arguments{
 \item{TagSpecifications}{The tags to apply to the export instance task during creation.}
 
-\item{Description}{A description for the conversion task or the resource being exported.
-The maximum length is 255 characters.}
+\item{Description}{A description for the conversion task or the resource being exported. The maximum length is 255 characters.}
 
 \item{InstanceId}{[required] The ID of the instance.}
 

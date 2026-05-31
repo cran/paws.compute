@@ -20,20 +20,14 @@ ec2_describe_client_vpn_connections(
 \item{Filters}{One or more filters. Filter names and values are case-sensitive.
 \itemize{
 \item \code{connection-id} - The ID of the connection.
-\item \code{username} - For Active Directory client authentication, the user
-name of the client who established the client connection.
+\item \code{username} - For Active Directory client authentication, the user name of the client who established the client connection.
 }}
 
 \item{NextToken}{The token to retrieve the next page of results.}
 
-\item{MaxResults}{The maximum number of results to return for the request in a single
-page. The remaining results can be seen by sending another request with
-the nextToken value.}
+\item{MaxResults}{The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the nextToken value.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes active client connections and connections that have been terminated within the last 60 minutes for the specified Client VPN endpoint.

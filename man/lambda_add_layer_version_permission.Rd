@@ -20,24 +20,15 @@ lambda_add_layer_version_permission(
 
 \item{VersionNumber}{[required] The version number.}
 
-\item{StatementId}{[required] An identifier that distinguishes the policy from others on the same
-layer version.}
+\item{StatementId}{[required] An identifier that distinguishes the policy from others on the same layer version.}
 
-\item{Action}{[required] The API action that grants access to the layer. For example,
-\code{lambda:GetLayerVersion}.}
+\item{Action}{[required] The API action that grants access to the layer. For example, \code{lambda:GetLayerVersion}.}
 
-\item{Principal}{[required] An account ID, or \code{*} to grant layer usage permission to all accounts in
-an organization, or all Amazon Web Services accounts (if
-\code{organizationId} is not specified). For the last case, make sure that
-you really do want all Amazon Web Services accounts to have usage
-permission to this layer.}
+\item{Principal}{[required] An account ID, or \code{*} to grant layer usage permission to all accounts in an organization, or all Amazon Web Services accounts (if \code{organizationId} is not specified). For the last case, make sure that you really do want all Amazon Web Services accounts to have usage permission to this layer.}
 
-\item{OrganizationId}{With the principal set to \code{*}, grant permission to all accounts in the
-specified organization.}
+\item{OrganizationId}{With the principal set to \code{*}, grant permission to all accounts in the specified organization.}
 
-\item{RevisionId}{Only update the policy if the revision ID matches the ID specified. Use
-this option to avoid modifying a policy that has changed since you last
-read it.}
+\item{RevisionId}{Only update the policy if the revision ID matches the ID specified. Use this option to avoid modifying a policy that has changed since you last read it.}
 }
 \description{
 Adds permissions to the resource-based policy of a version of an \href{https://docs.aws.amazon.com/lambda/latest/dg/chapter-layers.html}{Lambda layer}. Use this action to grant layer usage permission to other accounts. You can grant permission to a single account, all accounts in an organization, or all Amazon Web Services accounts.

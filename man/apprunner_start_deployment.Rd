@@ -9,8 +9,7 @@ Runner service}
 apprunner_start_deployment(ServiceArn)
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want
-to manually deploy to.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) of the App Runner service that you want to manually deploy to.}
 }
 \description{
 Initiate a manual deployment of the latest commit in a source code repository or the latest image in a source image repository to an App Runner service.

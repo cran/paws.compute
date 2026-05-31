@@ -20,13 +20,9 @@ ec2_modify_vpn_connection(
 
 \item{CustomerGatewayId}{The ID of the customer gateway at your end of the VPN connection.}
 
-\item{VpnGatewayId}{The ID of the virtual private gateway at the Amazon Web Services side of
-the VPN connection.}
+\item{VpnGatewayId}{The ID of the virtual private gateway at the Amazon Web Services side of the VPN connection.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Modifies the customer gateway or the target gateway of an Amazon Web Services Site-to-Site VPN connection. To modify the target gateway, the following migration options are available:

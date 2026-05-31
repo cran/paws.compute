@@ -16,28 +16,15 @@ ec2_describe_host_reservation_offerings(
 \arguments{
 \item{Filter}{The filters.
 \itemize{
-\item \code{instance-family} - The instance family of the offering (for
-example, \code{m4}).
-\item \code{payment-option} - The payment option (\code{NoUpfront} |
-\code{PartialUpfront} | \code{AllUpfront}).
+\item \code{instance-family} - The instance family of the offering (for example, \code{m4}).
+\item \code{payment-option} - The payment option (\code{NoUpfront} | \code{PartialUpfront} | \code{AllUpfront}).
 }}
 
-\item{MaxDuration}{This is the maximum duration of the reservation to purchase, specified
-in seconds. Reservations are available in one-year and three-year terms.
-The number of seconds specified must be the number of seconds in a year
-(365x24x60x60) times one of the supported durations (1 or 3). For
-example, specify 94608000 for three years.}
+\item{MaxDuration}{This is the maximum duration of the reservation to purchase, specified in seconds. Reservations are available in one-year and three-year terms. The number of seconds specified must be the number of seconds in a year (365x24x60x60) times one of the supported durations (1 or 3). For example, specify 94608000 for three years.}
 
-\item{MaxResults}{The maximum number of results to return for the request in a single
-page. The remaining results can be seen by sending another request with
-the returned \code{nextToken} value. This value can be between 5 and 500. If
-\code{maxResults} is given a larger value than 500, you receive an error.}
+\item{MaxResults}{The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the returned \code{nextToken} value. This value can be between 5 and 500. If \code{maxResults} is given a larger value than 500, you receive an error.}
 
-\item{MinDuration}{This is the minimum duration of the reservation you'd like to purchase,
-specified in seconds. Reservations are available in one-year and
-three-year terms. The number of seconds specified must be the number of
-seconds in a year (365x24x60x60) times one of the supported durations (1
-or 3). For example, specify 31536000 for one year.}
+\item{MinDuration}{This is the minimum duration of the reservation you'd like to purchase, specified in seconds. Reservations are available in one-year and three-year terms. The number of seconds specified must be the number of seconds in a year (365x24x60x60) times one of the supported durations (1 or 3). For example, specify 31536000 for one year.}
 
 \item{NextToken}{The token to use to retrieve the next page of results.}
 

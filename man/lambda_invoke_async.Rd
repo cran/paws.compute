@@ -12,13 +12,11 @@ lambda_invoke_async(FunctionName, InvokeArgs)
 \strong{Name formats}
 \itemize{
 \item \strong{Function name} – \verb{my-function}.
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
 \item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
-The length constraint applies only to the full ARN. If you specify only
-the function name, it is limited to 64 characters in length.}
+The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
 \item{InvokeArgs}{[required] The JSON that you want to provide to your Lambda function as input.}
 }

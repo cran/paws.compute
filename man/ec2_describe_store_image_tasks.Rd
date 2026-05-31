@@ -13,36 +13,23 @@ ec2_describe_store_image_tasks(
 )
 }
 \arguments{
-\item{ImageIds}{The AMI IDs for which to show progress. Up to 20 AMI IDs can be included
-in a request.}
+\item{ImageIds}{The AMI IDs for which to show progress. Up to 20 AMI IDs can be included in a request.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{task-state} - Returns tasks in a certain state (\code{InProgress} |
-\code{Completed} | \code{Failed})
-\item \code{bucket} - Returns task information for tasks that targeted a
-specific bucket. For the filter value, specify the bucket name.
+\item \code{task-state} - Returns tasks in a certain state (\code{InProgress} | \code{Completed} | \code{Failed})
+\item \code{bucket} - Returns task information for tasks that targeted a specific bucket. For the filter value, specify the bucket name.
 }
 
-When you specify the \code{ImageIds} parameter, any filters that you specify
-are ignored. To use the filters, you must remove the \code{ImageIds}
-parameter.}
+When you specify the \code{ImageIds} parameter, any filters that you specify are ignored. To use the filters, you must remove the \code{ImageIds} parameter.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.
 
-You cannot specify this parameter and the \code{ImageIds} parameter in the
-same call.}
+You cannot specify this parameter and the \code{ImageIds} parameter in the same call.}
 }
 \description{
 Describes the progress of the AMI store tasks. You can describe the store tasks for specified AMIs. If you don't specify the AMIs, you get a paginated list of store tasks from the last 31 days.

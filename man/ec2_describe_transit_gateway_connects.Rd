@@ -18,26 +18,17 @@ ec2_describe_transit_gateway_connects(
 \item{Filters}{One or more filters. The possible values are:
 \itemize{
 \item \code{options.protocol} - The tunnel protocol (\code{gre}).
-\item \code{state} - The state of the attachment (\code{initiating} |
-\code{initiatingRequest} | \code{pendingAcceptance} | \code{rollingBack} |
-\code{pending} | \code{available} | \code{modifying} | \code{deleting} | \code{deleted} |
-\code{failed} | \code{rejected} | \code{rejecting} | \code{failing}).
+\item \code{state} - The state of the attachment (\code{initiating} | \code{initiatingRequest} | \code{pendingAcceptance} | \code{rollingBack} | \code{pending} | \code{available} | \code{modifying} | \code{deleting} | \code{deleted} | \code{failed} | \code{rejected} | \code{rejecting} | \code{failing}).
 \item \code{transit-gateway-attachment-id} - The ID of the Connect attachment.
 \item \code{transit-gateway-id} - The ID of the transit gateway.
-\item \code{transport-transit-gateway-attachment-id} - The ID of the transit
-gateway attachment from which the Connect attachment was created.
+\item \code{transport-transit-gateway-attachment-id} - The ID of the transit gateway attachment from which the Connect attachment was created.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes one or more Connect attachments.

@@ -18,23 +18,15 @@ ec2_create_restore_image_task(
 
 \item{ObjectKey}{[required] The name of the stored AMI object in the bucket.}
 
-\item{Name}{The name for the restored AMI. The name must be unique for AMIs in the
-Region for this account. If you do not provide a name, the new AMI gets
-the same name as the original AMI.}
+\item{Name}{The name for the restored AMI. The name must be unique for AMIs in the Region for this account. If you do not provide a name, the new AMI gets the same name as the original AMI.}
 
-\item{TagSpecifications}{The tags to apply to the AMI and snapshots on restoration. You can tag
-the AMI, the snapshots, or both.
+\item{TagSpecifications}{The tags to apply to the AMI and snapshots on restoration. You can tag the AMI, the snapshots, or both.
 \itemize{
 \item To tag the AMI, the value for \code{ResourceType} must be \code{image}.
-\item To tag the snapshots, the value for \code{ResourceType} must be
-\code{snapshot}. The same tag is applied to all of the snapshots that are
-created.
+\item To tag the snapshots, the value for \code{ResourceType} must be \code{snapshot}. The same tag is applied to all of the snapshots that are created.
 }}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Starts a task that restores an AMI from an Amazon S3 object that was previously created by using \code{\link[=ec2_create_store_image_task]{create_store_image_task}}.

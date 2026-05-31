@@ -12,19 +12,13 @@ apprunner_create_vpc_ingress_connection(
 )
 }
 \arguments{
-\item{ServiceArn}{[required] The Amazon Resource Name (ARN) for this App Runner service that is used
-to create the VPC Ingress Connection resource.}
+\item{ServiceArn}{[required] The Amazon Resource Name (ARN) for this App Runner service that is used to create the VPC Ingress Connection resource.}
 
-\item{VpcIngressConnectionName}{[required] A name for the VPC Ingress Connection resource. It must be unique across
-all the active VPC Ingress Connections in your Amazon Web Services
-account in the Amazon Web Services Region.}
+\item{VpcIngressConnectionName}{[required] A name for the VPC Ingress Connection resource. It must be unique across all the active VPC Ingress Connections in your Amazon Web Services account in the Amazon Web Services Region.}
 
-\item{IngressVpcConfiguration}{[required] Specifications for the customer’s Amazon VPC and the related Amazon Web
-Services PrivateLink VPC endpoint that are used to create the VPC
-Ingress Connection resource.}
+\item{IngressVpcConfiguration}{[required] Specifications for the customer’s Amazon VPC and the related Amazon Web Services PrivateLink VPC endpoint that are used to create the VPC Ingress Connection resource.}
 
-\item{Tags}{An optional list of metadata items that you can associate with the VPC
-Ingress Connection resource. A tag is a key-value pair.}
+\item{Tags}{An optional list of metadata items that you can associate with the VPC Ingress Connection resource. A tag is a key-value pair.}
 }
 \description{
 Create an App Runner VPC Ingress Connection resource. App Runner requires this resource when you want to associate your App Runner service with an Amazon VPC endpoint.

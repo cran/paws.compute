@@ -17,13 +17,9 @@ ec2_register_transit_gateway_multicast_group_members(
 
 \item{GroupIpAddress}{The IP address assigned to the transit gateway multicast group.}
 
-\item{NetworkInterfaceIds}{[required] The group members' network interface IDs to register with the transit
-gateway multicast group.}
+\item{NetworkInterfaceIds}{[required] The group members' network interface IDs to register with the transit gateway multicast group.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Registers members (network interfaces) with the transit gateway multicast group. A member is a network interface associated with a supported EC2 instance that receives multicast traffic. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/tgw/tgw-multicast-overview.html}{Multicast on transit gateways} in the \emph{Amazon Web Services Transit Gateways Guide}.

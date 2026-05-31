@@ -7,8 +7,7 @@
 proton_tag_resource(resourceArn, tags)
 }
 \arguments{
-\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the Proton resource to apply customer
-tags to.}
+\item{resourceArn}{[required] The Amazon Resource Name (ARN) of the Proton resource to apply customer tags to.}
 
 \item{tags}{[required] A list of customer tags to apply to the Proton resource.}
 }

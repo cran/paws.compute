@@ -11,85 +11,52 @@ ec2_allocate_hosts(
   OutpostArn = NULL,
   HostMaintenance = NULL,
   AssetIds = NULL,
+  AvailabilityZoneId = NULL,
   AutoPlacement = NULL,
   ClientToken = NULL,
   InstanceType = NULL,
   Quantity = NULL,
-  AvailabilityZone
+  AvailabilityZone = NULL
 )
 }
 \arguments{
-\item{InstanceFamily}{Specifies the instance family to be supported by the Dedicated Hosts. If
-you specify an instance family, the Dedicated Hosts support multiple
-instance types within that instance family.
+\item{InstanceFamily}{Specifies the instance family to be supported by the Dedicated Hosts. If you specify an instance family, the Dedicated Hosts support multiple instance types within that instance family.
 
-If you want the Dedicated Hosts to support a specific instance type
-only, omit this parameter and specify \strong{InstanceType} instead. You
-cannot specify \strong{InstanceFamily} and \strong{InstanceType} in the same
-request.}
+If you want the Dedicated Hosts to support a specific instance type only, omit this parameter and specify \strong{InstanceType} instead. You cannot specify \strong{InstanceFamily} and \strong{InstanceType} in the same request.}
 
 \item{TagSpecifications}{The tags to apply to the Dedicated Host during creation.}
 
-\item{HostRecovery}{Indicates whether to enable or disable host recovery for the Dedicated
-Host. Host recovery is disabled by default. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html}{Host recovery}
-in the \emph{Amazon EC2 User Guide}.
+\item{HostRecovery}{Indicates whether to enable or disable host recovery for the Dedicated Host. Host recovery is disabled by default. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-recovery.html}{Host recovery} in the \emph{Amazon EC2 User Guide}.
 
 Default: \code{off}}
 
-\item{OutpostArn}{The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on
-which to allocate the Dedicated Host. If you specify \strong{OutpostArn}, you
-can optionally specify \strong{AssetIds}.
+\item{OutpostArn}{The Amazon Resource Name (ARN) of the Amazon Web Services Outpost on which to allocate the Dedicated Host. If you specify \strong{OutpostArn}, you can optionally specify \strong{AssetIds}.
 
-If you are allocating the Dedicated Host in a Region, omit this
-parameter.}
+If you are allocating the Dedicated Host in a Region, omit this parameter.}
 
-\item{HostMaintenance}{Indicates whether to enable or disable host maintenance for the
-Dedicated Host. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html}{Host maintenance}
-in the \emph{Amazon EC2 User Guide}.}
+\item{HostMaintenance}{Indicates whether to enable or disable host maintenance for the Dedicated Host. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-maintenance.html}{Host maintenance} in the \emph{Amazon EC2 User Guide}.}
 
-\item{AssetIds}{The IDs of the Outpost hardware assets on which to allocate the
-Dedicated Hosts. Targeting specific hardware assets on an Outpost can
-help to minimize latency between your workloads. This parameter is
-supported only if you specify \strong{OutpostArn}. If you are allocating the
-Dedicated Hosts in a Region, omit this parameter.
+\item{AssetIds}{The IDs of the Outpost hardware assets on which to allocate the Dedicated Hosts. Targeting specific hardware assets on an Outpost can help to minimize latency between your workloads. This parameter is supported only if you specify \strong{OutpostArn}. If you are allocating the Dedicated Hosts in a Region, omit this parameter.
 \itemize{
-\item If you specify this parameter, you can omit \strong{Quantity}. In this
-case, Amazon EC2 allocates a Dedicated Host on each specified
-hardware asset.
-\item If you specify both \strong{AssetIds} and \strong{Quantity}, then the value
-for \strong{Quantity} must be equal to the number of asset IDs specified.
+\item If you specify this parameter, you can omit \strong{Quantity}. In this case, Amazon EC2 allocates a Dedicated Host on each specified hardware asset.
+\item If you specify both \strong{AssetIds} and \strong{Quantity}, then the value for \strong{Quantity} must be equal to the number of asset IDs specified.
 }}
 
-\item{AutoPlacement}{Indicates whether the host accepts any untargeted instance launches that
-match its instance type configuration, or if it only accepts Host
-tenancy instance launches that specify its unique host ID. For more
-information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/#dedicated-hosts-understanding}{Understanding auto-placement and affinity}
-in the \emph{Amazon EC2 User Guide}.
+\item{AvailabilityZoneId}{The ID of the Availability Zone.}
+
+\item{AutoPlacement}{Indicates whether the host accepts any untargeted instance launches that match its instance type configuration, or if it only accepts Host tenancy instance launches that specify its unique host ID. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/#dedicated-hosts-understanding}{Understanding auto-placement and affinity} in the \emph{Amazon EC2 User Guide}.
 
 Default: \code{off}}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring Idempotency}.}
 
-\item{InstanceType}{Specifies the instance type to be supported by the Dedicated Hosts. If
-you specify an instance type, the Dedicated Hosts support instances of
-the specified instance type only.
+\item{InstanceType}{Specifies the instance type to be supported by the Dedicated Hosts. If you specify an instance type, the Dedicated Hosts support instances of the specified instance type only.
 
-If you want the Dedicated Hosts to support multiple instance types in a
-specific instance family, omit this parameter and specify
-\strong{InstanceFamily} instead. You cannot specify \strong{InstanceType} and
-\strong{InstanceFamily} in the same request.}
+If you want the Dedicated Hosts to support multiple instance types in a specific instance family, omit this parameter and specify \strong{InstanceFamily} instead. You cannot specify \strong{InstanceType} and \strong{InstanceFamily} in the same request.}
 
-\item{Quantity}{The number of Dedicated Hosts to allocate to your account with these
-parameters. If you are allocating the Dedicated Hosts on an Outpost, and
-you specify \strong{AssetIds}, you can omit this parameter. In this case,
-Amazon EC2 allocates a Dedicated Host on each specified hardware asset.
-If you specify both \strong{AssetIds} and \strong{Quantity}, then the value that
-you specify for \strong{Quantity} must be equal to the number of asset IDs
-specified.}
+\item{Quantity}{The number of Dedicated Hosts to allocate to your account with these parameters. If you are allocating the Dedicated Hosts on an Outpost, and you specify \strong{AssetIds}, you can omit this parameter. In this case, Amazon EC2 allocates a Dedicated Host on each specified hardware asset. If you specify both \strong{AssetIds} and \strong{Quantity}, then the value that you specify for \strong{Quantity} must be equal to the number of asset IDs specified.}
 
-\item{AvailabilityZone}{[required] The Availability Zone in which to allocate the Dedicated Host.}
+\item{AvailabilityZone}{The Availability Zone in which to allocate the Dedicated Host.}
 }
 \description{
 Allocates a Dedicated Host to your account. At a minimum, specify the supported instance type or instance family, the Availability Zone in which to allocate the host, and the number of hosts to allocate.

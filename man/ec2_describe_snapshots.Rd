@@ -16,60 +16,34 @@ ec2_describe_snapshots(
 )
 }
 \arguments{
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{OwnerIds}{Scopes the results to snapshots with the specified owners. You can
-specify a combination of Amazon Web Services account IDs, \code{self}, and
-\code{amazon}.}
+\item{OwnerIds}{Scopes the results to snapshots with the specified owners. You can specify a combination of Amazon Web Services account IDs, \code{self}, and \code{amazon}.}
 
-\item{RestorableByUserIds}{The IDs of the Amazon Web Services accounts that can create volumes from
-the snapshot.}
+\item{RestorableByUserIds}{The IDs of the Amazon Web Services accounts that can create volumes from the snapshot.}
 
 \item{SnapshotIds}{The snapshot IDs.
 
-Default: Describes the snapshots for which you have create volume
-permissions.}
+Default: Describes the snapshots for which you have create volume permissions.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
 \item \code{description} - A description of the snapshot.
-\item \code{encrypted} - Indicates whether the snapshot is encrypted (\code{true} |
-\code{false})
-\item \code{owner-alias} - The owner alias, from an Amazon-maintained list
-(\code{amazon}). This is not the user-configured Amazon Web Services
-account alias set using the IAM console. We recommend that you use
-the related parameter instead of this filter.
-\item \code{owner-id} - The Amazon Web Services account ID of the owner. We
-recommend that you use the related parameter instead of this filter.
-\item \code{progress} - The progress of the snapshot, as a percentage (for
-example, 80\%).
+\item \code{encrypted} - Indicates whether the snapshot is encrypted (\code{true} | \code{false})
+\item \code{owner-alias} - The owner alias, from an Amazon-maintained list (\code{amazon}). This is not the user-configured Amazon Web Services account alias set using the IAM console. We recommend that you use the related parameter instead of this filter.
+\item \code{owner-id} - The Amazon Web Services account ID of the owner. We recommend that you use the related parameter instead of this filter.
+\item \code{progress} - The progress of the snapshot, as a percentage (for example, 80\%).
 \item \code{snapshot-id} - The snapshot ID.
 \item \code{start-time} - The time stamp when the snapshot was initiated.
-\item \code{status} - The status of the snapshot (\code{pending} | \code{completed} |
-\code{error}).
-\item \code{storage-tier} - The storage tier of the snapshot (\code{archive} |
-\code{standard}).
-\item \code{transfer-type} - The type of operation used to create the snapshot
-(\code{time-based} | \code{standard}).
-\item \code{tag}:\<key\> - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources assigned a tag with a specific key,
-regardless of the tag value.
+\item \code{status} - The status of the snapshot (\code{pending} | \code{completed} | \code{error}).
+\item \code{storage-tier} - The storage tier of the snapshot (\code{archive} | \code{standard}).
+\item \code{transfer-type} - The type of operation used to create the snapshot (\code{time-based} | \code{standard}).
+\item \code{tag}:\<key\> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
 \item \code{volume-id} - The ID of the volume the snapshot is for.
 \item \code{volume-size} - The size of the volume, in GiB.
 }}

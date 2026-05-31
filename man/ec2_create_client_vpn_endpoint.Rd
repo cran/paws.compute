@@ -5,7 +5,7 @@
 \title{Creates a Client VPN endpoint}
 \usage{
 ec2_create_client_vpn_endpoint(
-  ClientCidrBlock,
+  ClientCidrBlock = NULL,
   ServerCertificateArn,
   AuthenticationOptions,
   ConnectionLogOptions,
@@ -23,28 +23,23 @@ ec2_create_client_vpn_endpoint(
   ClientConnectOptions = NULL,
   SessionTimeoutHours = NULL,
   ClientLoginBannerOptions = NULL,
-  DisconnectOnSessionTimeout = NULL
+  ClientRouteEnforcementOptions = NULL,
+  DisconnectOnSessionTimeout = NULL,
+  EndpointIpAddressType = NULL,
+  TrafficIpAddressType = NULL,
+  TransitGatewayConfiguration = NULL
 )
 }
 \arguments{
-\item{ClientCidrBlock}{[required] The IPv4 address range, in CIDR notation, from which to assign client IP
-addresses. The address range cannot overlap with the local CIDR of the
-VPC in which the associated subnet is located, or the routes that you
-add manually. The address range cannot be changed after the Client VPN
-endpoint has been created. Client CIDR range must have a size of at
-least /22 and must not be greater than /12.}
+\item{ClientCidrBlock}{The IPv4 address range, in CIDR notation, from which to assign client IP addresses. The address range cannot overlap with the local CIDR of the VPC in which the associated subnet is located, or the routes that you add manually. The address range cannot be changed after the Client VPN endpoint has been created. Client CIDR range must have a size of at least /22 and must not be greater than /12.}
 
-\item{ServerCertificateArn}{[required] The ARN of the server certificate. For more information, see the
-\href{https://docs.aws.amazon.com/acm/latest/userguide/}{Certificate Manager User Guide}.}
+\item{ServerCertificateArn}{[required] The ARN of the server certificate. For more information, see the \href{https://docs.aws.amazon.com/acm/latest/userguide/}{Certificate Manager User Guide}.}
 
-\item{AuthenticationOptions}{[required] Information about the authentication method to be used to authenticate
-clients.}
+\item{AuthenticationOptions}{[required] Information about the authentication method to be used to authenticate clients.}
 
 \item{ConnectionLogOptions}{[required] Information about the client connection logging options.
 
-If you enable client connection logging, data about client connections
-is sent to a Cloudwatch Logs log stream. The following information is
-logged:
+If you enable client connection logging, data about client connections is sent to a Cloudwatch Logs log stream. The following information is logged:
 \itemize{
 \item Client connection requests
 \item Client connection results (successful and unsuccessful)
@@ -52,17 +47,13 @@ logged:
 \item Client connection termination time
 }}
 
-\item{DnsServers}{Information about the DNS servers to be used for DNS resolution. A
-Client VPN endpoint can have up to two DNS servers. If no DNS server is
-specified, the DNS address configured on the device is used for the DNS
-server.}
+\item{DnsServers}{Information about the DNS servers to be used for DNS resolution. A Client VPN endpoint can have up to two DNS servers. If no DNS server is specified, the DNS address configured on the device is used for the DNS server.}
 
 \item{TransportProtocol}{The transport protocol to be used by the VPN session.
 
 Default value: \code{udp}}
 
-\item{VpnPort}{The port number to assign to the Client VPN endpoint for TCP and UDP
-traffic.
+\item{VpnPort}{The port number to assign to the Client VPN endpoint for TCP and UDP traffic.
 
 Valid Values: \code{443} | \code{1194}
 
@@ -74,34 +65,23 @@ Default Value: \code{443}}
 
 By default, split-tunnel on a VPN endpoint is disabled.
 
-For information about split-tunnel VPN endpoints, see \href{https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html}{Split-tunnel Client VPN endpoint}
-in the \emph{Client VPN Administrator Guide}.}
+For information about split-tunnel VPN endpoints, see \href{https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html}{Split-tunnel Client VPN endpoint} in the \emph{Client VPN Administrator Guide}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
 \item{TagSpecifications}{The tags to apply to the Client VPN endpoint during creation.}
 
-\item{SecurityGroupIds}{The IDs of one or more security groups to apply to the target network.
-You must also specify the ID of the VPC that contains the security
-groups.}
+\item{SecurityGroupIds}{The IDs of one or more security groups to apply to the target network. You must also specify the ID of the VPC that contains the security groups.}
 
-\item{VpcId}{The ID of the VPC to associate with the Client VPN endpoint. If no
-security group IDs are specified in the request, the default security
-group for the VPC is applied.}
+\item{VpcId}{The ID of the VPC to associate with the Client VPN endpoint. If no security group IDs are specified in the request, the default security group for the VPC is applied.}
 
-\item{SelfServicePortal}{Specify whether to enable the self-service portal for the Client VPN
-endpoint.
+\item{SelfServicePortal}{Specify whether to enable the self-service portal for the Client VPN endpoint.
 
 Default Value: \code{enabled}}
 
-\item{ClientConnectOptions}{The options for managing connection authorization for new client
-connections.}
+\item{ClientConnectOptions}{The options for managing connection authorization for new client connections.}
 
 \item{SessionTimeoutHours}{The maximum VPN session duration time in hours.
 
@@ -109,14 +89,19 @@ Valid values: \code{8 | 10 | 12 | 24}
 
 Default value: \code{24}}
 
-\item{ClientLoginBannerOptions}{Options for enabling a customizable text banner that will be displayed
-on Amazon Web Services provided clients when a VPN session is
-established.}
+\item{ClientLoginBannerOptions}{Options for enabling a customizable text banner that will be displayed on Amazon Web Services provided clients when a VPN session is established.}
 
-\item{DisconnectOnSessionTimeout}{Indicates whether the client VPN session is disconnected after the
-maximum timeout specified in \code{SessionTimeoutHours} is reached. If
-\code{true}, users are prompted to reconnect client VPN. If \code{false}, client
-VPN attempts to reconnect automatically. The default value is \code{false}.}
+\item{ClientRouteEnforcementOptions}{Client route enforcement is a feature of the Client VPN service that helps enforce administrator defined routes on devices connected through the VPN. T his feature helps improve your security posture by ensuring that network traffic originating from a connected client is not inadvertently sent outside the VPN tunnel.
+
+Client route enforcement works by monitoring the route table of a connected device for routing policy changes to the VPN connection. If the feature detects any VPN routing policy modifications, it will automatically force an update to the route table, reverting it back to the expected route configurations.}
+
+\item{DisconnectOnSessionTimeout}{Indicates whether the client VPN session is disconnected after the maximum timeout specified in \code{SessionTimeoutHours} is reached. If \code{true}, users are prompted to reconnect client VPN. If \code{false}, client VPN attempts to reconnect automatically. The default value is \code{true}.}
+
+\item{EndpointIpAddressType}{The IP address type for the Client VPN endpoint. Valid values are \code{ipv4} (default) for IPv4 addressing only, \code{ipv6} for IPv6 addressing only, or \code{dual-stack} for both IPv4 and IPv6 addressing. When set to \verb{dual-stack,} clients can connect to the endpoint using either IPv4 or IPv6 addresses..}
+
+\item{TrafficIpAddressType}{The IP address type for traffic within the Client VPN tunnel. Valid values are \code{ipv4} (default) for IPv4 traffic only, \code{ipv6} for IPv6 addressing only, or \code{dual-stack} for both IPv4 and IPv6 traffic. When set to \code{dual-stack}, clients can access both IPv4 and IPv6 resources through the VPN .}
+
+\item{TransitGatewayConfiguration}{The Transit Gateway configuration for the Client VPN endpoint. Use this parameter to associate the endpoint with a Transit Gateway instead of a VPC. You cannot specify both \code{TransitGatewayConfiguration} and \code{VpcId}/\code{SecurityGroupIds}.}
 }
 \description{
 Creates a Client VPN endpoint. A Client VPN endpoint is the resource you create and configure to enable and manage client VPN sessions. It is the destination endpoint at which all client VPN sessions are terminated.

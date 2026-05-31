@@ -13,35 +13,37 @@ ec2_describe_capacity_block_offerings(
   EndDateRange = NULL,
   CapacityDurationHours,
   NextToken = NULL,
-  MaxResults = NULL
+  MaxResults = NULL,
+  UltraserverType = NULL,
+  UltraserverCount = NULL,
+  AllAvailabilityZones = NULL
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{InstanceType}{The type of instance for which the Capacity Block offering reserves
-capacity.}
+\item{InstanceType}{The type of instance for which the Capacity Block offering reserves capacity.}
 
-\item{InstanceCount}{The number of instances for which to reserve capacity.}
+\item{InstanceCount}{The number of instances for which to reserve capacity. Each Capacity Block can have up to 64 instances, and you can have up to 256 instances across Capacity Blocks.}
 
 \item{StartDateRange}{The earliest start date for the Capacity Block offering.}
 
 \item{EndDateRange}{The latest end date for the Capacity Block offering.}
 
-\item{CapacityDurationHours}{[required] The number of hours for which to reserve Capacity Block.}
+\item{CapacityDurationHours}{[required] The reservation duration for the Capacity Block, in hours. You must specify the duration in 1-day increments up 14 days, and in 7-day increments up to 182 days.}
 
 \item{NextToken}{The token to use to retrieve the next page of results.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
+
+\item{UltraserverType}{The EC2 UltraServer type of the Capacity Block offerings.}
+
+\item{UltraserverCount}{The number of EC2 UltraServers in the offerings.}
+
+\item{AllAvailabilityZones}{Include all Availability Zones and Local Zones, regardless of your opt-in status. If you do not use this parameter, the results include available offerings from all Availability Zones in the Amazon Web Services Region and Local Zones you are opted into.}
 }
 \description{
-Describes Capacity Block offerings available for purchase in the Amazon Web Services Region that you're currently using. With Capacity Blocks, you purchase a specific instance type for a period of time.
+Describes Capacity Block offerings available for purchase in the Amazon Web Services Region that you're currently using. With Capacity Blocks, you can purchase a specific GPU instance type or EC2 UltraServer for a period of time.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_describe_capacity_block_offerings/} for full documentation.
 }

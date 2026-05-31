@@ -7,6 +7,7 @@ private gateway attached to your VPC with a route table in your VPC}
 \usage{
 ec2_associate_route_table(
   GatewayId = NULL,
+  PublicIpv4Pool = NULL,
   DryRun = NULL,
   SubnetId = NULL,
   RouteTableId
@@ -15,10 +16,9 @@ ec2_associate_route_table(
 \arguments{
 \item{GatewayId}{The ID of the internet gateway or virtual private gateway.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{PublicIpv4Pool}{The ID of a public IPv4 pool. A public IPv4 pool is a pool of IPv4 addresses that you've brought to Amazon Web Services with BYOIP.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{SubnetId}{The ID of the subnet.}
 

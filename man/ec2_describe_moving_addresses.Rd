@@ -13,10 +13,7 @@ ec2_describe_moving_addresses(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{PublicIps}{One or more Elastic IP addresses.}
 
@@ -24,15 +21,10 @@ Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{One or more filters.
 \itemize{
-\item \code{moving-status} - The status of the Elastic IP address
-(\code{MovingToVpc} | \code{RestoringToClassic}).
+\item \code{moving-status} - The status of the Elastic IP address (\code{MovingToVpc} | \code{RestoringToClassic}).
 }}
 
-\item{MaxResults}{The maximum number of results to return for the request in a single
-page. The remaining results of the initial request can be seen by
-sending another request with the returned \code{NextToken} value. This value
-can be between 5 and 1000; if \code{MaxResults} is given a value outside of
-this range, an error is returned.
+\item{MaxResults}{The maximum number of results to return for the request in a single page. The remaining results of the initial request can be seen by sending another request with the returned \code{NextToken} value. This value can be between 5 and 1000; if \code{MaxResults} is given a value outside of this range, an error is returned.
 
 Default: If no value is provided, the default is 1000.}
 }

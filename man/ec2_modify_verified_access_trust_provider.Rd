@@ -19,21 +19,15 @@ ec2_modify_verified_access_trust_provider(
 \arguments{
 \item{VerifiedAccessTrustProviderId}{[required] The ID of the Verified Access trust provider.}
 
-\item{OidcOptions}{The options for an OpenID Connect-compatible user-identity trust
-provider.}
+\item{OidcOptions}{The options for an OpenID Connect-compatible user-identity trust provider.}
 
-\item{DeviceOptions}{The options for a device-based trust provider. This parameter is
-required when the provider type is \code{device}.}
+\item{DeviceOptions}{The options for a device-based trust provider. This parameter is required when the provider type is \code{device}.}
 
 \item{Description}{A description for the Verified Access trust provider.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{A unique, case-sensitive token that you provide to ensure idempotency of
-your modification request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{A unique, case-sensitive token that you provide to ensure idempotency of your modification request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
 \item{SseSpecification}{The options for server side encryption.}
 

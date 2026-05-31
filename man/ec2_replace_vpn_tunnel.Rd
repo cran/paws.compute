@@ -18,10 +18,7 @@ ec2_replace_vpn_tunnel(
 
 \item{ApplyPendingMaintenance}{Trigger pending tunnel endpoint maintenance.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Trigger replacement of specified VPN tunnel.

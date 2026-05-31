@@ -16,37 +16,27 @@ elasticbeanstalk_describe_environments(
 )
 }
 \arguments{
-\item{ApplicationName}{If specified, AWS Elastic Beanstalk restricts the returned descriptions
-to include only those that are associated with this application.}
+\item{ApplicationName}{If specified, AWS Elastic Beanstalk restricts the returned descriptions to include only those that are associated with this application.}
 
-\item{VersionLabel}{If specified, AWS Elastic Beanstalk restricts the returned descriptions
-to include only those that are associated with this application version.}
+\item{VersionLabel}{If specified, AWS Elastic Beanstalk restricts the returned descriptions to include only those that are associated with this application version.}
 
-\item{EnvironmentIds}{If specified, AWS Elastic Beanstalk restricts the returned descriptions
-to include only those that have the specified IDs.}
+\item{EnvironmentIds}{If specified, AWS Elastic Beanstalk restricts the returned descriptions to include only those that have the specified IDs.}
 
-\item{EnvironmentNames}{If specified, AWS Elastic Beanstalk restricts the returned descriptions
-to include only those that have the specified names.}
+\item{EnvironmentNames}{If specified, AWS Elastic Beanstalk restricts the returned descriptions to include only those that have the specified names.}
 
 \item{IncludeDeleted}{Indicates whether to include deleted environments:
 
-\code{true}: Environments that have been deleted after
-\code{IncludedDeletedBackTo} are displayed.
+\code{true}: Environments that have been deleted after \code{IncludedDeletedBackTo} are displayed.
 
 \code{false}: Do not include deleted environments.}
 
-\item{IncludedDeletedBackTo}{If specified when \code{IncludeDeleted} is set to \code{true}, then environments
-deleted after this date are displayed.}
+\item{IncludedDeletedBackTo}{If specified when \code{IncludeDeleted} is set to \code{true}, then environments deleted after this date are displayed.}
 
-\item{MaxRecords}{For a paginated request. Specify a maximum number of environments to
-include in each response.
+\item{MaxRecords}{For a paginated request. Specify a maximum number of environments to include in each response.
 
-If no \code{MaxRecords} is specified, all available environments are
-retrieved in a single response.}
+If no \code{MaxRecords} is specified, all available environments are retrieved in a single response.}
 
-\item{NextToken}{For a paginated request. Specify a token from a previous response page
-to retrieve the next response page. All other parameter values must be
-identical to the ones specified in the initial request.
+\item{NextToken}{For a paginated request. Specify a token from a previous response page to retrieve the next response page. All other parameter values must be identical to the ones specified in the initial request.
 
 If no \code{NextToken} is specified, the first page is retrieved.}
 }

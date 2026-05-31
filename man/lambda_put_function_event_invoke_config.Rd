@@ -18,26 +18,20 @@ lambda_put_function_event_invoke_config(
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} - \verb{my-function} (name-only), \verb{my-function:v1}
-(with alias).
-\item \strong{Function ARN} -
-\verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
+\item \strong{Function name} - \verb{my-function} (name-only), \verb{my-function:v1} (with alias).
+\item \strong{Function ARN} - \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
 \item \strong{Partial ARN} - \verb{123456789012:function:my-function}.
 }
 
-You can append a version number or alias to any of the formats. The
-length constraint applies only to the full ARN. If you specify only the
-function name, it is limited to 64 characters in length.}
+You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
 \item{Qualifier}{A version number or alias name.}
 
 \item{MaximumRetryAttempts}{The maximum number of times to retry when the function returns an error.}
 
-\item{MaximumEventAgeInSeconds}{The maximum age of a request that Lambda sends to a function for
-processing.}
+\item{MaximumEventAgeInSeconds}{The maximum age of a request that Lambda sends to a function for processing.}
 
-\item{DestinationConfig}{A destination for events after they have been sent to a function for
-processing.
+\item{DestinationConfig}{A destination for events after they have been sent to a function for processing.
 
 \strong{Destinations}
 \itemize{
@@ -48,8 +42,7 @@ processing.
 \item \strong{Event Bus} - The ARN of an Amazon EventBridge event bus.
 }
 
-S3 buckets are supported only for on-failure destinations. To retain
-records of successful invocations, use another destination type.}
+S3 buckets are supported only for on-failure destinations. To retain records of successful invocations, use another destination type.}
 }
 \description{
 Configures options for \href{https://docs.aws.amazon.com/lambda/latest/dg/invocation-async.html}{asynchronous invocation} on a function, version, or alias. If a configuration already exists for a function, version, or alias, this operation overwrites it. If you exclude any settings, they are removed. To set one option without affecting existing settings for other options, use \code{\link[=lambda_update_function_event_invoke_config]{update_function_event_invoke_config}}.

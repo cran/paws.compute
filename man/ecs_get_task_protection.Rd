@@ -7,8 +7,7 @@
 ecs_get_task_protection(cluster, tasks = NULL)
 }
 \arguments{
-\item{cluster}{[required] The short name or full Amazon Resource Name (ARN) of the cluster that
-hosts the service that the task sets exist in.}
+\item{cluster}{[required] The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task sets exist in.}
 
 \item{tasks}{A list of up to 100 task IDs or full ARN entries.}
 }

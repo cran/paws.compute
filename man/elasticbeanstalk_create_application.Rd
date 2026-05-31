@@ -17,13 +17,11 @@ elasticbeanstalk_create_application(
 
 \item{Description}{Your description of the application.}
 
-\item{ResourceLifecycleConfig}{Specifies an application resource lifecycle configuration to prevent
-your application from accumulating too many versions.}
+\item{ResourceLifecycleConfig}{Specifies an application resource lifecycle configuration to prevent your application from accumulating too many versions.}
 
 \item{Tags}{Specifies the tags applied to the application.
 
-Elastic Beanstalk applies these tags only to the application.
-Environments that you create in the application don't inherit the tags.}
+Elastic Beanstalk applies these tags only to the application. Environments that you create in the application don't inherit the tags.}
 }
 \description{
 Creates an application that has one configuration template named \code{default} and no application versions.

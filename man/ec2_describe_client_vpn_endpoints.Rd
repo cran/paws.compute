@@ -15,9 +15,7 @@ ec2_describe_client_vpn_endpoints(
 \arguments{
 \item{ClientVpnEndpointIds}{The ID of the Client VPN endpoint.}
 
-\item{MaxResults}{The maximum number of results to return for the request in a single
-page. The remaining results can be seen by sending another request with
-the nextToken value.}
+\item{MaxResults}{The maximum number of results to return for the request in a single page. The remaining results can be seen by sending another request with the nextToken value.}
 
 \item{NextToken}{The token to retrieve the next page of results.}
 
@@ -27,10 +25,7 @@ the nextToken value.}
 \item \code{transport-protocol} - The transport protocol (\code{tcp} | \code{udp}).
 }}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes one or more Client VPN endpoints in the account.

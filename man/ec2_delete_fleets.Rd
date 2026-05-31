@@ -2,33 +2,25 @@
 % Please edit documentation in R/ec2_operations.R
 \name{ec2_delete_fleets}
 \alias{ec2_delete_fleets}
-\title{Deletes the specified EC2 Fleets}
+\title{Deletes the specified EC2 Fleet request}
 \usage{
 ec2_delete_fleets(DryRun = NULL, FleetIds, TerminateInstances)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{FleetIds}{[required] The IDs of the EC2 Fleets.
 
-Constraints: In a single request, you can specify up to 25 \code{instant}
-fleet IDs and up to 100 \code{maintain} or \code{request} fleet IDs.}
+Constraints: In a single request, you can specify up to 25 \code{instant} fleet IDs and up to 100 \code{maintain} or \code{request} fleet IDs.}
 
-\item{TerminateInstances}{[required] Indicates whether to terminate the associated instances when the EC2
-Fleet is deleted. The default is to terminate the instances.
+\item{TerminateInstances}{[required] Indicates whether to terminate the associated instances when the EC2 Fleet is deleted. The default is to terminate the instances.
 
-To let the instances continue to run after the EC2 Fleet is deleted,
-specify \code{no-terminate-instances}. Supported only for fleets of type
-\code{maintain} and \code{request}.
+To let the instances continue to run after the EC2 Fleet is deleted, specify \code{no-terminate-instances}. Supported only for fleets of type \code{maintain} and \code{request}.
 
-For \code{instant} fleets, you cannot specify \code{NoTerminateInstances}. A
-deleted \code{instant} fleet with running instances is not supported.}
+For \code{instant} fleets, you cannot specify \code{NoTerminateInstances}. A deleted \code{instant} fleet with running instances is not supported.}
 }
 \description{
-Deletes the specified EC2 Fleets.
+Deletes the specified EC2 Fleet request.
 
 See \url{https://www.paws-r-sdk.com/docs/ec2_delete_fleets/} for full documentation.
 }

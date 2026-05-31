@@ -7,15 +7,17 @@
 emrcontainers_create_security_configuration(
   clientToken,
   name,
+  containerProvider = NULL,
   securityConfigurationData,
   tags = NULL
 )
 }
 \arguments{
-\item{clientToken}{[required] The client idempotency token to use when creating the security
-configuration.}
+\item{clientToken}{[required] The client idempotency token to use when creating the security configuration.}
 
 \item{name}{[required] The name of the security configuration.}
+
+\item{containerProvider}{The container provider associated with the security configuration.}
 
 \item{securityConfigurationData}{[required] Security configuration input for the request.}
 

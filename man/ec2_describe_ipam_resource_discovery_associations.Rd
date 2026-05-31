@@ -13,18 +13,13 @@ ec2_describe_ipam_resource_discovery_associations(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{IpamResourceDiscoveryAssociationIds}{The resource discovery association IDs.}
 
-\item{NextToken}{Specify the pagination token from a previous request to retrieve the
-next page of results.}
+\item{NextToken}{Specify the pagination token from a previous request to retrieve the next page of results.}
 
-\item{MaxResults}{The maximum number of resource discovery associations to return in one
-page of results.}
+\item{MaxResults}{The maximum number of resource discovery associations to return in one page of results.}
 
 \item{Filters}{The resource discovery association filters.}
 }

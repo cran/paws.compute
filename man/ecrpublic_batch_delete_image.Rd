@@ -8,15 +8,11 @@ public registry}
 ecrpublic_batch_delete_image(registryId = NULL, repositoryName, imageIds)
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID, or registry alias, that's associated
-with the registry that contains the image to delete. If you do not
-specify a registry, the default public registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID, or registry alias, that's associated with the registry that contains the image to delete. If you do not specify a registry, the default public registry is assumed.}
 
 \item{repositoryName}{[required] The repository in a public registry that contains the image to delete.}
 
-\item{imageIds}{[required] A list of image ID references that correspond to images to delete. The
-format of the \code{imageIds} reference is \code{imageTag=tag} or
-\code{imageDigest=digest}.}
+\item{imageIds}{[required] A list of image ID references that correspond to images to delete. The format of the \code{imageIds} reference is \code{imageTag=tag} or \code{imageDigest=digest}.}
 }
 \description{
 Deletes a list of specified images that are within a repository in a public registry. Images are specified with either an \code{imageTag} or \code{imageDigest}.

@@ -25,44 +25,23 @@ ec2_import_snapshot(
 
 \item{DiskContainer}{Information about the disk container.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{Encrypted}{Specifies whether the destination snapshot of the imported image should
-be encrypted. The default KMS key for EBS is used unless you specify a
-non-default KMS key using \code{KmsKeyId}. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html}{Amazon EBS Encryption}
-in the \emph{Amazon Elastic Compute Cloud User Guide}.}
+\item{Encrypted}{Specifies whether the destination snapshot of the imported image should be encrypted. The default KMS key for EBS is used unless you specify a non-default KMS key using \code{KmsKeyId}. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-encryption.html}{Amazon EBS Encryption} in the \emph{Amazon Elastic Compute Cloud User Guide}.}
 
-\item{KmsKeyId}{An identifier for the symmetric KMS key to use when creating the
-encrypted snapshot. This parameter is only required if you want to use a
-non-default KMS key; if this parameter is not specified, the default KMS
-key for EBS is used. If a \code{KmsKeyId} is specified, the \code{Encrypted} flag
-must also be set.
+\item{KmsKeyId}{An identifier for the symmetric KMS key to use when creating the encrypted snapshot. This parameter is only required if you want to use a non-default KMS key; if this parameter is not specified, the default KMS key for EBS is used. If a \code{KmsKeyId} is specified, the \code{Encrypted} flag must also be set.
 
 The KMS key identifier may be provided in any of the following formats:
 \itemize{
 \item Key ID
 \item Key alias
-\item ARN using key ID. The ID ARN contains the \code{arn:aws:kms} namespace,
-followed by the Region of the key, the Amazon Web Services account
-ID of the key owner, the \code{key} namespace, and then the key ID. For
-example,
-arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:key/\emph{abcd1234-a123-456a-a12b-a123b4cd56ef}.
-\item ARN using key alias. The alias ARN contains the \code{arn:aws:kms}
-namespace, followed by the Region of the key, the Amazon Web
-Services account ID of the key owner, the \code{alias} namespace, and
-then the key alias. For example,
-arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:alias/\emph{ExampleAlias}.
+\item ARN using key ID. The ID ARN contains the \code{arn:aws:kms} namespace, followed by the Region of the key, the Amazon Web Services account ID of the key owner, the \code{key} namespace, and then the key ID. For example, arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:key/\emph{abcd1234-a123-456a-a12b-a123b4cd56ef}.
+\item ARN using key alias. The alias ARN contains the \code{arn:aws:kms} namespace, followed by the Region of the key, the Amazon Web Services account ID of the key owner, the \code{alias} namespace, and then the key alias. For example, arn:aws:kms:\emph{us-east-1}:\emph{012345678910}:alias/\emph{ExampleAlias}.
 }
 
-Amazon Web Services parses \code{KmsKeyId} asynchronously, meaning that the
-action you call may appear to complete even though you provided an
-invalid identifier. This action will eventually report failure.
+Amazon Web Services parses \code{KmsKeyId} asynchronously, meaning that the action you call may appear to complete even though you provided an invalid identifier. This action will eventually report failure.
 
-The specified KMS key must exist in the Region that the snapshot is
-being copied to.
+The specified KMS key must exist in the Region that the snapshot is being copied to.
 
 Amazon EBS does not support asymmetric KMS keys.}
 

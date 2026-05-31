@@ -15,10 +15,7 @@ ec2_report_instance_status(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Instances}{[required] The instances.}
 
@@ -32,19 +29,12 @@ you have the required permissions, the error response is
 \itemize{
 \item \verb{instance-stuck-in-state}: My instance is stuck in a state.
 \item \code{unresponsive}: My instance is unresponsive.
-\item \code{not-accepting-credentials}: My instance is not accepting my
-credentials.
-\item \code{password-not-available}: A password is not available for my
-instance.
-\item \code{performance-network}: My instance is experiencing performance
-problems that I believe are network related.
-\item \code{performance-instance-store}: My instance is experiencing
-performance problems that I believe are related to the instance
-stores.
-\item \code{performance-ebs-volume}: My instance is experiencing performance
-problems that I believe are related to an EBS volume.
-\item \code{performance-other}: My instance is experiencing performance
-problems.
+\item \code{not-accepting-credentials}: My instance is not accepting my credentials.
+\item \code{password-not-available}: A password is not available for my instance.
+\item \code{performance-network}: My instance is experiencing performance problems that I believe are network related.
+\item \code{performance-instance-store}: My instance is experiencing performance problems that I believe are related to the instance stores.
+\item \code{performance-ebs-volume}: My instance is experiencing performance problems that I believe are related to an EBS volume.
+\item \code{performance-other}: My instance is experiencing performance problems.
 \item \code{other}: [explain using the description parameter]
 }}
 

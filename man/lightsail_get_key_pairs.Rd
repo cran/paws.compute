@@ -9,13 +9,9 @@ lightsail_get_key_pairs(pageToken = NULL, includeDefaultKeyPair = NULL)
 \arguments{
 \item{pageToken}{The token to advance to the next page of results from your request.
 
-To get a page token, perform an initial
-\code{\link[=lightsail_get_key_pairs]{get_key_pairs}} request. If your results are
-paginated, the response will return a next page token that you can
-specify as the page token in a subsequent request.}
+To get a page token, perform an initial \code{\link[=lightsail_get_key_pairs]{get_key_pairs}} request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.}
 
-\item{includeDefaultKeyPair}{A Boolean value that indicates whether to include the default key pair
-in the response of your request.}
+\item{includeDefaultKeyPair}{A Boolean value that indicates whether to include the default key pair in the response of your request.}
 }
 \description{
 Returns information about all key pairs in the user's account.

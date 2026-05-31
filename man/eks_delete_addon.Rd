@@ -9,13 +9,9 @@ eks_delete_addon(clusterName, addonName, preserve = NULL)
 \arguments{
 \item{clusterName}{[required] The name of your cluster.}
 
-\item{addonName}{[required] The name of the add-on. The name must match one of the names returned by
-\href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{list_addons}}
-.}
+\item{addonName}{[required] The name of the add-on. The name must match one of the names returned by \href{https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html}{\code{list_addons}} .}
 
-\item{preserve}{Specifying this option preserves the add-on software on your cluster but
-Amazon EKS stops managing any settings for the add-on. If an IAM account
-is associated with the add-on, it isn't removed.}
+\item{preserve}{Specifying this option preserves the add-on software on your cluster but Amazon EKS stops managing any settings for the add-on. If an IAM account is associated with the add-on, it isn't removed.}
 }
 \description{
 Deletes an Amazon EKS add-on.

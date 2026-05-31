@@ -18,21 +18,15 @@ computeoptimizer_get_idle_recommendations(
 
 \item{nextToken}{The token to advance to the next page of idle resource recommendations.}
 
-\item{maxResults}{The maximum number of idle resource recommendations to return with a
-single request.
+\item{maxResults}{The maximum number of idle resource recommendations to return with a single request.
 
-To retrieve the remaining results, make another request with the
-returned \code{nextToken} value.}
+To retrieve the remaining results, make another request with the returned \code{nextToken} value.}
 
-\item{filters}{An array of objects to specify a filter that returns a more specific
-list of idle resource recommendations.}
+\item{filters}{An array of objects to specify a filter that returns a more specific list of idle resource recommendations.}
 
-\item{accountIds}{Return the idle resource recommendations to the specified Amazon Web
-Services account IDs.
+\item{accountIds}{Return the idle resource recommendations to the specified Amazon Web Services account IDs.
 
-If your account is the management account or the delegated administrator
-of an organization, use this parameter to return the idle resource
-recommendations to specific member accounts.
+If your account is the management account or the delegated administrator of an organization, use this parameter to return the idle resource recommendations to specific member accounts.
 
 You can only specify one account ID per request.}
 

@@ -15,11 +15,9 @@ ec2instanceconnect_send_ssh_public_key(
 \arguments{
 \item{InstanceId}{[required] The ID of the EC2 instance.}
 
-\item{InstanceOSUser}{[required] The OS user on the EC2 instance for whom the key can be used to
-authenticate.}
+\item{InstanceOSUser}{[required] The OS user on the EC2 instance for whom the key can be used to authenticate.}
 
-\item{SSHPublicKey}{[required] The public key material. To use the public key, you must have the
-matching private key.}
+\item{SSHPublicKey}{[required] The public key material. To use the public key, you must have the matching private key.}
 
 \item{AvailabilityZone}{The Availability Zone in which the EC2 instance was launched.}
 }

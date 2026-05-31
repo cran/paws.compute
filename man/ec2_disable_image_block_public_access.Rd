@@ -8,10 +8,7 @@ specified Amazon Web Services Region}
 ec2_disable_image_block_public_access(DryRun = NULL)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Disables \emph{block public access for AMIs} at the account level in the specified Amazon Web Services Region. This removes the \emph{block public access} restriction from your account. With the restriction removed, you can publicly share your AMIs in the specified Amazon Web Services Region.

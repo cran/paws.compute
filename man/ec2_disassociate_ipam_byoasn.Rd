@@ -8,10 +8,7 @@ your BYOIP CIDR}
 ec2_disassociate_ipam_byoasn(DryRun = NULL, Asn, Cidr)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Asn}{[required] A public 2-byte or 4-byte ASN.}
 

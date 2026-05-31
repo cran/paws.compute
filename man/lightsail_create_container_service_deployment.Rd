@@ -13,11 +13,9 @@ lightsail_create_container_service_deployment(
 \arguments{
 \item{serviceName}{[required] The name of the container service for which to create the deployment.}
 
-\item{containers}{An object that describes the settings of the containers that will be
-launched on the container service.}
+\item{containers}{An object that describes the settings of the containers that will be launched on the container service.}
 
-\item{publicEndpoint}{An object that describes the settings of the public endpoint for the
-container service.}
+\item{publicEndpoint}{An object that describes the settings of the public endpoint for the container service.}
 }
 \description{
 Creates a deployment for your Amazon Lightsail container service.

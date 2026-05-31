@@ -20,26 +20,19 @@ lightsail_get_relational_database_metric_data(
 
 \item{metricName}{[required] The metric for which you want to return information.
 
-Valid relational database metric names are listed below, along with the
-most useful \code{statistics} to include in your request, and the published
-\code{unit} value. All relational database metric data is available in
-1-minute (60 seconds) granularity.
+Valid relational database metric names are listed below, along with the most useful \code{statistics} to include in your request, and the published \code{unit} value. All relational database metric data is available in 1-minute (60 seconds) granularity.
 \itemize{
-\item \strong{\code{CPUUtilization}} - The percentage of CPU utilization currently
-in use on the database.
+\item \strong{\code{CPUUtilization}} - The percentage of CPU utilization currently in use on the database.
 
-\code{Statistics}: The most useful statistics are \code{Maximum} and
-\code{Average}.
+\code{Statistics}: The most useful statistics are \code{Maximum} and \code{Average}.
 
 \code{Unit}: The published unit is \code{Percent}.
-\item \strong{\code{DatabaseConnections}} - The number of database connections in
-use.
+\item \strong{\code{DatabaseConnections}} - The number of database connections in use.
 
 \code{Statistics}: The most useful statistics are \code{Maximum} and \code{Sum}.
 
 \code{Unit}: The published unit is \code{Count}.
-\item \strong{\code{DiskQueueDepth}} - The number of outstanding IOs (read/write
-requests) that are waiting to access the disk.
+\item \strong{\code{DiskQueueDepth}} - The number of outstanding IOs (read/write requests) that are waiting to access the disk.
 
 \code{Statistics}: The most useful statistic is \code{Sum}.
 
@@ -49,16 +42,12 @@ requests) that are waiting to access the disk.
 \code{Statistics}: The most useful statistic is \code{Sum}.
 
 \code{Unit}: The published unit is \code{Bytes}.
-\item \strong{\code{NetworkReceiveThroughput}} - The incoming (Receive) network
-traffic on the database, including both customer database traffic
-and AWS traffic used for monitoring and replication.
+\item \strong{\code{NetworkReceiveThroughput}} - The incoming (Receive) network traffic on the database, including both customer database traffic and AWS traffic used for monitoring and replication.
 
 \code{Statistics}: The most useful statistic is \code{Average}.
 
 \code{Unit}: The published unit is \code{Bytes/Second}.
-\item \strong{\code{NetworkTransmitThroughput}} - The outgoing (Transmit) network
-traffic on the database, including both customer database traffic
-and AWS traffic used for monitoring and replication.
+\item \strong{\code{NetworkTransmitThroughput}} - The outgoing (Transmit) network traffic on the database, including both customer database traffic and AWS traffic used for monitoring and replication.
 
 \code{Statistics}: The most useful statistic is \code{Average}.
 
@@ -67,8 +56,7 @@ and AWS traffic used for monitoring and replication.
 
 \item{period}{[required] The granularity, in seconds, of the returned data points.
 
-All relational database metric data is available in 1-minute (60
-seconds) granularity.}
+All relational database metric data is available in 1-minute (60 seconds) granularity.}
 
 \item{startTime}{[required] The start of the time interval from which to get metric data.
 
@@ -77,8 +65,7 @@ Constraints:
 \item Specified in Coordinated Universal Time (UTC).
 \item Specified in the Unix time format.
 
-For example, if you wish to use a start time of October 1, 2018, at
-8 PM UTC, then you input \code{1538424000} as the start time.
+For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, then you input \code{1538424000} as the start time.
 }}
 
 \item{endTime}{[required] The end of the time interval from which to get metric data.
@@ -88,35 +75,20 @@ Constraints:
 \item Specified in Coordinated Universal Time (UTC).
 \item Specified in the Unix time format.
 
-For example, if you wish to use an end time of October 1, 2018, at 8
-PM UTC, then you input \code{1538424000} as the end time.
+For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you input \code{1538424000} as the end time.
 }}
 
-\item{unit}{[required] The unit for the metric data request. Valid units depend on the metric
-data being requested. For the valid units with each available metric,
-see the \code{metricName} parameter.}
+\item{unit}{[required] The unit for the metric data request. Valid units depend on the metric data being requested. For the valid units with each available metric, see the \code{metricName} parameter.}
 
 \item{statistics}{[required] The statistic for the metric.
 
 The following statistics are available:
 \itemize{
-\item \code{Minimum} - The lowest value observed during the specified period.
-Use this value to determine low volumes of activity for your
-application.
-\item \code{Maximum} - The highest value observed during the specified period.
-Use this value to determine high volumes of activity for your
-application.
-\item \code{Sum} - All values submitted for the matching metric added together.
-You can use this statistic to determine the total volume of a
-metric.
-\item \code{Average} - The value of Sum / SampleCount during the specified
-period. By comparing this statistic with the Minimum and Maximum
-values, you can determine the full scope of a metric and how close
-the average use is to the Minimum and Maximum values. This
-comparison helps you to know when to increase or decrease your
-resources.
-\item \code{SampleCount} - The count, or number, of data points used for the
-statistical calculation.
+\item \code{Minimum} - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.
+\item \code{Maximum} - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.
+\item \code{Sum} - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.
+\item \code{Average} - The value of Sum / SampleCount during the specified period. By comparing this statistic with the Minimum and Maximum values, you can determine the full scope of a metric and how close the average use is to the Minimum and Maximum values. This comparison helps you to know when to increase or decrease your resources.
+\item \code{SampleCount} - The count, or number, of data points used for the statistical calculation.
 }}
 }
 \description{

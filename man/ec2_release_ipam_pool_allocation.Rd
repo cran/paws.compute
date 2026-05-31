@@ -12,13 +12,9 @@ ec2_release_ipam_pool_allocation(
 )
 }
 \arguments{
-\item{DryRun}{A check for whether you have the required permissions for the action
-without actually making the request and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{A check for whether you have the required permissions for the action without actually making the request and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{IpamPoolId}{[required] The ID of the IPAM pool which contains the allocation you want to
-release.}
+\item{IpamPoolId}{[required] The ID of the IPAM pool which contains the allocation you want to release.}
 
 \item{Cidr}{[required] The CIDR of the allocation you want to release.}
 

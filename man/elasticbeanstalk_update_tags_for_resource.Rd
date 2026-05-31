@@ -15,13 +15,11 @@ elasticbeanstalk_update_tags_for_resource(
 
 Must be the ARN of an Elastic Beanstalk resource.}
 
-\item{TagsToAdd}{A list of tags to add or update. If a key of an existing tag is added,
-the tag's value is updated.
+\item{TagsToAdd}{A list of tags to add or update. If a key of an existing tag is added, the tag's value is updated.
 
 Specify at least one of these parameters: \code{TagsToAdd}, \code{TagsToRemove}.}
 
-\item{TagsToRemove}{A list of tag keys to remove. If a tag key doesn't exist, it is silently
-ignored.
+\item{TagsToRemove}{A list of tag keys to remove. If a tag key doesn't exist, it is silently ignored.
 
 Specify at least one of these parameters: \code{TagsToAdd}, \code{TagsToRemove}.}
 }

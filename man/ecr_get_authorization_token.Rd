@@ -7,9 +7,7 @@
 ecr_get_authorization_token(registryIds = NULL)
 }
 \arguments{
-\item{registryIds}{A list of Amazon Web Services account IDs that are associated with the
-registries for which to get AuthorizationData objects. If you do not
-specify a registry, the default registry is assumed.}
+\item{registryIds}{A list of Amazon Web Services account IDs that are associated with the registries for which to get AuthorizationData objects. If you do not specify a registry, the default registry is assumed.}
 }
 \description{
 Retrieves an authorization token. An authorization token represents your IAM authentication credentials and can be used to access any Amazon ECR registry that your IAM principal has access to. The authorization token is valid for 12 hours.

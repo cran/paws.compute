@@ -11,19 +11,14 @@ lambda_delete_function(FunctionName, Qualifier = NULL)
 
 \strong{Name formats}
 \itemize{
-\item \strong{Function name} – \verb{my-function} (name-only), \verb{my-function:1} (with
-version).
-\item \strong{Function ARN} –
-\verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
+\item \strong{Function name} – \verb{my-function} (name-only), \verb{my-function:1} (with version).
+\item \strong{Function ARN} – \verb{arn:aws:lambda:us-west-2:123456789012:function:my-function}.
 \item \strong{Partial ARN} – \verb{123456789012:function:my-function}.
 }
 
-You can append a version number or alias to any of the formats. The
-length constraint applies only to the full ARN. If you specify only the
-function name, it is limited to 64 characters in length.}
+You can append a version number or alias to any of the formats. The length constraint applies only to the full ARN. If you specify only the function name, it is limited to 64 characters in length.}
 
-\item{Qualifier}{Specify a version to delete. You can't delete a version that an alias
-references.}
+\item{Qualifier}{Specify a version to delete. You can't delete a version that an alias references.}
 }
 \description{
 Deletes a Lambda function. To delete a specific function version, use the \code{Qualifier} parameter. Otherwise, all versions and aliases are deleted. This doesn't require the user to have explicit permissions for \code{\link[=lambda_delete_alias]{delete_alias}}.

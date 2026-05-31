@@ -6,6 +6,7 @@
 \usage{
 ec2_describe_volumes(
   VolumeIds = NULL,
+  IncludeManagedResources = NULL,
   DryRun = NULL,
   Filters = NULL,
   NextToken = NULL,
@@ -13,64 +14,39 @@ ec2_describe_volumes(
 )
 }
 \arguments{
-\item{VolumeIds}{The volume IDs. If not specified, then all volumes are included in the
-response.}
+\item{VolumeIds}{The volume IDs. If not specified, then all volumes are included in the response.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{IncludeManagedResources}{Indicates whether to include managed resources in the output. If this parameter is set to \code{true}, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{Filters}{The filters.
 \itemize{
-\item \code{attachment.attach-time} - The time stamp when the attachment
-initiated.
-\item \code{attachment.delete-on-termination} - Whether the volume is deleted
-on instance termination.
-\item \code{attachment.device} - The device name specified in the block device
-mapping (for example, \verb{/dev/sda1}).
-\item \code{attachment.instance-id} - The ID of the instance the volume is
-attached to.
-\item \code{attachment.status} - The attachment state (\code{attaching} | \code{attached}
-| \code{detaching}).
-\item \code{availability-zone} - The Availability Zone in which the volume was
-created.
+\item \code{attachment.attach-time} - The time stamp when the attachment initiated.
+\item \code{attachment.delete-on-termination} - Whether the volume is deleted on instance termination.
+\item \code{attachment.device} - The device name specified in the block device mapping (for example, \verb{/dev/sda1}).
+\item \code{attachment.instance-id} - The ID of the instance the volume is attached to.
+\item \code{attachment.status} - The attachment state (\code{attaching} | \code{attached} | \code{detaching}).
+\item \code{availability-zone} - The Availability Zone in which the volume was created.
+\item \code{availability-zone-id} - The ID of the Availability Zone in which the volume was created.
 \item \code{create-time} - The time stamp when the volume was created.
-\item \code{encrypted} - Indicates whether the volume is encrypted (\code{true} |
-\code{false})
-\item \code{fast-restored} - Indicates whether the volume was created from a
-snapshot that is enabled for fast snapshot restore (\code{true} |
-\code{false}).
-\item \code{multi-attach-enabled} - Indicates whether the volume is enabled for
-Multi-Attach (\code{true} | \code{false})
-\item \code{operator.managed} - A Boolean that indicates whether this is a
-managed volume.
-\item \code{operator.principal} - The principal that manages the volume. Only
-valid for managed volumes, where \code{managed} is \code{true}.
+\item \code{encrypted} - Indicates whether the volume is encrypted (\code{true} | \code{false})
+\item \code{fast-restored} - Indicates whether the volume was created from a snapshot that is enabled for fast snapshot restore (\code{true} | \code{false}).
+\item \code{multi-attach-enabled} - Indicates whether the volume is enabled for Multi-Attach (\code{true} | \code{false})
+\item \code{operator.managed} - A Boolean that indicates whether this is a managed volume.
+\item \code{operator.principal} - The principal that manages the volume. Only valid for managed volumes, where \code{managed} is \code{true}.
 \item \code{size} - The size of the volume, in GiB.
 \item \code{snapshot-id} - The snapshot from which the volume was created.
-\item \code{status} - The state of the volume (\code{creating} | \code{available} |
-\verb{in-use} | \code{deleting} | \code{deleted} | \code{error}).
-\item \code{tag}:\<key\> - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as
-the filter value. For example, to find all resources that have a tag
-with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for
-the filter name and \code{TeamA} for the filter value.
-\item \code{tag-key} - The key of a tag assigned to the resource. Use this
-filter to find all resources assigned a tag with a specific key,
-regardless of the tag value.
+\item \code{status} - The state of the volume (\code{creating} | \code{available} | \verb{in-use} | \code{deleting} | \code{deleted} | \code{error}).
+\item \code{tag}:\<key\> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.
+\item \code{tag-key} - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.
 \item \code{volume-id} - The volume ID.
-\item \code{volume-type} - The Amazon EBS volume type (\code{gp2} | \code{gp3} | \code{io1} |
-\code{io2} | \code{st1} | \code{sc1}| \code{standard})
+\item \code{volume-type} - The Amazon EBS volume type (\code{gp2} | \code{gp3} | \code{io1} | \code{io2} | \code{st1} | \code{sc1}| \code{standard})
 }}
 
-\item{NextToken}{The token returned from a previous paginated request. Pagination
-continues from the end of the items returned by the previous request.}
+\item{NextToken}{The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 }
 \description{
 Describes the specified EBS volumes or all of your EBS volumes.

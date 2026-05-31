@@ -12,14 +12,11 @@ proton_get_environment_template_version(
 )
 }
 \arguments{
-\item{majorVersion}{[required] To get environment template major version detail data, include
-\verb{major Version}.}
+\item{majorVersion}{[required] To get environment template major version detail data, include \verb{major Version}.}
 
-\item{minorVersion}{[required] To get environment template minor version detail data, include
-\code{minorVersion}.}
+\item{minorVersion}{[required] To get environment template minor version detail data, include \code{minorVersion}.}
 
-\item{templateName}{[required] The name of the environment template a version of which you want to get
-detailed data for.}
+\item{templateName}{[required] The name of the environment template a version of which you want to get detailed data for.}
 }
 \description{
 Get detailed data for a major or minor version of an environment template.

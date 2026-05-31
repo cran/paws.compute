@@ -10,23 +10,13 @@ ec2_modify_vpc_block_public_access_options(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{InternetGatewayBlockMode}{[required] The mode of VPC BPA.
 \itemize{
-\item \code{off}: VPC BPA is not enabled and traffic is allowed to and from
-internet gateways and egress-only internet gateways in this Region.
-\item \code{block-bidirectional}: Block all traffic to and from internet
-gateways and egress-only internet gateways in this Region (except
-for excluded VPCs and subnets).
-\item \code{block-ingress}: Block all internet traffic to the VPCs in this
-Region (except for VPCs or subnets which are excluded). Only traffic
-to and from NAT gateways and egress-only internet gateways is
-allowed because these gateways only allow outbound connections to be
-established.
+\item \code{off}: VPC BPA is not enabled and traffic is allowed to and from internet gateways and egress-only internet gateways in this Region.
+\item \code{block-bidirectional}: Block all traffic to and from internet gateways and egress-only internet gateways in this Region (except for excluded VPCs and subnets).
+\item \code{block-ingress}: Block all internet traffic to the VPCs in this Region (except for VPCs or subnets which are excluded). Only traffic to and from NAT gateways and egress-only internet gateways is allowed because these gateways only allow outbound connections to be established.
 }}
 }
 \description{

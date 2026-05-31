@@ -9,6 +9,7 @@ ec2_modify_network_interface_attribute(
   EnablePrimaryIpv6 = NULL,
   ConnectionTrackingSpecification = NULL,
   AssociatePublicIpAddress = NULL,
+  AssociatedSubnetIds = NULL,
   DryRun = NULL,
   NetworkInterfaceId,
   Description = NULL,
@@ -18,55 +19,27 @@ ec2_modify_network_interface_attribute(
 )
 }
 \arguments{
-\item{EnaSrdSpecification}{Updates the ENA Express configuration for the network interface that’s
-attached to the instance.}
+\item{EnaSrdSpecification}{Updates the ENA Express configuration for the network interface that’s attached to the instance.}
 
-\item{EnablePrimaryIpv6}{If you’re modifying a network interface in a dual-stack or IPv6-only
-subnet, you have the option to assign a primary IPv6 IP address. A
-primary IPv6 address is an IPv6 GUA address associated with an ENI that
-you have enabled to use a primary IPv6 address. Use this option if the
-instance that this ENI will be attached to relies on its IPv6 address
-not changing. Amazon Web Services will automatically assign an IPv6
-address associated with the ENI attached to your instance to be the
-primary IPv6 address. Once you enable an IPv6 GUA address to be a
-primary IPv6, you cannot disable it. When you enable an IPv6 GUA address
-to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6
-address until the instance is terminated or the network interface is
-detached. If you have multiple IPv6 addresses associated with an ENI
-attached to your instance and you enable a primary IPv6 address, the
-first IPv6 GUA address associated with the ENI becomes the primary IPv6
-address.}
+\item{EnablePrimaryIpv6}{If you’re modifying a network interface in a dual-stack or IPv6-only subnet, you have the option to assign a primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you have enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached to relies on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address associated with the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6 GUA address to be a primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is detached. If you have multiple IPv6 addresses associated with an ENI attached to your instance and you enable a primary IPv6 address, the first IPv6 GUA address associated with the ENI becomes the primary IPv6 address.}
 
 \item{ConnectionTrackingSpecification}{A connection tracking specification.}
 
-\item{AssociatePublicIpAddress}{Indicates whether to assign a public IPv4 address to a network
-interface. This option can be enabled for any network interface but will
-only apply to the primary network interface (eth0).}
+\item{AssociatePublicIpAddress}{Indicates whether to assign a public IPv4 address to a network interface. This option can be enabled for any network interface but will only apply to the primary network interface (eth0).}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{AssociatedSubnetIds}{A list of subnet IDs to associate with the network interface.}
+
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{NetworkInterfaceId}{[required] The ID of the network interface.}
 
 \item{Description}{A description for the network interface.}
 
-\item{SourceDestCheck}{Enable or disable source/destination checks, which ensure that the
-instance is either the source or the destination of any traffic that it
-receives. If the value is \code{true}, source/destination checks are enabled;
-otherwise, they are disabled. The default value is \code{true}. You must
-disable source/destination checks if the instance runs services such as
-network address translation, routing, or firewalls.}
+\item{SourceDestCheck}{Enable or disable source/destination checks, which ensure that the instance is either the source or the destination of any traffic that it receives. If the value is \code{true}, source/destination checks are enabled; otherwise, they are disabled. The default value is \code{true}. You must disable source/destination checks if the instance runs services such as network address translation, routing, or firewalls.}
 
-\item{Groups}{Changes the security groups for the network interface. The new set of
-groups you specify replaces the current set. You must specify at least
-one group, even if it's just the default security group in the VPC. You
-must specify the ID of the security group, not the name.}
+\item{Groups}{Changes the security groups for the network interface. The new set of groups you specify replaces the current set. You must specify at least one group, even if it's just the default security group in the VPC. You must specify the ID of the security group, not the name.}
 
-\item{Attachment}{Information about the interface attachment. If modifying the
-\verb{delete on termination} attribute, you must specify the ID of the
-interface attachment.}
+\item{Attachment}{Information about the interface attachment. If modifying the \verb{delete on termination} attribute, you must specify the ID of the interface attachment.}
 }
 \description{
 Modifies the specified network interface attribute. You can specify only one attribute at a time. You can use this action to attach and detach security groups from an existing EC2 instance.

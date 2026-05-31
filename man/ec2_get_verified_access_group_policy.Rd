@@ -10,10 +10,7 @@ ec2_get_verified_access_group_policy(VerifiedAccessGroupId, DryRun = NULL)
 \arguments{
 \item{VerifiedAccessGroupId}{[required] The ID of the Verified Access group.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Shows the contents of the Verified Access policy associated with the group.

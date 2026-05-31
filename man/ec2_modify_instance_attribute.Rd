@@ -6,6 +6,7 @@
 \usage{
 ec2_modify_instance_attribute(
   SourceDestCheck = NULL,
+  EnclaveOptions = NULL,
   DisableApiStop = NULL,
   DryRun = NULL,
   InstanceId,
@@ -25,98 +26,53 @@ ec2_modify_instance_attribute(
 )
 }
 \arguments{
-\item{SourceDestCheck}{Enable or disable source/destination checks, which ensure that the
-instance is either the source or the destination of any traffic that it
-receives. If the value is \code{true}, source/destination checks are enabled;
-otherwise, they are disabled. The default value is \code{true}. You must
-disable source/destination checks if the instance runs services such as
-network address translation, routing, or firewalls.}
+\item{SourceDestCheck}{Enable or disable source/destination checks, which ensure that the instance is either the source or the destination of any traffic that it receives. If the value is \code{true}, source/destination checks are enabled; otherwise, they are disabled. The default value is \code{true}. You must disable source/destination checks if the instance runs services such as network address translation, routing, or firewalls.}
 
-\item{DisableApiStop}{Indicates whether an instance is enabled for stop protection. For more
-information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html}{Enable stop protection for your instance}.}
+\item{EnclaveOptions}{Enables or disables the instance for Amazon Web Services Nitro Enclaves. For more information, see the \href{https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html}{Amazon Web Services Nitro Enclaves User Guide}.}
 
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DisableApiStop}{Indicates whether an instance is enabled for stop protection. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html}{Enable stop protection for your instance}.}
+
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{InstanceId}{[required] The ID of the instance.}
 
 \item{Attribute}{The name of the attribute to modify.
 
-You can modify the following attributes only: \code{disableApiTermination} |
-\code{instanceType} | \code{kernel} | \code{ramdisk} |
-\code{instanceInitiatedShutdownBehavior} | \code{blockDeviceMapping} | \code{userData}
-| \code{sourceDestCheck} | \code{groupSet} | \code{ebsOptimized} | \code{sriovNetSupport} |
-\code{enaSupport} | \code{nvmeSupport} | \code{disableApiStop} | \code{enclaveOptions}}
+When changing the instance type: If the original instance type is configured for configurable bandwidth, and the desired instance type doesn't support configurable bandwidth, first set the existing bandwidth configuration to \code{default} using the \code{\link[=ec2_modify_instance_network_performance_options]{modify_instance_network_performance_options}} operation.
 
-\item{Value}{A new value for the attribute. Use only with the \code{kernel}, \code{ramdisk},
-\code{userData}, \code{disableApiTermination}, or
-\code{instanceInitiatedShutdownBehavior} attribute.}
+You can modify the following attributes only: \code{disableApiTermination} | \code{instanceType} | \code{kernel} | \code{ramdisk} | \code{instanceInitiatedShutdownBehavior} | \code{blockDeviceMapping} | \code{userData} | \code{sourceDestCheck} | \code{groupSet} | \code{ebsOptimized} | \code{sriovNetSupport} | \code{enaSupport} | \code{nvmeSupport} | \code{disableApiStop} | \code{enclaveOptions}}
 
-\item{BlockDeviceMappings}{Modifies the \code{DeleteOnTermination} attribute for volumes that are
-currently attached. The volume must be owned by the caller. If no value
-is specified for \code{DeleteOnTermination}, the default is \code{true} and the
-volume is deleted when the instance is terminated. You can't modify the
-\code{DeleteOnTermination} attribute for volumes that are attached to Fargate
-tasks.
+\item{Value}{A new value for the attribute. Use only with the \code{kernel}, \code{ramdisk}, \code{userData}, \code{disableApiTermination}, or \code{instanceInitiatedShutdownBehavior} attribute.}
 
-To add instance store volumes to an Amazon EBS-backed instance, you must
-add them when you launch the instance. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM}{Update the block device mapping when launching an instance}
-in the \emph{Amazon EC2 User Guide}.}
+\item{BlockDeviceMappings}{Modifies the \code{DeleteOnTermination} attribute for volumes that are currently attached. The volume must be owned by the caller. If no value is specified for \code{DeleteOnTermination}, the default is \code{true} and the volume is deleted when the instance is terminated. You can't modify the \code{DeleteOnTermination} attribute for volumes that are attached to Amazon Web Services-managed resources.
 
-\item{DisableApiTermination}{Enable or disable termination protection for the instance. If the value
-is \code{true}, you can't terminate the instance using the Amazon EC2
-console, command line interface, or API. You can't enable termination
-protection for Spot Instances.}
+To add instance store volumes to an Amazon EBS-backed instance, you must add them when you launch the instance. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/block-device-mapping-concepts.html#Using_OverridingAMIBDM}{Update the block device mapping when launching an instance} in the \emph{Amazon EC2 User Guide}.}
 
-\item{InstanceType}{Changes the instance type to the specified value. For more information,
-see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html}{Instance types}
-in the \emph{Amazon EC2 User Guide}. If the instance type is not valid, the
-error returned is \code{InvalidInstanceAttributeValue}.}
+\item{DisableApiTermination}{Enable or disable termination protection for the instance. If the value is \code{true}, you can't terminate the instance using the Amazon EC2 console, command line interface, or API. You can't enable termination protection for Spot Instances.}
 
-\item{Kernel}{Changes the instance's kernel to the specified value. We recommend that
-you use PV-GRUB instead of kernels and RAM disks. For more information,
-see
-\href{https://docs.aws.amazon.com/linux/al2/ug/UserProvidedKernels.html}{PV-GRUB}.}
+\item{InstanceType}{Changes the instance type to the specified value. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html}{Instance types} in the \emph{Amazon EC2 User Guide}. If the instance type is not valid, the error returned is \code{InvalidInstanceAttributeValue}.}
 
-\item{Ramdisk}{Changes the instance's RAM disk to the specified value. We recommend
-that you use PV-GRUB instead of kernels and RAM disks. For more
-information, see
-\href{https://docs.aws.amazon.com/linux/al2/ug/UserProvidedKernels.html}{PV-GRUB}.}
+\item{Kernel}{Changes the instance's kernel to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see \href{https://docs.aws.amazon.com/linux/al2/ug/UserProvidedKernels.html}{PV-GRUB}.}
 
-\item{UserData}{Changes the instance's user data to the specified value. User data must
-be base64-encoded. Depending on the tool or SDK that you're using, the
-base64-encoding might be performed for you. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/}{Work with instance user data}.}
+\item{Ramdisk}{Changes the instance's RAM disk to the specified value. We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see \href{https://docs.aws.amazon.com/linux/al2/ug/UserProvidedKernels.html}{PV-GRUB}.}
 
-\item{InstanceInitiatedShutdownBehavior}{Specifies whether an instance stops or terminates when you initiate
-shutdown from the instance (using the operating system command for
-system shutdown).}
+\item{UserData}{Changes the instance's user data to the specified value. User data must be base64-encoded. Depending on the tool or SDK that you're using, the base64-encoding might be performed for you. For more information, see Work with instance user data.}
 
-\item{Groups}{Replaces the security groups of the instance with the specified security
-groups. You must specify the ID of at least one security group, even if
-it's just the default security group for the VPC.}
+\item{InstanceInitiatedShutdownBehavior}{Specifies whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown).}
 
-\item{EbsOptimized}{Specifies whether the instance is optimized for Amazon EBS I/O. This
-optimization provides dedicated throughput to Amazon EBS and an
-optimized configuration stack to provide optimal EBS I/O performance.
-This optimization isn't available with all instance types. Additional
-usage charges apply when using an EBS Optimized instance.}
+\item{Groups}{Replaces the security groups of the instance with the specified security groups. You must specify the ID of at least one security group, even if it's just the default security group for the VPC.}
 
-\item{SriovNetSupport}{Set to \code{simple} to enable enhanced networking with the Intel 82599
-Virtual Function interface for the instance.
+\item{EbsOptimized}{Specifies whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS Optimized instance.}
 
-There is no way to disable enhanced networking with the Intel 82599
-Virtual Function interface at this time.
+\item{SriovNetSupport}{Set to \code{simple} to enable enhanced networking with the Intel 82599 Virtual Function interface for the instance.
 
-This option is supported only for HVM instances. Specifying this option
-with a PV instance can make it unreachable.}
+There is no way to disable enhanced networking with the Intel 82599 Virtual Function interface at this time.
+
+This option is supported only for HVM instances. Specifying this option with a PV instance can make it unreachable.}
 
 \item{EnaSupport}{Set to \code{true} to enable enhanced networking with ENA for the instance.
 
-This option is supported only for HVM instances. Specifying this option
-with a PV instance can make it unreachable.}
+This option is supported only for HVM instances. Specifying this option with a PV instance can make it unreachable.}
 }
 \description{
 Modifies the specified attribute of the specified instance. You can specify only one attribute at a time.

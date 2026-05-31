@@ -16,14 +16,9 @@ ec2_terminate_client_vpn_connections(
 
 \item{ConnectionId}{The ID of the client connection to be terminated.}
 
-\item{Username}{The name of the user who initiated the connection. Use this option to
-terminate all active connections for the specified user. This option can
-only be used if the user has established up to five connections.}
+\item{Username}{The name of the user who initiated the connection. Use this option to terminate all active connections for the specified user. This option can only be used if the user has established up to five connections.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Terminates active Client VPN endpoint connections. This action can be used to terminate a specific client connection, or up to five connections established by a specific user.

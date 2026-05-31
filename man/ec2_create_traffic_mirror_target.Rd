@@ -17,20 +17,15 @@ ec2_create_traffic_mirror_target(
 \arguments{
 \item{NetworkInterfaceId}{The network interface ID that is associated with the target.}
 
-\item{NetworkLoadBalancerArn}{The Amazon Resource Name (ARN) of the Network Load Balancer that is
-associated with the target.}
+\item{NetworkLoadBalancerArn}{The Amazon Resource Name (ARN) of the Network Load Balancer that is associated with the target.}
 
 \item{Description}{The description of the Traffic Mirror target.}
 
 \item{TagSpecifications}{The tags to assign to the Traffic Mirror target.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{How to ensure idempotency}.}
 
 \item{GatewayLoadBalancerEndpointId}{The ID of the Gateway Load Balancer endpoint.}
 }

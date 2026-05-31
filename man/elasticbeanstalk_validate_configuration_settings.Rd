@@ -13,8 +13,7 @@ elasticbeanstalk_validate_configuration_settings(
 )
 }
 \arguments{
-\item{ApplicationName}{[required] The name of the application that the configuration template or
-environment belongs to.}
+\item{ApplicationName}{[required] The name of the application that the configuration template or environment belongs to.}
 
 \item{TemplateName}{The name of the configuration template to validate the settings against.
 
@@ -22,8 +21,7 @@ Condition: You cannot specify both this and an environment name.}
 
 \item{EnvironmentName}{The name of the environment to validate the settings against.
 
-Condition: You cannot specify both this and a configuration template
-name.}
+Condition: You cannot specify both this and a configuration template name.}
 
 \item{OptionSettings}{[required] A list of the options and desired values to evaluate.}
 }

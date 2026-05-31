@@ -9,16 +9,9 @@ ec2_accept_address_transfer(Address, TagSpecifications = NULL, DryRun = NULL)
 \arguments{
 \item{Address}{[required] The Elastic IP address you are accepting for transfer.}
 
-\item{TagSpecifications}{\code{tag}:\<key\> - The key/value combination of a tag assigned to the
-resource. Use the tag key in the filter name and the tag value as the
-filter value. For example, to find all resources that have a tag with
-the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the
-filter name and \code{TeamA} for the filter value.}
+\item{TagSpecifications}{\code{tag}:\<key\> - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key \code{Owner} and the value \code{TeamA}, specify \code{tag:Owner} for the filter name and \code{TeamA} for the filter value.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Accepts an Elastic IP address transfer. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/vpc-eips.html#using-instance-addressing-eips-transfer-accept}{Accept a transferred Elastic IP address} in the \emph{Amazon VPC User Guide}.

@@ -19,8 +19,7 @@ ecs_submit_container_state_change(
 \arguments{
 \item{cluster}{The short name or full ARN of the cluster that hosts the container.}
 
-\item{task}{The task ID or full Amazon Resource Name (ARN) of the task that hosts
-the container.}
+\item{task}{The task ID or full Amazon Resource Name (ARN) of the task that hosts the container.}
 
 \item{containerName}{The name of the container.}
 

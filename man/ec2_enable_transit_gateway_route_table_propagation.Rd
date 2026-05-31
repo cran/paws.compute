@@ -17,10 +17,7 @@ ec2_enable_transit_gateway_route_table_propagation(
 
 \item{TransitGatewayAttachmentId}{The ID of the attachment.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{TransitGatewayRouteTableAnnouncementId}{The ID of the transit gateway route table announcement.}
 }

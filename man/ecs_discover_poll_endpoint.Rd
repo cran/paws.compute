@@ -8,12 +8,9 @@ for use outside of the agent}
 ecs_discover_poll_endpoint(containerInstance = NULL, cluster = NULL)
 }
 \arguments{
-\item{containerInstance}{The container instance ID or full ARN of the container instance. For
-more information about the ARN format, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids}{Amazon Resource Name (ARN)}
-in the \emph{Amazon ECS Developer Guide}.}
+\item{containerInstance}{The container instance ID or full ARN of the container instance. For more information about the ARN format, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-account-settings.html#ecs-resource-ids}{Amazon Resource Name (ARN)} in the \emph{Amazon ECS Developer Guide}.}
 
-\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that
-the container instance belongs to.}
+\item{cluster}{The short name or full Amazon Resource Name (ARN) of the cluster that the container instance belongs to.}
 }
 \description{
 This action is only used by the Amazon ECS agent, and it is not intended for use outside of the agent.

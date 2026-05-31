@@ -11,20 +11,15 @@ ec2_cancel_spot_fleet_requests(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{SpotFleetRequestIds}{[required] The IDs of the Spot Fleet requests.
 
 Constraint: You can specify up to 100 IDs in a single request.}
 
-\item{TerminateInstances}{[required] Indicates whether to terminate the associated instances when the Spot
-Fleet request is canceled. The default is to terminate the instances.
+\item{TerminateInstances}{[required] Indicates whether to terminate the associated instances when the Spot Fleet request is canceled. The default is to terminate the instances.
 
-To let the instances continue to run after the Spot Fleet request is
-canceled, specify \code{no-terminate-instances}.}
+To let the instances continue to run after the Spot Fleet request is canceled, specify \code{no-terminate-instances}.}
 }
 \description{
 Cancels the specified Spot Fleet requests.

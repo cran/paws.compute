@@ -7,28 +7,11 @@
 batch_list_scheduling_policies(maxResults = NULL, nextToken = NULL)
 }
 \arguments{
-\item{maxResults}{The maximum number of results that's returned by
-\code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} in
-paginated output. When this parameter is used,
-\code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} only
-returns \code{maxResults} results in a single page and a \code{nextToken} response
-element. You can see the remaining results of the initial request by
-sending another
-\code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} request
-with the returned \code{nextToken} value. This value can be between 1 and
-100. If this parameter isn't used,
-\code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} returns up
-to 100 results and a \code{nextToken} value if applicable.}
+\item{maxResults}{The maximum number of results that's returned by \code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} in paginated output. When this parameter is used, \code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} only returns \code{maxResults} results in a single page and a \code{nextToken} response element. You can see the remaining results of the initial request by sending another \code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} request with the returned \code{nextToken} value. This value can be between 1 and 100. If this parameter isn't used, \code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} returns up to 100 results and a \code{nextToken} value if applicable.}
 
-\item{nextToken}{The \code{nextToken} value that's returned from a previous paginated
-\code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} request
-where \code{maxResults} was used and the results exceeded the value of that
-parameter. Pagination continues from the end of the previous results
-that returned the \code{nextToken} value. This value is \code{null} when there are
-no more results to return.
+\item{nextToken}{The \code{nextToken} value that's returned from a previous paginated \code{\link[=batch_list_scheduling_policies]{list_scheduling_policies}} request where \code{maxResults} was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the \code{nextToken} value. This value is \code{null} when there are no more results to return.
 
-Treat this token as an opaque identifier that's only used to retrieve
-the next items in a list and not for other programmatic purposes.}
+Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.}
 }
 \description{
 Returns a list of Batch scheduling policies.

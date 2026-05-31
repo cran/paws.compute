@@ -14,21 +14,15 @@ ecr_put_image(
 )
 }
 \arguments{
-\item{registryId}{The Amazon Web Services account ID associated with the registry that
-contains the repository in which to put the image. If you do not specify
-a registry, the default registry is assumed.}
+\item{registryId}{The Amazon Web Services account ID associated with the registry that contains the repository in which to put the image. If you do not specify a registry, the default registry is assumed.}
 
 \item{repositoryName}{[required] The name of the repository in which to put the image.}
 
 \item{imageManifest}{[required] The image manifest corresponding to the image to be uploaded.}
 
-\item{imageManifestMediaType}{The media type of the image manifest. If you push an image manifest that
-does not contain the \code{mediaType} field, you must specify the
-\code{imageManifestMediaType} in the request.}
+\item{imageManifestMediaType}{The media type of the image manifest. If you push an image manifest that does not contain the \code{mediaType} field, you must specify the \code{imageManifestMediaType} in the request.}
 
-\item{imageTag}{The tag to associate with the image. This parameter is required for
-images that use the Docker Image Manifest V2 Schema 2 or Open Container
-Initiative (OCI) formats.}
+\item{imageTag}{The tag to associate with the image. This parameter is optional.}
 
 \item{imageDigest}{The image digest of the image manifest corresponding to the image.}
 }

@@ -23,17 +23,13 @@ proton_create_service_instance(
 
 \item{spec}{[required] The spec for the service instance you want to create.}
 
-\item{tags}{An optional list of metadata items that you can associate with the
-Proton service instance. A tag is a key-value pair.
+\item{tags}{An optional list of metadata items that you can associate with the Proton service instance. A tag is a key-value pair.
 
-For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging}
-in the \emph{Proton User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging} in the \emph{Proton User Guide}.}
 
-\item{templateMajorVersion}{To create a new major and minor version of the service template,
-\emph{exclude} \verb{major Version}.}
+\item{templateMajorVersion}{To create a new major and minor version of the service template, \emph{exclude} \verb{major Version}.}
 
-\item{templateMinorVersion}{To create a new minor version of the service template, include a
-\verb{major Version}.}
+\item{templateMinorVersion}{To create a new minor version of the service template, include a \verb{major Version}.}
 }
 \description{
 Create a service instance.

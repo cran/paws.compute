@@ -16,60 +16,42 @@ imagebuilder_create_component(
   uri = NULL,
   kmsKeyId = NULL,
   tags = NULL,
-  clientToken
+  clientToken,
+  dryRun = NULL
 )
 }
 \arguments{
 \item{name}{[required] The name of the component.}
 
-\item{semanticVersion}{[required] The semantic version of the component. This version follows the semantic
-version syntax.
+\item{semanticVersion}{[required] The semantic version of the component. This version follows the semantic version syntax.
 
-The semantic version has four nodes:
-\<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the
-first three, and can filter on all of them.
+The semantic version has four nodes: \<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the first three, and can filter on all of them.
 
-\strong{Assignment:} For the first three nodes you can assign any positive
-integer value, including zero, with an upper limit of 2^30-1, or
-1073741823 for each node. Image Builder automatically assigns the build
-number to the fourth node.
+\strong{Assignment:} For the first three nodes you can assign any positive integer value, including zero, with an upper limit of 2^30-1, or 1073741823 for each node. Image Builder automatically assigns the build number to the fourth node.
 
-\strong{Patterns:} You can use any numeric pattern that adheres to the
-assignment requirements for the nodes that you can assign. For example,
-you might choose a software version pattern, such as 1.0.0, or a date,
-such as 2021.01.01.}
+\strong{Patterns:} You can use any numeric pattern that adheres to the assignment requirements for the nodes that you can assign. For example, you might choose a software version pattern, such as 1.0.0, or a date, such as 2021.01.01.}
 
 \item{description}{Describes the contents of the component.}
 
-\item{changeDescription}{The change description of the component. Describes what change has been
-made in this version, or what makes this version different from other
-versions of the component.}
+\item{changeDescription}{The change description of the component. Describes what change has been made in this version, or what makes this version different from other versions of the component.}
 
 \item{platform}{[required] The operating system platform of the component.}
 
-\item{supportedOsVersions}{The operating system (OS) version supported by the component. If the OS
-information is available, a prefix match is performed against the base
-image OS version during image recipe creation.}
+\item{supportedOsVersions}{The operating system (OS) version supported by the component. If the OS information is available, a prefix match is performed against the base image OS version during image recipe creation.}
 
-\item{data}{Component \code{data} contains inline YAML document content for the
-component. Alternatively, you can specify the \code{uri} of a YAML document
-file stored in Amazon S3. However, you cannot specify both properties.}
+\item{data}{Component \code{data} contains inline YAML document content for the component. Alternatively, you can specify the \code{uri} of a YAML document file stored in Amazon S3. However, you cannot specify both properties.}
 
-\item{uri}{The \code{uri} of a YAML component document file. This must be an S3 URL
-(\verb{s3://bucket/key}), and the requester must have permission to access
-the S3 bucket it points to. If you use Amazon S3, you can specify
-component content up to your service quota.
+\item{uri}{The \code{uri} of a YAML component document file. This must be an S3 URL (\verb{s3://bucket/key}), and the requester must have permission to access the S3 bucket it points to. If you use Amazon S3, you can specify component content up to your service quota.
 
-Alternatively, you can specify the YAML document inline, using the
-component \code{data} property. You cannot specify both properties.}
+Alternatively, you can specify the YAML document inline, using the component \code{data} property. You cannot specify both properties.}
 
-\item{kmsKeyId}{The ID of the KMS key that is used to encrypt this component.}
+\item{kmsKeyId}{The Amazon Resource Name (ARN) that uniquely identifies the KMS key used to encrypt this component. This can be either the Key ARN or the Alias ARN. For more information, see \href{https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN}{Key identifiers (KeyId)} in the \emph{Key Management Service Developer Guide}.}
 
 \item{tags}{The tags that apply to the component.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of
-the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}
-in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
+
+\item{dryRun}{Validates the required permissions for the operation and the request parameters, without actually making the request, and provides an error response. Upon a successful request, the error response is \code{DryRunOperationException}.}
 }
 \description{
 Creates a new component that can be used to build, validate, test, and assess your image. The component is based on a YAML document that you specify using exactly one of the following methods:

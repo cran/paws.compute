@@ -14,25 +14,17 @@ lightsail_create_disk_snapshot(
 \arguments{
 \item{diskName}{The unique name of the source disk (\code{Disk-Virginia-1}).
 
-This parameter cannot be defined together with the \verb{instance name}
-parameter. The \verb{disk name} and \verb{instance name} parameters are mutually
-exclusive.}
+This parameter cannot be defined together with the \verb{instance name} parameter. The \verb{disk name} and \verb{instance name} parameters are mutually exclusive.}
 
-\item{diskSnapshotName}{[required] The name of the destination disk snapshot (\code{my-disk-snapshot}) based on
-the source disk.}
+\item{diskSnapshotName}{[required] The name of the destination disk snapshot (\code{my-disk-snapshot}) based on the source disk.}
 
-\item{instanceName}{The unique name of the source instance
-(\verb{Amazon_Linux-512MB-Virginia-1}). When this is defined, a snapshot of
-the instance's system volume is created.
+\item{instanceName}{The unique name of the source instance (\verb{Amazon_Linux-512MB-Virginia-1}). When this is defined, a snapshot of the instance's system volume is created.
 
-This parameter cannot be defined together with the \verb{disk name}
-parameter. The \verb{instance name} and \verb{disk name} parameters are mutually
-exclusive.}
+This parameter cannot be defined together with the \verb{disk name} parameter. The \verb{instance name} and \verb{disk name} parameters are mutually exclusive.}
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 }
 \description{
 Creates a snapshot of a block storage disk. You can use snapshots for backups, to make copies of disks, and to save data before shutting down a Lightsail instance.

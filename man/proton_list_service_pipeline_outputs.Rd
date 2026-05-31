@@ -13,8 +13,7 @@ proton_list_service_pipeline_outputs(
 \arguments{
 \item{deploymentId}{The ID of the deployment you want the outputs for.}
 
-\item{nextToken}{A token that indicates the location of the next output in the array of
-outputs, after the list of outputs that was previously requested.}
+\item{nextToken}{A token that indicates the location of the next output in the array of outputs, after the list of outputs that was previously requested.}
 
 \item{serviceName}{[required] The name of the service whose pipeline's outputs you want.}
 }

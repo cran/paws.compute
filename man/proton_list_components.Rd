@@ -13,21 +13,15 @@ proton_list_components(
 )
 }
 \arguments{
-\item{environmentName}{The name of an environment for result list filtering. Proton returns
-components associated with the environment or attached to service
-instances running in it.}
+\item{environmentName}{The name of an environment for result list filtering. Proton returns components associated with the environment or attached to service instances running in it.}
 
 \item{maxResults}{The maximum number of components to list.}
 
-\item{nextToken}{A token that indicates the location of the next component in the array
-of components, after the list of components that was previously
-requested.}
+\item{nextToken}{A token that indicates the location of the next component in the array of components, after the list of components that was previously requested.}
 
-\item{serviceInstanceName}{The name of a service instance for result list filtering. Proton returns
-the component attached to the service instance, if any.}
+\item{serviceInstanceName}{The name of a service instance for result list filtering. Proton returns the component attached to the service instance, if any.}
 
-\item{serviceName}{The name of a service for result list filtering. Proton returns
-components attached to service instances of the service.}
+\item{serviceName}{The name of a service for result list filtering. Proton returns components attached to service instances of the service.}
 }
 \description{
 List components with summary data. You can filter the result list by environment, service, or a single service instance.

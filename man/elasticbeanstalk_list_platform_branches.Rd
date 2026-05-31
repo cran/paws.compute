@@ -11,18 +11,13 @@ elasticbeanstalk_list_platform_branches(
 )
 }
 \arguments{
-\item{Filters}{Criteria for restricting the resulting list of platform branches. The
-filter is evaluated as a logical conjunction (AND) of the separate
-\code{SearchFilter} terms.
+\item{Filters}{Criteria for restricting the resulting list of platform branches. The filter is evaluated as a logical conjunction (AND) of the separate \code{SearchFilter} terms.
 
-The following list shows valid attribute values for each of the
-\code{SearchFilter} terms. Most operators take a single value. The \verb{in} and
-\code{not_in} operators can take multiple values.
+The following list shows valid attribute values for each of the \code{SearchFilter} terms. Most operators take a single value. The \verb{in} and \code{not_in} operators can take multiple values.
 \itemize{
 \item \code{Attribute = BranchName}:
 \itemize{
-\item \code{Operator}: \code{=} | \code{!=} | \code{begins_with} | \code{ends_with} |
-\code{contains} | \verb{in} | \code{not_in}
+\item \code{Operator}: \code{=} | \code{!=} | \code{begins_with} | \code{ends_with} | \code{contains} | \verb{in} | \code{not_in}
 }
 \item \code{Attribute = LifecycleState}:
 \itemize{
@@ -31,8 +26,7 @@ The following list shows valid attribute values for each of the
 }
 \item \code{Attribute = PlatformName}:
 \itemize{
-\item \code{Operator}: \code{=} | \code{!=} | \code{begins_with} | \code{ends_with} |
-\code{contains} | \verb{in} | \code{not_in}
+\item \code{Operator}: \code{=} | \code{!=} | \code{begins_with} | \code{ends_with} | \code{contains} | \verb{in} | \code{not_in}
 }
 \item \code{Attribute = TierType}:
 \itemize{
@@ -43,14 +37,11 @@ The following list shows valid attribute values for each of the
 
 Array size: limited to 10 \code{SearchFilter} objects.
 
-Within each \code{SearchFilter} item, the \code{Values} array is limited to 10
-items.}
+Within each \code{SearchFilter} item, the \code{Values} array is limited to 10 items.}
 
 \item{MaxRecords}{The maximum number of platform branch values returned in one call.}
 
-\item{NextToken}{For a paginated request. Specify a token from a previous response page
-to retrieve the next response page. All other parameter values must be
-identical to the ones specified in the initial request.
+\item{NextToken}{For a paginated request. Specify a token from a previous response page to retrieve the next response page. All other parameter values must be identical to the ones specified in the initial request.
 
 If no \code{NextToken} is specified, the first page is retrieved.}
 }

@@ -9,18 +9,11 @@ ec2_enable_image_deprecation(ImageId, DeprecateAt, DryRun = NULL)
 \arguments{
 \item{ImageId}{[required] The ID of the AMI.}
 
-\item{DeprecateAt}{[required] The date and time to deprecate the AMI, in UTC, in the following format:
-\emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z. If you specify a value for seconds,
-Amazon EC2 rounds the seconds to the nearest minute.
+\item{DeprecateAt}{[required] The date and time to deprecate the AMI, in UTC, in the following format: \emph{YYYY}-\emph{MM}-\emph{DD}T\emph{HH}:\emph{MM}:\emph{SS}Z. If you specify a value for seconds, Amazon EC2 rounds the seconds to the nearest minute.
 
-You can’t specify a date in the past. The upper limit for \code{DeprecateAt}
-is 10 years from now, except for public AMIs, where the upper limit is 2
-years from the creation date.}
+You can’t specify a date in the past. The upper limit for \code{DeprecateAt} is 10 years from now, except for public AMIs, where the upper limit is 2 years from the creation date.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Enables deprecation of the specified AMI at the specified date and time.

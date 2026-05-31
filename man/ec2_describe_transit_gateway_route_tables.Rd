@@ -17,29 +17,18 @@ ec2_describe_transit_gateway_route_tables(
 
 \item{Filters}{One or more filters. The possible values are:
 \itemize{
-\item \code{default-association-route-table} - Indicates whether this is the
-default association route table for the transit gateway (\code{true} |
-\code{false}).
-\item \code{default-propagation-route-table} - Indicates whether this is the
-default propagation route table for the transit gateway (\code{true} |
-\code{false}).
-\item \code{state} - The state of the route table (\code{available} | \code{deleting} |
-\code{deleted} | \code{pending}).
+\item \code{default-association-route-table} - Indicates whether this is the default association route table for the transit gateway (\code{true} | \code{false}).
+\item \code{default-propagation-route-table} - Indicates whether this is the default propagation route table for the transit gateway (\code{true} | \code{false}).
+\item \code{state} - The state of the route table (\code{available} | \code{deleting} | \code{deleted} | \code{pending}).
 \item \code{transit-gateway-id} - The ID of the transit gateway.
-\item \code{transit-gateway-route-table-id} - The ID of the transit gateway
-route table.
+\item \code{transit-gateway-route-table-id} - The ID of the transit gateway route table.
 }}
 
-\item{MaxResults}{The maximum number of results to return with a single call. To retrieve
-the remaining results, make another call with the returned \code{nextToken}
-value.}
+\item{MaxResults}{The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned \code{nextToken} value.}
 
 \item{NextToken}{The token for the next page of results.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes one or more transit gateway route tables. By default, all transit gateway route tables are described. Alternatively, you can filter the results.

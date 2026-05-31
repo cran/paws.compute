@@ -9,21 +9,27 @@ ec2_associate_nat_gateway_address(
   NatGatewayId,
   AllocationIds,
   PrivateIpAddresses = NULL,
-  DryRun = NULL
+  DryRun = NULL,
+  AvailabilityZone = NULL,
+  AvailabilityZoneId = NULL
 )
 }
 \arguments{
 \item{NatGatewayId}{[required] The ID of the NAT gateway.}
 
-\item{AllocationIds}{[required] The allocation IDs of EIPs that you want to associate with your NAT
-gateway.}
+\item{AllocationIds}{[required] The allocation IDs of EIPs that you want to associate with your NAT gateway.}
 
 \item{PrivateIpAddresses}{The private IPv4 addresses that you want to assign to the NAT gateway.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+
+\item{AvailabilityZone}{For regional NAT gateways only: The Availability Zone where you want to associate an Elastic IP address (EIP). The regional NAT gateway uses a separate EIP in each AZ to handle outbound NAT traffic from that AZ.
+
+A regional NAT gateway is a single NAT Gateway that works across multiple availability zones (AZs) in your VPC, providing redundancy, scalability and availability across all the AZs in a Region.}
+
+\item{AvailabilityZoneId}{For regional NAT gateways only: The ID of the Availability Zone where you want to associate an Elastic IP address (EIP). The regional NAT gateway uses a separate EIP in each AZ to handle outbound NAT traffic from that AZ. Use this instead of AvailabilityZone for consistent identification of AZs across Amazon Web Services Regions.
+
+A regional NAT gateway is a single NAT Gateway that works across multiple availability zones (AZs) in your VPC, providing redundancy, scalability and availability across all the AZs in a Region.}
 }
 \description{
 Associates Elastic IP addresses (EIPs) and private IPv4 addresses with a public NAT gateway. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html}{Work with NAT gateways} in the \emph{Amazon VPC User Guide}.

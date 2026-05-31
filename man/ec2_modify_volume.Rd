@@ -16,19 +16,16 @@ ec2_modify_volume(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{VolumeId}{[required] The ID of the volume.}
 
-\item{Size}{The target size of the volume, in GiB. The target volume size must be
-greater than or equal to the existing size of the volume.
+\item{Size}{The target size of the volume, in GiB. The target volume size must be greater than or equal to the existing size of the volume.
 
 The following are the supported volumes sizes for each volume type:
 \itemize{
-\item \code{gp2} and \code{gp3}: 1 - 16,384 GiB
+\item \code{gp2}: 1 - 16,384 GiB
+\item \code{gp3}: 1 - 65,536 GiB
 \item \code{io1}: 4 - 16,384 GiB
 \item \code{io2}: 4 - 65,536 GiB
 \item \code{st1} and \code{sc1}: 125 - 16,384 GiB
@@ -37,42 +34,30 @@ The following are the supported volumes sizes for each volume type:
 
 Default: The existing size is retained.}
 
-\item{VolumeType}{The target EBS volume type of the volume. For more information, see
-\href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html}{Amazon EBS volume types}
-in the \emph{Amazon EBS User Guide}.
+\item{VolumeType}{The target EBS volume type of the volume. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html}{Amazon EBS volume types} in the \emph{Amazon EBS User Guide}.
 
 Default: The existing type is retained.}
 
-\item{Iops}{The target IOPS rate of the volume. This parameter is valid only for
-\code{gp3}, \code{io1}, and \code{io2} volumes.
+\item{Iops}{The target IOPS rate of the volume. This parameter is valid only for \code{gp3}, \code{io1}, and \code{io2} volumes.
 
 The following are the supported values for each volume type:
 \itemize{
-\item \code{gp3}: 3,000 - 16,000 IOPS
+\item \code{gp3}: 3,000 - 80,000 IOPS
 \item \code{io1}: 100 - 64,000 IOPS
 \item \code{io2}: 100 - 256,000 IOPS
 }
 
-For \code{io2} volumes, you can achieve up to 256,000 IOPS on \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html}{instances built on the Nitro System}.
-On other instances, you can achieve performance up to 32,000 IOPS.
+\href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html}{Instances built on the Nitro System} can support up to 256,000 IOPS. Other instances can support up to 32,000 IOPS.
 
-Default: The existing value is retained if you keep the same volume
-type. If you change the volume type to \code{io1}, \code{io2}, or \code{gp3}, the
-default is 3,000.}
+Default: The existing value is retained if you keep the same volume type. If you change the volume type to \code{io1}, \code{io2}, or \code{gp3}, the default is 3,000.}
 
-\item{Throughput}{The target throughput of the volume, in MiB/s. This parameter is valid
-only for \code{gp3} volumes. The maximum value is 1,000.
+\item{Throughput}{The target throughput of the volume, in MiB/s. This parameter is valid only for \code{gp3} volumes. The maximum value is 2,000.
 
-Default: The existing value is retained if the source and target volume
-type is \code{gp3}. Otherwise, the default value is 125.
+Default: The existing value is retained if the source and target volume type is \code{gp3}. Otherwise, the default value is 125.
 
-Valid Range: Minimum value of 125. Maximum value of 1000.}
+Valid Range: Minimum value of 125. Maximum value of 2,000.}
 
-\item{MultiAttachEnabled}{Specifies whether to enable Amazon EBS Multi-Attach. If you enable
-Multi-Attach, you can attach the volume to up to 16 \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html}{Nitro-based instances}
-in the same Availability Zone. This parameter is supported with \code{io1}
-and \code{io2} volumes only. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html}{Amazon EBS Multi-Attach}
-in the \emph{Amazon EBS User Guide}.}
+\item{MultiAttachEnabled}{Specifies whether to enable Amazon EBS Multi-Attach. If you enable Multi-Attach, you can attach the volume to up to 16 \href{https://docs.aws.amazon.com/ec2/latest/instancetypes/ec2-nitro-instances.html}{Nitro-based instances} in the same Availability Zone. This parameter is supported with \code{io1} and \code{io2} volumes only. For more information, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes-multi.html}{Amazon EBS Multi-Attach} in the \emph{Amazon EBS User Guide}.}
 }
 \description{
 You can modify several parameters of an existing EBS volume, including volume size, volume type, and IOPS capacity. If your EBS volume is attached to a current-generation EC2 instance type, you might be able to apply these changes without stopping the instance or detaching the volume from it. For more information about modifying EBS volumes, see \href{https://docs.aws.amazon.com/ebs/latest/userguide/ebs-modify-volume.html}{Amazon EBS Elastic Volumes} in the \emph{Amazon EBS User Guide}.

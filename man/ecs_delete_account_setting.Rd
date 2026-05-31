@@ -8,20 +8,11 @@ for an account}
 ecs_delete_account_setting(name, principalArn = NULL)
 }
 \arguments{
-\item{name}{[required] The resource name to disable the account setting for. If
-\code{serviceLongArnFormat} is specified, the ARN for your Amazon ECS
-services is affected. If \code{taskLongArnFormat} is specified, the ARN and
-resource ID for your Amazon ECS tasks is affected. If
-\code{containerInstanceLongArnFormat} is specified, the ARN and resource ID
-for your Amazon ECS container instances is affected. If \code{awsvpcTrunking}
-is specified, the ENI limit for your Amazon ECS container instances is
-affected.}
+\item{name}{[required] The resource name to disable the account setting for. If \code{serviceLongArnFormat} is specified, the ARN for your Amazon ECS services is affected. If \code{taskLongArnFormat} is specified, the ARN and resource ID for your Amazon ECS tasks is affected. If \code{containerInstanceLongArnFormat} is specified, the ARN and resource ID for your Amazon ECS container instances is affected. If \code{awsvpcTrunking} is specified, the ENI limit for your Amazon ECS container instances is affected.}
 
-\item{principalArn}{The Amazon Resource Name (ARN) of the principal. It can be an user,
-role, or the root user. If you specify the root user, it disables the
-account setting for all users, roles, and the root user of the account
-unless a user or role explicitly overrides these settings. If this field
-is omitted, the setting is changed only for the authenticated user.}
+\item{principalArn}{The Amazon Resource Name (ARN) of the principal. It can be a user, role, or the root user. If you specify the root user, it disables the account setting for all users, roles, and the root user of the account unless a user or role explicitly overrides these settings. If this field is omitted, the setting is changed only for the authenticated user.
+
+In order to use this parameter, you must be the root user, or the principal.}
 }
 \description{
 Disables an account setting for a specified user, role, or the root user for an account.

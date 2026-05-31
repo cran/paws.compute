@@ -14,45 +14,30 @@ ec2_describe_launch_template_versions(
   NextToken = NULL,
   MaxResults = NULL,
   Filters = NULL,
-  ResolveAlias = NULL
+  ResolveAlias = NULL,
+  IncludeManagedResources = NULL
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{LaunchTemplateId}{The ID of the launch template.
 
-To describe one or more versions of a specified launch template, you
-must specify either the launch template ID or the launch template name,
-but not both.
+To describe one or more versions of a specified launch template, you must specify either the launch template ID or the launch template name, but not both.
 
-To describe all the latest or default launch template versions in your
-account, you must omit this parameter.}
+To describe all the latest or default launch template versions in your account, you must omit this parameter.}
 
 \item{LaunchTemplateName}{The name of the launch template.
 
-To describe one or more versions of a specified launch template, you
-must specify either the launch template name or the launch template ID,
-but not both.
+To describe one or more versions of a specified launch template, you must specify either the launch template name or the launch template ID, but not both.
 
-To describe all the latest or default launch template versions in your
-account, you must omit this parameter.}
+To describe all the latest or default launch template versions in your account, you must omit this parameter.}
 
-\item{Versions}{One or more versions of the launch template. Valid values depend on
-whether you are describing a specified launch template (by ID or name)
-or all launch templates in your account.
+\item{Versions}{One or more versions of the launch template. Valid values depend on whether you are describing a specified launch template (by ID or name) or all launch templates in your account.
 
-To describe one or more versions of a specified launch template, valid
-values are \verb{$Latest}, \verb{$Default}, and numbers.
+To describe one or more versions of a specified launch template, valid values are \verb{$Latest}, \verb{$Default}, and numbers.
 
-To describe all launch templates in your account that are defined as the
-latest version, the valid value is \verb{$Latest}. To describe all launch
-templates in your account that are defined as the default version, the
-valid value is \verb{$Default}. You can specify \verb{$Latest} and \verb{$Default} in
-the same request. You cannot specify numbers.}
+To describe all launch templates in your account that are defined as the latest version, the valid value is \verb{$Latest}. To describe all launch templates in your account that are defined as the default version, the valid value is \verb{$Default}. You can specify \verb{$Latest} and \verb{$Default} in the same request. You cannot specify numbers.}
 
 \item{MinVersion}{The version number after which to describe launch template versions.}
 
@@ -60,44 +45,35 @@ the same request. You cannot specify numbers.}
 
 \item{NextToken}{The token to request the next page of results.}
 
-\item{MaxResults}{The maximum number of results to return in a single call. To retrieve
-the remaining results, make another call with the returned \code{NextToken}
-value. This value can be between 1 and 200.}
+\item{MaxResults}{The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned \code{NextToken} value. This value can be between 1 and 200.}
 
 \item{Filters}{One or more filters.
 \itemize{
 \item \code{create-time} - The time the launch template version was created.
-\item \code{ebs-optimized} - A boolean that indicates whether the instance is
-optimized for Amazon EBS I/O.
-\item \code{http-endpoint} - Indicates whether the HTTP metadata endpoint on
-your instances is enabled (\code{enabled} | \code{disabled}).
-\item \code{http-protocol-ipv4} - Indicates whether the IPv4 endpoint for the
-instance metadata service is enabled (\code{enabled} | \code{disabled}).
-\item \code{host-resource-group-arn} - The ARN of the host resource group in
-which to launch the instances.
-\item \code{http-tokens} - The state of token usage for your instance metadata
-requests (\code{optional} | \code{required}).
+\item \code{ebs-optimized} - A boolean that indicates whether the instance is optimized for Amazon EBS I/O.
+\item \code{http-endpoint} - Indicates whether the HTTP metadata endpoint on your instances is enabled (\code{enabled} | \code{disabled}).
+\item \code{http-protocol-ipv4} - Indicates whether the IPv4 endpoint for the instance metadata service is enabled (\code{enabled} | \code{disabled}).
+\item \code{host-resource-group-arn} - The ARN of the host resource group in which to launch the instances.
+\item \code{http-tokens} - The state of token usage for your instance metadata requests (\code{optional} | \code{required}).
 \item \code{iam-instance-profile} - The ARN of the IAM instance profile.
 \item \code{image-id} - The ID of the AMI.
 \item \code{instance-type} - The instance type.
-\item \code{is-default-version} - A boolean that indicates whether the launch
-template version is the default version.
+\item \code{is-default-version} - A boolean that indicates whether the launch template version is the default version.
 \item \code{kernel-id} - The kernel ID.
 \item \code{license-configuration-arn} - The ARN of the license configuration.
 \item \code{network-card-index} - The index of the network card.
 \item \code{ram-disk-id} - The RAM disk ID.
 }}
 
-\item{ResolveAlias}{If \code{true}, and if a Systems Manager parameter is specified for
-\code{ImageId}, the AMI ID is displayed in the response for \code{imageId}.
+\item{ResolveAlias}{If \code{true}, and if a Systems Manager parameter is specified for \code{ImageId}, the AMI ID is displayed in the response for \code{imageId}.
 
-If \code{false}, and if a Systems Manager parameter is specified for
-\code{ImageId}, the parameter is displayed in the response for \code{imageId}.
+If \code{false}, and if a Systems Manager parameter is specified for \code{ImageId}, the parameter is displayed in the response for \code{imageId}.
 
-For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#use-an-ssm-parameter-instead-of-an-ami-id}{Use a Systems Manager parameter instead of an AMI ID}
-in the \emph{Amazon EC2 User Guide}.
+For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-launch-template.html#use-an-ssm-parameter-instead-of-an-ami-id}{Use a Systems Manager parameter instead of an AMI ID} in the \emph{Amazon EC2 User Guide}.
 
 Default: \code{false}}
+
+\item{IncludeManagedResources}{Indicates whether to include managed resources in the output. If this parameter is set to \code{true}, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.}
 }
 \description{
 Describes one or more versions of a specified launch template. You can describe all versions, individual versions, or a range of versions. You can also describe all the latest versions or all the default versions of all the launch templates in your account.

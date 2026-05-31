@@ -13,38 +13,17 @@ batch_describe_job_definitions(
 )
 }
 \arguments{
-\item{jobDefinitions}{A list of up to 100 job definitions. Each entry in the list can either
-be an ARN in the format
-\verb{arn:aws:batch:$\{Region\}:$\{Account\}:job-definition/$\{JobDefinitionName\}:$\{Revision\}}
-or a short version using the form \verb{$\{JobDefinitionName\}:$\{Revision\}}.
-This parameter can't be used with other parameters.}
+\item{jobDefinitions}{A list of up to 100 job definitions. Each entry in the list can either be an ARN in the format \verb{arn:aws:batch:$\{Region\}:$\{Account\}:job-definition/$\{JobDefinitionName\}:$\{Revision\}} or a short version using the form \verb{$\{JobDefinitionName\}:$\{Revision\}}. This parameter can't be used with other parameters.}
 
-\item{maxResults}{The maximum number of results returned by
-\code{\link[=batch_describe_job_definitions]{describe_job_definitions}} in
-paginated output. When this parameter is used,
-\code{\link[=batch_describe_job_definitions]{describe_job_definitions}} only
-returns \code{maxResults} results in a single page and a \code{nextToken} response
-element. The remaining results of the initial request can be seen by
-sending another
-\code{\link[=batch_describe_job_definitions]{describe_job_definitions}} request
-with the returned \code{nextToken} value. This value can be between 1 and
-100. If this parameter isn't used, then
-\code{\link[=batch_describe_job_definitions]{describe_job_definitions}} returns up
-to 100 results and a \code{nextToken} value if applicable.}
+\item{maxResults}{The maximum number of results returned by \code{\link[=batch_describe_job_definitions]{describe_job_definitions}} in paginated output. When this parameter is used, \code{\link[=batch_describe_job_definitions]{describe_job_definitions}} only returns \code{maxResults} results in a single page and a \code{nextToken} response element. The remaining results of the initial request can be seen by sending another \code{\link[=batch_describe_job_definitions]{describe_job_definitions}} request with the returned \code{nextToken} value. This value can be between 1 and 100. If this parameter isn't used, then \code{\link[=batch_describe_job_definitions]{describe_job_definitions}} returns up to 100 results and a \code{nextToken} value if applicable.}
 
 \item{jobDefinitionName}{The name of the job definition to describe.}
 
 \item{status}{The status used to filter job definitions.}
 
-\item{nextToken}{The \code{nextToken} value returned from a previous paginated
-\code{\link[=batch_describe_job_definitions]{describe_job_definitions}} request
-where \code{maxResults} was used and the results exceeded the value of that
-parameter. Pagination continues from the end of the previous results
-that returned the \code{nextToken} value. This value is \code{null} when there are
-no more results to return.
+\item{nextToken}{The \code{nextToken} value returned from a previous paginated \code{\link[=batch_describe_job_definitions]{describe_job_definitions}} request where \code{maxResults} was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the \code{nextToken} value. This value is \code{null} when there are no more results to return.
 
-Treat this token as an opaque identifier that's only used to retrieve
-the next items in a list and not for other programmatic purposes.}
+Treat this token as an opaque identifier that's only used to retrieve the next items in a list and not for other programmatic purposes.}
 }
 \description{
 Describes a list of job definitions. You can specify a \code{status} (such as \code{ACTIVE}) to only return job definitions that match that status.

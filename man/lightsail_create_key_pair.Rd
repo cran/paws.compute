@@ -12,8 +12,7 @@ lightsail_create_key_pair(keyPairName, tags = NULL)
 
 \item{tags}{The tag keys and optional values to add to the resource during create.
 
-Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a
-resource after it's created.}
+Use the \code{\link[=lightsail_tag_resource]{tag_resource}} action to tag a resource after it's created.}
 }
 \description{
 Creates a custom SSH key pair that you can use with an Amazon Lightsail instance.

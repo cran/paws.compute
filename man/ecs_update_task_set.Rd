@@ -7,17 +7,13 @@
 ecs_update_task_set(cluster, service, taskSet, scale)
 }
 \arguments{
-\item{cluster}{[required] The short name or full Amazon Resource Name (ARN) of the cluster that
-hosts the service that the task set is found in.}
+\item{cluster}{[required] The short name or full Amazon Resource Name (ARN) of the cluster that hosts the service that the task set is found in.}
 
-\item{service}{[required] The short name or full Amazon Resource Name (ARN) of the service that
-the task set is found in.}
+\item{service}{[required] The short name or full Amazon Resource Name (ARN) of the service that the task set is found in.}
 
-\item{taskSet}{[required] The short name or full Amazon Resource Name (ARN) of the task set to
-update.}
+\item{taskSet}{[required] The short name or full Amazon Resource Name (ARN) of the task set to update.}
 
-\item{scale}{[required] A floating-point percentage of the desired number of tasks to place and
-keep running in the task set.}
+\item{scale}{[required] A floating-point percentage of the desired number of tasks to place and keep running in the task set.}
 }
 \description{
 Modifies a task set. This is used when a service uses the \code{EXTERNAL} deployment controller type. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/}{Amazon ECS Deployment Types} in the \emph{Amazon Elastic Container Service Developer Guide}.

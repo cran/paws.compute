@@ -8,15 +8,11 @@ troubleshooting}
 ec2_get_console_screenshot(DryRun = NULL, InstanceId, WakeUp = NULL)
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the operation,
-without actually making the request, and provides an error response. If
-you have the required permissions, the error response is
-\code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{InstanceId}{[required] The ID of the instance.}
 
-\item{WakeUp}{When set to \code{true}, acts as keystroke input and wakes up an instance
-that's in standby or "sleep" mode.}
+\item{WakeUp}{When set to \code{true}, acts as keystroke input and wakes up an instance that's in standby or "sleep" mode.}
 }
 \description{
 Retrieve a JPG-format screenshot of a running instance to help with troubleshooting.

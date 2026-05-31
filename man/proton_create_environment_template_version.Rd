@@ -14,26 +14,19 @@ proton_create_environment_template_version(
 )
 }
 \arguments{
-\item{clientToken}{When included, if two identical requests are made with the same client
-token, Proton returns the environment template version that the first
-request created.}
+\item{clientToken}{When included, if two identical requests are made with the same client token, Proton returns the environment template version that the first request created.}
 
 \item{description}{A description of the new version of an environment template.}
 
-\item{majorVersion}{To create a new minor version of the environment template, include
-\verb{major Version}.
+\item{majorVersion}{To create a new minor version of the environment template, include \verb{major Version}.
 
-To create a new major and minor version of the environment template,
-exclude \verb{major Version}.}
+To create a new major and minor version of the environment template, exclude \verb{major Version}.}
 
-\item{source}{[required] An object that includes the template bundle S3 bucket path and name for
-the new version of an template.}
+\item{source}{[required] An object that includes the template bundle S3 bucket path and name for the new version of an template.}
 
-\item{tags}{An optional list of metadata items that you can associate with the
-Proton environment template version. A tag is a key-value pair.
+\item{tags}{An optional list of metadata items that you can associate with the Proton environment template version. A tag is a key-value pair.
 
-For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging}
-in the \emph{Proton User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging} in the \emph{Proton User Guide}.}
 
 \item{templateName}{[required] The name of the environment template.}
 }

@@ -14,23 +14,17 @@ proton_list_deployments(
 )
 }
 \arguments{
-\item{componentName}{The name of a component for result list filtering. Proton returns
-deployments associated with that component.}
+\item{componentName}{The name of a component for result list filtering. Proton returns deployments associated with that component.}
 
-\item{environmentName}{The name of an environment for result list filtering. Proton returns
-deployments associated with the environment.}
+\item{environmentName}{The name of an environment for result list filtering. Proton returns deployments associated with the environment.}
 
 \item{maxResults}{The maximum number of deployments to list.}
 
-\item{nextToken}{A token that indicates the location of the next deployment in the array
-of deployment, after the list of deployment that was previously
-requested.}
+\item{nextToken}{A token that indicates the location of the next deployment in the array of deployment, after the list of deployment that was previously requested.}
 
-\item{serviceInstanceName}{The name of a service instance for result list filtering. Proton returns
-the deployments associated with the service instance.}
+\item{serviceInstanceName}{The name of a service instance for result list filtering. Proton returns the deployments associated with the service instance.}
 
-\item{serviceName}{The name of a service for result list filtering. Proton returns
-deployments associated with service instances of the service.}
+\item{serviceName}{The name of a service for result list filtering. Proton returns deployments associated with service instances of the service.}
 }
 \description{
 List deployments. You can filter the result list by environment, service, or a single service instance.

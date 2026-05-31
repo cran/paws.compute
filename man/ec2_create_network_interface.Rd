@@ -29,58 +29,31 @@ ec2_create_network_interface(
 \arguments{
 \item{Ipv4Prefixes}{The IPv4 prefixes assigned to the network interface.
 
-You can't specify IPv4 prefixes if you've specified one of the
-following: a count of IPv4 prefixes, specific private IPv4 addresses, or
-a count of private IPv4 addresses.}
+You can't specify IPv4 prefixes if you've specified one of the following: a count of IPv4 prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses.}
 
-\item{Ipv4PrefixCount}{The number of IPv4 prefixes that Amazon Web Services automatically
-assigns to the network interface.
+\item{Ipv4PrefixCount}{The number of IPv4 prefixes that Amazon Web Services automatically assigns to the network interface.
 
-You can't specify a count of IPv4 prefixes if you've specified one of
-the following: specific IPv4 prefixes, specific private IPv4 addresses,
-or a count of private IPv4 addresses.}
+You can't specify a count of IPv4 prefixes if you've specified one of the following: specific IPv4 prefixes, specific private IPv4 addresses, or a count of private IPv4 addresses.}
 
 \item{Ipv6Prefixes}{The IPv6 prefixes assigned to the network interface.
 
-You can't specify IPv6 prefixes if you've specified one of the
-following: a count of IPv6 prefixes, specific IPv6 addresses, or a count
-of IPv6 addresses.}
+You can't specify IPv6 prefixes if you've specified one of the following: a count of IPv6 prefixes, specific IPv6 addresses, or a count of IPv6 addresses.}
 
-\item{Ipv6PrefixCount}{The number of IPv6 prefixes that Amazon Web Services automatically
-assigns to the network interface.
+\item{Ipv6PrefixCount}{The number of IPv6 prefixes that Amazon Web Services automatically assigns to the network interface.
 
-You can't specify a count of IPv6 prefixes if you've specified one of
-the following: specific IPv6 prefixes, specific IPv6 addresses, or a
-count of IPv6 addresses.}
+You can't specify a count of IPv6 prefixes if you've specified one of the following: specific IPv6 prefixes, specific IPv6 addresses, or a count of IPv6 addresses.}
 
 \item{InterfaceType}{The type of network interface. The default is \code{interface}.
 
-If you specify \code{efa-only}, do not assign any IP addresses to the network
-interface. EFA-only network interfaces do not support IP addresses.
+If you specify \code{efa-only}, do not assign any IP addresses to the network interface. EFA-only network interfaces do not support IP addresses.
 
-The only supported values are \code{interface}, \code{efa}, \code{efa-only}, and
-\code{trunk}.}
+The only supported values are \code{interface}, \code{efa}, \code{efa-only}, and \code{trunk}.}
 
 \item{TagSpecifications}{The tags to apply to the new network interface.}
 
-\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
+\item{ClientToken}{Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency}.}
 
-\item{EnablePrimaryIpv6}{If you’re creating a network interface in a dual-stack or IPv6-only
-subnet, you have the option to assign a primary IPv6 IP address. A
-primary IPv6 address is an IPv6 GUA address associated with an ENI that
-you have enabled to use a primary IPv6 address. Use this option if the
-instance that this ENI will be attached to relies on its IPv6 address
-not changing. Amazon Web Services will automatically assign an IPv6
-address associated with the ENI attached to your instance to be the
-primary IPv6 address. Once you enable an IPv6 GUA address to be a
-primary IPv6, you cannot disable it. When you enable an IPv6 GUA address
-to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6
-address until the instance is terminated or the network interface is
-detached. If you have multiple IPv6 addresses associated with an ENI
-attached to your instance and you enable a primary IPv6 address, the
-first IPv6 GUA address associated with the ENI becomes the primary IPv6
-address.}
+\item{EnablePrimaryIpv6}{If you’re creating a network interface in a dual-stack or IPv6-only subnet, you have the option to assign a primary IPv6 IP address. A primary IPv6 address is an IPv6 GUA address associated with an ENI that you have enabled to use a primary IPv6 address. Use this option if the instance that this ENI will be attached to relies on its IPv6 address not changing. Amazon Web Services will automatically assign an IPv6 address associated with the ENI attached to your instance to be the primary IPv6 address. Once you enable an IPv6 GUA address to be a primary IPv6, you cannot disable it. When you enable an IPv6 GUA address to be a primary IPv6, the first IPv6 GUA will be made the primary IPv6 address until the instance is terminated or the network interface is detached. If you have multiple IPv6 addresses associated with an ENI attached to your instance and you enable a primary IPv6 address, the first IPv6 GUA address associated with the ENI becomes the primary IPv6 address.}
 
 \item{ConnectionTrackingSpecification}{A connection tracking specification for the network interface.}
 
@@ -90,50 +63,29 @@ address.}
 
 \item{Description}{A description for the network interface.}
 
-\item{PrivateIpAddress}{The primary private IPv4 address of the network interface. If you don't
-specify an IPv4 address, Amazon EC2 selects one for you from the
-subnet's IPv4 CIDR range. If you specify an IP address, you cannot
-indicate any IP addresses specified in \code{privateIpAddresses} as primary
-(only one IP address can be designated as primary).}
+\item{PrivateIpAddress}{The primary private IPv4 address of the network interface. If you don't specify an IPv4 address, Amazon EC2 selects one for you from the subnet's IPv4 CIDR range. If you specify an IP address, you cannot indicate any IP addresses specified in \code{privateIpAddresses} as primary (only one IP address can be designated as primary).}
 
 \item{Groups}{The IDs of the security groups.}
 
 \item{PrivateIpAddresses}{The private IPv4 addresses.
 
-You can't specify private IPv4 addresses if you've specified one of the
-following: a count of private IPv4 addresses, specific IPv4 prefixes, or
-a count of IPv4 prefixes.}
+You can't specify private IPv4 addresses if you've specified one of the following: a count of private IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.}
 
-\item{SecondaryPrivateIpAddressCount}{The number of secondary private IPv4 addresses to assign to a network
-interface. When you specify a number of secondary IPv4 addresses, Amazon
-EC2 selects these IP addresses within the subnet's IPv4 CIDR range. You
-can't specify this option and specify more than one private IP address
-using \code{privateIpAddresses}.
+\item{SecondaryPrivateIpAddressCount}{The number of secondary private IPv4 addresses to assign to a network interface. When you specify a number of secondary IPv4 addresses, Amazon EC2 selects these IP addresses within the subnet's IPv4 CIDR range. You can't specify this option and specify more than one private IP address using \code{privateIpAddresses}.
 
-You can't specify a count of private IPv4 addresses if you've specified
-one of the following: specific private IPv4 addresses, specific IPv4
-prefixes, or a count of IPv4 prefixes.}
+You can't specify a count of private IPv4 addresses if you've specified one of the following: specific private IPv4 addresses, specific IPv4 prefixes, or a count of IPv4 prefixes.}
 
 \item{Ipv6Addresses}{The IPv6 addresses from the IPv6 CIDR block range of your subnet.
 
-You can't specify IPv6 addresses using this parameter if you've
-specified one of the following: a count of IPv6 addresses, specific IPv6
-prefixes, or a count of IPv6 prefixes.}
+You can't specify IPv6 addresses using this parameter if you've specified one of the following: a count of IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.}
 
-\item{Ipv6AddressCount}{The number of IPv6 addresses to assign to a network interface. Amazon
-EC2 automatically selects the IPv6 addresses from the subnet range.
+\item{Ipv6AddressCount}{The number of IPv6 addresses to assign to a network interface. Amazon EC2 automatically selects the IPv6 addresses from the subnet range.
 
-You can't specify a count of IPv6 addresses using this parameter if
-you've specified one of the following: specific IPv6 addresses, specific
-IPv6 prefixes, or a count of IPv6 prefixes.
+You can't specify a count of IPv6 addresses using this parameter if you've specified one of the following: specific IPv6 addresses, specific IPv6 prefixes, or a count of IPv6 prefixes.
 
-If your subnet has the \code{AssignIpv6AddressOnCreation} attribute set, you
-can override that setting by specifying 0 as the IPv6 address count.}
+If your subnet has the \code{AssignIpv6AddressOnCreation} attribute set, you can override that setting by specifying 0 as the IPv6 address count.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Creates a network interface in the specified subnet.

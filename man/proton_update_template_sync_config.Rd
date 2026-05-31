@@ -21,8 +21,7 @@ proton_update_template_sync_config(
 
 \item{repositoryProvider}{[required] The repository provider.}
 
-\item{subdirectory}{A subdirectory path to your template bundle version. When included,
-limits the template bundle search to this repository directory.}
+\item{subdirectory}{A subdirectory path to your template bundle version. When included, limits the template bundle search to this repository directory.}
 
 \item{templateName}{[required] The synced template name.}
 

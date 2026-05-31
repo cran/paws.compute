@@ -44,21 +44,14 @@ lightsail_allocate_static_ip <- function(staticIpName) {
 #'
 #' @param distributionName &#91;required&#93; The name of the distribution that the certificate will be attached to.
 #' 
-#' Use the [`get_distributions`][lightsail_get_distributions] action to get
-#' a list of distribution names that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get a list of distribution names that you can specify.
 #' @param certificateName &#91;required&#93; The name of the certificate to attach to a distribution.
 #' 
-#' Only certificates with a status of `ISSUED` can be attached to a
-#' distribution.
+#' Only certificates with a status of `ISSUED` can be attached to a distribution.
 #' 
-#' Use the [`get_certificates`][lightsail_get_certificates] action to get a
-#' list of certificate names that you can specify.
+#' Use the [`get_certificates`][lightsail_get_certificates] action to get a list of certificate names that you can specify.
 #' 
-#' This is the name of the certificate resource type and is used only to
-#' reference the certificate in other API actions. It can be different than
-#' the domain name of the certificate. For example, your certificate name
-#' might be `WordPress-Blog-Certificate` and the domain name of the
-#' certificate might be `example.com`.
+#' This is the name of the certificate resource type and is used only to reference the certificate in other API actions. It can be different than the domain name of the certificate. For example, your certificate name might be `WordPress-Blog-Certificate` and the domain name of the certificate might be `example.com`.
 #'
 #' @keywords internal
 #'
@@ -91,11 +84,9 @@ lightsail_attach_certificate_to_distribution <- function(distributionName, certi
 #' See [https://www.paws-r-sdk.com/docs/lightsail_attach_disk/](https://www.paws-r-sdk.com/docs/lightsail_attach_disk/) for full documentation.
 #'
 #' @param diskName &#91;required&#93; The unique Lightsail disk name (`my-disk`).
-#' @param instanceName &#91;required&#93; The name of the Lightsail instance where you want to utilize the storage
-#' disk.
+#' @param instanceName &#91;required&#93; The name of the Lightsail instance where you want to utilize the storage disk.
 #' @param diskPath &#91;required&#93; The disk path to expose to the instance (`/dev/xvdf`).
-#' @param autoMounting A Boolean value used to determine the automatic mounting of a storage
-#' volume to a virtual computer. The default value is `False`.
+#' @param autoMounting A Boolean value used to determine the automatic mounting of a storage volume to a virtual computer. The default value is `False`.
 #' 
 #' This value only applies to Lightsail for Research resources.
 #'
@@ -129,15 +120,11 @@ lightsail_attach_disk <- function(diskName, instanceName, diskPath, autoMounting
 #' See [https://www.paws-r-sdk.com/docs/lightsail_attach_instances_to_load_balancer/](https://www.paws-r-sdk.com/docs/lightsail_attach_instances_to_load_balancer/) for full documentation.
 #'
 #' @param loadBalancerName &#91;required&#93; The name of the load balancer.
-#' @param instanceNames &#91;required&#93; An array of strings representing the instance name(s) you want to attach
-#' to your load balancer.
+#' @param instanceNames &#91;required&#93; An array of strings representing the instance name(s) you want to attach to your load balancer.
 #' 
-#' An instance must be `running` before you can attach it to your load
-#' balancer.
+#' An instance must be `running` before you can attach it to your load balancer.
 #' 
-#' There are no additional limits on the number of instances you can attach
-#' to your load balancer, aside from the limit of Lightsail instances you
-#' can create in your account (20).
+#' There are no additional limits on the number of instances you can attach to your load balancer, aside from the limit of Lightsail instances you can create in your account (20).
 #'
 #' @keywords internal
 #'
@@ -169,8 +156,7 @@ lightsail_attach_instances_to_load_balancer <- function(loadBalancerName, instan
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_attach_load_balancer_tls_certificate/](https://www.paws-r-sdk.com/docs/lightsail_attach_load_balancer_tls_certificate/) for full documentation.
 #'
-#' @param loadBalancerName &#91;required&#93; The name of the load balancer to which you want to associate the SSL/TLS
-#' certificate.
+#' @param loadBalancerName &#91;required&#93; The name of the load balancer to which you want to associate the SSL/TLS certificate.
 #' @param certificateName &#91;required&#93; The name of your SSL/TLS certificate.
 #'
 #' @keywords internal
@@ -272,50 +258,30 @@ lightsail_close_instance_public_ports <- function(portInfo, instanceName) {
 #' 
 #' Constraint:
 #' 
-#' -   Define this parameter only when copying a manual snapshot as another
-#'     manual snapshot.
-#' @param sourceResourceName The name of the source instance or disk from which the source automatic
-#' snapshot was created.
+#' -   Define this parameter only when copying a manual snapshot as another manual snapshot.
+#' @param sourceResourceName The name of the source instance or disk from which the source automatic snapshot was created.
 #' 
 #' Constraint:
 #' 
-#' -   Define this parameter only when copying an automatic snapshot as a
-#'     manual snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html).
-#' @param restoreDate The date of the source automatic snapshot to copy. Use the
-#' `get auto snapshots` operation to identify the dates of the available
-#' automatic snapshots.
+#' -   Define this parameter only when copying an automatic snapshot as a manual snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html).
+#' @param restoreDate The date of the source automatic snapshot to copy. Use the `get auto snapshots` operation to identify the dates of the available automatic snapshots.
 #' 
 #' Constraints:
 #' 
 #' -   Must be specified in `YYYY-MM-DD` format.
 #' 
-#' -   This parameter cannot be defined together with the
-#'     `use latest restorable auto snapshot` parameter. The `restore date`
-#'     and `use latest restorable auto snapshot` parameters are mutually
-#'     exclusive.
+#' -   This parameter cannot be defined together with the `use latest restorable auto snapshot` parameter. The `restore date` and `use latest restorable auto snapshot` parameters are mutually exclusive.
 #' 
-#' -   Define this parameter only when copying an automatic snapshot as a
-#'     manual snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html).
-#' @param useLatestRestorableAutoSnapshot A Boolean value to indicate whether to use the latest available
-#' automatic snapshot of the specified source instance or disk.
+#' -   Define this parameter only when copying an automatic snapshot as a manual snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html).
+#' @param useLatestRestorableAutoSnapshot A Boolean value to indicate whether to use the latest available automatic snapshot of the specified source instance or disk.
 #' 
 #' Constraints:
 #' 
-#' -   This parameter cannot be defined together with the `restore date`
-#'     parameter. The `use latest restorable auto snapshot` and
-#'     `restore date` parameters are mutually exclusive.
+#' -   This parameter cannot be defined together with the `restore date` parameter. The `use latest restorable auto snapshot` and `restore date` parameters are mutually exclusive.
 #' 
-#' -   Define this parameter only when copying an automatic snapshot as a
-#'     manual snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html).
+#' -   Define this parameter only when copying an automatic snapshot as a manual snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-keeping-automatic-snapshots.html).
 #' @param targetSnapshotName &#91;required&#93; The name of the new manual snapshot to be created as a copy.
-#' @param sourceRegion &#91;required&#93; The Amazon Web Services Region where the source manual or automatic
-#' snapshot is located.
+#' @param sourceRegion &#91;required&#93; The Amazon Web Services Region where the source manual or automatic snapshot is located.
 #'
 #' @keywords internal
 #'
@@ -348,31 +314,20 @@ lightsail_copy_snapshot <- function(sourceSnapshotName = NULL, sourceResourceNam
 #'
 #' @param bucketName &#91;required&#93; The name for the bucket.
 #' 
-#' For more information about bucket names, see [Bucket naming rules in
-#' Amazon
-#' Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/bucket-naming-rules-in-amazon-lightsail.html)
-#' in the *Amazon Lightsail Developer Guide*.
+#' For more information about bucket names, see [Bucket naming rules in Amazon Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/bucket-naming-rules-in-amazon-lightsail.html) in the *Amazon Lightsail Developer Guide*.
 #' @param bundleId &#91;required&#93; The ID of the bundle to use for the bucket.
 #' 
-#' A bucket bundle specifies the monthly cost, storage space, and data
-#' transfer quota for a bucket.
+#' A bucket bundle specifies the monthly cost, storage space, and data transfer quota for a bucket.
 #' 
-#' Use the [`get_bucket_bundles`][lightsail_get_bucket_bundles] action to
-#' get a list of bundle IDs that you can specify.
+#' Use the [`get_bucket_bundles`][lightsail_get_bucket_bundles] action to get a list of bundle IDs that you can specify.
 #' 
-#' Use the [`update_bucket_bundle`][lightsail_update_bucket_bundle] action
-#' to change the bundle after the bucket is created.
+#' Use the [`update_bucket_bundle`][lightsail_update_bucket_bundle] action to change the bundle after the bucket is created.
 #' @param tags The tag keys and optional values to add to the bucket during creation.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag the
-#' bucket after it's created.
-#' @param enableObjectVersioning A Boolean value that indicates whether to enable versioning of objects
-#' in the bucket.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag the bucket after it's created.
+#' @param enableObjectVersioning A Boolean value that indicates whether to enable versioning of objects in the bucket.
 #' 
-#' For more information about versioning, see [Enabling and suspending
-#' object versioning in a bucket in Amazon
-#' Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-managing-bucket-object-versioning.html)
-#' in the *Amazon Lightsail Developer Guide*.
+#' For more information about versioning, see [Enabling and suspending object versioning in a bucket in Amazon Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-managing-bucket-object-versioning.html) in the *Amazon Lightsail Developer Guide*.
 #'
 #' @keywords internal
 #'
@@ -403,8 +358,7 @@ lightsail_create_bucket <- function(bucketName, bundleId, tags = NULL, enableObj
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_bucket_access_key/](https://www.paws-r-sdk.com/docs/lightsail_create_bucket_access_key/) for full documentation.
 #'
-#' @param bucketName &#91;required&#93; The name of the bucket that the new access key will belong to, and grant
-#' access to.
+#' @param bucketName &#91;required&#93; The name of the bucket that the new access key will belong to, and grant access to.
 #'
 #' @keywords internal
 #'
@@ -438,18 +392,14 @@ lightsail_create_bucket_access_key <- function(bucketName) {
 #'
 #' @param certificateName &#91;required&#93; The name for the certificate.
 #' @param domainName &#91;required&#93; The domain name (`example.com`) for the certificate.
-#' @param subjectAlternativeNames An array of strings that specify the alternate domains (`example2.com`)
-#' and subdomains (`blog.example.com`) for the certificate.
+#' @param subjectAlternativeNames An array of strings that specify the alternate domains (`example2.com`) and subdomains (`blog.example.com`) for the certificate.
 #' 
-#' You can specify a maximum of nine alternate domains (in addition to the
-#' primary domain name).
+#' You can specify a maximum of nine alternate domains (in addition to the primary domain name).
 #' 
 #' Wildcard domain entries (`*.example.com`) are not supported.
-#' @param tags The tag keys and optional values to add to the certificate during
-#' create.
+#' @param tags The tag keys and optional values to add to the certificate during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -481,10 +431,7 @@ lightsail_create_certificate <- function(certificateName, domainName, subjectAlt
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_cloud_formation_stack/](https://www.paws-r-sdk.com/docs/lightsail_create_cloud_formation_stack/) for full documentation.
 #'
-#' @param instances &#91;required&#93; An array of parameters that will be used to create the new Amazon EC2
-#' instance. You can only pass one instance entry at a time in this array.
-#' You will get an invalid parameter error if you pass more than one
-#' instance entry in this array.
+#' @param instances &#91;required&#93; An array of parameters that will be used to create the new Amazon EC2 instance. You can only pass one instance entry at a time in this array. You will get an invalid parameter error if you pass more than one instance entry in this array.
 #'
 #' @keywords internal
 #'
@@ -515,11 +462,9 @@ lightsail_create_cloud_formation_stack <- function(instances) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_contact_method/](https://www.paws-r-sdk.com/docs/lightsail_create_contact_method/) for full documentation.
 #'
-#' @param protocol &#91;required&#93; The protocol of the contact method, such as `Email` or `SMS` (text
-#' messaging).
+#' @param protocol &#91;required&#93; The protocol of the contact method, such as `Email` or `SMS` (text messaging).
 #' 
-#' The `SMS` protocol is supported only in the following Amazon Web
-#' Services Regions.
+#' The `SMS` protocol is supported only in the following Amazon Web Services Regions.
 #' 
 #' -   US East (N. Virginia) (`us-east-1`)
 #' 
@@ -533,30 +478,20 @@ lightsail_create_cloud_formation_stack <- function(instances) {
 #' 
 #' -   Asia Pacific (Sydney) (`ap-southeast-2`)
 #' 
-#' For a list of countries/regions where SMS text messages can be sent, and
-#' the latest Amazon Web Services Regions where SMS text messaging is
-#' supported, see [Supported Regions and
-#' Countries](https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-sms-by-country.html)
-#' in the *Amazon SNS Developer Guide*.
+#' For a list of countries/regions where SMS text messages can be sent, and the latest Amazon Web Services Regions where SMS text messaging is supported, see [Supported Regions and Countries](https://docs.aws.amazon.com/sms-voice/latest/userguide/phone-numbers-sms-by-country.html) in the *Amazon SNS Developer Guide*.
 #' 
-#' For more information about notifications in Amazon Lightsail, see
-#' [Notifications in Amazon
-#' Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-notifications.html).
-#' @param contactEndpoint &#91;required&#93; The destination of the contact method, such as an email address or a
-#' mobile phone number.
+#' For more information about notifications in Amazon Lightsail, see [Notifications in Amazon Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-notifications.html).
+#' @param contactEndpoint &#91;required&#93; The destination of the contact method, such as an email address or a mobile phone number.
 #' 
-#' Use the E.164 format when specifying a mobile phone number. E.164 is a
-#' standard for the phone number structure used for international
-#' telecommunication. Phone numbers that follow this format can have a
-#' maximum of 15 digits, and they are prefixed with the plus character (+)
-#' and the country code. For example, a U.S. phone number in E.164 format
-#' would be specified as +1XXX5550100. For more information, see
-#' [E.164](https://en.wikipedia.org/wiki/E.164) on *Wikipedia*.
+#' Use the E.164 format when specifying a mobile phone number. E.164 is a standard for the phone number structure used for international telecommunication. Phone numbers that follow this format can have a maximum of 15 digits, and they are prefixed with the plus character (+) and the country code. For example, a U.S. phone number in E.164 format would be specified as +1XXX5550100. For more information, see [E.164](https://en.wikipedia.org/wiki/E.164) on *Wikipedia*.
+#' @param tags The tag keys and optional values to add to the contact method during create.
+#' 
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
 #' @rdname lightsail_create_contact_method
-lightsail_create_contact_method <- function(protocol, contactEndpoint) {
+lightsail_create_contact_method <- function(protocol, contactEndpoint, tags = NULL) {
   op <- new_operation(
     name = "CreateContactMethod",
     http_method = "POST",
@@ -565,7 +500,7 @@ lightsail_create_contact_method <- function(protocol, contactEndpoint) {
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .lightsail$create_contact_method_input(protocol = protocol, contactEndpoint = contactEndpoint)
+  input <- .lightsail$create_contact_method_input(protocol = protocol, contactEndpoint = contactEndpoint, tags = tags)
   output <- .lightsail$create_contact_method_output()
   config <- get_config()
   svc <- .lightsail$service(config, op)
@@ -584,90 +519,45 @@ lightsail_create_contact_method <- function(protocol, contactEndpoint) {
 #'
 #' @param serviceName &#91;required&#93; The name for the container service.
 #' 
-#' The name that you specify for your container service will make up part
-#' of its default domain. The default domain of a container service is
-#' typically
-#' `https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com`.
-#' If the name of your container service is `container-service-1`, and it's
-#' located in the US East (Ohio) Amazon Web Services Region (`us-east-2`),
-#' then the domain for your container service will be like the following
-#' example:
-#' `https://container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com`
+#' The name that you specify for your container service will make up part of its default domain. The default domain of a container service is typically `https://<ServiceName>.<RandomGUID>.<AWSRegion>.cs.amazonlightsail.com`. If the name of your container service is `container-service-1`, and it's located in the US East (Ohio) Amazon Web Services Region (`us-east-2`), then the domain for your container service will be like the following example: `https://container-service-1.ur4EXAMPLE2uq.us-east-2.cs.amazonlightsail.com`
 #' 
 #' The following are the requirements for container service names:
 #' 
-#' -   Must be unique within each Amazon Web Services Region in your
-#'     Lightsail account.
+#' -   Must be unique within each Amazon Web Services Region in your Lightsail account.
 #' 
 #' -   Must contain 1 to 63 characters.
 #' 
 #' -   Must contain only alphanumeric characters and hyphens.
 #' 
-#' -   A hyphen (-) can separate words but cannot be at the start or end of
-#'     the name.
+#' -   A hyphen (-) can separate words but cannot be at the start or end of the name.
 #' @param power &#91;required&#93; The power specification for the container service.
 #' 
-#' The power specifies the amount of memory, vCPUs, and base monthly cost
-#' of each node of the container service. The `power` and `scale` of a
-#' container service makes up its configured capacity. To determine the
-#' monthly price of your container service, multiply the base price of the
-#' `power` with the `scale` (the number of nodes) of the service.
+#' The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the container service. The `power` and `scale` of a container service makes up its configured capacity. To determine the monthly price of your container service, multiply the base price of the `power` with the `scale` (the number of nodes) of the service.
 #' 
-#' Use the
-#' [`get_container_service_powers`][lightsail_get_container_service_powers]
-#' action to get a list of power options that you can specify using this
-#' parameter, and their base monthly cost.
+#' Use the [`get_container_service_powers`][lightsail_get_container_service_powers] action to get a list of power options that you can specify using this parameter, and their base monthly cost.
 #' @param scale &#91;required&#93; The scale specification for the container service.
 #' 
-#' The scale specifies the allocated compute nodes of the container
-#' service. The `power` and `scale` of a container service makes up its
-#' configured capacity. To determine the monthly price of your container
-#' service, multiply the base price of the `power` with the `scale` (the
-#' number of nodes) of the service.
-#' @param tags The tag keys and optional values to add to the container service during
-#' create.
+#' The scale specifies the allocated compute nodes of the container service. The `power` and `scale` of a container service makes up its configured capacity. To determine the monthly price of your container service, multiply the base price of the `power` with the `scale` (the number of nodes) of the service.
+#' @param tags The tag keys and optional values to add to the container service during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #' 
-#' For more information about tags in Lightsail, see the [Amazon Lightsail
-#' Developer
-#' Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags.html).
-#' @param publicDomainNames The public domain names to use with the container service, such as
-#' `example.com` and `www.example.com`.
+#' For more information about tags in Lightsail, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-tags.html).
+#' @param publicDomainNames The public domain names to use with the container service, such as `example.com` and `www.example.com`.
 #' 
-#' You can specify up to four public domain names for a container service.
-#' The domain names that you specify are used when you create a deployment
-#' with a container configured as the public endpoint of your container
-#' service.
+#' You can specify up to four public domain names for a container service. The domain names that you specify are used when you create a deployment with a container configured as the public endpoint of your container service.
 #' 
-#' If you don't specify public domain names, then you can use the default
-#' domain of the container service.
+#' If you don't specify public domain names, then you can use the default domain of the container service.
 #' 
-#' You must create and validate an SSL/TLS certificate before you can use
-#' public domain names with your container service. Use the
-#' [`create_certificate`][lightsail_create_certificate] action to create a
-#' certificate for the public domain names you want to use with your
-#' container service.
+#' You must create and validate an SSL/TLS certificate before you can use public domain names with your container service. Use the [`create_certificate`][lightsail_create_certificate] action to create a certificate for the public domain names you want to use with your container service.
 #' 
-#' You can specify public domain names using a string to array map as shown
-#' in the example later on this page.
+#' You can specify public domain names using a string to array map as shown in the example later on this page.
 #' @param deployment An object that describes a deployment for the container service.
 #' 
-#' A deployment specifies the containers that will be launched on the
-#' container service and their settings, such as the ports to open, the
-#' environment variables to apply, and the launch command to run. It also
-#' specifies the container that will serve as the public endpoint of the
-#' deployment and its settings, such as the HTTP or HTTPS port to use, and
-#' the health check configuration.
-#' @param privateRegistryAccess An object to describe the configuration for the container service to
-#' access private container image repositories, such as Amazon Elastic
-#' Container Registry (Amazon ECR) private repositories.
+#' A deployment specifies the containers that will be launched on the container service and their settings, such as the ports to open, the environment variables to apply, and the launch command to run. It also specifies the container that will serve as the public endpoint of the deployment and its settings, such as the HTTP or HTTPS port to use, and the health check configuration.
+#' @param privateRegistryAccess An object to describe the configuration for the container service to access private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.
 #' 
-#' For more information, see [Configuring access to an Amazon ECR private
-#' repository for an Amazon Lightsail container
-#' service](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-container-service-ecr-private-repo-access.html)
-#' in the *Amazon Lightsail Developer Guide*.
+#' For more information, see [Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-container-service-ecr-private-repo-access.html) in the *Amazon Lightsail Developer Guide*.
 #'
 #' @keywords internal
 #'
@@ -699,10 +589,8 @@ lightsail_create_container_service <- function(serviceName, power, scale, tags =
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_container_service_deployment/](https://www.paws-r-sdk.com/docs/lightsail_create_container_service_deployment/) for full documentation.
 #'
 #' @param serviceName &#91;required&#93; The name of the container service for which to create the deployment.
-#' @param containers An object that describes the settings of the containers that will be
-#' launched on the container service.
-#' @param publicEndpoint An object that describes the settings of the public endpoint for the
-#' container service.
+#' @param containers An object that describes the settings of the containers that will be launched on the container service.
+#' @param publicEndpoint An object that describes the settings of the public endpoint for the container service.
 #'
 #' @keywords internal
 #'
@@ -767,19 +655,14 @@ lightsail_create_container_service_registry_login <- function() {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_disk/](https://www.paws-r-sdk.com/docs/lightsail_create_disk/) for full documentation.
 #'
 #' @param diskName &#91;required&#93; The unique Lightsail disk name (`my-disk`).
-#' @param availabilityZone &#91;required&#93; The Availability Zone where you want to create the disk (`us-east-2a`).
-#' Use the same Availability Zone as the Lightsail instance to which you
-#' want to attach the disk.
+#' @param availabilityZone &#91;required&#93; The Availability Zone where you want to create the disk (`us-east-2a`). Use the same Availability Zone as the Lightsail instance to which you want to attach the disk.
 #' 
-#' Use the `get regions` operation to list the Availability Zones where
-#' Lightsail is currently available.
+#' Use the `get regions` operation to list the Availability Zones where Lightsail is currently available.
 #' @param sizeInGb &#91;required&#93; The size of the disk in GB (`32`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
-#' @param addOns An array of objects that represent the add-ons to enable for the new
-#' disk.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
+#' @param addOns An array of objects that represent the add-ons to enable for the new disk.
 #'
 #' @keywords internal
 #'
@@ -812,70 +695,42 @@ lightsail_create_disk <- function(diskName, availabilityZone, sizeInGb, tags = N
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_disk_from_snapshot/](https://www.paws-r-sdk.com/docs/lightsail_create_disk_from_snapshot/) for full documentation.
 #'
 #' @param diskName &#91;required&#93; The unique Lightsail disk name (`my-disk`).
-#' @param diskSnapshotName The name of the disk snapshot (`my-snapshot`) from which to create the
-#' new storage disk.
+#' @param diskSnapshotName The name of the disk snapshot (`my-snapshot`) from which to create the new storage disk.
 #' 
 #' Constraint:
 #' 
-#' -   This parameter cannot be defined together with the
-#'     `source disk name` parameter. The `disk snapshot name` and
-#'     `source disk name` parameters are mutually exclusive.
-#' @param availabilityZone &#91;required&#93; The Availability Zone where you want to create the disk (`us-east-2a`).
-#' Choose the same Availability Zone as the Lightsail instance where you
-#' want to create the disk.
+#' -   This parameter cannot be defined together with the `source disk name` parameter. The `disk snapshot name` and `source disk name` parameters are mutually exclusive.
+#' @param availabilityZone &#91;required&#93; The Availability Zone where you want to create the disk (`us-east-2a`). Choose the same Availability Zone as the Lightsail instance where you want to create the disk.
 #' 
-#' Use the GetRegions operation to list the Availability Zones where
-#' Lightsail is currently available.
+#' Use the GetRegions operation to list the Availability Zones where Lightsail is currently available.
 #' @param sizeInGb &#91;required&#93; The size of the disk in GB (`32`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
-#' @param addOns An array of objects that represent the add-ons to enable for the new
-#' disk.
-#' @param sourceDiskName The name of the source disk from which the source automatic snapshot was
-#' created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
+#' @param addOns An array of objects that represent the add-ons to enable for the new disk.
+#' @param sourceDiskName The name of the source disk from which the source automatic snapshot was created.
 #' 
 #' Constraints:
 #' 
-#' -   This parameter cannot be defined together with the
-#'     `disk snapshot name` parameter. The `source disk name` and
-#'     `disk snapshot name` parameters are mutually exclusive.
+#' -   This parameter cannot be defined together with the `disk snapshot name` parameter. The `source disk name` and `disk snapshot name` parameters are mutually exclusive.
 #' 
-#' -   Define this parameter only when creating a new disk from an
-#'     automatic snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
-#' @param restoreDate The date of the automatic snapshot to use for the new disk. Use the
-#' `get auto snapshots` operation to identify the dates of the available
-#' automatic snapshots.
+#' -   Define this parameter only when creating a new disk from an automatic snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
+#' @param restoreDate The date of the automatic snapshot to use for the new disk. Use the `get auto snapshots` operation to identify the dates of the available automatic snapshots.
 #' 
 #' Constraints:
 #' 
 #' -   Must be specified in `YYYY-MM-DD` format.
 #' 
-#' -   This parameter cannot be defined together with the
-#'     `use latest restorable auto snapshot` parameter. The `restore date`
-#'     and `use latest restorable auto snapshot` parameters are mutually
-#'     exclusive.
+#' -   This parameter cannot be defined together with the `use latest restorable auto snapshot` parameter. The `restore date` and `use latest restorable auto snapshot` parameters are mutually exclusive.
 #' 
-#' -   Define this parameter only when creating a new disk from an
-#'     automatic snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
-#' @param useLatestRestorableAutoSnapshot A Boolean value to indicate whether to use the latest available
-#' automatic snapshot.
+#' -   Define this parameter only when creating a new disk from an automatic snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
+#' @param useLatestRestorableAutoSnapshot A Boolean value to indicate whether to use the latest available automatic snapshot.
 #' 
 #' Constraints:
 #' 
-#' -   This parameter cannot be defined together with the `restore date`
-#'     parameter. The `use latest restorable auto snapshot` and
-#'     `restore date` parameters are mutually exclusive.
+#' -   This parameter cannot be defined together with the `restore date` parameter. The `use latest restorable auto snapshot` and `restore date` parameters are mutually exclusive.
 #' 
-#' -   Define this parameter only when creating a new disk from an
-#'     automatic snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
+#' -   Define this parameter only when creating a new disk from an automatic snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
 #'
 #' @keywords internal
 #'
@@ -908,22 +763,14 @@ lightsail_create_disk_from_snapshot <- function(diskName, diskSnapshotName = NUL
 #'
 #' @param diskName The unique name of the source disk (`Disk-Virginia-1`).
 #' 
-#' This parameter cannot be defined together with the `instance name`
-#' parameter. The `disk name` and `instance name` parameters are mutually
-#' exclusive.
-#' @param diskSnapshotName &#91;required&#93; The name of the destination disk snapshot (`my-disk-snapshot`) based on
-#' the source disk.
-#' @param instanceName The unique name of the source instance
-#' (`Amazon_Linux-512MB-Virginia-1`). When this is defined, a snapshot of
-#' the instance's system volume is created.
+#' This parameter cannot be defined together with the `instance name` parameter. The `disk name` and `instance name` parameters are mutually exclusive.
+#' @param diskSnapshotName &#91;required&#93; The name of the destination disk snapshot (`my-disk-snapshot`) based on the source disk.
+#' @param instanceName The unique name of the source instance (`Amazon_Linux-512MB-Virginia-1`). When this is defined, a snapshot of the instance's system volume is created.
 #' 
-#' This parameter cannot be defined together with the `disk name`
-#' parameter. The `instance name` and `disk name` parameters are mutually
-#' exclusive.
+#' This parameter cannot be defined together with the `disk name` parameter. The `instance name` and `disk name` parameters are mutually exclusive.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -955,39 +802,28 @@ lightsail_create_disk_snapshot <- function(diskName = NULL, diskSnapshotName, in
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_distribution/](https://www.paws-r-sdk.com/docs/lightsail_create_distribution/) for full documentation.
 #'
 #' @param distributionName &#91;required&#93; The name for the distribution.
-#' @param origin &#91;required&#93; An object that describes the origin resource for the distribution, such
-#' as a Lightsail instance, bucket, or load balancer.
+#' @param origin &#91;required&#93; An object that describes the origin resource for the distribution, such as a Lightsail instance, bucket, or load balancer.
 #' 
 #' The distribution pulls, caches, and serves content from the origin.
-#' @param defaultCacheBehavior &#91;required&#93; An object that describes the default cache behavior for the
-#' distribution.
-#' @param cacheBehaviorSettings An object that describes the cache behavior settings for the
-#' distribution.
-#' @param cacheBehaviors An array of objects that describe the per-path cache behavior for the
-#' distribution.
+#' @param defaultCacheBehavior &#91;required&#93; An object that describes the default cache behavior for the distribution.
+#' @param cacheBehaviorSettings An object that describes the cache behavior settings for the distribution.
+#' @param cacheBehaviors An array of objects that describe the per-path cache behavior for the distribution.
 #' @param bundleId &#91;required&#93; The bundle ID to use for the distribution.
 #' 
-#' A distribution bundle describes the specifications of your distribution,
-#' such as the monthly cost and monthly network transfer quota.
+#' A distribution bundle describes the specifications of your distribution, such as the monthly cost and monthly network transfer quota.
 #' 
-#' Use the [`get_distribution_bundles`][lightsail_get_distribution_bundles]
-#' action to get a list of distribution bundle IDs that you can specify.
+#' Use the [`get_distribution_bundles`][lightsail_get_distribution_bundles] action to get a list of distribution bundle IDs that you can specify.
 #' @param ipAddressType The IP address type for the distribution.
 #' 
-#' The possible values are `ipv4` for IPv4 only, and `dualstack` for IPv4
-#' and IPv6.
+#' The possible values are `ipv4` for IPv4 only, and `dualstack` for IPv4 and IPv6.
 #' 
 #' The default value is `dualstack`.
-#' @param tags The tag keys and optional values to add to the distribution during
-#' create.
+#' @param tags The tag keys and optional values to add to the distribution during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
-#' @param certificateName The name of the SSL/TLS certificate that you want to attach to the
-#' distribution.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
+#' @param certificateName The name of the SSL/TLS certificate that you want to attach to the distribution.
 #' 
-#' Use the [`get_certificates`][lightsail_get_certificates] action to get a
-#' list of certificate names that you can specify.
+#' Use the [`get_certificates`][lightsail_get_certificates] action to get a list of certificate names that you can specify.
 #' @param viewerMinimumTlsProtocolVersion The minimum TLS protocol version for the SSL/TLS certificate.
 #'
 #' @keywords internal
@@ -1022,8 +858,7 @@ lightsail_create_distribution <- function(distributionName, origin, defaultCache
 #' @param domainName &#91;required&#93; The domain name to manage (`example.com`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -1057,10 +892,8 @@ lightsail_create_domain <- function(domainName, tags = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_domain_entry/](https://www.paws-r-sdk.com/docs/lightsail_create_domain_entry/) for full documentation.
 #'
-#' @param domainName &#91;required&#93; The domain name (`example.com`) for which you want to create the domain
-#' entry.
-#' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about the domain
-#' entry request.
+#' @param domainName &#91;required&#93; The domain name (`example.com`) for which you want to create the domain entry.
+#' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about the domain entry request.
 #'
 #' @keywords internal
 #'
@@ -1127,8 +960,7 @@ lightsail_create_gui_session_access_details <- function(resourceName) {
 #' @param instanceName &#91;required&#93; The Lightsail instance on which to base your snapshot.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -1159,49 +991,26 @@ lightsail_create_instance_snapshot <- function(instanceSnapshotName, instanceNam
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_instances/](https://www.paws-r-sdk.com/docs/lightsail_create_instances/) for full documentation.
 #'
-#' @param instanceNames &#91;required&#93; The names to use for your new Lightsail instances. Separate multiple
-#' values using quotation marks and commas, for example:
-#' `["MyFirstInstance","MySecondInstance"]`
-#' @param availabilityZone &#91;required&#93; The Availability Zone in which to create your instance. Use the
-#' following format: `us-east-2a` (case sensitive). You can get a list of
-#' Availability Zones by using the [get
-#' regions](https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html)
-#' operation. Be sure to add the `include Availability Zones` parameter to
-#' your request.
+#' @param instanceNames &#91;required&#93; The names to use for your new Lightsail instances. Separate multiple values using quotation marks and commas, for example: `["MyFirstInstance","MySecondInstance"]`
+#' @param availabilityZone &#91;required&#93; The Availability Zone in which to create your instance. Use the following format: `us-east-2a` (case sensitive). You can get a list of Availability Zones by using the [get regions](https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html) operation. Be sure to add the `include Availability Zones` parameter to your request.
 #' @param customImageName (Discontinued) The name for your custom image.
 #' 
-#' In releases prior to June 12, 2017, this parameter was ignored by the
-#' API. It is now discontinued.
-#' @param blueprintId &#91;required&#93; The ID for a virtual private server image (`app_wordpress_x_x` or
-#' `app_lamp_x_x`). Use the `get blueprints` operation to return a list of
-#' available images (or *blueprints*).
+#' In releases prior to June 12, 2017, this parameter was ignored by the API. It is now discontinued.
+#' @param blueprintId &#91;required&#93; The ID for a virtual private server image (`app_wordpress_x_x` or `app_lamp_x_x`). Use the `get blueprints` operation to return a list of available images (or *blueprints*).
 #' 
-#' Use active blueprints when creating new instances. Inactive blueprints
-#' are listed to support customers with existing instances and are not
-#' necessarily available to create new instances. Blueprints are marked
-#' inactive when they become outdated due to operating system updates or
-#' new application releases.
-#' @param bundleId &#91;required&#93; The bundle of specification information for your virtual private server
-#' (or *instance*), including the pricing plan (`medium_x_x`).
-#' @param userData A launch script you can create that configures a server with additional
-#' user data. For example, you might want to run `apt-get -y update`.
+#' Use active blueprints when creating new instances. Inactive blueprints are listed to support customers with existing instances and are not necessarily available to create new instances. Blueprints are marked inactive when they become outdated due to operating system updates or new application releases.
+#' @param bundleId &#91;required&#93; The bundle of specification information for your virtual private server (or *instance*), including the pricing plan (`medium_x_x`).
+#' @param userData A launch script you can create that configures a server with additional user data. For example, you might want to run `apt-get -y update`.
 #' 
-#' Depending on the machine image you choose, the command to get software
-#' on your instance varies. Amazon Linux and CentOS use `yum`, Debian and
-#' Ubuntu use `apt-get`, and FreeBSD uses `pkg`. For a complete list, see
-#' the [Amazon Lightsail Developer
-#' Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/compare-options-choose-lightsail-instance-image.html).
+#' Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use `yum`, Debian and Ubuntu use `apt-get`, and FreeBSD uses `pkg`. For a complete list, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/compare-options-choose-lightsail-instance-image.html).
 #' @param keyPairName The name of your key pair.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
-#' @param addOns An array of objects representing the add-ons to enable for the new
-#' instance.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
+#' @param addOns An array of objects representing the add-ons to enable for the new instance.
 #' @param ipAddressType The IP address type for the instance.
 #' 
-#' The possible values are `ipv4` for IPv4 only, `ipv6` for IPv6 only, and
-#' `dualstack` for IPv4 and IPv6.
+#' The possible values are `ipv4` for IPv4 only, `ipv6` for IPv6 only, and `dualstack` for IPv4 and IPv6.
 #' 
 #' The default value is `dualstack`.
 #'
@@ -1237,87 +1046,49 @@ lightsail_create_instances <- function(instanceNames, availabilityZone, customIm
 #'
 #' @param instanceNames &#91;required&#93; The names for your new instances.
 #' @param attachedDiskMapping An object containing information about one or more disk mappings.
-#' @param availabilityZone &#91;required&#93; The Availability Zone where you want to create your instances. Use the
-#' following formatting: `us-east-2a` (case sensitive). You can get a list
-#' of Availability Zones by using the [get
-#' regions](https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html)
-#' operation. Be sure to add the `include Availability Zones` parameter to
-#' your request.
-#' @param instanceSnapshotName The name of the instance snapshot on which you are basing your new
-#' instances. Use the get instance snapshots operation to return
-#' information about your existing snapshots.
+#' @param availabilityZone &#91;required&#93; The Availability Zone where you want to create your instances. Use the following formatting: `us-east-2a` (case sensitive). You can get a list of Availability Zones by using the [get regions](https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetRegions.html) operation. Be sure to add the `include Availability Zones` parameter to your request.
+#' @param instanceSnapshotName The name of the instance snapshot on which you are basing your new instances. Use the get instance snapshots operation to return information about your existing snapshots.
 #' 
 #' Constraint:
 #' 
-#' -   This parameter cannot be defined together with the
-#'     `source instance name` parameter. The `instance snapshot name` and
-#'     `source instance name` parameters are mutually exclusive.
-#' @param bundleId &#91;required&#93; The bundle of specification information for your virtual private server
-#' (or *instance*), including the pricing plan (`micro_x_x`).
-#' @param userData You can create a launch script that configures a server with additional
-#' user data. For example, `apt-get -y update`.
+#' -   This parameter cannot be defined together with the `source instance name` parameter. The `instance snapshot name` and `source instance name` parameters are mutually exclusive.
+#' @param bundleId &#91;required&#93; The bundle of specification information for your virtual private server (or *instance*), including the pricing plan (`micro_x_x`).
+#' @param userData You can create a launch script that configures a server with additional user data. For example, `apt-get -y update`.
 #' 
-#' Depending on the machine image you choose, the command to get software
-#' on your instance varies. Amazon Linux and CentOS use `yum`, Debian and
-#' Ubuntu use `apt-get`, and FreeBSD uses `pkg`. For a complete list, see
-#' the [Amazon Lightsail Developer
-#' Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/compare-options-choose-lightsail-instance-image.html).
+#' Depending on the machine image you choose, the command to get software on your instance varies. Amazon Linux and CentOS use `yum`, Debian and Ubuntu use `apt-get`, and FreeBSD uses `pkg`. For a complete list, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/compare-options-choose-lightsail-instance-image.html).
 #' @param keyPairName The name for your key pair.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
-#' @param addOns An array of objects representing the add-ons to enable for the new
-#' instance.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
+#' @param addOns An array of objects representing the add-ons to enable for the new instance.
 #' @param ipAddressType The IP address type for the instance.
 #' 
-#' The possible values are `ipv4` for IPv4 only, `ipv6` for IPv6 only, and
-#' `dualstack` for IPv4 and IPv6.
+#' The possible values are `ipv4` for IPv4 only, `ipv6` for IPv6 only, and `dualstack` for IPv4 and IPv6.
 #' 
 #' The default value is `dualstack`.
-#' @param sourceInstanceName The name of the source instance from which the source automatic snapshot
-#' was created.
+#' @param sourceInstanceName The name of the source instance from which the source automatic snapshot was created.
 #' 
 #' Constraints:
 #' 
-#' -   This parameter cannot be defined together with the
-#'     `instance snapshot name` parameter. The `source instance name` and
-#'     `instance snapshot name` parameters are mutually exclusive.
+#' -   This parameter cannot be defined together with the `instance snapshot name` parameter. The `source instance name` and `instance snapshot name` parameters are mutually exclusive.
 #' 
-#' -   Define this parameter only when creating a new instance from an
-#'     automatic snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
-#' @param restoreDate The date of the automatic snapshot to use for the new instance. Use the
-#' `get auto snapshots` operation to identify the dates of the available
-#' automatic snapshots.
+#' -   Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
+#' @param restoreDate The date of the automatic snapshot to use for the new instance. Use the `get auto snapshots` operation to identify the dates of the available automatic snapshots.
 #' 
 #' Constraints:
 #' 
 #' -   Must be specified in `YYYY-MM-DD` format.
 #' 
-#' -   This parameter cannot be defined together with the
-#'     `use latest restorable auto snapshot` parameter. The `restore date`
-#'     and `use latest restorable auto snapshot` parameters are mutually
-#'     exclusive.
+#' -   This parameter cannot be defined together with the `use latest restorable auto snapshot` parameter. The `restore date` and `use latest restorable auto snapshot` parameters are mutually exclusive.
 #' 
-#' -   Define this parameter only when creating a new instance from an
-#'     automatic snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
-#' @param useLatestRestorableAutoSnapshot A Boolean value to indicate whether to use the latest available
-#' automatic snapshot.
+#' -   Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
+#' @param useLatestRestorableAutoSnapshot A Boolean value to indicate whether to use the latest available automatic snapshot.
 #' 
 #' Constraints:
 #' 
-#' -   This parameter cannot be defined together with the `restore date`
-#'     parameter. The `use latest restorable auto snapshot` and
-#'     `restore date` parameters are mutually exclusive.
+#' -   This parameter cannot be defined together with the `restore date` parameter. The `use latest restorable auto snapshot` and `restore date` parameters are mutually exclusive.
 #' 
-#' -   Define this parameter only when creating a new instance from an
-#'     automatic snapshot. For more information, see the [Amazon Lightsail
-#'     Developer
-#'     Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
+#' -   Define this parameter only when creating a new instance from an automatic snapshot. For more information, see the [Amazon Lightsail Developer Guide](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configuring-automatic-snapshots.html).
 #'
 #' @keywords internal
 #'
@@ -1352,8 +1123,7 @@ lightsail_create_instances_from_snapshot <- function(instanceNames, attachedDisk
 #' @param keyPairName &#91;required&#93; The name for your new key pair.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -1380,51 +1150,35 @@ lightsail_create_key_pair <- function(keyPairName, tags = NULL) {
 #' Creates a Lightsail load balancer
 #'
 #' @description
-#' Creates a Lightsail load balancer. To learn more about deciding whether to load balance your application, see [Configure your Lightsail instances for load balancing](https://docs.aws.amazon.com/lightsail/latest/userguide/configure-lightsail-instances-for-load-balancing.html). You can create up to 5 load balancers per AWS Region in your account.
+#' Creates a Lightsail load balancer. To learn more about deciding whether to load balance your application, see [Configure your Lightsail instances for load balancing](https://docs.aws.amazon.com/lightsail/latest/userguide/configure-lightsail-instances-for-load-balancing.html). You can create up to 10 load balancers per AWS Region in your account.
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_create_load_balancer/](https://www.paws-r-sdk.com/docs/lightsail_create_load_balancer/) for full documentation.
 #'
 #' @param loadBalancerName &#91;required&#93; The name of your load balancer.
 #' @param instancePort &#91;required&#93; The instance port where you're creating your load balancer.
-#' @param healthCheckPath The path you provided to perform the load balancer health check. If you
-#' didn't specify a health check path, Lightsail uses the root path of your
-#' website (`"/"`).
+#' @param healthCheckPath The path you provided to perform the load balancer health check. If you didn't specify a health check path, Lightsail uses the root path of your website (`"/"`).
 #' 
-#' You may want to specify a custom health check path other than the root
-#' of your application if your home page loads slowly or has a lot of media
-#' or scripting on it.
+#' You may want to specify a custom health check path other than the root of your application if your home page loads slowly or has a lot of media or scripting on it.
 #' @param certificateName The name of the SSL/TLS certificate.
 #' 
-#' If you specify `certificateName`, then `certificateDomainName` is
-#' required (and vice-versa).
-#' @param certificateDomainName The domain name with which your certificate is associated
-#' (`example.com`).
+#' If you specify `certificateName`, then `certificateDomainName` is required (and vice-versa).
+#' @param certificateDomainName The domain name with which your certificate is associated (`example.com`).
 #' 
-#' If you specify `certificateDomainName`, then `certificateName` is
-#' required (and vice-versa).
-#' @param certificateAlternativeNames The optional alternative domains and subdomains to use with your SSL/TLS
-#' certificate (`www.example.com`, `example.com`, `m.example.com`,
-#' `blog.example.com`).
+#' If you specify `certificateDomainName`, then `certificateName` is required (and vice-versa).
+#' @param certificateAlternativeNames The optional alternative domains and subdomains to use with your SSL/TLS certificate (`www.example.com`, `example.com`, `m.example.com`, `blog.example.com`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #' @param ipAddressType The IP address type for the load balancer.
 #' 
-#' The possible values are `ipv4` for IPv4 only, `ipv6` for IPv6 only, and
-#' `dualstack` for IPv4 and IPv6.
+#' The possible values are `ipv4` for IPv4 only, `ipv6` for IPv6 only, and `dualstack` for IPv4 and IPv6.
 #' 
 #' The default value is `dualstack`.
 #' @param tlsPolicyName The name of the TLS policy to apply to the load balancer.
 #' 
-#' Use the
-#' [`get_load_balancer_tls_policies`][lightsail_get_load_balancer_tls_policies]
-#' action to get a list of TLS policy names that you can specify.
+#' Use the [`get_load_balancer_tls_policies`][lightsail_get_load_balancer_tls_policies] action to get a list of TLS policy names that you can specify.
 #' 
-#' For more information about load balancer TLS policies, see [Configuring
-#' TLS security policies on your Amazon Lightsail load
-#' balancers](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configure-load-balancer-tls-security-policy.html)
-#' in the *Amazon Lightsail Developer Guide*.
+#' For more information about load balancer TLS policies, see [Configuring TLS security policies on your Amazon Lightsail load balancers](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-configure-load-balancer-tls-security-policy.html) in the *Amazon Lightsail Developer Guide*.
 #'
 #' @keywords internal
 #'
@@ -1458,21 +1212,12 @@ lightsail_create_load_balancer <- function(loadBalancerName, instancePort, healt
 #' @param loadBalancerName &#91;required&#93; The load balancer name where you want to create the SSL/TLS certificate.
 #' @param certificateName &#91;required&#93; The SSL/TLS certificate name.
 #' 
-#' You can have up to 10 certificates in your account at one time. Each
-#' Lightsail load balancer can have up to 2 certificates associated with it
-#' at one time. There is also an overall limit to the number of
-#' certificates that can be issue in a 365-day period. For more
-#' information, see
-#' [Limits](https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html).
+#' You can have up to 10 certificates in your account at one time. Each Lightsail load balancer can have up to 2 certificates associated with it at one time. There is also an overall limit to the number of certificates that can be issue in a 365-day period. For more information, see [Limits](https://docs.aws.amazon.com/acm/latest/userguide/acm-limits.html).
 #' @param certificateDomainName &#91;required&#93; The domain name (`example.com`) for your SSL/TLS certificate.
-#' @param certificateAlternativeNames An array of strings listing alternative domains and subdomains for your
-#' SSL/TLS certificate. Lightsail will de-dupe the names for you. You can
-#' have a maximum of 9 alternative names (in addition to the 1 primary
-#' domain). We do not support wildcards (`*.example.com`).
+#' @param certificateAlternativeNames An array of strings listing alternative domains and subdomains for your SSL/TLS certificate. Lightsail will de-dupe the names for you. You can have a maximum of 9 alternative names (in addition to the 1 primary domain). We do not support wildcards (`*.example.com`).
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -1510,71 +1255,44 @@ lightsail_create_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' -   Must contain from 2 to 255 alphanumeric characters, or hyphens.
 #' 
 #' -   The first and last character must be a letter or number.
-#' @param availabilityZone The Availability Zone in which to create your new database. Use the
-#' `us-east-2a` case-sensitive format.
+#' @param availabilityZone The Availability Zone in which to create your new database. Use the `us-east-2a` case-sensitive format.
 #' 
-#' You can get a list of Availability Zones by using the `get regions`
-#' operation. Be sure to add the
-#' `include relational database Availability Zones` parameter to your
-#' request.
-#' @param relationalDatabaseBlueprintId &#91;required&#93; The blueprint ID for your new database. A blueprint describes the major
-#' engine version of a database.
+#' You can get a list of Availability Zones by using the `get regions` operation. Be sure to add the `include relational database Availability Zones` parameter to your request.
+#' @param relationalDatabaseBlueprintId &#91;required&#93; The blueprint ID for your new database. A blueprint describes the major engine version of a database.
 #' 
-#' You can get a list of database blueprints IDs by using the
-#' `get relational database blueprints` operation.
-#' @param relationalDatabaseBundleId &#91;required&#93; The bundle ID for your new database. A bundle describes the performance
-#' specifications for your database.
+#' You can get a list of database blueprints IDs by using the `get relational database blueprints` operation.
+#' @param relationalDatabaseBundleId &#91;required&#93; The bundle ID for your new database. A bundle describes the performance specifications for your database.
 #' 
-#' You can get a list of database bundle IDs by using the
-#' `get relational database bundles` operation.
-#' @param masterDatabaseName &#91;required&#93; The meaning of this parameter differs according to the database engine
-#' you use.
+#' You can get a list of database bundle IDs by using the `get relational database bundles` operation.
+#' @param masterDatabaseName &#91;required&#93; The meaning of this parameter differs according to the database engine you use.
 #' 
 #' **MySQL**
 #' 
-#' The name of the database to create when the Lightsail database resource
-#' is created. If this parameter isn't specified, no database is created in
-#' the database resource.
+#' The name of the database to create when the Lightsail database resource is created. If this parameter isn't specified, no database is created in the database resource.
 #' 
 #' Constraints:
 #' 
 #' -   Must contain 1 to 64 letters or numbers.
 #' 
-#' -   Must begin with a letter. Subsequent characters can be letters,
-#'     underscores, or digits (0- 9).
+#' -   Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
 #' 
 #' -   Can't be a word reserved by the specified database engine.
 #' 
-#'     For more information about reserved words in MySQL, see the Keywords
-#'     and Reserved Words articles for [MySQL
-#'     5.6](https://dev.mysql.com/doc/refman/8.4/en/keywords.html), [MySQL
-#'     5.7](https://dev.mysql.com/doc/refman/5.7/en/keywords.html), and
-#'     [MySQL 8.0](https://dev.mysql.com/doc/refman/8.0/en/keywords.html).
+#'     For more information about reserved words in MySQL, see the Keywords and Reserved Words articles for [MySQL 5.6](https://dev.mysql.com/doc/refman/9.7/en/keywords.html), [MySQL 5.7](https://dev.mysql.com/doc/refman/5.7/en/keywords.html), and [MySQL 8.0](https://dev.mysql.com/doc/refman/8.0/en/keywords.html).
 #' 
 #' **PostgreSQL**
 #' 
-#' The name of the database to create when the Lightsail database resource
-#' is created. If this parameter isn't specified, a database named
-#' `postgres` is created in the database resource.
+#' The name of the database to create when the Lightsail database resource is created. If this parameter isn't specified, a database named `postgres` is created in the database resource.
 #' 
 #' Constraints:
 #' 
 #' -   Must contain 1 to 63 letters or numbers.
 #' 
-#' -   Must begin with a letter. Subsequent characters can be letters,
-#'     underscores, or digits (0- 9).
+#' -   Must begin with a letter. Subsequent characters can be letters, underscores, or digits (0- 9).
 #' 
 #' -   Can't be a word reserved by the specified database engine.
 #' 
-#'     For more information about reserved words in PostgreSQL, see the SQL
-#'     Key Words articles for [PostgreSQL
-#'     9.6](https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html),
-#'     [PostgreSQL
-#'     10](https://www.postgresql.org/docs/10/sql-keywords-appendix.html),
-#'     [PostgreSQL
-#'     11](https://www.postgresql.org/docs/11/sql-keywords-appendix.html),
-#'     and [PostgreSQL
-#'     12](https://www.postgresql.org/docs/12/sql-keywords-appendix.html).
+#'     For more information about reserved words in PostgreSQL, see the SQL Key Words articles for [PostgreSQL 9.6](https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html), [PostgreSQL 10](https://www.postgresql.org/docs/10/sql-keywords-appendix.html), [PostgreSQL 11](https://www.postgresql.org/docs/11/sql-keywords-appendix.html), and [PostgreSQL 12](https://www.postgresql.org/docs/12/sql-keywords-appendix.html).
 #' @param masterUsername &#91;required&#93; The name for the master user.
 #' 
 #' **MySQL**
@@ -1589,11 +1307,7 @@ lightsail_create_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' 
 #' -   Can't be a reserved word for the chosen database engine.
 #' 
-#'     For more information about reserved words in MySQL 5.6 or 5.7, see
-#'     the Keywords and Reserved Words articles for [MySQL
-#'     5.6](https://dev.mysql.com/doc/refman/8.4/en/keywords.html), [MySQL
-#'     5.7](https://dev.mysql.com/doc/refman/5.7/en/keywords.html), or
-#'     [MySQL 8.0](https://dev.mysql.com/doc/refman/8.0/en/keywords.html).
+#'     For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for [MySQL 5.6](https://dev.mysql.com/doc/refman/9.7/en/keywords.html), [MySQL 5.7](https://dev.mysql.com/doc/refman/5.7/en/keywords.html), or [MySQL 8.0](https://dev.mysql.com/doc/refman/8.0/en/keywords.html).
 #' 
 #' **PostgreSQL**
 #' 
@@ -1607,17 +1321,8 @@ lightsail_create_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' 
 #' -   Can't be a reserved word for the chosen database engine.
 #' 
-#'     For more information about reserved words in MySQL 5.6 or 5.7, see
-#'     the Keywords and Reserved Words articles for [PostgreSQL
-#'     9.6](https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html),
-#'     [PostgreSQL
-#'     10](https://www.postgresql.org/docs/10/sql-keywords-appendix.html),
-#'     [PostgreSQL
-#'     11](https://www.postgresql.org/docs/11/sql-keywords-appendix.html),
-#'     and [PostgreSQL
-#'     12](https://www.postgresql.org/docs/12/sql-keywords-appendix.html).
-#' @param masterUserPassword The password for the master user. The password can include any printable
-#' ASCII character except "/", """, or "@@". It cannot contain spaces.
+#'     For more information about reserved words in MySQL 5.6 or 5.7, see the Keywords and Reserved Words articles for [PostgreSQL 9.6](https://www.postgresql.org/docs/9.6/sql-keywords-appendix.html), [PostgreSQL 10](https://www.postgresql.org/docs/10/sql-keywords-appendix.html), [PostgreSQL 11](https://www.postgresql.org/docs/11/sql-keywords-appendix.html), and [PostgreSQL 12](https://www.postgresql.org/docs/12/sql-keywords-appendix.html).
+#' @param masterUserPassword The password for the master user. The password can include any printable ASCII character except "/", """, or "@@". It cannot contain spaces.
 #' 
 #' **MySQL**
 #' 
@@ -1626,15 +1331,9 @@ lightsail_create_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' **PostgreSQL**
 #' 
 #' Constraints: Must contain from 8 to 128 characters.
-#' @param preferredBackupWindow The daily time range during which automated backups are created for your
-#' new database if automated backups are enabled.
+#' @param preferredBackupWindow The daily time range during which automated backups are created for your new database if automated backups are enabled.
 #' 
-#' The default is a 30-minute window selected at random from an 8-hour
-#' block of time for each AWS Region. For more information about the
-#' preferred backup window time blocks for each region, see the [Working
-#' With
-#' Backups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow)
-#' guide in the Amazon Relational Database Service documentation.
+#' The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region. For more information about the preferred backup window time blocks for each region, see the [Working With Backups](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow) guide in the Amazon Relational Database Service documentation.
 #' 
 #' Constraints:
 #' 
@@ -1647,12 +1346,9 @@ lightsail_create_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' -   Must not conflict with the preferred maintenance window.
 #' 
 #' -   Must be at least 30 minutes.
-#' @param preferredMaintenanceWindow The weekly time range during which system maintenance can occur on your
-#' new database.
+#' @param preferredMaintenanceWindow The weekly time range during which system maintenance can occur on your new database.
 #' 
-#' The default is a 30-minute window selected at random from an 8-hour
-#' block of time for each AWS Region, occurring on a random day of the
-#' week.
+#' The default is a 30-minute window selected at random from an 8-hour block of time for each AWS Region, occurring on a random day of the week.
 #' 
 #' Constraints:
 #' 
@@ -1665,15 +1361,10 @@ lightsail_create_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' -   Specified in Coordinated Universal Time (UTC).
 #' 
 #' -   Example: `Tue:17:00-Tue:17:30`
-#' @param publiclyAccessible Specifies the accessibility options for your new database. A value of
-#' `true` specifies a database that is available to resources outside of
-#' your Lightsail account. A value of `false` specifies a database that is
-#' available only to your Lightsail resources in the same region as your
-#' database.
+#' @param publiclyAccessible Specifies the accessibility options for your new database. A value of `true` specifies a database that is available to resources outside of your Lightsail account. A value of `false` specifies a database that is available only to your Lightsail resources in the same region as your database.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -1712,28 +1403,16 @@ lightsail_create_relational_database <- function(relationalDatabaseName, availab
 #' -   Must contain from 2 to 255 alphanumeric characters, or hyphens.
 #' 
 #' -   The first and last character must be a letter or number.
-#' @param availabilityZone The Availability Zone in which to create your new database. Use the
-#' `us-east-2a` case-sensitive format.
+#' @param availabilityZone The Availability Zone in which to create your new database. Use the `us-east-2a` case-sensitive format.
 #' 
-#' You can get a list of Availability Zones by using the `get regions`
-#' operation. Be sure to add the
-#' `include relational database Availability Zones` parameter to your
-#' request.
-#' @param publiclyAccessible Specifies the accessibility options for your new database. A value of
-#' `true` specifies a database that is available to resources outside of
-#' your Lightsail account. A value of `false` specifies a database that is
-#' available only to your Lightsail resources in the same region as your
-#' database.
-#' @param relationalDatabaseSnapshotName The name of the database snapshot from which to create your new
-#' database.
-#' @param relationalDatabaseBundleId The bundle ID for your new database. A bundle describes the performance
-#' specifications for your database.
+#' You can get a list of Availability Zones by using the `get regions` operation. Be sure to add the `include relational database Availability Zones` parameter to your request.
+#' @param publiclyAccessible Specifies the accessibility options for your new database. A value of `true` specifies a database that is available to resources outside of your Lightsail account. A value of `false` specifies a database that is available only to your Lightsail resources in the same region as your database.
+#' @param relationalDatabaseSnapshotName The name of the database snapshot from which to create your new database.
+#' @param relationalDatabaseBundleId The bundle ID for your new database. A bundle describes the performance specifications for your database.
 #' 
-#' You can get a list of database bundle IDs by using the
-#' `get relational database bundles` operation.
+#' You can get a list of database bundle IDs by using the `get relational database bundles` operation.
 #' 
-#' When creating a new database from a snapshot, you cannot choose a bundle
-#' that is smaller than the bundle of the source database.
+#' When creating a new database from a snapshot, you cannot choose a bundle that is smaller than the bundle of the source database.
 #' @param sourceRelationalDatabaseName The name of the source database.
 #' @param restoreTime The date and time to restore your database from.
 #' 
@@ -1741,26 +1420,21 @@ lightsail_create_relational_database <- function(relationalDatabaseName, availab
 #' 
 #' -   Must be before the latest restorable time for the database.
 #' 
-#' -   Cannot be specified if the `use latest restorable time` parameter is
-#'     `true`.
+#' -   Cannot be specified if the `use latest restorable time` parameter is `true`.
 #' 
 #' -   Specified in Coordinated Universal Time (UTC).
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use a restore time of October 1, 2018,
-#'     at 8 PM UTC, then you input `1538424000` as the restore time.
-#' @param useLatestRestorableTime Specifies whether your database is restored from the latest backup time.
-#' A value of `true` restores from the latest backup time.
+#'     For example, if you wish to use a restore time of October 1, 2018, at 8 PM UTC, then you input `1538424000` as the restore time.
+#' @param useLatestRestorableTime Specifies whether your database is restored from the latest backup time. A value of `true` restores from the latest backup time.
 #' 
 #' Default: `false`
 #' 
-#' Constraints: Cannot be specified if the `restore time` parameter is
-#' provided.
+#' Constraints: Cannot be specified if the `restore time` parameter is provided.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -1801,8 +1475,7 @@ lightsail_create_relational_database_from_snapshot <- function(relationalDatabas
 #' -   The first and last character must be a letter or number.
 #' @param tags The tag keys and optional values to add to the resource during create.
 #' 
-#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a
-#' resource after it's created.
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
@@ -1864,11 +1537,8 @@ lightsail_delete_alarm <- function(alarmName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_delete_auto_snapshot/](https://www.paws-r-sdk.com/docs/lightsail_delete_auto_snapshot/) for full documentation.
 #'
-#' @param resourceName &#91;required&#93; The name of the source instance or disk from which to delete the
-#' automatic snapshot.
-#' @param date &#91;required&#93; The date of the automatic snapshot to delete in `YYYY-MM-DD` format. Use
-#' the `get auto snapshots` operation to get the available automatic
-#' snapshots for a resource.
+#' @param resourceName &#91;required&#93; The name of the source instance or disk from which to delete the automatic snapshot.
+#' @param date &#91;required&#93; The date of the automatic snapshot to delete in `YYYY-MM-DD` format. Use the `get auto snapshots` operation to get the available automatic snapshots for a resource.
 #'
 #' @keywords internal
 #'
@@ -1901,26 +1571,20 @@ lightsail_delete_auto_snapshot <- function(resourceName, date) {
 #'
 #' @param bucketName &#91;required&#93; The name of the bucket to delete.
 #' 
-#' Use the [`get_buckets`][lightsail_get_buckets] action to get a list of
-#' bucket names that you can specify.
+#' Use the [`get_buckets`][lightsail_get_buckets] action to get a list of bucket names that you can specify.
 #' @param forceDelete A Boolean value that indicates whether to force delete the bucket.
 #' 
-#' You must force delete the bucket if it has one of the following
-#' conditions:
+#' You must force delete the bucket if it has one of the following conditions:
 #' 
 #' -   The bucket is the origin of a distribution.
 #' 
-#' -   The bucket has instances that were granted access to it using the
-#'     [`set_resource_access_for_bucket`][lightsail_set_resource_access_for_bucket]
-#'     action.
+#' -   The bucket has instances that were granted access to it using the [`set_resource_access_for_bucket`][lightsail_set_resource_access_for_bucket] action.
 #' 
 #' -   The bucket has objects.
 #' 
 #' -   The bucket has access keys.
 #' 
-#' Force deleting a bucket might impact other resources that rely on the
-#' bucket, such as instances, distributions, or software that use the
-#' issued access keys.
+#' Force deleting a bucket might impact other resources that rely on the bucket, such as instances, distributions, or software that use the issued access keys.
 #'
 #' @keywords internal
 #'
@@ -1954,8 +1618,7 @@ lightsail_delete_bucket <- function(bucketName, forceDelete = NULL) {
 #' @param bucketName &#91;required&#93; The name of the bucket that the access key belongs to.
 #' @param accessKeyId &#91;required&#93; The ID of the access key to delete.
 #' 
-#' Use the [`get_bucket_access_keys`][lightsail_get_bucket_access_keys]
-#' action to get a list of access key IDs that you can specify.
+#' Use the [`get_bucket_access_keys`][lightsail_get_bucket_access_keys] action to get a list of access key IDs that you can specify.
 #'
 #' @keywords internal
 #'
@@ -1989,8 +1652,7 @@ lightsail_delete_bucket_access_key <- function(bucketName, accessKeyId) {
 #'
 #' @param certificateName &#91;required&#93; The name of the certificate to delete.
 #' 
-#' Use the [`get_certificates`][lightsail_get_certificates] action to get a
-#' list of certificate names that you can specify.
+#' Use the [`get_certificates`][lightsail_get_certificates] action to get a list of certificate names that you can specify.
 #'
 #' @keywords internal
 #'
@@ -2021,13 +1683,9 @@ lightsail_delete_certificate <- function(certificateName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_delete_contact_method/](https://www.paws-r-sdk.com/docs/lightsail_delete_contact_method/) for full documentation.
 #'
-#' @param protocol &#91;required&#93; The protocol that will be deleted, such as `Email` or `SMS` (text
-#' messaging).
+#' @param protocol &#91;required&#93; The protocol that will be deleted, such as `Email` or `SMS` (text messaging).
 #' 
-#' To delete an `Email` and an `SMS` contact method if you added both, you
-#' must run separate
-#' [`delete_contact_method`][lightsail_delete_contact_method] actions to
-#' delete each protocol.
+#' To delete an `Email` and an `SMS` contact method if you added both, you must run separate [`delete_contact_method`][lightsail_delete_contact_method] actions to delete each protocol.
 #'
 #' @keywords internal
 #'
@@ -2059,19 +1717,12 @@ lightsail_delete_contact_method <- function(protocol) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_delete_container_image/](https://www.paws-r-sdk.com/docs/lightsail_delete_container_image/) for full documentation.
 #'
-#' @param serviceName &#91;required&#93; The name of the container service for which to delete a registered
-#' container image.
+#' @param serviceName &#91;required&#93; The name of the container service for which to delete a registered container image.
 #' @param image &#91;required&#93; The name of the container image to delete from the container service.
 #' 
-#' Use the [`get_container_images`][lightsail_get_container_images] action
-#' to get the name of the container images that are registered to a
-#' container service.
+#' Use the [`get_container_images`][lightsail_get_container_images] action to get the name of the container images that are registered to a container service.
 #' 
-#' Container images sourced from your Lightsail container service, that are
-#' registered and stored on your service, start with a colon (`:`). For
-#' example, `:container-service-1.mystaticwebsite.1`. Container images
-#' sourced from a public registry like Docker Hub don't start with a colon.
-#' For example, `nginx:latest` or `nginx`.
+#' Container images sourced from your Lightsail container service, that are registered and stored on your service, start with a colon (`:`). For example, `:container-service-1.mystaticwebsite.1`. Container images sourced from a public registry like Docker Hub don't start with a colon. For example, `nginx:latest` or `nginx`.
 #'
 #' @keywords internal
 #'
@@ -2199,8 +1850,7 @@ lightsail_delete_disk_snapshot <- function(diskSnapshotName) {
 #'
 #' @param distributionName The name of the distribution to delete.
 #' 
-#' Use the [`get_distributions`][lightsail_get_distributions] action to get
-#' a list of distribution names that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get a list of distribution names that you can specify.
 #'
 #' @keywords internal
 #'
@@ -2263,8 +1913,7 @@ lightsail_delete_domain <- function(domainName) {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_delete_domain_entry/](https://www.paws-r-sdk.com/docs/lightsail_delete_domain_entry/) for full documentation.
 #'
 #' @param domainName &#91;required&#93; The name of the domain entry to delete.
-#' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about your domain
-#' entries.
+#' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about your domain entries.
 #'
 #' @keywords internal
 #'
@@ -2296,8 +1945,7 @@ lightsail_delete_domain_entry <- function(domainName, domainEntry) {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_delete_instance/](https://www.paws-r-sdk.com/docs/lightsail_delete_instance/) for full documentation.
 #'
 #' @param instanceName &#91;required&#93; The name of the instance to delete.
-#' @param forceDeleteAddOns A Boolean value to indicate whether to delete all add-ons for the
-#' instance.
+#' @param forceDeleteAddOns A Boolean value to indicate whether to delete all add-ons for the instance.
 #'
 #' @keywords internal
 #'
@@ -2363,8 +2011,7 @@ lightsail_delete_instance_snapshot <- function(instanceSnapshotName) {
 #' @param keyPairName &#91;required&#93; The name of the key pair to delete.
 #' @param expectedFingerprint The RSA fingerprint of the Lightsail default key pair to delete.
 #' 
-#' The `expectedFingerprint` parameter is required only when specifying to
-#' delete a Lightsail default key pair.
+#' The `expectedFingerprint` parameter is required only when specifying to delete a Lightsail default key pair.
 #'
 #' @keywords internal
 #'
@@ -2396,8 +2043,7 @@ lightsail_delete_key_pair <- function(keyPairName, expectedFingerprint = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_delete_known_host_keys/](https://www.paws-r-sdk.com/docs/lightsail_delete_known_host_keys/) for full documentation.
 #'
-#' @param instanceName &#91;required&#93; The name of the instance for which you want to reset the host key or
-#' certificate.
+#' @param instanceName &#91;required&#93; The name of the instance for which you want to reset the host key or certificate.
 #'
 #' @keywords internal
 #'
@@ -2464,10 +2110,7 @@ lightsail_delete_load_balancer <- function(loadBalancerName) {
 #' @param certificateName &#91;required&#93; The SSL/TLS certificate name.
 #' @param force When `true`, forces the deletion of an SSL/TLS certificate.
 #' 
-#' There can be two certificates associated with a Lightsail load balancer:
-#' the primary and the backup. The `force` parameter is required when the
-#' primary SSL/TLS certificate is in use by an instance attached to the
-#' load balancer.
+#' There can be two certificates associated with a Lightsail load balancer: the primary and the backup. The `force` parameter is required when the primary SSL/TLS certificate is in use by an instance attached to the load balancer.
 #'
 #' @keywords internal
 #'
@@ -2499,20 +2142,14 @@ lightsail_delete_load_balancer_tls_certificate <- function(loadBalancerName, cer
 #' See [https://www.paws-r-sdk.com/docs/lightsail_delete_relational_database/](https://www.paws-r-sdk.com/docs/lightsail_delete_relational_database/) for full documentation.
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of the database that you are deleting.
-#' @param skipFinalSnapshot Determines whether a final database snapshot is created before your
-#' database is deleted. If `true` is specified, no database snapshot is
-#' created. If `false` is specified, a database snapshot is created before
-#' your database is deleted.
+#' @param skipFinalSnapshot Determines whether a final database snapshot is created before your database is deleted. If `true` is specified, no database snapshot is created. If `false` is specified, a database snapshot is created before your database is deleted.
 #' 
-#' You must specify the `final relational database snapshot name` parameter
-#' if the `skip final snapshot` parameter is `false`.
+#' You must specify the `final relational database snapshot name` parameter if the `skip final snapshot` parameter is `false`.
 #' 
 #' Default: `false`
-#' @param finalRelationalDatabaseSnapshotName The name of the database snapshot created if `skip final snapshot` is
-#' `false`, which is the default value for that parameter.
+#' @param finalRelationalDatabaseSnapshotName The name of the database snapshot created if `skip final snapshot` is `false`, which is the default value for that parameter.
 #' 
-#' Specifying this parameter and also specifying the `skip final snapshot`
-#' parameter to `true` results in an error.
+#' Specifying this parameter and also specifying the `skip final snapshot` parameter to `true` results in an error.
 #' 
 #' Constraints:
 #' 
@@ -2583,8 +2220,7 @@ lightsail_delete_relational_database_snapshot <- function(relationalDatabaseSnap
 #'
 #' @param distributionName &#91;required&#93; The name of the distribution from which to detach the certificate.
 #' 
-#' Use the [`get_distributions`][lightsail_get_distributions] action to get
-#' a list of distribution names that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get a list of distribution names that you can specify.
 #'
 #' @keywords internal
 #'
@@ -2615,8 +2251,7 @@ lightsail_detach_certificate_from_distribution <- function(distributionName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_detach_disk/](https://www.paws-r-sdk.com/docs/lightsail_detach_disk/) for full documentation.
 #'
-#' @param diskName &#91;required&#93; The unique name of the disk you want to detach from your instance
-#' (`my-disk`).
+#' @param diskName &#91;required&#93; The unique name of the disk you want to detach from your instance (`my-disk`).
 #'
 #' @keywords internal
 #'
@@ -2648,8 +2283,7 @@ lightsail_detach_disk <- function(diskName) {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_detach_instances_from_load_balancer/](https://www.paws-r-sdk.com/docs/lightsail_detach_instances_from_load_balancer/) for full documentation.
 #'
 #' @param loadBalancerName &#91;required&#93; The name of the Lightsail load balancer.
-#' @param instanceNames &#91;required&#93; An array of strings containing the names of the instances you want to
-#' detach from the load balancer.
+#' @param instanceNames &#91;required&#93; An array of strings containing the names of the instances you want to detach from the load balancer.
 #'
 #' @keywords internal
 #'
@@ -2775,8 +2409,7 @@ lightsail_download_default_key_pair <- function() {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_enable_add_on/](https://www.paws-r-sdk.com/docs/lightsail_enable_add_on/) for full documentation.
 #'
-#' @param resourceName &#91;required&#93; The name of the source resource for which to enable or modify the
-#' add-on.
+#' @param resourceName &#91;required&#93; The name of the source resource for which to enable or modify the add-on.
 #' @param addOnRequest &#91;required&#93; An array of strings representing the add-on to enable or modify.
 #'
 #' @keywords internal
@@ -2842,10 +2475,7 @@ lightsail_export_snapshot <- function(sourceSnapshotName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_active_names`][lightsail_get_active_names] request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_active_names`][lightsail_get_active_names] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -2881,14 +2511,10 @@ lightsail_get_active_names <- function(pageToken = NULL) {
 #' Specify an alarm name to return information about a specific alarm.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_alarms`][lightsail_get_alarms] request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_alarms`][lightsail_get_alarms] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #' @param monitoredResourceName The name of the Lightsail resource being monitored by the alarm.
 #' 
-#' Specify a monitored resource name to return information about all alarms
-#' for a specific resource.
+#' Specify a monitored resource name to return information about all alarms for a specific resource.
 #'
 #' @keywords internal
 #'
@@ -2919,8 +2545,7 @@ lightsail_get_alarms <- function(alarmName = NULL, pageToken = NULL, monitoredRe
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_auto_snapshots/](https://www.paws-r-sdk.com/docs/lightsail_get_auto_snapshots/) for full documentation.
 #'
-#' @param resourceName &#91;required&#93; The name of the source instance or disk from which to get automatic
-#' snapshot information.
+#' @param resourceName &#91;required&#93; The name of the source instance or disk from which to get automatic snapshot information.
 #'
 #' @keywords internal
 #'
@@ -2951,16 +2576,11 @@ lightsail_get_auto_snapshots <- function(resourceName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_blueprints/](https://www.paws-r-sdk.com/docs/lightsail_get_blueprints/) for full documentation.
 #'
-#' @param includeInactive A Boolean value that indicates whether to include inactive (unavailable)
-#' blueprints in the response of your request.
+#' @param includeInactive A Boolean value that indicates whether to include inactive (unavailable) blueprints in the response of your request.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_blueprints`][lightsail_get_blueprints] request. If your results
-#' are paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
-#' @param appCategory Returns a list of blueprints that are specific to Lightsail for
-#' Research.
+#' To get a page token, perform an initial [`get_blueprints`][lightsail_get_blueprints] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+#' @param appCategory Returns a list of blueprints that are specific to Lightsail for Research.
 #' 
 #' You must use this parameter to view Lightsail for Research blueprints.
 #'
@@ -3025,8 +2645,7 @@ lightsail_get_bucket_access_keys <- function(bucketName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_bucket_bundles/](https://www.paws-r-sdk.com/docs/lightsail_get_bucket_bundles/) for full documentation.
 #'
-#' @param includeInactive A Boolean value that indicates whether to include inactive (unavailable)
-#' bundles in the response of your request.
+#' @param includeInactive A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
 #'
 #' @keywords internal
 #'
@@ -3061,24 +2680,17 @@ lightsail_get_bucket_bundles <- function(includeInactive = NULL) {
 #' @param bucketName &#91;required&#93; The name of the bucket for which to get metric data.
 #' @param metricName &#91;required&#93; The metric for which you want to return information.
 #' 
-#' Valid bucket metric names are listed below, along with the most useful
-#' statistics to include in your request, and the published unit value.
+#' Valid bucket metric names are listed below, along with the most useful statistics to include in your request, and the published unit value.
 #' 
 #' These bucket metrics are reported once per day.
 #' 
-#' -   **`BucketSizeBytes`** - The amount of data in bytes stored in a
-#'     bucket. This value is calculated by summing the size of all objects
-#'     in the bucket (including object versions), including the size of all
-#'     parts for all incomplete multipart uploads to the bucket.
+#' -   **`BucketSizeBytes`** - The amount of data in bytes stored in a bucket. This value is calculated by summing the size of all objects in the bucket (including object versions), including the size of all parts for all incomplete multipart uploads to the bucket.
 #' 
 #'     Statistics: The most useful statistic is `Maximum`.
 #' 
 #'     Unit: The published unit is `Bytes`.
 #' 
-#' -   **`NumberOfObjects`** - The total number of objects stored in a
-#'     bucket. This value is calculated by counting all objects in the
-#'     bucket (including object versions) and the total number of parts for
-#'     all incomplete multipart uploads to the bucket.
+#' -   **`NumberOfObjects`** - The total number of objects stored in a bucket. This value is calculated by counting all objects in the bucket (including object versions) and the total number of parts for all incomplete multipart uploads to the bucket.
 #' 
 #'     Statistics: The most useful statistic is `Average`.
 #' 
@@ -3087,37 +2699,23 @@ lightsail_get_bucket_bundles <- function(includeInactive = NULL) {
 #' @param endTime &#91;required&#93; The timestamp indicating the latest data to be returned.
 #' @param period &#91;required&#93; The granularity, in seconds, of the returned data points.
 #' 
-#' Bucket storage metrics are reported once per day. Therefore, you should
-#' specify a period of 86400 seconds, which is the number of seconds in a
-#' day.
+#' Bucket storage metrics are reported once per day. Therefore, you should specify a period of 86400 seconds, which is the number of seconds in a day.
 #' @param statistics &#91;required&#93; The statistic for the metric.
 #' 
 #' The following statistics are available:
 #' 
-#' -   `Minimum` - The lowest value observed during the specified period.
-#'     Use this value to determine low volumes of activity for your
-#'     application.
+#' -   `Minimum` - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.
 #' 
-#' -   `Maximum` - The highest value observed during the specified period.
-#'     Use this value to determine high volumes of activity for your
-#'     application.
+#' -   `Maximum` - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.
 #' 
-#' -   `Sum` - The sum of all values submitted for the matching metric. You
-#'     can use this statistic to determine the total volume of a metric.
+#' -   `Sum` - The sum of all values submitted for the matching metric. You can use this statistic to determine the total volume of a metric.
 #' 
-#' -   `Average` - The value of `Sum` / `SampleCount` during the specified
-#'     period. By comparing this statistic with the `Minimum` and `Maximum`
-#'     values, you can determine the full scope of a metric and how close
-#'     the average use is to the `Minimum` and `Maximum` values. This
-#'     comparison helps you to know when to increase or decrease your
-#'     resources.
+#' -   `Average` - The value of `Sum` / `SampleCount` during the specified period. By comparing this statistic with the `Minimum` and `Maximum` values, you can determine the full scope of a metric and how close the average use is to the `Minimum` and `Maximum` values. This comparison helps you to know when to increase or decrease your resources.
 #' 
-#' -   `SampleCount` - The count, or number, of data points used for the
-#'     statistical calculation.
+#' -   `SampleCount` - The count, or number, of data points used for the statistical calculation.
 #' @param unit &#91;required&#93; The unit for the metric data request.
 #' 
-#' Valid units depend on the metric data being requested. For the valid
-#' units with each available metric, see the `metricName` parameter.
+#' Valid units depend on the metric data being requested. For the valid units with each available metric, see the `metricName` parameter.
 #'
 #' @keywords internal
 #'
@@ -3150,23 +2748,19 @@ lightsail_get_bucket_metric_data <- function(bucketName, metricName, startTime, 
 #'
 #' @param bucketName The name of the bucket for which to return information.
 #' 
-#' When omitted, the response includes all of your buckets in the Amazon
-#' Web Services Region where the request is made.
+#' When omitted, the response includes all of your buckets in the Amazon Web Services Region where the request is made.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_buckets`][lightsail_get_buckets] request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
-#' @param includeConnectedResources A Boolean value that indicates whether to include Lightsail instances
-#' that were given access to the bucket using the
-#' [`set_resource_access_for_bucket`][lightsail_set_resource_access_for_bucket]
-#' action.
+#' To get a page token, perform an initial [`get_buckets`][lightsail_get_buckets] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+#' @param includeConnectedResources A Boolean value that indicates whether to include Lightsail instances that were given access to the bucket using the [`set_resource_access_for_bucket`][lightsail_set_resource_access_for_bucket] action.
+#' @param includeCors A Boolean value that indicates whether to include Lightsail bucket CORS configuration in the response. For more information, see [Configuring cross-origin resource sharing (CORS)](https://docs.aws.amazon.com/lightsail/latest/userguide/configure-cors.html).
+#' 
+#' This parameter is only supported when getting a single bucket with `bucketName` specified. The default value for this parameter is `False`.
 #'
 #' @keywords internal
 #'
 #' @rdname lightsail_get_buckets
-lightsail_get_buckets <- function(bucketName = NULL, pageToken = NULL, includeConnectedResources = NULL) {
+lightsail_get_buckets <- function(bucketName = NULL, pageToken = NULL, includeConnectedResources = NULL, includeCors = NULL) {
   op <- new_operation(
     name = "GetBuckets",
     http_method = "POST",
@@ -3175,7 +2769,7 @@ lightsail_get_buckets <- function(bucketName = NULL, pageToken = NULL, includeCo
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .lightsail$get_buckets_input(bucketName = bucketName, pageToken = pageToken, includeConnectedResources = includeConnectedResources)
+  input <- .lightsail$get_buckets_input(bucketName = bucketName, pageToken = pageToken, includeConnectedResources = includeConnectedResources, includeCors = includeCors)
   output <- .lightsail$get_buckets_output()
   config <- get_config()
   svc <- .lightsail$service(config, op)
@@ -3193,14 +2787,10 @@ lightsail_get_buckets <- function(bucketName = NULL, pageToken = NULL, includeCo
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_bundles/](https://www.paws-r-sdk.com/docs/lightsail_get_bundles/) for full documentation.
 #'
-#' @param includeInactive A Boolean value that indicates whether to include inactive (unavailable)
-#' bundles in the response of your request.
+#' @param includeInactive A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_bundles`][lightsail_get_bundles] request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_bundles`][lightsail_get_bundles] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #' @param appCategory Returns a list of bundles that are specific to Lightsail for Research.
 #' 
 #' You must use this parameter to view Lightsail for Research bundles.
@@ -3237,27 +2827,18 @@ lightsail_get_bundles <- function(includeInactive = NULL, pageToken = NULL, appC
 #'
 #' @param certificateStatuses The status of the certificates for which to return information.
 #' 
-#' For example, specify `ISSUED` to return only certificates with an
-#' `ISSUED` status.
+#' For example, specify `ISSUED` to return only certificates with an `ISSUED` status.
 #' 
-#' When omitted, the response includes all of your certificates in the
-#' Amazon Web Services Region where the request is made, regardless of
-#' their current status.
-#' @param includeCertificateDetails Indicates whether to include detailed information about the certificates
-#' in the response.
+#' When omitted, the response includes all of your certificates in the Amazon Web Services Region where the request is made, regardless of their current status.
+#' @param includeCertificateDetails Indicates whether to include detailed information about the certificates in the response.
 #' 
-#' When omitted, the response includes only the certificate names, Amazon
-#' Resource Names (ARNs), domain names, and tags.
+#' When omitted, the response includes only the certificate names, Amazon Resource Names (ARNs), domain names, and tags.
 #' @param certificateName The name for the certificate for which to return information.
 #' 
-#' When omitted, the response includes all of your certificates in the
-#' Amazon Web Services Region where the request is made.
+#' When omitted, the response includes all of your certificates in the Amazon Web Services Region where the request is made.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_certificates`][lightsail_get_certificates] request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_certificates`][lightsail_get_certificates] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -3291,10 +2872,7 @@ lightsail_get_certificates <- function(certificateStatuses = NULL, includeCertif
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial `GetClouFormationStackRecords`
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial `GetClouFormationStackRecords` request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -3325,11 +2903,9 @@ lightsail_get_cloud_formation_stack_records <- function(pageToken = NULL) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_contact_methods/](https://www.paws-r-sdk.com/docs/lightsail_get_contact_methods/) for full documentation.
 #'
-#' @param protocols The protocols used to send notifications, such as `Email`, or `SMS`
-#' (text messaging).
+#' @param protocols The protocols used to send notifications, such as `Email`, or `SMS` (text messaging).
 #' 
-#' Specify a protocol in your request to return information about a
-#' specific contact method protocol.
+#' Specify a protocol in your request to return information about a specific contact method protocol.
 #'
 #' @keywords internal
 #'
@@ -3393,8 +2969,7 @@ lightsail_get_container_api_metadata <- function() {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_container_images/](https://www.paws-r-sdk.com/docs/lightsail_get_container_images/) for full documentation.
 #'
-#' @param serviceName &#91;required&#93; The name of the container service for which to return registered
-#' container images.
+#' @param serviceName &#91;required&#93; The name of the container service for which to return registered container images.
 #'
 #' @keywords internal
 #'
@@ -3427,8 +3002,7 @@ lightsail_get_container_images <- function(serviceName) {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_container_log/](https://www.paws-r-sdk.com/docs/lightsail_get_container_log/) for full documentation.
 #'
 #' @param serviceName &#91;required&#93; The name of the container service for which to get a container log.
-#' @param containerName &#91;required&#93; The name of the container that is either running or previously ran on
-#' the container service for which to return a log.
+#' @param containerName &#91;required&#93; The name of the container that is either running or previously ran on the container service for which to return a log.
 #' @param startTime The start of the time interval for which to get log data.
 #' 
 #' Constraints:
@@ -3437,11 +3011,9 @@ lightsail_get_container_images <- function(serviceName) {
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use a start time of October 1, 2018, at
-#'     8 PM UTC, specify `1538424000` as the start time.
+#'     For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, specify `1538424000` as the start time.
 #' 
-#' You can convert a human-friendly time to Unix time format using a
-#' converter like [Epoch converter](https://www.epochconverter.com/).
+#' You can convert a human-friendly time to Unix time format using a converter like [Epoch converter](https://www.epochconverter.com/).
 #' @param endTime The end of the time interval for which to get log data.
 #' 
 #' Constraints:
@@ -3450,35 +3022,25 @@ lightsail_get_container_images <- function(serviceName) {
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use an end time of October 1, 2018, at 9
-#'     PM UTC, specify `1538427600` as the end time.
+#'     For example, if you wish to use an end time of October 1, 2018, at 9 PM UTC, specify `1538427600` as the end time.
 #' 
-#' You can convert a human-friendly time to Unix time format using a
-#' converter like [Epoch converter](https://www.epochconverter.com/).
+#' You can convert a human-friendly time to Unix time format using a converter like [Epoch converter](https://www.epochconverter.com/).
 #' @param filterPattern The pattern to use to filter the returned log events to a specific term.
 #' 
-#' The following are a few examples of filter patterns that you can
-#' specify:
+#' The following are a few examples of filter patterns that you can specify:
 #' 
 #' -   To return all log events, specify a filter pattern of `""`.
 #' 
-#' -   To exclude log events that contain the `ERROR` term, and return all
-#'     other log events, specify a filter pattern of `"-ERROR"`.
+#' -   To exclude log events that contain the `ERROR` term, and return all other log events, specify a filter pattern of `"-ERROR"`.
 #' 
-#' -   To return log events that contain the `ERROR` term, specify a filter
-#'     pattern of `"ERROR"`.
+#' -   To return log events that contain the `ERROR` term, specify a filter pattern of `"ERROR"`.
 #' 
-#' -   To return log events that contain both the `ERROR` and `Exception`
-#'     terms, specify a filter pattern of `"ERROR Exception"`.
+#' -   To return log events that contain both the `ERROR` and `Exception` terms, specify a filter pattern of `"ERROR Exception"`.
 #' 
-#' -   To return log events that contain the `ERROR` *or* the `Exception`
-#'     term, specify a filter pattern of `"?ERROR ?Exception"`.
+#' -   To return log events that contain the `ERROR` *or* the `Exception` term, specify a filter pattern of `"?ERROR ?Exception"`.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_container_log`][lightsail_get_container_log] request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_container_log`][lightsail_get_container_log] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -3544,23 +3106,15 @@ lightsail_get_container_service_deployments <- function(serviceName) {
 #' @param serviceName &#91;required&#93; The name of the container service for which to get metric data.
 #' @param metricName &#91;required&#93; The metric for which you want to return information.
 #' 
-#' Valid container service metric names are listed below, along with the
-#' most useful statistics to include in your request, and the published
-#' unit value.
+#' Valid container service metric names are listed below, along with the most useful statistics to include in your request, and the published unit value.
 #' 
-#' -   `CPUUtilization` - The average percentage of compute units that are
-#'     currently in use across all nodes of the container service. This
-#'     metric identifies the processing power required to run containers on
-#'     each node of the container service.
+#' -   `CPUUtilization` - The average percentage of compute units that are currently in use across all nodes of the container service. This metric identifies the processing power required to run containers on each node of the container service.
 #' 
 #'     Statistics: The most useful statistics are `Maximum` and `Average`.
 #' 
 #'     Unit: The published unit is `Percent`.
 #' 
-#' -   `MemoryUtilization` - The average percentage of available memory
-#'     that is currently in use across all nodes of the container service.
-#'     This metric identifies the memory required to run containers on each
-#'     node of the container service.
+#' -   `MemoryUtilization` - The average percentage of available memory that is currently in use across all nodes of the container service. This metric identifies the memory required to run containers on each node of the container service.
 #' 
 #'     Statistics: The most useful statistics are `Maximum` and `Average`.
 #' 
@@ -3569,33 +3123,20 @@ lightsail_get_container_service_deployments <- function(serviceName) {
 #' @param endTime &#91;required&#93; The end time of the time period.
 #' @param period &#91;required&#93; The granularity, in seconds, of the returned data points.
 #' 
-#' All container service metric data is available in 5-minute (300 seconds)
-#' granularity.
+#' All container service metric data is available in 5-minute (300 seconds) granularity.
 #' @param statistics &#91;required&#93; The statistic for the metric.
 #' 
 #' The following statistics are available:
 #' 
-#' -   `Minimum` - The lowest value observed during the specified period.
-#'     Use this value to determine low volumes of activity for your
-#'     application.
+#' -   `Minimum` - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.
 #' 
-#' -   `Maximum` - The highest value observed during the specified period.
-#'     Use this value to determine high volumes of activity for your
-#'     application.
+#' -   `Maximum` - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.
 #' 
-#' -   `Sum` - All values submitted for the matching metric added together.
-#'     You can use this statistic to determine the total volume of a
-#'     metric.
+#' -   `Sum` - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.
 #' 
-#' -   `Average` - The value of `Sum` / `SampleCount` during the specified
-#'     period. By comparing this statistic with the `Minimum` and `Maximum`
-#'     values, you can determine the full scope of a metric and how close
-#'     the average use is to the `Minimum` and `Maximum` values. This
-#'     comparison helps you to know when to increase or decrease your
-#'     resources.
+#' -   `Average` - The value of `Sum` / `SampleCount` during the specified period. By comparing this statistic with the `Minimum` and `Maximum` values, you can determine the full scope of a metric and how close the average use is to the `Minimum` and `Maximum` values. This comparison helps you to know when to increase or decrease your resources.
 #' 
-#' -   `SampleCount` - The count, or number, of data points used for the
-#'     statistical calculation.
+#' -   `SampleCount` - The count, or number, of data points used for the statistical calculation.
 #'
 #' @keywords internal
 #'
@@ -3661,8 +3202,7 @@ lightsail_get_container_service_powers <- function() {
 #'
 #' @param serviceName The name of the container service for which to return information.
 #' 
-#' When omitted, the response includes all of your container services in
-#' the Amazon Web Services Region where the request is made.
+#' When omitted, the response includes all of your container services in the Amazon Web Services Region where the request is made.
 #'
 #' @keywords internal
 #'
@@ -3702,11 +3242,9 @@ lightsail_get_container_services <- function(serviceName = NULL) {
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you want to use a start time of October 1, 2018, at
-#'     8 PM UTC, specify `1538424000` as the start time.
+#'     For example, if you want to use a start time of October 1, 2018, at 8 PM UTC, specify `1538424000` as the start time.
 #' 
-#' You can convert a human-friendly time to Unix time format using a
-#' converter like [Epoch converter](https://www.epochconverter.com/).
+#' You can convert a human-friendly time to Unix time format using a converter like [Epoch converter](https://www.epochconverter.com/).
 #' @param endTime &#91;required&#93; The cost estimate end time.
 #' 
 #' Constraints:
@@ -3715,11 +3253,9 @@ lightsail_get_container_services <- function(serviceName = NULL) {
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you want to use an end time of October 1, 2018, at 9
-#'     PM UTC, specify `1538427600` as the end time.
+#'     For example, if you want to use an end time of October 1, 2018, at 9 PM UTC, specify `1538427600` as the end time.
 #' 
-#' You can convert a human-friendly time to Unix time format using a
-#' converter like [Epoch converter](https://www.epochconverter.com/).
+#' You can convert a human-friendly time to Unix time format using a converter like [Epoch converter](https://www.epochconverter.com/).
 #'
 #' @keywords internal
 #'
@@ -3815,10 +3351,7 @@ lightsail_get_disk_snapshot <- function(diskSnapshotName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_disk_snapshots`][lightsail_get_disk_snapshots] request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_disk_snapshots`][lightsail_get_disk_snapshots] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -3852,10 +3385,7 @@ lightsail_get_disk_snapshots <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_disks`][lightsail_get_disks] request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_disks`][lightsail_get_disks] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -3919,14 +3449,11 @@ lightsail_get_distribution_bundles <- function() {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_distribution_latest_cache_reset/](https://www.paws-r-sdk.com/docs/lightsail_get_distribution_latest_cache_reset/) for full documentation.
 #'
-#' @param distributionName The name of the distribution for which to return the timestamp of the
-#' last cache reset.
+#' @param distributionName The name of the distribution for which to return the timestamp of the last cache reset.
 #' 
-#' Use the [`get_distributions`][lightsail_get_distributions] action to get
-#' a list of distribution names that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get a list of distribution names that you can specify.
 #' 
-#' When omitted, the response includes the latest cache reset timestamp of
-#' all your distributions.
+#' When omitted, the response includes the latest cache reset timestamp of all your distributions.
 #'
 #' @keywords internal
 #'
@@ -3960,58 +3487,42 @@ lightsail_get_distribution_latest_cache_reset <- function(distributionName = NUL
 #'
 #' @param distributionName &#91;required&#93; The name of the distribution for which to get metric data.
 #' 
-#' Use the [`get_distributions`][lightsail_get_distributions] action to get
-#' a list of distribution names that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get a list of distribution names that you can specify.
 #' @param metricName &#91;required&#93; The metric for which you want to return information.
 #' 
-#' Valid distribution metric names are listed below, along with the most
-#' useful `statistics` to include in your request, and the published `unit`
-#' value.
+#' Valid distribution metric names are listed below, along with the most useful `statistics` to include in your request, and the published `unit` value.
 #' 
-#' -   **`Requests`** - The total number of viewer requests received by
-#'     your Lightsail distribution, for all HTTP methods, and for both HTTP
-#'     and HTTPS requests.
+#' -   **`Requests`** - The total number of viewer requests received by your Lightsail distribution, for all HTTP methods, and for both HTTP and HTTPS requests.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `None`.
 #' 
-#' -   **`BytesDownloaded`** - The number of bytes downloaded by viewers
-#'     for GET, HEAD, and OPTIONS requests.
+#' -   **`BytesDownloaded`** - The number of bytes downloaded by viewers for GET, HEAD, and OPTIONS requests.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `None`.
 #' 
-#' -   **`BytesUploaded `** - The number of bytes uploaded to your origin
-#'     by your Lightsail distribution, using POST and PUT requests.
+#' -   **`BytesUploaded `** - The number of bytes uploaded to your origin by your Lightsail distribution, using POST and PUT requests.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `None`.
 #' 
-#' -   **`TotalErrorRate`** - The percentage of all viewer requests for
-#'     which the response's HTTP status code was 4xx or 5xx.
+#' -   **`TotalErrorRate`** - The percentage of all viewer requests for which the response's HTTP status code was 4xx or 5xx.
 #' 
 #'     `Statistics`: The most useful statistic is `Average`.
 #' 
 #'     `Unit`: The published unit is `Percent`.
 #' 
-#' -   **`4xxErrorRate`** - The percentage of all viewer requests for which
-#'     the response's HTTP status cod was 4xx. In these cases, the client
-#'     or client viewer may have made an error. For example, a status code
-#'     of 404 (Not Found) means that the client requested an object that
-#'     could not be found.
+#' -   **`4xxErrorRate`** - The percentage of all viewer requests for which the response's HTTP status cod was 4xx. In these cases, the client or client viewer may have made an error. For example, a status code of 404 (Not Found) means that the client requested an object that could not be found.
 #' 
 #'     `Statistics`: The most useful statistic is `Average`.
 #' 
 #'     `Unit`: The published unit is `Percent`.
 #' 
-#' -   **`5xxErrorRate`** - The percentage of all viewer requests for which
-#'     the response's HTTP status code was 5xx. In these cases, the origin
-#'     server did not satisfy the requests. For example, a status code of
-#'     503 (Service Unavailable) means that the origin server is currently
-#'     unavailable.
+#' -   **`5xxErrorRate`** - The percentage of all viewer requests for which the response's HTTP status code was 5xx. In these cases, the origin server did not satisfy the requests. For example, a status code of 503 (Service Unavailable) means that the origin server is currently unavailable.
 #' 
 #'     `Statistics`: The most useful statistic is `Average`.
 #' 
@@ -4024,11 +3535,9 @@ lightsail_get_distribution_latest_cache_reset <- function(distributionName = NUL
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use a start time of October 1, 2018, at
-#'     8 PM UTC, specify `1538424000` as the start time.
+#'     For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, specify `1538424000` as the start time.
 #' 
-#' You can convert a human-friendly time to Unix time format using a
-#' converter like [Epoch converter](https://www.epochconverter.com/).
+#' You can convert a human-friendly time to Unix time format using a converter like [Epoch converter](https://www.epochconverter.com/).
 #' @param endTime &#91;required&#93; The end of the time interval for which to get metric data.
 #' 
 #' Constraints:
@@ -4037,42 +3546,26 @@ lightsail_get_distribution_latest_cache_reset <- function(distributionName = NUL
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use an end time of October 1, 2018, at 9
-#'     PM UTC, specify `1538427600` as the end time.
+#'     For example, if you wish to use an end time of October 1, 2018, at 9 PM UTC, specify `1538427600` as the end time.
 #' 
-#' You can convert a human-friendly time to Unix time format using a
-#' converter like [Epoch converter](https://www.epochconverter.com/).
-#' @param period &#91;required&#93; The granularity, in seconds, for the metric data points that will be
-#' returned.
+#' You can convert a human-friendly time to Unix time format using a converter like [Epoch converter](https://www.epochconverter.com/).
+#' @param period &#91;required&#93; The granularity, in seconds, for the metric data points that will be returned.
 #' @param unit &#91;required&#93; The unit for the metric data request.
 #' 
-#' Valid units depend on the metric data being requested. For the valid
-#' units with each available metric, see the `metricName` parameter.
+#' Valid units depend on the metric data being requested. For the valid units with each available metric, see the `metricName` parameter.
 #' @param statistics &#91;required&#93; The statistic for the metric.
 #' 
 #' The following statistics are available:
 #' 
-#' -   `Minimum` - The lowest value observed during the specified period.
-#'     Use this value to determine low volumes of activity for your
-#'     application.
+#' -   `Minimum` - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.
 #' 
-#' -   `Maximum` - The highest value observed during the specified period.
-#'     Use this value to determine high volumes of activity for your
-#'     application.
+#' -   `Maximum` - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.
 #' 
-#' -   `Sum` - All values submitted for the matching metric added together.
-#'     You can use this statistic to determine the total volume of a
-#'     metric.
+#' -   `Sum` - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.
 #' 
-#' -   `Average` - The value of Sum / SampleCount during the specified
-#'     period. By comparing this statistic with the Minimum and Maximum
-#'     values, you can determine the full scope of a metric and how close
-#'     the average use is to the Minimum and Maximum values. This
-#'     comparison helps you to know when to increase or decrease your
-#'     resources.
+#' -   `Average` - The value of Sum / SampleCount during the specified period. By comparing this statistic with the Minimum and Maximum values, you can determine the full scope of a metric and how close the average use is to the Minimum and Maximum values. This comparison helps you to know when to increase or decrease your resources.
 #' 
-#' -   `SampleCount` - The count, or number, of data points used for the
-#'     statistical calculation.
+#' -   `SampleCount` - The count, or number, of data points used for the statistical calculation.
 #'
 #' @keywords internal
 #'
@@ -4106,14 +3599,10 @@ lightsail_get_distribution_metric_data <- function(distributionName, metricName,
 #'
 #' @param distributionName The name of the distribution for which to return information.
 #' 
-#' When omitted, the response includes all of your distributions in the
-#' Amazon Web Services Region where the request is made.
+#' When omitted, the response includes all of your distributions in the Amazon Web Services Region where the request is made.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_distributions`][lightsail_get_distributions] request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_distributions`][lightsail_get_distributions] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -4177,10 +3666,7 @@ lightsail_get_domain <- function(domainName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_domains`][lightsail_get_domains] request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_domains`][lightsail_get_domains] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -4214,11 +3700,7 @@ lightsail_get_domains <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_export_snapshot_records`][lightsail_get_export_snapshot_records]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial [`get_export_snapshot_records`][lightsail_get_export_snapshot_records] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -4318,148 +3800,82 @@ lightsail_get_instance_access_details <- function(instanceName, protocol = NULL)
 #' @param instanceName &#91;required&#93; The name of the instance for which you want to get metrics data.
 #' @param metricName &#91;required&#93; The metric for which you want to return information.
 #' 
-#' Valid instance metric names are listed below, along with the most useful
-#' `statistics` to include in your request, and the published `unit` value.
+#' Valid instance metric names are listed below, along with the most useful `statistics` to include in your request, and the published `unit` value.
 #' 
-#' -   **`BurstCapacityPercentage`** - The percentage of CPU performance
-#'     available for your instance to burst above its baseline. Your
-#'     instance continuously accrues and consumes burst capacity. Burst
-#'     capacity stops accruing when your instance's
-#'     `BurstCapacityPercentage` reaches 100%. For more information, see
-#'     [Viewing instance burst capacity in Amazon
-#'     Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-viewing-instance-burst-capacity.html).
+#' -   **`BurstCapacityPercentage`** - The percentage of CPU performance available for your instance to burst above its baseline. Your instance continuously accrues and consumes burst capacity. Burst capacity stops accruing when your instance's `BurstCapacityPercentage` reaches 100%. For more information, see [Viewing instance burst capacity in Amazon Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-viewing-instance-burst-capacity.html).
 #' 
-#'     `Statistics`: The most useful statistics are `Maximum` and
-#'     `Average`.
+#'     `Statistics`: The most useful statistics are `Maximum` and `Average`.
 #' 
 #'     `Unit`: The published unit is `Percent`.
 #' 
-#' -   **`BurstCapacityTime`** - The available amount of time for your
-#'     instance to burst at 100% CPU utilization. Your instance
-#'     continuously accrues and consumes burst capacity. Burst capacity
-#'     time stops accruing when your instance's `BurstCapacityPercentage`
-#'     metric reaches 100%.
+#' -   **`BurstCapacityTime`** - The available amount of time for your instance to burst at 100% CPU utilization. Your instance continuously accrues and consumes burst capacity. Burst capacity time stops accruing when your instance's `BurstCapacityPercentage` metric reaches 100%.
 #' 
-#'     Burst capacity time is consumed at the full rate only when your
-#'     instance operates at 100% CPU utilization. For example, if your
-#'     instance operates at 50% CPU utilization in the burstable zone for a
-#'     5-minute period, then it consumes CPU burst capacity minutes at a
-#'     50% rate in that period. Your instance consumed 2 minutes and 30
-#'     seconds of CPU burst capacity minutes in the 5-minute period. For
-#'     more information, see [Viewing instance burst capacity in Amazon
-#'     Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-viewing-instance-burst-capacity.html).
+#'     Burst capacity time is consumed at the full rate only when your instance operates at 100% CPU utilization. For example, if your instance operates at 50% CPU utilization in the burstable zone for a 5-minute period, then it consumes CPU burst capacity minutes at a 50% rate in that period. Your instance consumed 2 minutes and 30 seconds of CPU burst capacity minutes in the 5-minute period. For more information, see [Viewing instance burst capacity in Amazon Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-viewing-instance-burst-capacity.html).
 #' 
-#'     `Statistics`: The most useful statistics are `Maximum` and
-#'     `Average`.
+#'     `Statistics`: The most useful statistics are `Maximum` and `Average`.
 #' 
 #'     `Unit`: The published unit is `Seconds`.
 #' 
-#' -   **`CPUUtilization`** - The percentage of allocated compute units
-#'     that are currently in use on the instance. This metric identifies
-#'     the processing power to run the applications on the instance. Tools
-#'     in your operating system can show a lower percentage than Lightsail
-#'     when the instance is not allocated a full processor core.
+#' -   **`CPUUtilization`** - The percentage of allocated compute units that are currently in use on the instance. This metric identifies the processing power to run the applications on the instance. Tools in your operating system can show a lower percentage than Lightsail when the instance is not allocated a full processor core.
 #' 
-#'     `Statistics`: The most useful statistics are `Maximum` and
-#'     `Average`.
+#'     `Statistics`: The most useful statistics are `Maximum` and `Average`.
 #' 
 #'     `Unit`: The published unit is `Percent`.
 #' 
-#' -   **`NetworkIn`** - The number of bytes received on all network
-#'     interfaces by the instance. This metric identifies the volume of
-#'     incoming network traffic to the instance. The number reported is the
-#'     number of bytes received during the period. Because this metric is
-#'     reported in 5-minute intervals, divide the reported number by 300 to
-#'     find Bytes/second.
+#' -   **`NetworkIn`** - The number of bytes received on all network interfaces by the instance. This metric identifies the volume of incoming network traffic to the instance. The number reported is the number of bytes received during the period. Because this metric is reported in 5-minute intervals, divide the reported number by 300 to find Bytes/second.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `Bytes`.
 #' 
-#' -   **`NetworkOut`** - The number of bytes sent out on all network
-#'     interfaces by the instance. This metric identifies the volume of
-#'     outgoing network traffic from the instance. The number reported is
-#'     the number of bytes sent during the period. Because this metric is
-#'     reported in 5-minute intervals, divide the reported number by 300 to
-#'     find Bytes/second.
+#' -   **`NetworkOut`** - The number of bytes sent out on all network interfaces by the instance. This metric identifies the volume of outgoing network traffic from the instance. The number reported is the number of bytes sent during the period. Because this metric is reported in 5-minute intervals, divide the reported number by 300 to find Bytes/second.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `Bytes`.
 #' 
-#' -   **`StatusCheckFailed`** - Reports whether the instance passed or
-#'     failed both the instance status check and the system status check.
-#'     This metric can be either 0 (passed) or 1 (failed). This metric data
-#'     is available in 1-minute (60 seconds) granularity.
+#' -   **`StatusCheckFailed`** - Reports whether the instance passed or failed both the instance status check and the system status check. This metric can be either 0 (passed) or 1 (failed). This metric data is available in 1-minute (60 seconds) granularity.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`StatusCheckFailed_Instance`** - Reports whether the instance
-#'     passed or failed the instance status check. This metric can be
-#'     either 0 (passed) or 1 (failed). This metric data is available in
-#'     1-minute (60 seconds) granularity.
+#' -   **`StatusCheckFailed_Instance`** - Reports whether the instance passed or failed the instance status check. This metric can be either 0 (passed) or 1 (failed). This metric data is available in 1-minute (60 seconds) granularity.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`StatusCheckFailed_System`** - Reports whether the instance passed
-#'     or failed the system status check. This metric can be either 0
-#'     (passed) or 1 (failed). This metric data is available in 1-minute
-#'     (60 seconds) granularity.
+#' -   **`StatusCheckFailed_System`** - Reports whether the instance passed or failed the system status check. This metric can be either 0 (passed) or 1 (failed). This metric data is available in 1-minute (60 seconds) granularity.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`MetadataNoToken`** - Reports the number of times that the
-#'     instance metadata service was successfully accessed without a token.
-#'     This metric determines if there are any processes accessing instance
-#'     metadata by using Instance Metadata Service Version 1, which doesn't
-#'     use a token. If all requests use token-backed sessions, such as
-#'     Instance Metadata Service Version 2, then the value is 0.
+#' -   **`MetadataNoToken`** - Reports the number of times that the instance metadata service was successfully accessed without a token. This metric determines if there are any processes accessing instance metadata by using Instance Metadata Service Version 1, which doesn't use a token. If all requests use token-backed sessions, such as Instance Metadata Service Version 2, then the value is 0.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' @param period &#91;required&#93; The granularity, in seconds, of the returned data points.
 #' 
-#' The `StatusCheckFailed`, `StatusCheckFailed_Instance`, and
-#' `StatusCheckFailed_System` instance metric data is available in 1-minute
-#' (60 seconds) granularity. All other instance metric data is available in
-#' 5-minute (300 seconds) granularity.
+#' The `StatusCheckFailed`, `StatusCheckFailed_Instance`, and `StatusCheckFailed_System` instance metric data is available in 1-minute (60 seconds) granularity. All other instance metric data is available in 5-minute (300 seconds) granularity.
 #' @param startTime &#91;required&#93; The start time of the time period.
 #' @param endTime &#91;required&#93; The end time of the time period.
-#' @param unit &#91;required&#93; The unit for the metric data request. Valid units depend on the metric
-#' data being requested. For the valid units to specify with each available
-#' metric, see the `metricName` parameter.
+#' @param unit &#91;required&#93; The unit for the metric data request. Valid units depend on the metric data being requested. For the valid units to specify with each available metric, see the `metricName` parameter.
 #' @param statistics &#91;required&#93; The statistic for the metric.
 #' 
 #' The following statistics are available:
 #' 
-#' -   `Minimum` - The lowest value observed during the specified period.
-#'     Use this value to determine low volumes of activity for your
-#'     application.
+#' -   `Minimum` - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.
 #' 
-#' -   `Maximum` - The highest value observed during the specified period.
-#'     Use this value to determine high volumes of activity for your
-#'     application.
+#' -   `Maximum` - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.
 #' 
-#' -   `Sum` - All values submitted for the matching metric added together.
-#'     You can use this statistic to determine the total volume of a
-#'     metric.
+#' -   `Sum` - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.
 #' 
-#' -   `Average` - The value of Sum / SampleCount during the specified
-#'     period. By comparing this statistic with the Minimum and Maximum
-#'     values, you can determine the full scope of a metric and how close
-#'     the average use is to the Minimum and Maximum values. This
-#'     comparison helps you to know when to increase or decrease your
-#'     resources.
+#' -   `Average` - The value of Sum / SampleCount during the specified period. By comparing this statistic with the Minimum and Maximum values, you can determine the full scope of a metric and how close the average use is to the Minimum and Maximum values. This comparison helps you to know when to increase or decrease your resources.
 #' 
-#' -   `SampleCount` - The count, or number, of data points used for the
-#'     statistical calculation.
+#' -   `SampleCount` - The count, or number, of data points used for the statistical calculation.
 #'
 #' @keywords internal
 #'
@@ -4556,10 +3972,7 @@ lightsail_get_instance_snapshot <- function(instanceSnapshotName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_instance_snapshots`][lightsail_get_instance_snapshots] request. If
-#' your results are paginated, the response will return a next page token
-#' that you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_instance_snapshots`][lightsail_get_instance_snapshots] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -4624,10 +4037,7 @@ lightsail_get_instance_state <- function(instanceName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_instances`][lightsail_get_instances] request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_instances`][lightsail_get_instances] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -4691,12 +4101,8 @@ lightsail_get_key_pair <- function(keyPairName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_key_pairs`][lightsail_get_key_pairs] request. If your results are
-#' paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
-#' @param includeDefaultKeyPair A Boolean value that indicates whether to include the default key pair
-#' in the response of your request.
+#' To get a page token, perform an initial [`get_key_pairs`][lightsail_get_key_pairs] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+#' @param includeDefaultKeyPair A Boolean value that indicates whether to include the default key pair in the response of your request.
 #'
 #' @keywords internal
 #'
@@ -4762,149 +4168,96 @@ lightsail_get_load_balancer <- function(loadBalancerName) {
 #' @param loadBalancerName &#91;required&#93; The name of the load balancer.
 #' @param metricName &#91;required&#93; The metric for which you want to return information.
 #' 
-#' Valid load balancer metric names are listed below, along with the most
-#' useful `statistics` to include in your request, and the published `unit`
-#' value.
+#' Valid load balancer metric names are listed below, along with the most useful `statistics` to include in your request, and the published `unit` value.
 #' 
-#' -   **`ClientTLSNegotiationErrorCount`** - The number of TLS connections
-#'     initiated by the client that did not establish a session with the
-#'     load balancer due to a TLS error generated by the load balancer.
-#'     Possible causes include a mismatch of ciphers or protocols.
+#' -   **`ClientTLSNegotiationErrorCount`** - The number of TLS connections initiated by the client that did not establish a session with the load balancer due to a TLS error generated by the load balancer. Possible causes include a mismatch of ciphers or protocols.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`HealthyHostCount`** - The number of target instances that are
-#'     considered healthy.
+#' -   **`HealthyHostCount`** - The number of target instances that are considered healthy.
 #' 
-#'     `Statistics`: The most useful statistic are `Average`, `Minimum`,
-#'     and `Maximum`.
+#'     `Statistics`: The most useful statistic are `Average`, `Minimum`, and `Maximum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`HTTPCode_Instance_2XX_Count`** - The number of HTTP 2XX response
-#'     codes generated by the target instances. This does not include any
-#'     response codes generated by the load balancer.
+#' -   **`HTTPCode_Instance_2XX_Count`** - The number of HTTP 2XX response codes generated by the target instances. This does not include any response codes generated by the load balancer.
 #' 
-#'     `Statistics`: The most useful statistic is `Sum`. Note that
-#'     `Minimum`, `Maximum`, and `Average` all return `1`.
+#'     `Statistics`: The most useful statistic is `Sum`. Note that `Minimum`, `Maximum`, and `Average` all return `1`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`HTTPCode_Instance_3XX_Count`** - The number of HTTP 3XX response
-#'     codes generated by the target instances. This does not include any
-#'     response codes generated by the load balancer.
+#' -   **`HTTPCode_Instance_3XX_Count`** - The number of HTTP 3XX response codes generated by the target instances. This does not include any response codes generated by the load balancer.
 #' 
-#'     `Statistics`: The most useful statistic is `Sum`. Note that
-#'     `Minimum`, `Maximum`, and `Average` all return `1`.
+#'     `Statistics`: The most useful statistic is `Sum`. Note that `Minimum`, `Maximum`, and `Average` all return `1`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`HTTPCode_Instance_4XX_Count`** - The number of HTTP 4XX response
-#'     codes generated by the target instances. This does not include any
-#'     response codes generated by the load balancer.
+#' -   **`HTTPCode_Instance_4XX_Count`** - The number of HTTP 4XX response codes generated by the target instances. This does not include any response codes generated by the load balancer.
 #' 
-#'     `Statistics`: The most useful statistic is `Sum`. Note that
-#'     `Minimum`, `Maximum`, and `Average` all return `1`.
+#'     `Statistics`: The most useful statistic is `Sum`. Note that `Minimum`, `Maximum`, and `Average` all return `1`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`HTTPCode_Instance_5XX_Count`** - The number of HTTP 5XX response
-#'     codes generated by the target instances. This does not include any
-#'     response codes generated by the load balancer.
+#' -   **`HTTPCode_Instance_5XX_Count`** - The number of HTTP 5XX response codes generated by the target instances. This does not include any response codes generated by the load balancer.
 #' 
-#'     `Statistics`: The most useful statistic is `Sum`. Note that
-#'     `Minimum`, `Maximum`, and `Average` all return `1`.
+#'     `Statistics`: The most useful statistic is `Sum`. Note that `Minimum`, `Maximum`, and `Average` all return `1`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`HTTPCode_LB_4XX_Count`** - The number of HTTP 4XX client error
-#'     codes that originated from the load balancer. Client errors are
-#'     generated when requests are malformed or incomplete. These requests
-#'     were not received by the target instance. This count does not
-#'     include response codes generated by the target instances.
+#' -   **`HTTPCode_LB_4XX_Count`** - The number of HTTP 4XX client error codes that originated from the load balancer. Client errors are generated when requests are malformed or incomplete. These requests were not received by the target instance. This count does not include response codes generated by the target instances.
 #' 
-#'     `Statistics`: The most useful statistic is `Sum`. Note that
-#'     `Minimum`, `Maximum`, and `Average` all return `1`.
+#'     `Statistics`: The most useful statistic is `Sum`. Note that `Minimum`, `Maximum`, and `Average` all return `1`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`HTTPCode_LB_5XX_Count`** - The number of HTTP 5XX server error
-#'     codes that originated from the load balancer. This does not include
-#'     any response codes generated by the target instance. This metric is
-#'     reported if there are no healthy instances attached to the load
-#'     balancer, or if the request rate exceeds the capacity of the
-#'     instances (spillover) or the load balancer.
+#' -   **`HTTPCode_LB_5XX_Count`** - The number of HTTP 5XX server error codes that originated from the load balancer. This does not include any response codes generated by the target instance. This metric is reported if there are no healthy instances attached to the load balancer, or if the request rate exceeds the capacity of the instances (spillover) or the load balancer.
 #' 
-#'     `Statistics`: The most useful statistic is `Sum`. Note that
-#'     `Minimum`, `Maximum`, and `Average` all return `1`.
+#'     `Statistics`: The most useful statistic is `Sum`. Note that `Minimum`, `Maximum`, and `Average` all return `1`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`InstanceResponseTime`** - The time elapsed, in seconds, after the
-#'     request leaves the load balancer until a response from the target
-#'     instance is received.
+#' -   **`InstanceResponseTime`** - The time elapsed, in seconds, after the request leaves the load balancer until a response from the target instance is received.
 #' 
 #'     `Statistics`: The most useful statistic is `Average`.
 #' 
 #'     `Unit`: The published unit is `Seconds`.
 #' 
-#' -   **`RejectedConnectionCount`** - The number of connections that were
-#'     rejected because the load balancer had reached its maximum number of
-#'     connections.
+#' -   **`RejectedConnectionCount`** - The number of connections that were rejected because the load balancer had reached its maximum number of connections.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`RequestCount`** - The number of requests processed over IPv4.
-#'     This count includes only the requests with a response generated by a
-#'     target instance of the load balancer.
+#' -   **`RequestCount`** - The number of requests processed over IPv4. This count includes only the requests with a response generated by a target instance of the load balancer.
 #' 
-#'     `Statistics`: The most useful statistic is `Sum`. Note that
-#'     `Minimum`, `Maximum`, and `Average` all return `1`.
+#'     `Statistics`: The most useful statistic is `Sum`. Note that `Minimum`, `Maximum`, and `Average` all return `1`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`UnhealthyHostCount`** - The number of target instances that are
-#'     considered unhealthy.
+#' -   **`UnhealthyHostCount`** - The number of target instances that are considered unhealthy.
 #' 
-#'     `Statistics`: The most useful statistic are `Average`, `Minimum`,
-#'     and `Maximum`.
+#'     `Statistics`: The most useful statistic are `Average`, `Minimum`, and `Maximum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' @param period &#91;required&#93; The granularity, in seconds, of the returned data points.
 #' @param startTime &#91;required&#93; The start time of the period.
 #' @param endTime &#91;required&#93; The end time of the period.
-#' @param unit &#91;required&#93; The unit for the metric data request. Valid units depend on the metric
-#' data being requested. For the valid units with each available metric,
-#' see the `metricName` parameter.
+#' @param unit &#91;required&#93; The unit for the metric data request. Valid units depend on the metric data being requested. For the valid units with each available metric, see the `metricName` parameter.
 #' @param statistics &#91;required&#93; The statistic for the metric.
 #' 
 #' The following statistics are available:
 #' 
-#' -   `Minimum` - The lowest value observed during the specified period.
-#'     Use this value to determine low volumes of activity for your
-#'     application.
+#' -   `Minimum` - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.
 #' 
-#' -   `Maximum` - The highest value observed during the specified period.
-#'     Use this value to determine high volumes of activity for your
-#'     application.
+#' -   `Maximum` - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.
 #' 
-#' -   `Sum` - All values submitted for the matching metric added together.
-#'     You can use this statistic to determine the total volume of a
-#'     metric.
+#' -   `Sum` - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.
 #' 
-#' -   `Average` - The value of Sum / SampleCount during the specified
-#'     period. By comparing this statistic with the Minimum and Maximum
-#'     values, you can determine the full scope of a metric and how close
-#'     the average use is to the Minimum and Maximum values. This
-#'     comparison helps you to know when to increase or decrease your
-#'     resources.
+#' -   `Average` - The value of Sum / SampleCount during the specified period. By comparing this statistic with the Minimum and Maximum values, you can determine the full scope of a metric and how close the average use is to the Minimum and Maximum values. This comparison helps you to know when to increase or decrease your resources.
 #' 
-#' -   `SampleCount` - The count, or number, of data points used for the
-#'     statistical calculation.
+#' -   `SampleCount` - The count, or number, of data points used for the statistical calculation.
 #'
 #' @keywords internal
 #'
@@ -4936,8 +4289,7 @@ lightsail_get_load_balancer_metric_data <- function(loadBalancerName, metricName
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_load_balancer_tls_certificates/](https://www.paws-r-sdk.com/docs/lightsail_get_load_balancer_tls_certificates/) for full documentation.
 #'
-#' @param loadBalancerName &#91;required&#93; The name of the load balancer you associated with your SSL/TLS
-#' certificate.
+#' @param loadBalancerName &#91;required&#93; The name of the load balancer you associated with your SSL/TLS certificate.
 #'
 #' @keywords internal
 #'
@@ -4971,11 +4323,7 @@ lightsail_get_load_balancer_tls_certificates <- function(loadBalancerName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_load_balancer_tls_policies`][lightsail_get_load_balancer_tls_policies]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial [`get_load_balancer_tls_policies`][lightsail_get_load_balancer_tls_policies] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5008,10 +4356,7 @@ lightsail_get_load_balancer_tls_policies <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_load_balancers`][lightsail_get_load_balancers] request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_load_balancers`][lightsail_get_load_balancers] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5075,10 +4420,7 @@ lightsail_get_operation <- function(operationId) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_operations`][lightsail_get_operations] request. If your results
-#' are paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_operations`][lightsail_get_operations] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5112,11 +4454,7 @@ lightsail_get_operations <- function(pageToken = NULL) {
 #' @param resourceName &#91;required&#93; The name of the resource for which you are requesting information.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_operations_for_resource`][lightsail_get_operations_for_resource]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial [`get_operations_for_resource`][lightsail_get_operations_for_resource] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5147,12 +4485,8 @@ lightsail_get_operations_for_resource <- function(resourceName, pageToken = NULL
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_regions/](https://www.paws-r-sdk.com/docs/lightsail_get_regions/) for full documentation.
 #'
-#' @param includeAvailabilityZones A Boolean value indicating whether to also include Availability Zones in
-#' your get regions request. Availability Zones are indicated with a
-#' letter: `us-east-2a`.
-#' @param includeRelationalDatabaseAvailabilityZones A Boolean value indicating whether to also include Availability Zones
-#' for databases in your get regions request. Availability Zones are
-#' indicated with a letter (`us-east-2a`).
+#' @param includeAvailabilityZones A Boolean value indicating whether to also include Availability Zones in your get regions request. Availability Zones are indicated with a letter: `us-east-2a`.
+#' @param includeRelationalDatabaseAvailabilityZones A Boolean value indicating whether to also include Availability Zones for databases in your get regions request. Availability Zones are indicated with a letter (`us-east-2a`).
 #'
 #' @keywords internal
 #'
@@ -5216,11 +4550,7 @@ lightsail_get_relational_database <- function(relationalDatabaseName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_relational_database_blueprints`][lightsail_get_relational_database_blueprints]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial [`get_relational_database_blueprints`][lightsail_get_relational_database_blueprints] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5253,13 +4583,8 @@ lightsail_get_relational_database_blueprints <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_relational_database_bundles`][lightsail_get_relational_database_bundles]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
-#' @param includeInactive A Boolean value that indicates whether to include inactive (unavailable)
-#' bundles in the response of your request.
+#' To get a page token, perform an initial [`get_relational_database_bundles`][lightsail_get_relational_database_bundles] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
+#' @param includeInactive A Boolean value that indicates whether to include inactive (unavailable) bundles in the response of your request.
 #'
 #' @keywords internal
 #'
@@ -5291,19 +4616,14 @@ lightsail_get_relational_database_bundles <- function(pageToken = NULL, includeI
 #' See [https://www.paws-r-sdk.com/docs/lightsail_get_relational_database_events/](https://www.paws-r-sdk.com/docs/lightsail_get_relational_database_events/) for full documentation.
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of the database from which to get events.
-#' @param durationInMinutes The number of minutes in the past from which to retrieve events. For
-#' example, to get all events from the past 2 hours, enter 120.
+#' @param durationInMinutes The number of minutes in the past from which to retrieve events. For example, to get all events from the past 2 hours, enter 120.
 #' 
 #' Default: `60`
 #' 
 #' The minimum is 1 and the maximum is 14 days (20160 minutes).
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_relational_database_events`][lightsail_get_relational_database_events]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial [`get_relational_database_events`][lightsail_get_relational_database_events] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5337,8 +4657,7 @@ lightsail_get_relational_database_events <- function(relationalDatabaseName, dur
 #' @param relationalDatabaseName &#91;required&#93; The name of your database for which to get log events.
 #' @param logStreamName &#91;required&#93; The name of the log stream.
 #' 
-#' Use the `get relational database log streams` operation to get a list of
-#' available log streams.
+#' Use the `get relational database log streams` operation to get a list of available log streams.
 #' @param startTime The start of the time interval from which to get log events.
 #' 
 #' Constraints:
@@ -5347,8 +4666,7 @@ lightsail_get_relational_database_events <- function(relationalDatabaseName, dur
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use a start time of October 1, 2018, at
-#'     8 PM UTC, then you input `1538424000` as the start time.
+#'     For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, then you input `1538424000` as the start time.
 #' @param endTime The end of the time interval from which to get log events.
 #' 
 #' Constraints:
@@ -5357,22 +4675,13 @@ lightsail_get_relational_database_events <- function(relationalDatabaseName, dur
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use an end time of October 1, 2018, at 8
-#'     PM UTC, then you input `1538424000` as the end time.
-#' @param startFromHead Parameter to specify if the log should start from head or tail. If
-#' `true` is specified, the log event starts from the head of the log. If
-#' `false` is specified, the log event starts from the tail of the log.
+#'     For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you input `1538424000` as the end time.
+#' @param startFromHead Parameter to specify if the log should start from head or tail. If `true` is specified, the log event starts from the head of the log. If `false` is specified, the log event starts from the tail of the log.
 #' 
-#' For PostgreSQL, the default value of `false` is the only option
-#' available.
-#' @param pageToken The token to advance to the next or previous page of results from your
-#' request.
+#' For PostgreSQL, the default value of `false` is the only option available.
+#' @param pageToken The token to advance to the next or previous page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_relational_database_log_events`][lightsail_get_relational_database_log_events]
-#' request. If your results are paginated, the response will return a next
-#' forward token and/or next backward token that you can specify as the
-#' page token in a subsequent request.
+#' To get a page token, perform an initial [`get_relational_database_log_events`][lightsail_get_relational_database_log_events] request. If your results are paginated, the response will return a next forward token and/or next backward token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5439,11 +4748,7 @@ lightsail_get_relational_database_log_streams <- function(relationalDatabaseName
 #' @param relationalDatabaseName &#91;required&#93; The name of your database for which to get the master user password.
 #' @param passwordVersion The password version to return.
 #' 
-#' Specifying `CURRENT` or `PREVIOUS` returns the current or previous
-#' passwords respectively. Specifying `PENDING` returns the newest version
-#' of the password that will rotate to `CURRENT`. After the `PENDING`
-#' password rotates to `CURRENT`, the `PENDING` password is no longer
-#' available.
+#' Specifying `CURRENT` or `PREVIOUS` returns the current or previous passwords respectively. Specifying `PENDING` returns the newest version of the password that will rotate to `CURRENT`. After the `PENDING` password rotates to `CURRENT`, the `PENDING` password is no longer available.
 #' 
 #' Default: `CURRENT`
 #'
@@ -5480,28 +4785,21 @@ lightsail_get_relational_database_master_user_password <- function(relationalDat
 #' @param relationalDatabaseName &#91;required&#93; The name of your database from which to get metric data.
 #' @param metricName &#91;required&#93; The metric for which you want to return information.
 #' 
-#' Valid relational database metric names are listed below, along with the
-#' most useful `statistics` to include in your request, and the published
-#' `unit` value. All relational database metric data is available in
-#' 1-minute (60 seconds) granularity.
+#' Valid relational database metric names are listed below, along with the most useful `statistics` to include in your request, and the published `unit` value. All relational database metric data is available in 1-minute (60 seconds) granularity.
 #' 
-#' -   **`CPUUtilization`** - The percentage of CPU utilization currently
-#'     in use on the database.
+#' -   **`CPUUtilization`** - The percentage of CPU utilization currently in use on the database.
 #' 
-#'     `Statistics`: The most useful statistics are `Maximum` and
-#'     `Average`.
+#'     `Statistics`: The most useful statistics are `Maximum` and `Average`.
 #' 
 #'     `Unit`: The published unit is `Percent`.
 #' 
-#' -   **`DatabaseConnections`** - The number of database connections in
-#'     use.
+#' -   **`DatabaseConnections`** - The number of database connections in use.
 #' 
 #'     `Statistics`: The most useful statistics are `Maximum` and `Sum`.
 #' 
 #'     `Unit`: The published unit is `Count`.
 #' 
-#' -   **`DiskQueueDepth`** - The number of outstanding IOs (read/write
-#'     requests) that are waiting to access the disk.
+#' -   **`DiskQueueDepth`** - The number of outstanding IOs (read/write requests) that are waiting to access the disk.
 #' 
 #'     `Statistics`: The most useful statistic is `Sum`.
 #' 
@@ -5513,25 +4811,20 @@ lightsail_get_relational_database_master_user_password <- function(relationalDat
 #' 
 #'     `Unit`: The published unit is `Bytes`.
 #' 
-#' -   **`NetworkReceiveThroughput`** - The incoming (Receive) network
-#'     traffic on the database, including both customer database traffic
-#'     and AWS traffic used for monitoring and replication.
+#' -   **`NetworkReceiveThroughput`** - The incoming (Receive) network traffic on the database, including both customer database traffic and AWS traffic used for monitoring and replication.
 #' 
 #'     `Statistics`: The most useful statistic is `Average`.
 #' 
 #'     `Unit`: The published unit is `Bytes/Second`.
 #' 
-#' -   **`NetworkTransmitThroughput`** - The outgoing (Transmit) network
-#'     traffic on the database, including both customer database traffic
-#'     and AWS traffic used for monitoring and replication.
+#' -   **`NetworkTransmitThroughput`** - The outgoing (Transmit) network traffic on the database, including both customer database traffic and AWS traffic used for monitoring and replication.
 #' 
 #'     `Statistics`: The most useful statistic is `Average`.
 #' 
 #'     `Unit`: The published unit is `Bytes/Second`.
 #' @param period &#91;required&#93; The granularity, in seconds, of the returned data points.
 #' 
-#' All relational database metric data is available in 1-minute (60
-#' seconds) granularity.
+#' All relational database metric data is available in 1-minute (60 seconds) granularity.
 #' @param startTime &#91;required&#93; The start of the time interval from which to get metric data.
 #' 
 #' Constraints:
@@ -5540,8 +4833,7 @@ lightsail_get_relational_database_master_user_password <- function(relationalDat
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use a start time of October 1, 2018, at
-#'     8 PM UTC, then you input `1538424000` as the start time.
+#'     For example, if you wish to use a start time of October 1, 2018, at 8 PM UTC, then you input `1538424000` as the start time.
 #' @param endTime &#91;required&#93; The end of the time interval from which to get metric data.
 #' 
 #' Constraints:
@@ -5550,36 +4842,21 @@ lightsail_get_relational_database_master_user_password <- function(relationalDat
 #' 
 #' -   Specified in the Unix time format.
 #' 
-#'     For example, if you wish to use an end time of October 1, 2018, at 8
-#'     PM UTC, then you input `1538424000` as the end time.
-#' @param unit &#91;required&#93; The unit for the metric data request. Valid units depend on the metric
-#' data being requested. For the valid units with each available metric,
-#' see the `metricName` parameter.
+#'     For example, if you wish to use an end time of October 1, 2018, at 8 PM UTC, then you input `1538424000` as the end time.
+#' @param unit &#91;required&#93; The unit for the metric data request. Valid units depend on the metric data being requested. For the valid units with each available metric, see the `metricName` parameter.
 #' @param statistics &#91;required&#93; The statistic for the metric.
 #' 
 #' The following statistics are available:
 #' 
-#' -   `Minimum` - The lowest value observed during the specified period.
-#'     Use this value to determine low volumes of activity for your
-#'     application.
+#' -   `Minimum` - The lowest value observed during the specified period. Use this value to determine low volumes of activity for your application.
 #' 
-#' -   `Maximum` - The highest value observed during the specified period.
-#'     Use this value to determine high volumes of activity for your
-#'     application.
+#' -   `Maximum` - The highest value observed during the specified period. Use this value to determine high volumes of activity for your application.
 #' 
-#' -   `Sum` - All values submitted for the matching metric added together.
-#'     You can use this statistic to determine the total volume of a
-#'     metric.
+#' -   `Sum` - All values submitted for the matching metric added together. You can use this statistic to determine the total volume of a metric.
 #' 
-#' -   `Average` - The value of Sum / SampleCount during the specified
-#'     period. By comparing this statistic with the Minimum and Maximum
-#'     values, you can determine the full scope of a metric and how close
-#'     the average use is to the Minimum and Maximum values. This
-#'     comparison helps you to know when to increase or decrease your
-#'     resources.
+#' -   `Average` - The value of Sum / SampleCount during the specified period. By comparing this statistic with the Minimum and Maximum values, you can determine the full scope of a metric and how close the average use is to the Minimum and Maximum values. This comparison helps you to know when to increase or decrease your resources.
 #' 
-#' -   `SampleCount` - The count, or number, of data points used for the
-#'     statistical calculation.
+#' -   `SampleCount` - The count, or number, of data points used for the statistical calculation.
 #'
 #' @keywords internal
 #'
@@ -5614,11 +4891,7 @@ lightsail_get_relational_database_metric_data <- function(relationalDatabaseName
 #' @param relationalDatabaseName &#91;required&#93; The name of your database for which to get parameters.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_relational_database_parameters`][lightsail_get_relational_database_parameters]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial [`get_relational_database_parameters`][lightsail_get_relational_database_parameters] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5684,11 +4957,7 @@ lightsail_get_relational_database_snapshot <- function(relationalDatabaseSnapsho
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_relational_database_snapshots`][lightsail_get_relational_database_snapshots]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial [`get_relational_database_snapshots`][lightsail_get_relational_database_snapshots] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5721,11 +4990,7 @@ lightsail_get_relational_database_snapshots <- function(pageToken = NULL) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_relational_databases`][lightsail_get_relational_databases]
-#' request. If your results are paginated, the response will return a next
-#' page token that you can specify as the page token in a subsequent
-#' request.
+#' To get a page token, perform an initial [`get_relational_databases`][lightsail_get_relational_databases] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5760,10 +5025,7 @@ lightsail_get_relational_databases <- function(pageToken = NULL) {
 #' @param resourceName &#91;required&#93; The name of the resource for which you are requesting information.
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_setup_history`][lightsail_get_setup_history] request. If your
-#' results are paginated, the response will return a next page token that
-#' you can specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_setup_history`][lightsail_get_setup_history] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5827,10 +5089,7 @@ lightsail_get_static_ip <- function(staticIpName) {
 #'
 #' @param pageToken The token to advance to the next page of results from your request.
 #' 
-#' To get a page token, perform an initial
-#' [`get_static_ips`][lightsail_get_static_ips] request. If your results
-#' are paginated, the response will return a next page token that you can
-#' specify as the page token in a subsequent request.
+#' To get a page token, perform an initial [`get_static_ips`][lightsail_get_static_ips] request. If your results are paginated, the response will return a next page token that you can specify as the page token in a subsequent request.
 #'
 #' @keywords internal
 #'
@@ -5989,125 +5248,81 @@ lightsail_peer_vpc <- function() {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_put_alarm/](https://www.paws-r-sdk.com/docs/lightsail_put_alarm/) for full documentation.
 #'
-#' @param alarmName &#91;required&#93; The name for the alarm. Specify the name of an existing alarm to update,
-#' and overwrite the previous configuration of the alarm.
+#' @param alarmName &#91;required&#93; The name for the alarm. Specify the name of an existing alarm to update, and overwrite the previous configuration of the alarm.
 #' @param metricName &#91;required&#93; The name of the metric to associate with the alarm.
 #' 
 #' You can configure up to two alarms per metric.
 #' 
 #' The following metrics are available for each resource type:
 #' 
-#' -   **Instances**: `BurstCapacityPercentage`, `BurstCapacityTime`,
-#'     `CPUUtilization`, `NetworkIn`, `NetworkOut`, `StatusCheckFailed`,
-#'     `StatusCheckFailed_Instance`, and `StatusCheckFailed_System`.
+#' -   **Instances**: `BurstCapacityPercentage`, `BurstCapacityTime`, `CPUUtilization`, `NetworkIn`, `NetworkOut`, `StatusCheckFailed`, `StatusCheckFailed_Instance`, and `StatusCheckFailed_System`.
 #' 
-#' -   **Load balancers**: `ClientTLSNegotiationErrorCount`,
-#'     `HealthyHostCount`, `UnhealthyHostCount`, `HTTPCode_LB_4XX_Count`,
-#'     `HTTPCode_LB_5XX_Count`, `HTTPCode_Instance_2XX_Count`,
-#'     `HTTPCode_Instance_3XX_Count`, `HTTPCode_Instance_4XX_Count`,
-#'     `HTTPCode_Instance_5XX_Count`, `InstanceResponseTime`,
-#'     `RejectedConnectionCount`, and `RequestCount`.
+#' -   **Load balancers**: `ClientTLSNegotiationErrorCount`, `HealthyHostCount`, `UnhealthyHostCount`, `HTTPCode_LB_4XX_Count`, `HTTPCode_LB_5XX_Count`, `HTTPCode_Instance_2XX_Count`, `HTTPCode_Instance_3XX_Count`, `HTTPCode_Instance_4XX_Count`, `HTTPCode_Instance_5XX_Count`, `InstanceResponseTime`, `RejectedConnectionCount`, and `RequestCount`.
 #' 
-#' -   **Relational databases**: `CPUUtilization`, `DatabaseConnections`,
-#'     `DiskQueueDepth`, `FreeStorageSpace`, `NetworkReceiveThroughput`,
-#'     and `NetworkTransmitThroughput`.
+#' -   **Relational databases**: `CPUUtilization`, `DatabaseConnections`, `DiskQueueDepth`, `FreeStorageSpace`, `NetworkReceiveThroughput`, and `NetworkTransmitThroughput`.
 #' 
-#' For more information about these metrics, see [Metrics available in
-#' Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-resource-health-metrics.html#available-metrics).
+#' For more information about these metrics, see [Metrics available in Lightsail](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-resource-health-metrics.html#available-metrics).
 #' @param monitoredResourceName &#91;required&#93; The name of the Lightsail resource that will be monitored.
 #' 
-#' Instances, load balancers, and relational databases are the only
-#' Lightsail resources that can currently be monitored by alarms.
-#' @param comparisonOperator &#91;required&#93; The arithmetic operation to use when comparing the specified statistic
-#' to the threshold. The specified statistic value is used as the first
-#' operand.
+#' Instances, load balancers, and relational databases are the only Lightsail resources that can currently be monitored by alarms.
+#' @param comparisonOperator &#91;required&#93; The arithmetic operation to use when comparing the specified statistic to the threshold. The specified statistic value is used as the first operand.
 #' @param threshold &#91;required&#93; The value against which the specified statistic is compared.
-#' @param evaluationPeriods &#91;required&#93; The number of most recent periods over which data is compared to the
-#' specified threshold. If you are setting an "M out of N" alarm, this
-#' value (`evaluationPeriods`) is the N.
+#' @param evaluationPeriods &#91;required&#93; The number of most recent periods over which data is compared to the specified threshold. If you are setting an "M out of N" alarm, this value (`evaluationPeriods`) is the N.
 #' 
-#' If you are setting an alarm that requires that a number of consecutive
-#' data points be breaching to trigger the alarm, this value specifies the
-#' rolling period of time in which data points are evaluated.
+#' If you are setting an alarm that requires that a number of consecutive data points be breaching to trigger the alarm, this value specifies the rolling period of time in which data points are evaluated.
 #' 
-#' Each evaluation period is five minutes long. For example, specify an
-#' evaluation period of 24 to evaluate a metric over a rolling period of
-#' two hours.
+#' Each evaluation period is five minutes long. For example, specify an evaluation period of 24 to evaluate a metric over a rolling period of two hours.
 #' 
-#' You can specify a minimum valuation period of 1 (5 minutes), and a
-#' maximum evaluation period of 288 (24 hours).
-#' @param datapointsToAlarm The number of data points that must be not within the specified
-#' threshold to trigger the alarm. If you are setting an "M out of N"
-#' alarm, this value (`datapointsToAlarm`) is the M.
+#' You can specify a minimum valuation period of 1 (5 minutes), and a maximum evaluation period of 288 (24 hours).
+#' @param datapointsToAlarm The number of data points that must be not within the specified threshold to trigger the alarm. If you are setting an "M out of N" alarm, this value (`datapointsToAlarm`) is the M.
 #' @param treatMissingData Sets how this alarm will handle missing data points.
 #' 
 #' An alarm can treat missing data in the following ways:
 #' 
-#' -   `breaching` - Assume the missing data is not within the threshold.
-#'     Missing data counts towards the number of times the metric is not
-#'     within the threshold.
+#' -   `breaching` - Assume the missing data is not within the threshold. Missing data counts towards the number of times the metric is not within the threshold.
 #' 
-#' -   `notBreaching` - Assume the missing data is within the threshold.
-#'     Missing data does not count towards the number of times the metric
-#'     is not within the threshold.
+#' -   `notBreaching` - Assume the missing data is within the threshold. Missing data does not count towards the number of times the metric is not within the threshold.
 #' 
-#' -   `ignore` - Ignore the missing data. Maintains the current alarm
-#'     state.
+#' -   `ignore` - Ignore the missing data. Maintains the current alarm state.
 #' 
 #' -   `missing` - Missing data is treated as missing.
 #' 
-#' If `treatMissingData` is not specified, the default behavior of
-#' `missing` is used.
-#' @param contactProtocols The contact protocols to use for the alarm, such as `Email`, `SMS` (text
-#' messaging), or both.
+#' If `treatMissingData` is not specified, the default behavior of `missing` is used.
+#' @param contactProtocols The contact protocols to use for the alarm, such as `Email`, `SMS` (text messaging), or both.
 #' 
-#' A notification is sent via the specified contact protocol if
-#' notifications are enabled for the alarm, and when the alarm is
-#' triggered.
+#' A notification is sent via the specified contact protocol if notifications are enabled for the alarm, and when the alarm is triggered.
 #' 
-#' A notification is not sent if a contact protocol is not specified, if
-#' the specified contact protocol is not configured in the Amazon Web
-#' Services Region, or if notifications are not enabled for the alarm using
-#' the `notificationEnabled` paramater.
+#' A notification is not sent if a contact protocol is not specified, if the specified contact protocol is not configured in the Amazon Web Services Region, or if notifications are not enabled for the alarm using the `notificationEnabled` paramater.
 #' 
-#' Use the [`create_contact_method`][lightsail_create_contact_method]
-#' action to configure a contact protocol in an Amazon Web Services Region.
+#' Use the [`create_contact_method`][lightsail_create_contact_method] action to configure a contact protocol in an Amazon Web Services Region.
 #' @param notificationTriggers The alarm states that trigger a notification.
 #' 
 #' An alarm has the following possible states:
 #' 
 #' -   `ALARM` - The metric is outside of the defined threshold.
 #' 
-#' -   `INSUFFICIENT_DATA` - The alarm has just started, the metric is not
-#'     available, or not enough data is available for the metric to
-#'     determine the alarm state.
+#' -   `INSUFFICIENT_DATA` - The alarm has just started, the metric is not available, or not enough data is available for the metric to determine the alarm state.
 #' 
 #' -   `OK` - The metric is within the defined threshold.
 #' 
-#' When you specify a notification trigger, the `ALARM` state must be
-#' specified. The `INSUFFICIENT_DATA` and `OK` states can be specified in
-#' addition to the `ALARM` state.
+#' When you specify a notification trigger, the `ALARM` state must be specified. The `INSUFFICIENT_DATA` and `OK` states can be specified in addition to the `ALARM` state.
 #' 
-#' -   If you specify `OK` as an alarm trigger, a notification is sent when
-#'     the alarm switches from an `ALARM` or `INSUFFICIENT_DATA` alarm
-#'     state to an `OK` state. This can be thought of as an *all clear*
-#'     alarm notification.
+#' -   If you specify `OK` as an alarm trigger, a notification is sent when the alarm switches from an `ALARM` or `INSUFFICIENT_DATA` alarm state to an `OK` state. This can be thought of as an *all clear* alarm notification.
 #' 
-#' -   If you specify `INSUFFICIENT_DATA` as the alarm trigger, a
-#'     notification is sent when the alarm switches from an `OK` or `ALARM`
-#'     alarm state to an `INSUFFICIENT_DATA` state.
+#' -   If you specify `INSUFFICIENT_DATA` as the alarm trigger, a notification is sent when the alarm switches from an `OK` or `ALARM` alarm state to an `INSUFFICIENT_DATA` state.
 #' 
-#' The notification trigger defaults to `ALARM` if you don't specify this
-#' parameter.
+#' The notification trigger defaults to `ALARM` if you don't specify this parameter.
 #' @param notificationEnabled Indicates whether the alarm is enabled.
 #' 
-#' Notifications are enabled by default if you don't specify this
-#' parameter.
+#' Notifications are enabled by default if you don't specify this parameter.
+#' @param tags The tag keys and optional values to add to the alarm during create.
+#' 
+#' Use the [`tag_resource`][lightsail_tag_resource] action to tag a resource after it's created.
 #'
 #' @keywords internal
 #'
 #' @rdname lightsail_put_alarm
-lightsail_put_alarm <- function(alarmName, metricName, monitoredResourceName, comparisonOperator, threshold, evaluationPeriods, datapointsToAlarm = NULL, treatMissingData = NULL, contactProtocols = NULL, notificationTriggers = NULL, notificationEnabled = NULL) {
+lightsail_put_alarm <- function(alarmName, metricName, monitoredResourceName, comparisonOperator, threshold, evaluationPeriods, datapointsToAlarm = NULL, treatMissingData = NULL, contactProtocols = NULL, notificationTriggers = NULL, notificationEnabled = NULL, tags = NULL) {
   op <- new_operation(
     name = "PutAlarm",
     http_method = "POST",
@@ -6116,7 +5331,7 @@ lightsail_put_alarm <- function(alarmName, metricName, monitoredResourceName, co
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .lightsail$put_alarm_input(alarmName = alarmName, metricName = metricName, monitoredResourceName = monitoredResourceName, comparisonOperator = comparisonOperator, threshold = threshold, evaluationPeriods = evaluationPeriods, datapointsToAlarm = datapointsToAlarm, treatMissingData = treatMissingData, contactProtocols = contactProtocols, notificationTriggers = notificationTriggers, notificationEnabled = notificationEnabled)
+  input <- .lightsail$put_alarm_input(alarmName = alarmName, metricName = metricName, monitoredResourceName = monitoredResourceName, comparisonOperator = comparisonOperator, threshold = threshold, evaluationPeriods = evaluationPeriods, datapointsToAlarm = datapointsToAlarm, treatMissingData = treatMissingData, contactProtocols = contactProtocols, notificationTriggers = notificationTriggers, notificationEnabled = notificationEnabled, tags = tags)
   output <- .lightsail$put_alarm_output()
   config <- get_config()
   svc <- .lightsail$service(config, op)
@@ -6135,8 +5350,7 @@ lightsail_put_alarm <- function(alarmName, metricName, monitoredResourceName, co
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_put_instance_public_ports/](https://www.paws-r-sdk.com/docs/lightsail_put_instance_public_ports/) for full documentation.
 #'
-#' @param portInfos &#91;required&#93; An array of objects to describe the ports to open for the specified
-#' instance.
+#' @param portInfos &#91;required&#93; An array of objects to describe the ports to open for the specified instance.
 #' @param instanceName &#91;required&#93; The name of the instance for which to open ports.
 #'
 #' @keywords internal
@@ -6230,32 +5444,18 @@ lightsail_reboot_relational_database <- function(relationalDatabaseName) {
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_register_container_image/](https://www.paws-r-sdk.com/docs/lightsail_register_container_image/) for full documentation.
 #'
-#' @param serviceName &#91;required&#93; The name of the container service for which to register a container
-#' image.
-#' @param label &#91;required&#93; The label for the container image when it's registered to the container
-#' service.
+#' @param serviceName &#91;required&#93; The name of the container service for which to register a container image.
+#' @param label &#91;required&#93; The label for the container image when it's registered to the container service.
 #' 
-#' Use a descriptive label that you can use to track the different versions
-#' of your registered container images.
+#' Use a descriptive label that you can use to track the different versions of your registered container images.
 #' 
-#' Use the [`get_container_images`][lightsail_get_container_images] action
-#' to return the container images registered to a Lightsail container
-#' service. The label is the `<imagelabel>` portion of the following image
-#' name example:
+#' Use the [`get_container_images`][lightsail_get_container_images] action to return the container images registered to a Lightsail container service. The label is the `<imagelabel>` portion of the following image name example:
 #' 
 #' -   `:container-service-1.<imagelabel>.1`
 #' 
-#' If the name of your container service is `mycontainerservice`, and the
-#' label that you specify is `mystaticwebsite`, then the name of the
-#' registered container image will be
-#' `:mycontainerservice.mystaticwebsite.1`.
+#' If the name of your container service is `mycontainerservice`, and the label that you specify is `mystaticwebsite`, then the name of the registered container image will be `:mycontainerservice.mystaticwebsite.1`.
 #' 
-#' The number at the end of these image name examples represents the
-#' version of the registered container image. If you push and register
-#' another container image to the same Lightsail container service, with
-#' the same label, then the version number for the new registered container
-#' image will be `2`. If you push and register another container image, the
-#' version number will be `3`, and so on.
+#' The number at the end of these image name examples represents the version of the registered container image. If you push and register another container image to the same Lightsail container service, with the same label, then the version number for the new registered container image will be `2`. If you push and register another container image, the version number will be `3`, and so on.
 #' @param digest &#91;required&#93; The digest of the container image to be registered.
 #'
 #' @keywords internal
@@ -6321,8 +5521,7 @@ lightsail_release_static_ip <- function(staticIpName) {
 #'
 #' @param distributionName The name of the distribution for which to reset cache.
 #' 
-#' Use the [`get_distributions`][lightsail_get_distributions] action to get
-#' a list of distribution names that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get a list of distribution names that you can specify.
 #'
 #' @keywords internal
 #'
@@ -6389,26 +5588,16 @@ lightsail_send_contact_method_verification <- function(protocol) {
 #' 
 #' The resource values are `Distribution`, `Instance`, and `LoadBalancer`.
 #' 
-#' Distribution-related APIs are available only in the N. Virginia
-#' (`us-east-1`) Amazon Web Services Region. Set your Amazon Web Services
-#' Region configuration to `us-east-1` to create, view, or edit
-#' distributions.
+#' Distribution-related APIs are available only in the N. Virginia (`us-east-1`) Amazon Web Services Region. Set your Amazon Web Services Region configuration to `us-east-1` to create, view, or edit distributions.
 #' @param resourceName &#91;required&#93; The name of the resource for which to set the IP address type.
 #' @param ipAddressType &#91;required&#93; The IP address type to set for the specified resource.
 #' 
-#' The possible values are `ipv4` for IPv4 only, `ipv6` for IPv6 only, and
-#' `dualstack` for IPv4 and IPv6.
-#' @param acceptBundleUpdate Required parameter to accept the instance bundle update when changing
-#' to, and from, IPv6-only.
+#' The possible values are `ipv4` for IPv4 only, `ipv6` for IPv6 only, and `dualstack` for IPv4 and IPv6.
+#' @param acceptBundleUpdate Required parameter to accept the instance bundle update when changing to, and from, IPv6-only.
 #' 
-#' An instance bundle will change when switching from `dual-stack` or
-#' `ipv4`, to `ipv6`. It also changes when switching from `ipv6`, to
-#' `dual-stack` or `ipv4`.
+#' An instance bundle will change when switching from `dual-stack` or `ipv4`, to `ipv6`. It also changes when switching from `ipv6`, to `dual-stack` or `ipv4`.
 #' 
-#' You must include this parameter in the command to update the bundle. For
-#' example, if you switch from `dual-stack` to `ipv6`, the bundle will be
-#' updated, and billing for the IPv6-only instance bundle begins
-#' immediately.
+#' You must include this parameter in the command to update the bundle. For example, if you switch from `dual-stack` to `ipv6`, the bundle will be updated, and billing for the IPv6-only instance bundle begins immediately.
 #'
 #' @keywords internal
 #'
@@ -6440,18 +5629,15 @@ lightsail_set_ip_address_type <- function(resourceType, resourceName, ipAddressT
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_set_resource_access_for_bucket/](https://www.paws-r-sdk.com/docs/lightsail_set_resource_access_for_bucket/) for full documentation.
 #'
-#' @param resourceName &#91;required&#93; The name of the Lightsail instance for which to set bucket access. The
-#' instance must be in a running or stopped state.
-#' @param bucketName &#91;required&#93; The name of the bucket for which to set access to another Lightsail
-#' resource.
+#' @param resourceName &#91;required&#93; The name of the Lightsail instance for which to set bucket access. The instance must be in a running or stopped state.
+#' @param bucketName &#91;required&#93; The name of the bucket for which to set access to another Lightsail resource.
 #' @param access &#91;required&#93; The access setting.
 #' 
 #' The following access settings are available:
 #' 
 #' -   `allow` - Allows access to the bucket and its objects.
 #' 
-#' -   `deny` - Denies access to the bucket and its objects. Use this
-#'     setting to remove access for a resource previously set to `allow`.
+#' -   `deny` - Denies access to the bucket and its objects. Use this setting to remove access for a resource previously set to `allow`.
 #'
 #' @keywords internal
 #'
@@ -6483,10 +5669,8 @@ lightsail_set_resource_access_for_bucket <- function(resourceName, bucketName, a
 #' See [https://www.paws-r-sdk.com/docs/lightsail_setup_instance_https/](https://www.paws-r-sdk.com/docs/lightsail_setup_instance_https/) for full documentation.
 #'
 #' @param instanceName &#91;required&#93; The name of the Lightsail instance.
-#' @param emailAddress &#91;required&#93; The contact method for SSL/TLS certificate renewal alerts. You can enter
-#' one email address.
-#' @param domainNames &#91;required&#93; The name of the domain and subdomains that were specified for the
-#' SSL/TLS certificate.
+#' @param emailAddress &#91;required&#93; The contact method for SSL/TLS certificate renewal alerts. You can enter one email address.
+#' @param domainNames &#91;required&#93; The name of the domain and subdomains that were specified for the SSL/TLS certificate.
 #' @param certificateProvider &#91;required&#93; The certificate authority that issues the SSL/TLS certificate.
 #'
 #' @keywords internal
@@ -6645,12 +5829,9 @@ lightsail_stop_gui_session <- function(resourceName) {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_stop_instance/](https://www.paws-r-sdk.com/docs/lightsail_stop_instance/) for full documentation.
 #'
 #' @param instanceName &#91;required&#93; The name of the instance (a virtual private server) to stop.
-#' @param force When set to `True`, forces a Lightsail instance that is stuck in a
-#' `stopping` state to stop.
+#' @param force When set to `True`, forces a Lightsail instance that is stuck in a `stopping` state to stop.
 #' 
-#' Only use the `force` parameter if your instance is stuck in the
-#' `stopping` state. In any other state, your instance should stop normally
-#' without adding this parameter to your API request.
+#' Only use the `force` parameter if your instance is stuck in the `stopping` state. In any other state, your instance should stop normally without adding this parameter to your API request.
 #'
 #' @keywords internal
 #'
@@ -6682,8 +5863,7 @@ lightsail_stop_instance <- function(instanceName, force = NULL) {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_stop_relational_database/](https://www.paws-r-sdk.com/docs/lightsail_stop_relational_database/) for full documentation.
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of your database to stop.
-#' @param relationalDatabaseSnapshotName The name of your new database snapshot to be created before stopping
-#' your database.
+#' @param relationalDatabaseSnapshotName The name of your new database snapshot to be created before stopping your database.
 #'
 #' @keywords internal
 #'
@@ -6715,8 +5895,7 @@ lightsail_stop_relational_database <- function(relationalDatabaseName, relationa
 #' See [https://www.paws-r-sdk.com/docs/lightsail_tag_resource/](https://www.paws-r-sdk.com/docs/lightsail_tag_resource/) for full documentation.
 #'
 #' @param resourceName &#91;required&#93; The name of the resource to which you are adding tags.
-#' @param resourceArn The Amazon Resource Name (ARN) of the resource to which you want to add
-#' a tag.
+#' @param resourceArn The Amazon Resource Name (ARN) of the resource to which you want to add a tag.
 #' @param tags &#91;required&#93; The tag key and optional value.
 #'
 #' @keywords internal
@@ -6755,9 +5934,7 @@ lightsail_tag_resource <- function(resourceName, resourceArn = NULL, tags) {
 #' 
 #' -   `ALARM` - The metric is outside of the defined threshold.
 #' 
-#' -   `INSUFFICIENT_DATA` - The alarm has just started, the metric is not
-#'     available, or not enough data is available for the metric to
-#'     determine the alarm state.
+#' -   `INSUFFICIENT_DATA` - The alarm has just started, the metric is not available, or not enough data is available for the metric to determine the alarm state.
 #' 
 #' -   `OK` - The metric is within the defined threshold.
 #'
@@ -6823,8 +6000,7 @@ lightsail_unpeer_vpc <- function() {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_untag_resource/](https://www.paws-r-sdk.com/docs/lightsail_untag_resource/) for full documentation.
 #'
 #' @param resourceName &#91;required&#93; The name of the resource from which you are removing a tag.
-#' @param resourceArn The Amazon Resource Name (ARN) of the resource from which you want to
-#' remove a tag.
+#' @param resourceArn The Amazon Resource Name (ARN) of the resource from which you want to remove a tag.
 #' @param tagKeys &#91;required&#93; The tag keys to delete from the specified resource.
 #'
 #' @keywords internal
@@ -6857,28 +6033,26 @@ lightsail_untag_resource <- function(resourceName, resourceArn = NULL, tagKeys) 
 #' See [https://www.paws-r-sdk.com/docs/lightsail_update_bucket/](https://www.paws-r-sdk.com/docs/lightsail_update_bucket/) for full documentation.
 #'
 #' @param bucketName &#91;required&#93; The name of the bucket to update.
-#' @param accessRules An object that sets the public accessibility of objects in the specified
-#' bucket.
-#' @param versioning Specifies whether to enable or suspend versioning of objects in the
-#' bucket.
+#' @param accessRules An object that sets the public accessibility of objects in the specified bucket.
+#' @param versioning Specifies whether to enable or suspend versioning of objects in the bucket.
 #' 
 #' The following options can be specified:
 #' 
 #' -   `Enabled` - Enables versioning of objects in the specified bucket.
 #' 
-#' -   `Suspended` - Suspends versioning of objects in the specified
-#'     bucket. Existing object versions are retained.
-#' @param readonlyAccessAccounts An array of strings to specify the Amazon Web Services account IDs that
-#' can access the bucket.
+#' -   `Suspended` - Suspends versioning of objects in the specified bucket. Existing object versions are retained.
+#' @param readonlyAccessAccounts An array of strings to specify the Amazon Web Services account IDs that can access the bucket.
 #' 
-#' You can give a maximum of 10 Amazon Web Services accounts access to a
-#' bucket.
+#' You can give a maximum of 10 Amazon Web Services accounts access to a bucket.
 #' @param accessLogConfig An object that describes the access log configuration for the bucket.
+#' @param cors Sets the cross-origin resource sharing (CORS) configuration for your bucket. If a CORS configuration exists, it is replaced with the specified configuration. For AWS CLI operations, this parameter can also be passed as a file. For more information, see [Configuring cross-origin resource sharing (CORS)](https://docs.aws.amazon.com/lightsail/latest/userguide/configure-cors.html).
+#' 
+#' CORS information is only returned in a response when you update the CORS policy.
 #'
 #' @keywords internal
 #'
 #' @rdname lightsail_update_bucket
-lightsail_update_bucket <- function(bucketName, accessRules = NULL, versioning = NULL, readonlyAccessAccounts = NULL, accessLogConfig = NULL) {
+lightsail_update_bucket <- function(bucketName, accessRules = NULL, versioning = NULL, readonlyAccessAccounts = NULL, accessLogConfig = NULL, cors = NULL) {
   op <- new_operation(
     name = "UpdateBucket",
     http_method = "POST",
@@ -6887,7 +6061,7 @@ lightsail_update_bucket <- function(bucketName, accessRules = NULL, versioning =
     paginator = list(),
     stream_api = FALSE
   )
-  input <- .lightsail$update_bucket_input(bucketName = bucketName, accessRules = accessRules, versioning = versioning, readonlyAccessAccounts = readonlyAccessAccounts, accessLogConfig = accessLogConfig)
+  input <- .lightsail$update_bucket_input(bucketName = bucketName, accessRules = accessRules, versioning = versioning, readonlyAccessAccounts = readonlyAccessAccounts, accessLogConfig = accessLogConfig, cors = cors)
   output <- .lightsail$update_bucket_output()
   config <- get_config()
   svc <- .lightsail$service(config, op)
@@ -6908,8 +6082,7 @@ lightsail_update_bucket <- function(bucketName, accessRules = NULL, versioning =
 #' @param bucketName &#91;required&#93; The name of the bucket for which to update the bundle.
 #' @param bundleId &#91;required&#93; The ID of the new bundle to apply to the bucket.
 #' 
-#' Use the [`get_bucket_bundles`][lightsail_get_bucket_bundles] action to
-#' get a list of bundle IDs that you can specify.
+#' Use the [`get_bucket_bundles`][lightsail_get_bucket_bundles] action to get a list of bundle IDs that you can specify.
 #'
 #' @keywords internal
 #'
@@ -6944,50 +6117,25 @@ lightsail_update_bucket_bundle <- function(bucketName, bundleId) {
 #' @param serviceName &#91;required&#93; The name of the container service to update.
 #' @param power The power for the container service.
 #' 
-#' The power specifies the amount of memory, vCPUs, and base monthly cost
-#' of each node of the container service. The `power` and `scale` of a
-#' container service makes up its configured capacity. To determine the
-#' monthly price of your container service, multiply the base price of the
-#' `power` with the `scale` (the number of nodes) of the service.
+#' The power specifies the amount of memory, vCPUs, and base monthly cost of each node of the container service. The `power` and `scale` of a container service makes up its configured capacity. To determine the monthly price of your container service, multiply the base price of the `power` with the `scale` (the number of nodes) of the service.
 #' 
-#' Use the
-#' [`get_container_service_powers`][lightsail_get_container_service_powers]
-#' action to view the specifications of each power option.
+#' Use the [`get_container_service_powers`][lightsail_get_container_service_powers] action to view the specifications of each power option.
 #' @param scale The scale for the container service.
 #' 
-#' The scale specifies the allocated compute nodes of the container
-#' service. The `power` and `scale` of a container service makes up its
-#' configured capacity. To determine the monthly price of your container
-#' service, multiply the base price of the `power` with the `scale` (the
-#' number of nodes) of the service.
+#' The scale specifies the allocated compute nodes of the container service. The `power` and `scale` of a container service makes up its configured capacity. To determine the monthly price of your container service, multiply the base price of the `power` with the `scale` (the number of nodes) of the service.
 #' @param isDisabled A Boolean value to indicate whether the container service is disabled.
-#' @param publicDomainNames The public domain names to use with the container service, such as
-#' `example.com` and `www.example.com`.
+#' @param publicDomainNames The public domain names to use with the container service, such as `example.com` and `www.example.com`.
 #' 
-#' You can specify up to four public domain names for a container service.
-#' The domain names that you specify are used when you create a deployment
-#' with a container configured as the public endpoint of your container
-#' service.
+#' You can specify up to four public domain names for a container service. The domain names that you specify are used when you create a deployment with a container configured as the public endpoint of your container service.
 #' 
-#' If you don't specify public domain names, then you can use the default
-#' domain of the container service.
+#' If you don't specify public domain names, then you can use the default domain of the container service.
 #' 
-#' You must create and validate an SSL/TLS certificate before you can use
-#' public domain names with your container service. Use the
-#' [`create_certificate`][lightsail_create_certificate] action to create a
-#' certificate for the public domain names you want to use with your
-#' container service.
+#' You must create and validate an SSL/TLS certificate before you can use public domain names with your container service. Use the [`create_certificate`][lightsail_create_certificate] action to create a certificate for the public domain names you want to use with your container service.
 #' 
-#' You can specify public domain names using a string to array map as shown
-#' in the example later on this page.
-#' @param privateRegistryAccess An object to describe the configuration for the container service to
-#' access private container image repositories, such as Amazon Elastic
-#' Container Registry (Amazon ECR) private repositories.
+#' You can specify public domain names using a string to array map as shown in the example later on this page.
+#' @param privateRegistryAccess An object to describe the configuration for the container service to access private container image repositories, such as Amazon Elastic Container Registry (Amazon ECR) private repositories.
 #' 
-#' For more information, see [Configuring access to an Amazon ECR private
-#' repository for an Amazon Lightsail container
-#' service](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-container-service-ecr-private-repo-access.html)
-#' in the *Amazon Lightsail Developer Guide*.
+#' For more information, see [Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service](https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-container-service-ecr-private-repo-access.html) in the *Amazon Lightsail Developer Guide*.
 #'
 #' @keywords internal
 #'
@@ -7021,39 +6169,25 @@ lightsail_update_container_service <- function(serviceName, power = NULL, scale 
 #'
 #' @param distributionName &#91;required&#93; The name of the distribution to update.
 #' 
-#' Use the [`get_distributions`][lightsail_get_distributions] action to get
-#' a list of distribution names that you can specify.
-#' @param origin An object that describes the origin resource for the distribution, such
-#' as a Lightsail instance, bucket, or load balancer.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get a list of distribution names that you can specify.
+#' @param origin An object that describes the origin resource for the distribution, such as a Lightsail instance, bucket, or load balancer.
 #' 
 #' The distribution pulls, caches, and serves content from the origin.
-#' @param defaultCacheBehavior An object that describes the default cache behavior for the
-#' distribution.
-#' @param cacheBehaviorSettings An object that describes the cache behavior settings for the
-#' distribution.
+#' @param defaultCacheBehavior An object that describes the default cache behavior for the distribution.
+#' @param cacheBehaviorSettings An object that describes the cache behavior settings for the distribution.
 #' 
-#' The `cacheBehaviorSettings` specified in your
-#' `UpdateDistributionRequest` will replace your distribution's existing
-#' settings.
-#' @param cacheBehaviors An array of objects that describe the per-path cache behavior for the
-#' distribution.
+#' The `cacheBehaviorSettings` specified in your `UpdateDistributionRequest` will replace your distribution's existing settings.
+#' @param cacheBehaviors An array of objects that describe the per-path cache behavior for the distribution.
 #' @param isEnabled Indicates whether to enable the distribution.
-#' @param viewerMinimumTlsProtocolVersion Use this parameter to update the minimum TLS protocol version for the
-#' SSL/TLS certificate that's attached to the distribution.
-#' @param certificateName The name of the SSL/TLS certificate that you want to attach to the
-#' distribution.
+#' @param viewerMinimumTlsProtocolVersion Use this parameter to update the minimum TLS protocol version for the SSL/TLS certificate that's attached to the distribution.
+#' @param certificateName The name of the SSL/TLS certificate that you want to attach to the distribution.
 #' 
-#' Only certificates with a status of `ISSUED` can be attached to a
-#' distribution.
+#' Only certificates with a status of `ISSUED` can be attached to a distribution.
 #' 
-#' Use the [`get_certificates`][lightsail_get_certificates] action to get a
-#' list of certificate names that you can specify.
-#' @param useDefaultCertificate Indicates whether the default SSL/TLS certificate is attached to the
-#' distribution. The default value is `true`. When `true`, the distribution
-#' uses the default domain name such as `d111111abcdef8.cloudfront.net`.
+#' Use the [`get_certificates`][lightsail_get_certificates] action to get a list of certificate names that you can specify.
+#' @param useDefaultCertificate Indicates whether the default SSL/TLS certificate is attached to the distribution. The default value is `true`. When `true`, the distribution uses the default domain name such as `d111111abcdef8.cloudfront.net`.
 #' 
-#' Set this value to `false` to attach a new certificate to the
-#' distribution.
+#' Set this value to `false` to attach a new certificate to the distribution.
 #'
 #' @keywords internal
 #'
@@ -7087,12 +6221,10 @@ lightsail_update_distribution <- function(distributionName, origin = NULL, defau
 #'
 #' @param distributionName The name of the distribution for which to update the bundle.
 #' 
-#' Use the [`get_distributions`][lightsail_get_distributions] action to get
-#' a list of distribution names that you can specify.
+#' Use the [`get_distributions`][lightsail_get_distributions] action to get a list of distribution names that you can specify.
 #' @param bundleId The bundle ID of the new bundle to apply to your distribution.
 #' 
-#' Use the [`get_distribution_bundles`][lightsail_get_distribution_bundles]
-#' action to get a list of distribution bundle IDs that you can specify.
+#' Use the [`get_distribution_bundles`][lightsail_get_distribution_bundles] action to get a list of distribution bundle IDs that you can specify.
 #'
 #' @keywords internal
 #'
@@ -7124,8 +6256,7 @@ lightsail_update_distribution_bundle <- function(distributionName = NULL, bundle
 #' See [https://www.paws-r-sdk.com/docs/lightsail_update_domain_entry/](https://www.paws-r-sdk.com/docs/lightsail_update_domain_entry/) for full documentation.
 #'
 #' @param domainName &#91;required&#93; The name of the domain recordset to update.
-#' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about the domain
-#' entry.
+#' @param domainEntry &#91;required&#93; An array of key-value pairs containing information about the domain entry.
 #'
 #' @keywords internal
 #'
@@ -7158,33 +6289,18 @@ lightsail_update_domain_entry <- function(domainName, domainEntry) {
 #' See [https://www.paws-r-sdk.com/docs/lightsail_update_instance_metadata_options/](https://www.paws-r-sdk.com/docs/lightsail_update_instance_metadata_options/) for full documentation.
 #'
 #' @param instanceName &#91;required&#93; The name of the instance for which to update metadata parameters.
-#' @param httpTokens The state of token usage for your instance metadata requests. If the
-#' parameter is not specified in the request, the default state is
-#' `optional`.
+#' @param httpTokens The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is `optional`.
 #' 
-#' If the state is `optional`, you can choose whether to retrieve instance
-#' metadata with a signed token header on your request. If you retrieve the
-#' IAM role credentials without a token, the version 1.0 role credentials
-#' are returned. If you retrieve the IAM role credentials by using a valid
-#' signed token, the version 2.0 role credentials are returned.
+#' If the state is `optional`, you can choose whether to retrieve instance metadata with a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials by using a valid signed token, the version 2.0 role credentials are returned.
 #' 
-#' If the state is `required`, you must send a signed token header with all
-#' instance metadata retrieval requests. In this state, retrieving the IAM
-#' role credential always returns the version 2.0 credentials. The version
-#' 1.0 credentials are not available.
-#' @param httpEndpoint Enables or disables the HTTP metadata endpoint on your instances. If
-#' this parameter is not specified, the existing state is maintained.
+#' If the state is `required`, you must send a signed token header with all instance metadata retrieval requests. In this state, retrieving the IAM role credential always returns the version 2.0 credentials. The version 1.0 credentials are not available.
+#' @param httpEndpoint Enables or disables the HTTP metadata endpoint on your instances. If this parameter is not specified, the existing state is maintained.
 #' 
-#' If you specify a value of `disabled`, you cannot access your instance
-#' metadata.
-#' @param httpPutResponseHopLimit The desired HTTP PUT response hop limit for instance metadata requests.
-#' A larger number means that the instance metadata requests can travel
-#' farther. If no parameter is specified, the existing state is maintained.
-#' @param httpProtocolIpv6 Enables or disables the IPv6 endpoint for the instance metadata service.
-#' This setting applies only when the HTTP metadata endpoint is enabled.
+#' If you specify a value of `disabled`, you cannot access your instance metadata.
+#' @param httpPutResponseHopLimit The desired HTTP PUT response hop limit for instance metadata requests. A larger number means that the instance metadata requests can travel farther. If no parameter is specified, the existing state is maintained.
+#' @param httpProtocolIpv6 Enables or disables the IPv6 endpoint for the instance metadata service. This setting applies only when the HTTP metadata endpoint is enabled.
 #' 
-#' This parameter is available only for instances in the Europe (Stockholm)
-#' Amazon Web Services Region (`eu-north-1`).
+#' This parameter is available only for instances in the Europe (Stockholm) Amazon Web Services Region (`eu-north-1`).
 #'
 #' @keywords internal
 #'
@@ -7215,40 +6331,23 @@ lightsail_update_instance_metadata_options <- function(instanceName, httpTokens 
 #'
 #' See [https://www.paws-r-sdk.com/docs/lightsail_update_load_balancer_attribute/](https://www.paws-r-sdk.com/docs/lightsail_update_load_balancer_attribute/) for full documentation.
 #'
-#' @param loadBalancerName &#91;required&#93; The name of the load balancer that you want to modify
-#' (`my-load-balancer`.
+#' @param loadBalancerName &#91;required&#93; The name of the load balancer that you want to modify (`my-load-balancer`.
 #' @param attributeName &#91;required&#93; The name of the attribute you want to update.
 #' @param attributeValue &#91;required&#93; The value that you want to specify for the attribute name.
 #' 
-#' The following values are supported depending on what you specify for the
-#' `attributeName` request parameter:
+#' The following values are supported depending on what you specify for the `attributeName` request parameter:
 #' 
-#' -   If you specify `HealthCheckPath` for the `attributeName` request
-#'     parameter, then the `attributeValue` request parameter must be the
-#'     path to ping on the target (for example, `/weather/us/wa/seattle`).
+#' -   If you specify `HealthCheckPath` for the `attributeName` request parameter, then the `attributeValue` request parameter must be the path to ping on the target (for example, `/weather/us/wa/seattle`).
 #' 
-#' -   If you specify `SessionStickinessEnabled` for the `attributeName`
-#'     request parameter, then the `attributeValue` request parameter must
-#'     be `true` to activate session stickiness or `false` to deactivate
-#'     session stickiness.
+#' -   If you specify `SessionStickinessEnabled` for the `attributeName` request parameter, then the `attributeValue` request parameter must be `true` to activate session stickiness or `false` to deactivate session stickiness.
 #' 
-#' -   If you specify `SessionStickiness_LB_CookieDurationSeconds` for the
-#'     `attributeName` request parameter, then the `attributeValue` request
-#'     parameter must be an interger that represents the cookie duration in
-#'     seconds.
+#' -   If you specify `SessionStickiness_LB_CookieDurationSeconds` for the `attributeName` request parameter, then the `attributeValue` request parameter must be an interger that represents the cookie duration in seconds.
 #' 
-#' -   If you specify `HttpsRedirectionEnabled` for the `attributeName`
-#'     request parameter, then the `attributeValue` request parameter must
-#'     be `true` to activate HTTP to HTTPS redirection or `false` to
-#'     deactivate HTTP to HTTPS redirection.
+#' -   If you specify `HttpsRedirectionEnabled` for the `attributeName` request parameter, then the `attributeValue` request parameter must be `true` to activate HTTP to HTTPS redirection or `false` to deactivate HTTP to HTTPS redirection.
 #' 
-#' -   If you specify `TlsPolicyName` for the `attributeName` request
-#'     parameter, then the `attributeValue` request parameter must be the
-#'     name of the TLS policy.
+#' -   If you specify `TlsPolicyName` for the `attributeName` request parameter, then the `attributeValue` request parameter must be the name of the TLS policy.
 #' 
-#'     Use the
-#'     [`get_load_balancer_tls_policies`][lightsail_get_load_balancer_tls_policies]
-#'     action to get a list of TLS policy names that you can specify.
+#'     Use the [`get_load_balancer_tls_policies`][lightsail_get_load_balancer_tls_policies] action to get a list of TLS policy names that you can specify.
 #'
 #' @keywords internal
 #'
@@ -7281,8 +6380,7 @@ lightsail_update_load_balancer_attribute <- function(loadBalancerName, attribute
 #' See [https://www.paws-r-sdk.com/docs/lightsail_update_relational_database/](https://www.paws-r-sdk.com/docs/lightsail_update_relational_database/) for full documentation.
 #'
 #' @param relationalDatabaseName &#91;required&#93; The name of your Lightsail database resource to update.
-#' @param masterUserPassword The password for the master user. The password can include any printable
-#' ASCII character except "/", """, or "@@".
+#' @param masterUserPassword The password for the master user. The password can include any printable ASCII character except "/", """, or "@@".
 #' 
 #' My**SQL**
 #' 
@@ -7291,13 +6389,10 @@ lightsail_update_load_balancer_attribute <- function(loadBalancerName, attribute
 #' **PostgreSQL**
 #' 
 #' Constraints: Must contain from 8 to 128 characters.
-#' @param rotateMasterUserPassword When `true`, the master user password is changed to a new strong
-#' password generated by Lightsail.
+#' @param rotateMasterUserPassword When `true`, the master user password is changed to a new strong password generated by Lightsail.
 #' 
-#' Use the `get relational database master user password` operation to get
-#' the new password.
-#' @param preferredBackupWindow The daily time range during which automated backups are created for your
-#' database if automated backups are enabled.
+#' Use the `get relational database master user password` operation to get the new password.
+#' @param preferredBackupWindow The daily time range during which automated backups are created for your database if automated backups are enabled.
 #' 
 #' Constraints:
 #' 
@@ -7310,12 +6405,9 @@ lightsail_update_load_balancer_attribute <- function(loadBalancerName, attribute
 #' -   Must not conflict with the preferred maintenance window.
 #' 
 #' -   Must be at least 30 minutes.
-#' @param preferredMaintenanceWindow The weekly time range during which system maintenance can occur on your
-#' database.
+#' @param preferredMaintenanceWindow The weekly time range during which system maintenance can occur on your database.
 #' 
-#' The default is a 30-minute window selected at random from an 8-hour
-#' block of time for each Amazon Web Services Region, occurring on a random
-#' day of the week.
+#' The default is a 30-minute window selected at random from an 8-hour block of time for each Amazon Web Services Region, occurring on a random day of the week.
 #' 
 #' Constraints:
 #' 
@@ -7330,34 +6422,20 @@ lightsail_update_load_balancer_attribute <- function(loadBalancerName, attribute
 #' -   Example: `Tue:17:00-Tue:17:30`
 #' @param enableBackupRetention When `true`, enables automated backup retention for your database.
 #' 
-#' Updates are applied during the next maintenance window because this can
-#' result in an outage.
+#' Updates are applied during the next maintenance window because this can result in an outage.
 #' @param disableBackupRetention When `true`, disables automated backup retention for your database.
 #' 
-#' Disabling backup retention deletes all automated database backups.
-#' Before disabling this, you may want to create a snapshot of your
-#' database using the `create relational database snapshot` operation.
+#' Disabling backup retention deletes all automated database backups. Before disabling this, you may want to create a snapshot of your database using the `create relational database snapshot` operation.
 #' 
-#' Updates are applied during the next maintenance window because this can
-#' result in an outage.
-#' @param publiclyAccessible Specifies the accessibility options for your database. A value of `true`
-#' specifies a database that is available to resources outside of your
-#' Lightsail account. A value of `false` specifies a database that is
-#' available only to your Lightsail resources in the same region as your
-#' database.
-#' @param applyImmediately When `true`, applies changes immediately. When `false`, applies changes
-#' during the preferred maintenance window. Some changes may cause an
-#' outage.
+#' Updates are applied during the next maintenance window because this can result in an outage.
+#' @param publiclyAccessible Specifies the accessibility options for your database. A value of `true` specifies a database that is available to resources outside of your Lightsail account. A value of `false` specifies a database that is available only to your Lightsail resources in the same region as your database.
+#' @param applyImmediately When `true`, applies changes immediately. When `false`, applies changes during the preferred maintenance window. Some changes may cause an outage.
 #' 
 #' Default: `false`
 #' @param caCertificateIdentifier Indicates the certificate that needs to be associated with the database.
-#' @param relationalDatabaseBlueprintId This parameter is used to update the major version of the database.
-#' Enter the `blueprintId` for the major version that you want to update
-#' to.
+#' @param relationalDatabaseBlueprintId This parameter is used to update the major version of the database. Enter the `blueprintId` for the major version that you want to update to.
 #' 
-#' Use the
-#' [`get_relational_database_blueprints`][lightsail_get_relational_database_blueprints]
-#' action to get a list of available blueprint IDs.
+#' Use the [`get_relational_database_blueprints`][lightsail_get_relational_database_blueprints] action to get a list of available blueprint IDs.
 #'
 #' @keywords internal
 #'

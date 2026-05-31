@@ -20,113 +20,52 @@ batch_submit_job(
   timeout = NULL,
   tags = NULL,
   eksPropertiesOverride = NULL,
-  ecsPropertiesOverride = NULL
+  ecsPropertiesOverride = NULL,
+  consumableResourcePropertiesOverride = NULL
 )
 }
 \arguments{
-\item{jobName}{[required] The name of the job. It can be up to 128 letters long. The first
-character must be alphanumeric, can contain uppercase and lowercase
-letters, numbers, hyphens (-), and underscores (_).}
+\item{jobName}{[required] The name of the job. It can be up to 128 letters long. The first character must be alphanumeric, can contain uppercase and lowercase letters, numbers, hyphens (-), and underscores (_).}
 
-\item{jobQueue}{[required] The job queue where the job is submitted. You can specify either the
-name or the Amazon Resource Name (ARN) of the queue.}
+\item{jobQueue}{[required] The job queue where the job is submitted. You can specify either the name or the Amazon Resource Name (ARN) of the queue.}
 
-\item{shareIdentifier}{The share identifier for the job. Don't specify this parameter if the
-job queue doesn't have a fair-share scheduling policy. If the job queue
-has a fair-share scheduling policy, then this parameter must be
-specified.
+\item{shareIdentifier}{The share identifier for the job. Don't specify this parameter if the job queue doesn't have a fair-share scheduling policy. If the job queue has a fair-share scheduling policy, then this parameter must be specified.
 
-This string is limited to 255 alphanumeric characters, and can be
-followed by an asterisk (*).}
+This string is limited to 255 alphanumeric characters, and can be followed by an asterisk (*).}
 
-\item{schedulingPriorityOverride}{The scheduling priority for the job. This only affects jobs in job
-queues with a fair-share policy. Jobs with a higher scheduling priority
-are scheduled before jobs with a lower scheduling priority. This
-overrides any scheduling priority in the job definition and works only
-within a single share identifier.
+\item{schedulingPriorityOverride}{The scheduling priority for the job. This only affects jobs in job queues with a fair-share policy. Jobs with a higher scheduling priority are scheduled before jobs with a lower scheduling priority. This overrides any scheduling priority in the job definition and works only within a single share identifier.
 
-The minimum supported value is 0 and the maximum supported value is
-9999.}
+The minimum supported value is 0 and the maximum supported value is 9999.}
 
-\item{arrayProperties}{The array properties for the submitted job, such as the size of the
-array. The array size can be between 2 and 10,000. If you specify array
-properties for a job, it becomes an array job. For more information, see
-\href{https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html}{Array Jobs}
-in the \emph{Batch User Guide}.}
+\item{arrayProperties}{The array properties for the submitted job, such as the size of the array. The array size can be between 2 and 10,000. If you specify array properties for a job, it becomes an array job. For more information, see \href{https://docs.aws.amazon.com/batch/latest/userguide/array_jobs.html}{Array Jobs} in the \emph{Batch User Guide}.}
 
-\item{dependsOn}{A list of dependencies for the job. A job can depend upon a maximum of
-20 jobs. You can specify a \code{SEQUENTIAL} type dependency without
-specifying a job ID for array jobs so that each child array job
-completes sequentially, starting at index 0. You can also specify an
-\code{N_TO_N} type dependency with a job ID for array jobs. In that case,
-each index child of this job must wait for the corresponding index child
-of each dependency to complete before it can begin.}
+\item{dependsOn}{A list of dependencies for the job. A job can depend upon a maximum of 20 jobs. You can specify a \code{SEQUENTIAL} type dependency without specifying a job ID for array jobs so that each child array job completes sequentially, starting at index 0. You can also specify an \code{N_TO_N} type dependency with a job ID for array jobs. In that case, each index child of this job must wait for the corresponding index child of each dependency to complete before it can begin.}
 
-\item{jobDefinition}{[required] The job definition used by this job. This value can be one of
-\code{definition-name}, \code{definition-name:revision}, or the Amazon Resource
-Name (ARN) for the job definition, with or without the revision
-(\code{arn:aws:batch:region:account:job-definition/definition-name:revision },
-or \code{arn:aws:batch:region:account:job-definition/definition-name }).
+\item{jobDefinition}{[required] The job definition used by this job. This value can be one of \code{definition-name}, \code{definition-name:revision}, or the Amazon Resource Name (ARN) for the job definition, with or without the revision (\code{arn:aws:batch:region:account:job-definition/definition-name:revision }, or \code{arn:aws:batch:region:account:job-definition/definition-name }).
 
-If the revision is not specified, then the latest active revision is
-used.}
+If the revision is not specified, then the latest active revision is used.}
 
-\item{parameters}{Additional parameters passed to the job that replace parameter
-substitution placeholders that are set in the job definition. Parameters
-are specified as a key and value pair mapping. Parameters in a
-\code{\link[=batch_submit_job]{submit_job}} request override any corresponding
-parameter defaults from the job definition.}
+\item{parameters}{Additional parameters passed to the job that replace parameter substitution placeholders that are set in the job definition. Parameters are specified as a key and value pair mapping. Parameters in a \code{\link[=batch_submit_job]{submit_job}} request override any corresponding parameter defaults from the job definition.}
 
-\item{containerOverrides}{An object with properties that override the defaults for the job
-definition that specify the name of a container in the specified job
-definition and the overrides it should receive. You can override the
-default command for a container, which is specified in the job
-definition or the Docker image, with a \code{command} override. You can also
-override existing environment variables on a container or add new
-environment variables to it with an \code{environment} override.}
+\item{containerOverrides}{An object with properties that override the defaults for the job definition that specify the name of a container in the specified job definition and the overrides it should receive. You can override the default command for a container, which is specified in the job definition or the Docker image, with a \code{command} override. You can also override existing environment variables on a container or add new environment variables to it with an \code{environment} override.}
 
-\item{nodeOverrides}{A list of node overrides in JSON format that specify the node range to
-target and the container overrides for that node range.
+\item{nodeOverrides}{A list of node overrides in JSON format that specify the node range to target and the container overrides for that node range.
 
-This parameter isn't applicable to jobs that are running on Fargate
-resources; use \code{containerOverrides} instead.}
+This parameter isn't applicable to jobs that are running on Fargate resources; use \code{containerOverrides} instead.}
 
-\item{retryStrategy}{The retry strategy to use for failed jobs from this
-\code{\link[=batch_submit_job]{submit_job}} operation. When a retry strategy is
-specified here, it overrides the retry strategy defined in the job
-definition.}
+\item{retryStrategy}{The retry strategy to use for failed jobs from this \code{\link[=batch_submit_job]{submit_job}} operation. When a retry strategy is specified here, it overrides the retry strategy defined in the job definition.}
 
-\item{propagateTags}{Specifies whether to propagate the tags from the job or job definition
-to the corresponding Amazon ECS task. If no value is specified, the tags
-aren't propagated. Tags can only be propagated to the tasks during task
-creation. For tags with the same name, job tags are given priority over
-job definitions tags. If the total number of combined tags from the job
-and job definition is over 50, the job is moved to the \code{FAILED} state.
-When specified, this overrides the tag propagation setting in the job
-definition.}
+\item{propagateTags}{Specifies whether to propagate the tags from the job or job definition to the corresponding Amazon ECS task. If no value is specified, the tags aren't propagated. Tags can only be propagated to the tasks during task creation. For tags with the same name, job tags are given priority over job definitions tags. If the total number of combined tags from the job and job definition is over 50, the job is moved to the \code{FAILED} state. When specified, this overrides the tag propagation setting in the job definition.}
 
-\item{timeout}{The timeout configuration for this \code{\link[=batch_submit_job]{submit_job}}
-operation. You can specify a timeout duration after which Batch
-terminates your jobs if they haven't finished. If a job is terminated
-due to a timeout, it isn't retried. The minimum value for the timeout is
-60 seconds. This configuration overrides any timeout configuration
-specified in the job definition. For array jobs, child jobs have the
-same timeout configuration as the parent job. For more information, see
-\href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/}{Job Timeouts}
-in the \emph{Amazon Elastic Container Service Developer Guide}.}
+\item{timeout}{The timeout configuration for this \code{\link[=batch_submit_job]{submit_job}} operation. You can specify a timeout duration after which Batch terminates your jobs if they haven't finished. If a job is terminated due to a timeout, it isn't retried. The minimum value for the timeout is 60 seconds. This configuration overrides any timeout configuration specified in the job definition. For array jobs, child jobs have the same timeout configuration as the parent job. For more information, see \href{https://docs.aws.amazon.com/AmazonECS/latest/developerguide/}{Job Timeouts} in the \emph{Amazon Elastic Container Service Developer Guide}.}
 
-\item{tags}{The tags that you apply to the job request to help you categorize and
-organize your resources. Each tag consists of a key and an optional
-value. For more information, see \href{https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html}{Tagging Amazon Web Services Resources}
-in \emph{Amazon Web Services General Reference}.}
+\item{tags}{The tags that you apply to the job request to help you categorize and organize your resources. Each tag consists of a key and an optional value. For more information, see \href{https://docs.aws.amazon.com/tag-editor/latest/userguide/tagging.html}{Tagging Amazon Web Services Resources} in \emph{Amazon Web Services General Reference}.}
 
-\item{eksPropertiesOverride}{An object, with properties that override defaults for the job
-definition, can only be specified for jobs that are run on Amazon EKS
-resources.}
+\item{eksPropertiesOverride}{An object, with properties that override defaults for the job definition, can only be specified for jobs that are run on Amazon EKS resources.}
 
-\item{ecsPropertiesOverride}{An object, with properties that override defaults for the job
-definition, can only be specified for jobs that are run on Amazon ECS
-resources.}
+\item{ecsPropertiesOverride}{An object, with properties that override defaults for the job definition, can only be specified for jobs that are run on Amazon ECS resources.}
+
+\item{consumableResourcePropertiesOverride}{An object that contains overrides for the consumable resources of a job.}
 }
 \description{
 Submits an Batch job from a job definition. Parameters that are specified during \code{\link[=batch_submit_job]{submit_job}} override parameters defined in the job definition. vCPU and memory requirements that are specified in the \code{resourceRequirements} objects in the job definition are the exception. They can't be overridden this way using the \code{memory} and \code{vcpus} parameters. Rather, you must specify updates to job definition parameters in a \code{resourceRequirements} object that's included in the \code{containerOverrides} parameter.

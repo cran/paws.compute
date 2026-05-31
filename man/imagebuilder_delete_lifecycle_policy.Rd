@@ -7,8 +7,7 @@
 imagebuilder_delete_lifecycle_policy(lifecyclePolicyArn)
 }
 \arguments{
-\item{lifecyclePolicyArn}{[required] The Amazon Resource Name (ARN) of the lifecycle policy resource to
-delete.}
+\item{lifecyclePolicyArn}{[required] The Amazon Resource Name (ARN) of the lifecycle policy resource to delete.}
 }
 \description{
 Delete the specified lifecycle policy resource.

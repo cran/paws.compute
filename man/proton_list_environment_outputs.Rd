@@ -15,9 +15,7 @@ proton_list_environment_outputs(
 
 \item{environmentName}{[required] The environment name.}
 
-\item{nextToken}{A token that indicates the location of the next environment output in
-the array of environment outputs, after the list of environment outputs
-that was previously requested.}
+\item{nextToken}{A token that indicates the location of the next environment output in the array of environment outputs, after the list of environment outputs that was previously requested.}
 }
 \description{
 List the infrastructure as code outputs for your environment.

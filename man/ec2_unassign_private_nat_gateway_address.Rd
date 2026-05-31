@@ -16,14 +16,9 @@ ec2_unassign_private_nat_gateway_address(
 
 \item{PrivateIpAddresses}{[required] The private IPv4 addresses you want to unassign.}
 
-\item{MaxDrainDurationSeconds}{The maximum amount of time to wait (in seconds) before forcibly
-releasing the IP addresses if connections are still in progress. Default
-value is 350 seconds.}
+\item{MaxDrainDurationSeconds}{The maximum amount of time to wait (in seconds) before forcibly releasing the IP addresses if connections are still in progress. Default value is 350 seconds.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Unassigns secondary private IPv4 addresses from a private NAT gateway. You cannot unassign your primary private IP. For more information, see \href{https://docs.aws.amazon.com/vpc/latest/userguide/nat-gateway-working-with.html#nat-gateway-edit-secondary}{Edit secondary IP address associations} in the \emph{Amazon VPC User Guide}.

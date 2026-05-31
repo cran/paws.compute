@@ -9,10 +9,7 @@ ec2_disable_image_deprecation(ImageId, DryRun = NULL)
 \arguments{
 \item{ImageId}{[required] The ID of the AMI.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Cancels the deprecation of the specified AMI.

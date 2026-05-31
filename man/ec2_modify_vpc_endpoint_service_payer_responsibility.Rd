@@ -11,16 +11,11 @@ ec2_modify_vpc_endpoint_service_payer_responsibility(
 )
 }
 \arguments{
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 
 \item{ServiceId}{[required] The ID of the service.}
 
-\item{PayerResponsibility}{[required] The entity that is responsible for the endpoint costs. The default is
-the endpoint owner. If you set the payer responsibility to the service
-owner, you cannot set it back to the endpoint owner.}
+\item{PayerResponsibility}{[required] The entity that is responsible for the endpoint costs. The default is the endpoint owner. If you set the payer responsibility to the service owner, you cannot set it back to the endpoint owner.}
 }
 \description{
 Modifies the payer responsibility for your VPC endpoint service.

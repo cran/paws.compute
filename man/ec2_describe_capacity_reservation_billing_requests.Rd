@@ -19,38 +19,22 @@ ec2_describe_capacity_reservation_billing_requests(
 
 \item{Role}{[required] Specify one of the following:
 \itemize{
-\item \code{odcr-owner} - If you are the Capacity Reservation owner, specify
-this value to view requests that you have initiated. Not supported
-with the \code{requested-by} filter.
-\item \code{unused-reservation-billing-owner} - If you are the consumer
-account, specify this value to view requests that have been sent to
-you. Not supported with the \code{unused-reservation-billing-owner}
-filter.
+\item \code{odcr-owner} - If you are the Capacity Reservation owner, specify this value to view requests that you have initiated. Not supported with the \code{requested-by} filter.
+\item \code{unused-reservation-billing-owner} - If you are the consumer account, specify this value to view requests that have been sent to you. Not supported with the \code{unused-reservation-billing-owner} filter.
 }}
 
 \item{NextToken}{The token to use to retrieve the next page of results.}
 
-\item{MaxResults}{The maximum number of items to return for this request. To get the next
-page of items, make another request with the token returned in the
-output. For more information, see
-\href{https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Query-Requests.html#api-pagination}{Pagination}.}
+\item{MaxResults}{The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination}{Pagination}.}
 
 \item{Filters}{One or more filters.
 \itemize{
-\item \code{status} - The state of the request (\code{pending} | \code{accepted} |
-\code{rejected} | \code{cancelled} | \code{revoked} | \code{expired}).
-\item \code{requested-by} - The account ID of the Capacity Reservation owner
-that initiated the request. Not supported if you specify
-\code{requested-by} for \strong{Role}.
-\item \code{unused-reservation-billing-owner} - The ID of the consumer account
-to which the request was sent. Not supported if you specify
-\code{unused-reservation-billing-owner} for \strong{Role}.
+\item \code{status} - The state of the request (\code{pending} | \code{accepted} | \code{rejected} | \code{cancelled} | \code{revoked} | \code{expired}).
+\item \code{requested-by} - The account ID of the Capacity Reservation owner that initiated the request. Not supported if you specify \code{requested-by} for \strong{Role}.
+\item \code{unused-reservation-billing-owner} - The ID of the consumer account to which the request was sent. Not supported if you specify \code{unused-reservation-billing-owner} for \strong{Role}.
 }}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Describes a request to assign the billing of the unused capacity of a Capacity Reservation. For more information, see \href{https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/assign-billing.html}{Billing assignment for shared Amazon EC2 Capacity Reservations}.

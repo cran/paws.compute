@@ -22,14 +22,11 @@ proton_create_environment_template(
 
 \item{name}{[required] The name of the environment template.}
 
-\item{provisioning}{When included, indicates that the environment template is for customer
-provisioned and managed infrastructure.}
+\item{provisioning}{When included, indicates that the environment template is for customer provisioned and managed infrastructure.}
 
-\item{tags}{An optional list of metadata items that you can associate with the
-Proton environment template. A tag is a key-value pair.
+\item{tags}{An optional list of metadata items that you can associate with the Proton environment template. A tag is a key-value pair.
 
-For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging}
-in the \emph{Proton User Guide}.}
+For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/resources.html}{Proton resources and tagging} in the \emph{Proton User Guide}.}
 }
 \description{
 Create an environment template for Proton. For more information, see \href{https://docs.aws.amazon.com/proton/latest/userguide/ag-templates.html}{Environment Templates} in the \emph{Proton User Guide}.

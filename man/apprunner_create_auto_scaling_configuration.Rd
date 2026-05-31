@@ -13,57 +13,33 @@ apprunner_create_auto_scaling_configuration(
 )
 }
 \arguments{
-\item{AutoScalingConfigurationName}{[required] A name for the auto scaling configuration. When you use it for the first
-time in an Amazon Web Services Region, App Runner creates revision
-number \code{1} of this name. When you use the same name in subsequent calls,
-App Runner creates incremental revisions of the configuration.
+\item{AutoScalingConfigurationName}{[required] A name for the auto scaling configuration. When you use it for the first time in an Amazon Web Services Region, App Runner creates revision number \code{1} of this name. When you use the same name in subsequent calls, App Runner creates incremental revisions of the configuration.
 
-Prior to the release of \href{https://docs.aws.amazon.com/apprunner/latest/relnotes/release-2023-09-22-auto-scale-config.html}{Auto scale configuration enhancements},
-the name \code{DefaultConfiguration} was reserved.
+Prior to the release of \href{https://docs.aws.amazon.com/apprunner/latest/relnotes/release-2023-09-22-auto-scale-config.html}{Auto scale configuration enhancements}, the name \code{DefaultConfiguration} was reserved.
 
-This restriction is no longer in place. You can now manage
-\code{DefaultConfiguration} the same way you manage your custom auto scaling
-configurations. This means you can do the following with the
-\code{DefaultConfiguration} that App Runner provides:
+This restriction is no longer in place. You can now manage \code{DefaultConfiguration} the same way you manage your custom auto scaling configurations. This means you can do the following with the \code{DefaultConfiguration} that App Runner provides:
 \itemize{
 \item Create new revisions of the \code{DefaultConfiguration}.
 \item Delete the revisions of the \code{DefaultConfiguration}.
-\item Delete the auto scaling configuration for which the App Runner
-\code{DefaultConfiguration} was created.
-\item If you delete the auto scaling configuration you can create another
-custom auto scaling configuration with the same
-\code{DefaultConfiguration} name. The original \code{DefaultConfiguration}
-resource provided by App Runner remains in your account unless you
-make changes to it.
+\item Delete the auto scaling configuration for which the App Runner \code{DefaultConfiguration} was created.
+\item If you delete the auto scaling configuration you can create another custom auto scaling configuration with the same \code{DefaultConfiguration} name. The original \code{DefaultConfiguration} resource provided by App Runner remains in your account unless you make changes to it.
 }}
 
-\item{MaxConcurrency}{The maximum number of concurrent requests that you want an instance to
-process. If the number of concurrent requests exceeds this limit, App
-Runner scales up your service.
+\item{MaxConcurrency}{The maximum number of concurrent requests that you want an instance to process. If the number of concurrent requests exceeds this limit, App Runner scales up your service.
 
 Default: \code{100}}
 
-\item{MinSize}{The minimum number of instances that App Runner provisions for your
-service. The service always has at least \code{MinSize} provisioned
-instances. Some of them actively serve traffic. The rest of them
-(provisioned and inactive instances) are a cost-effective compute
-capacity reserve and are ready to be quickly activated. You pay for
-memory usage of all the provisioned instances. You pay for CPU usage of
-only the active subset.
+\item{MinSize}{The minimum number of instances that App Runner provisions for your service. The service always has at least \code{MinSize} provisioned instances. Some of them actively serve traffic. The rest of them (provisioned and inactive instances) are a cost-effective compute capacity reserve and are ready to be quickly activated. You pay for memory usage of all the provisioned instances. You pay for CPU usage of only the active subset.
 
-App Runner temporarily doubles the number of provisioned instances
-during deployments, to maintain the same capacity for both old and new
-code.
+App Runner temporarily doubles the number of provisioned instances during deployments, to maintain the same capacity for both old and new code.
 
 Default: \code{1}}
 
-\item{MaxSize}{The maximum number of instances that your service scales up to. At most
-\code{MaxSize} instances actively serve traffic for your service.
+\item{MaxSize}{The maximum number of instances that your service scales up to. At most \code{MaxSize} instances actively serve traffic for your service.
 
 Default: \code{25}}
 
-\item{Tags}{A list of metadata items that you can associate with your auto scaling
-configuration resource. A tag is a key-value pair.}
+\item{Tags}{A list of metadata items that you can associate with your auto scaling configuration resource. A tag is a key-value pair.}
 }
 \description{
 Create an App Runner automatic scaling configuration resource. App Runner requires this resource when you create or update App Runner services and you require non-default auto scaling settings. You can share an auto scaling configuration across multiple services.

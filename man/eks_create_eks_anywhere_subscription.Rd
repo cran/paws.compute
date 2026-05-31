@@ -15,36 +15,19 @@ eks_create_eks_anywhere_subscription(
 )
 }
 \arguments{
-\item{name}{[required] The unique name for your subscription. It must be unique in your Amazon
-Web Services account in the Amazon Web Services Region you're creating
-the subscription in. The name can contain only alphanumeric characters
-(case-sensitive), hyphens, and underscores. It must start with an
-alphabetic character and can't be longer than 100 characters.}
+\item{name}{[required] The unique name for your subscription. It must be unique in your Amazon Web Services account in the Amazon Web Services Region you're creating the subscription in. The name can contain only alphanumeric characters (case-sensitive), hyphens, and underscores. It must start with an alphabetic character and can't be longer than 100 characters.}
 
-\item{term}{[required] An object representing the term duration and term unit type of your
-subscription. This determines the term length of your subscription.
-Valid values are MONTHS for term unit and 12 or 36 for term duration,
-indicating a 12 month or 36 month subscription. This value cannot be
-changed after creating the subscription.}
+\item{term}{[required] An object representing the term duration and term unit type of your subscription. This determines the term length of your subscription. Valid values are MONTHS for term unit and 12 or 36 for term duration, indicating a 12 month or 36 month subscription. This value cannot be changed after creating the subscription.}
 
-\item{licenseQuantity}{The number of licenses to purchase with the subscription. Valid values
-are between 1 and 100. This value can't be changed after creating the
-subscription.}
+\item{licenseQuantity}{The number of licenses to purchase with the subscription. Valid values are between 1 and 100. This value can't be changed after creating the subscription.}
 
-\item{licenseType}{The license type for all licenses in the subscription. Valid value is
-CLUSTER. With the CLUSTER license type, each license covers support for
-a single EKS Anywhere cluster.}
+\item{licenseType}{The license type for all licenses in the subscription. Valid value is CLUSTER. With the CLUSTER license type, each license covers support for a single EKS Anywhere cluster.}
 
-\item{autoRenew}{A boolean indicating whether the subscription auto renews at the end of
-the term.}
+\item{autoRenew}{A boolean indicating whether the subscription auto renews at the end of the term.}
 
-\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the
-idempotency of the request.}
+\item{clientRequestToken}{A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.}
 
-\item{tags}{The metadata for a subscription to assist with categorization and
-organization. Each tag consists of a key and an optional value.
-Subscription tags don't propagate to any other resources associated with
-the subscription.}
+\item{tags}{The metadata for a subscription to assist with categorization and organization. Each tag consists of a key and an optional value. Subscription tags don't propagate to any other resources associated with the subscription.}
 }
 \description{
 Creates an EKS Anywhere subscription. When a subscription is created, it is a contract agreement for the length of the term specified in the request. Licenses that are used to validate support are provisioned in Amazon Web Services License Manager and the caller account is granted access to EKS Anywhere Curated Packages.

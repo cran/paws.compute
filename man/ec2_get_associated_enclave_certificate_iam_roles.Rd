@@ -8,13 +8,9 @@ certificate}
 ec2_get_associated_enclave_certificate_iam_roles(CertificateArn, DryRun = NULL)
 }
 \arguments{
-\item{CertificateArn}{[required] The ARN of the ACM certificate for which to view the associated IAM
-roles, encryption keys, and Amazon S3 object information.}
+\item{CertificateArn}{[required] The ARN of the ACM certificate for which to view the associated IAM roles, encryption keys, and Amazon S3 object information.}
 
-\item{DryRun}{Checks whether you have the required permissions for the action, without
-actually making the request, and provides an error response. If you have
-the required permissions, the error response is \code{DryRunOperation}.
-Otherwise, it is \code{UnauthorizedOperation}.}
+\item{DryRun}{Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is \code{DryRunOperation}. Otherwise, it is \code{UnauthorizedOperation}.}
 }
 \description{
 Returns the IAM roles that are associated with the specified ACM (ACM) certificate. It also returns the name of the Amazon S3 bucket and the Amazon S3 object key where the certificate, certificate chain, and encrypted private key bundle are stored, and the ARN of the KMS key that's used to encrypt the private key.
