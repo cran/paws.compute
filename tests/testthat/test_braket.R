@@ -1,3 +1,3 @@
-svc <- paws::braket()
+svc <- paws.compute::braket()
 
 

@@ -20,13 +20,14 @@ imagebuilder_create_container_recipe(
   workingDirectory = NULL,
   targetRepository,
   kmsKeyId = NULL,
-  clientToken
+  clientToken,
+  dryRun = NULL
 )
 }
 \arguments{
 \item{containerType}{[required] The type of container to create.}
 
-\item{name}{[required] The name of the container recipe.}
+\item{name}{[required] The name of the container recipe. The recipe name, combined with the semantic version, must be unique to your account in each Amazon Web Services Region. Image Builder generates the container recipe ARN from a normalized form of the name, so names that differ only in case, spaces, or underscores count as the same name.}
 
 \item{description}{The description of the container recipe.}
 
@@ -34,33 +35,35 @@ imagebuilder_create_container_recipe(
 
 The semantic version has four nodes: \<major\>.\<minor\>.\<patch\>/\<build\>. You can assign values for the first three, and can filter on all of them.
 
-\strong{Assignment:} For the first three nodes you can assign any positive integer value, including zero, with an upper limit of 2^30-1, or 1073741823 for each node. Image Builder automatically assigns the build number to the fourth node.
+\strong{Assignment:} For the first three nodes, you can assign any positive integer value, including zero. The upper limit is 2^30-1, or 1073741823, for each node. Image Builder automatically assigns the build number to the fourth node.
 
 \strong{Patterns:} You can use any numeric pattern that adheres to the assignment requirements for the nodes that you can assign. For example, you might choose a software version pattern, such as 1.0.0, or a date, such as 2021.01.01.}
 
-\item{components}{The components included in the container recipe.}
+\item{components}{The components included in the container recipe. You can specify each component only one time in a recipe.}
 
 \item{instanceConfiguration}{A group of options that can be used to configure an instance for building and testing container images.}
 
-\item{dockerfileTemplateData}{The Dockerfile template used to build your image as an inline data blob.}
+\item{dockerfileTemplateData}{The Dockerfile template used to build your image, as an inline data blob. You must specify exactly one of the \code{dockerfileTemplateData} or \code{dockerfileTemplateUri} properties. For the contextual variables that the template can include, see \href{https://docs.aws.amazon.com/imagebuilder/latest/userguide/create-container-recipes.html}{Create a new version of a container recipe} in the \emph{EC2 Image Builder User Guide}.}
 
-\item{dockerfileTemplateUri}{The Amazon S3 URI for the Dockerfile that will be used to build your container image.}
+\item{dockerfileTemplateUri}{The Amazon S3 URI for the Dockerfile template that is used to build your container image. You must have permission to read the object. Image Builder reads the object once, when it creates the recipe, and stores its content in the recipe. Later changes to the S3 object don't affect the recipe. You must specify exactly one of the \code{dockerfileTemplateData} or \code{dockerfileTemplateUri} properties.}
 
-\item{platformOverride}{Specifies the operating system platform when you use a custom base image.}
+\item{platformOverride}{Specifies the operating system platform when you use a custom base image. Container recipes support only the Linux and Windows platforms.}
 
-\item{imageOsVersionOverride}{Specifies the operating system version for the base image.}
+\item{imageOsVersionOverride}{Specifies the operating system version for the base image. Use this property only when the base image is a container image from a registry. When the base image is an Image Builder image, the operating system version comes from the parent image.}
 
-\item{parentImage}{[required] The base image for the container recipe.}
+\item{parentImage}{[required] The base image for the container recipe. This can be an Image Builder image resource ARN or a container image URI from a registry, for example \code{amazonlinux:latest}.}
 
 \item{tags}{Tags that are attached to the container recipe.}
 
 \item{workingDirectory}{The working directory for use during build and test workflows.}
 
-\item{targetRepository}{[required] The destination repository for the container image.}
+\item{targetRepository}{[required] The destination repository for the container image. The Amazon ECR repository must already exist in the Amazon Web Services Region where the build runs.}
 
 \item{kmsKeyId}{The Amazon Resource Name (ARN) that uniquely identifies which KMS key is used to encrypt the Dockerfile template. This can be either the Key ARN or the Alias ARN. For more information, see \href{https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html#key-id-key-ARN}{Key identifiers (KeyId)} in the \emph{Key Management Service Developer Guide}.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
+\item{clientToken}{[required] A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
+
+\item{dryRun}{Validates the required permissions and request parameters without performing the operation. If validation succeeds, the operation returns a \code{DryRunOperationException} error response.}
 }
 \description{
 Creates a new container recipe. Container recipes define how images are configured, tested, and assessed.

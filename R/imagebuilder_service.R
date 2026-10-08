@@ -5,7 +5,9 @@ NULL
 #' EC2 Image Builder
 #'
 #' @description
-#' EC2 Image Builder is a fully managed Amazon Web Services service that makes it easier to automate the creation, management, and deployment of customized, secure, and up-to-date "golden" server images that are pre-installed and pre-configured with software and settings to meet specific IT standards.
+#' EC2 Image Builder automates the creation, management, and deployment of customized, secure, and up-to-date server images. You can build Amazon Machine Images (AMIs) and container images that are pre-installed and pre-configured with software and settings to meet specific IT standards.
+#' 
+#' For an introduction to the service concepts that these API operations work with, see [How Image Builder works](https://docs.aws.amazon.com/imagebuilder/latest/userguide/how-image-builder-works.html) in the *EC2 Image Builder User Guide*.
 #'
 #' @param
 #' config
@@ -26,6 +28,7 @@ NULL
 #' \item{\strong{timeout}: The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
 #' \item{\strong{s3_force_path_style}: Set this to `true` to force the request to use path-style addressing, i.e. `http://s3.amazonaws.com/BUCKET/KEY`.}
 #' \item{\strong{sts_regional_endpoint}: Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
+#' \item{\strong{use_dual_stack}: Set this to `true` to use the dualstack (IPv4 and IPv6) endpoint for a service, where available, falling back to the regular endpoint when it isn't. Defaults to the `AWS_USE_DUALSTACK_ENDPOINT` environment variable when unset.}
 #' }
 #' @param
 #' credentials
@@ -64,7 +67,8 @@ NULL
 #'     close_connection = "logical",
 #'     timeout = "numeric",
 #'     s3_force_path_style = "logical",
-#'     sts_regional_endpoint = "string"
+#'     sts_regional_endpoint = "string",
+#'     use_dual_stack = "logical"
 #'   ),
 #'   credentials = list(
 #'     creds = list(
@@ -90,17 +94,17 @@ NULL
 #'
 #' @section Operations:
 #' \tabular{ll}{
-#'  \link[=imagebuilder_cancel_image_creation]{cancel_image_creation} \tab CancelImageCreation cancels the creation of Image\cr
-#'  \link[=imagebuilder_cancel_lifecycle_execution]{cancel_lifecycle_execution} \tab Cancel a specific image lifecycle policy runtime instance\cr
+#'  \link[=imagebuilder_cancel_image_creation]{cancel_image_creation} \tab Cancels the creation of an image\cr
+#'  \link[=imagebuilder_cancel_lifecycle_execution]{cancel_lifecycle_execution} \tab Cancels a lifecycle execution – a single run of lifecycle actions that a lifecycle policy or a StartResourceStateUpdate request started\cr
 #'  \link[=imagebuilder_create_component]{create_component} \tab Creates a new component that can be used to build, validate, test, and assess your image\cr
 #'  \link[=imagebuilder_create_container_recipe]{create_container_recipe} \tab Creates a new container recipe\cr
 #'  \link[=imagebuilder_create_distribution_configuration]{create_distribution_configuration} \tab Creates a new distribution configuration\cr
-#'  \link[=imagebuilder_create_image]{create_image} \tab Creates a new image\cr
+#'  \link[=imagebuilder_create_image]{create_image} \tab Creates a new image along with all configured output resources defined in the distribution configuration\cr
 #'  \link[=imagebuilder_create_image_pipeline]{create_image_pipeline} \tab Creates a new image pipeline\cr
 #'  \link[=imagebuilder_create_image_recipe]{create_image_recipe} \tab Creates a new image recipe\cr
 #'  \link[=imagebuilder_create_infrastructure_configuration]{create_infrastructure_configuration} \tab Creates a new infrastructure configuration\cr
-#'  \link[=imagebuilder_create_lifecycle_policy]{create_lifecycle_policy} \tab Create a lifecycle policy resource\cr
-#'  \link[=imagebuilder_create_workflow]{create_workflow} \tab Create a new workflow or a new version of an existing workflow\cr
+#'  \link[=imagebuilder_create_lifecycle_policy]{create_lifecycle_policy} \tab Creates a lifecycle policy resource\cr
+#'  \link[=imagebuilder_create_workflow]{create_workflow} \tab Creates a new workflow or a new version of an existing workflow\cr
 #'  \link[=imagebuilder_delete_component]{delete_component} \tab Deletes a component build version\cr
 #'  \link[=imagebuilder_delete_container_recipe]{delete_container_recipe} \tab Deletes a container recipe\cr
 #'  \link[=imagebuilder_delete_distribution_configuration]{delete_distribution_configuration} \tab Deletes a distribution configuration\cr
@@ -108,35 +112,35 @@ NULL
 #'  \link[=imagebuilder_delete_image_pipeline]{delete_image_pipeline} \tab Deletes an image pipeline\cr
 #'  \link[=imagebuilder_delete_image_recipe]{delete_image_recipe} \tab Deletes an image recipe\cr
 #'  \link[=imagebuilder_delete_infrastructure_configuration]{delete_infrastructure_configuration} \tab Deletes an infrastructure configuration\cr
-#'  \link[=imagebuilder_delete_lifecycle_policy]{delete_lifecycle_policy} \tab Delete the specified lifecycle policy resource\cr
+#'  \link[=imagebuilder_delete_lifecycle_policy]{delete_lifecycle_policy} \tab Deletes the specified lifecycle policy resource\cr
 #'  \link[=imagebuilder_delete_workflow]{delete_workflow} \tab Deletes a specific workflow resource\cr
-#'  \link[=imagebuilder_distribute_image]{distribute_image} \tab DistributeImage distributes existing AMIs to additional regions and accounts without rebuilding the image\cr
-#'  \link[=imagebuilder_get_component]{get_component} \tab Gets a component object\cr
-#'  \link[=imagebuilder_get_component_policy]{get_component_policy} \tab Gets a component policy\cr
+#'  \link[=imagebuilder_distribute_image]{distribute_image} \tab Distributes an existing AMI to target Regions and accounts without running the full image build process\cr
+#'  \link[=imagebuilder_get_component]{get_component} \tab Retrieves a component object\cr
+#'  \link[=imagebuilder_get_component_policy]{get_component_policy} \tab Retrieves a component policy\cr
 #'  \link[=imagebuilder_get_container_recipe]{get_container_recipe} \tab Retrieves a container recipe\cr
 #'  \link[=imagebuilder_get_container_recipe_policy]{get_container_recipe_policy} \tab Retrieves the policy for a container recipe\cr
-#'  \link[=imagebuilder_get_distribution_configuration]{get_distribution_configuration} \tab Gets a distribution configuration\cr
-#'  \link[=imagebuilder_get_image]{get_image} \tab Gets an image\cr
-#'  \link[=imagebuilder_get_image_pipeline]{get_image_pipeline} \tab Gets an image pipeline\cr
-#'  \link[=imagebuilder_get_image_policy]{get_image_policy} \tab Gets an image policy\cr
-#'  \link[=imagebuilder_get_image_recipe]{get_image_recipe} \tab Gets an image recipe\cr
-#'  \link[=imagebuilder_get_image_recipe_policy]{get_image_recipe_policy} \tab Gets an image recipe policy\cr
-#'  \link[=imagebuilder_get_infrastructure_configuration]{get_infrastructure_configuration} \tab Gets an infrastructure configuration\cr
-#'  \link[=imagebuilder_get_lifecycle_execution]{get_lifecycle_execution} \tab Get the runtime information that was logged for a specific runtime instance of the lifecycle policy\cr
-#'  \link[=imagebuilder_get_lifecycle_policy]{get_lifecycle_policy} \tab Get details for the specified image lifecycle policy\cr
-#'  \link[=imagebuilder_get_marketplace_resource]{get_marketplace_resource} \tab Verify the subscription and perform resource dependency checks on the requested Amazon Web Services Marketplace resource\cr
-#'  \link[=imagebuilder_get_workflow]{get_workflow} \tab Get a workflow resource object\cr
-#'  \link[=imagebuilder_get_workflow_execution]{get_workflow_execution} \tab Get the runtime information that was logged for a specific runtime instance of the workflow\cr
-#'  \link[=imagebuilder_get_workflow_step_execution]{get_workflow_step_execution} \tab Get the runtime information that was logged for a specific runtime instance of the workflow step\cr
+#'  \link[=imagebuilder_get_distribution_configuration]{get_distribution_configuration} \tab Retrieves a distribution configuration\cr
+#'  \link[=imagebuilder_get_image]{get_image} \tab Retrieves an image\cr
+#'  \link[=imagebuilder_get_image_pipeline]{get_image_pipeline} \tab Retrieves an image pipeline\cr
+#'  \link[=imagebuilder_get_image_policy]{get_image_policy} \tab Retrieves an image policy\cr
+#'  \link[=imagebuilder_get_image_recipe]{get_image_recipe} \tab Retrieves an image recipe\cr
+#'  \link[=imagebuilder_get_image_recipe_policy]{get_image_recipe_policy} \tab Retrieves an image recipe policy\cr
+#'  \link[=imagebuilder_get_infrastructure_configuration]{get_infrastructure_configuration} \tab Retrieves an infrastructure configuration\cr
+#'  \link[=imagebuilder_get_lifecycle_execution]{get_lifecycle_execution} \tab Retrieves runtime information for a lifecycle execution – a single run of lifecycle actions that a lifecycle policy or a StartResourceStateUpdate request started\cr
+#'  \link[=imagebuilder_get_lifecycle_policy]{get_lifecycle_policy} \tab Retrieves details for the specified image lifecycle policy\cr
+#'  \link[=imagebuilder_get_marketplace_resource]{get_marketplace_resource} \tab Verifies the subscription and performs resource dependency checks on the requested Amazon Web Services Marketplace resource\cr
+#'  \link[=imagebuilder_get_workflow]{get_workflow} \tab Retrieves a workflow resource object\cr
+#'  \link[=imagebuilder_get_workflow_execution]{get_workflow_execution} \tab Retrieves runtime information for a specific runtime instance of the workflow\cr
+#'  \link[=imagebuilder_get_workflow_step_execution]{get_workflow_step_execution} \tab Retrieves runtime information for a specific runtime instance of the workflow step\cr
 #'  \link[=imagebuilder_import_component]{import_component} \tab Imports a component and transforms its data into a component document\cr
-#'  \link[=imagebuilder_import_disk_image]{import_disk_image} \tab Import a Windows operating system image from a verified Microsoft ISO disk file\cr
-#'  \link[=imagebuilder_import_vm_image]{import_vm_image} \tab When you export your virtual machine (VM) from its virtualization environment, that process creates a set of one or more disk container files that act as snapshots of your VM’s environment, settings, and data\cr
-#'  \link[=imagebuilder_list_component_build_versions]{list_component_build_versions} \tab Returns the list of component build versions for the specified component version Amazon Resource Name (ARN)\cr
-#'  \link[=imagebuilder_list_components]{list_components} \tab Returns the list of components that can be filtered by name, or by using the listed filters to streamline results\cr
+#'  \link[=imagebuilder_import_disk_image]{import_disk_image} \tab Imports a Windows operating system image from a verified Microsoft ISO disk file\cr
+#'  \link[=imagebuilder_import_vm_image]{import_vm_image} \tab Creates an Image Builder image resource from an Amazon EC2 VM import task\cr
+#'  \link[=imagebuilder_list_component_build_versions]{list_component_build_versions} \tab Returns a list of component build versions for the specified component version ARN\cr
+#'  \link[=imagebuilder_list_components]{list_components} \tab Returns the list of components that you have access to\cr
 #'  \link[=imagebuilder_list_container_recipes]{list_container_recipes} \tab Returns a list of container recipes\cr
 #'  \link[=imagebuilder_list_distribution_configurations]{list_distribution_configurations} \tab Returns a list of distribution configurations\cr
 #'  \link[=imagebuilder_list_image_build_versions]{list_image_build_versions} \tab Returns a list of image build versions\cr
-#'  \link[=imagebuilder_list_image_packages]{list_image_packages} \tab List the Packages that are associated with an Image Build Version, as determined by Amazon Web Services Systems Manager Inventory at build time\cr
+#'  \link[=imagebuilder_list_image_packages]{list_image_packages} \tab Lists the packages that are associated with an image build version, as determined by Amazon Web Services Systems Manager Inventory at build time\cr
 #'  \link[=imagebuilder_list_image_pipeline_images]{list_image_pipeline_images} \tab Returns a list of images created by the specified pipeline\cr
 #'  \link[=imagebuilder_list_image_pipelines]{list_image_pipelines} \tab Returns a list of image pipelines\cr
 #'  \link[=imagebuilder_list_image_recipes]{list_image_recipes} \tab Returns a list of image recipes\cr
@@ -144,29 +148,29 @@ NULL
 #'  \link[=imagebuilder_list_image_scan_finding_aggregations]{list_image_scan_finding_aggregations} \tab Returns a list of image scan aggregations for your account\cr
 #'  \link[=imagebuilder_list_image_scan_findings]{list_image_scan_findings} \tab Returns a list of image scan findings for your account\cr
 #'  \link[=imagebuilder_list_infrastructure_configurations]{list_infrastructure_configurations} \tab Returns a list of infrastructure configurations\cr
-#'  \link[=imagebuilder_list_lifecycle_execution_resources]{list_lifecycle_execution_resources} \tab List resources that the runtime instance of the image lifecycle identified for lifecycle actions\cr
-#'  \link[=imagebuilder_list_lifecycle_executions]{list_lifecycle_executions} \tab Get the lifecycle runtime history for the specified resource\cr
-#'  \link[=imagebuilder_list_lifecycle_policies]{list_lifecycle_policies} \tab Get a list of lifecycle policies in your Amazon Web Services account\cr
+#'  \link[=imagebuilder_list_lifecycle_execution_resources]{list_lifecycle_execution_resources} \tab Lists resources that the runtime instance of the image lifecycle identified for lifecycle actions\cr
+#'  \link[=imagebuilder_list_lifecycle_executions]{list_lifecycle_executions} \tab Retrieves the lifecycle runtime history for the specified resource\cr
+#'  \link[=imagebuilder_list_lifecycle_policies]{list_lifecycle_policies} \tab Retrieves a list of lifecycle policies in your Amazon Web Services account\cr
 #'  \link[=imagebuilder_list_tags_for_resource]{list_tags_for_resource} \tab Returns the list of tags for the specified resource\cr
-#'  \link[=imagebuilder_list_waiting_workflow_steps]{list_waiting_workflow_steps} \tab Get a list of workflow steps that are waiting for action for workflows in your Amazon Web Services account\cr
+#'  \link[=imagebuilder_list_waiting_workflow_steps]{list_waiting_workflow_steps} \tab Lists the workflow steps in your Amazon Web Services account that have paused at a WaitForAction step, and are waiting for you to respond\cr
 #'  \link[=imagebuilder_list_workflow_build_versions]{list_workflow_build_versions} \tab Returns a list of build versions for a specific workflow resource\cr
 #'  \link[=imagebuilder_list_workflow_executions]{list_workflow_executions} \tab Returns a list of workflow runtime instance metadata objects for a specific image build version\cr
-#'  \link[=imagebuilder_list_workflows]{list_workflows} \tab Lists workflow build versions based on filtering parameters\cr
+#'  \link[=imagebuilder_list_workflows]{list_workflows} \tab Lists workflow versions based on filtering parameters\cr
 #'  \link[=imagebuilder_list_workflow_step_executions]{list_workflow_step_executions} \tab Returns runtime data for each step in a runtime instance of the workflow that you specify in the request\cr
 #'  \link[=imagebuilder_put_component_policy]{put_component_policy} \tab Applies a policy to a component\cr
-#'  \link[=imagebuilder_put_container_recipe_policy]{put_container_recipe_policy} \tab Applies a policy to a container image\cr
+#'  \link[=imagebuilder_put_container_recipe_policy]{put_container_recipe_policy} \tab Applies a policy to a container recipe\cr
 #'  \link[=imagebuilder_put_image_policy]{put_image_policy} \tab Applies a policy to an image\cr
 #'  \link[=imagebuilder_put_image_recipe_policy]{put_image_recipe_policy} \tab Applies a policy to an image recipe\cr
-#'  \link[=imagebuilder_retry_image]{retry_image} \tab RetryImage retries an image distribution without rebuilding the image\cr
-#'  \link[=imagebuilder_send_workflow_step_action]{send_workflow_step_action} \tab Pauses or resumes image creation when the associated workflow runs a WaitForAction step\cr
+#'  \link[=imagebuilder_retry_image]{retry_image} \tab Retries a failed or canceled image build without rebuilding the phases that already completed\cr
+#'  \link[=imagebuilder_send_workflow_step_action]{send_workflow_step_action} \tab Sends an action to a workflow step that has paused at a WaitForAction step, so that image creation can continue\cr
 #'  \link[=imagebuilder_start_image_pipeline_execution]{start_image_pipeline_execution} \tab Manually triggers a pipeline to create an image\cr
-#'  \link[=imagebuilder_start_resource_state_update]{start_resource_state_update} \tab Begin asynchronous resource state update for lifecycle changes to the specified image resources\cr
+#'  \link[=imagebuilder_start_resource_state_update]{start_resource_state_update} \tab Begins an ad-hoc state change for the specified image build version\cr
 #'  \link[=imagebuilder_tag_resource]{tag_resource} \tab Adds a tag to a resource\cr
 #'  \link[=imagebuilder_untag_resource]{untag_resource} \tab Removes a tag from a resource\cr
-#'  \link[=imagebuilder_update_distribution_configuration]{update_distribution_configuration} \tab Updates a new distribution configuration\cr
+#'  \link[=imagebuilder_update_distribution_configuration]{update_distribution_configuration} \tab Updates a distribution configuration\cr
 #'  \link[=imagebuilder_update_image_pipeline]{update_image_pipeline} \tab Updates an image pipeline\cr
-#'  \link[=imagebuilder_update_infrastructure_configuration]{update_infrastructure_configuration} \tab Updates a new infrastructure configuration\cr
-#'  \link[=imagebuilder_update_lifecycle_policy]{update_lifecycle_policy} \tab Update the specified lifecycle policy
+#'  \link[=imagebuilder_update_infrastructure_configuration]{update_infrastructure_configuration} \tab Updates an infrastructure configuration\cr
+#'  \link[=imagebuilder_update_lifecycle_policy]{update_lifecycle_policy} \tab Updates the specified lifecycle policy
 #' }
 #'
 #' @return

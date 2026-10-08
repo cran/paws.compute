@@ -11,7 +11,9 @@ batch_update_compute_environment(
   computeResources = NULL,
   serviceRole = NULL,
   updatePolicy = NULL,
-  context = NULL
+  context = NULL,
+  ecsSettings = NULL,
+  eksConfiguration = NULL
 )
 }
 \arguments{
@@ -42,6 +44,10 @@ Depending on how you created your Batch service role, its ARN might contain the 
 \item{updatePolicy}{Specifies the updated infrastructure update policy for the compute environment. For more information about infrastructure updates, see \href{https://docs.aws.amazon.com/batch/latest/userguide/updating-compute-environments.html}{Updating compute environments} in the \emph{Batch User Guide}.}
 
 \item{context}{Reserved.}
+
+\item{ecsSettings}{The Amazon ECS settings for the compute environment. These settings control CloudWatch Container Insights collection for the compute environment.}
+
+\item{eksConfiguration}{Updates the Amazon EKS configuration for the compute environment. Only specify this parameter if the compute environment's \code{containerOrchestrationType} is \code{EKS}. Currently, the \code{accessEntry} setting is the only Amazon EKS configuration that you can change after the compute environment is created. For more information, see \href{https://docs.aws.amazon.com/batch/latest/userguide/eks-access-entries.html}{Amazon EKS access entry authentication} in the \emph{Batch User Guide}.}
 }
 \description{
 Updates an Batch compute environment.

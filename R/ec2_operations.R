@@ -24,7 +24,8 @@ ec2_accept_address_transfer <- function(Address, TagSpecifications = NULL, DryRu
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_address_transfer_input(Address = Address, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$accept_address_transfer_output()
@@ -57,7 +58,8 @@ ec2_accept_capacity_reservation_billing_ownership <- function(DryRun = NULL, Cap
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_capacity_reservation_billing_ownership_input(DryRun = DryRun, CapacityReservationId = CapacityReservationId)
   output <- .ec2$accept_capacity_reservation_billing_ownership_output()
@@ -91,7 +93,8 @@ ec2_accept_reserved_instances_exchange_quote <- function(DryRun = NULL, Reserved
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_reserved_instances_exchange_quote_input(DryRun = DryRun, ReservedInstanceIds = ReservedInstanceIds, TargetConfigurations = TargetConfigurations)
   output <- .ec2$accept_reserved_instances_exchange_quote_output()
@@ -123,7 +126,8 @@ ec2_accept_transit_gateway_client_vpn_attachment <- function(TransitGatewayAttac
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_transit_gateway_client_vpn_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$accept_transit_gateway_client_vpn_attachment_output()
@@ -158,7 +162,8 @@ ec2_accept_transit_gateway_multicast_domain_associations <- function(TransitGate
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_transit_gateway_multicast_domain_associations_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, SubnetIds = SubnetIds, DryRun = DryRun)
   output <- .ec2$accept_transit_gateway_multicast_domain_associations_output()
@@ -190,7 +195,8 @@ ec2_accept_transit_gateway_peering_attachment <- function(TransitGatewayAttachme
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_transit_gateway_peering_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$accept_transit_gateway_peering_attachment_output()
@@ -222,7 +228,8 @@ ec2_accept_transit_gateway_vpc_attachment <- function(TransitGatewayAttachmentId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_transit_gateway_vpc_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$accept_transit_gateway_vpc_attachment_output()
@@ -255,7 +262,8 @@ ec2_accept_vpc_endpoint_connections <- function(DryRun = NULL, ServiceId, VpcEnd
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_vpc_endpoint_connections_input(DryRun = DryRun, ServiceId = ServiceId, VpcEndpointIds = VpcEndpointIds)
   output <- .ec2$accept_vpc_endpoint_connections_output()
@@ -287,7 +295,8 @@ ec2_accept_vpc_peering_connection <- function(DryRun = NULL, VpcPeeringConnectio
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$accept_vpc_peering_connection_input(DryRun = DryRun, VpcPeeringConnectionId = VpcPeeringConnectionId)
   output <- .ec2$accept_vpc_peering_connection_output()
@@ -333,7 +342,8 @@ ec2_advertise_byoip_cidr <- function(Cidr, Asn = NULL, DryRun = NULL, NetworkBor
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$advertise_byoip_cidr_input(Cidr = Cidr, Asn = Asn, DryRun = DryRun, NetworkBorderGroup = NetworkBorderGroup)
   output <- .ec2$advertise_byoip_cidr_output()
@@ -371,7 +381,8 @@ ec2_allocate_address <- function(Domain = NULL, Address = NULL, PublicIpv4Pool =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$allocate_address_input(Domain = Domain, Address = Address, PublicIpv4Pool = PublicIpv4Pool, NetworkBorderGroup = NetworkBorderGroup, CustomerOwnedIpv4Pool = CustomerOwnedIpv4Pool, TagSpecifications = TagSpecifications, IpamPoolId = IpamPoolId, DryRun = DryRun)
   output <- .ec2$allocate_address_output()
@@ -407,6 +418,7 @@ ec2_allocate_address <- function(Domain = NULL, Address = NULL, PublicIpv4Pool =
 #' 
 #' -   If you specify both **AssetIds** and **Quantity**, then the value for **Quantity** must be equal to the number of asset IDs specified.
 #' @param AvailabilityZoneId The ID of the Availability Zone.
+#' @param CpuOptions The CPU configuration options to apply to the Dedicated Host.
 #' @param AutoPlacement Indicates whether the host accepts any untargeted instance launches that match its instance type configuration, or if it only accepts Host tenancy instance launches that specify its unique host ID. For more information, see [Understanding auto-placement and affinity](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/#dedicated-hosts-understanding) in the *Amazon EC2 User Guide*.
 #' 
 #' Default: `off`
@@ -420,16 +432,17 @@ ec2_allocate_address <- function(Domain = NULL, Address = NULL, PublicIpv4Pool =
 #' @keywords internal
 #'
 #' @rdname ec2_allocate_hosts
-ec2_allocate_hosts <- function(InstanceFamily = NULL, TagSpecifications = NULL, HostRecovery = NULL, OutpostArn = NULL, HostMaintenance = NULL, AssetIds = NULL, AvailabilityZoneId = NULL, AutoPlacement = NULL, ClientToken = NULL, InstanceType = NULL, Quantity = NULL, AvailabilityZone = NULL) {
+ec2_allocate_hosts <- function(InstanceFamily = NULL, TagSpecifications = NULL, HostRecovery = NULL, OutpostArn = NULL, HostMaintenance = NULL, AssetIds = NULL, AvailabilityZoneId = NULL, CpuOptions = NULL, AutoPlacement = NULL, ClientToken = NULL, InstanceType = NULL, Quantity = NULL, AvailabilityZone = NULL) {
   op <- new_operation(
     name = "AllocateHosts",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$allocate_hosts_input(InstanceFamily = InstanceFamily, TagSpecifications = TagSpecifications, HostRecovery = HostRecovery, OutpostArn = OutpostArn, HostMaintenance = HostMaintenance, AssetIds = AssetIds, AvailabilityZoneId = AvailabilityZoneId, AutoPlacement = AutoPlacement, ClientToken = ClientToken, InstanceType = InstanceType, Quantity = Quantity, AvailabilityZone = AvailabilityZone)
+  input <- .ec2$allocate_hosts_input(InstanceFamily = InstanceFamily, TagSpecifications = TagSpecifications, HostRecovery = HostRecovery, OutpostArn = OutpostArn, HostMaintenance = HostMaintenance, AssetIds = AssetIds, AvailabilityZoneId = AvailabilityZoneId, CpuOptions = CpuOptions, AutoPlacement = AutoPlacement, ClientToken = ClientToken, InstanceType = InstanceType, Quantity = Quantity, AvailabilityZone = AvailabilityZone)
   output <- .ec2$allocate_hosts_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -481,7 +494,8 @@ ec2_allocate_ipam_pool_cidr <- function(DryRun = NULL, IpamPoolId, Cidr = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$allocate_ipam_pool_cidr_input(DryRun = DryRun, IpamPoolId = IpamPoolId, Cidr = Cidr, NetmaskLength = NetmaskLength, ClientToken = ClientToken, Description = Description, PreviewNextCidr = PreviewNextCidr, AllowedCidrs = AllowedCidrs, DisallowedCidrs = DisallowedCidrs, TagSpecifications = TagSpecifications)
   output <- .ec2$allocate_ipam_pool_cidr_output()
@@ -516,7 +530,8 @@ ec2_apply_security_groups_to_client_vpn_target_network <- function(ClientVpnEndp
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$apply_security_groups_to_client_vpn_target_network_input(ClientVpnEndpointId = ClientVpnEndpointId, VpcId = VpcId, SecurityGroupIds = SecurityGroupIds, DryRun = DryRun)
   output <- .ec2$apply_security_groups_to_client_vpn_target_network_output()
@@ -551,7 +566,8 @@ ec2_assign_ipv_6_addresses <- function(Ipv6PrefixCount = NULL, Ipv6Prefixes = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$assign_ipv_6_addresses_input(Ipv6PrefixCount = Ipv6PrefixCount, Ipv6Prefixes = Ipv6Prefixes, NetworkInterfaceId = NetworkInterfaceId, Ipv6Addresses = Ipv6Addresses, Ipv6AddressCount = Ipv6AddressCount)
   output <- .ec2$assign_ipv_6_addresses_output()
@@ -590,7 +606,8 @@ ec2_assign_private_ip_addresses <- function(Ipv4Prefixes = NULL, Ipv4PrefixCount
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$assign_private_ip_addresses_input(Ipv4Prefixes = Ipv4Prefixes, Ipv4PrefixCount = Ipv4PrefixCount, NetworkInterfaceId = NetworkInterfaceId, PrivateIpAddresses = PrivateIpAddresses, SecondaryPrivateIpAddressCount = SecondaryPrivateIpAddressCount, AllowReassignment = AllowReassignment)
   output <- .ec2$assign_private_ip_addresses_output()
@@ -624,7 +641,8 @@ ec2_assign_private_nat_gateway_address <- function(NatGatewayId, PrivateIpAddres
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$assign_private_nat_gateway_address_input(NatGatewayId = NatGatewayId, PrivateIpAddresses = PrivateIpAddresses, PrivateIpAddressCount = PrivateIpAddressCount, DryRun = DryRun)
   output <- .ec2$assign_private_nat_gateway_address_output()
@@ -665,7 +683,8 @@ ec2_associate_address <- function(AllocationId = NULL, InstanceId = NULL, Public
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_address_input(AllocationId = AllocationId, InstanceId = InstanceId, PublicIp = PublicIp, DryRun = DryRun, NetworkInterfaceId = NetworkInterfaceId, PrivateIpAddress = PrivateIpAddress, AllowReassociation = AllowReassociation)
   output <- .ec2$associate_address_output()
@@ -676,6 +695,42 @@ ec2_associate_address <- function(AllocationId = NULL, InstanceId = NULL, Public
   return(response)
 }
 .ec2$operations$associate_address <- ec2_associate_address
+
+#' Associates an application status check with instances or tags
+#'
+#' @description
+#' Associates an application status check with instances or [tags](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html). Once you create an association, health monitoring automatically begins for the specified instances or for instances that match the specified tags. The following rules apply:
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_associate_application_status_check/](https://www.paws-r-sdk.com/docs/ec2_associate_application_status_check/) for full documentation.
+#'
+#' @param ApplicationStatusCheckId &#91;required&#93; The ID of the application status check to associate.
+#' @param TargetTagAssociations The [tags](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html) to associate the application status check with. Each tag is a key-value pair. When you associate tags, the application status check automatically monitors all instances that have the specified tags.
+#' @param InstanceIds The IDs of the instances to associate with the application status check.
+#' @param ClientToken A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a request with the same token, the service ignores the request but does not return an error. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_associate_application_status_check
+ec2_associate_application_status_check <- function(ApplicationStatusCheckId, TargetTagAssociations = NULL, InstanceIds = NULL, ClientToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "AssociateApplicationStatusCheck",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$associate_application_status_check_input(ApplicationStatusCheckId = ApplicationStatusCheckId, TargetTagAssociations = TargetTagAssociations, InstanceIds = InstanceIds, ClientToken = ClientToken, DryRun = DryRun)
+  output <- .ec2$associate_application_status_check_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$associate_application_status_check <- ec2_associate_application_status_check
 
 #' Initiates a request to assign billing of the unused capacity of a shared
 #' Capacity Reservation to a consumer account that is consolidated under
@@ -700,7 +755,8 @@ ec2_associate_capacity_reservation_billing_owner <- function(DryRun = NULL, Capa
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_capacity_reservation_billing_owner_input(DryRun = DryRun, CapacityReservationId = CapacityReservationId, UnusedReservationBillingOwnerId = UnusedReservationBillingOwnerId)
   output <- .ec2$associate_capacity_reservation_billing_owner_output()
@@ -736,7 +792,8 @@ ec2_associate_client_vpn_target_network <- function(ClientVpnEndpointId, SubnetI
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_client_vpn_target_network_input(ClientVpnEndpointId = ClientVpnEndpointId, SubnetId = SubnetId, ClientToken = ClientToken, DryRun = DryRun, AvailabilityZone = AvailabilityZone, AvailabilityZoneId = AvailabilityZoneId)
   output <- .ec2$associate_client_vpn_target_network_output()
@@ -770,7 +827,8 @@ ec2_associate_dhcp_options <- function(DhcpOptionsId, VpcId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_dhcp_options_input(DhcpOptionsId = DhcpOptionsId, VpcId = VpcId, DryRun = DryRun)
   output <- .ec2$associate_dhcp_options_output()
@@ -804,7 +862,8 @@ ec2_associate_enclave_certificate_iam_role <- function(CertificateArn, RoleArn, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_enclave_certificate_iam_role_input(CertificateArn = CertificateArn, RoleArn = RoleArn, DryRun = DryRun)
   output <- .ec2$associate_enclave_certificate_iam_role_output()
@@ -836,7 +895,8 @@ ec2_associate_iam_instance_profile <- function(IamInstanceProfile, InstanceId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_iam_instance_profile_input(IamInstanceProfile = IamInstanceProfile, InstanceId = InstanceId)
   output <- .ec2$associate_iam_instance_profile_output()
@@ -869,7 +929,8 @@ ec2_associate_instance_event_window <- function(DryRun = NULL, InstanceEventWind
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_instance_event_window_input(DryRun = DryRun, InstanceEventWindowId = InstanceEventWindowId, AssociationTarget = AssociationTarget)
   output <- .ec2$associate_instance_event_window_output()
@@ -903,7 +964,8 @@ ec2_associate_ipam_byoasn <- function(DryRun = NULL, Asn, Cidr) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_ipam_byoasn_input(DryRun = DryRun, Asn = Asn, Cidr = Cidr)
   output <- .ec2$associate_ipam_byoasn_output()
@@ -938,7 +1000,8 @@ ec2_associate_ipam_resource_discovery <- function(DryRun = NULL, IpamId, IpamRes
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_ipam_resource_discovery_input(DryRun = DryRun, IpamId = IpamId, IpamResourceDiscoveryId = IpamResourceDiscoveryId, TagSpecifications = TagSpecifications, ClientToken = ClientToken)
   output <- .ec2$associate_ipam_resource_discovery_output()
@@ -979,7 +1042,8 @@ ec2_associate_nat_gateway_address <- function(NatGatewayId, AllocationIds, Priva
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_nat_gateway_address_input(NatGatewayId = NatGatewayId, AllocationIds = AllocationIds, PrivateIpAddresses = PrivateIpAddresses, DryRun = DryRun, AvailabilityZone = AvailabilityZone, AvailabilityZoneId = AvailabilityZoneId)
   output <- .ec2$associate_nat_gateway_address_output()
@@ -1012,7 +1076,8 @@ ec2_associate_route_server <- function(RouteServerId, VpcId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_route_server_input(RouteServerId = RouteServerId, VpcId = VpcId, DryRun = DryRun)
   output <- .ec2$associate_route_server_output()
@@ -1048,7 +1113,8 @@ ec2_associate_route_table <- function(GatewayId = NULL, PublicIpv4Pool = NULL, D
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_route_table_input(GatewayId = GatewayId, PublicIpv4Pool = PublicIpv4Pool, DryRun = DryRun, SubnetId = SubnetId, RouteTableId = RouteTableId)
   output <- .ec2$associate_route_table_output()
@@ -1081,7 +1147,8 @@ ec2_associate_security_group_vpc <- function(GroupId, VpcId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_security_group_vpc_input(GroupId = GroupId, VpcId = VpcId, DryRun = DryRun)
   output <- .ec2$associate_security_group_vpc_output()
@@ -1115,7 +1182,8 @@ ec2_associate_subnet_cidr_block <- function(Ipv6IpamPoolId = NULL, Ipv6NetmaskLe
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_subnet_cidr_block_input(Ipv6IpamPoolId = Ipv6IpamPoolId, Ipv6NetmaskLength = Ipv6NetmaskLength, SubnetId = SubnetId, Ipv6CidrBlock = Ipv6CidrBlock)
   output <- .ec2$associate_subnet_cidr_block_output()
@@ -1150,7 +1218,8 @@ ec2_associate_transit_gateway_multicast_domain <- function(TransitGatewayMultica
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_transit_gateway_multicast_domain_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, SubnetIds = SubnetIds, DryRun = DryRun)
   output <- .ec2$associate_transit_gateway_multicast_domain_output()
@@ -1184,7 +1253,8 @@ ec2_associate_transit_gateway_policy_table <- function(TransitGatewayPolicyTable
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_transit_gateway_policy_table_input(TransitGatewayPolicyTableId = TransitGatewayPolicyTableId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$associate_transit_gateway_policy_table_output()
@@ -1218,7 +1288,8 @@ ec2_associate_transit_gateway_route_table <- function(TransitGatewayRouteTableId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_transit_gateway_route_table_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$associate_transit_gateway_route_table_output()
@@ -1254,7 +1325,8 @@ ec2_associate_trunk_interface <- function(BranchInterfaceId, TrunkInterfaceId, V
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_trunk_interface_input(BranchInterfaceId = BranchInterfaceId, TrunkInterfaceId = TrunkInterfaceId, VlanId = VlanId, GreKey = GreKey, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$associate_trunk_interface_output()
@@ -1300,7 +1372,8 @@ ec2_associate_vpc_cidr_block <- function(CidrBlock = NULL, Ipv6CidrBlockNetworkB
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$associate_vpc_cidr_block_input(CidrBlock = CidrBlock, Ipv6CidrBlockNetworkBorderGroup = Ipv6CidrBlockNetworkBorderGroup, Ipv6Pool = Ipv6Pool, Ipv6CidrBlock = Ipv6CidrBlock, Ipv4IpamPoolId = Ipv4IpamPoolId, Ipv4NetmaskLength = Ipv4NetmaskLength, Ipv6IpamPoolId = Ipv6IpamPoolId, Ipv6NetmaskLength = Ipv6NetmaskLength, VpcId = VpcId, AmazonProvidedIpv6CidrBlock = AmazonProvidedIpv6CidrBlock)
   output <- .ec2$associate_vpc_cidr_block_output()
@@ -1334,7 +1407,8 @@ ec2_attach_classic_link_vpc <- function(DryRun = NULL, InstanceId, VpcId, Groups
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$attach_classic_link_vpc_input(DryRun = DryRun, InstanceId = InstanceId, VpcId = VpcId, Groups = Groups)
   output <- .ec2$attach_classic_link_vpc_output()
@@ -1345,6 +1419,42 @@ ec2_attach_classic_link_vpc <- function(DryRun = NULL, InstanceId, VpcId, Groups
   return(response)
 }
 .ec2$operations$attach_classic_link_vpc <- ec2_attach_classic_link_vpc
+
+#' Attaches a watermark to a non-public AMI
+#'
+#' @description
+#' Attaches a watermark to a non-public AMI. The watermark is a structured identifier that automatically propagates to all derivative images created through [`create_image`][ec2_create_image], and [`copy_image`][ec2_copy_image].
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_attach_image_watermark/](https://www.paws-r-sdk.com/docs/ec2_attach_image_watermark/) for full documentation.
+#'
+#' @param ImageId &#91;required&#93; The ID of the AMI.
+#' @param WatermarkName &#91;required&#93; The name for the watermark. Combined with the caller's account ID to form the `WatermarkKey` (`accountId:watermarkName`).
+#' 
+#' Constraints: 3-128 alphanumeric characters, parentheses (()), square brackets (\[\]), spaces ( ), periods (.), slashes (/), dashes (-), single quotes ('), at-signs (@@), or underscores(_)
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_attach_image_watermark
+ec2_attach_image_watermark <- function(ImageId, WatermarkName, DryRun = NULL) {
+  op <- new_operation(
+    name = "AttachImageWatermark",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$attach_image_watermark_input(ImageId = ImageId, WatermarkName = WatermarkName, DryRun = DryRun)
+  output <- .ec2$attach_image_watermark_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$attach_image_watermark <- ec2_attach_image_watermark
 
 #' Attaches an internet gateway or a virtual private gateway to a VPC,
 #' enabling connectivity between the internet and the VPC
@@ -1368,7 +1478,8 @@ ec2_attach_internet_gateway <- function(DryRun = NULL, InternetGatewayId, VpcId)
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$attach_internet_gateway_input(DryRun = DryRun, InternetGatewayId = InternetGatewayId, VpcId = VpcId)
   output <- .ec2$attach_internet_gateway_output()
@@ -1405,7 +1516,8 @@ ec2_attach_network_interface <- function(NetworkCardIndex = NULL, EnaSrdSpecific
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$attach_network_interface_input(NetworkCardIndex = NetworkCardIndex, EnaSrdSpecification = EnaSrdSpecification, EnaQueueCount = EnaQueueCount, DryRun = DryRun, NetworkInterfaceId = NetworkInterfaceId, InstanceId = InstanceId, DeviceIndex = DeviceIndex)
   output <- .ec2$attach_network_interface_output()
@@ -1440,7 +1552,8 @@ ec2_attach_verified_access_trust_provider <- function(VerifiedAccessInstanceId, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$attach_verified_access_trust_provider_input(VerifiedAccessInstanceId = VerifiedAccessInstanceId, VerifiedAccessTrustProviderId = VerifiedAccessTrustProviderId, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$attach_verified_access_trust_provider_output()
@@ -1476,7 +1589,8 @@ ec2_attach_volume <- function(Device, InstanceId, VolumeId, EbsCardIndex = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$attach_volume_input(Device = Device, InstanceId = InstanceId, VolumeId = VolumeId, EbsCardIndex = EbsCardIndex, DryRun = DryRun)
   output <- .ec2$attach_volume_output()
@@ -1509,7 +1623,8 @@ ec2_attach_vpn_gateway <- function(VpcId, VpnGatewayId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$attach_vpn_gateway_input(VpcId = VpcId, VpnGatewayId = VpnGatewayId, DryRun = DryRun)
   output <- .ec2$attach_vpn_gateway_output()
@@ -1546,7 +1661,8 @@ ec2_authorize_client_vpn_ingress <- function(ClientVpnEndpointId, TargetNetworkC
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$authorize_client_vpn_ingress_input(ClientVpnEndpointId = ClientVpnEndpointId, TargetNetworkCidr = TargetNetworkCidr, AccessGroupId = AccessGroupId, AuthorizeAllGroups = AuthorizeAllGroups, Description = Description, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$authorize_client_vpn_ingress_output()
@@ -1586,7 +1702,8 @@ ec2_authorize_security_group_egress <- function(TagSpecifications = NULL, DryRun
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$authorize_security_group_egress_input(TagSpecifications = TagSpecifications, DryRun = DryRun, GroupId = GroupId, SourceSecurityGroupName = SourceSecurityGroupName, SourceSecurityGroupOwnerId = SourceSecurityGroupOwnerId, IpProtocol = IpProtocol, FromPort = FromPort, ToPort = ToPort, CidrIp = CidrIp, IpPermissions = IpPermissions)
   output <- .ec2$authorize_security_group_egress_output()
@@ -1618,7 +1735,7 @@ ec2_authorize_security_group_egress <- function(TagSpecifications = NULL, DryRun
 #' @param GroupId The ID of the security group.
 #' @param GroupName \[Default VPC\] The name of the security group. For security groups for a default VPC you can specify either the ID or the name of the security group. For security groups for a nondefault VPC, you must specify the ID of the security group.
 #' @param IpPermissions The permissions for the security group rules.
-#' @param IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`) or number (see [Protocol Numbers](http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml)). To specify all protocols, use `-1`.
+#' @param IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`) or number (see [Protocol Numbers](http://www.iana.org/assignments/protocol-numbers)). To specify all protocols, use `-1`.
 #' 
 #' To specify `icmpv6`, use IP permissions instead.
 #' 
@@ -1647,7 +1764,8 @@ ec2_authorize_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$authorize_security_group_ingress_input(CidrIp = CidrIp, FromPort = FromPort, GroupId = GroupId, GroupName = GroupName, IpPermissions = IpPermissions, IpProtocol = IpProtocol, SourceSecurityGroupName = SourceSecurityGroupName, SourceSecurityGroupOwnerId = SourceSecurityGroupOwnerId, ToPort = ToPort, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$authorize_security_group_ingress_output()
@@ -1658,6 +1776,42 @@ ec2_authorize_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL,
   return(response)
 }
 .ec2$operations$authorize_security_group_ingress <- ec2_authorize_security_group_ingress
+
+#' Modifies multiple routing policy registrations in a single operation
+#'
+#' @description
+#' Modifies multiple routing policy registrations in a single operation. You can create, update, or delete Route Origin Authorizations (ROAs) in batch.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_batch_modify_ipam_routing_policy_registrations/](https://www.paws-r-sdk.com/docs/ec2_batch_modify_ipam_routing_policy_registrations/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param DeltaJson &#91;required&#93; The batch modifications to apply, in JSON format.
+#' @param Force Forces the batch modification even if individual changes conflict with announced routes. Default: `false`.
+#' @param ClientToken A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the operation ignores the request, but does not return an error.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_batch_modify_ipam_routing_policy_registrations
+ec2_batch_modify_ipam_routing_policy_registrations <- function(DryRun = NULL, IpamInternetRegistryAssociationId, DeltaJson, Force = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "BatchModifyIpamRoutingPolicyRegistrations",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$batch_modify_ipam_routing_policy_registrations_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, DeltaJson = DeltaJson, Force = Force, ClientToken = ClientToken)
+  output <- .ec2$batch_modify_ipam_routing_policy_registrations_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$batch_modify_ipam_routing_policy_registrations <- ec2_batch_modify_ipam_routing_policy_registrations
 
 #' Bundles an Amazon instance store-backed Windows instance
 #'
@@ -1682,7 +1836,8 @@ ec2_bundle_instance <- function(InstanceId, Storage, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$bundle_instance_input(InstanceId = InstanceId, Storage = Storage, DryRun = DryRun)
   output <- .ec2$bundle_instance_output()
@@ -1715,7 +1870,8 @@ ec2_cancel_bundle_task <- function(BundleId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_bundle_task_input(BundleId = BundleId, DryRun = DryRun)
   output <- .ec2$cancel_bundle_task_output()
@@ -1737,20 +1893,23 @@ ec2_cancel_bundle_task <- function(BundleId, DryRun = NULL) {
 #'
 #' @param CapacityReservationId &#91;required&#93; The ID of the Capacity Reservation to be cancelled.
 #' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param ApplyCancellationCharges Specifies the cancellation charge type to apply when cancelling a future-dated Capacity Reservation during its commitment duration. Possible values include `commitment-wind-down`, which continues billing for the remaining commitment duration without delivering capacity.
+#' @param QuoteId The ID of the cancellation quote to use for the cancellation. You can generate a cancellation quote by using the [`create_capacity_reservation_cancellation_quote`][ec2_create_capacity_reservation_cancellation_quote] action. The cancellation quote must be in an `active` state.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_cancel_capacity_reservation
-ec2_cancel_capacity_reservation <- function(CapacityReservationId, DryRun = NULL) {
+ec2_cancel_capacity_reservation <- function(CapacityReservationId, DryRun = NULL, ApplyCancellationCharges = NULL, QuoteId = NULL) {
   op <- new_operation(
     name = "CancelCapacityReservation",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$cancel_capacity_reservation_input(CapacityReservationId = CapacityReservationId, DryRun = DryRun)
+  input <- .ec2$cancel_capacity_reservation_input(CapacityReservationId = CapacityReservationId, DryRun = DryRun, ApplyCancellationCharges = ApplyCancellationCharges, QuoteId = QuoteId)
   output <- .ec2$cancel_capacity_reservation_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -1780,7 +1939,8 @@ ec2_cancel_capacity_reservation_fleets <- function(DryRun = NULL, CapacityReserv
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_capacity_reservation_fleets_input(DryRun = DryRun, CapacityReservationFleetIds = CapacityReservationFleetIds)
   output <- .ec2$cancel_capacity_reservation_fleets_output()
@@ -1813,7 +1973,8 @@ ec2_cancel_conversion_task <- function(DryRun = NULL, ConversionTaskId, ReasonMe
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_conversion_task_input(DryRun = DryRun, ConversionTaskId = ConversionTaskId, ReasonMessage = ReasonMessage)
   output <- .ec2$cancel_conversion_task_output()
@@ -1845,7 +2006,8 @@ ec2_cancel_declarative_policies_report <- function(DryRun = NULL, ReportId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_declarative_policies_report_input(DryRun = DryRun, ReportId = ReportId)
   output <- .ec2$cancel_declarative_policies_report_output()
@@ -1876,7 +2038,8 @@ ec2_cancel_export_task <- function(ExportTaskId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_export_task_input(ExportTaskId = ExportTaskId)
   output <- .ec2$cancel_export_task_output()
@@ -1909,7 +2072,8 @@ ec2_cancel_image_launch_permission <- function(ImageId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_image_launch_permission_input(ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$cancel_image_launch_permission_output()
@@ -1942,7 +2106,8 @@ ec2_cancel_import_task <- function(CancelReason = NULL, DryRun = NULL, ImportTas
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_import_task_input(CancelReason = CancelReason, DryRun = DryRun, ImportTaskId = ImportTaskId)
   output <- .ec2$cancel_import_task_output()
@@ -1974,7 +2139,8 @@ ec2_cancel_reserved_instances_listing <- function(ReservedInstancesListingId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_reserved_instances_listing_input(ReservedInstancesListingId = ReservedInstancesListingId)
   output <- .ec2$cancel_reserved_instances_listing_output()
@@ -2011,7 +2177,8 @@ ec2_cancel_spot_fleet_requests <- function(DryRun = NULL, SpotFleetRequestIds, T
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_spot_fleet_requests_input(DryRun = DryRun, SpotFleetRequestIds = SpotFleetRequestIds, TerminateInstances = TerminateInstances)
   output <- .ec2$cancel_spot_fleet_requests_output()
@@ -2043,7 +2210,8 @@ ec2_cancel_spot_instance_requests <- function(DryRun = NULL, SpotInstanceRequest
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$cancel_spot_instance_requests_input(DryRun = DryRun, SpotInstanceRequestIds = SpotInstanceRequestIds)
   output <- .ec2$cancel_spot_instance_requests_output()
@@ -2076,7 +2244,8 @@ ec2_confirm_product_instance <- function(InstanceId, ProductCode, DryRun = NULL)
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$confirm_product_instance_input(InstanceId = InstanceId, ProductCode = ProductCode, DryRun = DryRun)
   output <- .ec2$confirm_product_instance_output()
@@ -2112,7 +2281,8 @@ ec2_copy_fpga_image <- function(DryRun = NULL, SourceFpgaImageId, Description = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$copy_fpga_image_input(DryRun = DryRun, SourceFpgaImageId = SourceFpgaImageId, Description = Description, Name = Name, SourceRegion = SourceRegion, ClientToken = ClientToken)
   output <- .ec2$copy_fpga_image_output()
@@ -2169,7 +2339,7 @@ ec2_copy_fpga_image <- function(DryRun = NULL, SourceFpgaImageId, Description = 
 #' 
 #' -   System tags (prefixed with `aws:`)
 #' 
-#' -   For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts
+#' -   For public and shared AMIs, user-defined tags that are attached by other Amazon Web Services accounts, except tags with the `ec2:SharedTag/` prefix. For more information about tag sharing, see [Sharing tags](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#sharing-tags) in the *Amazon EC2 User Guide*.
 #' 
 #' Default: Your user-defined AMI tags are not copied.
 #' @param TagSpecifications The tags to apply to the new AMI and new snapshots. You can tag the AMI, the snapshots, or both.
@@ -2206,7 +2376,8 @@ ec2_copy_image <- function(ClientToken = NULL, Description = NULL, Encrypted = N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$copy_image_input(ClientToken = ClientToken, Description = Description, Encrypted = Encrypted, KmsKeyId = KmsKeyId, Name = Name, SourceImageId = SourceImageId, SourceRegion = SourceRegion, DestinationOutpostArn = DestinationOutpostArn, CopyImageTags = CopyImageTags, TagSpecifications = TagSpecifications, SnapshotCopyCompletionDurationMinutes = SnapshotCopyCompletionDurationMinutes, DestinationAvailabilityZone = DestinationAvailabilityZone, DestinationAvailabilityZoneId = DestinationAvailabilityZoneId, DryRun = DryRun)
   output <- .ec2$copy_image_output()
@@ -2250,7 +2421,7 @@ ec2_copy_image <- function(ClientToken = NULL, Description = NULL, Encrypted = N
 #' Amazon Web Services authenticates the KMS key asynchronously. Therefore, if you specify an ID, alias, or ARN that is not valid, the action can appear to complete, but eventually fails.
 #' @param PresignedUrl When you copy an encrypted source snapshot using the Amazon EC2 Query API, you must supply a pre-signed URL. This parameter is optional for unencrypted snapshots. For more information, see [Query requests](https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html).
 #' 
-#' The `PresignedUrl` should use the snapshot source endpoint, the [`copy_snapshot`][ec2_copy_snapshot] action, and include the `SourceRegion`, `SourceSnapshotId`, and `DestinationRegion` parameters. The `PresignedUrl` must be signed using Amazon Web Services Signature Version 4. Because EBS snapshots are stored in Amazon S3, the signing algorithm for this parameter uses the same logic that is described in [Authenticating Requests: Using Query Parameters (Amazon Web Services Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/sigv4-query-string-auth.html) in the *Amazon S3 API Reference*. An invalid or improperly signed `PresignedUrl` will cause the copy operation to fail asynchronously, and the snapshot will move to an `error` state.
+#' The `PresignedUrl` should use the snapshot source endpoint, the [`copy_snapshot`][ec2_copy_snapshot] action, and include the `SourceRegion`, `SourceSnapshotId`, and `DestinationRegion` parameters. The `PresignedUrl` must be signed using Amazon Web Services Signature Version 4. Because EBS snapshots are stored in Amazon S3, the signing algorithm for this parameter uses the same logic that is described in [Authenticating Requests: Using Query Parameters (Amazon Web Services Signature Version 4)](https://docs.aws.amazon.com/AmazonS3/latest/API/) in the *Amazon S3 API Reference*. An invalid or improperly signed `PresignedUrl` will cause the copy operation to fail asynchronously, and the snapshot will move to an `error` state.
 #' @param SourceRegion &#91;required&#93; The ID of the Region that contains the snapshot to be copied.
 #' @param SourceSnapshotId &#91;required&#93; The ID of the EBS snapshot to copy.
 #' @param TagSpecifications The tags to apply to the new snapshot.
@@ -2274,7 +2445,8 @@ ec2_copy_snapshot <- function(Description = NULL, DestinationOutpostArn = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$copy_snapshot_input(Description = Description, DestinationOutpostArn = DestinationOutpostArn, DestinationRegion = DestinationRegion, Encrypted = Encrypted, KmsKeyId = KmsKeyId, PresignedUrl = PresignedUrl, SourceRegion = SourceRegion, SourceSnapshotId = SourceSnapshotId, TagSpecifications = TagSpecifications, CompletionDurationMinutes = CompletionDurationMinutes, DestinationAvailabilityZone = DestinationAvailabilityZone, DryRun = DryRun)
   output <- .ec2$copy_snapshot_output()
@@ -2329,20 +2501,23 @@ ec2_copy_snapshot <- function(Description = NULL, DestinationOutpostArn = NULL, 
 #' 
 #' Valid Range: `125 - 2000` MiB/s
 #' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see [Ensure Idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param Encrypted Indicates whether to encrypt the volume copy. If the source volume is encrypted, the service always encrypts the copy regardless of this value. Set to `true` to encrypt a copy of an unencrypted source volume during the copy operation. If you set `Encrypted` to `true` but do not specify `KmsKeyId`, the service uses the default KMS key for EBS encryption in your account.
+#' @param KmsKeyId The identifier of the KMS key to use for encryption of the volume copy. Specify a symmetric encryption KMS key. You can specify a KMS key using the key ID, key ARN, alias name, or alias ARN. If you set `Encrypted` to `true` but do not specify this parameter, the service uses the default KMS key for EBS encryption in your account. For cross-account volume copies, this must be a KMS key in the calling account.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_copy_volumes
-ec2_copy_volumes <- function(SourceVolumeId, Iops = NULL, Size = NULL, VolumeType = NULL, DryRun = NULL, TagSpecifications = NULL, MultiAttachEnabled = NULL, Throughput = NULL, ClientToken = NULL) {
+ec2_copy_volumes <- function(SourceVolumeId, Iops = NULL, Size = NULL, VolumeType = NULL, DryRun = NULL, TagSpecifications = NULL, MultiAttachEnabled = NULL, Throughput = NULL, ClientToken = NULL, Encrypted = NULL, KmsKeyId = NULL) {
   op <- new_operation(
     name = "CopyVolumes",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$copy_volumes_input(SourceVolumeId = SourceVolumeId, Iops = Iops, Size = Size, VolumeType = VolumeType, DryRun = DryRun, TagSpecifications = TagSpecifications, MultiAttachEnabled = MultiAttachEnabled, Throughput = Throughput, ClientToken = ClientToken)
+  input <- .ec2$copy_volumes_input(SourceVolumeId = SourceVolumeId, Iops = Iops, Size = Size, VolumeType = VolumeType, DryRun = DryRun, TagSpecifications = TagSpecifications, MultiAttachEnabled = MultiAttachEnabled, Throughput = Throughput, ClientToken = ClientToken, Encrypted = Encrypted, KmsKeyId = KmsKeyId)
   output <- .ec2$copy_volumes_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -2351,6 +2526,55 @@ ec2_copy_volumes <- function(SourceVolumeId, Iops = NULL, Size = NULL, VolumeTyp
   return(response)
 }
 .ec2$operations$copy_volumes <- ec2_copy_volumes
+
+#' Creates an application status check for monitoring the health of
+#' applications running on your instances
+#'
+#' @description
+#' Creates an application status check for monitoring the health of applications running on your instances. You can configure the protocol, port, path, and thresholds for the health check. The following rules apply:
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_create_application_status_check/](https://www.paws-r-sdk.com/docs/ec2_create_application_status_check/) for full documentation.
+#'
+#' @param HealthCheckPaths The health check paths to use for the application status check. Health check paths define the network path from a source subnet to one or more destination subnets for cross-Availability Zone or Availability Zone to Local Zone health checking. If omitted, health checks are performed in the same subnet as the instance.
+#' @param Aggregation The aggregation setting for the application status check. When set to `included`, the result of this check contributes to the instance-level application status reported by [`describe_application_status`][ec2_describe_application_status]. When set to `excluded`, the check runs independently and does not affect the instance-level status. Valid values: `included` | `excluded`.
+#' @param Protocol &#91;required&#93; The protocol to use for the health check. Valid values: `http` | `https`.
+#' @param Port &#91;required&#93; The port to use for the health check. Valid values: 1 to 65535.
+#' @param Path The URL path to use for the health check HTTP request (for example, `/health` or `/status`).
+#' @param DeviceIndex The index of the network device to use for the health check. The value must be greater than or equal to 0.
+#' @param IpVersion The IP version to use for the health check. Valid values: `ipv4` and `ipv6`.
+#' @param IpScope The IP scope to use for the health check. Valid value: `private`.
+#' @param Interval The interval, in seconds, between health checks. Valid value: 60.
+#' @param Timeout The amount of time, in seconds, to wait for a health check response before considering it failed. Valid values: 1 to 30. The value must be less than `Interval`.
+#' @param FailureThreshold The number of consecutive failed health checks before the application status is considered impaired. The value must be greater than 0.
+#' @param SuccessThreshold The number of consecutive successful health checks before the application status is considered healthy. The value must be greater than 0.
+#' @param StatusCodeMatcher The HTTP status codes that indicate a successful health check response. Specify a comma-separated list of individual status codes or ranges, for example, `200,202,300-399`. For a range, the first value must be less than the second value. Maximum length: 64 characters. Default: `200`.
+#' @param InitializationGracePeriodSeconds The number of seconds to wait before starting health checks after an instance is launched. Valid values: 1 to 600.
+#' @param TagSpecifications The tags to apply to the application status check.
+#' @param ClientToken A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a request with the same token, the service ignores the request but does not return an error. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_application_status_check
+ec2_create_application_status_check <- function(HealthCheckPaths = NULL, Aggregation = NULL, Protocol, Port, Path = NULL, DeviceIndex = NULL, IpVersion = NULL, IpScope = NULL, Interval = NULL, Timeout = NULL, FailureThreshold = NULL, SuccessThreshold = NULL, StatusCodeMatcher = NULL, InitializationGracePeriodSeconds = NULL, TagSpecifications = NULL, ClientToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "CreateApplicationStatusCheck",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$create_application_status_check_input(HealthCheckPaths = HealthCheckPaths, Aggregation = Aggregation, Protocol = Protocol, Port = Port, Path = Path, DeviceIndex = DeviceIndex, IpVersion = IpVersion, IpScope = IpScope, Interval = Interval, Timeout = Timeout, FailureThreshold = FailureThreshold, SuccessThreshold = SuccessThreshold, StatusCodeMatcher = StatusCodeMatcher, InitializationGracePeriodSeconds = InitializationGracePeriodSeconds, TagSpecifications = TagSpecifications, ClientToken = ClientToken, DryRun = DryRun)
+  output <- .ec2$create_application_status_check_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_application_status_check <- ec2_create_application_status_check
 
 #' Creates a new data export configuration for EC2 Capacity Manager
 #'
@@ -2377,7 +2601,8 @@ ec2_create_capacity_manager_data_export <- function(S3BucketName, S3BucketPrefix
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_capacity_manager_data_export_input(S3BucketName = S3BucketName, S3BucketPrefix = S3BucketPrefix, Schedule = Schedule, OutputFormat = OutputFormat, ClientToken = ClientToken, DryRun = DryRun, TagSpecifications = TagSpecifications)
   output <- .ec2$create_capacity_manager_data_export_output()
@@ -2474,7 +2699,8 @@ ec2_create_capacity_reservation <- function(ClientToken = NULL, InstanceType, In
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_capacity_reservation_input(ClientToken = ClientToken, InstanceType = InstanceType, InstancePlatform = InstancePlatform, AvailabilityZone = AvailabilityZone, AvailabilityZoneId = AvailabilityZoneId, Tenancy = Tenancy, InstanceCount = InstanceCount, EbsOptimized = EbsOptimized, EphemeralStorage = EphemeralStorage, EndDate = EndDate, EndDateType = EndDateType, InstanceMatchCriteria = InstanceMatchCriteria, TagSpecifications = TagSpecifications, DryRun = DryRun, OutpostArn = OutpostArn, PlacementGroupArn = PlacementGroupArn, StartDate = StartDate, CommitmentDuration = CommitmentDuration, DeliveryPreference = DeliveryPreference)
   output <- .ec2$create_capacity_reservation_output()
@@ -2510,7 +2736,8 @@ ec2_create_capacity_reservation_by_splitting <- function(DryRun = NULL, ClientTo
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_capacity_reservation_by_splitting_input(DryRun = DryRun, ClientToken = ClientToken, SourceCapacityReservationId = SourceCapacityReservationId, InstanceCount = InstanceCount, TagSpecifications = TagSpecifications)
   output <- .ec2$create_capacity_reservation_by_splitting_output()
@@ -2521,6 +2748,79 @@ ec2_create_capacity_reservation_by_splitting <- function(DryRun = NULL, ClientTo
   return(response)
 }
 .ec2$operations$create_capacity_reservation_by_splitting <- ec2_create_capacity_reservation_by_splitting
+
+#' Generates a cancellation quote for a future-dated Capacity Reservation
+#' that is within its commitment duration
+#'
+#' @description
+#' Generates a cancellation quote for a future-dated Capacity Reservation that is within its commitment duration. The quote includes the cancellation terms and a quote ID that you can pass to the [`cancel_capacity_reservation`][ec2_cancel_capacity_reservation] action. Cancellation quotes are valid for 24 hours.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_create_capacity_reservation_cancellation_quote/](https://www.paws-r-sdk.com/docs/ec2_create_capacity_reservation_cancellation_quote/) for full documentation.
+#'
+#' @param CapacityReservationId &#91;required&#93; The ID of the Capacity Reservation.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see [Ensure Idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param TagSpecifications The tags to apply to the cancellation quote.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_capacity_reservation_cancellation_quote
+ec2_create_capacity_reservation_cancellation_quote <- function(CapacityReservationId, ClientToken = NULL, TagSpecifications = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "CreateCapacityReservationCancellationQuote",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$create_capacity_reservation_cancellation_quote_input(CapacityReservationId = CapacityReservationId, ClientToken = ClientToken, TagSpecifications = TagSpecifications, DryRun = DryRun)
+  output <- .ec2$create_capacity_reservation_cancellation_quote_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_capacity_reservation_cancellation_quote <- ec2_create_capacity_reservation_cancellation_quote
+
+#' Generates a quote for changing the start date of a future-dated Capacity
+#' Reservation that has not yet been delivered
+#'
+#' @description
+#' Generates a quote for changing the start date of a future-dated Capacity Reservation that has not yet been delivered. The quote includes the new start date, the resulting commitment end date, and a quote ID. Pass the quote ID to [`modify_capacity_reservation`][ec2_modify_capacity_reservation] to apply the change.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_create_capacity_reservation_date_change_quote/](https://www.paws-r-sdk.com/docs/ec2_create_capacity_reservation_date_change_quote/) for full documentation.
+#'
+#' @param CapacityReservationId &#91;required&#93; The ID of the Capacity Reservation.
+#' @param NewStartDate &#91;required&#93; The requested new start date for the Capacity Reservation, in the ISO8601 format in the UTC time zone (`YYYY-MM-DDThh:mm:ss.sssZ`). The new start date must be later than the current start date and within the cumulative 30-day pushout limit.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see [Ensure Idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param TagSpecifications The tags to apply to the date change quote.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_capacity_reservation_date_change_quote
+ec2_create_capacity_reservation_date_change_quote <- function(CapacityReservationId, NewStartDate, ClientToken = NULL, TagSpecifications = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "CreateCapacityReservationDateChangeQuote",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$create_capacity_reservation_date_change_quote_input(CapacityReservationId = CapacityReservationId, NewStartDate = NewStartDate, ClientToken = ClientToken, TagSpecifications = TagSpecifications, DryRun = DryRun)
+  output <- .ec2$create_capacity_reservation_date_change_quote_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_capacity_reservation_date_change_quote <- ec2_create_capacity_reservation_date_change_quote
 
 #' Creates a Capacity Reservation Fleet
 #'
@@ -2533,7 +2833,7 @@ ec2_create_capacity_reservation_by_splitting <- function(DryRun = NULL, ClientTo
 #' 
 #' Valid values: `prioritized`
 #' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see [Ensure Idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
-#' @param InstanceTypeSpecifications &#91;required&#93; Information about the instance types for which to reserve the capacity.
+#' @param InstanceTypeSpecifications Information about the instance types for which to reserve the capacity.
 #' @param Tenancy Indicates the tenancy of the Capacity Reservation Fleet. All Capacity Reservations in the Fleet inherit this tenancy. The Capacity Reservation Fleet can have one of the following tenancy settings:
 #' 
 #' -   `default` - The Capacity Reservation Fleet is created on hardware that is shared with other Amazon Web Services accounts.
@@ -2552,14 +2852,15 @@ ec2_create_capacity_reservation_by_splitting <- function(DryRun = NULL, ClientTo
 #' @keywords internal
 #'
 #' @rdname ec2_create_capacity_reservation_fleet
-ec2_create_capacity_reservation_fleet <- function(AllocationStrategy = NULL, ClientToken = NULL, InstanceTypeSpecifications, Tenancy = NULL, TotalTargetCapacity, EndDate = NULL, InstanceMatchCriteria = NULL, TagSpecifications = NULL, DryRun = NULL) {
+ec2_create_capacity_reservation_fleet <- function(AllocationStrategy = NULL, ClientToken = NULL, InstanceTypeSpecifications = NULL, Tenancy = NULL, TotalTargetCapacity, EndDate = NULL, InstanceMatchCriteria = NULL, TagSpecifications = NULL, DryRun = NULL) {
   op <- new_operation(
     name = "CreateCapacityReservationFleet",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_capacity_reservation_fleet_input(AllocationStrategy = AllocationStrategy, ClientToken = ClientToken, InstanceTypeSpecifications = InstanceTypeSpecifications, Tenancy = Tenancy, TotalTargetCapacity = TotalTargetCapacity, EndDate = EndDate, InstanceMatchCriteria = InstanceMatchCriteria, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_capacity_reservation_fleet_output()
@@ -2593,7 +2894,8 @@ ec2_create_carrier_gateway <- function(VpcId, TagSpecifications = NULL, DryRun =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_carrier_gateway_input(VpcId = VpcId, TagSpecifications = TagSpecifications, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$create_carrier_gateway_output()
@@ -2663,20 +2965,22 @@ ec2_create_carrier_gateway <- function(VpcId, TagSpecifications = NULL, DryRun =
 #' @param EndpointIpAddressType The IP address type for the Client VPN endpoint. Valid values are `ipv4` (default) for IPv4 addressing only, `ipv6` for IPv6 addressing only, or `dual-stack` for both IPv4 and IPv6 addressing. When set to `dual-stack,` clients can connect to the endpoint using either IPv4 or IPv6 addresses..
 #' @param TrafficIpAddressType The IP address type for traffic within the Client VPN tunnel. Valid values are `ipv4` (default) for IPv4 traffic only, `ipv6` for IPv6 addressing only, or `dual-stack` for both IPv4 and IPv6 traffic. When set to `dual-stack`, clients can access both IPv4 and IPv6 resources through the VPN .
 #' @param TransitGatewayConfiguration The Transit Gateway configuration for the Client VPN endpoint. Use this parameter to associate the endpoint with a Transit Gateway instead of a VPC. You cannot specify both `TransitGatewayConfiguration` and `VpcId`/`SecurityGroupIds`.
+#' @param DevicePostureOptions The device posture options for the Client VPN endpoint. Use this parameter to specify the device trust providers that the endpoint uses to evaluate the security posture of connecting devices.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_create_client_vpn_endpoint
-ec2_create_client_vpn_endpoint <- function(ClientCidrBlock = NULL, ServerCertificateArn, AuthenticationOptions, ConnectionLogOptions, DnsServers = NULL, TransportProtocol = NULL, VpnPort = NULL, Description = NULL, SplitTunnel = NULL, DryRun = NULL, ClientToken = NULL, TagSpecifications = NULL, SecurityGroupIds = NULL, VpcId = NULL, SelfServicePortal = NULL, ClientConnectOptions = NULL, SessionTimeoutHours = NULL, ClientLoginBannerOptions = NULL, ClientRouteEnforcementOptions = NULL, DisconnectOnSessionTimeout = NULL, EndpointIpAddressType = NULL, TrafficIpAddressType = NULL, TransitGatewayConfiguration = NULL) {
+ec2_create_client_vpn_endpoint <- function(ClientCidrBlock = NULL, ServerCertificateArn, AuthenticationOptions, ConnectionLogOptions, DnsServers = NULL, TransportProtocol = NULL, VpnPort = NULL, Description = NULL, SplitTunnel = NULL, DryRun = NULL, ClientToken = NULL, TagSpecifications = NULL, SecurityGroupIds = NULL, VpcId = NULL, SelfServicePortal = NULL, ClientConnectOptions = NULL, SessionTimeoutHours = NULL, ClientLoginBannerOptions = NULL, ClientRouteEnforcementOptions = NULL, DisconnectOnSessionTimeout = NULL, EndpointIpAddressType = NULL, TrafficIpAddressType = NULL, TransitGatewayConfiguration = NULL, DevicePostureOptions = NULL) {
   op <- new_operation(
     name = "CreateClientVpnEndpoint",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$create_client_vpn_endpoint_input(ClientCidrBlock = ClientCidrBlock, ServerCertificateArn = ServerCertificateArn, AuthenticationOptions = AuthenticationOptions, ConnectionLogOptions = ConnectionLogOptions, DnsServers = DnsServers, TransportProtocol = TransportProtocol, VpnPort = VpnPort, Description = Description, SplitTunnel = SplitTunnel, DryRun = DryRun, ClientToken = ClientToken, TagSpecifications = TagSpecifications, SecurityGroupIds = SecurityGroupIds, VpcId = VpcId, SelfServicePortal = SelfServicePortal, ClientConnectOptions = ClientConnectOptions, SessionTimeoutHours = SessionTimeoutHours, ClientLoginBannerOptions = ClientLoginBannerOptions, ClientRouteEnforcementOptions = ClientRouteEnforcementOptions, DisconnectOnSessionTimeout = DisconnectOnSessionTimeout, EndpointIpAddressType = EndpointIpAddressType, TrafficIpAddressType = TrafficIpAddressType, TransitGatewayConfiguration = TransitGatewayConfiguration)
+  input <- .ec2$create_client_vpn_endpoint_input(ClientCidrBlock = ClientCidrBlock, ServerCertificateArn = ServerCertificateArn, AuthenticationOptions = AuthenticationOptions, ConnectionLogOptions = ConnectionLogOptions, DnsServers = DnsServers, TransportProtocol = TransportProtocol, VpnPort = VpnPort, Description = Description, SplitTunnel = SplitTunnel, DryRun = DryRun, ClientToken = ClientToken, TagSpecifications = TagSpecifications, SecurityGroupIds = SecurityGroupIds, VpcId = VpcId, SelfServicePortal = SelfServicePortal, ClientConnectOptions = ClientConnectOptions, SessionTimeoutHours = SessionTimeoutHours, ClientLoginBannerOptions = ClientLoginBannerOptions, ClientRouteEnforcementOptions = ClientRouteEnforcementOptions, DisconnectOnSessionTimeout = DisconnectOnSessionTimeout, EndpointIpAddressType = EndpointIpAddressType, TrafficIpAddressType = TrafficIpAddressType, TransitGatewayConfiguration = TransitGatewayConfiguration, DevicePostureOptions = DevicePostureOptions)
   output <- .ec2$create_client_vpn_endpoint_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -2722,7 +3026,8 @@ ec2_create_client_vpn_route <- function(ClientVpnEndpointId, DestinationCidrBloc
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_client_vpn_route_input(ClientVpnEndpointId = ClientVpnEndpointId, DestinationCidrBlock = DestinationCidrBlock, TargetVpcSubnetId = TargetVpcSubnetId, Description = Description, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$create_client_vpn_route_output()
@@ -2755,7 +3060,8 @@ ec2_create_coip_cidr <- function(Cidr, CoipPoolId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_coip_cidr_input(Cidr = Cidr, CoipPoolId = CoipPoolId, DryRun = DryRun)
   output <- .ec2$create_coip_cidr_output()
@@ -2788,7 +3094,8 @@ ec2_create_coip_pool <- function(LocalGatewayRouteTableId, TagSpecifications = N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_coip_pool_input(LocalGatewayRouteTableId = LocalGatewayRouteTableId, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_coip_pool_output()
@@ -2836,7 +3143,8 @@ ec2_create_customer_gateway <- function(BgpAsn = NULL, PublicIp = NULL, Certific
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_customer_gateway_input(BgpAsn = BgpAsn, PublicIp = PublicIp, CertificateArn = CertificateArn, Type = Type, TagSpecifications = TagSpecifications, DeviceName = DeviceName, IpAddress = IpAddress, BgpAsnExtended = BgpAsnExtended, DryRun = DryRun)
   output <- .ec2$create_customer_gateway_output()
@@ -2875,7 +3183,8 @@ ec2_create_default_subnet <- function(AvailabilityZone = NULL, DryRun = NULL, Ip
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_default_subnet_input(AvailabilityZone = AvailabilityZone, DryRun = DryRun, Ipv6Native = Ipv6Native, AvailabilityZoneId = AvailabilityZoneId)
   output <- .ec2$create_default_subnet_output()
@@ -2907,7 +3216,8 @@ ec2_create_default_vpc <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_default_vpc_input(DryRun = DryRun)
   output <- .ec2$create_default_vpc_output()
@@ -2959,7 +3269,8 @@ ec2_create_delegate_mac_volume_ownership_task <- function(ClientToken = NULL, Dr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_delegate_mac_volume_ownership_task_input(ClientToken = ClientToken, DryRun = DryRun, InstanceId = InstanceId, MacCredentials = MacCredentials, TagSpecifications = TagSpecifications)
   output <- .ec2$create_delegate_mac_volume_ownership_task_output()
@@ -2992,7 +3303,8 @@ ec2_create_dhcp_options <- function(DhcpConfigurations, TagSpecifications = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_dhcp_options_input(DhcpConfigurations = DhcpConfigurations, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_dhcp_options_output()
@@ -3026,7 +3338,8 @@ ec2_create_egress_only_internet_gateway <- function(ClientToken = NULL, DryRun =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_egress_only_internet_gateway_input(ClientToken = ClientToken, DryRun = DryRun, VpcId = VpcId, TagSpecifications = TagSpecifications)
   output <- .ec2$create_egress_only_internet_gateway_output()
@@ -3075,9 +3388,9 @@ ec2_create_egress_only_internet_gateway <- function(ClientToken = NULL, DryRun =
 #' @param ReplaceUnhealthyInstances Indicates whether EC2 Fleet should replace unhealthy Spot Instances. Supported only for fleets of type `maintain`. For more information, see [EC2 Fleet health checks](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#ec2-fleet-health-checks) in the *Amazon EC2 User Guide*.
 #' @param TagSpecifications The key-value pair for tagging the EC2 Fleet request on creation. For more information, see [Tag your resources](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html#tag-resources).
 #' 
-#' If the fleet type is `instant`, specify a resource type of `fleet` to tag the fleet or `instance` to tag the instances at launch.
+#' If the fleet type is `instant`, specify a resource type of `fleet` to tag the fleet, `instance` to tag the instances at launch, `volume` to tag the volumes at launch, or `network-interface` to tag the network interfaces at launch.
 #' 
-#' If the fleet type is `maintain` or `request`, specify a resource type of `fleet` to tag the fleet. You cannot specify a resource type of `instance`. To tag instances at launch, specify the tags in a [launch template](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template).
+#' If the fleet type is `maintain` or `request`, specify a resource type of `fleet` to tag the fleet. You cannot specify a resource type of `instance`, `volume`, or `network-interface`. To tag instances at launch, specify the tags in a [launch template](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-launch-templates.html#create-launch-template).
 #' @param Context Reserved.
 #'
 #' @keywords internal
@@ -3090,7 +3403,8 @@ ec2_create_fleet <- function(DryRun = NULL, ClientToken = NULL, SpotOptions = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_fleet_input(DryRun = DryRun, ClientToken = ClientToken, SpotOptions = SpotOptions, OnDemandOptions = OnDemandOptions, ReservedCapacityOptions = ReservedCapacityOptions, ExcessCapacityTerminationPolicy = ExcessCapacityTerminationPolicy, LaunchTemplateConfigs = LaunchTemplateConfigs, TargetCapacitySpecification = TargetCapacitySpecification, TerminateInstancesWithExpiration = TerminateInstancesWithExpiration, Type = Type, ValidFrom = ValidFrom, ValidUntil = ValidUntil, ReplaceUnhealthyInstances = ReplaceUnhealthyInstances, TagSpecifications = TagSpecifications, Context = Context)
   output <- .ec2$create_fleet_output()
@@ -3121,7 +3435,7 @@ ec2_create_fleet <- function(DryRun = NULL, ClientToken = NULL, SpotOptions = NU
 #' This parameter is valid only if the destination type is `cloud-watch-logs`.
 #' @param ResourceIds &#91;required&#93; The IDs of the resources to monitor. For example, if the resource type is `VPC`, specify the IDs of the VPCs.
 #' 
-#' Constraints: Maximum of 25 for transit gateway resource types. Maximum of 1000 for the other resource types.
+#' Constraints: Maximum of 25 for transit gateway resource types. Maximum of 300 for the other resource types.
 #' @param ResourceType &#91;required&#93; The type of resource to monitor.
 #' @param TrafficType The type of traffic to monitor (accepted traffic, rejected traffic, or all traffic). This parameter is not supported for transit gateway resource types. It is required for the other resource types.
 #' @param LogDestinationType The type of destination for the flow log data.
@@ -3154,20 +3468,22 @@ ec2_create_fleet <- function(DryRun = NULL, ClientToken = NULL, SpotOptions = NU
 #' 
 #' Default: 600
 #' @param DestinationOptions The destination options.
+#' @param TagFieldSpecifications The tag configuration associated with the Flow Logs Amazon EC2 Tags feature fields in your custom log format.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_create_flow_logs
-ec2_create_flow_logs <- function(DryRun = NULL, ClientToken = NULL, DeliverLogsPermissionArn = NULL, DeliverCrossAccountRole = NULL, LogGroupName = NULL, ResourceIds, ResourceType, TrafficType = NULL, LogDestinationType = NULL, LogDestination = NULL, LogFormat = NULL, TagSpecifications = NULL, MaxAggregationInterval = NULL, DestinationOptions = NULL) {
+ec2_create_flow_logs <- function(DryRun = NULL, ClientToken = NULL, DeliverLogsPermissionArn = NULL, DeliverCrossAccountRole = NULL, LogGroupName = NULL, ResourceIds, ResourceType, TrafficType = NULL, LogDestinationType = NULL, LogDestination = NULL, LogFormat = NULL, TagSpecifications = NULL, MaxAggregationInterval = NULL, DestinationOptions = NULL, TagFieldSpecifications = NULL) {
   op <- new_operation(
     name = "CreateFlowLogs",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$create_flow_logs_input(DryRun = DryRun, ClientToken = ClientToken, DeliverLogsPermissionArn = DeliverLogsPermissionArn, DeliverCrossAccountRole = DeliverCrossAccountRole, LogGroupName = LogGroupName, ResourceIds = ResourceIds, ResourceType = ResourceType, TrafficType = TrafficType, LogDestinationType = LogDestinationType, LogDestination = LogDestination, LogFormat = LogFormat, TagSpecifications = TagSpecifications, MaxAggregationInterval = MaxAggregationInterval, DestinationOptions = DestinationOptions)
+  input <- .ec2$create_flow_logs_input(DryRun = DryRun, ClientToken = ClientToken, DeliverLogsPermissionArn = DeliverLogsPermissionArn, DeliverCrossAccountRole = DeliverCrossAccountRole, LogGroupName = LogGroupName, ResourceIds = ResourceIds, ResourceType = ResourceType, TrafficType = TrafficType, LogDestinationType = LogDestinationType, LogDestination = LogDestination, LogFormat = LogFormat, TagSpecifications = TagSpecifications, MaxAggregationInterval = MaxAggregationInterval, DestinationOptions = DestinationOptions, TagFieldSpecifications = TagFieldSpecifications)
   output <- .ec2$create_flow_logs_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -3203,7 +3519,8 @@ ec2_create_fpga_image <- function(DryRun = NULL, InputStorageLocation, LogsStora
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_fpga_image_input(DryRun = DryRun, InputStorageLocation = InputStorageLocation, LogsStorageLocation = LogsStorageLocation, Description = Description, Name = Name, ClientToken = ClientToken, TagSpecifications = TagSpecifications)
   output <- .ec2$create_fpga_image_output()
@@ -3232,15 +3549,26 @@ ec2_create_fpga_image <- function(DryRun = NULL, InputStorageLocation, LogsStora
 #' If you specify other values for `ResourceType`, the request fails.
 #' 
 #' To tag an AMI or snapshot after it has been created, see [`create_tags`][ec2_create_tags].
-#' @param SnapshotLocation Only supported for instances in Local Zones. If the source instance is not in a Local Zone, omit this parameter.
+#' @param SnapshotLocation Only supported for instances in Local Zones and for instances on Outposts that support local snapshots. If the source instance is not in one of these locations, omit this parameter.
 #' 
 #' The Amazon S3 location where the snapshots will be stored.
 #' 
-#' -   To create local snapshots in the same Local Zone as the source instance, specify `local`.
+#' -   To create local snapshots in the same Local Zone or on the same Outpost as the source instance, specify `local`.
 #' 
-#' -   To create regional snapshots in the parent Region of the Local Zone, specify `regional` or omit this parameter.
+#' -   To create regional snapshots in the parent Region of the Local Zone or Outpost, specify `regional`.
 #' 
-#' Default: `regional`
+#' If the source instance is in a Local Zone and you omit this parameter, regional snapshots are created in the parent Region of the Local Zone.
+#' 
+#' If the source instance is on an Outpost that supports local snapshots, this parameter is required. If you omit it, the request fails with an `InvalidParameterValue` error.
+#' 
+#' Default: `regional` (for instances in Local Zones only)
+#' @param BootModeOverride The boot mode of the new image, which overrides the default boot mode. By default, if you do not specify this parameter, the new image inherits the `boot-mode` from the source instance.
+#' 
+#' A value of `uefi` indicates that the image only supports UEFI boot mode. You can specify this parameter only if the `current-instance-boot-mode` of the source instance is `uefi`. To find the `boot-mode` or `current-instance-boot-mode` of an instance, see [`describe_instances`][ec2_describe_instances].
+#' 
+#' The operating system contained in the AMI must be configured to support the specified boot mode.
+#' 
+#' For more information, see [Instance launch behavior with Amazon EC2 boot modes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ami-boot.html) in the *Amazon EC2 User Guide*.
 #' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
 #' @param InstanceId &#91;required&#93; The ID of the instance.
 #' @param Name &#91;required&#93; A name for the new image.
@@ -3267,16 +3595,17 @@ ec2_create_fpga_image <- function(DryRun = NULL, InputStorageLocation, LogsStora
 #' @keywords internal
 #'
 #' @rdname ec2_create_image
-ec2_create_image <- function(TagSpecifications = NULL, SnapshotLocation = NULL, DryRun = NULL, InstanceId, Name, Description = NULL, NoReboot = NULL, BlockDeviceMappings = NULL) {
+ec2_create_image <- function(TagSpecifications = NULL, SnapshotLocation = NULL, BootModeOverride = NULL, DryRun = NULL, InstanceId, Name, Description = NULL, NoReboot = NULL, BlockDeviceMappings = NULL) {
   op <- new_operation(
     name = "CreateImage",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$create_image_input(TagSpecifications = TagSpecifications, SnapshotLocation = SnapshotLocation, DryRun = DryRun, InstanceId = InstanceId, Name = Name, Description = Description, NoReboot = NoReboot, BlockDeviceMappings = BlockDeviceMappings)
+  input <- .ec2$create_image_input(TagSpecifications = TagSpecifications, SnapshotLocation = SnapshotLocation, BootModeOverride = BootModeOverride, DryRun = DryRun, InstanceId = InstanceId, Name = Name, Description = Description, NoReboot = NoReboot, BlockDeviceMappings = BlockDeviceMappings)
   output <- .ec2$create_image_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -3313,7 +3642,8 @@ ec2_create_image_usage_report <- function(ImageId, DryRun = NULL, ResourceTypes,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_image_usage_report_input(ImageId = ImageId, DryRun = DryRun, ResourceTypes = ResourceTypes, AccountIds = AccountIds, ClientToken = ClientToken, TagSpecifications = TagSpecifications)
   output <- .ec2$create_image_usage_report_output()
@@ -3368,7 +3698,8 @@ ec2_create_instance_connect_endpoint <- function(DryRun = NULL, SubnetId, Securi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_instance_connect_endpoint_input(DryRun = DryRun, SubnetId = SubnetId, SecurityGroupIds = SecurityGroupIds, PreserveClientIp = PreserveClientIp, ClientToken = ClientToken, TagSpecifications = TagSpecifications, IpAddressType = IpAddressType)
   output <- .ec2$create_instance_connect_endpoint_output()
@@ -3420,7 +3751,8 @@ ec2_create_instance_event_window <- function(DryRun = NULL, Name = NULL, TimeRan
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_instance_event_window_input(DryRun = DryRun, Name = Name, TimeRanges = TimeRanges, CronExpression = CronExpression, TagSpecifications = TagSpecifications)
   output <- .ec2$create_instance_event_window_output()
@@ -3455,7 +3787,8 @@ ec2_create_instance_export_task <- function(TagSpecifications = NULL, Descriptio
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_instance_export_task_input(TagSpecifications = TagSpecifications, Description = Description, InstanceId = InstanceId, TargetEnvironment = TargetEnvironment, ExportToS3Task = ExportToS3Task)
   output <- .ec2$create_instance_export_task_output()
@@ -3487,7 +3820,8 @@ ec2_create_internet_gateway <- function(TagSpecifications = NULL, DryRun = NULL)
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_internet_gateway_input(TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_internet_gateway_output()
@@ -3512,20 +3846,22 @@ ec2_create_internet_gateway <- function(TagSpecifications = NULL, DryRun = NULL)
 #' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
 #' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response.
 #' @param TagSpecifications The tags to apply to the interruptible Capacity Reservation during creation.
+#' @param ZeroSizePreference Specifies the behavior for the interruptible Capacity Reservation when you reduce its allocation to zero instances. Specify `retain` to keep the interruptible Capacity Reservation active at zero capacity so that you can allocate instances to it again later. Specify `default` to cancel the interruptible Capacity Reservation and return the capacity to your source Capacity Reservation. The default value is `default`.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_create_interruptible_capacity_reservation_allocation
-ec2_create_interruptible_capacity_reservation_allocation <- function(CapacityReservationId, InstanceCount, ClientToken = NULL, DryRun = NULL, TagSpecifications = NULL) {
+ec2_create_interruptible_capacity_reservation_allocation <- function(CapacityReservationId, InstanceCount, ClientToken = NULL, DryRun = NULL, TagSpecifications = NULL, ZeroSizePreference = NULL) {
   op <- new_operation(
     name = "CreateInterruptibleCapacityReservationAllocation",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$create_interruptible_capacity_reservation_allocation_input(CapacityReservationId = CapacityReservationId, InstanceCount = InstanceCount, ClientToken = ClientToken, DryRun = DryRun, TagSpecifications = TagSpecifications)
+  input <- .ec2$create_interruptible_capacity_reservation_allocation_input(CapacityReservationId = CapacityReservationId, InstanceCount = InstanceCount, ClientToken = ClientToken, DryRun = DryRun, TagSpecifications = TagSpecifications, ZeroSizePreference = ZeroSizePreference)
   output <- .ec2$create_interruptible_capacity_reservation_allocation_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -3569,7 +3905,8 @@ ec2_create_ipam <- function(DryRun = NULL, Description = NULL, OperatingRegions 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_ipam_input(DryRun = DryRun, Description = Description, OperatingRegions = OperatingRegions, TagSpecifications = TagSpecifications, ClientToken = ClientToken, Tier = Tier, EnablePrivateGua = EnablePrivateGua, MeteredAccount = MeteredAccount)
   output <- .ec2$create_ipam_output()
@@ -3603,7 +3940,8 @@ ec2_create_ipam_external_resource_verification_token <- function(DryRun = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_ipam_external_resource_verification_token_input(DryRun = DryRun, IpamId = IpamId, TagSpecifications = TagSpecifications, ClientToken = ClientToken)
   output <- .ec2$create_ipam_external_resource_verification_token_output()
@@ -3614,6 +3952,53 @@ ec2_create_ipam_external_resource_verification_token <- function(DryRun = NULL, 
   return(response)
 }
 .ec2$operations$create_ipam_external_resource_verification_token <- ec2_create_ipam_external_resource_verification_token
+
+#' Creates an association between an IPAM and a Regional Internet Registry
+#' (RIR) for Resource Public Key Infrastructure (RPKI) management
+#'
+#' @description
+#' Creates an association between an IPAM and a Regional Internet Registry (RIR) for Resource Public Key Infrastructure (RPKI) management. You can use this association to create Route Origin Authorizations (ROAs) for IP address prefixes registered with the internet registry. Your IPAM must be in the Advanced tier to use this feature.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_create_ipam_internet_registry_association/](https://www.paws-r-sdk.com/docs/ec2_create_ipam_internet_registry_association/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamId &#91;required&#93; The ID of the IPAM to associate with the internet registry.
+#' @param Rir &#91;required&#93; The Regional Internet Registry to associate with. Possible values:
+#' 
+#' -   `ripe` - RIPE NCC (Europe, the Middle East, and Central Asia).
+#' 
+#' -   `apnic` - APNIC (Asia Pacific).
+#' 
+#' -   `arin` - ARIN (North America).
+#' 
+#' -   `lacnic` - LACNIC (Latin America and the Caribbean).
+#' @param OrganizationHandle &#91;required&#93; The organization handle at the internet registry (for example, a RIPE NCC organization ID or ARIN Org ID).
+#' @param Description A description for the internet registry association.
+#' @param TagSpecifications The tags to assign to the internet registry association.
+#' @param ClientToken A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the operation ignores the request, but does not return an error.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_ipam_internet_registry_association
+ec2_create_ipam_internet_registry_association <- function(DryRun = NULL, IpamId, Rir, OrganizationHandle, Description = NULL, TagSpecifications = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "CreateIpamInternetRegistryAssociation",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$create_ipam_internet_registry_association_input(DryRun = DryRun, IpamId = IpamId, Rir = Rir, OrganizationHandle = OrganizationHandle, Description = Description, TagSpecifications = TagSpecifications, ClientToken = ClientToken)
+  output <- .ec2$create_ipam_internet_registry_association_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_ipam_internet_registry_association <- ec2_create_ipam_internet_registry_association
 
 #' Creates an IPAM policy
 #'
@@ -3637,7 +4022,8 @@ ec2_create_ipam_policy <- function(DryRun = NULL, TagSpecifications = NULL, Clie
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_ipam_policy_input(DryRun = DryRun, TagSpecifications = TagSpecifications, ClientToken = ClientToken, IpamId = IpamId)
   output <- .ec2$create_ipam_policy_output()
@@ -3692,7 +4078,8 @@ ec2_create_ipam_pool <- function(DryRun = NULL, IpamScopeId, Locale = NULL, Sour
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_ipam_pool_input(DryRun = DryRun, IpamScopeId = IpamScopeId, Locale = Locale, SourceIpamPoolId = SourceIpamPoolId, Description = Description, AddressFamily = AddressFamily, AutoImport = AutoImport, PubliclyAdvertisable = PubliclyAdvertisable, AllocationMinNetmaskLength = AllocationMinNetmaskLength, AllocationMaxNetmaskLength = AllocationMaxNetmaskLength, AllocationDefaultNetmaskLength = AllocationDefaultNetmaskLength, AllocationResourceTags = AllocationResourceTags, TagSpecifications = TagSpecifications, ClientToken = ClientToken, AwsService = AwsService, PublicIpSource = PublicIpSource, SourceResource = SourceResource)
   output <- .ec2$create_ipam_pool_output()
@@ -3731,7 +4118,8 @@ ec2_create_ipam_prefix_list_resolver <- function(DryRun = NULL, IpamId, Descript
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_ipam_prefix_list_resolver_input(DryRun = DryRun, IpamId = IpamId, Description = Description, AddressFamily = AddressFamily, Rules = Rules, TagSpecifications = TagSpecifications, ClientToken = ClientToken)
   output <- .ec2$create_ipam_prefix_list_resolver_output()
@@ -3773,7 +4161,8 @@ ec2_create_ipam_prefix_list_resolver_target <- function(DryRun = NULL, IpamPrefi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_ipam_prefix_list_resolver_target_input(DryRun = DryRun, IpamPrefixListResolverId = IpamPrefixListResolverId, PrefixListId = PrefixListId, PrefixListRegion = PrefixListRegion, DesiredVersion = DesiredVersion, TrackLatestVersion = TrackLatestVersion, TagSpecifications = TagSpecifications, ClientToken = ClientToken)
   output <- .ec2$create_ipam_prefix_list_resolver_target_output()
@@ -3808,7 +4197,8 @@ ec2_create_ipam_resource_discovery <- function(DryRun = NULL, Description = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_ipam_resource_discovery_input(DryRun = DryRun, Description = Description, OperatingRegions = OperatingRegions, TagSpecifications = TagSpecifications, ClientToken = ClientToken)
   output <- .ec2$create_ipam_resource_discovery_output()
@@ -3819,6 +4209,47 @@ ec2_create_ipam_resource_discovery <- function(DryRun = NULL, Description = NULL
   return(response)
 }
 .ec2$operations$create_ipam_resource_discovery <- ec2_create_ipam_resource_discovery
+
+#' Creates a routing policy registration and publishes Route Origin
+#' Authorizations (ROAs) to the RPKI for the specified CIDR prefix and ASNs
+#'
+#' @description
+#' Creates a routing policy registration and publishes Route Origin Authorizations (ROAs) to the RPKI for the specified CIDR prefix and ASNs.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_create_ipam_routing_policy_registration/](https://www.paws-r-sdk.com/docs/ec2_create_ipam_routing_policy_registration/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param Cidr &#91;required&#93; The IP address prefix in CIDR notation to authorize in the ROA.
+#' @param Asns &#91;required&#93; The Autonomous System Numbers (ASNs) authorized to originate the prefix.
+#' @param PermitMoreSpecificAnnouncements Specifies whether to permit more specific route announcements than the CIDR prefix. When enabled, ASNs can announce sub-prefixes of the authorized CIDR up to the specified maximum length. Default: `false`.
+#' @param MaxLength The maximum prefix length that the ASNs are authorized to announce. Must be greater than or equal to the prefix length of the CIDR. If not specified, defaults to the prefix length of the CIDR (exact match only).
+#' @param Description A description for the routing policy registration.
+#' @param Force Forces the creation of the routing policy registration even if it conflicts with an announced route. Default: `false`.
+#' @param ClientToken A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the operation ignores the request, but does not return an error.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_ipam_routing_policy_registration
+ec2_create_ipam_routing_policy_registration <- function(DryRun = NULL, IpamInternetRegistryAssociationId, Cidr, Asns, PermitMoreSpecificAnnouncements = NULL, MaxLength = NULL, Description = NULL, Force = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "CreateIpamRoutingPolicyRegistration",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$create_ipam_routing_policy_registration_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, Cidr = Cidr, Asns = Asns, PermitMoreSpecificAnnouncements = PermitMoreSpecificAnnouncements, MaxLength = MaxLength, Description = Description, Force = Force, ClientToken = ClientToken)
+  output <- .ec2$create_ipam_routing_policy_registration_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_ipam_routing_policy_registration <- ec2_create_ipam_routing_policy_registration
 
 #' Create an IPAM scope
 #'
@@ -3846,7 +4277,8 @@ ec2_create_ipam_scope <- function(DryRun = NULL, IpamId, Description = NULL, Tag
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_ipam_scope_input(DryRun = DryRun, IpamId = IpamId, Description = Description, TagSpecifications = TagSpecifications, ClientToken = ClientToken, ExternalAuthorityConfiguration = ExternalAuthorityConfiguration)
   output <- .ec2$create_ipam_scope_output()
@@ -3888,7 +4320,8 @@ ec2_create_key_pair <- function(KeyName, KeyType = NULL, TagSpecifications = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_key_pair_input(KeyName = KeyName, KeyType = KeyType, TagSpecifications = TagSpecifications, KeyFormat = KeyFormat, DryRun = DryRun)
   output <- .ec2$create_key_pair_output()
@@ -3931,7 +4364,8 @@ ec2_create_launch_template <- function(DryRun = NULL, ClientToken = NULL, Launch
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_launch_template_input(DryRun = DryRun, ClientToken = ClientToken, LaunchTemplateName = LaunchTemplateName, VersionDescription = VersionDescription, LaunchTemplateData = LaunchTemplateData, Operator = Operator, TagSpecifications = TagSpecifications)
   output <- .ec2$create_launch_template_output()
@@ -3983,7 +4417,8 @@ ec2_create_launch_template_version <- function(DryRun = NULL, ClientToken = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_launch_template_version_input(DryRun = DryRun, ClientToken = ClientToken, LaunchTemplateId = LaunchTemplateId, LaunchTemplateName = LaunchTemplateName, SourceVersion = SourceVersion, VersionDescription = VersionDescription, LaunchTemplateData = LaunchTemplateData, ResolveAlias = ResolveAlias)
   output <- .ec2$create_launch_template_version_output()
@@ -4019,7 +4454,8 @@ ec2_create_local_gateway_route <- function(DestinationCidrBlock = NULL, LocalGat
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_local_gateway_route_input(DestinationCidrBlock = DestinationCidrBlock, LocalGatewayRouteTableId = LocalGatewayRouteTableId, LocalGatewayVirtualInterfaceGroupId = LocalGatewayVirtualInterfaceGroupId, DryRun = DryRun, NetworkInterfaceId = NetworkInterfaceId, DestinationPrefixListId = DestinationPrefixListId)
   output <- .ec2$create_local_gateway_route_output()
@@ -4053,7 +4489,8 @@ ec2_create_local_gateway_route_table <- function(LocalGatewayId, Mode = NULL, Ta
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_local_gateway_route_table_input(LocalGatewayId = LocalGatewayId, Mode = Mode, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_local_gateway_route_table_output()
@@ -4087,7 +4524,8 @@ ec2_create_local_gateway_route_table_virtual_interface_group_association <- func
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_local_gateway_route_table_virtual_interface_group_association_input(LocalGatewayRouteTableId = LocalGatewayRouteTableId, LocalGatewayVirtualInterfaceGroupId = LocalGatewayVirtualInterfaceGroupId, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_local_gateway_route_table_virtual_interface_group_association_output()
@@ -4122,7 +4560,8 @@ ec2_create_local_gateway_route_table_vpc_association <- function(LocalGatewayRou
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_local_gateway_route_table_vpc_association_input(LocalGatewayRouteTableId = LocalGatewayRouteTableId, VpcId = VpcId, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_local_gateway_route_table_vpc_association_output()
@@ -4161,7 +4600,8 @@ ec2_create_local_gateway_virtual_interface <- function(LocalGatewayVirtualInterf
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_local_gateway_virtual_interface_input(LocalGatewayVirtualInterfaceGroupId = LocalGatewayVirtualInterfaceGroupId, OutpostLagId = OutpostLagId, Vlan = Vlan, LocalAddress = LocalAddress, PeerAddress = PeerAddress, PeerBgpAsn = PeerBgpAsn, TagSpecifications = TagSpecifications, DryRun = DryRun, PeerBgpAsnExtended = PeerBgpAsnExtended)
   output <- .ec2$create_local_gateway_virtual_interface_output()
@@ -4196,7 +4636,8 @@ ec2_create_local_gateway_virtual_interface_group <- function(LocalGatewayId, Loc
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_local_gateway_virtual_interface_group_input(LocalGatewayId = LocalGatewayId, LocalBgpAsn = LocalBgpAsn, LocalBgpAsnExtended = LocalBgpAsnExtended, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_local_gateway_virtual_interface_group_output()
@@ -4251,7 +4692,8 @@ ec2_create_mac_system_integrity_protection_modification_task <- function(ClientT
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_mac_system_integrity_protection_modification_task_input(ClientToken = ClientToken, DryRun = DryRun, InstanceId = InstanceId, MacCredentials = MacCredentials, MacSystemIntegrityProtectionConfiguration = MacSystemIntegrityProtectionConfiguration, MacSystemIntegrityProtectionStatus = MacSystemIntegrityProtectionStatus, TagSpecifications = TagSpecifications)
   output <- .ec2$create_mac_system_integrity_protection_modification_task_output()
@@ -4294,7 +4736,8 @@ ec2_create_managed_prefix_list <- function(DryRun = NULL, PrefixListName, Entrie
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_managed_prefix_list_input(DryRun = DryRun, PrefixListName = PrefixListName, Entries = Entries, MaxEntries = MaxEntries, TagSpecifications = TagSpecifications, AddressFamily = AddressFamily, ClientToken = ClientToken)
   output <- .ec2$create_managed_prefix_list_output()
@@ -4347,7 +4790,8 @@ ec2_create_nat_gateway <- function(AvailabilityMode = NULL, AllocationId = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_nat_gateway_input(AvailabilityMode = AvailabilityMode, AllocationId = AllocationId, ClientToken = ClientToken, DryRun = DryRun, SubnetId = SubnetId, VpcId = VpcId, AvailabilityZoneAddresses = AvailabilityZoneAddresses, TagSpecifications = TagSpecifications, ConnectivityType = ConnectivityType, PrivateIpAddress = PrivateIpAddress, SecondaryAllocationIds = SecondaryAllocationIds, SecondaryPrivateIpAddresses = SecondaryPrivateIpAddresses, SecondaryPrivateIpAddressCount = SecondaryPrivateIpAddressCount)
   output <- .ec2$create_nat_gateway_output()
@@ -4381,7 +4825,8 @@ ec2_create_network_acl <- function(TagSpecifications = NULL, ClientToken = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_network_acl_input(TagSpecifications = TagSpecifications, ClientToken = ClientToken, DryRun = DryRun, VpcId = VpcId)
   output <- .ec2$create_network_acl_output()
@@ -4424,7 +4869,8 @@ ec2_create_network_acl_entry <- function(DryRun = NULL, NetworkAclId, RuleNumber
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_network_acl_entry_input(DryRun = DryRun, NetworkAclId = NetworkAclId, RuleNumber = RuleNumber, Protocol = Protocol, RuleAction = RuleAction, Egress = Egress, CidrBlock = CidrBlock, Ipv6CidrBlock = Ipv6CidrBlock, IcmpTypeCode = IcmpTypeCode, PortRange = PortRange)
   output <- .ec2$create_network_acl_entry_output()
@@ -4459,7 +4905,8 @@ ec2_create_network_insights_access_scope <- function(MatchPaths = NULL, ExcludeP
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_network_insights_access_scope_input(MatchPaths = MatchPaths, ExcludePaths = ExcludePaths, ClientToken = ClientToken, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_network_insights_access_scope_output()
@@ -4500,7 +4947,8 @@ ec2_create_network_insights_path <- function(SourceIp = NULL, DestinationIp = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_network_insights_path_input(SourceIp = SourceIp, DestinationIp = DestinationIp, Source = Source, Destination = Destination, Protocol = Protocol, DestinationPort = DestinationPort, TagSpecifications = TagSpecifications, DryRun = DryRun, ClientToken = ClientToken, FilterAtSource = FilterAtSource, FilterAtDestination = FilterAtDestination)
   output <- .ec2$create_network_insights_path_output()
@@ -4571,7 +5019,8 @@ ec2_create_network_interface <- function(Ipv4Prefixes = NULL, Ipv4PrefixCount = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_network_interface_input(Ipv4Prefixes = Ipv4Prefixes, Ipv4PrefixCount = Ipv4PrefixCount, Ipv6Prefixes = Ipv6Prefixes, Ipv6PrefixCount = Ipv6PrefixCount, InterfaceType = InterfaceType, TagSpecifications = TagSpecifications, ClientToken = ClientToken, EnablePrimaryIpv6 = EnablePrimaryIpv6, ConnectionTrackingSpecification = ConnectionTrackingSpecification, Operator = Operator, SubnetId = SubnetId, Description = Description, PrivateIpAddress = PrivateIpAddress, Groups = Groups, PrivateIpAddresses = PrivateIpAddresses, SecondaryPrivateIpAddressCount = SecondaryPrivateIpAddressCount, Ipv6Addresses = Ipv6Addresses, Ipv6AddressCount = Ipv6AddressCount, DryRun = DryRun)
   output <- .ec2$create_network_interface_output()
@@ -4607,7 +5056,8 @@ ec2_create_network_interface_permission <- function(NetworkInterfaceId, AwsAccou
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_network_interface_permission_input(NetworkInterfaceId = NetworkInterfaceId, AwsAccountId = AwsAccountId, AwsService = AwsService, Permission = Permission, DryRun = DryRun)
   output <- .ec2$create_network_interface_permission_output()
@@ -4635,6 +5085,7 @@ ec2_create_network_interface_permission <- function(NetworkInterfaceId, AwsAccou
 #' -   Rack – No usage restrictions.
 #' @param LinkedGroupId Reserved for future use.
 #' @param Operator Reserved for internal use.
+#' @param ParentGroupId The ID of a parent placement group. Valid only when **Strategy** is set to `cluster`.
 #' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
 #' @param GroupName A name for the placement group. Must be unique within the scope of your account for the Region.
 #' 
@@ -4644,16 +5095,17 @@ ec2_create_network_interface_permission <- function(NetworkInterfaceId, AwsAccou
 #' @keywords internal
 #'
 #' @rdname ec2_create_placement_group
-ec2_create_placement_group <- function(PartitionCount = NULL, TagSpecifications = NULL, SpreadLevel = NULL, LinkedGroupId = NULL, Operator = NULL, DryRun = NULL, GroupName = NULL, Strategy = NULL) {
+ec2_create_placement_group <- function(PartitionCount = NULL, TagSpecifications = NULL, SpreadLevel = NULL, LinkedGroupId = NULL, Operator = NULL, ParentGroupId = NULL, DryRun = NULL, GroupName = NULL, Strategy = NULL) {
   op <- new_operation(
     name = "CreatePlacementGroup",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$create_placement_group_input(PartitionCount = PartitionCount, TagSpecifications = TagSpecifications, SpreadLevel = SpreadLevel, LinkedGroupId = LinkedGroupId, Operator = Operator, DryRun = DryRun, GroupName = GroupName, Strategy = Strategy)
+  input <- .ec2$create_placement_group_input(PartitionCount = PartitionCount, TagSpecifications = TagSpecifications, SpreadLevel = SpreadLevel, LinkedGroupId = LinkedGroupId, Operator = Operator, ParentGroupId = ParentGroupId, DryRun = DryRun, GroupName = GroupName, Strategy = Strategy)
   output <- .ec2$create_placement_group_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -4684,7 +5136,8 @@ ec2_create_public_ipv_4_pool <- function(DryRun = NULL, TagSpecifications = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_public_ipv_4_pool_input(DryRun = DryRun, TagSpecifications = TagSpecifications, NetworkBorderGroup = NetworkBorderGroup)
   output <- .ec2$create_public_ipv_4_pool_output()
@@ -4699,24 +5152,24 @@ ec2_create_public_ipv_4_pool <- function(DryRun = NULL, TagSpecifications = NULL
 #' Replaces the EBS-backed root volume for a running instance with a new
 #' volume that is restored to the original root volume's launch state, that
 #' is restored to a specific snapshot taken from the original root volume,
-#' or that is restored from an AMI that has the same key characteristics as
-#' that of the instance
+#' that is restored from an AMI that has the same key characteristics as
+#' that of the instance, or that is replaced by a specified volume
 #'
 #' @description
-#' Replaces the EBS-backed root volume for a `running` instance with a new volume that is restored to the original root volume's launch state, that is restored to a specific snapshot taken from the original root volume, or that is restored from an AMI that has the same key characteristics as that of the instance.
+#' Replaces the EBS-backed root volume for a `running` instance with a new volume that is restored to the original root volume's launch state, that is restored to a specific snapshot taken from the original root volume, that is restored from an AMI that has the same key characteristics as that of the instance, or that is replaced by a specified volume.
 #'
 #' See [https://www.paws-r-sdk.com/docs/ec2_create_replace_root_volume_task/](https://www.paws-r-sdk.com/docs/ec2_create_replace_root_volume_task/) for full documentation.
 #'
 #' @param InstanceId &#91;required&#93; The ID of the instance for which to replace the root volume.
 #' @param SnapshotId The ID of the snapshot from which to restore the replacement root volume. The specified snapshot must be a snapshot that you previously created from the original root volume.
 #' 
-#' If you want to restore the replacement root volume to the initial launch state, or if you want to restore the replacement root volume from an AMI, omit this parameter.
+#' If you want to restore the replacement root volume to the initial launch state, if you want to restore the replacement root volume from an AMI, or if you want to replace the root volume with a specified volume, omit this parameter.
 #' @param ClientToken Unique, case-sensitive identifier you provide to ensure the idempotency of the request. If you do not specify a client token, a randomly generated token is used for the request to ensure idempotency. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
 #' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
 #' @param TagSpecifications The tags to apply to the root volume replacement task.
 #' @param ImageId The ID of the AMI to use to restore the root volume. The specified AMI must have the same product code, billing information, architecture type, and virtualization type as that of the instance.
 #' 
-#' If you want to restore the replacement volume from a specific snapshot, or if you want to restore it to its launch state, omit this parameter.
+#' If you want to restore the replacement volume from a specific snapshot, if you want to restore it to its launch state, or if you want to replace the root volume with a specified volume, omit this parameter.
 #' @param DeleteReplacedRootVolume Indicates whether to automatically delete the original root volume after the root volume replacement task completes. To delete the original root volume, specify `true`. If you choose to keep the original root volume after the replacement task completes, you must manually delete it when you no longer need it.
 #' @param VolumeInitializationRate Specifies the Amazon EBS Provisioned Rate for Volume Initialization (volume initialization rate), in MiB/s, at which to download the snapshot blocks from Amazon S3 to the replacement root volume. This is also known as *volume initialization*. Specifying a volume initialization rate ensures that the volume is initialized at a predictable and consistent rate after creation.
 #' 
@@ -4731,20 +5184,24 @@ ec2_create_public_ipv_4_pool <- function(DryRun = NULL, TagSpecifications = NULL
 #' For more information, see [Initialize Amazon EBS volumes](https://docs.aws.amazon.com/ebs/latest/userguide/initalize-volume.html) in the *Amazon EC2 User Guide*.
 #' 
 #' Valid range: 100 - 300 MiB/s
+#' @param VolumeId The ID of the volume to use as the replacement root volume. The specified volume must be in the same Availability Zone as the instance, must be in the `available` state, and must not be attached to an instance. If the original root volume is encrypted, the specified volume must also be encrypted.
+#' 
+#' If you want to restore the replacement root volume from a specific snapshot, an AMI, or to its launch state, omit this parameter.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_create_replace_root_volume_task
-ec2_create_replace_root_volume_task <- function(InstanceId, SnapshotId = NULL, ClientToken = NULL, DryRun = NULL, TagSpecifications = NULL, ImageId = NULL, DeleteReplacedRootVolume = NULL, VolumeInitializationRate = NULL) {
+ec2_create_replace_root_volume_task <- function(InstanceId, SnapshotId = NULL, ClientToken = NULL, DryRun = NULL, TagSpecifications = NULL, ImageId = NULL, DeleteReplacedRootVolume = NULL, VolumeInitializationRate = NULL, VolumeId = NULL) {
   op <- new_operation(
     name = "CreateReplaceRootVolumeTask",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$create_replace_root_volume_task_input(InstanceId = InstanceId, SnapshotId = SnapshotId, ClientToken = ClientToken, DryRun = DryRun, TagSpecifications = TagSpecifications, ImageId = ImageId, DeleteReplacedRootVolume = DeleteReplacedRootVolume, VolumeInitializationRate = VolumeInitializationRate)
+  input <- .ec2$create_replace_root_volume_task_input(InstanceId = InstanceId, SnapshotId = SnapshotId, ClientToken = ClientToken, DryRun = DryRun, TagSpecifications = TagSpecifications, ImageId = ImageId, DeleteReplacedRootVolume = DeleteReplacedRootVolume, VolumeInitializationRate = VolumeInitializationRate, VolumeId = VolumeId)
   output <- .ec2$create_replace_root_volume_task_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -4777,7 +5234,8 @@ ec2_create_reserved_instances_listing <- function(ReservedInstancesId, InstanceC
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_reserved_instances_listing_input(ReservedInstancesId = ReservedInstancesId, InstanceCount = InstanceCount, PriceSchedules = PriceSchedules, ClientToken = ClientToken)
   output <- .ec2$create_reserved_instances_listing_output()
@@ -4817,7 +5275,8 @@ ec2_create_restore_image_task <- function(Bucket, ObjectKey, Name = NULL, TagSpe
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_restore_image_task_input(Bucket = Bucket, ObjectKey = ObjectKey, Name = Name, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_restore_image_task_output()
@@ -4866,7 +5325,8 @@ ec2_create_route <- function(DestinationPrefixListId = NULL, VpcEndpointId = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_route_input(DestinationPrefixListId = DestinationPrefixListId, VpcEndpointId = VpcEndpointId, TransitGatewayId = TransitGatewayId, LocalGatewayId = LocalGatewayId, CarrierGatewayId = CarrierGatewayId, CoreNetworkArn = CoreNetworkArn, OdbNetworkArn = OdbNetworkArn, DryRun = DryRun, RouteTableId = RouteTableId, DestinationCidrBlock = DestinationCidrBlock, GatewayId = GatewayId, DestinationIpv6CidrBlock = DestinationIpv6CidrBlock, EgressOnlyInternetGatewayId = EgressOnlyInternetGatewayId, InstanceId = InstanceId, NetworkInterfaceId = NetworkInterfaceId, VpcPeeringConnectionId = VpcPeeringConnectionId, NatGatewayId = NatGatewayId)
   output <- .ec2$create_route_output()
@@ -4905,7 +5365,8 @@ ec2_create_route_server <- function(AmazonSideAsn, ClientToken = NULL, DryRun = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_route_server_input(AmazonSideAsn = AmazonSideAsn, ClientToken = ClientToken, DryRun = DryRun, PersistRoutes = PersistRoutes, PersistRoutesDuration = PersistRoutesDuration, SnsNotificationsEnabled = SnsNotificationsEnabled, TagSpecifications = TagSpecifications)
   output <- .ec2$create_route_server_output()
@@ -4940,7 +5401,8 @@ ec2_create_route_server_endpoint <- function(RouteServerId, SubnetId, ClientToke
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_route_server_endpoint_input(RouteServerId = RouteServerId, SubnetId = SubnetId, ClientToken = ClientToken, DryRun = DryRun, TagSpecifications = TagSpecifications)
   output <- .ec2$create_route_server_endpoint_output()
@@ -4975,7 +5437,8 @@ ec2_create_route_server_peer <- function(RouteServerEndpointId, PeerAddress, Bgp
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_route_server_peer_input(RouteServerEndpointId = RouteServerEndpointId, PeerAddress = PeerAddress, BgpOptions = BgpOptions, DryRun = DryRun, TagSpecifications = TagSpecifications)
   output <- .ec2$create_route_server_peer_output()
@@ -5009,7 +5472,8 @@ ec2_create_route_table <- function(TagSpecifications = NULL, ClientToken = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_route_table_input(TagSpecifications = TagSpecifications, ClientToken = ClientToken, DryRun = DryRun, VpcId = VpcId)
   output <- .ec2$create_route_table_output()
@@ -5044,7 +5508,8 @@ ec2_create_secondary_network <- function(ClientToken = NULL, DryRun = NULL, Ipv4
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_secondary_network_input(ClientToken = ClientToken, DryRun = DryRun, Ipv4CidrBlock = Ipv4CidrBlock, NetworkType = NetworkType, TagSpecifications = TagSpecifications)
   output <- .ec2$create_secondary_network_output()
@@ -5081,7 +5546,8 @@ ec2_create_secondary_subnet <- function(ClientToken = NULL, AvailabilityZone = N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_secondary_subnet_input(ClientToken = ClientToken, AvailabilityZone = AvailabilityZone, AvailabilityZoneId = AvailabilityZoneId, DryRun = DryRun, Ipv4CidrBlock = Ipv4CidrBlock, SecondaryNetworkId = SecondaryNetworkId, TagSpecifications = TagSpecifications)
   output <- .ec2$create_secondary_subnet_output()
@@ -5124,7 +5590,8 @@ ec2_create_security_group <- function(Description, GroupName, VpcId = NULL, TagS
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_security_group_input(Description = Description, GroupName = GroupName, VpcId = VpcId, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_security_group_output()
@@ -5172,7 +5639,8 @@ ec2_create_snapshot <- function(Description = NULL, OutpostArn = NULL, VolumeId,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_snapshot_input(Description = Description, OutpostArn = OutpostArn, VolumeId = VolumeId, TagSpecifications = TagSpecifications, Location = Location, DryRun = DryRun)
   output <- .ec2$create_snapshot_output()
@@ -5222,7 +5690,8 @@ ec2_create_snapshots <- function(Description = NULL, InstanceSpecification, Outp
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_snapshots_input(Description = Description, InstanceSpecification = InstanceSpecification, OutpostArn = OutpostArn, TagSpecifications = TagSpecifications, DryRun = DryRun, CopyTagsFromSource = CopyTagsFromSource, Location = Location)
   output <- .ec2$create_snapshots_output()
@@ -5256,7 +5725,8 @@ ec2_create_spot_datafeed_subscription <- function(DryRun = NULL, Bucket, Prefix 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_spot_datafeed_subscription_input(DryRun = DryRun, Bucket = Bucket, Prefix = Prefix)
   output <- .ec2$create_spot_datafeed_subscription_output()
@@ -5290,7 +5760,8 @@ ec2_create_store_image_task <- function(ImageId, Bucket, S3ObjectTags = NULL, Dr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_store_image_task_input(ImageId = ImageId, Bucket = Bucket, S3ObjectTags = S3ObjectTags, DryRun = DryRun)
   output <- .ec2$create_store_image_task_output()
@@ -5341,7 +5812,8 @@ ec2_create_subnet <- function(TagSpecifications = NULL, AvailabilityZone = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_subnet_input(TagSpecifications = TagSpecifications, AvailabilityZone = AvailabilityZone, AvailabilityZoneId = AvailabilityZoneId, CidrBlock = CidrBlock, Ipv6CidrBlock = Ipv6CidrBlock, OutpostArn = OutpostArn, VpcId = VpcId, Ipv6Native = Ipv6Native, Ipv4IpamPoolId = Ipv4IpamPoolId, Ipv4NetmaskLength = Ipv4NetmaskLength, Ipv6IpamPoolId = Ipv6IpamPoolId, Ipv6NetmaskLength = Ipv6NetmaskLength, DryRun = DryRun)
   output <- .ec2$create_subnet_output()
@@ -5381,7 +5853,8 @@ ec2_create_subnet_cidr_reservation <- function(SubnetId, Cidr, ReservationType, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_subnet_cidr_reservation_input(SubnetId = SubnetId, Cidr = Cidr, ReservationType = ReservationType, Description = Description, DryRun = DryRun, TagSpecifications = TagSpecifications)
   output <- .ec2$create_subnet_cidr_reservation_output()
@@ -5417,7 +5890,8 @@ ec2_create_tags <- function(DryRun = NULL, Resources, Tags) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_tags_input(DryRun = DryRun, Resources = Resources, Tags = Tags)
   output <- .ec2$create_tags_output()
@@ -5451,7 +5925,8 @@ ec2_create_traffic_mirror_filter <- function(Description = NULL, TagSpecificatio
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_traffic_mirror_filter_input(Description = Description, TagSpecifications = TagSpecifications, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$create_traffic_mirror_filter_output()
@@ -5478,7 +5953,7 @@ ec2_create_traffic_mirror_filter <- function(Description = NULL, TagSpecificatio
 #' @param SourcePortRange The source port range.
 #' @param Protocol The protocol, for example UDP, to assign to the Traffic Mirror rule.
 #' 
-#' For information about the protocol value, see [Protocol Numbers](https://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml) on the Internet Assigned Numbers Authority (IANA) website.
+#' For information about the protocol value, see [Protocol Numbers](https://www.iana.org/assignments/protocol-numbers) on the Internet Assigned Numbers Authority (IANA) website.
 #' @param DestinationCidrBlock &#91;required&#93; The destination CIDR block to assign to the Traffic Mirror rule.
 #' @param SourceCidrBlock &#91;required&#93; The source CIDR block to assign to the Traffic Mirror rule.
 #' @param Description The description of the Traffic Mirror rule.
@@ -5496,7 +5971,8 @@ ec2_create_traffic_mirror_filter_rule <- function(TrafficMirrorFilterId, Traffic
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_traffic_mirror_filter_rule_input(TrafficMirrorFilterId = TrafficMirrorFilterId, TrafficDirection = TrafficDirection, RuleNumber = RuleNumber, RuleAction = RuleAction, DestinationPortRange = DestinationPortRange, SourcePortRange = SourcePortRange, Protocol = Protocol, DestinationCidrBlock = DestinationCidrBlock, SourceCidrBlock = SourceCidrBlock, Description = Description, DryRun = DryRun, ClientToken = ClientToken, TagSpecifications = TagSpecifications)
   output <- .ec2$create_traffic_mirror_filter_rule_output()
@@ -5542,7 +6018,8 @@ ec2_create_traffic_mirror_session <- function(NetworkInterfaceId, TrafficMirrorT
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_traffic_mirror_session_input(NetworkInterfaceId = NetworkInterfaceId, TrafficMirrorTargetId = TrafficMirrorTargetId, TrafficMirrorFilterId = TrafficMirrorFilterId, PacketLength = PacketLength, SessionNumber = SessionNumber, VirtualNetworkId = VirtualNetworkId, Description = Description, TagSpecifications = TagSpecifications, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$create_traffic_mirror_session_output()
@@ -5579,7 +6056,8 @@ ec2_create_traffic_mirror_target <- function(NetworkInterfaceId = NULL, NetworkL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_traffic_mirror_target_input(NetworkInterfaceId = NetworkInterfaceId, NetworkLoadBalancerArn = NetworkLoadBalancerArn, Description = Description, TagSpecifications = TagSpecifications, DryRun = DryRun, ClientToken = ClientToken, GatewayLoadBalancerEndpointId = GatewayLoadBalancerEndpointId)
   output <- .ec2$create_traffic_mirror_target_output()
@@ -5613,7 +6091,8 @@ ec2_create_transit_gateway <- function(Description = NULL, Options = NULL, TagSp
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_input(Description = Description, Options = Options, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_output()
@@ -5647,7 +6126,8 @@ ec2_create_transit_gateway_connect <- function(TransportTransitGatewayAttachment
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_connect_input(TransportTransitGatewayAttachmentId = TransportTransitGatewayAttachmentId, Options = Options, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_connect_output()
@@ -5685,7 +6165,8 @@ ec2_create_transit_gateway_connect_peer <- function(TransitGatewayAttachmentId, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_connect_peer_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, TransitGatewayAddress = TransitGatewayAddress, PeerAddress = PeerAddress, BgpOptions = BgpOptions, InsideCidrBlocks = InsideCidrBlocks, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_connect_peer_output()
@@ -5720,7 +6201,8 @@ ec2_create_transit_gateway_metering_policy <- function(TransitGatewayId, Middleb
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_metering_policy_input(TransitGatewayId = TransitGatewayId, MiddleboxAttachmentIds = MiddleboxAttachmentIds, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_metering_policy_output()
@@ -5764,7 +6246,8 @@ ec2_create_transit_gateway_metering_policy_entry <- function(TransitGatewayMeter
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_metering_policy_entry_input(TransitGatewayMeteringPolicyId = TransitGatewayMeteringPolicyId, PolicyRuleNumber = PolicyRuleNumber, SourceTransitGatewayAttachmentId = SourceTransitGatewayAttachmentId, SourceTransitGatewayAttachmentType = SourceTransitGatewayAttachmentType, SourceCidrBlock = SourceCidrBlock, SourcePortRange = SourcePortRange, DestinationTransitGatewayAttachmentId = DestinationTransitGatewayAttachmentId, DestinationTransitGatewayAttachmentType = DestinationTransitGatewayAttachmentType, DestinationCidrBlock = DestinationCidrBlock, DestinationPortRange = DestinationPortRange, Protocol = Protocol, MeteredAccount = MeteredAccount, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_metering_policy_entry_output()
@@ -5798,7 +6281,8 @@ ec2_create_transit_gateway_multicast_domain <- function(TransitGatewayId, Option
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_multicast_domain_input(TransitGatewayId = TransitGatewayId, Options = Options, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_multicast_domain_output()
@@ -5836,7 +6320,8 @@ ec2_create_transit_gateway_peering_attachment <- function(TransitGatewayId, Peer
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_peering_attachment_input(TransitGatewayId = TransitGatewayId, PeerTransitGatewayId = PeerTransitGatewayId, PeerAccountId = PeerAccountId, PeerRegion = PeerRegion, Options = Options, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_peering_attachment_output()
@@ -5869,7 +6354,8 @@ ec2_create_transit_gateway_policy_table <- function(TransitGatewayId, TagSpecifi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_policy_table_input(TransitGatewayId = TransitGatewayId, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_policy_table_output()
@@ -5880,6 +6366,43 @@ ec2_create_transit_gateway_policy_table <- function(TransitGatewayId, TagSpecifi
   return(response)
 }
 .ec2$operations$create_transit_gateway_policy_table <- ec2_create_transit_gateway_policy_table
+
+#' Creates an entry in a transit gateway policy table to route matching
+#' traffic to a specified route table
+#'
+#' @description
+#' Creates an entry in a transit gateway policy table to route matching traffic to a specified route table.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_create_transit_gateway_policy_table_entry/](https://www.paws-r-sdk.com/docs/ec2_create_transit_gateway_policy_table_entry/) for full documentation.
+#'
+#' @param TransitGatewayPolicyTableId &#91;required&#93; The ID of the transit gateway policy table.
+#' @param PolicyRuleNumber &#91;required&#93; The rule number for the policy table entry. Lower rule numbers are evaluated first and take precedence.
+#' @param PolicyRule The matching criteria for the policy table entry.
+#' @param TargetRouteTableId &#91;required&#93; The ID of the transit gateway route table to use for traffic matching this rule.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_create_transit_gateway_policy_table_entry
+ec2_create_transit_gateway_policy_table_entry <- function(TransitGatewayPolicyTableId, PolicyRuleNumber, PolicyRule = NULL, TargetRouteTableId, DryRun = NULL) {
+  op <- new_operation(
+    name = "CreateTransitGatewayPolicyTableEntry",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$create_transit_gateway_policy_table_entry_input(TransitGatewayPolicyTableId = TransitGatewayPolicyTableId, PolicyRuleNumber = PolicyRuleNumber, PolicyRule = PolicyRule, TargetRouteTableId = TargetRouteTableId, DryRun = DryRun)
+  output <- .ec2$create_transit_gateway_policy_table_entry_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$create_transit_gateway_policy_table_entry <- ec2_create_transit_gateway_policy_table_entry
 
 #' Creates a reference (route) to a prefix list in a specified transit
 #' gateway route table
@@ -5905,7 +6428,8 @@ ec2_create_transit_gateway_prefix_list_reference <- function(TransitGatewayRoute
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_prefix_list_reference_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, PrefixListId = PrefixListId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, Blackhole = Blackhole, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_prefix_list_reference_output()
@@ -5940,7 +6464,8 @@ ec2_create_transit_gateway_route <- function(DestinationCidrBlock, TransitGatewa
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_route_input(DestinationCidrBlock = DestinationCidrBlock, TransitGatewayRouteTableId = TransitGatewayRouteTableId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, Blackhole = Blackhole, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_route_output()
@@ -5973,7 +6498,8 @@ ec2_create_transit_gateway_route_table <- function(TransitGatewayId, TagSpecific
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_route_table_input(TransitGatewayId = TransitGatewayId, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_route_table_output()
@@ -6007,7 +6533,8 @@ ec2_create_transit_gateway_route_table_announcement <- function(TransitGatewayRo
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_route_table_announcement_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, PeeringAttachmentId = PeeringAttachmentId, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_route_table_announcement_output()
@@ -6043,7 +6570,8 @@ ec2_create_transit_gateway_vpc_attachment <- function(TransitGatewayId, VpcId, S
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_transit_gateway_vpc_attachment_input(TransitGatewayId = TransitGatewayId, VpcId = VpcId, SubnetIds = SubnetIds, Options = Options, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_transit_gateway_vpc_attachment_output()
@@ -6091,7 +6619,8 @@ ec2_create_verified_access_endpoint <- function(VerifiedAccessGroupId, EndpointT
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_verified_access_endpoint_input(VerifiedAccessGroupId = VerifiedAccessGroupId, EndpointType = EndpointType, AttachmentType = AttachmentType, DomainCertificateArn = DomainCertificateArn, ApplicationDomain = ApplicationDomain, EndpointDomainPrefix = EndpointDomainPrefix, SecurityGroupIds = SecurityGroupIds, LoadBalancerOptions = LoadBalancerOptions, NetworkInterfaceOptions = NetworkInterfaceOptions, Description = Description, PolicyDocument = PolicyDocument, TagSpecifications = TagSpecifications, ClientToken = ClientToken, DryRun = DryRun, SseSpecification = SseSpecification, RdsOptions = RdsOptions, CidrOptions = CidrOptions)
   output <- .ec2$create_verified_access_endpoint_output()
@@ -6130,7 +6659,8 @@ ec2_create_verified_access_group <- function(VerifiedAccessInstanceId, Descripti
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_verified_access_group_input(VerifiedAccessInstanceId = VerifiedAccessInstanceId, Description = Description, PolicyDocument = PolicyDocument, TagSpecifications = TagSpecifications, ClientToken = ClientToken, DryRun = DryRun, SseSpecification = SseSpecification)
   output <- .ec2$create_verified_access_group_output()
@@ -6168,7 +6698,8 @@ ec2_create_verified_access_instance <- function(Description = NULL, TagSpecifica
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_verified_access_instance_input(Description = Description, TagSpecifications = TagSpecifications, ClientToken = ClientToken, DryRun = DryRun, FIPSEnabled = FIPSEnabled, CidrEndpointsCustomSubDomain = CidrEndpointsCustomSubDomain)
   output <- .ec2$create_verified_access_instance_output()
@@ -6211,7 +6742,8 @@ ec2_create_verified_access_trust_provider <- function(TrustProviderType, UserTru
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_verified_access_trust_provider_input(TrustProviderType = TrustProviderType, UserTrustProviderType = UserTrustProviderType, DeviceTrustProviderType = DeviceTrustProviderType, OidcOptions = OidcOptions, DeviceOptions = DeviceOptions, PolicyReferenceName = PolicyReferenceName, Description = Description, TagSpecifications = TagSpecifications, ClientToken = ClientToken, DryRun = DryRun, SseSpecification = SseSpecification, NativeApplicationOidcOptions = NativeApplicationOidcOptions)
   output <- .ec2$create_verified_access_trust_provider_output()
@@ -6332,7 +6864,8 @@ ec2_create_volume <- function(AvailabilityZone = NULL, AvailabilityZoneId = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_volume_input(AvailabilityZone = AvailabilityZone, AvailabilityZoneId = AvailabilityZoneId, Encrypted = Encrypted, Iops = Iops, KmsKeyId = KmsKeyId, OutpostArn = OutpostArn, Size = Size, SnapshotId = SnapshotId, VolumeType = VolumeType, TagSpecifications = TagSpecifications, MultiAttachEnabled = MultiAttachEnabled, Throughput = Throughput, ClientToken = ClientToken, VolumeInitializationRate = VolumeInitializationRate, Operator = Operator, DryRun = DryRun)
   output <- .ec2$create_volume_output()
@@ -6385,7 +6918,8 @@ ec2_create_vpc <- function(CidrBlock = NULL, Ipv6Pool = NULL, Ipv6CidrBlock = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpc_input(CidrBlock = CidrBlock, Ipv6Pool = Ipv6Pool, Ipv6CidrBlock = Ipv6CidrBlock, Ipv4IpamPoolId = Ipv4IpamPoolId, Ipv4NetmaskLength = Ipv4NetmaskLength, Ipv6IpamPoolId = Ipv6IpamPoolId, Ipv6NetmaskLength = Ipv6NetmaskLength, Ipv6CidrBlockNetworkBorderGroup = Ipv6CidrBlockNetworkBorderGroup, VpcEncryptionControl = VpcEncryptionControl, TagSpecifications = TagSpecifications, DryRun = DryRun, InstanceTenancy = InstanceTenancy, AmazonProvidedIpv6CidrBlock = AmazonProvidedIpv6CidrBlock)
   output <- .ec2$create_vpc_output()
@@ -6424,7 +6958,8 @@ ec2_create_vpc_block_public_access_exclusion <- function(DryRun = NULL, SubnetId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpc_block_public_access_exclusion_input(DryRun = DryRun, SubnetId = SubnetId, VpcId = VpcId, InternetGatewayExclusionMode = InternetGatewayExclusionMode, TagSpecifications = TagSpecifications)
   output <- .ec2$create_vpc_block_public_access_exclusion_output()
@@ -6457,7 +6992,8 @@ ec2_create_vpc_encryption_control <- function(DryRun = NULL, VpcId, TagSpecifica
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpc_encryption_control_input(DryRun = DryRun, VpcId = VpcId, TagSpecifications = TagSpecifications)
   output <- .ec2$create_vpc_encryption_control_output()
@@ -6479,13 +7015,15 @@ ec2_create_vpc_encryption_control <- function(DryRun = NULL, VpcId, TagSpecifica
 #' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
 #' @param VpcEndpointType The type of endpoint.
 #' 
+#' For more information about the types of VPC endpoints, see [VPC endpoints](https://docs.aws.amazon.com/vpc/latest/privatelink/concepts.html#concepts-vpc-endpoints) in the *Amazon Web Services PrivateLink User Guide*.
+#' 
 #' Default: Gateway
 #' @param VpcId &#91;required&#93; The ID of the VPC.
 #' @param ServiceName The name of the endpoint service.
 #' @param PolicyDocument (Interface and gateway endpoints) A policy to attach to the endpoint that controls access to the service. The policy must be in valid JSON format. If this parameter is not specified, we attach a default policy that allows full access to the service.
 #' @param RouteTableIds (Gateway endpoint) The route table IDs.
-#' @param SubnetIds (Interface and Gateway Load Balancer endpoints) The IDs of the subnets in which to create endpoint network interfaces. For a Gateway Load Balancer endpoint, you can specify only one subnet.
-#' @param SecurityGroupIds (Interface endpoint) The IDs of the security groups to associate with the endpoint network interfaces. If this parameter is not specified, we use the default security group for the VPC.
+#' @param SubnetIds (Interface, Gateway Load Balancer endpoints, Resource, ServiceNetwork, and Tunnel endpoints only) The IDs of the subnets in which to create endpoint network interfaces. For a Gateway Load Balancer endpoint, you can specify only one subnet. For a `Tunnel` endpoint, the subnets must be in the Availability Zones of the resource gateway associated with the shared resource configuration. An endpoint network interface is created only in an Availability Zone that the resource gateway is also in.
+#' @param SecurityGroupIds (Interface, Resource, ServiceNetwork, and Tunnel endpoints only) The IDs of the security groups to associate with the endpoint network interfaces. If this parameter is not specified, we use the default security group for the VPC.
 #' @param IpAddressType The IP address type for the endpoint.
 #' @param DnsOptions The DNS options for the endpoint.
 #' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see [How to ensure idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
@@ -6495,7 +7033,15 @@ ec2_create_vpc_encryption_control <- function(DryRun = NULL, VpcId, TagSpecifica
 #' @param TagSpecifications The tags to associate with the endpoint.
 #' @param SubnetConfigurations The subnet configurations for the endpoint.
 #' @param ServiceNetworkArn The Amazon Resource Name (ARN) of a service network that will be associated with the VPC endpoint of type service-network.
-#' @param ResourceConfigurationArn The Amazon Resource Name (ARN) of a resource configuration that will be associated with the VPC endpoint of type resource.
+#' @param ResourceConfigurationArn (Resource and Tunnel endpoints only) The Amazon Resource Name (ARN) of a resource configuration associated with the VPC endpoint. The type of resource configuration depends on the endpoint type:
+#' 
+#' -   For a Resource endpoint, you can specify a resource configuration that is of type `SINGLE`, `GROUP`, or `ARN`. To reach a resource that belongs to a group, specify the parent `GROUP` resource configuration.
+#' 
+#' -   For a Tunnel endpoint, you can specify a resource configuration that is of type `CIDR`.
+#' 
+#' For more information about the types of resource configurations, see [Types of resource configurations](https://docs.aws.amazon.com/vpc/latest/privatelink/resource-configuration.html) in the *Amazon Web Services PrivateLink User Guide*.
+#' 
+#' This request fails if a VPC endpoint owned by a different Amazon Web Services account already exists on a resource gateway that is enabled for `ResourceGatewayCharges` payer responsibility.
 #' @param ServiceRegion The Region where the service is hosted. The default is the current Region.
 #'
 #' @keywords internal
@@ -6508,7 +7054,8 @@ ec2_create_vpc_endpoint <- function(DryRun = NULL, VpcEndpointType = NULL, VpcId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpc_endpoint_input(DryRun = DryRun, VpcEndpointType = VpcEndpointType, VpcId = VpcId, ServiceName = ServiceName, PolicyDocument = PolicyDocument, RouteTableIds = RouteTableIds, SubnetIds = SubnetIds, SecurityGroupIds = SecurityGroupIds, IpAddressType = IpAddressType, DnsOptions = DnsOptions, ClientToken = ClientToken, PrivateDnsEnabled = PrivateDnsEnabled, TagSpecifications = TagSpecifications, SubnetConfigurations = SubnetConfigurations, ServiceNetworkArn = ServiceNetworkArn, ResourceConfigurationArn = ResourceConfigurationArn, ServiceRegion = ServiceRegion)
   output <- .ec2$create_vpc_endpoint_output()
@@ -6545,7 +7092,8 @@ ec2_create_vpc_endpoint_connection_notification <- function(DryRun = NULL, Servi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpc_endpoint_connection_notification_input(DryRun = DryRun, ServiceId = ServiceId, VpcEndpointId = VpcEndpointId, ConnectionNotificationArn = ConnectionNotificationArn, ConnectionEvents = ConnectionEvents, ClientToken = ClientToken)
   output <- .ec2$create_vpc_endpoint_connection_notification_output()
@@ -6585,7 +7133,8 @@ ec2_create_vpc_endpoint_service_configuration <- function(DryRun = NULL, Accepta
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpc_endpoint_service_configuration_input(DryRun = DryRun, AcceptanceRequired = AcceptanceRequired, PrivateDnsName = PrivateDnsName, NetworkLoadBalancerArns = NetworkLoadBalancerArns, GatewayLoadBalancerArns = GatewayLoadBalancerArns, SupportedIpAddressTypes = SupportedIpAddressTypes, SupportedRegions = SupportedRegions, ClientToken = ClientToken, TagSpecifications = TagSpecifications)
   output <- .ec2$create_vpc_endpoint_service_configuration_output()
@@ -6626,7 +7175,8 @@ ec2_create_vpc_peering_connection <- function(PeerRegion = NULL, TagSpecificatio
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpc_peering_connection_input(PeerRegion = PeerRegion, TagSpecifications = TagSpecifications, DryRun = DryRun, VpcId = VpcId, PeerVpcId = PeerVpcId, PeerOwnerId = PeerOwnerId)
   output <- .ec2$create_vpc_peering_connection_output()
@@ -6661,7 +7211,8 @@ ec2_create_vpn_concentrator <- function(Type, TransitGatewayId = NULL, TagSpecif
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpn_concentrator_input(Type = Type, TransitGatewayId = TransitGatewayId, TagSpecifications = TagSpecifications, DryRun = DryRun)
   output <- .ec2$create_vpn_concentrator_output()
@@ -6701,7 +7252,8 @@ ec2_create_vpn_connection <- function(CustomerGatewayId, Type, VpnGatewayId = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpn_connection_input(CustomerGatewayId = CustomerGatewayId, Type = Type, VpnGatewayId = VpnGatewayId, TransitGatewayId = TransitGatewayId, VpnConcentratorId = VpnConcentratorId, TagSpecifications = TagSpecifications, PreSharedKeyStorage = PreSharedKeyStorage, DryRun = DryRun, Options = Options)
   output <- .ec2$create_vpn_connection_output()
@@ -6734,7 +7286,8 @@ ec2_create_vpn_connection_route <- function(DestinationCidrBlock, VpnConnectionI
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpn_connection_route_input(DestinationCidrBlock = DestinationCidrBlock, VpnConnectionId = VpnConnectionId)
   output <- .ec2$create_vpn_connection_route_output()
@@ -6771,7 +7324,8 @@ ec2_create_vpn_gateway <- function(AvailabilityZone = NULL, Type, TagSpecificati
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$create_vpn_gateway_input(AvailabilityZone = AvailabilityZone, Type = Type, TagSpecifications = TagSpecifications, AmazonSideAsn = AmazonSideAsn, DryRun = DryRun)
   output <- .ec2$create_vpn_gateway_output()
@@ -6782,6 +7336,40 @@ ec2_create_vpn_gateway <- function(AvailabilityZone = NULL, Type, TagSpecificati
   return(response)
 }
 .ec2$operations$create_vpn_gateway <- ec2_create_vpn_gateway
+
+#' Deletes an application status check
+#'
+#' @description
+#' Deletes an application status check. The following rules apply:
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_delete_application_status_check/](https://www.paws-r-sdk.com/docs/ec2_delete_application_status_check/) for full documentation.
+#'
+#' @param ApplicationStatusCheckId &#91;required&#93; The ID of the application status check to delete.
+#' @param ClientToken A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a request with the same token, the service ignores the request but does not return an error. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_application_status_check
+ec2_delete_application_status_check <- function(ApplicationStatusCheckId, ClientToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "DeleteApplicationStatusCheck",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$delete_application_status_check_input(ApplicationStatusCheckId = ApplicationStatusCheckId, ClientToken = ClientToken, DryRun = DryRun)
+  output <- .ec2$delete_application_status_check_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_application_status_check <- ec2_delete_application_status_check
 
 #' Deletes an existing Capacity Manager data export configuration
 #'
@@ -6803,7 +7391,8 @@ ec2_delete_capacity_manager_data_export <- function(CapacityManagerDataExportId,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_capacity_manager_data_export_input(CapacityManagerDataExportId = CapacityManagerDataExportId, DryRun = DryRun)
   output <- .ec2$delete_capacity_manager_data_export_output()
@@ -6835,7 +7424,8 @@ ec2_delete_carrier_gateway <- function(CarrierGatewayId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_carrier_gateway_input(CarrierGatewayId = CarrierGatewayId, DryRun = DryRun)
   output <- .ec2$delete_carrier_gateway_output()
@@ -6867,7 +7457,8 @@ ec2_delete_client_vpn_endpoint <- function(ClientVpnEndpointId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_client_vpn_endpoint_input(ClientVpnEndpointId = ClientVpnEndpointId, DryRun = DryRun)
   output <- .ec2$delete_client_vpn_endpoint_output()
@@ -6878,6 +7469,39 @@ ec2_delete_client_vpn_endpoint <- function(ClientVpnEndpointId, DryRun = NULL) {
   return(response)
 }
 .ec2$operations$delete_client_vpn_endpoint <- ec2_delete_client_vpn_endpoint
+
+#' Deletes the authorization policy for a Client VPN endpoint
+#'
+#' @description
+#' Deletes the authorization policy for a Client VPN endpoint.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_delete_client_vpn_endpoint_authorization_policy/](https://www.paws-r-sdk.com/docs/ec2_delete_client_vpn_endpoint_authorization_policy/) for full documentation.
+#'
+#' @param ClientVpnEndpointId &#91;required&#93; The ID of the Client VPN endpoint.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_client_vpn_endpoint_authorization_policy
+ec2_delete_client_vpn_endpoint_authorization_policy <- function(ClientVpnEndpointId, DryRun = NULL) {
+  op <- new_operation(
+    name = "DeleteClientVpnEndpointAuthorizationPolicy",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$delete_client_vpn_endpoint_authorization_policy_input(ClientVpnEndpointId = ClientVpnEndpointId, DryRun = DryRun)
+  output <- .ec2$delete_client_vpn_endpoint_authorization_policy_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_client_vpn_endpoint_authorization_policy <- ec2_delete_client_vpn_endpoint_authorization_policy
 
 #' Deletes a route from a Client VPN endpoint
 #'
@@ -6901,7 +7525,8 @@ ec2_delete_client_vpn_route <- function(ClientVpnEndpointId, TargetVpcSubnetId =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_client_vpn_route_input(ClientVpnEndpointId = ClientVpnEndpointId, TargetVpcSubnetId = TargetVpcSubnetId, DestinationCidrBlock = DestinationCidrBlock, DryRun = DryRun)
   output <- .ec2$delete_client_vpn_route_output()
@@ -6934,7 +7559,8 @@ ec2_delete_coip_cidr <- function(Cidr, CoipPoolId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_coip_cidr_input(Cidr = Cidr, CoipPoolId = CoipPoolId, DryRun = DryRun)
   output <- .ec2$delete_coip_cidr_output()
@@ -6966,7 +7592,8 @@ ec2_delete_coip_pool <- function(CoipPoolId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_coip_pool_input(CoipPoolId = CoipPoolId, DryRun = DryRun)
   output <- .ec2$delete_coip_pool_output()
@@ -6998,7 +7625,8 @@ ec2_delete_customer_gateway <- function(CustomerGatewayId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_customer_gateway_input(CustomerGatewayId = CustomerGatewayId, DryRun = DryRun)
   output <- .ec2$delete_customer_gateway_output()
@@ -7030,7 +7658,8 @@ ec2_delete_dhcp_options <- function(DhcpOptionsId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_dhcp_options_input(DhcpOptionsId = DhcpOptionsId, DryRun = DryRun)
   output <- .ec2$delete_dhcp_options_output()
@@ -7062,7 +7691,8 @@ ec2_delete_egress_only_internet_gateway <- function(DryRun = NULL, EgressOnlyInt
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_egress_only_internet_gateway_input(DryRun = DryRun, EgressOnlyInternetGatewayId = EgressOnlyInternetGatewayId)
   output <- .ec2$delete_egress_only_internet_gateway_output()
@@ -7101,7 +7731,8 @@ ec2_delete_fleets <- function(DryRun = NULL, FleetIds, TerminateInstances) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_fleets_input(DryRun = DryRun, FleetIds = FleetIds, TerminateInstances = TerminateInstances)
   output <- .ec2$delete_fleets_output()
@@ -7135,7 +7766,8 @@ ec2_delete_flow_logs <- function(DryRun = NULL, FlowLogIds) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_flow_logs_input(DryRun = DryRun, FlowLogIds = FlowLogIds)
   output <- .ec2$delete_flow_logs_output()
@@ -7167,7 +7799,8 @@ ec2_delete_fpga_image <- function(DryRun = NULL, FpgaImageId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_fpga_image_input(DryRun = DryRun, FpgaImageId = FpgaImageId)
   output <- .ec2$delete_fpga_image_output()
@@ -7199,7 +7832,8 @@ ec2_delete_image_usage_report <- function(ReportId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_image_usage_report_input(ReportId = ReportId, DryRun = DryRun)
   output <- .ec2$delete_image_usage_report_output()
@@ -7231,7 +7865,8 @@ ec2_delete_instance_connect_endpoint <- function(DryRun = NULL, InstanceConnectE
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_instance_connect_endpoint_input(DryRun = DryRun, InstanceConnectEndpointId = InstanceConnectEndpointId)
   output <- .ec2$delete_instance_connect_endpoint_output()
@@ -7264,7 +7899,8 @@ ec2_delete_instance_event_window <- function(DryRun = NULL, ForceDelete = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_instance_event_window_input(DryRun = DryRun, ForceDelete = ForceDelete, InstanceEventWindowId = InstanceEventWindowId)
   output <- .ec2$delete_instance_event_window_output()
@@ -7296,7 +7932,8 @@ ec2_delete_internet_gateway <- function(DryRun = NULL, InternetGatewayId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_internet_gateway_input(DryRun = DryRun, InternetGatewayId = InternetGatewayId)
   output <- .ec2$delete_internet_gateway_output()
@@ -7341,7 +7978,8 @@ ec2_delete_ipam <- function(DryRun = NULL, IpamId, Cascade = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_ipam_input(DryRun = DryRun, IpamId = IpamId, Cascade = Cascade)
   output <- .ec2$delete_ipam_output()
@@ -7373,7 +8011,8 @@ ec2_delete_ipam_external_resource_verification_token <- function(DryRun = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_ipam_external_resource_verification_token_input(DryRun = DryRun, IpamExternalResourceVerificationTokenId = IpamExternalResourceVerificationTokenId)
   output <- .ec2$delete_ipam_external_resource_verification_token_output()
@@ -7384,6 +8023,39 @@ ec2_delete_ipam_external_resource_verification_token <- function(DryRun = NULL, 
   return(response)
 }
 .ec2$operations$delete_ipam_external_resource_verification_token <- ec2_delete_ipam_external_resource_verification_token
+
+#' Deletes an IPAM internet registry association
+#'
+#' @description
+#' Deletes an IPAM internet registry association. Before deleting, you must remove all routing policy registrations associated with the internet registry.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_delete_ipam_internet_registry_association/](https://www.paws-r-sdk.com/docs/ec2_delete_ipam_internet_registry_association/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association to delete.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_ipam_internet_registry_association
+ec2_delete_ipam_internet_registry_association <- function(DryRun = NULL, IpamInternetRegistryAssociationId) {
+  op <- new_operation(
+    name = "DeleteIpamInternetRegistryAssociation",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$delete_ipam_internet_registry_association_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId)
+  output <- .ec2$delete_ipam_internet_registry_association_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_ipam_internet_registry_association <- ec2_delete_ipam_internet_registry_association
 
 #' Deletes an IPAM policy
 #'
@@ -7405,7 +8077,8 @@ ec2_delete_ipam_policy <- function(DryRun = NULL, IpamPolicyId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_ipam_policy_input(DryRun = DryRun, IpamPolicyId = IpamPolicyId)
   output <- .ec2$delete_ipam_policy_output()
@@ -7440,7 +8113,8 @@ ec2_delete_ipam_pool <- function(DryRun = NULL, IpamPoolId, Cascade = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_ipam_pool_input(DryRun = DryRun, IpamPoolId = IpamPoolId, Cascade = Cascade)
   output <- .ec2$delete_ipam_pool_output()
@@ -7472,7 +8146,8 @@ ec2_delete_ipam_prefix_list_resolver <- function(DryRun = NULL, IpamPrefixListRe
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_ipam_prefix_list_resolver_input(DryRun = DryRun, IpamPrefixListResolverId = IpamPrefixListResolverId)
   output <- .ec2$delete_ipam_prefix_list_resolver_output()
@@ -7504,7 +8179,8 @@ ec2_delete_ipam_prefix_list_resolver_target <- function(DryRun = NULL, IpamPrefi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_ipam_prefix_list_resolver_target_input(DryRun = DryRun, IpamPrefixListResolverTargetId = IpamPrefixListResolverTargetId)
   output <- .ec2$delete_ipam_prefix_list_resolver_target_output()
@@ -7536,7 +8212,8 @@ ec2_delete_ipam_resource_discovery <- function(DryRun = NULL, IpamResourceDiscov
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_ipam_resource_discovery_input(DryRun = DryRun, IpamResourceDiscoveryId = IpamResourceDiscoveryId)
   output <- .ec2$delete_ipam_resource_discovery_output()
@@ -7547,6 +8224,42 @@ ec2_delete_ipam_resource_discovery <- function(DryRun = NULL, IpamResourceDiscov
   return(response)
 }
 .ec2$operations$delete_ipam_resource_discovery <- ec2_delete_ipam_resource_discovery
+
+#' Deletes a routing policy registration for a specified CIDR prefix
+#'
+#' @description
+#' Deletes a routing policy registration for a specified CIDR prefix.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_delete_ipam_routing_policy_registration/](https://www.paws-r-sdk.com/docs/ec2_delete_ipam_routing_policy_registration/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param Cidr &#91;required&#93; The IP address prefix in CIDR notation identifying the routing policy registration to delete.
+#' @param Force Forces the deletion even if it conflicts with an announced route. Default: `false`.
+#' @param ClientToken A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the operation ignores the request, but does not return an error.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_ipam_routing_policy_registration
+ec2_delete_ipam_routing_policy_registration <- function(DryRun = NULL, IpamInternetRegistryAssociationId, Cidr, Force = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "DeleteIpamRoutingPolicyRegistration",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$delete_ipam_routing_policy_registration_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, Cidr = Cidr, Force = Force, ClientToken = ClientToken)
+  output <- .ec2$delete_ipam_routing_policy_registration_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_ipam_routing_policy_registration <- ec2_delete_ipam_routing_policy_registration
 
 #' Delete the scope for an IPAM
 #'
@@ -7568,7 +8281,8 @@ ec2_delete_ipam_scope <- function(DryRun = NULL, IpamScopeId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_ipam_scope_input(DryRun = DryRun, IpamScopeId = IpamScopeId)
   output <- .ec2$delete_ipam_scope_output()
@@ -7602,7 +8316,8 @@ ec2_delete_key_pair <- function(KeyName = NULL, KeyPairId = NULL, DryRun = NULL)
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_key_pair_input(KeyName = KeyName, KeyPairId = KeyPairId, DryRun = DryRun)
   output <- .ec2$delete_key_pair_output()
@@ -7639,7 +8354,8 @@ ec2_delete_launch_template <- function(DryRun = NULL, LaunchTemplateId = NULL, L
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_launch_template_input(DryRun = DryRun, LaunchTemplateId = LaunchTemplateId, LaunchTemplateName = LaunchTemplateName)
   output <- .ec2$delete_launch_template_output()
@@ -7677,7 +8393,8 @@ ec2_delete_launch_template_versions <- function(DryRun = NULL, LaunchTemplateId 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_launch_template_versions_input(DryRun = DryRun, LaunchTemplateId = LaunchTemplateId, LaunchTemplateName = LaunchTemplateName, Versions = Versions)
   output <- .ec2$delete_launch_template_versions_output()
@@ -7711,7 +8428,8 @@ ec2_delete_local_gateway_route <- function(DestinationCidrBlock = NULL, LocalGat
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_local_gateway_route_input(DestinationCidrBlock = DestinationCidrBlock, LocalGatewayRouteTableId = LocalGatewayRouteTableId, DryRun = DryRun, DestinationPrefixListId = DestinationPrefixListId)
   output <- .ec2$delete_local_gateway_route_output()
@@ -7743,7 +8461,8 @@ ec2_delete_local_gateway_route_table <- function(LocalGatewayRouteTableId, DryRu
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_local_gateway_route_table_input(LocalGatewayRouteTableId = LocalGatewayRouteTableId, DryRun = DryRun)
   output <- .ec2$delete_local_gateway_route_table_output()
@@ -7775,7 +8494,8 @@ ec2_delete_local_gateway_route_table_virtual_interface_group_association <- func
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_local_gateway_route_table_virtual_interface_group_association_input(LocalGatewayRouteTableVirtualInterfaceGroupAssociationId = LocalGatewayRouteTableVirtualInterfaceGroupAssociationId, DryRun = DryRun)
   output <- .ec2$delete_local_gateway_route_table_virtual_interface_group_association_output()
@@ -7808,7 +8528,8 @@ ec2_delete_local_gateway_route_table_vpc_association <- function(LocalGatewayRou
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_local_gateway_route_table_vpc_association_input(LocalGatewayRouteTableVpcAssociationId = LocalGatewayRouteTableVpcAssociationId, DryRun = DryRun)
   output <- .ec2$delete_local_gateway_route_table_vpc_association_output()
@@ -7840,7 +8561,8 @@ ec2_delete_local_gateway_virtual_interface <- function(LocalGatewayVirtualInterf
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_local_gateway_virtual_interface_input(LocalGatewayVirtualInterfaceId = LocalGatewayVirtualInterfaceId, DryRun = DryRun)
   output <- .ec2$delete_local_gateway_virtual_interface_output()
@@ -7872,7 +8594,8 @@ ec2_delete_local_gateway_virtual_interface_group <- function(LocalGatewayVirtual
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_local_gateway_virtual_interface_group_input(LocalGatewayVirtualInterfaceGroupId = LocalGatewayVirtualInterfaceGroupId, DryRun = DryRun)
   output <- .ec2$delete_local_gateway_virtual_interface_group_output()
@@ -7904,7 +8627,8 @@ ec2_delete_managed_prefix_list <- function(DryRun = NULL, PrefixListId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_managed_prefix_list_input(DryRun = DryRun, PrefixListId = PrefixListId)
   output <- .ec2$delete_managed_prefix_list_output()
@@ -7936,7 +8660,8 @@ ec2_delete_nat_gateway <- function(DryRun = NULL, NatGatewayId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_nat_gateway_input(DryRun = DryRun, NatGatewayId = NatGatewayId)
   output <- .ec2$delete_nat_gateway_output()
@@ -7968,7 +8693,8 @@ ec2_delete_network_acl <- function(DryRun = NULL, NetworkAclId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_network_acl_input(DryRun = DryRun, NetworkAclId = NetworkAclId)
   output <- .ec2$delete_network_acl_output()
@@ -8003,7 +8729,8 @@ ec2_delete_network_acl_entry <- function(DryRun = NULL, NetworkAclId, RuleNumber
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_network_acl_entry_input(DryRun = DryRun, NetworkAclId = NetworkAclId, RuleNumber = RuleNumber, Egress = Egress)
   output <- .ec2$delete_network_acl_entry_output()
@@ -8035,7 +8762,8 @@ ec2_delete_network_insights_access_scope <- function(DryRun = NULL, NetworkInsig
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_network_insights_access_scope_input(DryRun = DryRun, NetworkInsightsAccessScopeId = NetworkInsightsAccessScopeId)
   output <- .ec2$delete_network_insights_access_scope_output()
@@ -8067,7 +8795,8 @@ ec2_delete_network_insights_access_scope_analysis <- function(NetworkInsightsAcc
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_network_insights_access_scope_analysis_input(NetworkInsightsAccessScopeAnalysisId = NetworkInsightsAccessScopeAnalysisId, DryRun = DryRun)
   output <- .ec2$delete_network_insights_access_scope_analysis_output()
@@ -8099,7 +8828,8 @@ ec2_delete_network_insights_analysis <- function(DryRun = NULL, NetworkInsightsA
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_network_insights_analysis_input(DryRun = DryRun, NetworkInsightsAnalysisId = NetworkInsightsAnalysisId)
   output <- .ec2$delete_network_insights_analysis_output()
@@ -8131,7 +8861,8 @@ ec2_delete_network_insights_path <- function(DryRun = NULL, NetworkInsightsPathI
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_network_insights_path_input(DryRun = DryRun, NetworkInsightsPathId = NetworkInsightsPathId)
   output <- .ec2$delete_network_insights_path_output()
@@ -8163,7 +8894,8 @@ ec2_delete_network_interface <- function(DryRun = NULL, NetworkInterfaceId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_network_interface_input(DryRun = DryRun, NetworkInterfaceId = NetworkInterfaceId)
   output <- .ec2$delete_network_interface_output()
@@ -8196,7 +8928,8 @@ ec2_delete_network_interface_permission <- function(NetworkInterfacePermissionId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_network_interface_permission_input(NetworkInterfacePermissionId = NetworkInterfacePermissionId, Force = Force, DryRun = DryRun)
   output <- .ec2$delete_network_interface_permission_output()
@@ -8211,7 +8944,7 @@ ec2_delete_network_interface_permission <- function(NetworkInterfacePermissionId
 #' Deletes the specified placement group
 #'
 #' @description
-#' Deletes the specified placement group. You must terminate all instances in the placement group before you can delete the placement group. For more information, see [Placement groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html) in the *Amazon EC2 User Guide*.
+#' Deletes the specified placement group. You must terminate all instances in the placement group before you can delete the placement group. You cannot delete a placement group that is a parent of a cluster placement group. Delete the cluster placement groups first. For more information, see [Placement groups](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html) in the *Amazon EC2 User Guide*.
 #'
 #' See [https://www.paws-r-sdk.com/docs/ec2_delete_placement_group/](https://www.paws-r-sdk.com/docs/ec2_delete_placement_group/) for full documentation.
 #'
@@ -8228,7 +8961,8 @@ ec2_delete_placement_group <- function(DryRun = NULL, GroupName) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_placement_group_input(DryRun = DryRun, GroupName = GroupName)
   output <- .ec2$delete_placement_group_output()
@@ -8261,7 +8995,8 @@ ec2_delete_public_ipv_4_pool <- function(DryRun = NULL, PoolId, NetworkBorderGro
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_public_ipv_4_pool_input(DryRun = DryRun, PoolId = PoolId, NetworkBorderGroup = NetworkBorderGroup)
   output <- .ec2$delete_public_ipv_4_pool_output()
@@ -8293,7 +9028,8 @@ ec2_delete_queued_reserved_instances <- function(DryRun = NULL, ReservedInstance
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_queued_reserved_instances_input(DryRun = DryRun, ReservedInstancesIds = ReservedInstancesIds)
   output <- .ec2$delete_queued_reserved_instances_output()
@@ -8328,7 +9064,8 @@ ec2_delete_route <- function(DestinationPrefixListId = NULL, DryRun = NULL, Rout
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_route_input(DestinationPrefixListId = DestinationPrefixListId, DryRun = DryRun, RouteTableId = RouteTableId, DestinationCidrBlock = DestinationCidrBlock, DestinationIpv6CidrBlock = DestinationIpv6CidrBlock)
   output <- .ec2$delete_route_output()
@@ -8360,7 +9097,8 @@ ec2_delete_route_server <- function(RouteServerId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_route_server_input(RouteServerId = RouteServerId, DryRun = DryRun)
   output <- .ec2$delete_route_server_output()
@@ -8392,7 +9130,8 @@ ec2_delete_route_server_endpoint <- function(RouteServerEndpointId, DryRun = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_route_server_endpoint_input(RouteServerEndpointId = RouteServerEndpointId, DryRun = DryRun)
   output <- .ec2$delete_route_server_endpoint_output()
@@ -8424,7 +9163,8 @@ ec2_delete_route_server_peer <- function(RouteServerPeerId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_route_server_peer_input(RouteServerPeerId = RouteServerPeerId, DryRun = DryRun)
   output <- .ec2$delete_route_server_peer_output()
@@ -8456,7 +9196,8 @@ ec2_delete_route_table <- function(DryRun = NULL, RouteTableId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_route_table_input(DryRun = DryRun, RouteTableId = RouteTableId)
   output <- .ec2$delete_route_table_output()
@@ -8489,7 +9230,8 @@ ec2_delete_secondary_network <- function(ClientToken = NULL, DryRun = NULL, Seco
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_secondary_network_input(ClientToken = ClientToken, DryRun = DryRun, SecondaryNetworkId = SecondaryNetworkId)
   output <- .ec2$delete_secondary_network_output()
@@ -8522,7 +9264,8 @@ ec2_delete_secondary_subnet <- function(ClientToken = NULL, DryRun = NULL, Secon
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_secondary_subnet_input(ClientToken = ClientToken, DryRun = DryRun, SecondarySubnetId = SecondarySubnetId)
   output <- .ec2$delete_secondary_subnet_output()
@@ -8555,7 +9298,8 @@ ec2_delete_security_group <- function(GroupId = NULL, GroupName = NULL, DryRun =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_security_group_input(GroupId = GroupId, GroupName = GroupName, DryRun = DryRun)
   output <- .ec2$delete_security_group_output()
@@ -8587,7 +9331,8 @@ ec2_delete_snapshot <- function(SnapshotId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_snapshot_input(SnapshotId = SnapshotId, DryRun = DryRun)
   output <- .ec2$delete_snapshot_output()
@@ -8618,7 +9363,8 @@ ec2_delete_spot_datafeed_subscription <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_spot_datafeed_subscription_input(DryRun = DryRun)
   output <- .ec2$delete_spot_datafeed_subscription_output()
@@ -8650,7 +9396,8 @@ ec2_delete_subnet <- function(SubnetId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_subnet_input(SubnetId = SubnetId, DryRun = DryRun)
   output <- .ec2$delete_subnet_output()
@@ -8682,7 +9429,8 @@ ec2_delete_subnet_cidr_reservation <- function(SubnetCidrReservationId, DryRun =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_subnet_cidr_reservation_input(SubnetCidrReservationId = SubnetCidrReservationId, DryRun = DryRun)
   output <- .ec2$delete_subnet_cidr_reservation_output()
@@ -8721,7 +9469,8 @@ ec2_delete_tags <- function(DryRun = NULL, Resources, Tags = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_tags_input(DryRun = DryRun, Resources = Resources, Tags = Tags)
   output <- .ec2$delete_tags_output()
@@ -8753,7 +9502,8 @@ ec2_delete_traffic_mirror_filter <- function(TrafficMirrorFilterId, DryRun = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_traffic_mirror_filter_input(TrafficMirrorFilterId = TrafficMirrorFilterId, DryRun = DryRun)
   output <- .ec2$delete_traffic_mirror_filter_output()
@@ -8785,7 +9535,8 @@ ec2_delete_traffic_mirror_filter_rule <- function(TrafficMirrorFilterRuleId, Dry
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_traffic_mirror_filter_rule_input(TrafficMirrorFilterRuleId = TrafficMirrorFilterRuleId, DryRun = DryRun)
   output <- .ec2$delete_traffic_mirror_filter_rule_output()
@@ -8817,7 +9568,8 @@ ec2_delete_traffic_mirror_session <- function(TrafficMirrorSessionId, DryRun = N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_traffic_mirror_session_input(TrafficMirrorSessionId = TrafficMirrorSessionId, DryRun = DryRun)
   output <- .ec2$delete_traffic_mirror_session_output()
@@ -8849,7 +9601,8 @@ ec2_delete_traffic_mirror_target <- function(TrafficMirrorTargetId, DryRun = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_traffic_mirror_target_input(TrafficMirrorTargetId = TrafficMirrorTargetId, DryRun = DryRun)
   output <- .ec2$delete_traffic_mirror_target_output()
@@ -8881,7 +9634,8 @@ ec2_delete_transit_gateway <- function(TransitGatewayId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_input(TransitGatewayId = TransitGatewayId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_output()
@@ -8913,7 +9667,8 @@ ec2_delete_transit_gateway_client_vpn_attachment <- function(TransitGatewayAttac
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_client_vpn_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_client_vpn_attachment_output()
@@ -8945,7 +9700,8 @@ ec2_delete_transit_gateway_connect <- function(TransitGatewayAttachmentId, DryRu
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_connect_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_connect_output()
@@ -8977,7 +9733,8 @@ ec2_delete_transit_gateway_connect_peer <- function(TransitGatewayConnectPeerId,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_connect_peer_input(TransitGatewayConnectPeerId = TransitGatewayConnectPeerId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_connect_peer_output()
@@ -9009,7 +9766,8 @@ ec2_delete_transit_gateway_metering_policy <- function(TransitGatewayMeteringPol
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_metering_policy_input(TransitGatewayMeteringPolicyId = TransitGatewayMeteringPolicyId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_metering_policy_output()
@@ -9042,7 +9800,8 @@ ec2_delete_transit_gateway_metering_policy_entry <- function(TransitGatewayMeter
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_metering_policy_entry_input(TransitGatewayMeteringPolicyId = TransitGatewayMeteringPolicyId, PolicyRuleNumber = PolicyRuleNumber, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_metering_policy_entry_output()
@@ -9074,7 +9833,8 @@ ec2_delete_transit_gateway_multicast_domain <- function(TransitGatewayMulticastD
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_multicast_domain_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_multicast_domain_output()
@@ -9106,7 +9866,8 @@ ec2_delete_transit_gateway_peering_attachment <- function(TransitGatewayAttachme
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_peering_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_peering_attachment_output()
@@ -9138,7 +9899,8 @@ ec2_delete_transit_gateway_policy_table <- function(TransitGatewayPolicyTableId,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_policy_table_input(TransitGatewayPolicyTableId = TransitGatewayPolicyTableId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_policy_table_output()
@@ -9149,6 +9911,40 @@ ec2_delete_transit_gateway_policy_table <- function(TransitGatewayPolicyTableId,
   return(response)
 }
 .ec2$operations$delete_transit_gateway_policy_table <- ec2_delete_transit_gateway_policy_table
+
+#' Deletes the specified transit gateway policy table entry
+#'
+#' @description
+#' Deletes the specified transit gateway policy table entry.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_delete_transit_gateway_policy_table_entry/](https://www.paws-r-sdk.com/docs/ec2_delete_transit_gateway_policy_table_entry/) for full documentation.
+#'
+#' @param TransitGatewayPolicyTableId &#91;required&#93; The ID of the transit gateway policy table.
+#' @param PolicyRuleNumber &#91;required&#93; The rule number of the policy table entry to delete.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_delete_transit_gateway_policy_table_entry
+ec2_delete_transit_gateway_policy_table_entry <- function(TransitGatewayPolicyTableId, PolicyRuleNumber, DryRun = NULL) {
+  op <- new_operation(
+    name = "DeleteTransitGatewayPolicyTableEntry",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$delete_transit_gateway_policy_table_entry_input(TransitGatewayPolicyTableId = TransitGatewayPolicyTableId, PolicyRuleNumber = PolicyRuleNumber, DryRun = DryRun)
+  output <- .ec2$delete_transit_gateway_policy_table_entry_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$delete_transit_gateway_policy_table_entry <- ec2_delete_transit_gateway_policy_table_entry
 
 #' Deletes a reference (route) to a prefix list in a specified transit
 #' gateway route table
@@ -9172,7 +9968,8 @@ ec2_delete_transit_gateway_prefix_list_reference <- function(TransitGatewayRoute
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_prefix_list_reference_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, PrefixListId = PrefixListId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_prefix_list_reference_output()
@@ -9206,7 +10003,8 @@ ec2_delete_transit_gateway_route <- function(TransitGatewayRouteTableId, Destina
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_route_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, DestinationCidrBlock = DestinationCidrBlock, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_route_output()
@@ -9238,7 +10036,8 @@ ec2_delete_transit_gateway_route_table <- function(TransitGatewayRouteTableId, D
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_route_table_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_route_table_output()
@@ -9271,7 +10070,8 @@ ec2_delete_transit_gateway_route_table_announcement <- function(TransitGatewayRo
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_route_table_announcement_input(TransitGatewayRouteTableAnnouncementId = TransitGatewayRouteTableAnnouncementId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_route_table_announcement_output()
@@ -9303,7 +10103,8 @@ ec2_delete_transit_gateway_vpc_attachment <- function(TransitGatewayAttachmentId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_transit_gateway_vpc_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$delete_transit_gateway_vpc_attachment_output()
@@ -9336,7 +10137,8 @@ ec2_delete_verified_access_endpoint <- function(VerifiedAccessEndpointId, Client
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_verified_access_endpoint_input(VerifiedAccessEndpointId = VerifiedAccessEndpointId, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$delete_verified_access_endpoint_output()
@@ -9369,7 +10171,8 @@ ec2_delete_verified_access_group <- function(VerifiedAccessGroupId, ClientToken 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_verified_access_group_input(VerifiedAccessGroupId = VerifiedAccessGroupId, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$delete_verified_access_group_output()
@@ -9402,7 +10205,8 @@ ec2_delete_verified_access_instance <- function(VerifiedAccessInstanceId, DryRun
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_verified_access_instance_input(VerifiedAccessInstanceId = VerifiedAccessInstanceId, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$delete_verified_access_instance_output()
@@ -9435,7 +10239,8 @@ ec2_delete_verified_access_trust_provider <- function(VerifiedAccessTrustProvide
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_verified_access_trust_provider_input(VerifiedAccessTrustProviderId = VerifiedAccessTrustProviderId, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$delete_verified_access_trust_provider_output()
@@ -9467,7 +10272,8 @@ ec2_delete_volume <- function(VolumeId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_volume_input(VolumeId = VolumeId, DryRun = DryRun)
   output <- .ec2$delete_volume_output()
@@ -9499,7 +10305,8 @@ ec2_delete_vpc <- function(VpcId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpc_input(VpcId = VpcId, DryRun = DryRun)
   output <- .ec2$delete_vpc_output()
@@ -9531,7 +10338,8 @@ ec2_delete_vpc_block_public_access_exclusion <- function(DryRun = NULL, Exclusio
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpc_block_public_access_exclusion_input(DryRun = DryRun, ExclusionId = ExclusionId)
   output <- .ec2$delete_vpc_block_public_access_exclusion_output()
@@ -9563,7 +10371,8 @@ ec2_delete_vpc_encryption_control <- function(DryRun = NULL, VpcEncryptionContro
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpc_encryption_control_input(DryRun = DryRun, VpcEncryptionControlId = VpcEncryptionControlId)
   output <- .ec2$delete_vpc_encryption_control_output()
@@ -9595,7 +10404,8 @@ ec2_delete_vpc_endpoint_connection_notifications <- function(DryRun = NULL, Conn
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpc_endpoint_connection_notifications_input(DryRun = DryRun, ConnectionNotificationIds = ConnectionNotificationIds)
   output <- .ec2$delete_vpc_endpoint_connection_notifications_output()
@@ -9627,7 +10437,8 @@ ec2_delete_vpc_endpoint_service_configurations <- function(DryRun = NULL, Servic
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpc_endpoint_service_configurations_input(DryRun = DryRun, ServiceIds = ServiceIds)
   output <- .ec2$delete_vpc_endpoint_service_configurations_output()
@@ -9659,7 +10470,8 @@ ec2_delete_vpc_endpoints <- function(DryRun = NULL, VpcEndpointIds) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpc_endpoints_input(DryRun = DryRun, VpcEndpointIds = VpcEndpointIds)
   output <- .ec2$delete_vpc_endpoints_output()
@@ -9691,7 +10503,8 @@ ec2_delete_vpc_peering_connection <- function(DryRun = NULL, VpcPeeringConnectio
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpc_peering_connection_input(DryRun = DryRun, VpcPeeringConnectionId = VpcPeeringConnectionId)
   output <- .ec2$delete_vpc_peering_connection_output()
@@ -9723,7 +10536,8 @@ ec2_delete_vpn_concentrator <- function(VpnConcentratorId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpn_concentrator_input(VpnConcentratorId = VpnConcentratorId, DryRun = DryRun)
   output <- .ec2$delete_vpn_concentrator_output()
@@ -9755,7 +10569,8 @@ ec2_delete_vpn_connection <- function(VpnConnectionId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpn_connection_input(VpnConnectionId = VpnConnectionId, DryRun = DryRun)
   output <- .ec2$delete_vpn_connection_output()
@@ -9788,7 +10603,8 @@ ec2_delete_vpn_connection_route <- function(DestinationCidrBlock, VpnConnectionI
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpn_connection_route_input(DestinationCidrBlock = DestinationCidrBlock, VpnConnectionId = VpnConnectionId)
   output <- .ec2$delete_vpn_connection_route_output()
@@ -9820,7 +10636,8 @@ ec2_delete_vpn_gateway <- function(VpnGatewayId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$delete_vpn_gateway_input(VpnGatewayId = VpnGatewayId, DryRun = DryRun)
   output <- .ec2$delete_vpn_gateway_output()
@@ -9854,7 +10671,8 @@ ec2_deprovision_byoip_cidr <- function(Cidr, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$deprovision_byoip_cidr_input(Cidr = Cidr, DryRun = DryRun)
   output <- .ec2$deprovision_byoip_cidr_output()
@@ -9888,7 +10706,8 @@ ec2_deprovision_ipam_byoasn <- function(DryRun = NULL, IpamId, Asn) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$deprovision_ipam_byoasn_input(DryRun = DryRun, IpamId = IpamId, Asn = Asn)
   output <- .ec2$deprovision_ipam_byoasn_output()
@@ -9921,7 +10740,8 @@ ec2_deprovision_ipam_pool_cidr <- function(DryRun = NULL, IpamPoolId, Cidr = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$deprovision_ipam_pool_cidr_input(DryRun = DryRun, IpamPoolId = IpamPoolId, Cidr = Cidr)
   output <- .ec2$deprovision_ipam_pool_cidr_output()
@@ -9954,7 +10774,8 @@ ec2_deprovision_public_ipv_4_pool_cidr <- function(DryRun = NULL, PoolId, Cidr) 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$deprovision_public_ipv_4_pool_cidr_input(DryRun = DryRun, PoolId = PoolId, Cidr = Cidr)
   output <- .ec2$deprovision_public_ipv_4_pool_cidr_output()
@@ -9991,7 +10812,8 @@ ec2_deregister_image <- function(ImageId, DeleteAssociatedSnapshots = NULL, DryR
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$deregister_image_input(ImageId = ImageId, DeleteAssociatedSnapshots = DeleteAssociatedSnapshots, DryRun = DryRun)
   output <- .ec2$deregister_image_output()
@@ -10025,7 +10847,8 @@ ec2_deregister_instance_event_notification_attributes <- function(DryRun = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$deregister_instance_event_notification_attributes_input(DryRun = DryRun, InstanceTagAttribute = InstanceTagAttribute)
   output <- .ec2$deregister_instance_event_notification_attributes_output()
@@ -10060,7 +10883,8 @@ ec2_deregister_transit_gateway_multicast_group_members <- function(TransitGatewa
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$deregister_transit_gateway_multicast_group_members_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, GroupIpAddress = GroupIpAddress, NetworkInterfaceIds = NetworkInterfaceIds, DryRun = DryRun)
   output <- .ec2$deregister_transit_gateway_multicast_group_members_output()
@@ -10095,7 +10919,8 @@ ec2_deregister_transit_gateway_multicast_group_sources <- function(TransitGatewa
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$deregister_transit_gateway_multicast_group_sources_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, GroupIpAddress = GroupIpAddress, NetworkInterfaceIds = NetworkInterfaceIds, DryRun = DryRun)
   output <- .ec2$deregister_transit_gateway_multicast_group_sources_output()
@@ -10127,7 +10952,8 @@ ec2_describe_account_attributes <- function(DryRun = NULL, AttributeNames = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_account_attributes_input(DryRun = DryRun, AttributeNames = AttributeNames)
   output <- .ec2$describe_account_attributes_output()
@@ -10138,6 +10964,39 @@ ec2_describe_account_attributes <- function(DryRun = NULL, AttributeNames = NULL
   return(response)
 }
 .ec2$operations$describe_account_attributes <- ec2_describe_account_attributes
+
+#' Describes the account-level VPC Encryption Control configuration for
+#' your account
+#'
+#' @description
+#' Describes the account-level VPC Encryption Control configuration for your account. VPC Encryption Control enables you to enforce encryption for all data in transit within and between VPCs to meet compliance requirements.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_describe_account_vpc_encryption_control/](https://www.paws-r-sdk.com/docs/ec2_describe_account_vpc_encryption_control/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_account_vpc_encryption_control
+ec2_describe_account_vpc_encryption_control <- function(DryRun = NULL) {
+  op <- new_operation(
+    name = "DescribeAccountVpcEncryptionControl",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$describe_account_vpc_encryption_control_input(DryRun = DryRun)
+  output <- .ec2$describe_account_vpc_encryption_control_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_account_vpc_encryption_control <- ec2_describe_account_vpc_encryption_control
 
 #' Describes an Elastic IP address transfer
 #'
@@ -10161,7 +11020,8 @@ ec2_describe_address_transfers <- function(AllocationIds = NULL, NextToken = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "AddressTransfers"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_address_transfers_input(AllocationIds = AllocationIds, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$describe_address_transfers_output()
@@ -10218,7 +11078,8 @@ ec2_describe_addresses <- function(PublicIps = NULL, DryRun = NULL, Filters = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_addresses_input(PublicIps = PublicIps, DryRun = DryRun, Filters = Filters, AllocationIds = AllocationIds)
   output <- .ec2$describe_addresses_output()
@@ -10253,7 +11114,8 @@ ec2_describe_addresses_attribute <- function(AllocationIds = NULL, Attribute = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Addresses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_addresses_attribute_input(AllocationIds = AllocationIds, Attribute = Attribute, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$describe_addresses_attribute_output()
@@ -10285,7 +11147,8 @@ ec2_describe_aggregate_id_format <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_aggregate_id_format_input(DryRun = DryRun)
   output <- .ec2$describe_aggregate_id_format_output()
@@ -10296,6 +11159,125 @@ ec2_describe_aggregate_id_format <- function(DryRun = NULL) {
   return(response)
 }
 .ec2$operations$describe_aggregate_id_format <- ec2_describe_aggregate_id_format
+
+#' Describes the aggregated application health status for the specified
+#' instances
+#'
+#' @description
+#' Describes the aggregated application health status for the specified instances. The following rules apply:
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_describe_application_status/](https://www.paws-r-sdk.com/docs/ec2_describe_application_status/) for full documentation.
+#'
+#' @param InstanceIds The IDs of the instances for which to describe application status.
+#' @param Filters The filters.
+#' 
+#' -   `availability-zone-id` – The ID of the Availability Zone.
+#' 
+#' -   `status` – The instance-level application status. For valid values and their meanings, see `ApplicationStatus`.
+#' @param MaxResults The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see [Pagination](https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination).
+#' @param NextToken The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_application_status
+ec2_describe_application_status <- function(InstanceIds = NULL, Filters = NULL, MaxResults = NULL, NextToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "DescribeApplicationStatus",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$describe_application_status_input(InstanceIds = InstanceIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
+  output <- .ec2$describe_application_status_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_application_status <- ec2_describe_application_status
+
+#' Describes the associations for one or more application status checks
+#'
+#' @description
+#' Describes the associations for one or more application status checks. For more information, see [Application status checks](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/). To avoid timeouts and retrieve complete results, use the pagination parameters.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_describe_application_status_check_associations/](https://www.paws-r-sdk.com/docs/ec2_describe_application_status_check_associations/) for full documentation.
+#'
+#' @param ApplicationStatusCheckIds The IDs of the application status checks for which to describe associations.
+#' @param Filters The filters to use to limit the results.
+#' 
+#' -   `association-type` – The type of association. Valid values: `tag` and `instance-id`.
+#' @param MaxResults The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see [Pagination](https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination).
+#' @param NextToken The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_application_status_check_associations
+ec2_describe_application_status_check_associations <- function(ApplicationStatusCheckIds = NULL, Filters = NULL, MaxResults = NULL, NextToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "DescribeApplicationStatusCheckAssociations",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$describe_application_status_check_associations_input(ApplicationStatusCheckIds = ApplicationStatusCheckIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
+  output <- .ec2$describe_application_status_check_associations_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_application_status_check_associations <- ec2_describe_application_status_check_associations
+
+#' Describes application status checks, including configuration details
+#' such as protocol, port, path, thresholds, and associations
+#'
+#' @description
+#' Describes application status checks, including configuration details such as protocol, port, path, thresholds, and associations. Results are paginated. Use the `NextToken` parameter to retrieve additional results. The following rules apply:
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_describe_application_status_checks/](https://www.paws-r-sdk.com/docs/ec2_describe_application_status_checks/) for full documentation.
+#'
+#' @param ApplicationStatusCheckIds The IDs of the application status checks to describe.
+#' @param Filters The filters.
+#' 
+#' -   `aggregation` – The aggregation setting. Valid values: `included` and `excluded`.
+#' @param MaxResults The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see [Pagination](https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination).
+#' @param NextToken The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.
+#' @param IncludeAll Specifies whether to include recently deleted application status checks that remain available during the deletion grace period. If you omit this parameter or set it to `false`, the response includes only active checks.
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_application_status_checks
+ec2_describe_application_status_checks <- function(ApplicationStatusCheckIds = NULL, Filters = NULL, MaxResults = NULL, NextToken = NULL, IncludeAll = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "DescribeApplicationStatusChecks",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$describe_application_status_checks_input(ApplicationStatusCheckIds = ApplicationStatusCheckIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IncludeAll = IncludeAll, DryRun = DryRun)
+  output <- .ec2$describe_application_status_checks_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_application_status_checks <- ec2_describe_application_status_checks
 
 #' Describes the Availability Zones, Local Zones, and Wavelength Zones that
 #' are available to you
@@ -10345,7 +11327,8 @@ ec2_describe_availability_zones <- function(ZoneNames = NULL, ZoneIds = NULL, Al
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_availability_zones_input(ZoneNames = ZoneNames, ZoneIds = ZoneIds, AllAvailabilityZones = AllAvailabilityZones, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_availability_zones_output()
@@ -10379,7 +11362,8 @@ ec2_describe_aws_network_performance_metric_subscriptions <- function(MaxResults
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Subscriptions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_aws_network_performance_metric_subscriptions_input(MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_aws_network_performance_metric_subscriptions_output()
@@ -10434,7 +11418,8 @@ ec2_describe_bundle_tasks <- function(BundleIds = NULL, DryRun = NULL, Filters =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_bundle_tasks_input(BundleIds = BundleIds, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_bundle_tasks_output()
@@ -10469,7 +11454,8 @@ ec2_describe_byoip_cidrs <- function(DryRun = NULL, MaxResults, NextToken = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ByoipCidrs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_byoip_cidrs_input(DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_byoip_cidrs_output()
@@ -10517,7 +11503,8 @@ ec2_describe_capacity_block_extension_history <- function(CapacityReservationIds
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityBlockExtensions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_block_extension_history_input(CapacityReservationIds = CapacityReservationIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_capacity_block_extension_history_output()
@@ -10553,7 +11540,8 @@ ec2_describe_capacity_block_extension_offerings <- function(DryRun = NULL, Capac
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityBlockExtensionOfferings"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_block_extension_offerings_input(DryRun = DryRun, CapacityBlockExtensionDurationHours = CapacityBlockExtensionDurationHours, CapacityReservationId = CapacityReservationId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_capacity_block_extension_offerings_output()
@@ -10595,7 +11583,8 @@ ec2_describe_capacity_block_offerings <- function(DryRun = NULL, InstanceType = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityBlockOfferings"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_block_offerings_input(DryRun = DryRun, InstanceType = InstanceType, InstanceCount = InstanceCount, StartDateRange = StartDateRange, EndDateRange = EndDateRange, CapacityDurationHours = CapacityDurationHours, NextToken = NextToken, MaxResults = MaxResults, UltraserverType = UltraserverType, UltraserverCount = UltraserverCount, AllAvailabilityZones = AllAvailabilityZones)
   output <- .ec2$describe_capacity_block_offerings_output()
@@ -10633,7 +11622,8 @@ ec2_describe_capacity_block_status <- function(CapacityBlockIds = NULL, NextToke
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityBlockStatuses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_block_status_input(CapacityBlockIds = CapacityBlockIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_capacity_block_status_output()
@@ -10685,7 +11675,8 @@ ec2_describe_capacity_blocks <- function(CapacityBlockIds = NULL, NextToken = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityBlocks"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_blocks_input(CapacityBlockIds = CapacityBlockIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_capacity_blocks_output()
@@ -10720,7 +11711,8 @@ ec2_describe_capacity_manager_data_exports <- function(CapacityManagerDataExport
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityManagerDataExports"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_manager_data_exports_input(CapacityManagerDataExportIds = CapacityManagerDataExportIds, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_capacity_manager_data_exports_output()
@@ -10767,7 +11759,8 @@ ec2_describe_capacity_reservation_billing_requests <- function(CapacityReservati
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityReservationBillingRequests"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_reservation_billing_requests_input(CapacityReservationIds = CapacityReservationIds, Role = Role, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_capacity_reservation_billing_requests_output()
@@ -10778,6 +11771,80 @@ ec2_describe_capacity_reservation_billing_requests <- function(CapacityReservati
   return(response)
 }
 .ec2$operations$describe_capacity_reservation_billing_requests <- ec2_describe_capacity_reservation_billing_requests
+
+#' Describes one or more Capacity Reservation cancellation quotes
+#'
+#' @description
+#' Describes one or more Capacity Reservation cancellation quotes. The results describe only the quotes that you have previously generated by using the [`create_capacity_reservation_cancellation_quote`][ec2_create_capacity_reservation_cancellation_quote] action.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_describe_capacity_reservation_cancellation_quotes/](https://www.paws-r-sdk.com/docs/ec2_describe_capacity_reservation_cancellation_quotes/) for full documentation.
+#'
+#' @param CapacityReservationCancellationQuoteIds The IDs of the cancellation quotes to describe.
+#' @param MaxResults The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see [Pagination](https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination).
+#' @param NextToken The token to use to retrieve the next page of results.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param Filters One or more filters. Filter names and values are case-sensitive.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_capacity_reservation_cancellation_quotes
+ec2_describe_capacity_reservation_cancellation_quotes <- function(CapacityReservationCancellationQuoteIds = NULL, MaxResults = NULL, NextToken = NULL, DryRun = NULL, Filters = NULL) {
+  op <- new_operation(
+    name = "DescribeCapacityReservationCancellationQuotes",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$describe_capacity_reservation_cancellation_quotes_input(CapacityReservationCancellationQuoteIds = CapacityReservationCancellationQuoteIds, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun, Filters = Filters)
+  output <- .ec2$describe_capacity_reservation_cancellation_quotes_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_capacity_reservation_cancellation_quotes <- ec2_describe_capacity_reservation_cancellation_quotes
+
+#' Describes one or more Capacity Reservation date change quotes that you
+#' generated by using the CreateCapacityReservationDateChangeQuote
+#' operation
+#'
+#' @description
+#' Describes one or more Capacity Reservation date change quotes that you generated by using the [`create_capacity_reservation_date_change_quote`][ec2_create_capacity_reservation_date_change_quote] operation.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_describe_capacity_reservation_date_change_quotes/](https://www.paws-r-sdk.com/docs/ec2_describe_capacity_reservation_date_change_quotes/) for full documentation.
+#'
+#' @param CapacityReservationModificationQuoteIds The IDs of the date change quotes to describe.
+#' @param MaxResults The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see [Pagination](https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination).
+#' @param NextToken The token to use to retrieve the next page of results.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param Filters One or more filters. Filter names and values are case-sensitive.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_capacity_reservation_date_change_quotes
+ec2_describe_capacity_reservation_date_change_quotes <- function(CapacityReservationModificationQuoteIds = NULL, MaxResults = NULL, NextToken = NULL, DryRun = NULL, Filters = NULL) {
+  op <- new_operation(
+    name = "DescribeCapacityReservationDateChangeQuotes",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityReservationModificationQuotes"),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$describe_capacity_reservation_date_change_quotes_input(CapacityReservationModificationQuoteIds = CapacityReservationModificationQuoteIds, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun, Filters = Filters)
+  output <- .ec2$describe_capacity_reservation_date_change_quotes_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_capacity_reservation_date_change_quotes <- ec2_describe_capacity_reservation_date_change_quotes
 
 #' Describes one or more Capacity Reservation Fleets
 #'
@@ -10810,7 +11877,8 @@ ec2_describe_capacity_reservation_fleets <- function(CapacityReservationFleetIds
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityReservationFleets"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_reservation_fleets_input(CapacityReservationFleetIds = CapacityReservationFleetIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_capacity_reservation_fleets_output()
@@ -10842,7 +11910,7 @@ ec2_describe_capacity_reservation_fleets <- function(CapacityReservationFleetIds
 #' 
 #' Default: Describes all your Capacity Reservations.
 #' 
-#' Constraints: Maximum 100 explicitly specified Capacity Reservation IDs.
+#' Constraints: Maximum 10 explicitly specified Capacity Reservation IDs.
 #' @param Filters The filters.
 #' 
 #' -   `availability-zone` - The name of the Availability Zone (for example, `us-west-2a`) or Local Zone (for example, `us-west-2-lax-1b`) that the Capacity Reservation is in.
@@ -10859,7 +11927,8 @@ ec2_describe_capacity_reservation_topology <- function(DryRun = NULL, NextToken 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_reservation_topology_input(DryRun = DryRun, NextToken = NextToken, MaxResults = MaxResults, CapacityReservationIds = CapacityReservationIds, Filters = Filters)
   output <- .ec2$describe_capacity_reservation_topology_output()
@@ -10940,7 +12009,8 @@ ec2_describe_capacity_reservations <- function(CapacityReservationIds = NULL, Ne
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityReservations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_capacity_reservations_input(CapacityReservationIds = CapacityReservationIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_capacity_reservations_output()
@@ -10987,7 +12057,8 @@ ec2_describe_carrier_gateways <- function(CarrierGatewayIds = NULL, Filters = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CarrierGateways"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_carrier_gateways_input(CarrierGatewayIds = CarrierGatewayIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_carrier_gateways_output()
@@ -11034,7 +12105,8 @@ ec2_describe_classic_link_instances <- function(DryRun = NULL, InstanceIds = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Instances"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_classic_link_instances_input(DryRun = DryRun, InstanceIds = InstanceIds, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_classic_link_instances_output()
@@ -11075,7 +12147,8 @@ ec2_describe_client_vpn_authorization_rules <- function(ClientVpnEndpointId, Dry
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "AuthorizationRules"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_client_vpn_authorization_rules_input(ClientVpnEndpointId = ClientVpnEndpointId, DryRun = DryRun, NextToken = NextToken, Filters = Filters, MaxResults = MaxResults)
   output <- .ec2$describe_client_vpn_authorization_rules_output()
@@ -11116,7 +12189,8 @@ ec2_describe_client_vpn_connections <- function(ClientVpnEndpointId, Filters = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Connections"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_client_vpn_connections_input(ClientVpnEndpointId = ClientVpnEndpointId, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$describe_client_vpn_connections_output()
@@ -11155,7 +12229,8 @@ ec2_describe_client_vpn_endpoints <- function(ClientVpnEndpointIds = NULL, MaxRe
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ClientVpnEndpoints"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_client_vpn_endpoints_input(ClientVpnEndpointIds = ClientVpnEndpointIds, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_client_vpn_endpoints_output()
@@ -11196,7 +12271,8 @@ ec2_describe_client_vpn_routes <- function(ClientVpnEndpointId, Filters = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Routes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_client_vpn_routes_input(ClientVpnEndpointId = ClientVpnEndpointId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_client_vpn_routes_output()
@@ -11239,7 +12315,8 @@ ec2_describe_client_vpn_target_networks <- function(ClientVpnEndpointId, Associa
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ClientVpnTargetNetworks"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_client_vpn_target_networks_input(ClientVpnEndpointId = ClientVpnEndpointId, AssociationIds = AssociationIds, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_client_vpn_target_networks_output()
@@ -11279,7 +12356,8 @@ ec2_describe_coip_pools <- function(PoolIds = NULL, Filters = NULL, MaxResults =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CoipPools"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_coip_pools_input(PoolIds = PoolIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_coip_pools_output()
@@ -11311,7 +12389,8 @@ ec2_describe_conversion_tasks <- function(DryRun = NULL, ConversionTaskIds = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_conversion_tasks_input(DryRun = DryRun, ConversionTaskIds = ConversionTaskIds)
   output <- .ec2$describe_conversion_tasks_output()
@@ -11360,7 +12439,8 @@ ec2_describe_customer_gateways <- function(CustomerGatewayIds = NULL, Filters = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_customer_gateways_input(CustomerGatewayIds = CustomerGatewayIds, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_customer_gateways_output()
@@ -11395,7 +12475,8 @@ ec2_describe_declarative_policies_reports <- function(DryRun = NULL, NextToken =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_declarative_policies_reports_input(DryRun = DryRun, NextToken = NextToken, MaxResults = MaxResults, ReportIds = ReportIds)
   output <- .ec2$describe_declarative_policies_reports_output()
@@ -11442,7 +12523,8 @@ ec2_describe_dhcp_options <- function(DhcpOptionsIds = NULL, NextToken = NULL, M
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "DhcpOptions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_dhcp_options_input(DhcpOptionsIds = DhcpOptionsIds, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_dhcp_options_output()
@@ -11481,7 +12563,8 @@ ec2_describe_egress_only_internet_gateways <- function(DryRun = NULL, EgressOnly
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "EgressOnlyInternetGateways"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_egress_only_internet_gateways_input(DryRun = DryRun, EgressOnlyInternetGatewayIds = EgressOnlyInternetGatewayIds, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters)
   output <- .ec2$describe_egress_only_internet_gateways_output()
@@ -11526,7 +12609,8 @@ ec2_describe_elastic_gpus <- function(ElasticGpuIds = NULL, DryRun = NULL, Filte
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_elastic_gpus_input(ElasticGpuIds = ElasticGpuIds, DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_elastic_gpus_output()
@@ -11562,7 +12646,8 @@ ec2_describe_export_image_tasks <- function(DryRun = NULL, Filters = NULL, Expor
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ExportImageTasks"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_export_image_tasks_input(DryRun = DryRun, Filters = Filters, ExportImageTaskIds = ExportImageTaskIds, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_export_image_tasks_output()
@@ -11595,7 +12680,8 @@ ec2_describe_export_tasks <- function(Filters = NULL, ExportTaskIds = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_export_tasks_input(Filters = Filters, ExportTaskIds = ExportTaskIds)
   output <- .ec2$describe_export_tasks_output()
@@ -11637,7 +12723,8 @@ ec2_describe_fast_launch_images <- function(ImageIds = NULL, Filters = NULL, Max
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "FastLaunchImages"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_fast_launch_images_input(ImageIds = ImageIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_fast_launch_images_output()
@@ -11681,7 +12768,8 @@ ec2_describe_fast_snapshot_restores <- function(Filters = NULL, MaxResults = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "FastSnapshotRestores"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_fast_snapshot_restores_input(Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_fast_snapshot_restores_output()
@@ -11718,7 +12806,8 @@ ec2_describe_fleet_history <- function(DryRun = NULL, EventType = NULL, MaxResul
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_fleet_history_input(DryRun = DryRun, EventType = EventType, MaxResults = MaxResults, NextToken = NextToken, FleetId = FleetId, StartTime = StartTime)
   output <- .ec2$describe_fleet_history_output()
@@ -11755,7 +12844,8 @@ ec2_describe_fleet_instances <- function(DryRun = NULL, MaxResults = NULL, NextT
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_fleet_instances_input(DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken, FleetId = FleetId, Filters = Filters)
   output <- .ec2$describe_fleet_instances_output()
@@ -11802,7 +12892,8 @@ ec2_describe_fleets <- function(DryRun = NULL, MaxResults = NULL, NextToken = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Fleets"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_fleets_input(DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken, FleetIds = FleetIds, Filters = Filters)
   output <- .ec2$describe_fleets_output()
@@ -11855,7 +12946,8 @@ ec2_describe_flow_logs <- function(DryRun = NULL, Filter = NULL, FlowLogIds = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "FlowLogs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_flow_logs_input(DryRun = DryRun, Filter = Filter, FlowLogIds = FlowLogIds, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_flow_logs_output()
@@ -11889,7 +12981,8 @@ ec2_describe_fpga_image_attribute <- function(DryRun = NULL, FpgaImageId, Attrib
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_fpga_image_attribute_input(DryRun = DryRun, FpgaImageId = FpgaImageId, Attribute = Attribute)
   output <- .ec2$describe_fpga_image_attribute_output()
@@ -11947,7 +13040,8 @@ ec2_describe_fpga_images <- function(DryRun = NULL, FpgaImageIds = NULL, Owners 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "FpgaImages"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_fpga_images_input(DryRun = DryRun, FpgaImageIds = FpgaImageIds, Owners = Owners, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_fpga_images_output()
@@ -11987,7 +13081,8 @@ ec2_describe_host_reservation_offerings <- function(Filter = NULL, MaxDuration =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "OfferingSet"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_host_reservation_offerings_input(Filter = Filter, MaxDuration = MaxDuration, MaxResults = MaxResults, MinDuration = MinDuration, NextToken = NextToken, OfferingId = OfferingId)
   output <- .ec2$describe_host_reservation_offerings_output()
@@ -12032,7 +13127,8 @@ ec2_describe_host_reservations <- function(Filter = NULL, HostReservationIdSet =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "HostReservationSet"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_host_reservations_input(Filter = Filter, HostReservationIdSet = HostReservationIdSet, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_host_reservations_output()
@@ -12082,7 +13178,8 @@ ec2_describe_hosts <- function(HostIds = NULL, NextToken = NULL, MaxResults = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Hosts"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_hosts_input(HostIds = HostIds, NextToken = NextToken, MaxResults = MaxResults, Filter = Filter)
   output <- .ec2$describe_hosts_output()
@@ -12120,7 +13217,8 @@ ec2_describe_iam_instance_profile_associations <- function(AssociationIds = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "IamInstanceProfileAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_iam_instance_profile_associations_input(AssociationIds = AssociationIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_iam_instance_profile_associations_output()
@@ -12153,7 +13251,8 @@ ec2_describe_id_format <- function(Resource = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_id_format_input(Resource = Resource)
   output <- .ec2$describe_id_format_output()
@@ -12186,7 +13285,8 @@ ec2_describe_identity_id_format <- function(Resource = NULL, PrincipalArn) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_identity_id_format_input(Resource = Resource, PrincipalArn = PrincipalArn)
   output <- .ec2$describe_identity_id_format_output()
@@ -12221,7 +13321,8 @@ ec2_describe_image_attribute <- function(Attribute, ImageId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_image_attribute_input(Attribute = Attribute, ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$describe_image_attribute_output()
@@ -12264,7 +13365,8 @@ ec2_describe_image_references <- function(ImageIds, IncludeAllResourceTypes = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ImageReferences"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_image_references_input(ImageIds = ImageIds, IncludeAllResourceTypes = IncludeAllResourceTypes, ResourceTypes = ResourceTypes, NextToken = NextToken, DryRun = DryRun, MaxResults = MaxResults)
   output <- .ec2$describe_image_references_output()
@@ -12307,7 +13409,8 @@ ec2_describe_image_usage_report_entries <- function(ImageIds = NULL, ReportIds =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ImageUsageReportEntries"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_image_usage_report_entries_input(ImageIds = ImageIds, ReportIds = ReportIds, NextToken = NextToken, Filters = Filters, DryRun = DryRun, MaxResults = MaxResults)
   output <- .ec2$describe_image_usage_report_entries_output()
@@ -12352,7 +13455,8 @@ ec2_describe_image_usage_reports <- function(ImageIds = NULL, ReportIds = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ImageUsageReports"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_image_usage_reports_input(ImageIds = ImageIds, ReportIds = ReportIds, NextToken = NextToken, Filters = Filters, DryRun = DryRun, MaxResults = MaxResults)
   output <- .ec2$describe_image_usage_reports_output()
@@ -12410,6 +13514,8 @@ ec2_describe_image_usage_reports <- function(ImageIds = NULL, ReportIds = NULL, 
 #' 
 #' -   `block-device-mapping.encrypted` - A Boolean that indicates whether the Amazon EBS volume is encrypted.
 #' 
+#' -   `boot-mode` – The boot mode of the image (`legacy-bios` | `uefi` | `uefi-preferred`).
+#' 
 #' -   `creation-date` - The time when the image was created, in the ISO 8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for example, `2021-09-29T11:04:43.305Z`. You can use a wildcard (`*`), for example, `2021-09-29T*`, which matches an entire day.
 #' 
 #' -   `description` - The description of the image (provided during image creation).
@@ -12424,7 +13530,21 @@ ec2_describe_image_usage_reports <- function(ImageIds = NULL, ReportIds = NULL, 
 #' 
 #' -   `image-id` - The ID of the image.
 #' 
+#' -   `image-watermark.source-image-creation-time` - The creation date of the source AMI, in the ISO 8601 format in the UTC time zone (` YYYY-MM-DDTHH:MM:SS.ssssss+HH:MM `). You can use a wildcard (`*`), for example, `2021-09-29T*`, which matches an entire day.
+#' 
+#' -   `image-watermark.source-image-id` - The ID of the AMI to which the watermark was originally attached.
+#' 
+#' -   `image-watermark.source-image-region` - The Region where the watermark was originally attached.
+#' 
+#' -   `image-watermark.watermark-creation-time` - The date and time the watermark was attached to the AMI, in the ISO 8601 format in the UTC time zone (` YYYY-MM-DDTHH:MM:SS.ssssss+HH:MM `). You can use a wildcard (`*`), for example, `2021-09-29T*`, which matches an entire day.
+#' 
+#' -   `image-watermark.watermark-key` - The watermark identifier, in `accountId:watermarkName` format (for example, `123456789012:approvedAmi`).
+#' 
 #' -   `image-type` - The image type (`machine` | `kernel` | `ramdisk`).
+#' 
+#' -   `instance-type-specification.supported-instance-type` – The instance types that are compatible with the AMI, as specified by the AMI owner. Values can be individual instance types (for example, `t3.micro`) or wildcard patterns that match multiple instance types (for example, `t3.*`).
+#' 
+#' -   `instance-type-specification.unsupported-instance-type` – The instance types that are not compatible with the AMI, as specified by the AMI owner. Values can be individual instance types (for example, `t3.micro`) or wildcard patterns that match multiple instance types (for example, `t3.*`).
 #' 
 #' -   `is-public` - A Boolean that indicates whether the image is public.
 #' 
@@ -12443,6 +13563,8 @@ ec2_describe_image_usage_reports <- function(ImageIds = NULL, ReportIds = NULL, 
 #' -   `product-code` - The product code.
 #' 
 #' -   `product-code.type` - The type of the product code (`marketplace`).
+#' 
+#' -   `public-ssm-parameter-name` - The name of a public Systems Manager parameter associated with the AMI. The parameter must be in a trusted Amazon Web Services namespace under `aws/service/`. Returns all AMIs that have ever been associated with the parameter, including previous versions.
 #' 
 #' -   `ramdisk-id` - The RAM disk ID.
 #' 
@@ -12480,7 +13602,8 @@ ec2_describe_images <- function(ExecutableUsers = NULL, ImageIds = NULL, Owners 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Images"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_images_input(ExecutableUsers = ExecutableUsers, ImageIds = ImageIds, Owners = Owners, IncludeDeprecated = IncludeDeprecated, IncludeDisabled = IncludeDisabled, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_images_output()
@@ -12516,7 +13639,8 @@ ec2_describe_import_image_tasks <- function(DryRun = NULL, Filters = NULL, Impor
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ImportImageTasks"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_import_image_tasks_input(DryRun = DryRun, Filters = Filters, ImportTaskIds = ImportTaskIds, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_import_image_tasks_output()
@@ -12551,7 +13675,8 @@ ec2_describe_import_snapshot_tasks <- function(DryRun = NULL, Filters = NULL, Im
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ImportSnapshotTasks"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_import_snapshot_tasks_input(DryRun = DryRun, Filters = Filters, ImportTaskIds = ImportTaskIds, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_import_snapshot_tasks_output()
@@ -12586,7 +13711,8 @@ ec2_describe_instance_attribute <- function(DryRun = NULL, InstanceId, Attribute
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_attribute_input(DryRun = DryRun, InstanceId = InstanceId, Attribute = Attribute)
   output <- .ec2$describe_instance_attribute_output()
@@ -12636,7 +13762,8 @@ ec2_describe_instance_connect_endpoints <- function(DryRun = NULL, MaxResults = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InstanceConnectEndpoints"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_connect_endpoints_input(DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, InstanceConnectEndpointIds = InstanceConnectEndpointIds)
   output <- .ec2$describe_instance_connect_endpoints_output()
@@ -12680,7 +13807,8 @@ ec2_describe_instance_credit_specifications <- function(DryRun = NULL, Filters =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InstanceCreditSpecifications"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_credit_specifications_input(DryRun = DryRun, Filters = Filters, InstanceIds = InstanceIds, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_instance_credit_specifications_output()
@@ -12712,7 +13840,8 @@ ec2_describe_instance_event_notification_attributes <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_event_notification_attributes_input(DryRun = DryRun)
   output <- .ec2$describe_instance_event_notification_attributes_output()
@@ -12765,7 +13894,8 @@ ec2_describe_instance_event_windows <- function(DryRun = NULL, InstanceEventWind
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InstanceEventWindows"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_event_windows_input(DryRun = DryRun, InstanceEventWindowIds = InstanceEventWindowIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_instance_event_windows_output()
@@ -12828,7 +13958,8 @@ ec2_describe_instance_image_metadata <- function(Filters = NULL, InstanceIds = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InstanceImageMetadata"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_image_metadata_input(Filters = Filters, InstanceIds = InstanceIds, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_instance_image_metadata_output()
@@ -12883,7 +14014,8 @@ ec2_describe_instance_sql_ha_history_states <- function(InstanceIds = NULL, Star
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_sql_ha_history_states_input(InstanceIds = InstanceIds, StartTime = StartTime, EndTime = EndTime, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_instance_sql_ha_history_states_output()
@@ -12928,7 +14060,8 @@ ec2_describe_instance_sql_ha_states <- function(InstanceIds = NULL, NextToken = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_sql_ha_states_input(InstanceIds = InstanceIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_instance_sql_ha_states_output()
@@ -12993,6 +14126,8 @@ ec2_describe_instance_sql_ha_states <- function(InstanceIds = NULL, NextToken = 
 #' -   `system-status.status` - The system status of the instance (`ok` | `impaired` | `initializing` | `insufficient-data` | `not-applicable`).
 #' 
 #' -   `attached-ebs-status.status` - The status of the attached EBS volume for the instance (`ok` | `impaired` | `initializing` | `insufficient-data` | `not-applicable`).
+#' 
+#' -   `application-status.status` - The application status of the instance (`ok` | `impaired` | `initializing` | `insufficient-data` | `not-applicable`).
 #' @param IncludeAllInstances When `true`, includes the health status for all instances. When `false`, includes the health status for running instances only.
 #' 
 #' Default: `false`
@@ -13007,7 +14142,8 @@ ec2_describe_instance_status <- function(InstanceIds = NULL, MaxResults = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "InstanceStatuses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_status_input(InstanceIds = InstanceIds, MaxResults = MaxResults, NextToken = NextToken, IncludeManagedResources = IncludeManagedResources, DryRun = DryRun, Filters = Filters, IncludeAllInstances = IncludeAllInstances)
   output <- .ec2$describe_instance_status_output()
@@ -13061,7 +14197,8 @@ ec2_describe_instance_topology <- function(DryRun = NULL, NextToken = NULL, MaxR
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Instances"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_topology_input(DryRun = DryRun, NextToken = NextToken, MaxResults = MaxResults, InstanceIds = InstanceIds, GroupNames = GroupNames, Filters = Filters)
   output <- .ec2$describe_instance_topology_output()
@@ -13108,7 +14245,8 @@ ec2_describe_instance_type_offerings <- function(DryRun = NULL, LocationType = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InstanceTypeOfferings"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_type_offerings_input(DryRun = DryRun, LocationType = LocationType, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_instance_type_offerings_output()
@@ -13256,7 +14394,8 @@ ec2_describe_instance_types <- function(DryRun = NULL, InstanceTypes = NULL, Fil
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InstanceTypes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instance_types_input(DryRun = DryRun, InstanceTypes = InstanceTypes, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IncludeUnsupportedInRegion = IncludeUnsupportedInRegion)
   output <- .ec2$describe_instance_types_output()
@@ -13568,7 +14707,8 @@ ec2_describe_instances <- function(InstanceIds = NULL, IncludeManagedResources =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "Reservations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_instances_input(InstanceIds = InstanceIds, IncludeManagedResources = IncludeManagedResources, DryRun = DryRun, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_instances_output()
@@ -13617,7 +14757,8 @@ ec2_describe_internet_gateways <- function(NextToken = NULL, MaxResults = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InternetGateways"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_internet_gateways_input(NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, InternetGatewayIds = InternetGatewayIds, Filters = Filters)
   output <- .ec2$describe_internet_gateways_output()
@@ -13651,7 +14792,8 @@ ec2_describe_ipam_byoasn <- function(DryRun = NULL, MaxResults = NULL, NextToken
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_byoasn_input(DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_ipam_byoasn_output()
@@ -13706,7 +14848,8 @@ ec2_describe_ipam_external_resource_verification_tokens <- function(DryRun = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_external_resource_verification_tokens_input(DryRun = DryRun, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults, IpamExternalResourceVerificationTokenIds = IpamExternalResourceVerificationTokenIds)
   output <- .ec2$describe_ipam_external_resource_verification_tokens_output()
@@ -13717,6 +14860,42 @@ ec2_describe_ipam_external_resource_verification_tokens <- function(DryRun = NUL
   return(response)
 }
 .ec2$operations$describe_ipam_external_resource_verification_tokens <- ec2_describe_ipam_external_resource_verification_tokens
+
+#' Describes one or more IPAM internet registry associations
+#'
+#' @description
+#' Describes one or more IPAM internet registry associations. We recommend using pagination to ensure that the operation returns quickly and successfully.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_describe_ipam_internet_registry_associations/](https://www.paws-r-sdk.com/docs/ec2_describe_ipam_internet_registry_associations/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationIds The IDs of the internet registry associations to describe.
+#' @param MaxResults The maximum number of results to return in a single call. If not specified, all available results are returned. To retrieve the remaining results, make another call with the returned `nextToken` value.
+#' @param NextToken The token for the next page of results.
+#' @param Filters One or more filters to apply to the results.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_describe_ipam_internet_registry_associations
+ec2_describe_ipam_internet_registry_associations <- function(DryRun = NULL, IpamInternetRegistryAssociationIds = NULL, MaxResults = NULL, NextToken = NULL, Filters = NULL) {
+  op <- new_operation(
+    name = "DescribeIpamInternetRegistryAssociations",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$describe_ipam_internet_registry_associations_input(DryRun = DryRun, IpamInternetRegistryAssociationIds = IpamInternetRegistryAssociationIds, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters)
+  output <- .ec2$describe_ipam_internet_registry_associations_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$describe_ipam_internet_registry_associations <- ec2_describe_ipam_internet_registry_associations
 
 #' Describes one or more IPAM policies
 #'
@@ -13741,7 +14920,8 @@ ec2_describe_ipam_policies <- function(DryRun = NULL, Filters = NULL, MaxResults
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_policies_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IpamPolicyIds = IpamPolicyIds)
   output <- .ec2$describe_ipam_policies_output()
@@ -13776,7 +14956,8 @@ ec2_describe_ipam_pool_allocations <- function(DryRun = NULL, IpamPoolAllocation
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamPoolAllocations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_pool_allocations_input(DryRun = DryRun, IpamPoolAllocationIds = IpamPoolAllocationIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_ipam_pool_allocations_output()
@@ -13811,7 +14992,8 @@ ec2_describe_ipam_pools <- function(DryRun = NULL, Filters = NULL, MaxResults = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamPools"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_pools_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IpamPoolIds = IpamPoolIds)
   output <- .ec2$describe_ipam_pools_output()
@@ -13847,7 +15029,8 @@ ec2_describe_ipam_prefix_list_resolver_targets <- function(DryRun = NULL, Filter
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamPrefixListResolverTargets"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_prefix_list_resolver_targets_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IpamPrefixListResolverTargetIds = IpamPrefixListResolverTargetIds, IpamPrefixListResolverId = IpamPrefixListResolverId)
   output <- .ec2$describe_ipam_prefix_list_resolver_targets_output()
@@ -13882,7 +15065,8 @@ ec2_describe_ipam_prefix_list_resolvers <- function(DryRun = NULL, Filters = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamPrefixListResolvers"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_prefix_list_resolvers_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IpamPrefixListResolverIds = IpamPrefixListResolverIds)
   output <- .ec2$describe_ipam_prefix_list_resolvers_output()
@@ -13917,7 +15101,8 @@ ec2_describe_ipam_resource_discoveries <- function(DryRun = NULL, IpamResourceDi
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamResourceDiscoveries"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_resource_discoveries_input(DryRun = DryRun, IpamResourceDiscoveryIds = IpamResourceDiscoveryIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters)
   output <- .ec2$describe_ipam_resource_discoveries_output()
@@ -13952,7 +15137,8 @@ ec2_describe_ipam_resource_discovery_associations <- function(DryRun = NULL, Ipa
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamResourceDiscoveryAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_resource_discovery_associations_input(DryRun = DryRun, IpamResourceDiscoveryAssociationIds = IpamResourceDiscoveryAssociationIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters)
   output <- .ec2$describe_ipam_resource_discovery_associations_output()
@@ -13987,7 +15173,8 @@ ec2_describe_ipam_scopes <- function(DryRun = NULL, Filters = NULL, MaxResults =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamScopes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipam_scopes_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IpamScopeIds = IpamScopeIds)
   output <- .ec2$describe_ipam_scopes_output()
@@ -14022,7 +15209,8 @@ ec2_describe_ipams <- function(DryRun = NULL, Filters = NULL, MaxResults = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Ipams"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipams_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IpamIds = IpamIds)
   output <- .ec2$describe_ipams_output()
@@ -14061,7 +15249,8 @@ ec2_describe_ipv_6_pools <- function(PoolIds = NULL, NextToken = NULL, MaxResult
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Ipv6Pools"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_ipv_6_pools_input(PoolIds = PoolIds, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_ipv_6_pools_output()
@@ -14110,7 +15299,8 @@ ec2_describe_key_pairs <- function(KeyNames = NULL, KeyPairIds = NULL, IncludePu
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_key_pairs_input(KeyNames = KeyNames, KeyPairIds = KeyPairIds, IncludePublicKey = IncludePublicKey, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_key_pairs_output()
@@ -14197,7 +15387,8 @@ ec2_describe_launch_template_versions <- function(DryRun = NULL, LaunchTemplateI
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LaunchTemplateVersions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_launch_template_versions_input(DryRun = DryRun, LaunchTemplateId = LaunchTemplateId, LaunchTemplateName = LaunchTemplateName, Versions = Versions, MinVersion = MinVersion, MaxVersion = MaxVersion, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, ResolveAlias = ResolveAlias, IncludeManagedResources = IncludeManagedResources)
   output <- .ec2$describe_launch_template_versions_output()
@@ -14242,7 +15433,8 @@ ec2_describe_launch_templates <- function(DryRun = NULL, LaunchTemplateIds = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LaunchTemplates"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_launch_templates_input(DryRun = DryRun, LaunchTemplateIds = LaunchTemplateIds, LaunchTemplateNames = LaunchTemplateNames, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults, IncludeManagedResources = IncludeManagedResources)
   output <- .ec2$describe_launch_templates_output()
@@ -14292,7 +15484,8 @@ ec2_describe_local_gateway_route_table_virtual_interface_group_associations <- f
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LocalGatewayRouteTableVirtualInterfaceGroupAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_local_gateway_route_table_virtual_interface_group_associations_input(LocalGatewayRouteTableVirtualInterfaceGroupAssociationIds = LocalGatewayRouteTableVirtualInterfaceGroupAssociationIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_local_gateway_route_table_virtual_interface_group_associations_output()
@@ -14342,7 +15535,8 @@ ec2_describe_local_gateway_route_table_vpc_associations <- function(LocalGateway
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LocalGatewayRouteTableVpcAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_local_gateway_route_table_vpc_associations_input(LocalGatewayRouteTableVpcAssociationIds = LocalGatewayRouteTableVpcAssociationIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_local_gateway_route_table_vpc_associations_output()
@@ -14389,7 +15583,8 @@ ec2_describe_local_gateway_route_tables <- function(LocalGatewayRouteTableIds = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LocalGatewayRouteTables"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_local_gateway_route_tables_input(LocalGatewayRouteTableIds = LocalGatewayRouteTableIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_local_gateway_route_tables_output()
@@ -14432,7 +15627,8 @@ ec2_describe_local_gateway_virtual_interface_groups <- function(LocalGatewayVirt
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LocalGatewayVirtualInterfaceGroups"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_local_gateway_virtual_interface_groups_input(LocalGatewayVirtualInterfaceGroupIds = LocalGatewayVirtualInterfaceGroupIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_local_gateway_virtual_interface_groups_output()
@@ -14483,7 +15679,8 @@ ec2_describe_local_gateway_virtual_interfaces <- function(LocalGatewayVirtualInt
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LocalGatewayVirtualInterfaces"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_local_gateway_virtual_interfaces_input(LocalGatewayVirtualInterfaceIds = LocalGatewayVirtualInterfaceIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_local_gateway_virtual_interfaces_output()
@@ -14526,7 +15723,8 @@ ec2_describe_local_gateways <- function(LocalGatewayIds = NULL, Filters = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LocalGateways"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_local_gateways_input(LocalGatewayIds = LocalGatewayIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_local_gateways_output()
@@ -14563,7 +15761,8 @@ ec2_describe_locked_snapshots <- function(Filters = NULL, MaxResults = NULL, Nex
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_locked_snapshots_input(Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, SnapshotIds = SnapshotIds, DryRun = DryRun)
   output <- .ec2$describe_locked_snapshots_output()
@@ -14602,7 +15801,8 @@ ec2_describe_mac_hosts <- function(Filters = NULL, HostIds = NULL, MaxResults = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "MacHosts"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_mac_hosts_input(Filters = Filters, HostIds = HostIds, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_mac_hosts_output()
@@ -14648,7 +15848,8 @@ ec2_describe_mac_modification_tasks <- function(DryRun = NULL, Filters = NULL, M
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "MacModificationTasks"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_mac_modification_tasks_input(DryRun = DryRun, Filters = Filters, MacModificationTaskIds = MacModificationTaskIds, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_mac_modification_tasks_output()
@@ -14690,7 +15891,8 @@ ec2_describe_managed_prefix_lists <- function(DryRun = NULL, Filters = NULL, Max
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "PrefixLists"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_managed_prefix_lists_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, PrefixListIds = PrefixListIds)
   output <- .ec2$describe_managed_prefix_lists_output()
@@ -14729,7 +15931,8 @@ ec2_describe_moving_addresses <- function(DryRun = NULL, PublicIps = NULL, NextT
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "MovingAddressStatuses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_moving_addresses_input(DryRun = DryRun, PublicIps = PublicIps, NextToken = NextToken, Filters = Filters, MaxResults = MaxResults)
   output <- .ec2$describe_moving_addresses_output()
@@ -14776,7 +15979,8 @@ ec2_describe_nat_gateways <- function(DryRun = NULL, Filter = NULL, MaxResults =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "NatGateways"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_nat_gateways_input(DryRun = DryRun, Filter = Filter, MaxResults = MaxResults, NatGatewayIds = NatGatewayIds, NextToken = NextToken)
   output <- .ec2$describe_nat_gateways_output()
@@ -14849,7 +16053,8 @@ ec2_describe_network_acls <- function(NextToken = NULL, MaxResults = NULL, DryRu
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "NetworkAcls"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_network_acls_input(NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, NetworkAclIds = NetworkAclIds, Filters = Filters)
   output <- .ec2$describe_network_acls_output()
@@ -14887,7 +16092,8 @@ ec2_describe_network_insights_access_scope_analyses <- function(NetworkInsightsA
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "NetworkInsightsAccessScopeAnalyses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_network_insights_access_scope_analyses_input(NetworkInsightsAccessScopeAnalysisIds = NetworkInsightsAccessScopeAnalysisIds, NetworkInsightsAccessScopeId = NetworkInsightsAccessScopeId, AnalysisStartTimeBegin = AnalysisStartTimeBegin, AnalysisStartTimeEnd = AnalysisStartTimeEnd, Filters = Filters, MaxResults = MaxResults, DryRun = DryRun, NextToken = NextToken)
   output <- .ec2$describe_network_insights_access_scope_analyses_output()
@@ -14922,7 +16128,8 @@ ec2_describe_network_insights_access_scopes <- function(NetworkInsightsAccessSco
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "NetworkInsightsAccessScopes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_network_insights_access_scopes_input(NetworkInsightsAccessScopeIds = NetworkInsightsAccessScopeIds, Filters = Filters, MaxResults = MaxResults, DryRun = DryRun, NextToken = NextToken)
   output <- .ec2$describe_network_insights_access_scopes_output()
@@ -14964,7 +16171,8 @@ ec2_describe_network_insights_analyses <- function(NetworkInsightsAnalysisIds = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "NetworkInsightsAnalyses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_network_insights_analyses_input(NetworkInsightsAnalysisIds = NetworkInsightsAnalysisIds, NetworkInsightsPathId = NetworkInsightsPathId, AnalysisStartTime = AnalysisStartTime, AnalysisEndTime = AnalysisEndTime, Filters = Filters, MaxResults = MaxResults, DryRun = DryRun, NextToken = NextToken)
   output <- .ec2$describe_network_insights_analyses_output()
@@ -15021,7 +16229,8 @@ ec2_describe_network_insights_paths <- function(NetworkInsightsPathIds = NULL, F
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "NetworkInsightsPaths"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_network_insights_paths_input(NetworkInsightsPathIds = NetworkInsightsPathIds, Filters = Filters, MaxResults = MaxResults, DryRun = DryRun, NextToken = NextToken)
   output <- .ec2$describe_network_insights_paths_output()
@@ -15054,7 +16263,8 @@ ec2_describe_network_interface_attribute <- function(DryRun = NULL, NetworkInter
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_network_interface_attribute_input(DryRun = DryRun, NetworkInterfaceId = NetworkInterfaceId, Attribute = Attribute)
   output <- .ec2$describe_network_interface_attribute_output()
@@ -15098,7 +16308,8 @@ ec2_describe_network_interface_permissions <- function(NetworkInterfacePermissio
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "NetworkInterfacePermissions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_network_interface_permissions_input(NetworkInterfacePermissionIds = NetworkInterfacePermissionIds, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_network_interface_permissions_output()
@@ -15211,7 +16422,8 @@ ec2_describe_network_interfaces <- function(NextToken = NULL, MaxResults = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "NetworkInterfaces"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_network_interfaces_input(NextToken = NextToken, MaxResults = MaxResults, IncludeManagedResources = IncludeManagedResources, DryRun = DryRun, NetworkInterfaceIds = NetworkInterfaceIds, Filters = Filters)
   output <- .ec2$describe_network_interfaces_output()
@@ -15268,7 +16480,8 @@ ec2_describe_outpost_lags <- function(OutpostLagIds = NULL, Filters = NULL, MaxR
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_outpost_lags_input(OutpostLagIds = OutpostLagIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_outpost_lags_output()
@@ -15306,7 +16519,7 @@ ec2_describe_outpost_lags <- function(OutpostLagIds = NULL, Filters = NULL, MaxR
 #' 
 #' -   `state` - The state of the placement group (`pending` | `available` | `deleting` | `deleted`).
 #' 
-#' -   `strategy` - The strategy of the placement group (`cluster` | `spread` | `partition`).
+#' -   `strategy` - The strategy of the placement group (`cluster` | `spread` | `partition` | `precision-time`).
 #' 
 #' -   `tag:<key>` - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key `Owner` and the value `TeamA`, specify `tag:Owner` for the filter name and `TeamA` for the filter value.
 #' 
@@ -15322,7 +16535,8 @@ ec2_describe_placement_groups <- function(GroupIds = NULL, DryRun = NULL, GroupN
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_placement_groups_input(GroupIds = GroupIds, DryRun = DryRun, GroupNames = GroupNames, Filters = Filters)
   output <- .ec2$describe_placement_groups_output()
@@ -15363,7 +16577,8 @@ ec2_describe_prefix_lists <- function(DryRun = NULL, Filters = NULL, MaxResults 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "PrefixLists"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_prefix_lists_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, PrefixListIds = PrefixListIds)
   output <- .ec2$describe_prefix_lists_output()
@@ -15399,7 +16614,8 @@ ec2_describe_principal_id_format <- function(DryRun = NULL, Resources = NULL, Ma
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Principals"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_principal_id_format_input(DryRun = DryRun, Resources = Resources, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_principal_id_format_output()
@@ -15437,7 +16653,8 @@ ec2_describe_public_ipv_4_pools <- function(PoolIds = NULL, NextToken = NULL, Ma
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "PublicIpv4Pools"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_public_ipv_4_pools_input(PoolIds = PoolIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters)
   output <- .ec2$describe_public_ipv_4_pools_output()
@@ -15477,7 +16694,8 @@ ec2_describe_regions <- function(RegionNames = NULL, AllRegions = NULL, DryRun =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_regions_input(RegionNames = RegionNames, AllRegions = AllRegions, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_regions_output()
@@ -15514,7 +16732,8 @@ ec2_describe_replace_root_volume_tasks <- function(ReplaceRootVolumeTaskIds = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ReplaceRootVolumeTasks"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_replace_root_volume_tasks_input(ReplaceRootVolumeTaskIds = ReplaceRootVolumeTaskIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_replace_root_volume_tasks_output()
@@ -15579,7 +16798,8 @@ ec2_describe_reserved_instances <- function(OfferingClass = NULL, ReservedInstan
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_reserved_instances_input(OfferingClass = OfferingClass, ReservedInstancesIds = ReservedInstancesIds, DryRun = DryRun, Filters = Filters, OfferingType = OfferingType)
   output <- .ec2$describe_reserved_instances_output()
@@ -15621,7 +16841,8 @@ ec2_describe_reserved_instances_listings <- function(ReservedInstancesId = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_reserved_instances_listings_input(ReservedInstancesId = ReservedInstancesId, ReservedInstancesListingId = ReservedInstancesListingId, Filters = Filters)
   output <- .ec2$describe_reserved_instances_listings_output()
@@ -15680,7 +16901,8 @@ ec2_describe_reserved_instances_modifications <- function(ReservedInstancesModif
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", result_key = "ReservedInstancesModifications"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_reserved_instances_modifications_input(ReservedInstancesModificationIds = ReservedInstancesModificationIds, NextToken = NextToken, Filters = Filters)
   output <- .ec2$describe_reserved_instances_modifications_output()
@@ -15762,7 +16984,8 @@ ec2_describe_reserved_instances_offerings <- function(AvailabilityZone = NULL, I
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "ReservedInstancesOfferings"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_reserved_instances_offerings_input(AvailabilityZone = AvailabilityZone, IncludeMarketplace = IncludeMarketplace, InstanceType = InstanceType, MaxDuration = MaxDuration, MaxInstanceCount = MaxInstanceCount, MinDuration = MinDuration, OfferingClass = OfferingClass, ProductDescription = ProductDescription, ReservedInstancesOfferingIds = ReservedInstancesOfferingIds, AvailabilityZoneId = AvailabilityZoneId, DryRun = DryRun, Filters = Filters, InstanceTenancy = InstanceTenancy, OfferingType = OfferingType, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_reserved_instances_offerings_output()
@@ -15797,7 +17020,8 @@ ec2_describe_route_server_endpoints <- function(RouteServerEndpointIds = NULL, N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "RouteServerEndpoints"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_route_server_endpoints_input(RouteServerEndpointIds = RouteServerEndpointIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_route_server_endpoints_output()
@@ -15832,7 +17056,8 @@ ec2_describe_route_server_peers <- function(RouteServerPeerIds = NULL, NextToken
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "RouteServerPeers"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_route_server_peers_input(RouteServerPeerIds = RouteServerPeerIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_route_server_peers_output()
@@ -15867,7 +17092,8 @@ ec2_describe_route_servers <- function(RouteServerIds = NULL, NextToken = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "RouteServers"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_route_servers_input(RouteServerIds = RouteServerIds, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_route_servers_output()
@@ -15944,7 +17170,8 @@ ec2_describe_route_tables <- function(NextToken = NULL, MaxResults = NULL, DryRu
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "RouteTables"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_route_tables_input(NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, RouteTableIds = RouteTableIds, Filters = Filters)
   output <- .ec2$describe_route_tables_output()
@@ -15988,7 +17215,8 @@ ec2_describe_scheduled_instance_availability <- function(DryRun = NULL, Filters 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ScheduledInstanceAvailabilitySet"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_scheduled_instance_availability_input(DryRun = DryRun, Filters = Filters, FirstSlotStartTimeRange = FirstSlotStartTimeRange, MaxResults = MaxResults, MaxSlotDurationInHours = MaxSlotDurationInHours, MinSlotDurationInHours = MinSlotDurationInHours, NextToken = NextToken, Recurrence = Recurrence)
   output <- .ec2$describe_scheduled_instance_availability_output()
@@ -16031,7 +17259,8 @@ ec2_describe_scheduled_instances <- function(DryRun = NULL, Filters = NULL, MaxR
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ScheduledInstanceSet"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_scheduled_instances_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, ScheduledInstanceIds = ScheduledInstanceIds, SlotStartTimeRange = SlotStartTimeRange)
   output <- .ec2$describe_scheduled_instances_output()
@@ -16096,7 +17325,8 @@ ec2_describe_secondary_interfaces <- function(DryRun = NULL, Filters = NULL, Max
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SecondaryInterfaces"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_secondary_interfaces_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, SecondaryInterfaceIds = SecondaryInterfaceIds)
   output <- .ec2$describe_secondary_interfaces_output()
@@ -16151,7 +17381,8 @@ ec2_describe_secondary_networks <- function(DryRun = NULL, Filters = NULL, MaxRe
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SecondaryNetworks"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_secondary_networks_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, SecondaryNetworkIds = SecondaryNetworkIds)
   output <- .ec2$describe_secondary_networks_output()
@@ -16208,7 +17439,8 @@ ec2_describe_secondary_subnets <- function(DryRun = NULL, Filters = NULL, MaxRes
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SecondarySubnets"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_secondary_subnets_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, SecondarySubnetIds = SecondarySubnetIds)
   output <- .ec2$describe_secondary_subnets_output()
@@ -16242,7 +17474,8 @@ ec2_describe_security_group_references <- function(DryRun = NULL, GroupId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_security_group_references_input(DryRun = DryRun, GroupId = GroupId)
   output <- .ec2$describe_security_group_references_output()
@@ -16283,7 +17516,8 @@ ec2_describe_security_group_rules <- function(Filters = NULL, SecurityGroupRuleI
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SecurityGroupRules"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_security_group_rules_input(Filters = Filters, SecurityGroupRuleIds = SecurityGroupRuleIds, DryRun = DryRun, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_security_group_rules_output()
@@ -16328,7 +17562,8 @@ ec2_describe_security_group_vpc_associations <- function(Filters = NULL, NextTok
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SecurityGroupVpcAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_security_group_vpc_associations_input(Filters = Filters, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$describe_security_group_vpc_associations_output()
@@ -16418,7 +17653,8 @@ ec2_describe_security_groups <- function(GroupIds = NULL, GroupNames = NULL, Nex
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "SecurityGroups"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_security_groups_input(GroupIds = GroupIds, GroupNames = GroupNames, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_security_groups_output()
@@ -16467,7 +17703,8 @@ ec2_describe_service_link_virtual_interfaces <- function(ServiceLinkVirtualInter
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_service_link_virtual_interfaces_input(ServiceLinkVirtualInterfaceIds = ServiceLinkVirtualInterfaceIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_service_link_virtual_interfaces_output()
@@ -16500,7 +17737,8 @@ ec2_describe_snapshot_attribute <- function(Attribute, SnapshotId, DryRun = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_snapshot_attribute_input(Attribute = Attribute, SnapshotId = SnapshotId, DryRun = DryRun)
   output <- .ec2$describe_snapshot_attribute_output()
@@ -16540,7 +17778,8 @@ ec2_describe_snapshot_tier_status <- function(Filters = NULL, DryRun = NULL, Nex
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SnapshotTierStatuses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_snapshot_tier_status_input(Filters = Filters, DryRun = DryRun, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_snapshot_tier_status_output()
@@ -16608,7 +17847,8 @@ ec2_describe_snapshots <- function(MaxResults = NULL, NextToken = NULL, OwnerIds
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "Snapshots"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_snapshots_input(MaxResults = MaxResults, NextToken = NextToken, OwnerIds = OwnerIds, RestorableByUserIds = RestorableByUserIds, SnapshotIds = SnapshotIds, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_snapshots_output()
@@ -16639,7 +17879,8 @@ ec2_describe_spot_datafeed_subscription <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_spot_datafeed_subscription_input(DryRun = DryRun)
   output <- .ec2$describe_spot_datafeed_subscription_output()
@@ -16673,7 +17914,8 @@ ec2_describe_spot_fleet_instances <- function(DryRun = NULL, SpotFleetRequestId,
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "ActiveInstances"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_spot_fleet_instances_input(DryRun = DryRun, SpotFleetRequestId = SpotFleetRequestId, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_spot_fleet_instances_output()
@@ -16710,7 +17952,8 @@ ec2_describe_spot_fleet_request_history <- function(DryRun = NULL, SpotFleetRequ
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_spot_fleet_request_history_input(DryRun = DryRun, SpotFleetRequestId = SpotFleetRequestId, EventType = EventType, StartTime = StartTime, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_spot_fleet_request_history_output()
@@ -16744,7 +17987,8 @@ ec2_describe_spot_fleet_requests <- function(DryRun = NULL, SpotFleetRequestIds 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "SpotFleetRequestConfigs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_spot_fleet_requests_input(DryRun = DryRun, SpotFleetRequestIds = SpotFleetRequestIds, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_spot_fleet_requests_output()
@@ -16859,7 +18103,8 @@ ec2_describe_spot_instance_requests <- function(NextToken = NULL, MaxResults = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SpotInstanceRequests"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_spot_instance_requests_input(NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, SpotInstanceRequestIds = SpotInstanceRequestIds, Filters = Filters)
   output <- .ec2$describe_spot_instance_requests_output()
@@ -16915,7 +18160,8 @@ ec2_describe_spot_price_history <- function(AvailabilityZoneId = NULL, DryRun = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "SpotPriceHistory"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_spot_price_history_input(AvailabilityZoneId = AvailabilityZoneId, DryRun = DryRun, StartTime = StartTime, EndTime = EndTime, InstanceTypes = InstanceTypes, ProductDescriptions = ProductDescriptions, Filters = Filters, AvailabilityZone = AvailabilityZone, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_spot_price_history_output()
@@ -16951,7 +18197,8 @@ ec2_describe_stale_security_groups <- function(DryRun = NULL, MaxResults = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "StaleSecurityGroupSet"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_stale_security_groups_input(DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken, VpcId = VpcId)
   output <- .ec2$describe_stale_security_groups_output()
@@ -16994,7 +18241,8 @@ ec2_describe_store_image_tasks <- function(ImageIds = NULL, DryRun = NULL, Filte
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "StoreImageTaskResults"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_store_image_tasks_input(ImageIds = ImageIds, DryRun = DryRun, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_store_image_tasks_output()
@@ -17081,7 +18329,8 @@ ec2_describe_subnets <- function(Filters = NULL, SubnetIds = NULL, NextToken = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Subnets"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_subnets_input(Filters = Filters, SubnetIds = SubnetIds, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$describe_subnets_output()
@@ -17125,7 +18374,8 @@ ec2_describe_tags <- function(DryRun = NULL, Filters = NULL, MaxResults = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "Tags"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_tags_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_tags_output()
@@ -17180,7 +18430,8 @@ ec2_describe_traffic_mirror_filter_rules <- function(TrafficMirrorFilterRuleIds 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_traffic_mirror_filter_rules_input(TrafficMirrorFilterRuleIds = TrafficMirrorFilterRuleIds, TrafficMirrorFilterId = TrafficMirrorFilterId, DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_traffic_mirror_filter_rules_output()
@@ -17219,7 +18470,8 @@ ec2_describe_traffic_mirror_filters <- function(TrafficMirrorFilterIds = NULL, D
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TrafficMirrorFilters"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_traffic_mirror_filters_input(TrafficMirrorFilterIds = TrafficMirrorFilterIds, DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_traffic_mirror_filters_output()
@@ -17272,7 +18524,8 @@ ec2_describe_traffic_mirror_sessions <- function(TrafficMirrorSessionIds = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TrafficMirrorSessions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_traffic_mirror_sessions_input(TrafficMirrorSessionIds = TrafficMirrorSessionIds, DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_traffic_mirror_sessions_output()
@@ -17317,7 +18570,8 @@ ec2_describe_traffic_mirror_targets <- function(TrafficMirrorTargetIds = NULL, D
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TrafficMirrorTargets"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_traffic_mirror_targets_input(TrafficMirrorTargetIds = TrafficMirrorTargetIds, DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_traffic_mirror_targets_output()
@@ -17370,7 +18624,8 @@ ec2_describe_transit_gateway_attachments <- function(TransitGatewayAttachmentIds
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayAttachments"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_attachments_input(TransitGatewayAttachmentIds = TransitGatewayAttachmentIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_attachments_output()
@@ -17411,7 +18666,8 @@ ec2_describe_transit_gateway_connect_peers <- function(TransitGatewayConnectPeer
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayConnectPeers"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_connect_peers_input(TransitGatewayConnectPeerIds = TransitGatewayConnectPeerIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_connect_peers_output()
@@ -17456,7 +18712,8 @@ ec2_describe_transit_gateway_connects <- function(TransitGatewayAttachmentIds = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayConnects"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_connects_input(TransitGatewayAttachmentIds = TransitGatewayAttachmentIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_connects_output()
@@ -17491,7 +18748,8 @@ ec2_describe_transit_gateway_metering_policies <- function(TransitGatewayMeterin
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_metering_policies_input(TransitGatewayMeteringPolicyIds = TransitGatewayMeteringPolicyIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_metering_policies_output()
@@ -17532,7 +18790,8 @@ ec2_describe_transit_gateway_multicast_domains <- function(TransitGatewayMultica
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayMulticastDomains"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_multicast_domains_input(TransitGatewayMulticastDomainIds = TransitGatewayMulticastDomainIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_multicast_domains_output()
@@ -17581,7 +18840,8 @@ ec2_describe_transit_gateway_peering_attachments <- function(TransitGatewayAttac
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayPeeringAttachments"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_peering_attachments_input(TransitGatewayAttachmentIds = TransitGatewayAttachmentIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_peering_attachments_output()
@@ -17616,7 +18876,8 @@ ec2_describe_transit_gateway_policy_tables <- function(TransitGatewayPolicyTable
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayPolicyTables"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_policy_tables_input(TransitGatewayPolicyTableIds = TransitGatewayPolicyTableIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_policy_tables_output()
@@ -17651,7 +18912,8 @@ ec2_describe_transit_gateway_route_table_announcements <- function(TransitGatewa
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayRouteTableAnnouncements"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_route_table_announcements_input(TransitGatewayRouteTableAnnouncementIds = TransitGatewayRouteTableAnnouncementIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_route_table_announcements_output()
@@ -17696,7 +18958,8 @@ ec2_describe_transit_gateway_route_tables <- function(TransitGatewayRouteTableId
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayRouteTables"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_route_tables_input(TransitGatewayRouteTableIds = TransitGatewayRouteTableIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_route_tables_output()
@@ -17739,7 +19002,8 @@ ec2_describe_transit_gateway_vpc_attachments <- function(TransitGatewayAttachmen
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayVpcAttachments"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateway_vpc_attachments_input(TransitGatewayAttachmentIds = TransitGatewayAttachmentIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateway_vpc_attachments_output()
@@ -17798,7 +19062,8 @@ ec2_describe_transit_gateways <- function(TransitGatewayIds = NULL, Filters = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGateways"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_transit_gateways_input(TransitGatewayIds = TransitGatewayIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_transit_gateways_output()
@@ -17837,7 +19102,8 @@ ec2_describe_trunk_interface_associations <- function(AssociationIds = NULL, Dry
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InterfaceAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_trunk_interface_associations_input(AssociationIds = AssociationIds, DryRun = DryRun, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_trunk_interface_associations_output()
@@ -17874,7 +19140,8 @@ ec2_describe_verified_access_endpoints <- function(VerifiedAccessEndpointIds = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "VerifiedAccessEndpoints"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_verified_access_endpoints_input(VerifiedAccessEndpointIds = VerifiedAccessEndpointIds, VerifiedAccessInstanceId = VerifiedAccessInstanceId, VerifiedAccessGroupId = VerifiedAccessGroupId, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_verified_access_endpoints_output()
@@ -17910,7 +19177,8 @@ ec2_describe_verified_access_groups <- function(VerifiedAccessGroupIds = NULL, V
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "VerifiedAccessGroups"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_verified_access_groups_input(VerifiedAccessGroupIds = VerifiedAccessGroupIds, VerifiedAccessInstanceId = VerifiedAccessInstanceId, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_verified_access_groups_output()
@@ -17945,7 +19213,8 @@ ec2_describe_verified_access_instance_logging_configurations <- function(Verifie
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "LoggingConfigurations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_verified_access_instance_logging_configurations_input(VerifiedAccessInstanceIds = VerifiedAccessInstanceIds, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_verified_access_instance_logging_configurations_output()
@@ -17980,7 +19249,8 @@ ec2_describe_verified_access_instances <- function(VerifiedAccessInstanceIds = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "VerifiedAccessInstances"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_verified_access_instances_input(VerifiedAccessInstanceIds = VerifiedAccessInstanceIds, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_verified_access_instances_output()
@@ -18016,7 +19286,8 @@ ec2_describe_verified_access_trust_providers <- function(VerifiedAccessTrustProv
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "VerifiedAccessTrustProviders"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_verified_access_trust_providers_input(VerifiedAccessTrustProviderIds = VerifiedAccessTrustProviderIds, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters, DryRun = DryRun)
   output <- .ec2$describe_verified_access_trust_providers_output()
@@ -18049,7 +19320,8 @@ ec2_describe_volume_attribute <- function(Attribute, VolumeId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_volume_attribute_input(Attribute = Attribute, VolumeId = VolumeId, DryRun = DryRun)
   output <- .ec2$describe_volume_attribute_output()
@@ -18111,7 +19383,8 @@ ec2_describe_volume_status <- function(MaxResults = NULL, NextToken = NULL, Volu
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "VolumeStatuses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_volume_status_input(MaxResults = MaxResults, NextToken = NextToken, VolumeIds = VolumeIds, IncludeManagedResources = IncludeManagedResources, DryRun = DryRun, Filters = Filters)
   output <- .ec2$describe_volume_status_output()
@@ -18187,7 +19460,8 @@ ec2_describe_volumes <- function(VolumeIds = NULL, IncludeManagedResources = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "Volumes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_volumes_input(VolumeIds = VolumeIds, IncludeManagedResources = IncludeManagedResources, DryRun = DryRun, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_volumes_output()
@@ -18234,20 +19508,22 @@ ec2_describe_volumes <- function(VolumeIds = NULL, IncludeManagedResources = NUL
 #' -   `volume-id` - The ID of the volume.
 #' @param NextToken The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.
 #' @param MaxResults The maximum number of results (up to a limit of 500) to be returned in a paginated request. For more information, see [Pagination](https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination).
+#' @param IncludeManagedResources Indicates whether to include managed resources in the output. If this parameter is set to `true`, the output includes resources that are managed by Amazon Web Services services, even if managed resource visibility is set to hidden.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_describe_volumes_modifications
-ec2_describe_volumes_modifications <- function(DryRun = NULL, VolumeIds = NULL, Filters = NULL, NextToken = NULL, MaxResults = NULL) {
+ec2_describe_volumes_modifications <- function(DryRun = NULL, VolumeIds = NULL, Filters = NULL, NextToken = NULL, MaxResults = NULL, IncludeManagedResources = NULL) {
   op <- new_operation(
     name = "DescribeVolumesModifications",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "VolumesModifications"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$describe_volumes_modifications_input(DryRun = DryRun, VolumeIds = VolumeIds, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
+  input <- .ec2$describe_volumes_modifications_input(DryRun = DryRun, VolumeIds = VolumeIds, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults, IncludeManagedResources = IncludeManagedResources)
   output <- .ec2$describe_volumes_modifications_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -18278,7 +19554,8 @@ ec2_describe_vpc_attribute <- function(Attribute, VpcId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_attribute_input(Attribute = Attribute, VpcId = VpcId, DryRun = DryRun)
   output <- .ec2$describe_vpc_attribute_output()
@@ -18325,7 +19602,8 @@ ec2_describe_vpc_block_public_access_exclusions <- function(DryRun = NULL, Filte
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_block_public_access_exclusions_input(DryRun = DryRun, Filters = Filters, ExclusionIds = ExclusionIds, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_vpc_block_public_access_exclusions_output()
@@ -18356,7 +19634,8 @@ ec2_describe_vpc_block_public_access_options <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_block_public_access_options_input(DryRun = DryRun)
   output <- .ec2$describe_vpc_block_public_access_options_output()
@@ -18395,7 +19674,8 @@ ec2_describe_vpc_classic_link <- function(DryRun = NULL, VpcIds = NULL, Filters 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_classic_link_input(DryRun = DryRun, VpcIds = VpcIds, Filters = Filters)
   output <- .ec2$describe_vpc_classic_link_output()
@@ -18428,7 +19708,8 @@ ec2_describe_vpc_classic_link_dns_support <- function(VpcIds = NULL, MaxResults 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Vpcs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_classic_link_dns_support_input(VpcIds = VpcIds, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_vpc_classic_link_dns_support_output()
@@ -18464,7 +19745,8 @@ ec2_describe_vpc_encryption_controls <- function(DryRun = NULL, Filters = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_encryption_controls_input(DryRun = DryRun, Filters = Filters, VpcEncryptionControlIds = VpcEncryptionControlIds, VpcIds = VpcIds, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$describe_vpc_encryption_controls_output()
@@ -18512,7 +19794,8 @@ ec2_describe_vpc_endpoint_associations <- function(DryRun = NULL, VpcEndpointIds
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_endpoint_associations_input(DryRun = DryRun, VpcEndpointIds = VpcEndpointIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_vpc_endpoint_associations_output()
@@ -18560,7 +19843,8 @@ ec2_describe_vpc_endpoint_connection_notifications <- function(DryRun = NULL, Co
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ConnectionNotificationSet"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_endpoint_connection_notifications_input(DryRun = DryRun, ConnectionNotificationId = ConnectionNotificationId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_vpc_endpoint_connection_notifications_output()
@@ -18607,7 +19891,8 @@ ec2_describe_vpc_endpoint_connections <- function(DryRun = NULL, Filters = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "VpcEndpointConnections"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_endpoint_connections_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_vpc_endpoint_connections_output()
@@ -18655,7 +19940,8 @@ ec2_describe_vpc_endpoint_service_configurations <- function(DryRun = NULL, Serv
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "ServiceConfigurations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_endpoint_service_configurations_input(DryRun = DryRun, ServiceIds = ServiceIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_vpc_endpoint_service_configurations_output()
@@ -18695,7 +19981,8 @@ ec2_describe_vpc_endpoint_service_permissions <- function(DryRun = NULL, Service
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "AllowedPrincipals"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_endpoint_service_permissions_input(DryRun = DryRun, ServiceId = ServiceId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_vpc_endpoint_service_permissions_output()
@@ -18747,7 +20034,8 @@ ec2_describe_vpc_endpoint_services <- function(DryRun = NULL, ServiceNames = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = list("ServiceDetails", "ServiceNames")),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_endpoint_services_input(DryRun = DryRun, ServiceNames = ServiceNames, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, ServiceRegions = ServiceRegions)
   output <- .ec2$describe_vpc_endpoint_services_output()
@@ -18786,7 +20074,7 @@ ec2_describe_vpc_endpoint_services <- function(DryRun = NULL, ServiceNames = NUL
 #' 
 #' -   `vpc-endpoint-state` - The state of the endpoint (`pendingAcceptance` | `pending` | `available` | `deleting` | `deleted` | `rejected` | `failed`).
 #' 
-#' -   `vpc-endpoint-type` - The type of VPC endpoint (`Interface` | `Gateway` | `GatewayLoadBalancer` | `Resource` | `ServiceNetwork`).
+#' -   `vpc-endpoint-type` - The type of VPC endpoint (`Interface` | `Gateway` | `GatewayLoadBalancer` | `Resource` | `ServiceNetwork` | `Tunnel`).
 #' @param MaxResults The maximum number of items to return for this request. The request returns a token that you can specify in a subsequent call to get the next set of results.
 #' 
 #' Constraint: If the value is greater than 1,000, we return only 1,000 items.
@@ -18802,7 +20090,8 @@ ec2_describe_vpc_endpoints <- function(DryRun = NULL, VpcEndpointIds = NULL, Fil
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", output_token = "NextToken", limit_key = "MaxResults", result_key = "VpcEndpoints"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_endpoints_input(DryRun = DryRun, VpcEndpointIds = VpcEndpointIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$describe_vpc_endpoints_output()
@@ -18863,7 +20152,8 @@ ec2_describe_vpc_peering_connections <- function(NextToken = NULL, MaxResults = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "VpcPeeringConnections"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpc_peering_connections_input(NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, VpcPeeringConnectionIds = VpcPeeringConnectionIds, Filters = Filters)
   output <- .ec2$describe_vpc_peering_connections_output()
@@ -18928,7 +20218,8 @@ ec2_describe_vpcs <- function(Filters = NULL, VpcIds = NULL, NextToken = NULL, M
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Vpcs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpcs_input(Filters = Filters, VpcIds = VpcIds, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$describe_vpcs_output()
@@ -18963,7 +20254,8 @@ ec2_describe_vpn_concentrators <- function(VpnConcentratorIds = NULL, Filters = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "VpnConcentrators"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpn_concentrators_input(VpnConcentratorIds = VpnConcentratorIds, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$describe_vpn_concentrators_output()
@@ -19022,7 +20314,8 @@ ec2_describe_vpn_connections <- function(Filters = NULL, VpnConnectionIds = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpn_connections_input(Filters = Filters, VpnConnectionIds = VpnConnectionIds, DryRun = DryRun)
   output <- .ec2$describe_vpn_connections_output()
@@ -19075,7 +20368,8 @@ ec2_describe_vpn_gateways <- function(Filters = NULL, VpnGatewayIds = NULL, DryR
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$describe_vpn_gateways_input(Filters = Filters, VpnGatewayIds = VpnGatewayIds, DryRun = DryRun)
   output <- .ec2$describe_vpn_gateways_output()
@@ -19108,7 +20402,8 @@ ec2_detach_classic_link_vpc <- function(DryRun = NULL, InstanceId, VpcId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$detach_classic_link_vpc_input(DryRun = DryRun, InstanceId = InstanceId, VpcId = VpcId)
   output <- .ec2$detach_classic_link_vpc_output()
@@ -19119,6 +20414,40 @@ ec2_detach_classic_link_vpc <- function(DryRun = NULL, InstanceId, VpcId) {
   return(response)
 }
 .ec2$operations$detach_classic_link_vpc <- ec2_detach_classic_link_vpc
+
+#' Removes a watermark from the specified AMI
+#'
+#' @description
+#' Removes a watermark from the specified AMI. This is an idempotent operation. It succeeds even if the watermark does not exist on the image.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_detach_image_watermark/](https://www.paws-r-sdk.com/docs/ec2_detach_image_watermark/) for full documentation.
+#'
+#' @param ImageId &#91;required&#93; The ID of the AMI.
+#' @param WatermarkKey &#91;required&#93; The watermark key to remove, in `accountId:watermarkName` format (for example, `123456789012:approvedAmi`).
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_detach_image_watermark
+ec2_detach_image_watermark <- function(ImageId, WatermarkKey, DryRun = NULL) {
+  op <- new_operation(
+    name = "DetachImageWatermark",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$detach_image_watermark_input(ImageId = ImageId, WatermarkKey = WatermarkKey, DryRun = DryRun)
+  output <- .ec2$detach_image_watermark_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$detach_image_watermark <- ec2_detach_image_watermark
 
 #' Detaches an internet gateway from a VPC, disabling connectivity between
 #' the internet and the VPC
@@ -19142,7 +20471,8 @@ ec2_detach_internet_gateway <- function(DryRun = NULL, InternetGatewayId, VpcId)
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$detach_internet_gateway_input(DryRun = DryRun, InternetGatewayId = InternetGatewayId, VpcId = VpcId)
   output <- .ec2$detach_internet_gateway_output()
@@ -19181,7 +20511,8 @@ ec2_detach_network_interface <- function(DryRun = NULL, AttachmentId, Force = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$detach_network_interface_input(DryRun = DryRun, AttachmentId = AttachmentId, Force = Force)
   output <- .ec2$detach_network_interface_output()
@@ -19216,7 +20547,8 @@ ec2_detach_verified_access_trust_provider <- function(VerifiedAccessInstanceId, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$detach_verified_access_trust_provider_input(VerifiedAccessInstanceId = VerifiedAccessInstanceId, VerifiedAccessTrustProviderId = VerifiedAccessTrustProviderId, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$detach_verified_access_trust_provider_output()
@@ -19251,7 +20583,8 @@ ec2_detach_volume <- function(Device = NULL, Force = NULL, InstanceId = NULL, Vo
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$detach_volume_input(Device = Device, Force = Force, InstanceId = InstanceId, VolumeId = VolumeId, DryRun = DryRun)
   output <- .ec2$detach_volume_output()
@@ -19284,7 +20617,8 @@ ec2_detach_vpn_gateway <- function(VpcId, VpnGatewayId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$detach_vpn_gateway_input(VpcId = VpcId, VpnGatewayId = VpnGatewayId, DryRun = DryRun)
   output <- .ec2$detach_vpn_gateway_output()
@@ -19316,7 +20650,8 @@ ec2_disable_address_transfer <- function(AllocationId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_address_transfer_input(AllocationId = AllocationId, DryRun = DryRun)
   output <- .ec2$disable_address_transfer_output()
@@ -19348,7 +20683,8 @@ ec2_disable_allowed_images_settings <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_allowed_images_settings_input(DryRun = DryRun)
   output <- .ec2$disable_allowed_images_settings_output()
@@ -19359,6 +20695,41 @@ ec2_disable_allowed_images_settings <- function(DryRun = NULL) {
   return(response)
 }
 .ec2$operations$disable_allowed_images_settings <- ec2_disable_allowed_images_settings
+
+#' Disables suppression of application status checks for the specified
+#' instances
+#'
+#' @description
+#' Disables suppression of application status checks for the specified instances. After suppression is disabled, health check results resume affecting the instance-level application status. You can specify a maximum of 100 instance IDs for each request.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_disable_application_status_check_suppression/](https://www.paws-r-sdk.com/docs/ec2_disable_application_status_check_suppression/) for full documentation.
+#'
+#' @param InstanceIds The IDs of the instances for which to disable application status check suppression.
+#' @param ClientToken A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a request with the same token, the service ignores the request but does not return an error. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_disable_application_status_check_suppression
+ec2_disable_application_status_check_suppression <- function(InstanceIds = NULL, ClientToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "DisableApplicationStatusCheckSuppression",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$disable_application_status_check_suppression_input(InstanceIds = InstanceIds, ClientToken = ClientToken, DryRun = DryRun)
+  output <- .ec2$disable_application_status_check_suppression_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$disable_application_status_check_suppression <- ec2_disable_application_status_check_suppression
 
 #' Disables Infrastructure Performance metric subscriptions
 #'
@@ -19383,7 +20754,8 @@ ec2_disable_aws_network_performance_metric_subscription <- function(Source = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_aws_network_performance_metric_subscription_input(Source = Source, Destination = Destination, Metric = Metric, Statistic = Statistic, DryRun = DryRun)
   output <- .ec2$disable_aws_network_performance_metric_subscription_output()
@@ -19415,7 +20787,8 @@ ec2_disable_capacity_manager <- function(DryRun = NULL, ClientToken = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_capacity_manager_input(DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$disable_capacity_manager_output()
@@ -19447,7 +20820,8 @@ ec2_disable_ebs_encryption_by_default <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_ebs_encryption_by_default_input(DryRun = DryRun)
   output <- .ec2$disable_ebs_encryption_by_default_output()
@@ -19481,7 +20855,8 @@ ec2_disable_fast_launch <- function(ImageId, Force = NULL, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_fast_launch_input(ImageId = ImageId, Force = Force, DryRun = DryRun)
   output <- .ec2$disable_fast_launch_output()
@@ -19520,7 +20895,8 @@ ec2_disable_fast_snapshot_restores <- function(AvailabilityZones = NULL, Availab
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_fast_snapshot_restores_input(AvailabilityZones = AvailabilityZones, AvailabilityZoneIds = AvailabilityZoneIds, SourceSnapshotIds = SourceSnapshotIds, DryRun = DryRun)
   output <- .ec2$disable_fast_snapshot_restores_output()
@@ -19553,7 +20929,8 @@ ec2_disable_image <- function(ImageId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_image_input(ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$disable_image_output()
@@ -19585,7 +20962,8 @@ ec2_disable_image_block_public_access <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_image_block_public_access_input(DryRun = DryRun)
   output <- .ec2$disable_image_block_public_access_output()
@@ -19617,7 +20995,8 @@ ec2_disable_image_deprecation <- function(ImageId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_image_deprecation_input(ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$disable_image_deprecation_output()
@@ -19649,7 +21028,8 @@ ec2_disable_image_deregistration_protection <- function(ImageId, DryRun = NULL) 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_image_deregistration_protection_input(ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$disable_image_deregistration_protection_output()
@@ -19683,7 +21063,8 @@ ec2_disable_instance_sql_ha_standby_detections <- function(InstanceIds, DryRun =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_instance_sql_ha_standby_detections_input(InstanceIds = InstanceIds, DryRun = DryRun)
   output <- .ec2$disable_instance_sql_ha_standby_detections_output()
@@ -19715,7 +21096,8 @@ ec2_disable_ipam_organization_admin_account <- function(DryRun = NULL, Delegated
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_ipam_organization_admin_account_input(DryRun = DryRun, DelegatedAdminAccountId = DelegatedAdminAccountId)
   output <- .ec2$disable_ipam_organization_admin_account_output()
@@ -19750,7 +21132,8 @@ ec2_disable_ipam_policy <- function(DryRun = NULL, IpamPolicyId, OrganizationTar
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_ipam_policy_input(DryRun = DryRun, IpamPolicyId = IpamPolicyId, OrganizationTargetId = OrganizationTargetId)
   output <- .ec2$disable_ipam_policy_output()
@@ -19784,7 +21167,8 @@ ec2_disable_route_server_propagation <- function(RouteServerId, RouteTableId, Dr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_route_server_propagation_input(RouteServerId = RouteServerId, RouteTableId = RouteTableId, DryRun = DryRun)
   output <- .ec2$disable_route_server_propagation_output()
@@ -19816,7 +21200,8 @@ ec2_disable_serial_console_access <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_serial_console_access_input(DryRun = DryRun)
   output <- .ec2$disable_serial_console_access_output()
@@ -19848,7 +21233,8 @@ ec2_disable_snapshot_block_public_access <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_snapshot_block_public_access_input(DryRun = DryRun)
   output <- .ec2$disable_snapshot_block_public_access_output()
@@ -19883,7 +21269,8 @@ ec2_disable_transit_gateway_route_table_propagation <- function(TransitGatewayRo
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_transit_gateway_route_table_propagation_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun, TransitGatewayRouteTableAnnouncementId = TransitGatewayRouteTableAnnouncementId)
   output <- .ec2$disable_transit_gateway_route_table_propagation_output()
@@ -19917,7 +21304,8 @@ ec2_disable_vgw_route_propagation <- function(GatewayId, RouteTableId, DryRun = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_vgw_route_propagation_input(GatewayId = GatewayId, RouteTableId = RouteTableId, DryRun = DryRun)
   output <- .ec2$disable_vgw_route_propagation_output()
@@ -19949,7 +21337,8 @@ ec2_disable_vpc_classic_link <- function(DryRun = NULL, VpcId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_vpc_classic_link_input(DryRun = DryRun, VpcId = VpcId)
   output <- .ec2$disable_vpc_classic_link_output()
@@ -19980,7 +21369,8 @@ ec2_disable_vpc_classic_link_dns_support <- function(VpcId = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disable_vpc_classic_link_dns_support_input(VpcId = VpcId)
   output <- .ec2$disable_vpc_classic_link_dns_support_output()
@@ -20014,7 +21404,8 @@ ec2_disassociate_address <- function(AssociationId = NULL, PublicIp = NULL, DryR
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_address_input(AssociationId = AssociationId, PublicIp = PublicIp, DryRun = DryRun)
   output <- .ec2$disassociate_address_output()
@@ -20025,6 +21416,42 @@ ec2_disassociate_address <- function(AssociationId = NULL, PublicIp = NULL, DryR
   return(response)
 }
 .ec2$operations$disassociate_address <- ec2_disassociate_address
+
+#' Disassociates an application status check from instances or tags
+#'
+#' @description
+#' Disassociates an application status check from instances or [tags](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html). After disassociation, health monitoring stops for the affected instances. The following rules apply:
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_disassociate_application_status_check/](https://www.paws-r-sdk.com/docs/ec2_disassociate_application_status_check/) for full documentation.
+#'
+#' @param ApplicationStatusCheckId &#91;required&#93; The ID of the application status check to disassociate.
+#' @param TargetTagAssociations The [tags](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html) to disassociate from the application status check. Specify the same key-value pairs that were used during association.
+#' @param InstanceIds The IDs of the instances to disassociate from the application status check.
+#' @param ClientToken A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a request with the same token, the service ignores the request but does not return an error. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_disassociate_application_status_check
+ec2_disassociate_application_status_check <- function(ApplicationStatusCheckId, TargetTagAssociations = NULL, InstanceIds = NULL, ClientToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "DisassociateApplicationStatusCheck",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$disassociate_application_status_check_input(ApplicationStatusCheckId = ApplicationStatusCheckId, TargetTagAssociations = TargetTagAssociations, InstanceIds = InstanceIds, ClientToken = ClientToken, DryRun = DryRun)
+  output <- .ec2$disassociate_application_status_check_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$disassociate_application_status_check <- ec2_disassociate_application_status_check
 
 #' Cancels a pending request to assign billing of the unused capacity of a
 #' Capacity Reservation to a consumer account, or revokes a request that
@@ -20049,7 +21476,8 @@ ec2_disassociate_capacity_reservation_billing_owner <- function(DryRun = NULL, C
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_capacity_reservation_billing_owner_input(DryRun = DryRun, CapacityReservationId = CapacityReservationId, UnusedReservationBillingOwnerId = UnusedReservationBillingOwnerId)
   output <- .ec2$disassociate_capacity_reservation_billing_owner_output()
@@ -20082,7 +21510,8 @@ ec2_disassociate_client_vpn_target_network <- function(ClientVpnEndpointId, Asso
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_client_vpn_target_network_input(ClientVpnEndpointId = ClientVpnEndpointId, AssociationId = AssociationId, DryRun = DryRun)
   output <- .ec2$disassociate_client_vpn_target_network_output()
@@ -20115,7 +21544,8 @@ ec2_disassociate_enclave_certificate_iam_role <- function(CertificateArn, RoleAr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_enclave_certificate_iam_role_input(CertificateArn = CertificateArn, RoleArn = RoleArn, DryRun = DryRun)
   output <- .ec2$disassociate_enclave_certificate_iam_role_output()
@@ -20146,7 +21576,8 @@ ec2_disassociate_iam_instance_profile <- function(AssociationId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_iam_instance_profile_input(AssociationId = AssociationId)
   output <- .ec2$disassociate_iam_instance_profile_output()
@@ -20179,7 +21610,8 @@ ec2_disassociate_instance_event_window <- function(DryRun = NULL, InstanceEventW
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_instance_event_window_input(DryRun = DryRun, InstanceEventWindowId = InstanceEventWindowId, AssociationTarget = AssociationTarget)
   output <- .ec2$disassociate_instance_event_window_output()
@@ -20213,7 +21645,8 @@ ec2_disassociate_ipam_byoasn <- function(DryRun = NULL, Asn, Cidr) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_ipam_byoasn_input(DryRun = DryRun, Asn = Asn, Cidr = Cidr)
   output <- .ec2$disassociate_ipam_byoasn_output()
@@ -20245,7 +21678,8 @@ ec2_disassociate_ipam_resource_discovery <- function(DryRun = NULL, IpamResource
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_ipam_resource_discovery_input(DryRun = DryRun, IpamResourceDiscoveryAssociationId = IpamResourceDiscoveryAssociationId)
   output <- .ec2$disassociate_ipam_resource_discovery_output()
@@ -20280,7 +21714,8 @@ ec2_disassociate_nat_gateway_address <- function(NatGatewayId, AssociationIds, M
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_nat_gateway_address_input(NatGatewayId = NatGatewayId, AssociationIds = AssociationIds, MaxDrainDurationSeconds = MaxDrainDurationSeconds, DryRun = DryRun)
   output <- .ec2$disassociate_nat_gateway_address_output()
@@ -20313,7 +21748,8 @@ ec2_disassociate_route_server <- function(RouteServerId, VpcId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_route_server_input(RouteServerId = RouteServerId, VpcId = VpcId, DryRun = DryRun)
   output <- .ec2$disassociate_route_server_output()
@@ -20345,7 +21781,8 @@ ec2_disassociate_route_table <- function(DryRun = NULL, AssociationId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_route_table_input(DryRun = DryRun, AssociationId = AssociationId)
   output <- .ec2$disassociate_route_table_output()
@@ -20378,7 +21815,8 @@ ec2_disassociate_security_group_vpc <- function(GroupId, VpcId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_security_group_vpc_input(GroupId = GroupId, VpcId = VpcId, DryRun = DryRun)
   output <- .ec2$disassociate_security_group_vpc_output()
@@ -20409,7 +21847,8 @@ ec2_disassociate_subnet_cidr_block <- function(AssociationId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_subnet_cidr_block_input(AssociationId = AssociationId)
   output <- .ec2$disassociate_subnet_cidr_block_output()
@@ -20444,7 +21883,8 @@ ec2_disassociate_transit_gateway_multicast_domain <- function(TransitGatewayMult
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_transit_gateway_multicast_domain_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, SubnetIds = SubnetIds, DryRun = DryRun)
   output <- .ec2$disassociate_transit_gateway_multicast_domain_output()
@@ -20477,7 +21917,8 @@ ec2_disassociate_transit_gateway_policy_table <- function(TransitGatewayPolicyTa
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_transit_gateway_policy_table_input(TransitGatewayPolicyTableId = TransitGatewayPolicyTableId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$disassociate_transit_gateway_policy_table_output()
@@ -20510,7 +21951,8 @@ ec2_disassociate_transit_gateway_route_table <- function(TransitGatewayRouteTabl
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_transit_gateway_route_table_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$disassociate_transit_gateway_route_table_output()
@@ -20544,7 +21986,8 @@ ec2_disassociate_trunk_interface <- function(AssociationId, ClientToken = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_trunk_interface_input(AssociationId = AssociationId, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$disassociate_trunk_interface_output()
@@ -20575,7 +22018,8 @@ ec2_disassociate_vpc_cidr_block <- function(AssociationId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$disassociate_vpc_cidr_block_input(AssociationId = AssociationId)
   output <- .ec2$disassociate_vpc_cidr_block_output()
@@ -20608,7 +22052,8 @@ ec2_enable_address_transfer <- function(AllocationId, TransferAccountId, DryRun 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_address_transfer_input(AllocationId = AllocationId, TransferAccountId = TransferAccountId, DryRun = DryRun)
   output <- .ec2$enable_address_transfer_output()
@@ -20641,7 +22086,8 @@ ec2_enable_allowed_images_settings <- function(AllowedImagesSettingsState, DryRu
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_allowed_images_settings_input(AllowedImagesSettingsState = AllowedImagesSettingsState, DryRun = DryRun)
   output <- .ec2$enable_allowed_images_settings_output()
@@ -20652,6 +22098,41 @@ ec2_enable_allowed_images_settings <- function(AllowedImagesSettingsState, DryRu
   return(response)
 }
 .ec2$operations$enable_allowed_images_settings <- ec2_enable_allowed_images_settings
+
+#' Suppresses application status checks for the specified instances
+#'
+#' @description
+#' Suppresses application status checks for the specified instances. While suppressed, health checks continue to run but do not affect the instance-level application status. The following rules apply:
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_enable_application_status_check_suppression/](https://www.paws-r-sdk.com/docs/ec2_enable_application_status_check_suppression/) for full documentation.
+#'
+#' @param InstanceIds The IDs of the instances for which to suppress application status checks.
+#' @param DurationSeconds The duration, in seconds, for which to suppress application status checks. If omitted, the application status check is suppressed indefinitely until you call [`disable_application_status_check_suppression`][ec2_disable_application_status_check_suppression].
+#' @param ClientToken A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a request with the same token, the service ignores the request but does not return an error. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_enable_application_status_check_suppression
+ec2_enable_application_status_check_suppression <- function(InstanceIds = NULL, DurationSeconds = NULL, ClientToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "EnableApplicationStatusCheckSuppression",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$enable_application_status_check_suppression_input(InstanceIds = InstanceIds, DurationSeconds = DurationSeconds, ClientToken = ClientToken, DryRun = DryRun)
+  output <- .ec2$enable_application_status_check_suppression_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$enable_application_status_check_suppression <- ec2_enable_application_status_check_suppression
 
 #' Enables Infrastructure Performance subscriptions
 #'
@@ -20676,7 +22157,8 @@ ec2_enable_aws_network_performance_metric_subscription <- function(Source = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_aws_network_performance_metric_subscription_input(Source = Source, Destination = Destination, Metric = Metric, Statistic = Statistic, DryRun = DryRun)
   output <- .ec2$enable_aws_network_performance_metric_subscription_output()
@@ -20709,7 +22191,8 @@ ec2_enable_capacity_manager <- function(OrganizationsAccess = NULL, DryRun = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_capacity_manager_input(OrganizationsAccess = OrganizationsAccess, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$enable_capacity_manager_output()
@@ -20740,7 +22223,8 @@ ec2_enable_ebs_encryption_by_default <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_ebs_encryption_by_default_input(DryRun = DryRun)
   output <- .ec2$enable_ebs_encryption_by_default_output()
@@ -20777,7 +22261,8 @@ ec2_enable_fast_launch <- function(ImageId, ResourceType = NULL, SnapshotConfigu
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_fast_launch_input(ImageId = ImageId, ResourceType = ResourceType, SnapshotConfiguration = SnapshotConfiguration, LaunchTemplate = LaunchTemplate, MaxParallelLaunches = MaxParallelLaunches, DryRun = DryRun)
   output <- .ec2$enable_fast_launch_output()
@@ -20816,7 +22301,8 @@ ec2_enable_fast_snapshot_restores <- function(AvailabilityZones = NULL, Availabi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_fast_snapshot_restores_input(AvailabilityZones = AvailabilityZones, AvailabilityZoneIds = AvailabilityZoneIds, SourceSnapshotIds = SourceSnapshotIds, DryRun = DryRun)
   output <- .ec2$enable_fast_snapshot_restores_output()
@@ -20848,7 +22334,8 @@ ec2_enable_image <- function(ImageId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_image_input(ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$enable_image_output()
@@ -20881,7 +22368,8 @@ ec2_enable_image_block_public_access <- function(ImageBlockPublicAccessState, Dr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_image_block_public_access_input(ImageBlockPublicAccessState = ImageBlockPublicAccessState, DryRun = DryRun)
   output <- .ec2$enable_image_block_public_access_output()
@@ -20916,7 +22404,8 @@ ec2_enable_image_deprecation <- function(ImageId, DeprecateAt, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_image_deprecation_input(ImageId = ImageId, DeprecateAt = DeprecateAt, DryRun = DryRun)
   output <- .ec2$enable_image_deprecation_output()
@@ -20949,7 +22438,8 @@ ec2_enable_image_deregistration_protection <- function(ImageId, WithCooldown = N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_image_deregistration_protection_input(ImageId = ImageId, WithCooldown = WithCooldown, DryRun = DryRun)
   output <- .ec2$enable_image_deregistration_protection_output()
@@ -20984,7 +22474,8 @@ ec2_enable_instance_sql_ha_standby_detections <- function(InstanceIds, SqlServer
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_instance_sql_ha_standby_detections_input(InstanceIds = InstanceIds, SqlServerCredentials = SqlServerCredentials, DryRun = DryRun)
   output <- .ec2$enable_instance_sql_ha_standby_detections_output()
@@ -20995,6 +22486,47 @@ ec2_enable_instance_sql_ha_standby_detections <- function(InstanceIds, SqlServer
   return(response)
 }
 .ec2$operations$enable_instance_sql_ha_standby_detections <- ec2_enable_instance_sql_ha_standby_detections
+
+#' Enables Resource Public Key Infrastructure (RPKI) on an existing IPAM
+#' internet registry association by providing BGP Public Key Infrastructure
+#' (BPKI) certificate details
+#'
+#' @description
+#' Enables Resource Public Key Infrastructure (RPKI) on an existing IPAM internet registry association by providing BGP Public Key Infrastructure (BPKI) certificate details. After enabling, you can create Route Origin Authorizations (ROAs) for prefixes registered with the internet registry.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_enable_ipam_internet_registry_association/](https://www.paws-r-sdk.com/docs/ec2_enable_ipam_internet_registry_association/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association to enable.
+#' @param RpkiVersion &#91;required&#93; The RPKI version to use from the Parent Response XML.
+#' @param ServiceUri &#91;required&#93; The RPKI service URI for the publication point from the Parent Response XML.
+#' @param ChildHandle &#91;required&#93; The child handle for the BPKI certificate hierarchy from the Parent Response XML.
+#' @param ParentHandle &#91;required&#93; The parent handle for the BPKI certificate hierarchy from the Parent Response XML.
+#' @param ParentBpkiTa &#91;required&#93; The parent BPKI Trust Anchor certificate in PEM format from the Parent Response XML.
+#' @param ClientToken A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the operation ignores the request, but does not return an error.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_enable_ipam_internet_registry_association
+ec2_enable_ipam_internet_registry_association <- function(DryRun = NULL, IpamInternetRegistryAssociationId, RpkiVersion, ServiceUri, ChildHandle, ParentHandle, ParentBpkiTa, ClientToken = NULL) {
+  op <- new_operation(
+    name = "EnableIpamInternetRegistryAssociation",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$enable_ipam_internet_registry_association_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, RpkiVersion = RpkiVersion, ServiceUri = ServiceUri, ChildHandle = ChildHandle, ParentHandle = ParentHandle, ParentBpkiTa = ParentBpkiTa, ClientToken = ClientToken)
+  output <- .ec2$enable_ipam_internet_registry_association_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$enable_ipam_internet_registry_association <- ec2_enable_ipam_internet_registry_association
 
 #' Enable an Organizations member account as the IPAM admin account
 #'
@@ -21016,7 +22548,8 @@ ec2_enable_ipam_organization_admin_account <- function(DryRun = NULL, DelegatedA
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_ipam_organization_admin_account_input(DryRun = DryRun, DelegatedAdminAccountId = DelegatedAdminAccountId)
   output <- .ec2$enable_ipam_organization_admin_account_output()
@@ -21051,7 +22584,8 @@ ec2_enable_ipam_policy <- function(DryRun = NULL, IpamPolicyId, OrganizationTarg
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_ipam_policy_input(DryRun = DryRun, IpamPolicyId = IpamPolicyId, OrganizationTargetId = OrganizationTargetId)
   output <- .ec2$enable_ipam_policy_output()
@@ -21083,7 +22617,8 @@ ec2_enable_reachability_analyzer_organization_sharing <- function(DryRun = NULL)
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_reachability_analyzer_organization_sharing_input(DryRun = DryRun)
   output <- .ec2$enable_reachability_analyzer_organization_sharing_output()
@@ -21116,7 +22651,8 @@ ec2_enable_route_server_propagation <- function(RouteServerId, RouteTableId, Dry
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_route_server_propagation_input(RouteServerId = RouteServerId, RouteTableId = RouteTableId, DryRun = DryRun)
   output <- .ec2$enable_route_server_propagation_output()
@@ -21148,7 +22684,8 @@ ec2_enable_serial_console_access <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_serial_console_access_input(DryRun = DryRun)
   output <- .ec2$enable_serial_console_access_output()
@@ -21187,7 +22724,8 @@ ec2_enable_snapshot_block_public_access <- function(State, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_snapshot_block_public_access_input(State = State, DryRun = DryRun)
   output <- .ec2$enable_snapshot_block_public_access_output()
@@ -21222,7 +22760,8 @@ ec2_enable_transit_gateway_route_table_propagation <- function(TransitGatewayRou
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_transit_gateway_route_table_propagation_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun, TransitGatewayRouteTableAnnouncementId = TransitGatewayRouteTableAnnouncementId)
   output <- .ec2$enable_transit_gateway_route_table_propagation_output()
@@ -21256,7 +22795,8 @@ ec2_enable_vgw_route_propagation <- function(GatewayId, RouteTableId, DryRun = N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_vgw_route_propagation_input(GatewayId = GatewayId, RouteTableId = RouteTableId, DryRun = DryRun)
   output <- .ec2$enable_vgw_route_propagation_output()
@@ -21289,7 +22829,8 @@ ec2_enable_volume_io <- function(DryRun = NULL, VolumeId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_volume_io_input(DryRun = DryRun, VolumeId = VolumeId)
   output <- .ec2$enable_volume_io_output()
@@ -21321,7 +22862,8 @@ ec2_enable_vpc_classic_link <- function(DryRun = NULL, VpcId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_vpc_classic_link_input(DryRun = DryRun, VpcId = VpcId)
   output <- .ec2$enable_vpc_classic_link_output()
@@ -21352,7 +22894,8 @@ ec2_enable_vpc_classic_link_dns_support <- function(VpcId = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$enable_vpc_classic_link_dns_support_input(VpcId = VpcId)
   output <- .ec2$enable_vpc_classic_link_dns_support_output()
@@ -21385,7 +22928,8 @@ ec2_export_client_vpn_client_certificate_revocation_list <- function(ClientVpnEn
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$export_client_vpn_client_certificate_revocation_list_input(ClientVpnEndpointId = ClientVpnEndpointId, DryRun = DryRun)
   output <- .ec2$export_client_vpn_client_certificate_revocation_list_output()
@@ -21418,7 +22962,8 @@ ec2_export_client_vpn_client_configuration <- function(ClientVpnEndpointId, DryR
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$export_client_vpn_client_configuration_input(ClientVpnEndpointId = ClientVpnEndpointId, DryRun = DryRun)
   output <- .ec2$export_client_vpn_client_configuration_output()
@@ -21456,7 +23001,8 @@ ec2_export_image <- function(ClientToken = NULL, Description = NULL, DiskImageFo
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$export_image_input(ClientToken = ClientToken, Description = Description, DiskImageFormat = DiskImageFormat, DryRun = DryRun, ImageId = ImageId, S3ExportLocation = S3ExportLocation, RoleName = RoleName, TagSpecifications = TagSpecifications)
   output <- .ec2$export_image_output()
@@ -21509,7 +23055,8 @@ ec2_export_transit_gateway_routes <- function(TransitGatewayRouteTableId, Filter
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$export_transit_gateway_routes_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, Filters = Filters, S3Bucket = S3Bucket, DryRun = DryRun)
   output <- .ec2$export_transit_gateway_routes_output()
@@ -21541,7 +23088,8 @@ ec2_export_verified_access_instance_client_configuration <- function(VerifiedAcc
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$export_verified_access_instance_client_configuration_input(VerifiedAccessInstanceId = VerifiedAccessInstanceId, DryRun = DryRun)
   output <- .ec2$export_verified_access_instance_client_configuration_output()
@@ -21576,7 +23124,8 @@ ec2_get_active_vpn_tunnel_status <- function(VpnConnectionId, VpnTunnelOutsideIp
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_active_vpn_tunnel_status_input(VpnConnectionId = VpnConnectionId, VpnTunnelOutsideIpAddress = VpnTunnelOutsideIpAddress, DryRun = DryRun)
   output <- .ec2$get_active_vpn_tunnel_status_output()
@@ -21608,7 +23157,8 @@ ec2_get_allowed_images_settings <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_allowed_images_settings_input(DryRun = DryRun)
   output <- .ec2$get_allowed_images_settings_output()
@@ -21641,7 +23191,8 @@ ec2_get_associated_enclave_certificate_iam_roles <- function(CertificateArn, Dry
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_associated_enclave_certificate_iam_roles_input(CertificateArn = CertificateArn, DryRun = DryRun)
   output <- .ec2$get_associated_enclave_certificate_iam_roles_output()
@@ -21676,7 +23227,8 @@ ec2_get_associated_ipv_6_pool_cidrs <- function(PoolId, NextToken = NULL, MaxRes
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Ipv6CidrAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_associated_ipv_6_pool_cidrs_input(PoolId = PoolId, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$get_associated_ipv_6_pool_cidrs_output()
@@ -21712,7 +23264,8 @@ ec2_get_aws_network_performance_data <- function(DataQueries = NULL, StartTime =
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "DataResponses"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_aws_network_performance_data_input(DataQueries = DataQueries, StartTime = StartTime, EndTime = EndTime, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_aws_network_performance_data_output()
@@ -21745,7 +23298,8 @@ ec2_get_capacity_manager_attributes <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_capacity_manager_attributes_input(DryRun = DryRun)
   output <- .ec2$get_capacity_manager_attributes_output()
@@ -21784,7 +23338,8 @@ ec2_get_capacity_manager_metric_data <- function(MetricNames, StartTime, EndTime
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "MetricDataResults"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_capacity_manager_metric_data_input(MetricNames = MetricNames, StartTime = StartTime, EndTime = EndTime, Period = Period, GroupBy = GroupBy, FilterBy = FilterBy, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_capacity_manager_metric_data_output()
@@ -21823,7 +23378,8 @@ ec2_get_capacity_manager_metric_dimensions <- function(GroupBy, FilterBy = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "MetricDimensionResults"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_capacity_manager_metric_dimensions_input(GroupBy = GroupBy, FilterBy = FilterBy, StartTime = StartTime, EndTime = EndTime, MetricNames = MetricNames, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_capacity_manager_metric_dimensions_output()
@@ -21857,7 +23413,8 @@ ec2_get_capacity_manager_monitored_tag_keys <- function(MaxResults = NULL, NextT
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityManagerTagKeys"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_capacity_manager_monitored_tag_keys_input(MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_capacity_manager_monitored_tag_keys_output()
@@ -21891,7 +23448,8 @@ ec2_get_capacity_reservation_usage <- function(CapacityReservationId, NextToken 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_capacity_reservation_usage_input(CapacityReservationId = CapacityReservationId, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$get_capacity_reservation_usage_output()
@@ -21902,6 +23460,39 @@ ec2_get_capacity_reservation_usage <- function(CapacityReservationId, NextToken 
   return(response)
 }
 .ec2$operations$get_capacity_reservation_usage <- ec2_get_capacity_reservation_usage
+
+#' Describes the authorization policy for a Client VPN endpoint
+#'
+#' @description
+#' Describes the authorization policy for a Client VPN endpoint.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_get_client_vpn_endpoint_authorization_policy/](https://www.paws-r-sdk.com/docs/ec2_get_client_vpn_endpoint_authorization_policy/) for full documentation.
+#'
+#' @param ClientVpnEndpointId &#91;required&#93; The ID of the Client VPN endpoint.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_client_vpn_endpoint_authorization_policy
+ec2_get_client_vpn_endpoint_authorization_policy <- function(ClientVpnEndpointId, DryRun = NULL) {
+  op <- new_operation(
+    name = "GetClientVpnEndpointAuthorizationPolicy",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$get_client_vpn_endpoint_authorization_policy_input(ClientVpnEndpointId = ClientVpnEndpointId, DryRun = DryRun)
+  output <- .ec2$get_client_vpn_endpoint_authorization_policy_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_client_vpn_endpoint_authorization_policy <- ec2_get_client_vpn_endpoint_authorization_policy
 
 #' Describes the allocations from the specified customer-owned address pool
 #'
@@ -21934,7 +23525,8 @@ ec2_get_coip_pool_usage <- function(PoolId, Filters = NULL, MaxResults = NULL, N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_coip_pool_usage_input(PoolId = PoolId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_coip_pool_usage_output()
@@ -21969,7 +23561,8 @@ ec2_get_console_output <- function(InstanceId, Latest = NULL, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_console_output_input(InstanceId = InstanceId, Latest = Latest, DryRun = DryRun)
   output <- .ec2$get_console_output_output()
@@ -22003,7 +23596,8 @@ ec2_get_console_screenshot <- function(DryRun = NULL, InstanceId, WakeUp = NULL)
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_console_screenshot_input(DryRun = DryRun, InstanceId = InstanceId, WakeUp = WakeUp)
   output <- .ec2$get_console_screenshot_output()
@@ -22035,7 +23629,8 @@ ec2_get_declarative_policies_report_summary <- function(DryRun = NULL, ReportId)
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_declarative_policies_report_summary_input(DryRun = DryRun, ReportId = ReportId)
   output <- .ec2$get_declarative_policies_report_summary_output()
@@ -22068,7 +23663,8 @@ ec2_get_default_credit_specification <- function(DryRun = NULL, InstanceFamily) 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_default_credit_specification_input(DryRun = DryRun, InstanceFamily = InstanceFamily)
   output <- .ec2$get_default_credit_specification_output()
@@ -22100,7 +23696,8 @@ ec2_get_ebs_default_kms_key_id <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ebs_default_kms_key_id_input(DryRun = DryRun)
   output <- .ec2$get_ebs_default_kms_key_id_output()
@@ -22132,7 +23729,8 @@ ec2_get_ebs_encryption_by_default <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ebs_encryption_by_default_input(DryRun = DryRun)
   output <- .ec2$get_ebs_encryption_by_default_output()
@@ -22163,7 +23761,8 @@ ec2_get_enabled_ipam_policy <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_enabled_ipam_policy_input(DryRun = DryRun)
   output <- .ec2$get_enabled_ipam_policy_output()
@@ -22198,7 +23797,8 @@ ec2_get_flow_logs_integration_template <- function(DryRun = NULL, FlowLogId, Con
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_flow_logs_integration_template_input(DryRun = DryRun, FlowLogId = FlowLogId, ConfigDeliveryS3DestinationArn = ConfigDeliveryS3DestinationArn, IntegrateServices = IntegrateServices)
   output <- .ec2$get_flow_logs_integration_template_output()
@@ -22232,7 +23832,8 @@ ec2_get_groups_for_capacity_reservation <- function(CapacityReservationId, NextT
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "CapacityReservationGroups"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_groups_for_capacity_reservation_input(CapacityReservationId = CapacityReservationId, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$get_groups_for_capacity_reservation_output()
@@ -22265,7 +23866,8 @@ ec2_get_host_reservation_purchase_preview <- function(HostIdSet, OfferingId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_host_reservation_purchase_preview_input(HostIdSet = HostIdSet, OfferingId = OfferingId)
   output <- .ec2$get_host_reservation_purchase_preview_output()
@@ -22298,7 +23900,8 @@ ec2_get_image_ancestry <- function(ImageId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_image_ancestry_input(ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$get_image_ancestry_output()
@@ -22330,7 +23933,8 @@ ec2_get_image_block_public_access_state <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_image_block_public_access_state_input(DryRun = DryRun)
   output <- .ec2$get_image_block_public_access_state_output()
@@ -22362,7 +23966,8 @@ ec2_get_instance_metadata_defaults <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_instance_metadata_defaults_input(DryRun = DryRun)
   output <- .ec2$get_instance_metadata_defaults_output()
@@ -22397,7 +24002,8 @@ ec2_get_instance_tpm_ek_pub <- function(InstanceId, KeyType, KeyFormat, DryRun =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_instance_tpm_ek_pub_input(InstanceId = InstanceId, KeyType = KeyType, KeyFormat = KeyFormat, DryRun = DryRun)
   output <- .ec2$get_instance_tpm_ek_pub_output()
@@ -22434,7 +24040,8 @@ ec2_get_instance_types_from_instance_requirements <- function(DryRun = NULL, Arc
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "InstanceTypes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_instance_types_from_instance_requirements_input(DryRun = DryRun, ArchitectureTypes = ArchitectureTypes, VirtualizationTypes = VirtualizationTypes, InstanceRequirements = InstanceRequirements, MaxResults = MaxResults, NextToken = NextToken, Context = Context)
   output <- .ec2$get_instance_types_from_instance_requirements_output()
@@ -22466,7 +24073,8 @@ ec2_get_instance_uefi_data <- function(InstanceId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_instance_uefi_data_input(InstanceId = InstanceId, DryRun = DryRun)
   output <- .ec2$get_instance_uefi_data_output()
@@ -22504,7 +24112,8 @@ ec2_get_ipam_address_history <- function(DryRun = NULL, Cidr, IpamScopeId, VpcId
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "HistoryRecords"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_address_history_input(DryRun = DryRun, Cidr = Cidr, IpamScopeId = IpamScopeId, VpcId = VpcId, StartTime = StartTime, EndTime = EndTime, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$get_ipam_address_history_output()
@@ -22540,7 +24149,8 @@ ec2_get_ipam_discovered_accounts <- function(DryRun = NULL, IpamResourceDiscover
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamDiscoveredAccounts"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_discovered_accounts_input(DryRun = DryRun, IpamResourceDiscoveryId = IpamResourceDiscoveryId, DiscoveryRegion = DiscoveryRegion, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$get_ipam_discovered_accounts_output()
@@ -22576,7 +24186,8 @@ ec2_get_ipam_discovered_public_addresses <- function(DryRun = NULL, IpamResource
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_discovered_public_addresses_input(DryRun = DryRun, IpamResourceDiscoveryId = IpamResourceDiscoveryId, AddressRegion = AddressRegion, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$get_ipam_discovered_public_addresses_output()
@@ -22613,7 +24224,8 @@ ec2_get_ipam_discovered_resource_cidrs <- function(DryRun = NULL, IpamResourceDi
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamDiscoveredResourceCidrs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_discovered_resource_cidrs_input(DryRun = DryRun, IpamResourceDiscoveryId = IpamResourceDiscoveryId, ResourceRegion = ResourceRegion, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$get_ipam_discovered_resource_cidrs_output()
@@ -22624,6 +24236,118 @@ ec2_get_ipam_discovered_resource_cidrs <- function(DryRun = NULL, IpamResourceDi
   return(response)
 }
 .ec2$operations$get_ipam_discovered_resource_cidrs <- ec2_get_ipam_discovered_resource_cidrs
+
+#' Retrieves Border Gateway Protocol (BGP) routes discovered by IPAM
+#' resource discovery for a specified Region
+#'
+#' @description
+#' Retrieves Border Gateway Protocol (BGP) routes discovered by IPAM resource discovery for a specified Region. Use this operation to view the Bring Your Own IP (BYOIP) address ranges that are currently advertised through BGP. We recommend using pagination to ensure that the operation returns quickly and successfully.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_get_ipam_discovered_routes/](https://www.paws-r-sdk.com/docs/ec2_get_ipam_discovered_routes/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamResourceDiscoveryId &#91;required&#93; The ID of the IPAM resource discovery.
+#' @param ResourceRegion &#91;required&#93; The Amazon Web Services Region to retrieve discovered routes for.
+#' @param Filters One or more filters to apply to the results.
+#' @param NextToken The token for the next page of results.
+#' @param MaxResults The maximum number of results to return in a single call. If not specified, all available results are returned. To retrieve the remaining results, make another call with the returned `nextToken` value.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ipam_discovered_routes
+ec2_get_ipam_discovered_routes <- function(DryRun = NULL, IpamResourceDiscoveryId, ResourceRegion, Filters = NULL, NextToken = NULL, MaxResults = NULL) {
+  op <- new_operation(
+    name = "GetIpamDiscoveredRoutes",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$get_ipam_discovered_routes_input(DryRun = DryRun, IpamResourceDiscoveryId = IpamResourceDiscoveryId, ResourceRegion = ResourceRegion, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
+  output <- .ec2$get_ipam_discovered_routes_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ipam_discovered_routes <- ec2_get_ipam_discovered_routes
+
+#' Retrieves Autonomous System Numbers (ASNs) registered with an internet
+#' registry for an IPAM internet registry association
+#'
+#' @description
+#' Retrieves Autonomous System Numbers (ASNs) registered with an internet registry for an IPAM internet registry association. We recommend using pagination to ensure that the operation returns quickly and successfully.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_get_ipam_internet_registry_association_asns/](https://www.paws-r-sdk.com/docs/ec2_get_ipam_internet_registry_association_asns/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param MaxResults The maximum number of results to return in a single call. If not specified, all available results are returned. To retrieve the remaining results, make another call with the returned `nextToken` value.
+#' @param NextToken The token for the next page of results.
+#' @param Filters One or more filters to apply to the results.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ipam_internet_registry_association_asns
+ec2_get_ipam_internet_registry_association_asns <- function(DryRun = NULL, IpamInternetRegistryAssociationId, MaxResults = NULL, NextToken = NULL, Filters = NULL) {
+  op <- new_operation(
+    name = "GetIpamInternetRegistryAssociationAsns",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$get_ipam_internet_registry_association_asns_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters)
+  output <- .ec2$get_ipam_internet_registry_association_asns_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ipam_internet_registry_association_asns <- ec2_get_ipam_internet_registry_association_asns
+
+#' Retrieves IP address CIDRs registered with an internet registry for an
+#' IPAM internet registry association
+#'
+#' @description
+#' Retrieves IP address CIDRs registered with an internet registry for an IPAM internet registry association. We recommend using pagination to ensure that the operation returns quickly and successfully.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_get_ipam_internet_registry_association_cidrs/](https://www.paws-r-sdk.com/docs/ec2_get_ipam_internet_registry_association_cidrs/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param MaxResults The maximum number of results to return in a single call. If not specified, all available results are returned. To retrieve the remaining results, make another call with the returned `nextToken` value.
+#' @param NextToken The token for the next page of results.
+#' @param Filters One or more filters to apply to the results.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ipam_internet_registry_association_cidrs
+ec2_get_ipam_internet_registry_association_cidrs <- function(DryRun = NULL, IpamInternetRegistryAssociationId, MaxResults = NULL, NextToken = NULL, Filters = NULL) {
+  op <- new_operation(
+    name = "GetIpamInternetRegistryAssociationCidrs",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$get_ipam_internet_registry_association_cidrs_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, MaxResults = MaxResults, NextToken = NextToken, Filters = Filters)
+  output <- .ec2$get_ipam_internet_registry_association_cidrs_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ipam_internet_registry_association_cidrs <- ec2_get_ipam_internet_registry_association_cidrs
 
 #' Gets the allocation rules for an IPAM policy
 #'
@@ -22654,7 +24378,8 @@ ec2_get_ipam_policy_allocation_rules <- function(DryRun = NULL, IpamPolicyId, Fi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_policy_allocation_rules_input(DryRun = DryRun, IpamPolicyId = IpamPolicyId, Filters = Filters, Locale = Locale, ResourceType = ResourceType, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$get_ipam_policy_allocation_rules_output()
@@ -22689,7 +24414,8 @@ ec2_get_ipam_policy_organization_targets <- function(DryRun = NULL, MaxResults =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_policy_organization_targets_input(DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken, IpamPolicyId = IpamPolicyId, Filters = Filters)
   output <- .ec2$get_ipam_policy_organization_targets_output()
@@ -22725,7 +24451,8 @@ ec2_get_ipam_pool_allocations <- function(DryRun = NULL, IpamPoolId, IpamPoolAll
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamPoolAllocations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_pool_allocations_input(DryRun = DryRun, IpamPoolId = IpamPoolId, IpamPoolAllocationId = IpamPoolAllocationId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$get_ipam_pool_allocations_output()
@@ -22760,7 +24487,8 @@ ec2_get_ipam_pool_cidrs <- function(DryRun = NULL, IpamPoolId, Filters = NULL, M
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamPoolCidrs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_pool_cidrs_input(DryRun = DryRun, IpamPoolId = IpamPoolId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$get_ipam_pool_cidrs_output()
@@ -22795,7 +24523,8 @@ ec2_get_ipam_prefix_list_resolver_rules <- function(DryRun = NULL, IpamPrefixLis
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Rules"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_prefix_list_resolver_rules_input(DryRun = DryRun, IpamPrefixListResolverId = IpamPrefixListResolverId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$get_ipam_prefix_list_resolver_rules_output()
@@ -22831,7 +24560,8 @@ ec2_get_ipam_prefix_list_resolver_version_entries <- function(DryRun = NULL, Ipa
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Entries"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_prefix_list_resolver_version_entries_input(DryRun = DryRun, IpamPrefixListResolverId = IpamPrefixListResolverId, IpamPrefixListResolverVersion = IpamPrefixListResolverVersion, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$get_ipam_prefix_list_resolver_version_entries_output()
@@ -22867,7 +24597,8 @@ ec2_get_ipam_prefix_list_resolver_versions <- function(DryRun = NULL, IpamPrefix
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamPrefixListResolverVersions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_prefix_list_resolver_versions_input(DryRun = DryRun, IpamPrefixListResolverId = IpamPrefixListResolverId, IpamPrefixListResolverVersions = IpamPrefixListResolverVersions, MaxResults = MaxResults, Filters = Filters, NextToken = NextToken)
   output <- .ec2$get_ipam_prefix_list_resolver_versions_output()
@@ -22907,7 +24638,8 @@ ec2_get_ipam_resource_cidrs <- function(DryRun = NULL, Filters = NULL, MaxResult
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "IpamResourceCidrs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_ipam_resource_cidrs_input(DryRun = DryRun, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, IpamScopeId = IpamScopeId, IpamPoolId = IpamPoolId, ResourceId = ResourceId, ResourceType = ResourceType, ResourceTag = ResourceTag, ResourceOwner = ResourceOwner)
   output <- .ec2$get_ipam_resource_cidrs_output()
@@ -22918,6 +24650,156 @@ ec2_get_ipam_resource_cidrs <- function(DryRun = NULL, Filters = NULL, MaxResult
   return(response)
 }
 .ec2$operations$get_ipam_resource_cidrs <- ec2_get_ipam_resource_cidrs
+
+#' Retrieves the current Route Origin Authorizations (ROAs) published to
+#' the RPKI for an IPAM internet registry association
+#'
+#' @description
+#' Retrieves the current Route Origin Authorizations (ROAs) published to the RPKI for an IPAM internet registry association. We recommend using pagination to ensure that the operation returns quickly and successfully.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_get_ipam_route_origin_authorizations/](https://www.paws-r-sdk.com/docs/ec2_get_ipam_route_origin_authorizations/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param Cidr Filter results to a specific CIDR prefix.
+#' @param MaxResults The maximum number of results to return in a single call. If not specified, all available results are returned. To retrieve the remaining results, make another call with the returned `nextToken` value.
+#' @param NextToken The token for the next page of results.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ipam_route_origin_authorizations
+ec2_get_ipam_route_origin_authorizations <- function(DryRun = NULL, IpamInternetRegistryAssociationId, Cidr = NULL, MaxResults = NULL, NextToken = NULL) {
+  op <- new_operation(
+    name = "GetIpamRouteOriginAuthorizations",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$get_ipam_route_origin_authorizations_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, Cidr = Cidr, MaxResults = MaxResults, NextToken = NextToken)
+  output <- .ec2$get_ipam_route_origin_authorizations_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ipam_route_origin_authorizations <- ec2_get_ipam_route_origin_authorizations
+
+#' Retrieves route protection findings for an IPAM
+#'
+#' @description
+#' Retrieves route protection findings for an IPAM. Route protection findings show the Resource Public Key Infrastructure (RPKI) validation status of your Bring Your Own IP (BYOIP) routes. Findings identify routes that have valid, invalid, or unknown validation states. We recommend using pagination to ensure that the operation returns quickly and successfully.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_get_ipam_route_protection_findings/](https://www.paws-r-sdk.com/docs/ec2_get_ipam_route_protection_findings/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamId &#91;required&#93; The ID of the IPAM to retrieve route protection findings for.
+#' @param Filters One or more filters to apply to the results.
+#' @param NextToken The token for the next page of results.
+#' @param MaxResults The maximum number of results to return in a single call. If not specified, all available results are returned. To retrieve the remaining results, make another call with the returned `nextToken` value.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ipam_route_protection_findings
+ec2_get_ipam_route_protection_findings <- function(DryRun = NULL, IpamId, Filters = NULL, NextToken = NULL, MaxResults = NULL) {
+  op <- new_operation(
+    name = "GetIpamRouteProtectionFindings",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$get_ipam_route_protection_findings_input(DryRun = DryRun, IpamId = IpamId, Filters = Filters, NextToken = NextToken, MaxResults = MaxResults)
+  output <- .ec2$get_ipam_route_protection_findings_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ipam_route_protection_findings <- ec2_get_ipam_route_protection_findings
+
+#' Retrieves the history of routing policy registration changes for an IPAM
+#' internet registry association
+#'
+#' @description
+#' Retrieves the history of routing policy registration changes for an IPAM internet registry association. We recommend using pagination to ensure that the operation returns quickly and successfully.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_get_ipam_routing_policy_registration_deltas/](https://www.paws-r-sdk.com/docs/ec2_get_ipam_routing_policy_registration_deltas/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param DeltaId Filter results to a specific delta ID.
+#' @param StartTime The start of the time range to filter deltas by.
+#' @param EndTime The end of the time range to filter deltas by.
+#' @param ChronologicalOrder The chronological order to return results in. Valid values: `forward` | `reverse`.
+#' @param MaxResults The maximum number of results to return in a single call. If not specified, all available results are returned. To retrieve the remaining results, make another call with the returned `nextToken` value.
+#' @param NextToken The token for the next page of results.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ipam_routing_policy_registration_deltas
+ec2_get_ipam_routing_policy_registration_deltas <- function(DryRun = NULL, IpamInternetRegistryAssociationId, DeltaId = NULL, StartTime = NULL, EndTime = NULL, ChronologicalOrder = NULL, MaxResults = NULL, NextToken = NULL) {
+  op <- new_operation(
+    name = "GetIpamRoutingPolicyRegistrationDeltas",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$get_ipam_routing_policy_registration_deltas_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, DeltaId = DeltaId, StartTime = StartTime, EndTime = EndTime, ChronologicalOrder = ChronologicalOrder, MaxResults = MaxResults, NextToken = NextToken)
+  output <- .ec2$get_ipam_routing_policy_registration_deltas_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ipam_routing_policy_registration_deltas <- ec2_get_ipam_routing_policy_registration_deltas
+
+#' Retrieves routing policy registrations for an IPAM internet registry
+#' association
+#'
+#' @description
+#' Retrieves routing policy registrations for an IPAM internet registry association. Each registration represents a Route Origin Authorization (ROA) that has been created or is pending publication to the RPKI. We recommend using pagination to ensure that the operation returns quickly and successfully.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_get_ipam_routing_policy_registrations/](https://www.paws-r-sdk.com/docs/ec2_get_ipam_routing_policy_registrations/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param Cidr Filter results to a specific CIDR prefix.
+#' @param MaxResults The maximum number of results to return in a single call. If not specified, all available results are returned. To retrieve the remaining results, make another call with the returned `nextToken` value.
+#' @param NextToken The token for the next page of results.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_get_ipam_routing_policy_registrations
+ec2_get_ipam_routing_policy_registrations <- function(DryRun = NULL, IpamInternetRegistryAssociationId, Cidr = NULL, MaxResults = NULL, NextToken = NULL) {
+  op <- new_operation(
+    name = "GetIpamRoutingPolicyRegistrations",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$get_ipam_routing_policy_registrations_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, Cidr = Cidr, MaxResults = MaxResults, NextToken = NextToken)
+  output <- .ec2$get_ipam_routing_policy_registrations_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$get_ipam_routing_policy_registrations <- ec2_get_ipam_routing_policy_registrations
 
 #' Retrieves the configuration data of the specified instance
 #'
@@ -22939,7 +24821,8 @@ ec2_get_launch_template_data <- function(DryRun = NULL, InstanceId) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_launch_template_data_input(DryRun = DryRun, InstanceId = InstanceId)
   output <- .ec2$get_launch_template_data_output()
@@ -22974,7 +24857,8 @@ ec2_get_managed_prefix_list_associations <- function(DryRun = NULL, PrefixListId
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "PrefixListAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_managed_prefix_list_associations_input(DryRun = DryRun, PrefixListId = PrefixListId, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$get_managed_prefix_list_associations_output()
@@ -23009,7 +24893,8 @@ ec2_get_managed_prefix_list_entries <- function(DryRun = NULL, PrefixListId, Tar
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Entries"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_managed_prefix_list_entries_input(DryRun = DryRun, PrefixListId = PrefixListId, TargetVersion = TargetVersion, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$get_managed_prefix_list_entries_output()
@@ -23040,7 +24925,8 @@ ec2_get_managed_resource_visibility <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_managed_resource_visibility_input(DryRun = DryRun)
   output <- .ec2$get_managed_resource_visibility_output()
@@ -23074,7 +24960,8 @@ ec2_get_network_insights_access_scope_analysis_findings <- function(NetworkInsig
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "AnalysisFindings"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_network_insights_access_scope_analysis_findings_input(NetworkInsightsAccessScopeAnalysisId = NetworkInsightsAccessScopeAnalysisId, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_network_insights_access_scope_analysis_findings_output()
@@ -23106,7 +24993,8 @@ ec2_get_network_insights_access_scope_content <- function(NetworkInsightsAccessS
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_network_insights_access_scope_content_input(NetworkInsightsAccessScopeId = NetworkInsightsAccessScopeId, DryRun = DryRun)
   output <- .ec2$get_network_insights_access_scope_content_output()
@@ -23139,7 +25027,8 @@ ec2_get_password_data <- function(InstanceId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_password_data_input(InstanceId = InstanceId, DryRun = DryRun)
   output <- .ec2$get_password_data_output()
@@ -23174,7 +25063,8 @@ ec2_get_reserved_instances_exchange_quote <- function(DryRun = NULL, ReservedIns
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_reserved_instances_exchange_quote_input(DryRun = DryRun, ReservedInstanceIds = ReservedInstanceIds, TargetConfigurations = TargetConfigurations)
   output <- .ec2$get_reserved_instances_exchange_quote_output()
@@ -23206,7 +25096,8 @@ ec2_get_route_server_associations <- function(RouteServerId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_route_server_associations_input(RouteServerId = RouteServerId, DryRun = DryRun)
   output <- .ec2$get_route_server_associations_output()
@@ -23240,7 +25131,8 @@ ec2_get_route_server_propagations <- function(RouteServerId, RouteTableId = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_route_server_propagations_input(RouteServerId = RouteServerId, RouteTableId = RouteTableId, DryRun = DryRun)
   output <- .ec2$get_route_server_propagations_output()
@@ -23275,7 +25167,8 @@ ec2_get_route_server_routing_database <- function(RouteServerId, NextToken = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_route_server_routing_database_input(RouteServerId = RouteServerId, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun, Filters = Filters)
   output <- .ec2$get_route_server_routing_database_output()
@@ -23321,7 +25214,8 @@ ec2_get_security_groups_for_vpc <- function(VpcId, NextToken = NULL, MaxResults 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SecurityGroupForVpcs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_security_groups_for_vpc_input(VpcId = VpcId, NextToken = NextToken, MaxResults = MaxResults, Filters = Filters, DryRun = DryRun)
   output <- .ec2$get_security_groups_for_vpc_output()
@@ -23353,7 +25247,8 @@ ec2_get_serial_console_access_status <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_serial_console_access_status_input(DryRun = DryRun)
   output <- .ec2$get_serial_console_access_status_output()
@@ -23385,7 +25280,8 @@ ec2_get_snapshot_block_public_access_state <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_snapshot_block_public_access_state_input(DryRun = DryRun)
   output <- .ec2$get_snapshot_block_public_access_state_output()
@@ -23420,20 +25316,24 @@ ec2_get_snapshot_block_public_access_state <- function(DryRun = NULL) {
 #' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
 #' @param MaxResults The maximum number of items to return for this request. To get the next page of items, make another request with the token returned in the output. For more information, see [Pagination](https://docs.aws.amazon.com/ec2/latest/devguide/Query-Requests.html#api-pagination).
 #' @param NextToken The token returned from a previous paginated request. Pagination continues from the end of the items returned by the previous request.
+#' @param IncludeLocalZones Specify `true` so that the response returns scores that include Local Zones. Otherwise, the response ignores Local Zones.
+#' 
+#' When you request regional scores, Local Zone capacity counts toward its parent Region.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_get_spot_placement_scores
-ec2_get_spot_placement_scores <- function(InstanceTypes = NULL, TargetCapacity, TargetCapacityUnitType = NULL, SingleAvailabilityZone = NULL, RegionNames = NULL, InstanceRequirementsWithMetadata = NULL, DryRun = NULL, MaxResults = NULL, NextToken = NULL) {
+ec2_get_spot_placement_scores <- function(InstanceTypes = NULL, TargetCapacity, TargetCapacityUnitType = NULL, SingleAvailabilityZone = NULL, RegionNames = NULL, InstanceRequirementsWithMetadata = NULL, DryRun = NULL, MaxResults = NULL, NextToken = NULL, IncludeLocalZones = NULL) {
   op <- new_operation(
     name = "GetSpotPlacementScores",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "SpotPlacementScores"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$get_spot_placement_scores_input(InstanceTypes = InstanceTypes, TargetCapacity = TargetCapacity, TargetCapacityUnitType = TargetCapacityUnitType, SingleAvailabilityZone = SingleAvailabilityZone, RegionNames = RegionNames, InstanceRequirementsWithMetadata = InstanceRequirementsWithMetadata, DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken)
+  input <- .ec2$get_spot_placement_scores_input(InstanceTypes = InstanceTypes, TargetCapacity = TargetCapacity, TargetCapacityUnitType = TargetCapacityUnitType, SingleAvailabilityZone = SingleAvailabilityZone, RegionNames = RegionNames, InstanceRequirementsWithMetadata = InstanceRequirementsWithMetadata, DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken, IncludeLocalZones = IncludeLocalZones)
   output <- .ec2$get_spot_placement_scores_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -23474,7 +25374,8 @@ ec2_get_subnet_cidr_reservations <- function(Filters = NULL, SubnetId, DryRun = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_subnet_cidr_reservations_input(Filters = Filters, SubnetId = SubnetId, DryRun = DryRun, NextToken = NextToken, MaxResults = MaxResults)
   output <- .ec2$get_subnet_cidr_reservations_output()
@@ -23512,7 +25413,8 @@ ec2_get_transit_gateway_attachment_propagations <- function(TransitGatewayAttach
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayAttachmentPropagations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_transit_gateway_attachment_propagations_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_transit_gateway_attachment_propagations_output()
@@ -23547,7 +25449,8 @@ ec2_get_transit_gateway_metering_policy_entries <- function(TransitGatewayMeteri
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_transit_gateway_metering_policy_entries_input(TransitGatewayMeteringPolicyId = TransitGatewayMeteringPolicyId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_transit_gateway_metering_policy_entries_output()
@@ -23593,7 +25496,8 @@ ec2_get_transit_gateway_multicast_domain_associations <- function(TransitGateway
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "MulticastDomainAssociations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_transit_gateway_multicast_domain_associations_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_transit_gateway_multicast_domain_associations_output()
@@ -23628,7 +25532,8 @@ ec2_get_transit_gateway_policy_table_associations <- function(TransitGatewayPoli
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Associations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_transit_gateway_policy_table_associations_input(TransitGatewayPolicyTableId = TransitGatewayPolicyTableId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_transit_gateway_policy_table_associations_output()
@@ -23648,7 +25553,25 @@ ec2_get_transit_gateway_policy_table_associations <- function(TransitGatewayPoli
 #' See [https://www.paws-r-sdk.com/docs/ec2_get_transit_gateway_policy_table_entries/](https://www.paws-r-sdk.com/docs/ec2_get_transit_gateway_policy_table_entries/) for full documentation.
 #'
 #' @param TransitGatewayPolicyTableId &#91;required&#93; The ID of the transit gateway policy table.
-#' @param Filters The filters associated with the transit gateway policy table.
+#' @param Filters One or more filters. The possible values are:
+#' 
+#' -   `policy-rule-number` - The rule number for the transit gateway policy table entry.
+#' 
+#' -   `target-route-table-id` - The ID of the target route table.
+#' 
+#' -   `policy-rule.source-ip` - The source CIDR block for the policy rule.
+#' 
+#' -   `policy-rule.destination-ip` - The destination CIDR block for the policy rule.
+#' 
+#' -   `policy-rule.source-port` - The source port or port range for the policy rule.
+#' 
+#' -   `policy-rule.destination-port` - The destination port or port range for the policy rule.
+#' 
+#' -   `policy-rule.protocol` - The protocol for the policy rule.
+#' 
+#' -   `policy-rule.meta-data.key` - The metadata key for the policy rule.
+#' 
+#' -   `policy-rule.meta-data.value` - The metadata value for the policy rule.
 #' @param MaxResults The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned `nextToken` value.
 #' @param NextToken The token for the next page of results.
 #' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
@@ -23662,8 +25585,9 @@ ec2_get_transit_gateway_policy_table_entries <- function(TransitGatewayPolicyTab
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
-    paginator = list(),
-    stream_api = FALSE
+    paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayPolicyTableEntries"),
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_transit_gateway_policy_table_entries_input(TransitGatewayPolicyTableId = TransitGatewayPolicyTableId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_transit_gateway_policy_table_entries_output()
@@ -23713,7 +25637,8 @@ ec2_get_transit_gateway_prefix_list_references <- function(TransitGatewayRouteTa
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayPrefixListReferences"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_transit_gateway_prefix_list_references_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_transit_gateway_prefix_list_references_output()
@@ -23755,7 +25680,8 @@ ec2_get_transit_gateway_route_table_associations <- function(TransitGatewayRoute
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Associations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_transit_gateway_route_table_associations_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_transit_gateway_route_table_associations_output()
@@ -23797,7 +25723,8 @@ ec2_get_transit_gateway_route_table_propagations <- function(TransitGatewayRoute
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "TransitGatewayRouteTablePropagations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_transit_gateway_route_table_propagations_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_transit_gateway_route_table_propagations_output()
@@ -23829,7 +25756,8 @@ ec2_get_verified_access_endpoint_policy <- function(VerifiedAccessEndpointId, Dr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_verified_access_endpoint_policy_input(VerifiedAccessEndpointId = VerifiedAccessEndpointId, DryRun = DryRun)
   output <- .ec2$get_verified_access_endpoint_policy_output()
@@ -23864,7 +25792,8 @@ ec2_get_verified_access_endpoint_targets <- function(VerifiedAccessEndpointId, M
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_verified_access_endpoint_targets_input(VerifiedAccessEndpointId = VerifiedAccessEndpointId, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_verified_access_endpoint_targets_output()
@@ -23897,7 +25826,8 @@ ec2_get_verified_access_group_policy <- function(VerifiedAccessGroupId, DryRun =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_verified_access_group_policy_input(VerifiedAccessGroupId = VerifiedAccessGroupId, DryRun = DryRun)
   output <- .ec2$get_verified_access_group_policy_output()
@@ -23932,7 +25862,8 @@ ec2_get_vpc_resources_blocking_encryption_enforcement <- function(VpcId, MaxResu
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_vpc_resources_blocking_encryption_enforcement_input(VpcId = VpcId, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_vpc_resources_blocking_encryption_enforcement_output()
@@ -23969,7 +25900,8 @@ ec2_get_vpn_connection_device_sample_configuration <- function(VpnConnectionId, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_vpn_connection_device_sample_configuration_input(VpnConnectionId = VpnConnectionId, VpnConnectionDeviceTypeId = VpnConnectionDeviceTypeId, InternetKeyExchangeVersion = InternetKeyExchangeVersion, SampleType = SampleType, DryRun = DryRun)
   output <- .ec2$get_vpn_connection_device_sample_configuration_output()
@@ -24003,7 +25935,8 @@ ec2_get_vpn_connection_device_types <- function(MaxResults = NULL, NextToken = N
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "VpnConnectionDeviceTypes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_vpn_connection_device_types_input(MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$get_vpn_connection_device_types_output()
@@ -24036,7 +25969,8 @@ ec2_get_vpn_tunnel_replacement_status <- function(VpnConnectionId, VpnTunnelOuts
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$get_vpn_tunnel_replacement_status_input(VpnConnectionId = VpnConnectionId, VpnTunnelOutsideIpAddress = VpnTunnelOutsideIpAddress, DryRun = DryRun)
   output <- .ec2$get_vpn_tunnel_replacement_status_output()
@@ -24070,7 +26004,8 @@ ec2_import_client_vpn_client_certificate_revocation_list <- function(ClientVpnEn
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$import_client_vpn_client_certificate_revocation_list_input(ClientVpnEndpointId = ClientVpnEndpointId, CertificateRevocationList = CertificateRevocationList, DryRun = DryRun)
   output <- .ec2$import_client_vpn_client_certificate_revocation_list_output()
@@ -24146,7 +26081,8 @@ ec2_import_image <- function(Architecture = NULL, ClientData = NULL, ClientToken
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$import_image_input(Architecture = Architecture, ClientData = ClientData, ClientToken = ClientToken, Description = Description, DiskContainers = DiskContainers, DryRun = DryRun, Encrypted = Encrypted, Hypervisor = Hypervisor, KmsKeyId = KmsKeyId, LicenseType = LicenseType, Platform = Platform, RoleName = RoleName, LicenseSpecifications = LicenseSpecifications, TagSpecifications = TagSpecifications, UsageOperation = UsageOperation, BootMode = BootMode)
   output <- .ec2$import_image_output()
@@ -24181,7 +26117,8 @@ ec2_import_instance <- function(DryRun = NULL, Description = NULL, LaunchSpecifi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$import_instance_input(DryRun = DryRun, Description = Description, LaunchSpecification = LaunchSpecification, DiskImages = DiskImages, Platform = Platform)
   output <- .ec2$import_instance_output()
@@ -24216,7 +26153,8 @@ ec2_import_key_pair <- function(TagSpecifications = NULL, DryRun = NULL, KeyName
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$import_key_pair_input(TagSpecifications = TagSpecifications, DryRun = DryRun, KeyName = KeyName, PublicKeyMaterial = PublicKeyMaterial)
   output <- .ec2$import_key_pair_output()
@@ -24271,7 +26209,8 @@ ec2_import_snapshot <- function(ClientData = NULL, ClientToken = NULL, Descripti
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$import_snapshot_input(ClientData = ClientData, ClientToken = ClientToken, Description = Description, DiskContainer = DiskContainer, DryRun = DryRun, Encrypted = Encrypted, KmsKeyId = KmsKeyId, RoleName = RoleName, TagSpecifications = TagSpecifications)
   output <- .ec2$import_snapshot_output()
@@ -24311,7 +26250,8 @@ ec2_import_volume <- function(AvailabilityZoneId = NULL, DryRun = NULL, Availabi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$import_volume_input(AvailabilityZoneId = AvailabilityZoneId, DryRun = DryRun, AvailabilityZone = AvailabilityZone, Image = Image, Description = Description, Volume = Volume)
   output <- .ec2$import_volume_output()
@@ -24345,7 +26285,8 @@ ec2_list_images_in_recycle_bin <- function(ImageIds = NULL, NextToken = NULL, Ma
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Images"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$list_images_in_recycle_bin_input(ImageIds = ImageIds, NextToken = NextToken, MaxResults = MaxResults, DryRun = DryRun)
   output <- .ec2$list_images_in_recycle_bin_output()
@@ -24379,7 +26320,8 @@ ec2_list_snapshots_in_recycle_bin <- function(MaxResults = NULL, NextToken = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Snapshots"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$list_snapshots_in_recycle_bin_input(MaxResults = MaxResults, NextToken = NextToken, SnapshotIds = SnapshotIds, DryRun = DryRun)
   output <- .ec2$list_snapshots_in_recycle_bin_output()
@@ -24415,7 +26357,8 @@ ec2_list_volumes_in_recycle_bin <- function(VolumeIds = NULL, DryRun = NULL, Max
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$list_volumes_in_recycle_bin_input(VolumeIds = VolumeIds, DryRun = DryRun, MaxResults = MaxResults, NextToken = NextToken)
   output <- .ec2$list_volumes_in_recycle_bin_output()
@@ -24481,7 +26424,8 @@ ec2_lock_snapshot <- function(SnapshotId, DryRun = NULL, LockMode, CoolOffPeriod
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$lock_snapshot_input(SnapshotId = SnapshotId, DryRun = DryRun, LockMode = LockMode, CoolOffPeriod = CoolOffPeriod, LockDuration = LockDuration, ExpirationDate = ExpirationDate)
   output <- .ec2$lock_snapshot_output()
@@ -24492,6 +26436,47 @@ ec2_lock_snapshot <- function(SnapshotId, DryRun = NULL, LockMode, CoolOffPeriod
   return(response)
 }
 .ec2$operations$lock_snapshot <- ec2_lock_snapshot
+
+#' Modifies the account-level VPC Encryption Control configuration
+#'
+#' @description
+#' Modifies the account-level VPC Encryption Control configuration. This sets the encryption control mode and resource exclusions that apply to the VPCs in your account. VPC Encryption Control enables you to enforce encryption for all data in transit within and between VPCs to meet compliance requirements.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_modify_account_vpc_encryption_control/](https://www.paws-r-sdk.com/docs/ec2_modify_account_vpc_encryption_control/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param Mode The encryption mode for the account encryption control configuration.
+#' @param InternetGateway Specifies whether to exclude internet gateway resource from account-level encryption enforcement.
+#' @param EgressOnlyInternetGateway Specifies whether to exclude egress-only internet gateway resource from account-level encryption enforcement.
+#' @param NatGateway Specifies whether to exclude NAT gateway resource from account-level encryption enforcement.
+#' @param VirtualPrivateGateway Specifies whether to exclude virtual private gateway resource from account-level encryption enforcement.
+#' @param VpcPeering Specifies whether to exclude VPC peering connection resource from account-level encryption enforcement.
+#' @param Lambda Specifies whether to exclude Lambda service from account-level encryption enforcement.
+#' @param VpcLattice Specifies whether to exclude VPC Lattice service from account-level encryption enforcement.
+#' @param ElasticFileSystem Specifies whether to exclude Elastic File System service from account-level encryption enforcement.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_account_vpc_encryption_control
+ec2_modify_account_vpc_encryption_control <- function(DryRun = NULL, Mode = NULL, InternetGateway = NULL, EgressOnlyInternetGateway = NULL, NatGateway = NULL, VirtualPrivateGateway = NULL, VpcPeering = NULL, Lambda = NULL, VpcLattice = NULL, ElasticFileSystem = NULL) {
+  op <- new_operation(
+    name = "ModifyAccountVpcEncryptionControl",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$modify_account_vpc_encryption_control_input(DryRun = DryRun, Mode = Mode, InternetGateway = InternetGateway, EgressOnlyInternetGateway = EgressOnlyInternetGateway, NatGateway = NatGateway, VirtualPrivateGateway = VirtualPrivateGateway, VpcPeering = VpcPeering, Lambda = Lambda, VpcLattice = VpcLattice, ElasticFileSystem = ElasticFileSystem)
+  output <- .ec2$modify_account_vpc_encryption_control_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_account_vpc_encryption_control <- ec2_modify_account_vpc_encryption_control
 
 #' Modifies an attribute of the specified Elastic IP address
 #'
@@ -24514,7 +26499,8 @@ ec2_modify_address_attribute <- function(AllocationId, DomainName = NULL, DryRun
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_address_attribute_input(AllocationId = AllocationId, DomainName = DomainName, DryRun = DryRun)
   output <- .ec2$modify_address_attribute_output()
@@ -24525,6 +26511,54 @@ ec2_modify_address_attribute <- function(AllocationId, DomainName = NULL, DryRun
   return(response)
 }
 .ec2$operations$modify_address_attribute <- ec2_modify_address_attribute
+
+#' Modifies an existing application status check
+#'
+#' @description
+#' Modifies an existing application status check. You can update the protocol, port, path, thresholds, and other configuration settings. The following rules apply:
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_modify_application_status_check/](https://www.paws-r-sdk.com/docs/ec2_modify_application_status_check/) for full documentation.
+#'
+#' @param ApplicationStatusCheckId &#91;required&#93; The ID of the application status check to modify.
+#' @param Aggregation The aggregation setting for the application status check. When set to `included`, the result of this check contributes to the instance-level application status reported by [`describe_application_status`][ec2_describe_application_status]. When set to `excluded`, the check runs independently and does not affect the instance-level status. Valid values: `included` | `excluded`.
+#' @param HealthCheckPaths The health check paths to use for the application status check.
+#' @param Protocol The protocol to use for the health check. Valid values: `http` | `https`.
+#' @param Port The port to use for the health check. Valid values: 1 to 65535.
+#' @param Path The URL path to use for the health check HTTP request (for example, `/health` or `/status`).
+#' @param DeviceIndex The index of the network device to use for the health check. The value must be greater than or equal to 0.
+#' @param IpVersion The IP version to use for the health check. Valid values: `ipv4` and `ipv6`.
+#' @param IpScope The IP scope to use for the health check. Valid value: `private`.
+#' @param Interval The interval, in seconds, between health checks. Valid value: 60.
+#' @param Timeout The amount of time, in seconds, to wait for a health check response before considering it failed. Valid values: 1 to 30. The value must be less than `Interval`.
+#' @param FailureThreshold The number of consecutive failed health checks before the application status is considered impaired. The value must be greater than 0.
+#' @param SuccessThreshold The number of consecutive successful health checks before the application status is considered healthy. The value must be greater than 0.
+#' @param StatusCodeMatcher The HTTP status codes that indicate a successful health check response. Specify a comma-separated list of individual status codes or ranges, for example, `200,202,300-399`. For a range, the first value must be less than the second value. Maximum length: 64 characters.
+#' @param InitializationGracePeriodSeconds The number of seconds to wait before starting health checks after an instance is launched. Valid values: 1 to 600.
+#' @param ClientToken A unique, case-sensitive identifier that you provide to ensure that the operation completes no more than one time. If you retry a request with the same token, the service ignores the request but does not return an error. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_application_status_check
+ec2_modify_application_status_check <- function(ApplicationStatusCheckId, Aggregation = NULL, HealthCheckPaths = NULL, Protocol = NULL, Port = NULL, Path = NULL, DeviceIndex = NULL, IpVersion = NULL, IpScope = NULL, Interval = NULL, Timeout = NULL, FailureThreshold = NULL, SuccessThreshold = NULL, StatusCodeMatcher = NULL, InitializationGracePeriodSeconds = NULL, ClientToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "ModifyApplicationStatusCheck",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$modify_application_status_check_input(ApplicationStatusCheckId = ApplicationStatusCheckId, Aggregation = Aggregation, HealthCheckPaths = HealthCheckPaths, Protocol = Protocol, Port = Port, Path = Path, DeviceIndex = DeviceIndex, IpVersion = IpVersion, IpScope = IpScope, Interval = Interval, Timeout = Timeout, FailureThreshold = FailureThreshold, SuccessThreshold = SuccessThreshold, StatusCodeMatcher = StatusCodeMatcher, InitializationGracePeriodSeconds = InitializationGracePeriodSeconds, ClientToken = ClientToken, DryRun = DryRun)
+  output <- .ec2$modify_application_status_check_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_application_status_check <- ec2_modify_application_status_check
 
 #' Changes the opt-in status of the specified zone group for your account
 #'
@@ -24547,7 +26581,8 @@ ec2_modify_availability_zone_group <- function(GroupName, OptInStatus, DryRun = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_availability_zone_group_input(GroupName = GroupName, OptInStatus = OptInStatus, DryRun = DryRun)
   output <- .ec2$modify_availability_zone_group_output()
@@ -24585,20 +26620,24 @@ ec2_modify_availability_zone_group <- function(GroupName, OptInStatus, DryRun = 
 #' @param InstanceMatchCriteria The matching criteria (instance eligibility) that you want to use in the modified Capacity Reservation. If you change the instance eligibility of an existing Capacity Reservation from `targeted` to `open`, any running instances that match the attributes of the Capacity Reservation, have the `CapacityReservationPreference` set to `open`, and are not yet running in the Capacity Reservation, will automatically use the modified Capacity Reservation.
 #' 
 #' To modify the instance eligibility, the Capacity Reservation must be completely idle (zero usage).
+#' @param AcceptModificationTerms Indicates that you accept the modification terms of the quote identified by `QuoteId`. To apply a quoted modification, set this parameter to `true`.
+#' @param StartDate The new start date for the Capacity Reservation, in the ISO8601 format in the UTC time zone (`YYYY-MM-DDThh:mm:ss.sssZ`). Applies to future-dated Capacity Reservations only. Requires a quote from [`create_capacity_reservation_date_change_quote`][ec2_create_capacity_reservation_date_change_quote]; pass the quote ID in `QuoteId` with `AcceptModificationTerms` set to `true`.
+#' @param QuoteId The ID of the quote that describes the modification you want to apply. Generate a quote by using [`create_capacity_reservation_date_change_quote`][ec2_create_capacity_reservation_date_change_quote]. The quote must be in the `active` state, and each quote can be used only once.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_modify_capacity_reservation
-ec2_modify_capacity_reservation <- function(CapacityReservationId, InstanceCount = NULL, EndDate = NULL, EndDateType = NULL, Accept = NULL, DryRun = NULL, AdditionalInfo = NULL, InstanceMatchCriteria = NULL) {
+ec2_modify_capacity_reservation <- function(CapacityReservationId, InstanceCount = NULL, EndDate = NULL, EndDateType = NULL, Accept = NULL, DryRun = NULL, AdditionalInfo = NULL, InstanceMatchCriteria = NULL, AcceptModificationTerms = NULL, StartDate = NULL, QuoteId = NULL) {
   op <- new_operation(
     name = "ModifyCapacityReservation",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$modify_capacity_reservation_input(CapacityReservationId = CapacityReservationId, InstanceCount = InstanceCount, EndDate = EndDate, EndDateType = EndDateType, Accept = Accept, DryRun = DryRun, AdditionalInfo = AdditionalInfo, InstanceMatchCriteria = InstanceMatchCriteria)
+  input <- .ec2$modify_capacity_reservation_input(CapacityReservationId = CapacityReservationId, InstanceCount = InstanceCount, EndDate = EndDate, EndDateType = EndDateType, Accept = Accept, DryRun = DryRun, AdditionalInfo = AdditionalInfo, InstanceMatchCriteria = InstanceMatchCriteria, AcceptModificationTerms = AcceptModificationTerms, StartDate = StartDate, QuoteId = QuoteId)
   output <- .ec2$modify_capacity_reservation_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -24637,7 +26676,8 @@ ec2_modify_capacity_reservation_fleet <- function(CapacityReservationFleetId, To
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_capacity_reservation_fleet_input(CapacityReservationFleetId = CapacityReservationFleetId, TotalTargetCapacity = TotalTargetCapacity, EndDate = EndDate, DryRun = DryRun, RemoveEndDate = RemoveEndDate)
   output <- .ec2$modify_capacity_reservation_fleet_output()
@@ -24695,20 +26735,22 @@ ec2_modify_capacity_reservation_fleet <- function(CapacityReservationFleetId, To
 #' Client route enforcement works by monitoring the route table of a connected device for routing policy changes to the VPN connection. If the feature detects any VPN routing policy modifications, it will automatically force an update to the route table, reverting it back to the expected route configurations.
 #' @param DisconnectOnSessionTimeout Indicates whether the client VPN session is disconnected after the maximum timeout specified in `sessionTimeoutHours` is reached. If `true`, users are prompted to reconnect client VPN. If `false`, client VPN attempts to reconnect automatically. The default value is `true`.
 #' @param TransitGatewayConfiguration The Transit Gateway configuration for the Client VPN endpoint. This option is currently not supported.
+#' @param DevicePostureOptions The device posture options for the Client VPN endpoint. Specifying this parameter replaces the entire device posture configuration for the endpoint. To remove all device trust providers, specify an empty list.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_modify_client_vpn_endpoint
-ec2_modify_client_vpn_endpoint <- function(ClientVpnEndpointId, ServerCertificateArn = NULL, ConnectionLogOptions = NULL, DnsServers = NULL, VpnPort = NULL, Description = NULL, SplitTunnel = NULL, DryRun = NULL, SecurityGroupIds = NULL, VpcId = NULL, SelfServicePortal = NULL, ClientConnectOptions = NULL, SessionTimeoutHours = NULL, ClientLoginBannerOptions = NULL, ClientRouteEnforcementOptions = NULL, DisconnectOnSessionTimeout = NULL, TransitGatewayConfiguration = NULL) {
+ec2_modify_client_vpn_endpoint <- function(ClientVpnEndpointId, ServerCertificateArn = NULL, ConnectionLogOptions = NULL, DnsServers = NULL, VpnPort = NULL, Description = NULL, SplitTunnel = NULL, DryRun = NULL, SecurityGroupIds = NULL, VpcId = NULL, SelfServicePortal = NULL, ClientConnectOptions = NULL, SessionTimeoutHours = NULL, ClientLoginBannerOptions = NULL, ClientRouteEnforcementOptions = NULL, DisconnectOnSessionTimeout = NULL, TransitGatewayConfiguration = NULL, DevicePostureOptions = NULL) {
   op <- new_operation(
     name = "ModifyClientVpnEndpoint",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$modify_client_vpn_endpoint_input(ClientVpnEndpointId = ClientVpnEndpointId, ServerCertificateArn = ServerCertificateArn, ConnectionLogOptions = ConnectionLogOptions, DnsServers = DnsServers, VpnPort = VpnPort, Description = Description, SplitTunnel = SplitTunnel, DryRun = DryRun, SecurityGroupIds = SecurityGroupIds, VpcId = VpcId, SelfServicePortal = SelfServicePortal, ClientConnectOptions = ClientConnectOptions, SessionTimeoutHours = SessionTimeoutHours, ClientLoginBannerOptions = ClientLoginBannerOptions, ClientRouteEnforcementOptions = ClientRouteEnforcementOptions, DisconnectOnSessionTimeout = DisconnectOnSessionTimeout, TransitGatewayConfiguration = TransitGatewayConfiguration)
+  input <- .ec2$modify_client_vpn_endpoint_input(ClientVpnEndpointId = ClientVpnEndpointId, ServerCertificateArn = ServerCertificateArn, ConnectionLogOptions = ConnectionLogOptions, DnsServers = DnsServers, VpnPort = VpnPort, Description = Description, SplitTunnel = SplitTunnel, DryRun = DryRun, SecurityGroupIds = SecurityGroupIds, VpcId = VpcId, SelfServicePortal = SelfServicePortal, ClientConnectOptions = ClientConnectOptions, SessionTimeoutHours = SessionTimeoutHours, ClientLoginBannerOptions = ClientLoginBannerOptions, ClientRouteEnforcementOptions = ClientRouteEnforcementOptions, DisconnectOnSessionTimeout = DisconnectOnSessionTimeout, TransitGatewayConfiguration = TransitGatewayConfiguration, DevicePostureOptions = DevicePostureOptions)
   output <- .ec2$modify_client_vpn_endpoint_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -24717,6 +26759,49 @@ ec2_modify_client_vpn_endpoint <- function(ClientVpnEndpointId, ServerCertificat
   return(response)
 }
 .ec2$operations$modify_client_vpn_endpoint <- ec2_modify_client_vpn_endpoint
+
+#' Creates or updates the authorization policy for a Client VPN endpoint
+#'
+#' @description
+#' Creates or updates the authorization policy for a Client VPN endpoint. A Client VPN endpoint can have one authorization policy. If a policy already exists for the endpoint, the values that you specify replace the corresponding values in the existing policy, and values that you do not specify remain unchanged.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_modify_client_vpn_endpoint_authorization_policy/](https://www.paws-r-sdk.com/docs/ec2_modify_client_vpn_endpoint_authorization_policy/) for full documentation.
+#'
+#' @param ClientVpnEndpointId &#91;required&#93; The ID of the Client VPN endpoint.
+#' @param PolicyDocument The authorization policy document, written in the Cedar policy language. This parameter is required when you create the authorization policy for a Client VPN endpoint that does not already have one.
+#' @param Description A brief description of the authorization policy.
+#' @param ShadowMode Specifies whether the authorization policy is evaluated in shadow mode. Possible values include:
+#' 
+#' -   `enabled` - The authorization policy is evaluated and the results are logged, but access is not enforced.
+#' 
+#' -   `disabled` - The authorization policy is enforced.
+#' 
+#' The default value is `disabled`.
+#' @param ClientToken Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see [Ensuring idempotency](https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html).
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_client_vpn_endpoint_authorization_policy
+ec2_modify_client_vpn_endpoint_authorization_policy <- function(ClientVpnEndpointId, PolicyDocument = NULL, Description = NULL, ShadowMode = NULL, ClientToken = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "ModifyClientVpnEndpointAuthorizationPolicy",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$modify_client_vpn_endpoint_authorization_policy_input(ClientVpnEndpointId = ClientVpnEndpointId, PolicyDocument = PolicyDocument, Description = Description, ShadowMode = ShadowMode, ClientToken = ClientToken, DryRun = DryRun)
+  output <- .ec2$modify_client_vpn_endpoint_authorization_policy_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_client_vpn_endpoint_authorization_policy <- ec2_modify_client_vpn_endpoint_authorization_policy
 
 #' Modifies the default credit option for CPU usage of burstable
 #' performance instances
@@ -24742,7 +26827,8 @@ ec2_modify_default_credit_specification <- function(DryRun = NULL, InstanceFamil
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_default_credit_specification_input(DryRun = DryRun, InstanceFamily = InstanceFamily, CpuCredits = CpuCredits)
   output <- .ec2$modify_default_credit_specification_output()
@@ -24789,7 +26875,8 @@ ec2_modify_ebs_default_kms_key_id <- function(KmsKeyId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ebs_default_kms_key_id_input(KmsKeyId = KmsKeyId, DryRun = DryRun)
   output <- .ec2$modify_ebs_default_kms_key_id_output()
@@ -24827,7 +26914,8 @@ ec2_modify_fleet <- function(DryRun = NULL, ExcessCapacityTerminationPolicy = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_fleet_input(DryRun = DryRun, ExcessCapacityTerminationPolicy = ExcessCapacityTerminationPolicy, LaunchTemplateConfigs = LaunchTemplateConfigs, FleetId = FleetId, TargetCapacitySpecification = TargetCapacitySpecification, Context = Context)
   output <- .ec2$modify_fleet_output()
@@ -24868,7 +26956,8 @@ ec2_modify_fpga_image_attribute <- function(DryRun = NULL, FpgaImageId, Attribut
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_fpga_image_attribute_input(DryRun = DryRun, FpgaImageId = FpgaImageId, Attribute = Attribute, OperationType = OperationType, UserIds = UserIds, UserGroups = UserGroups, ProductCodes = ProductCodes, LoadPermission = LoadPermission, Description = Description, Name = Name)
   output <- .ec2$modify_fpga_image_attribute_output()
@@ -24908,7 +26997,8 @@ ec2_modify_hosts <- function(HostRecovery = NULL, InstanceType = NULL, InstanceF
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_hosts_input(HostRecovery = HostRecovery, InstanceType = InstanceType, InstanceFamily = InstanceFamily, HostMaintenance = HostMaintenance, HostIds = HostIds, AutoPlacement = AutoPlacement)
   output <- .ec2$modify_hosts_output()
@@ -24942,7 +27032,8 @@ ec2_modify_id_format <- function(Resource, UseLongIds) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_id_format_input(Resource = Resource, UseLongIds = UseLongIds)
   output <- .ec2$modify_id_format_output()
@@ -24979,7 +27070,8 @@ ec2_modify_identity_id_format <- function(Resource, UseLongIds, PrincipalArn) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_identity_id_format_input(Resource = Resource, UseLongIds = UseLongIds, PrincipalArn = PrincipalArn)
   output <- .ec2$modify_identity_id_format_output()
@@ -25026,7 +27118,8 @@ ec2_modify_image_attribute <- function(Attribute = NULL, Description = NULL, Ima
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_image_attribute_input(Attribute = Attribute, Description = Description, ImageId = ImageId, LaunchPermission = LaunchPermission, OperationType = OperationType, ProductCodes = ProductCodes, UserGroups = UserGroups, UserIds = UserIds, Value = Value, OrganizationArns = OrganizationArns, OrganizationalUnitArns = OrganizationalUnitArns, ImdsSupport = ImdsSupport, DryRun = DryRun)
   output <- .ec2$modify_image_attribute_output()
@@ -25086,7 +27179,8 @@ ec2_modify_instance_attribute <- function(SourceDestCheck = NULL, EnclaveOptions
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_attribute_input(SourceDestCheck = SourceDestCheck, EnclaveOptions = EnclaveOptions, DisableApiStop = DisableApiStop, DryRun = DryRun, InstanceId = InstanceId, Attribute = Attribute, Value = Value, BlockDeviceMappings = BlockDeviceMappings, DisableApiTermination = DisableApiTermination, InstanceType = InstanceType, Kernel = Kernel, Ramdisk = Ramdisk, UserData = UserData, InstanceInitiatedShutdownBehavior = InstanceInitiatedShutdownBehavior, Groups = Groups, EbsOptimized = EbsOptimized, SriovNetSupport = SriovNetSupport, EnaSupport = EnaSupport)
   output <- .ec2$modify_instance_attribute_output()
@@ -25119,7 +27213,8 @@ ec2_modify_instance_capacity_reservation_attributes <- function(InstanceId, Capa
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_capacity_reservation_attributes_input(InstanceId = InstanceId, CapacityReservationSpecification = CapacityReservationSpecification, DryRun = DryRun)
   output <- .ec2$modify_instance_capacity_reservation_attributes_output()
@@ -25160,7 +27255,8 @@ ec2_modify_instance_connect_endpoint <- function(DryRun = NULL, InstanceConnectE
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_connect_endpoint_input(DryRun = DryRun, InstanceConnectEndpointId = InstanceConnectEndpointId, IpAddressType = IpAddressType, SecurityGroupIds = SecurityGroupIds, PreserveClientIp = PreserveClientIp)
   output <- .ec2$modify_instance_connect_endpoint_output()
@@ -25196,7 +27292,8 @@ ec2_modify_instance_cpu_options <- function(InstanceId, CoreCount = NULL, Thread
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_cpu_options_input(InstanceId = InstanceId, CoreCount = CoreCount, ThreadsPerCore = ThreadsPerCore, NestedVirtualization = NestedVirtualization, DryRun = DryRun)
   output <- .ec2$modify_instance_cpu_options_output()
@@ -25230,7 +27327,8 @@ ec2_modify_instance_credit_specification <- function(DryRun = NULL, ClientToken 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_credit_specification_input(DryRun = DryRun, ClientToken = ClientToken, InstanceCreditSpecifications = InstanceCreditSpecifications)
   output <- .ec2$modify_instance_credit_specification_output()
@@ -25264,7 +27362,8 @@ ec2_modify_instance_event_start_time <- function(DryRun = NULL, InstanceId, Inst
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_event_start_time_input(DryRun = DryRun, InstanceId = InstanceId, InstanceEventId = InstanceEventId, NotBefore = NotBefore)
   output <- .ec2$modify_instance_event_start_time_output()
@@ -25315,7 +27414,8 @@ ec2_modify_instance_event_window <- function(DryRun = NULL, Name = NULL, Instanc
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_event_window_input(DryRun = DryRun, Name = Name, InstanceEventWindowId = InstanceEventWindowId, TimeRanges = TimeRanges, CronExpression = CronExpression)
   output <- .ec2$modify_instance_event_window_output()
@@ -25356,7 +27456,8 @@ ec2_modify_instance_maintenance_options <- function(InstanceId, AutoRecovery = N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_maintenance_options_input(InstanceId = InstanceId, AutoRecovery = AutoRecovery, RebootMigration = RebootMigration, DryRun = DryRun)
   output <- .ec2$modify_instance_maintenance_options_output()
@@ -25399,7 +27500,8 @@ ec2_modify_instance_metadata_defaults <- function(HttpTokens = NULL, HttpPutResp
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_metadata_defaults_input(HttpTokens = HttpTokens, HttpPutResponseHopLimit = HttpPutResponseHopLimit, HttpEndpoint = HttpEndpoint, InstanceMetadataTags = InstanceMetadataTags, DryRun = DryRun, HttpTokensEnforced = HttpTokensEnforced)
   output <- .ec2$modify_instance_metadata_defaults_output()
@@ -25452,7 +27554,8 @@ ec2_modify_instance_metadata_options <- function(InstanceId, HttpTokens = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_metadata_options_input(InstanceId = InstanceId, HttpTokens = HttpTokens, HttpPutResponseHopLimit = HttpPutResponseHopLimit, HttpEndpoint = HttpEndpoint, DryRun = DryRun, HttpProtocolIpv6 = HttpProtocolIpv6, InstanceMetadataTags = InstanceMetadataTags)
   output <- .ec2$modify_instance_metadata_options_output()
@@ -25498,7 +27601,8 @@ ec2_modify_instance_network_performance_options <- function(InstanceId, Bandwidt
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_network_performance_options_input(InstanceId = InstanceId, BandwidthWeighting = BandwidthWeighting, DryRun = DryRun)
   output <- .ec2$modify_instance_network_performance_options_output()
@@ -25540,7 +27644,8 @@ ec2_modify_instance_placement <- function(GroupName = NULL, PartitionNumber = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_instance_placement_input(GroupName = GroupName, PartitionNumber = PartitionNumber, HostResourceGroupArn = HostResourceGroupArn, GroupId = GroupId, InstanceId = InstanceId, Tenancy = Tenancy, Affinity = Affinity, HostId = HostId)
   output <- .ec2$modify_instance_placement_output()
@@ -25586,7 +27691,8 @@ ec2_modify_ipam <- function(DryRun = NULL, IpamId, Description = NULL, AddOperat
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_input(DryRun = DryRun, IpamId = IpamId, Description = Description, AddOperatingRegions = AddOperatingRegions, RemoveOperatingRegions = RemoveOperatingRegions, Tier = Tier, EnablePrivateGua = EnablePrivateGua, MeteredAccount = MeteredAccount)
   output <- .ec2$modify_ipam_output()
@@ -25627,7 +27733,8 @@ ec2_modify_ipam_policy_allocation_rules <- function(DryRun = NULL, IpamPolicyId,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_policy_allocation_rules_input(DryRun = DryRun, IpamPolicyId = IpamPolicyId, Locale = Locale, ResourceType = ResourceType, AllocationRules = AllocationRules)
   output <- .ec2$modify_ipam_policy_allocation_rules_output()
@@ -25669,7 +27776,8 @@ ec2_modify_ipam_pool <- function(DryRun = NULL, IpamPoolId, Description = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_pool_input(DryRun = DryRun, IpamPoolId = IpamPoolId, Description = Description, AutoImport = AutoImport, AllocationMinNetmaskLength = AllocationMinNetmaskLength, AllocationMaxNetmaskLength = AllocationMaxNetmaskLength, AllocationDefaultNetmaskLength = AllocationDefaultNetmaskLength, ClearAllocationDefaultNetmaskLength = ClearAllocationDefaultNetmaskLength, AddAllocationResourceTags = AddAllocationResourceTags, RemoveAllocationResourceTags = RemoveAllocationResourceTags)
   output <- .ec2$modify_ipam_pool_output()
@@ -25702,7 +27810,8 @@ ec2_modify_ipam_pool_allocation <- function(DryRun = NULL, IpamPoolAllocationId,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_pool_allocation_input(DryRun = DryRun, IpamPoolAllocationId = IpamPoolAllocationId, Description = Description)
   output <- .ec2$modify_ipam_pool_allocation_output()
@@ -25736,7 +27845,8 @@ ec2_modify_ipam_prefix_list_resolver <- function(DryRun = NULL, IpamPrefixListRe
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_prefix_list_resolver_input(DryRun = DryRun, IpamPrefixListResolverId = IpamPrefixListResolverId, Description = Description, Rules = Rules)
   output <- .ec2$modify_ipam_prefix_list_resolver_output()
@@ -25773,7 +27883,8 @@ ec2_modify_ipam_prefix_list_resolver_target <- function(DryRun = NULL, IpamPrefi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_prefix_list_resolver_target_input(DryRun = DryRun, IpamPrefixListResolverTargetId = IpamPrefixListResolverTargetId, DesiredVersion = DesiredVersion, TrackLatestVersion = TrackLatestVersion, ClientToken = ClientToken)
   output <- .ec2$modify_ipam_prefix_list_resolver_target_output()
@@ -25810,7 +27921,8 @@ ec2_modify_ipam_resource_cidr <- function(DryRun = NULL, ResourceId, ResourceCid
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_resource_cidr_input(DryRun = DryRun, ResourceId = ResourceId, ResourceCidr = ResourceCidr, ResourceRegion = ResourceRegion, CurrentIpamScopeId = CurrentIpamScopeId, DestinationIpamScopeId = DestinationIpamScopeId, Monitored = Monitored)
   output <- .ec2$modify_ipam_resource_cidr_output()
@@ -25851,7 +27963,8 @@ ec2_modify_ipam_resource_discovery <- function(DryRun = NULL, IpamResourceDiscov
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_resource_discovery_input(DryRun = DryRun, IpamResourceDiscoveryId = IpamResourceDiscoveryId, Description = Description, AddOperatingRegions = AddOperatingRegions, RemoveOperatingRegions = RemoveOperatingRegions, AddOrganizationalUnitExclusions = AddOrganizationalUnitExclusions, RemoveOrganizationalUnitExclusions = RemoveOrganizationalUnitExclusions)
   output <- .ec2$modify_ipam_resource_discovery_output()
@@ -25862,6 +27975,46 @@ ec2_modify_ipam_resource_discovery <- function(DryRun = NULL, IpamResourceDiscov
   return(response)
 }
 .ec2$operations$modify_ipam_resource_discovery <- ec2_modify_ipam_resource_discovery
+
+#' Modifies an existing routing policy registration
+#'
+#' @description
+#' Modifies an existing routing policy registration. You can update the authorized ASNs, maximum prefix length, and other properties of a Route Origin Authorization (ROA).
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_modify_ipam_routing_policy_registration/](https://www.paws-r-sdk.com/docs/ec2_modify_ipam_routing_policy_registration/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the operation, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param IpamInternetRegistryAssociationId &#91;required&#93; The ID of the IPAM internet registry association.
+#' @param Cidr &#91;required&#93; The IP address prefix in CIDR notation identifying the routing policy registration to modify.
+#' @param Asns &#91;required&#93; The updated list of Autonomous System Numbers (ASNs) authorized to originate the prefix.
+#' @param PermitMoreSpecificAnnouncements Specifies whether to permit more specific route announcements than the CIDR prefix. Default: `false`.
+#' @param MaxLength The new maximum prefix length that the ASNs are authorized to announce. Must be greater than or equal to the prefix length of the CIDR.
+#' @param Description A new description for the routing policy registration.
+#' @param Force Forces the modification even if it conflicts with an announced route. Default: `false`.
+#' @param ClientToken A unique, case-sensitive identifier to ensure that the operation completes no more than one time. If this token matches a previous request, the operation ignores the request, but does not return an error.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_ipam_routing_policy_registration
+ec2_modify_ipam_routing_policy_registration <- function(DryRun = NULL, IpamInternetRegistryAssociationId, Cidr, Asns, PermitMoreSpecificAnnouncements = NULL, MaxLength = NULL, Description = NULL, Force = NULL, ClientToken = NULL) {
+  op <- new_operation(
+    name = "ModifyIpamRoutingPolicyRegistration",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$modify_ipam_routing_policy_registration_input(DryRun = DryRun, IpamInternetRegistryAssociationId = IpamInternetRegistryAssociationId, Cidr = Cidr, Asns = Asns, PermitMoreSpecificAnnouncements = PermitMoreSpecificAnnouncements, MaxLength = MaxLength, Description = Description, Force = Force, ClientToken = ClientToken)
+  output <- .ec2$modify_ipam_routing_policy_registration_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_ipam_routing_policy_registration <- ec2_modify_ipam_routing_policy_registration
 
 #' Modify an IPAM scope
 #'
@@ -25888,7 +28041,8 @@ ec2_modify_ipam_scope <- function(DryRun = NULL, IpamScopeId, Description = NULL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_ipam_scope_input(DryRun = DryRun, IpamScopeId = IpamScopeId, Description = Description, ExternalAuthorityConfiguration = ExternalAuthorityConfiguration, RemoveExternalAuthorityConfiguration = RemoveExternalAuthorityConfiguration)
   output <- .ec2$modify_ipam_scope_output()
@@ -25931,7 +28085,8 @@ ec2_modify_launch_template <- function(DryRun = NULL, ClientToken = NULL, Launch
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_launch_template_input(DryRun = DryRun, ClientToken = ClientToken, LaunchTemplateId = LaunchTemplateId, LaunchTemplateName = LaunchTemplateName, DefaultVersion = DefaultVersion)
   output <- .ec2$modify_launch_template_output()
@@ -25967,7 +28122,8 @@ ec2_modify_local_gateway_route <- function(DestinationCidrBlock = NULL, LocalGat
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_local_gateway_route_input(DestinationCidrBlock = DestinationCidrBlock, LocalGatewayRouteTableId = LocalGatewayRouteTableId, LocalGatewayVirtualInterfaceGroupId = LocalGatewayVirtualInterfaceGroupId, NetworkInterfaceId = NetworkInterfaceId, DryRun = DryRun, DestinationPrefixListId = DestinationPrefixListId)
   output <- .ec2$modify_local_gateway_route_output()
@@ -26007,7 +28163,8 @@ ec2_modify_managed_prefix_list <- function(DryRun = NULL, PrefixListId, CurrentV
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_managed_prefix_list_input(DryRun = DryRun, PrefixListId = PrefixListId, CurrentVersion = CurrentVersion, PrefixListName = PrefixListName, AddEntries = AddEntries, RemoveEntries = RemoveEntries, MaxEntries = MaxEntries, IpamPrefixListResolverSyncEnabled = IpamPrefixListResolverSyncEnabled)
   output <- .ec2$modify_managed_prefix_list_output()
@@ -26039,7 +28196,8 @@ ec2_modify_managed_resource_visibility <- function(DryRun = NULL, DefaultVisibil
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_managed_resource_visibility_input(DryRun = DryRun, DefaultVisibility = DefaultVisibility)
   output <- .ec2$modify_managed_resource_visibility_output()
@@ -26080,7 +28238,8 @@ ec2_modify_network_interface_attribute <- function(EnaSrdSpecification = NULL, E
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_network_interface_attribute_input(EnaSrdSpecification = EnaSrdSpecification, EnablePrimaryIpv6 = EnablePrimaryIpv6, ConnectionTrackingSpecification = ConnectionTrackingSpecification, AssociatePublicIpAddress = AssociatePublicIpAddress, AssociatedSubnetIds = AssociatedSubnetIds, DryRun = DryRun, NetworkInterfaceId = NetworkInterfaceId, Description = Description, SourceDestCheck = SourceDestCheck, Groups = Groups, Attachment = Attachment)
   output <- .ec2$modify_network_interface_attribute_output()
@@ -26115,7 +28274,8 @@ ec2_modify_private_dns_name_options <- function(DryRun = NULL, InstanceId, Priva
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_private_dns_name_options_input(DryRun = DryRun, InstanceId = InstanceId, PrivateDnsHostnameType = PrivateDnsHostnameType, EnableResourceNameDnsARecord = EnableResourceNameDnsARecord, EnableResourceNameDnsAAAARecord = EnableResourceNameDnsAAAARecord)
   output <- .ec2$modify_private_dns_name_options_output()
@@ -26154,7 +28314,8 @@ ec2_modify_public_ip_dns_name_options <- function(NetworkInterfaceId, HostnameTy
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_public_ip_dns_name_options_input(NetworkInterfaceId = NetworkInterfaceId, HostnameType = HostnameType, DryRun = DryRun)
   output <- .ec2$modify_public_ip_dns_name_options_output()
@@ -26188,7 +28349,8 @@ ec2_modify_reserved_instances <- function(ReservedInstancesIds, ClientToken = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_reserved_instances_input(ReservedInstancesIds = ReservedInstancesIds, ClientToken = ClientToken, TargetConfigurations = TargetConfigurations)
   output <- .ec2$modify_reserved_instances_output()
@@ -26231,7 +28393,8 @@ ec2_modify_route_server <- function(RouteServerId, PersistRoutes = NULL, Persist
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_route_server_input(RouteServerId = RouteServerId, PersistRoutes = PersistRoutes, PersistRoutesDuration = PersistRoutesDuration, SnsNotificationsEnabled = SnsNotificationsEnabled, DryRun = DryRun)
   output <- .ec2$modify_route_server_output()
@@ -26264,7 +28427,8 @@ ec2_modify_security_group_rules <- function(GroupId, SecurityGroupRules, DryRun 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_security_group_rules_input(GroupId = GroupId, SecurityGroupRules = SecurityGroupRules, DryRun = DryRun)
   output <- .ec2$modify_security_group_rules_output()
@@ -26301,7 +28465,8 @@ ec2_modify_snapshot_attribute <- function(Attribute = NULL, CreateVolumePermissi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_snapshot_attribute_input(Attribute = Attribute, CreateVolumePermission = CreateVolumePermission, GroupNames = GroupNames, OperationType = OperationType, SnapshotId = SnapshotId, UserIds = UserIds, DryRun = DryRun)
   output <- .ec2$modify_snapshot_attribute_output()
@@ -26334,7 +28499,8 @@ ec2_modify_snapshot_tier <- function(SnapshotId, StorageTier = NULL, DryRun = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_snapshot_tier_input(SnapshotId = SnapshotId, StorageTier = StorageTier, DryRun = DryRun)
   output <- .ec2$modify_snapshot_tier_output()
@@ -26372,7 +28538,8 @@ ec2_modify_spot_fleet_request <- function(LaunchTemplateConfigs = NULL, OnDemand
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_spot_fleet_request_input(LaunchTemplateConfigs = LaunchTemplateConfigs, OnDemandTargetCapacity = OnDemandTargetCapacity, Context = Context, SpotFleetRequestId = SpotFleetRequestId, TargetCapacity = TargetCapacity, ExcessCapacityTerminationPolicy = ExcessCapacityTerminationPolicy)
   output <- .ec2$modify_spot_fleet_request_output()
@@ -26423,7 +28590,8 @@ ec2_modify_subnet_attribute <- function(AssignIpv6AddressOnCreation = NULL, MapP
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_subnet_attribute_input(AssignIpv6AddressOnCreation = AssignIpv6AddressOnCreation, MapPublicIpOnLaunch = MapPublicIpOnLaunch, SubnetId = SubnetId, MapCustomerOwnedIpOnLaunch = MapCustomerOwnedIpOnLaunch, CustomerOwnedIpv4Pool = CustomerOwnedIpv4Pool, EnableDns64 = EnableDns64, PrivateDnsHostnameTypeOnLaunch = PrivateDnsHostnameTypeOnLaunch, EnableResourceNameDnsARecordOnLaunch = EnableResourceNameDnsARecordOnLaunch, EnableResourceNameDnsAAAARecordOnLaunch = EnableResourceNameDnsAAAARecordOnLaunch, EnableLniAtDeviceIndex = EnableLniAtDeviceIndex, DisableLniAtDeviceIndex = DisableLniAtDeviceIndex)
   output <- .ec2$modify_subnet_attribute_output()
@@ -26457,7 +28625,8 @@ ec2_modify_traffic_mirror_filter_network_services <- function(TrafficMirrorFilte
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_traffic_mirror_filter_network_services_input(TrafficMirrorFilterId = TrafficMirrorFilterId, AddNetworkServices = AddNetworkServices, RemoveNetworkServices = RemoveNetworkServices, DryRun = DryRun)
   output <- .ec2$modify_traffic_mirror_filter_network_services_output()
@@ -26501,7 +28670,8 @@ ec2_modify_traffic_mirror_filter_rule <- function(TrafficMirrorFilterRuleId, Tra
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_traffic_mirror_filter_rule_input(TrafficMirrorFilterRuleId = TrafficMirrorFilterRuleId, TrafficDirection = TrafficDirection, RuleNumber = RuleNumber, RuleAction = RuleAction, DestinationPortRange = DestinationPortRange, SourcePortRange = SourcePortRange, Protocol = Protocol, DestinationCidrBlock = DestinationCidrBlock, SourceCidrBlock = SourceCidrBlock, Description = Description, RemoveFields = RemoveFields, DryRun = DryRun)
   output <- .ec2$modify_traffic_mirror_filter_rule_output()
@@ -26546,7 +28716,8 @@ ec2_modify_traffic_mirror_session <- function(TrafficMirrorSessionId, TrafficMir
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_traffic_mirror_session_input(TrafficMirrorSessionId = TrafficMirrorSessionId, TrafficMirrorTargetId = TrafficMirrorTargetId, TrafficMirrorFilterId = TrafficMirrorFilterId, PacketLength = PacketLength, SessionNumber = SessionNumber, VirtualNetworkId = VirtualNetworkId, Description = Description, RemoveFields = RemoveFields, DryRun = DryRun)
   output <- .ec2$modify_traffic_mirror_session_output()
@@ -26580,7 +28751,8 @@ ec2_modify_transit_gateway <- function(TransitGatewayId, Description = NULL, Opt
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_transit_gateway_input(TransitGatewayId = TransitGatewayId, Description = Description, Options = Options, DryRun = DryRun)
   output <- .ec2$modify_transit_gateway_output()
@@ -26614,7 +28786,8 @@ ec2_modify_transit_gateway_metering_policy <- function(TransitGatewayMeteringPol
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_transit_gateway_metering_policy_input(TransitGatewayMeteringPolicyId = TransitGatewayMeteringPolicyId, AddMiddleboxAttachmentIds = AddMiddleboxAttachmentIds, RemoveMiddleboxAttachmentIds = RemoveMiddleboxAttachmentIds, DryRun = DryRun)
   output <- .ec2$modify_transit_gateway_metering_policy_output()
@@ -26625,6 +28798,42 @@ ec2_modify_transit_gateway_metering_policy <- function(TransitGatewayMeteringPol
   return(response)
 }
 .ec2$operations$modify_transit_gateway_metering_policy <- ec2_modify_transit_gateway_metering_policy
+
+#' Modifies the specified transit gateway policy table entry
+#'
+#' @description
+#' Modifies the specified transit gateway policy table entry.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_modify_transit_gateway_policy_table_entry/](https://www.paws-r-sdk.com/docs/ec2_modify_transit_gateway_policy_table_entry/) for full documentation.
+#'
+#' @param TransitGatewayPolicyTableId &#91;required&#93; The ID of the transit gateway policy table.
+#' @param PolicyRuleNumber &#91;required&#93; The rule number of the policy table entry to modify.
+#' @param PolicyRule The updated matching criteria for the policy table entry. Unspecified fields retain their current values.
+#' @param TargetRouteTableId The ID of the transit gateway route table to use for traffic matching this rule.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_transit_gateway_policy_table_entry
+ec2_modify_transit_gateway_policy_table_entry <- function(TransitGatewayPolicyTableId, PolicyRuleNumber, PolicyRule = NULL, TargetRouteTableId = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "ModifyTransitGatewayPolicyTableEntry",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$modify_transit_gateway_policy_table_entry_input(TransitGatewayPolicyTableId = TransitGatewayPolicyTableId, PolicyRuleNumber = PolicyRuleNumber, PolicyRule = PolicyRule, TargetRouteTableId = TargetRouteTableId, DryRun = DryRun)
+  output <- .ec2$modify_transit_gateway_policy_table_entry_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_transit_gateway_policy_table_entry <- ec2_modify_transit_gateway_policy_table_entry
 
 #' Modifies a reference (route) to a prefix list in a specified transit
 #' gateway route table
@@ -26650,7 +28859,8 @@ ec2_modify_transit_gateway_prefix_list_reference <- function(TransitGatewayRoute
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_transit_gateway_prefix_list_reference_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, PrefixListId = PrefixListId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, Blackhole = Blackhole, DryRun = DryRun)
   output <- .ec2$modify_transit_gateway_prefix_list_reference_output()
@@ -26685,7 +28895,8 @@ ec2_modify_transit_gateway_vpc_attachment <- function(TransitGatewayAttachmentId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_transit_gateway_vpc_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, AddSubnetIds = AddSubnetIds, RemoveSubnetIds = RemoveSubnetIds, Options = Options, DryRun = DryRun)
   output <- .ec2$modify_transit_gateway_vpc_attachment_output()
@@ -26725,7 +28936,8 @@ ec2_modify_verified_access_endpoint <- function(VerifiedAccessEndpointId, Verifi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_verified_access_endpoint_input(VerifiedAccessEndpointId = VerifiedAccessEndpointId, VerifiedAccessGroupId = VerifiedAccessGroupId, LoadBalancerOptions = LoadBalancerOptions, NetworkInterfaceOptions = NetworkInterfaceOptions, Description = Description, ClientToken = ClientToken, DryRun = DryRun, RdsOptions = RdsOptions, CidrOptions = CidrOptions)
   output <- .ec2$modify_verified_access_endpoint_output()
@@ -26762,7 +28974,8 @@ ec2_modify_verified_access_endpoint_policy <- function(VerifiedAccessEndpointId,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_verified_access_endpoint_policy_input(VerifiedAccessEndpointId = VerifiedAccessEndpointId, PolicyEnabled = PolicyEnabled, PolicyDocument = PolicyDocument, ClientToken = ClientToken, DryRun = DryRun, SseSpecification = SseSpecification)
   output <- .ec2$modify_verified_access_endpoint_policy_output()
@@ -26798,7 +29011,8 @@ ec2_modify_verified_access_group <- function(VerifiedAccessGroupId, VerifiedAcce
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_verified_access_group_input(VerifiedAccessGroupId = VerifiedAccessGroupId, VerifiedAccessInstanceId = VerifiedAccessInstanceId, Description = Description, ClientToken = ClientToken, DryRun = DryRun)
   output <- .ec2$modify_verified_access_group_output()
@@ -26834,7 +29048,8 @@ ec2_modify_verified_access_group_policy <- function(VerifiedAccessGroupId, Polic
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_verified_access_group_policy_input(VerifiedAccessGroupId = VerifiedAccessGroupId, PolicyEnabled = PolicyEnabled, PolicyDocument = PolicyDocument, ClientToken = ClientToken, DryRun = DryRun, SseSpecification = SseSpecification)
   output <- .ec2$modify_verified_access_group_policy_output()
@@ -26870,7 +29085,8 @@ ec2_modify_verified_access_instance <- function(VerifiedAccessInstanceId, Descri
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_verified_access_instance_input(VerifiedAccessInstanceId = VerifiedAccessInstanceId, Description = Description, DryRun = DryRun, ClientToken = ClientToken, CidrEndpointsCustomSubDomain = CidrEndpointsCustomSubDomain)
   output <- .ec2$modify_verified_access_instance_output()
@@ -26905,7 +29121,8 @@ ec2_modify_verified_access_instance_logging_configuration <- function(VerifiedAc
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_verified_access_instance_logging_configuration_input(VerifiedAccessInstanceId = VerifiedAccessInstanceId, AccessLogs = AccessLogs, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$modify_verified_access_instance_logging_configuration_output()
@@ -26944,7 +29161,8 @@ ec2_modify_verified_access_trust_provider <- function(VerifiedAccessTrustProvide
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_verified_access_trust_provider_input(VerifiedAccessTrustProviderId = VerifiedAccessTrustProviderId, OidcOptions = OidcOptions, DeviceOptions = DeviceOptions, Description = Description, DryRun = DryRun, ClientToken = ClientToken, SseSpecification = SseSpecification, NativeApplicationOidcOptions = NativeApplicationOidcOptions)
   output <- .ec2$modify_verified_access_trust_provider_output()
@@ -27016,7 +29234,8 @@ ec2_modify_volume <- function(DryRun = NULL, VolumeId, Size = NULL, VolumeType =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_volume_input(DryRun = DryRun, VolumeId = VolumeId, Size = Size, VolumeType = VolumeType, Iops = Iops, Throughput = Throughput, MultiAttachEnabled = MultiAttachEnabled)
   output <- .ec2$modify_volume_output()
@@ -27049,7 +29268,8 @@ ec2_modify_volume_attribute <- function(AutoEnableIO = NULL, VolumeId, DryRun = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_volume_attribute_input(AutoEnableIO = AutoEnableIO, VolumeId = VolumeId, DryRun = DryRun)
   output <- .ec2$modify_volume_attribute_output()
@@ -27087,7 +29307,8 @@ ec2_modify_vpc_attribute <- function(EnableDnsHostnames = NULL, EnableDnsSupport
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_attribute_input(EnableDnsHostnames = EnableDnsHostnames, EnableDnsSupport = EnableDnsSupport, VpcId = VpcId, EnableNetworkAddressUsageMetrics = EnableNetworkAddressUsageMetrics)
   output <- .ec2$modify_vpc_attribute_output()
@@ -27124,7 +29345,8 @@ ec2_modify_vpc_block_public_access_exclusion <- function(DryRun = NULL, Exclusio
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_block_public_access_exclusion_input(DryRun = DryRun, ExclusionId = ExclusionId, InternetGatewayExclusionMode = InternetGatewayExclusionMode)
   output <- .ec2$modify_vpc_block_public_access_exclusion_output()
@@ -27162,7 +29384,8 @@ ec2_modify_vpc_block_public_access_options <- function(DryRun = NULL, InternetGa
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_block_public_access_options_input(DryRun = DryRun, InternetGatewayBlockMode = InternetGatewayBlockMode)
   output <- .ec2$modify_vpc_block_public_access_options_output()
@@ -27203,7 +29426,8 @@ ec2_modify_vpc_encryption_control <- function(DryRun = NULL, VpcEncryptionContro
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_encryption_control_input(DryRun = DryRun, VpcEncryptionControlId = VpcEncryptionControlId, Mode = Mode, InternetGatewayExclusion = InternetGatewayExclusion, EgressOnlyInternetGatewayExclusion = EgressOnlyInternetGatewayExclusion, NatGatewayExclusion = NatGatewayExclusion, VirtualPrivateGatewayExclusion = VirtualPrivateGatewayExclusion, VpcPeeringExclusion = VpcPeeringExclusion, LambdaExclusion = LambdaExclusion, VpcLatticeExclusion = VpcLatticeExclusion, ElasticFileSystemExclusion = ElasticFileSystemExclusion)
   output <- .ec2$modify_vpc_encryption_control_output()
@@ -27247,7 +29471,8 @@ ec2_modify_vpc_endpoint <- function(DryRun = NULL, VpcEndpointId, ResetPolicy = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_endpoint_input(DryRun = DryRun, VpcEndpointId = VpcEndpointId, ResetPolicy = ResetPolicy, PolicyDocument = PolicyDocument, AddRouteTableIds = AddRouteTableIds, RemoveRouteTableIds = RemoveRouteTableIds, AddSubnetIds = AddSubnetIds, RemoveSubnetIds = RemoveSubnetIds, AddSecurityGroupIds = AddSecurityGroupIds, RemoveSecurityGroupIds = RemoveSecurityGroupIds, IpAddressType = IpAddressType, DnsOptions = DnsOptions, PrivateDnsEnabled = PrivateDnsEnabled, SubnetConfigurations = SubnetConfigurations)
   output <- .ec2$modify_vpc_endpoint_output()
@@ -27282,7 +29507,8 @@ ec2_modify_vpc_endpoint_connection_notification <- function(DryRun = NULL, Conne
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_endpoint_connection_notification_input(DryRun = DryRun, ConnectionNotificationId = ConnectionNotificationId, ConnectionNotificationArn = ConnectionNotificationArn, ConnectionEvents = ConnectionEvents)
   output <- .ec2$modify_vpc_endpoint_connection_notification_output()
@@ -27293,6 +29519,42 @@ ec2_modify_vpc_endpoint_connection_notification <- function(DryRun = NULL, Conne
   return(response)
 }
 .ec2$operations$modify_vpc_endpoint_connection_notification <- ec2_modify_vpc_endpoint_connection_notification
+
+#' Modifies the billing account for VPC endpoint usage/charges
+#'
+#' @description
+#' Modifies the billing account for VPC endpoint usage/charges.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_modify_vpc_endpoint_payer_responsibility/](https://www.paws-r-sdk.com/docs/ec2_modify_vpc_endpoint_payer_responsibility/) for full documentation.
+#'
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#' @param ServiceId The ID of the VPC endpoint service.
+#' @param VpcEndpointId &#91;required&#93; The ID of the VPC endpoint.
+#' @param PayerResponsibility &#91;required&#93; The Amazon Web Services account to which the usage of VPC endpoint is charged.
+#' @param Scope &#91;required&#93; The scope of usage/charges for which the billing account is being modified.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_modify_vpc_endpoint_payer_responsibility
+ec2_modify_vpc_endpoint_payer_responsibility <- function(DryRun = NULL, ServiceId = NULL, VpcEndpointId, PayerResponsibility, Scope) {
+  op <- new_operation(
+    name = "ModifyVpcEndpointPayerResponsibility",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$modify_vpc_endpoint_payer_responsibility_input(DryRun = DryRun, ServiceId = ServiceId, VpcEndpointId = VpcEndpointId, PayerResponsibility = PayerResponsibility, Scope = Scope)
+  output <- .ec2$modify_vpc_endpoint_payer_responsibility_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$modify_vpc_endpoint_payer_responsibility <- ec2_modify_vpc_endpoint_payer_responsibility
 
 #' Modifies the attributes of the specified VPC endpoint service
 #' configuration
@@ -27326,7 +29588,8 @@ ec2_modify_vpc_endpoint_service_configuration <- function(DryRun = NULL, Service
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_endpoint_service_configuration_input(DryRun = DryRun, ServiceId = ServiceId, PrivateDnsName = PrivateDnsName, RemovePrivateDnsName = RemovePrivateDnsName, AcceptanceRequired = AcceptanceRequired, AddNetworkLoadBalancerArns = AddNetworkLoadBalancerArns, RemoveNetworkLoadBalancerArns = RemoveNetworkLoadBalancerArns, AddGatewayLoadBalancerArns = AddGatewayLoadBalancerArns, RemoveGatewayLoadBalancerArns = RemoveGatewayLoadBalancerArns, AddSupportedIpAddressTypes = AddSupportedIpAddressTypes, RemoveSupportedIpAddressTypes = RemoveSupportedIpAddressTypes, AddSupportedRegions = AddSupportedRegions, RemoveSupportedRegions = RemoveSupportedRegions)
   output <- .ec2$modify_vpc_endpoint_service_configuration_output()
@@ -27359,7 +29622,8 @@ ec2_modify_vpc_endpoint_service_payer_responsibility <- function(DryRun = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_endpoint_service_payer_responsibility_input(DryRun = DryRun, ServiceId = ServiceId, PayerResponsibility = PayerResponsibility)
   output <- .ec2$modify_vpc_endpoint_service_payer_responsibility_output()
@@ -27393,7 +29657,8 @@ ec2_modify_vpc_endpoint_service_permissions <- function(DryRun = NULL, ServiceId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_endpoint_service_permissions_input(DryRun = DryRun, ServiceId = ServiceId, AddAllowedPrincipals = AddAllowedPrincipals, RemoveAllowedPrincipals = RemoveAllowedPrincipals)
   output <- .ec2$modify_vpc_endpoint_service_permissions_output()
@@ -27428,7 +29693,8 @@ ec2_modify_vpc_peering_connection_options <- function(AccepterPeeringConnectionO
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_peering_connection_options_input(AccepterPeeringConnectionOptions = AccepterPeeringConnectionOptions, DryRun = DryRun, RequesterPeeringConnectionOptions = RequesterPeeringConnectionOptions, VpcPeeringConnectionId = VpcPeeringConnectionId)
   output <- .ec2$modify_vpc_peering_connection_options_output()
@@ -27461,7 +29727,8 @@ ec2_modify_vpc_tenancy <- function(VpcId, InstanceTenancy, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpc_tenancy_input(VpcId = VpcId, InstanceTenancy = InstanceTenancy, DryRun = DryRun)
   output <- .ec2$modify_vpc_tenancy_output()
@@ -27497,7 +29764,8 @@ ec2_modify_vpn_connection <- function(VpnConnectionId, TransitGatewayId = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpn_connection_input(VpnConnectionId = VpnConnectionId, TransitGatewayId = TransitGatewayId, CustomerGatewayId = CustomerGatewayId, VpnGatewayId = VpnGatewayId, DryRun = DryRun)
   output <- .ec2$modify_vpn_connection_output()
@@ -27542,7 +29810,8 @@ ec2_modify_vpn_connection_options <- function(VpnConnectionId, LocalIpv4NetworkC
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpn_connection_options_input(VpnConnectionId = VpnConnectionId, LocalIpv4NetworkCidr = LocalIpv4NetworkCidr, RemoteIpv4NetworkCidr = RemoteIpv4NetworkCidr, LocalIpv6NetworkCidr = LocalIpv6NetworkCidr, RemoteIpv6NetworkCidr = RemoteIpv6NetworkCidr, TunnelBandwidth = TunnelBandwidth, DryRun = DryRun)
   output <- .ec2$modify_vpn_connection_options_output()
@@ -27575,7 +29844,8 @@ ec2_modify_vpn_tunnel_certificate <- function(VpnConnectionId, VpnTunnelOutsideI
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpn_tunnel_certificate_input(VpnConnectionId = VpnConnectionId, VpnTunnelOutsideIpAddress = VpnTunnelOutsideIpAddress, DryRun = DryRun)
   output <- .ec2$modify_vpn_tunnel_certificate_output()
@@ -27614,7 +29884,8 @@ ec2_modify_vpn_tunnel_options <- function(VpnConnectionId, VpnTunnelOutsideIpAdd
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$modify_vpn_tunnel_options_input(VpnConnectionId = VpnConnectionId, VpnTunnelOutsideIpAddress = VpnTunnelOutsideIpAddress, TunnelOptions = TunnelOptions, DryRun = DryRun, SkipTunnelReplacement = SkipTunnelReplacement, PreSharedKeyStorage = PreSharedKeyStorage)
   output <- .ec2$modify_vpn_tunnel_options_output()
@@ -27646,7 +29917,8 @@ ec2_monitor_instances <- function(InstanceIds, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$monitor_instances_input(InstanceIds = InstanceIds, DryRun = DryRun)
   output <- .ec2$monitor_instances_output()
@@ -27678,7 +29950,8 @@ ec2_move_address_to_vpc <- function(DryRun = NULL, PublicIp) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$move_address_to_vpc_input(DryRun = DryRun, PublicIp = PublicIp)
   output <- .ec2$move_address_to_vpc_output()
@@ -27712,7 +29985,8 @@ ec2_move_byoip_cidr_to_ipam <- function(DryRun = NULL, Cidr, IpamPoolId, IpamPoo
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$move_byoip_cidr_to_ipam_input(DryRun = DryRun, Cidr = Cidr, IpamPoolId = IpamPoolId, IpamPoolOwner = IpamPoolOwner)
   output <- .ec2$move_byoip_cidr_to_ipam_output()
@@ -27748,7 +30022,8 @@ ec2_move_capacity_reservation_instances <- function(DryRun = NULL, ClientToken =
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$move_capacity_reservation_instances_input(DryRun = DryRun, ClientToken = ClientToken, SourceCapacityReservationId = SourceCapacityReservationId, DestinationCapacityReservationId = DestinationCapacityReservationId, InstanceCount = InstanceCount)
   output <- .ec2$move_capacity_reservation_instances_output()
@@ -27800,7 +30075,8 @@ ec2_provision_byoip_cidr <- function(Cidr, CidrAuthorizationContext = NULL, Publ
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$provision_byoip_cidr_input(Cidr = Cidr, CidrAuthorizationContext = CidrAuthorizationContext, PubliclyAdvertisable = PubliclyAdvertisable, Description = Description, DryRun = DryRun, PoolTagSpecifications = PoolTagSpecifications, MultiRegion = MultiRegion, NetworkBorderGroup = NetworkBorderGroup)
   output <- .ec2$provision_byoip_cidr_output()
@@ -27835,7 +30111,8 @@ ec2_provision_ipam_byoasn <- function(DryRun = NULL, IpamId, Asn, AsnAuthorizati
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$provision_ipam_byoasn_input(DryRun = DryRun, IpamId = IpamId, Asn = Asn, AsnAuthorizationContext = AsnAuthorizationContext)
   output <- .ec2$provision_ipam_byoasn_output()
@@ -27873,7 +30150,8 @@ ec2_provision_ipam_pool_cidr <- function(DryRun = NULL, IpamPoolId, Cidr = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$provision_ipam_pool_cidr_input(DryRun = DryRun, IpamPoolId = IpamPoolId, Cidr = Cidr, CidrAuthorizationContext = CidrAuthorizationContext, NetmaskLength = NetmaskLength, ClientToken = ClientToken, VerificationMethod = VerificationMethod, IpamExternalResourceVerificationTokenId = IpamExternalResourceVerificationTokenId)
   output <- .ec2$provision_ipam_pool_cidr_output()
@@ -27908,7 +30186,8 @@ ec2_provision_public_ipv_4_pool_cidr <- function(DryRun = NULL, IpamPoolId, Pool
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$provision_public_ipv_4_pool_cidr_input(DryRun = DryRun, IpamPoolId = IpamPoolId, PoolId = PoolId, NetmaskLength = NetmaskLength, NetworkBorderGroup = NetworkBorderGroup)
   output <- .ec2$provision_public_ipv_4_pool_cidr_output()
@@ -27942,7 +30221,8 @@ ec2_purchase_capacity_block <- function(DryRun = NULL, TagSpecifications = NULL,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$purchase_capacity_block_input(DryRun = DryRun, TagSpecifications = TagSpecifications, CapacityBlockOfferingId = CapacityBlockOfferingId, InstancePlatform = InstancePlatform)
   output <- .ec2$purchase_capacity_block_output()
@@ -27975,7 +30255,8 @@ ec2_purchase_capacity_block_extension <- function(CapacityBlockExtensionOffering
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$purchase_capacity_block_extension_input(CapacityBlockExtensionOfferingId = CapacityBlockExtensionOfferingId, CapacityReservationId = CapacityReservationId, DryRun = DryRun)
   output <- .ec2$purchase_capacity_block_extension_output()
@@ -28012,7 +30293,8 @@ ec2_purchase_host_reservation <- function(ClientToken = NULL, CurrencyCode = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$purchase_host_reservation_input(ClientToken = ClientToken, CurrencyCode = CurrencyCode, HostIdSet = HostIdSet, LimitPrice = LimitPrice, OfferingId = OfferingId, TagSpecifications = TagSpecifications)
   output <- .ec2$purchase_host_reservation_output()
@@ -28047,7 +30329,8 @@ ec2_purchase_reserved_instances_offering <- function(InstanceCount, ReservedInst
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$purchase_reserved_instances_offering_input(InstanceCount = InstanceCount, ReservedInstancesOfferingId = ReservedInstancesOfferingId, PurchaseTime = PurchaseTime, DryRun = DryRun, LimitPrice = LimitPrice)
   output <- .ec2$purchase_reserved_instances_offering_output()
@@ -28080,7 +30363,8 @@ ec2_purchase_scheduled_instances <- function(ClientToken = NULL, DryRun = NULL, 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$purchase_scheduled_instances_input(ClientToken = ClientToken, DryRun = DryRun, PurchaseRequests = PurchaseRequests)
   output <- .ec2$purchase_scheduled_instances_output()
@@ -28112,7 +30396,8 @@ ec2_reboot_instances <- function(InstanceIds, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reboot_instances_input(InstanceIds = InstanceIds, DryRun = DryRun)
   output <- .ec2$reboot_instances_output()
@@ -28188,7 +30473,8 @@ ec2_register_image <- function(ImageLocation = NULL, BillingProducts = NULL, Boo
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$register_image_input(ImageLocation = ImageLocation, BillingProducts = BillingProducts, BootMode = BootMode, TpmSupport = TpmSupport, UefiData = UefiData, ImdsSupport = ImdsSupport, TagSpecifications = TagSpecifications, DryRun = DryRun, Name = Name, Description = Description, Architecture = Architecture, KernelId = KernelId, RamdiskId = RamdiskId, RootDeviceName = RootDeviceName, BlockDeviceMappings = BlockDeviceMappings, VirtualizationType = VirtualizationType, SriovNetSupport = SriovNetSupport, EnaSupport = EnaSupport)
   output <- .ec2$register_image_output()
@@ -28221,7 +30507,8 @@ ec2_register_instance_event_notification_attributes <- function(DryRun = NULL, I
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$register_instance_event_notification_attributes_input(DryRun = DryRun, InstanceTagAttribute = InstanceTagAttribute)
   output <- .ec2$register_instance_event_notification_attributes_output()
@@ -28256,7 +30543,8 @@ ec2_register_transit_gateway_multicast_group_members <- function(TransitGatewayM
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$register_transit_gateway_multicast_group_members_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, GroupIpAddress = GroupIpAddress, NetworkInterfaceIds = NetworkInterfaceIds, DryRun = DryRun)
   output <- .ec2$register_transit_gateway_multicast_group_members_output()
@@ -28291,7 +30579,8 @@ ec2_register_transit_gateway_multicast_group_sources <- function(TransitGatewayM
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$register_transit_gateway_multicast_group_sources_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, GroupIpAddress = GroupIpAddress, NetworkInterfaceIds = NetworkInterfaceIds, DryRun = DryRun)
   output <- .ec2$register_transit_gateway_multicast_group_sources_output()
@@ -28324,7 +30613,8 @@ ec2_reject_capacity_reservation_billing_ownership <- function(DryRun = NULL, Cap
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reject_capacity_reservation_billing_ownership_input(DryRun = DryRun, CapacityReservationId = CapacityReservationId)
   output <- .ec2$reject_capacity_reservation_billing_ownership_output()
@@ -28356,7 +30646,8 @@ ec2_reject_transit_gateway_client_vpn_attachment <- function(TransitGatewayAttac
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reject_transit_gateway_client_vpn_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$reject_transit_gateway_client_vpn_attachment_output()
@@ -28391,7 +30682,8 @@ ec2_reject_transit_gateway_multicast_domain_associations <- function(TransitGate
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reject_transit_gateway_multicast_domain_associations_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, SubnetIds = SubnetIds, DryRun = DryRun)
   output <- .ec2$reject_transit_gateway_multicast_domain_associations_output()
@@ -28423,7 +30715,8 @@ ec2_reject_transit_gateway_peering_attachment <- function(TransitGatewayAttachme
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reject_transit_gateway_peering_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$reject_transit_gateway_peering_attachment_output()
@@ -28455,7 +30748,8 @@ ec2_reject_transit_gateway_vpc_attachment <- function(TransitGatewayAttachmentId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reject_transit_gateway_vpc_attachment_input(TransitGatewayAttachmentId = TransitGatewayAttachmentId, DryRun = DryRun)
   output <- .ec2$reject_transit_gateway_vpc_attachment_output()
@@ -28488,7 +30782,8 @@ ec2_reject_vpc_endpoint_connections <- function(DryRun = NULL, ServiceId, VpcEnd
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reject_vpc_endpoint_connections_input(DryRun = DryRun, ServiceId = ServiceId, VpcEndpointIds = VpcEndpointIds)
   output <- .ec2$reject_vpc_endpoint_connections_output()
@@ -28520,7 +30815,8 @@ ec2_reject_vpc_peering_connection <- function(DryRun = NULL, VpcPeeringConnectio
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reject_vpc_peering_connection_input(DryRun = DryRun, VpcPeeringConnectionId = VpcPeeringConnectionId)
   output <- .ec2$reject_vpc_peering_connection_output()
@@ -28556,7 +30852,8 @@ ec2_release_address <- function(AllocationId = NULL, PublicIp = NULL, NetworkBor
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$release_address_input(AllocationId = AllocationId, PublicIp = PublicIp, NetworkBorderGroup = NetworkBorderGroup, DryRun = DryRun)
   output <- .ec2$release_address_output()
@@ -28588,7 +30885,8 @@ ec2_release_hosts <- function(HostIds) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$release_hosts_input(HostIds = HostIds)
   output <- .ec2$release_hosts_output()
@@ -28622,7 +30920,8 @@ ec2_release_ipam_pool_allocation <- function(DryRun = NULL, IpamPoolId, Cidr, Ip
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$release_ipam_pool_allocation_input(DryRun = DryRun, IpamPoolId = IpamPoolId, Cidr = Cidr, IpamPoolAllocationId = IpamPoolAllocationId)
   output <- .ec2$release_ipam_pool_allocation_output()
@@ -28654,7 +30953,8 @@ ec2_replace_iam_instance_profile_association <- function(IamInstanceProfile, Ass
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$replace_iam_instance_profile_association_input(IamInstanceProfile = IamInstanceProfile, AssociationId = AssociationId)
   output <- .ec2$replace_iam_instance_profile_association_output()
@@ -28686,7 +30986,8 @@ ec2_replace_image_criteria_in_allowed_images_settings <- function(ImageCriteria 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$replace_image_criteria_in_allowed_images_settings_input(ImageCriteria = ImageCriteria, DryRun = DryRun)
   output <- .ec2$replace_image_criteria_in_allowed_images_settings_output()
@@ -28697,6 +30998,40 @@ ec2_replace_image_criteria_in_allowed_images_settings <- function(ImageCriteria 
   return(response)
 }
 .ec2$operations$replace_image_criteria_in_allowed_images_settings <- ec2_replace_image_criteria_in_allowed_images_settings
+
+#' Replaces or removes the instance type specification for an AMI
+#'
+#' @description
+#' Replaces or removes the instance type specification for an AMI. The instance type specification defines which instance types are compatible with the AMI.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_replace_image_instance_type_specification/](https://www.paws-r-sdk.com/docs/ec2_replace_image_instance_type_specification/) for full documentation.
+#'
+#' @param ImageId &#91;required&#93; The ID of the AMI.
+#' @param InstanceTypeSpecification The instance type specification to set on the AMI. Omit this parameter to remove the existing instance type specification.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_replace_image_instance_type_specification
+ec2_replace_image_instance_type_specification <- function(ImageId, InstanceTypeSpecification = NULL, DryRun = NULL) {
+  op <- new_operation(
+    name = "ReplaceImageInstanceTypeSpecification",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$replace_image_instance_type_specification_input(ImageId = ImageId, InstanceTypeSpecification = InstanceTypeSpecification, DryRun = DryRun)
+  output <- .ec2$replace_image_instance_type_specification_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$replace_image_instance_type_specification <- ec2_replace_image_instance_type_specification
 
 #' Changes which network ACL a subnet is associated with
 #'
@@ -28719,7 +31054,8 @@ ec2_replace_network_acl_association <- function(DryRun = NULL, AssociationId, Ne
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$replace_network_acl_association_input(DryRun = DryRun, AssociationId = AssociationId, NetworkAclId = NetworkAclId)
   output <- .ec2$replace_network_acl_association_output()
@@ -28761,7 +31097,8 @@ ec2_replace_network_acl_entry <- function(DryRun = NULL, NetworkAclId, RuleNumbe
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$replace_network_acl_entry_input(DryRun = DryRun, NetworkAclId = NetworkAclId, RuleNumber = RuleNumber, Protocol = Protocol, RuleAction = RuleAction, Egress = Egress, CidrBlock = CidrBlock, Ipv6CidrBlock = Ipv6CidrBlock, IcmpTypeCode = IcmpTypeCode, PortRange = PortRange)
   output <- .ec2$replace_network_acl_entry_output()
@@ -28809,7 +31146,8 @@ ec2_replace_route <- function(DestinationPrefixListId = NULL, VpcEndpointId = NU
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$replace_route_input(DestinationPrefixListId = DestinationPrefixListId, VpcEndpointId = VpcEndpointId, LocalTarget = LocalTarget, TransitGatewayId = TransitGatewayId, LocalGatewayId = LocalGatewayId, CarrierGatewayId = CarrierGatewayId, CoreNetworkArn = CoreNetworkArn, OdbNetworkArn = OdbNetworkArn, DryRun = DryRun, RouteTableId = RouteTableId, DestinationCidrBlock = DestinationCidrBlock, GatewayId = GatewayId, DestinationIpv6CidrBlock = DestinationIpv6CidrBlock, EgressOnlyInternetGatewayId = EgressOnlyInternetGatewayId, InstanceId = InstanceId, NetworkInterfaceId = NetworkInterfaceId, VpcPeeringConnectionId = VpcPeeringConnectionId, NatGatewayId = NatGatewayId)
   output <- .ec2$replace_route_output()
@@ -28843,7 +31181,8 @@ ec2_replace_route_table_association <- function(DryRun = NULL, AssociationId, Ro
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$replace_route_table_association_input(DryRun = DryRun, AssociationId = AssociationId, RouteTableId = RouteTableId)
   output <- .ec2$replace_route_table_association_output()
@@ -28879,7 +31218,8 @@ ec2_replace_transit_gateway_route <- function(DestinationCidrBlock, TransitGatew
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$replace_transit_gateway_route_input(DestinationCidrBlock = DestinationCidrBlock, TransitGatewayRouteTableId = TransitGatewayRouteTableId, TransitGatewayAttachmentId = TransitGatewayAttachmentId, Blackhole = Blackhole, DryRun = DryRun)
   output <- .ec2$replace_transit_gateway_route_output()
@@ -28913,7 +31253,8 @@ ec2_replace_vpn_tunnel <- function(VpnConnectionId, VpnTunnelOutsideIpAddress, A
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$replace_vpn_tunnel_input(VpnConnectionId = VpnConnectionId, VpnTunnelOutsideIpAddress = VpnTunnelOutsideIpAddress, ApplyPendingMaintenance = ApplyPendingMaintenance, DryRun = DryRun)
   output <- .ec2$replace_vpn_tunnel_output()
@@ -28968,7 +31309,8 @@ ec2_report_instance_status <- function(DryRun = NULL, Instances, Status, StartTi
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$report_instance_status_input(DryRun = DryRun, Instances = Instances, Status = Status, StartTime = StartTime, EndTime = EndTime, ReasonCodes = ReasonCodes, Description = Description)
   output <- .ec2$report_instance_status_output()
@@ -29000,7 +31342,8 @@ ec2_request_spot_fleet <- function(DryRun = NULL, SpotFleetRequestConfig) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$request_spot_fleet_input(DryRun = DryRun, SpotFleetRequestConfig = SpotFleetRequestConfig)
   output <- .ec2$request_spot_fleet_output()
@@ -29063,7 +31406,8 @@ ec2_request_spot_instances <- function(LaunchSpecification = NULL, TagSpecificat
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$request_spot_instances_input(LaunchSpecification = LaunchSpecification, TagSpecifications = TagSpecifications, InstanceInterruptionBehavior = InstanceInterruptionBehavior, DryRun = DryRun, SpotPrice = SpotPrice, ClientToken = ClientToken, InstanceCount = InstanceCount, Type = Type, ValidFrom = ValidFrom, ValidUntil = ValidUntil, LaunchGroup = LaunchGroup, AvailabilityZoneGroup = AvailabilityZoneGroup, BlockDurationMinutes = BlockDurationMinutes)
   output <- .ec2$request_spot_instances_output()
@@ -29096,7 +31440,8 @@ ec2_reset_address_attribute <- function(AllocationId, Attribute, DryRun = NULL) 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reset_address_attribute_input(AllocationId = AllocationId, Attribute = Attribute, DryRun = DryRun)
   output <- .ec2$reset_address_attribute_output()
@@ -29128,7 +31473,8 @@ ec2_reset_ebs_default_kms_key_id <- function(DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reset_ebs_default_kms_key_id_input(DryRun = DryRun)
   output <- .ec2$reset_ebs_default_kms_key_id_output()
@@ -29162,7 +31508,8 @@ ec2_reset_fpga_image_attribute <- function(DryRun = NULL, FpgaImageId, Attribute
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reset_fpga_image_attribute_input(DryRun = DryRun, FpgaImageId = FpgaImageId, Attribute = Attribute)
   output <- .ec2$reset_fpga_image_attribute_output()
@@ -29195,7 +31542,8 @@ ec2_reset_image_attribute <- function(Attribute, ImageId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reset_image_attribute_input(Attribute = Attribute, ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$reset_image_attribute_output()
@@ -29230,7 +31578,8 @@ ec2_reset_instance_attribute <- function(DryRun = NULL, InstanceId, Attribute) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reset_instance_attribute_input(DryRun = DryRun, InstanceId = InstanceId, Attribute = Attribute)
   output <- .ec2$reset_instance_attribute_output()
@@ -29263,7 +31612,8 @@ ec2_reset_network_interface_attribute <- function(DryRun = NULL, NetworkInterfac
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reset_network_interface_attribute_input(DryRun = DryRun, NetworkInterfaceId = NetworkInterfaceId, SourceDestCheck = SourceDestCheck)
   output <- .ec2$reset_network_interface_attribute_output()
@@ -29296,7 +31646,8 @@ ec2_reset_snapshot_attribute <- function(Attribute, SnapshotId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$reset_snapshot_attribute_input(Attribute = Attribute, SnapshotId = SnapshotId, DryRun = DryRun)
   output <- .ec2$reset_snapshot_attribute_output()
@@ -29328,7 +31679,8 @@ ec2_restore_address_to_classic <- function(DryRun = NULL, PublicIp) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$restore_address_to_classic_input(DryRun = DryRun, PublicIp = PublicIp)
   output <- .ec2$restore_address_to_classic_output()
@@ -29360,7 +31712,8 @@ ec2_restore_image_from_recycle_bin <- function(ImageId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$restore_image_from_recycle_bin_input(ImageId = ImageId, DryRun = DryRun)
   output <- .ec2$restore_image_from_recycle_bin_output()
@@ -29395,7 +31748,8 @@ ec2_restore_managed_prefix_list_version <- function(DryRun = NULL, PrefixListId,
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$restore_managed_prefix_list_version_input(DryRun = DryRun, PrefixListId = PrefixListId, PreviousVersion = PreviousVersion, CurrentVersion = CurrentVersion)
   output <- .ec2$restore_managed_prefix_list_version_output()
@@ -29427,7 +31781,8 @@ ec2_restore_snapshot_from_recycle_bin <- function(SnapshotId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$restore_snapshot_from_recycle_bin_input(SnapshotId = SnapshotId, DryRun = DryRun)
   output <- .ec2$restore_snapshot_from_recycle_bin_output()
@@ -29465,7 +31820,8 @@ ec2_restore_snapshot_tier <- function(SnapshotId, TemporaryRestoreDays = NULL, P
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$restore_snapshot_tier_input(SnapshotId = SnapshotId, TemporaryRestoreDays = TemporaryRestoreDays, PermanentRestore = PermanentRestore, DryRun = DryRun)
   output <- .ec2$restore_snapshot_tier_output()
@@ -29497,7 +31853,8 @@ ec2_restore_volume_from_recycle_bin <- function(VolumeId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$restore_volume_from_recycle_bin_input(VolumeId = VolumeId, DryRun = DryRun)
   output <- .ec2$restore_volume_from_recycle_bin_output()
@@ -29532,7 +31889,8 @@ ec2_revoke_client_vpn_ingress <- function(ClientVpnEndpointId, TargetNetworkCidr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$revoke_client_vpn_ingress_input(ClientVpnEndpointId = ClientVpnEndpointId, TargetNetworkCidr = TargetNetworkCidr, AccessGroupId = AccessGroupId, RevokeAllGroups = RevokeAllGroups, DryRun = DryRun)
   output <- .ec2$revoke_client_vpn_ingress_output()
@@ -29573,7 +31931,8 @@ ec2_revoke_security_group_egress <- function(SecurityGroupRuleIds = NULL, DryRun
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$revoke_security_group_egress_input(SecurityGroupRuleIds = SecurityGroupRuleIds, DryRun = DryRun, GroupId = GroupId, SourceSecurityGroupName = SourceSecurityGroupName, SourceSecurityGroupOwnerId = SourceSecurityGroupOwnerId, IpProtocol = IpProtocol, FromPort = FromPort, ToPort = ToPort, CidrIp = CidrIp, IpPermissions = IpPermissions)
   output <- .ec2$revoke_security_group_egress_output()
@@ -29597,7 +31956,7 @@ ec2_revoke_security_group_egress <- function(SecurityGroupRuleIds = NULL, DryRun
 #' @param GroupId The ID of the security group.
 #' @param GroupName \[Default VPC\] The name of the security group. You must specify either the security group ID or the security group name in the request. For security groups in a nondefault VPC, you must specify the security group ID.
 #' @param IpPermissions The sets of IP permissions. You can't specify a source security group and a CIDR IP address range in the same set of permissions.
-#' @param IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`) or number (see [Protocol Numbers](http://www.iana.org/assignments/protocol-numbers/protocol-numbers.xhtml)). Use `-1` to specify all.
+#' @param IpProtocol The IP protocol name (`tcp`, `udp`, `icmp`) or number (see [Protocol Numbers](http://www.iana.org/assignments/protocol-numbers)). Use `-1` to specify all.
 #' @param SourceSecurityGroupName \[Default VPC\] The name of the source security group. You can't specify this parameter in combination with the following parameters: the CIDR IP address range, the start of the port range, the IP protocol, and the end of the port range. The source security group must be in the same VPC. To revoke a specific rule for an IP protocol and port range, use a set of IP permissions instead.
 #' @param SourceSecurityGroupOwnerId Not supported.
 #' @param ToPort If the protocol is TCP or UDP, this is the end of the port range. If the protocol is ICMP, this is the ICMP code or -1 (all ICMP codes).
@@ -29614,7 +31973,8 @@ ec2_revoke_security_group_ingress <- function(CidrIp = NULL, FromPort = NULL, Gr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$revoke_security_group_ingress_input(CidrIp = CidrIp, FromPort = FromPort, GroupId = GroupId, GroupName = GroupName, IpPermissions = IpPermissions, IpProtocol = IpProtocol, SourceSecurityGroupName = SourceSecurityGroupName, SourceSecurityGroupOwnerId = SourceSecurityGroupOwnerId, ToPort = ToPort, SecurityGroupRuleIds = SecurityGroupRuleIds, DryRun = DryRun)
   output <- .ec2$revoke_security_group_ingress_output()
@@ -29749,7 +32109,8 @@ ec2_run_instances <- function(BlockDeviceMappings = NULL, ImageId = NULL, Instan
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$run_instances_input(BlockDeviceMappings = BlockDeviceMappings, ImageId = ImageId, InstanceType = InstanceType, Ipv6AddressCount = Ipv6AddressCount, Ipv6Addresses = Ipv6Addresses, KernelId = KernelId, KeyName = KeyName, MaxCount = MaxCount, MinCount = MinCount, Monitoring = Monitoring, Placement = Placement, RamdiskId = RamdiskId, SecurityGroupIds = SecurityGroupIds, SecurityGroups = SecurityGroups, SubnetId = SubnetId, UserData = UserData, ElasticGpuSpecification = ElasticGpuSpecification, ElasticInferenceAccelerators = ElasticInferenceAccelerators, TagSpecifications = TagSpecifications, LaunchTemplate = LaunchTemplate, InstanceMarketOptions = InstanceMarketOptions, CreditSpecification = CreditSpecification, CpuOptions = CpuOptions, CapacityReservationSpecification = CapacityReservationSpecification, HibernationOptions = HibernationOptions, LicenseSpecifications = LicenseSpecifications, MetadataOptions = MetadataOptions, EnclaveOptions = EnclaveOptions, PrivateDnsNameOptions = PrivateDnsNameOptions, MaintenanceOptions = MaintenanceOptions, DisableApiStop = DisableApiStop, EnablePrimaryIpv6 = EnablePrimaryIpv6, NetworkPerformanceOptions = NetworkPerformanceOptions, Operator = Operator, SecondaryInterfaces = SecondaryInterfaces, DryRun = DryRun, DisableApiTermination = DisableApiTermination, InstanceInitiatedShutdownBehavior = InstanceInitiatedShutdownBehavior, PrivateIpAddress = PrivateIpAddress, ClientToken = ClientToken, AdditionalInfo = AdditionalInfo, NetworkInterfaces = NetworkInterfaces, IamInstanceProfile = IamInstanceProfile, EbsOptimized = EbsOptimized)
   output <- .ec2$run_instances_output()
@@ -29786,7 +32147,8 @@ ec2_run_scheduled_instances <- function(ClientToken = NULL, DryRun = NULL, Insta
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$run_scheduled_instances_input(ClientToken = ClientToken, DryRun = DryRun, InstanceCount = InstanceCount, LaunchSpecification = LaunchSpecification, ScheduledInstanceId = ScheduledInstanceId)
   output <- .ec2$run_scheduled_instances_output()
@@ -29835,7 +32197,8 @@ ec2_search_local_gateway_routes <- function(LocalGatewayRouteTableId, Filters = 
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "Routes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$search_local_gateway_routes_input(LocalGatewayRouteTableId = LocalGatewayRouteTableId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$search_local_gateway_routes_output()
@@ -29889,7 +32252,8 @@ ec2_search_transit_gateway_multicast_groups <- function(TransitGatewayMulticastD
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", output_token = "NextToken", result_key = "MulticastGroups"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$search_transit_gateway_multicast_groups_input(TransitGatewayMulticastDomainId = TransitGatewayMulticastDomainId, Filters = Filters, MaxResults = MaxResults, NextToken = NextToken, DryRun = DryRun)
   output <- .ec2$search_transit_gateway_multicast_groups_output()
@@ -29944,7 +32308,8 @@ ec2_search_transit_gateway_routes <- function(TransitGatewayRouteTableId, Filter
     http_path = "/",
     host_prefix = "",
     paginator = list(input_token = "NextToken", limit_key = "MaxResults", more_results = "AdditionalRoutesAvailable", output_token = "NextToken", result_key = "Routes"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$search_transit_gateway_routes_input(TransitGatewayRouteTableId = TransitGatewayRouteTableId, Filters = Filters, MaxResults = MaxResults, DryRun = DryRun, NextToken = NextToken)
   output <- .ec2$search_transit_gateway_routes_output()
@@ -29978,7 +32343,8 @@ ec2_send_diagnostic_interrupt <- function(InstanceId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$send_diagnostic_interrupt_input(InstanceId = InstanceId, DryRun = DryRun)
   output <- .ec2$send_diagnostic_interrupt_output()
@@ -30021,7 +32387,8 @@ ec2_start_declarative_policies_report <- function(DryRun = NULL, S3Bucket, S3Pre
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$start_declarative_policies_report_input(DryRun = DryRun, S3Bucket = S3Bucket, S3Prefix = S3Prefix, TargetId = TargetId, TagSpecifications = TagSpecifications)
   output <- .ec2$start_declarative_policies_report_output()
@@ -30054,7 +32421,8 @@ ec2_start_instances <- function(InstanceIds, AdditionalInfo = NULL, DryRun = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$start_instances_input(InstanceIds = InstanceIds, AdditionalInfo = AdditionalInfo, DryRun = DryRun)
   output <- .ec2$start_instances_output()
@@ -30088,7 +32456,8 @@ ec2_start_network_insights_access_scope_analysis <- function(NetworkInsightsAcce
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$start_network_insights_access_scope_analysis_input(NetworkInsightsAccessScopeId = NetworkInsightsAccessScopeId, DryRun = DryRun, TagSpecifications = TagSpecifications, ClientToken = ClientToken)
   output <- .ec2$start_network_insights_access_scope_analysis_output()
@@ -30125,7 +32494,8 @@ ec2_start_network_insights_analysis <- function(NetworkInsightsPathId, Additiona
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$start_network_insights_analysis_input(NetworkInsightsPathId = NetworkInsightsPathId, AdditionalAccounts = AdditionalAccounts, FilterInArns = FilterInArns, FilterOutArns = FilterOutArns, DryRun = DryRun, TagSpecifications = TagSpecifications, ClientToken = ClientToken)
   output <- .ec2$start_network_insights_analysis_output()
@@ -30158,7 +32528,8 @@ ec2_start_vpc_endpoint_service_private_dns_verification <- function(DryRun = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$start_vpc_endpoint_service_private_dns_verification_input(DryRun = DryRun, ServiceId = ServiceId)
   output <- .ec2$start_vpc_endpoint_service_private_dns_verification_output()
@@ -30203,7 +32574,8 @@ ec2_stop_instances <- function(InstanceIds, Hibernate = NULL, SkipOsShutdown = N
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$stop_instances_input(InstanceIds = InstanceIds, Hibernate = Hibernate, SkipOsShutdown = SkipOsShutdown, DryRun = DryRun, Force = Force)
   output <- .ec2$stop_instances_output()
@@ -30237,7 +32609,8 @@ ec2_terminate_client_vpn_connections <- function(ClientVpnEndpointId, Connection
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$terminate_client_vpn_connections_input(ClientVpnEndpointId = ClientVpnEndpointId, ConnectionId = ConnectionId, Username = Username, DryRun = DryRun)
   output <- .ec2$terminate_client_vpn_connections_output()
@@ -30275,7 +32648,8 @@ ec2_terminate_instances <- function(InstanceIds, Force = NULL, SkipOsShutdown = 
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$terminate_instances_input(InstanceIds = InstanceIds, Force = Force, SkipOsShutdown = SkipOsShutdown, DryRun = DryRun)
   output <- .ec2$terminate_instances_output()
@@ -30309,7 +32683,8 @@ ec2_unassign_ipv_6_addresses <- function(Ipv6Prefixes = NULL, NetworkInterfaceId
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$unassign_ipv_6_addresses_input(Ipv6Prefixes = Ipv6Prefixes, NetworkInterfaceId = NetworkInterfaceId, Ipv6Addresses = Ipv6Addresses)
   output <- .ec2$unassign_ipv_6_addresses_output()
@@ -30343,7 +32718,8 @@ ec2_unassign_private_ip_addresses <- function(Ipv4Prefixes = NULL, NetworkInterf
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$unassign_private_ip_addresses_input(Ipv4Prefixes = Ipv4Prefixes, NetworkInterfaceId = NetworkInterfaceId, PrivateIpAddresses = PrivateIpAddresses)
   output <- .ec2$unassign_private_ip_addresses_output()
@@ -30377,7 +32753,8 @@ ec2_unassign_private_nat_gateway_address <- function(NatGatewayId, PrivateIpAddr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$unassign_private_nat_gateway_address_input(NatGatewayId = NatGatewayId, PrivateIpAddresses = PrivateIpAddresses, MaxDrainDurationSeconds = MaxDrainDurationSeconds, DryRun = DryRun)
   output <- .ec2$unassign_private_nat_gateway_address_output()
@@ -30410,7 +32787,8 @@ ec2_unlock_snapshot <- function(SnapshotId, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$unlock_snapshot_input(SnapshotId = SnapshotId, DryRun = DryRun)
   output <- .ec2$unlock_snapshot_output()
@@ -30442,7 +32820,8 @@ ec2_unmonitor_instances <- function(InstanceIds, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$unmonitor_instances_input(InstanceIds = InstanceIds, DryRun = DryRun)
   output <- .ec2$unmonitor_instances_output()
@@ -30476,7 +32855,8 @@ ec2_update_capacity_manager_monitored_tag_keys <- function(ActivateTagKeys = NUL
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$update_capacity_manager_monitored_tag_keys_input(ActivateTagKeys = ActivateTagKeys, DeactivateTagKeys = DeactivateTagKeys, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$update_capacity_manager_monitored_tag_keys_output()
@@ -30509,7 +32889,8 @@ ec2_update_capacity_manager_organizations_access <- function(OrganizationsAccess
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$update_capacity_manager_organizations_access_input(OrganizationsAccess = OrganizationsAccess, DryRun = DryRun, ClientToken = ClientToken)
   output <- .ec2$update_capacity_manager_organizations_access_output()
@@ -30531,22 +32912,24 @@ ec2_update_capacity_manager_organizations_access <- function(OrganizationsAccess
 #' See [https://www.paws-r-sdk.com/docs/ec2_update_interruptible_capacity_reservation_allocation/](https://www.paws-r-sdk.com/docs/ec2_update_interruptible_capacity_reservation_allocation/) for full documentation.
 #'
 #' @param CapacityReservationId &#91;required&#93; The ID of the source Capacity Reservation containing the interruptible allocation to modify.
-#' @param TargetInstanceCount &#91;required&#93; The new number of instances to allocate. Enter a higher number to add more capacity to share, or a lower number to reclaim capacity to your source Capacity Reservation.
+#' @param TargetInstanceCount The new number of instances to allocate. Enter a higher number to add more capacity to share, or a lower number to reclaim capacity to your source Capacity Reservation.
 #' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response.
+#' @param ZeroSizePreference Specifies the updated behavior for the interruptible Capacity Reservation when you reduce its allocation to zero instances. Specify `retain` to keep the interruptible Capacity Reservation active at zero capacity so that you can allocate instances to it again later. Specify `default` to cancel the interruptible Capacity Reservation and return the capacity to your source Capacity Reservation.
 #'
 #' @keywords internal
 #'
 #' @rdname ec2_update_interruptible_capacity_reservation_allocation
-ec2_update_interruptible_capacity_reservation_allocation <- function(CapacityReservationId, TargetInstanceCount, DryRun = NULL) {
+ec2_update_interruptible_capacity_reservation_allocation <- function(CapacityReservationId, TargetInstanceCount = NULL, DryRun = NULL, ZeroSizePreference = NULL) {
   op <- new_operation(
     name = "UpdateInterruptibleCapacityReservationAllocation",
     http_method = "POST",
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .ec2$update_interruptible_capacity_reservation_allocation_input(CapacityReservationId = CapacityReservationId, TargetInstanceCount = TargetInstanceCount, DryRun = DryRun)
+  input <- .ec2$update_interruptible_capacity_reservation_allocation_input(CapacityReservationId = CapacityReservationId, TargetInstanceCount = TargetInstanceCount, DryRun = DryRun, ZeroSizePreference = ZeroSizePreference)
   output <- .ec2$update_interruptible_capacity_reservation_allocation_output()
   config <- get_config()
   svc <- .ec2$service(config, op)
@@ -30579,7 +32962,8 @@ ec2_update_security_group_rule_descriptions_egress <- function(DryRun = NULL, Gr
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$update_security_group_rule_descriptions_egress_input(DryRun = DryRun, GroupId = GroupId, GroupName = GroupName, IpPermissions = IpPermissions, SecurityGroupRuleDescriptions = SecurityGroupRuleDescriptions)
   output <- .ec2$update_security_group_rule_descriptions_egress_output()
@@ -30614,7 +32998,8 @@ ec2_update_security_group_rule_descriptions_ingress <- function(DryRun = NULL, G
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$update_security_group_rule_descriptions_ingress_input(DryRun = DryRun, GroupId = GroupId, GroupName = GroupName, IpPermissions = IpPermissions, SecurityGroupRuleDescriptions = SecurityGroupRuleDescriptions)
   output <- .ec2$update_security_group_rule_descriptions_ingress_output()
@@ -30625,6 +33010,40 @@ ec2_update_security_group_rule_descriptions_ingress <- function(DryRun = NULL, G
   return(response)
 }
 .ec2$operations$update_security_group_rule_descriptions_ingress <- ec2_update_security_group_rule_descriptions_ingress
+
+#' Validates whether the specified security groups can be associated with a
+#' single network interface
+#'
+#' @description
+#' Validates whether the specified security groups can be associated with a single network interface. The operation checks Amazon Virtual Private Cloud (Amazon VPC) quotas. It checks inbound or outbound rules per security group and security groups per network interface. Only authorized Amazon Web Services services can call this operation.
+#'
+#' See [https://www.paws-r-sdk.com/docs/ec2_validate_security_group_quotas_for_interface/](https://www.paws-r-sdk.com/docs/ec2_validate_security_group_quotas_for_interface/) for full documentation.
+#'
+#' @param SecurityGroupIds &#91;required&#93; The IDs of the security groups to validate for association with a single network interface. You must specify at least one ID, and each ID must be unique. The number of IDs cannot exceed the maximum number of security groups allowed per network interface.
+#' @param DryRun Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is `DryRunOperation`. Otherwise, it is `UnauthorizedOperation`.
+#'
+#' @keywords internal
+#'
+#' @rdname ec2_validate_security_group_quotas_for_interface
+ec2_validate_security_group_quotas_for_interface <- function(SecurityGroupIds, DryRun = NULL) {
+  op <- new_operation(
+    name = "ValidateSecurityGroupQuotasForInterface",
+    http_method = "POST",
+    http_path = "/",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .ec2$validate_security_group_quotas_for_interface_input(SecurityGroupIds = SecurityGroupIds, DryRun = DryRun)
+  output <- .ec2$validate_security_group_quotas_for_interface_output()
+  config <- get_config()
+  svc <- .ec2$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.ec2$operations$validate_security_group_quotas_for_interface <- ec2_validate_security_group_quotas_for_interface
 
 #' Stops advertising an address range that is provisioned as an address
 #' pool
@@ -30647,7 +33066,8 @@ ec2_withdraw_byoip_cidr <- function(Cidr, DryRun = NULL) {
     http_path = "/",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .ec2$withdraw_byoip_cidr_input(Cidr = Cidr, DryRun = DryRun)
   output <- .ec2$withdraw_byoip_cidr_output()

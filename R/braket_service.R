@@ -7,7 +7,7 @@ NULL
 #' @description
 #' The Amazon Braket API Reference provides information about the operations and structures supported by Amazon Braket.
 #' 
-#' To learn about the permissions required to call an Amazon Braket API action, see [Actions, resources, and condition keys for Amazon Braket](https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonbraket.html). [Amazon Braket Python SDK](https://amazon-braket-sdk-python.readthedocs.io/en/latest/) and the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/reference/braket/) can be used to make discovery and creation of API calls easier. For more information about Amazon Braket features, see [What is Amazon Braket?](https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html) and important [terms and concepts](https://docs.aws.amazon.com/braket/latest/developerguide/braket-terms.html) in the *Amazon Braket Developer Guide*.
+#' To learn about the permissions required to call an Amazon Braket API action, see [Actions, resources, and condition keys for Amazon Braket](https://docs.aws.amazon.com/service-authorization/latest/reference/). [Amazon Braket Python SDK](https://amazon-braket-sdk-python.readthedocs.io/en/latest/) and the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/reference/braket/) can be used to make discovery and creation of API calls easier. For more information about Amazon Braket features, see [What is Amazon Braket?](https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html) and important [terms and concepts](https://docs.aws.amazon.com/braket/latest/developerguide/braket-terms.html) in the *Amazon Braket Developer Guide*.
 #' 
 #' **In this guide:**
 #' 
@@ -56,6 +56,7 @@ NULL
 #' \item{\strong{timeout}: The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
 #' \item{\strong{s3_force_path_style}: Set this to `true` to force the request to use path-style addressing, i.e. `http://s3.amazonaws.com/BUCKET/KEY`.}
 #' \item{\strong{sts_regional_endpoint}: Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
+#' \item{\strong{use_dual_stack}: Set this to `true` to use the dualstack (IPv4 and IPv6) endpoint for a service, where available, falling back to the regular endpoint when it isn't. Defaults to the `AWS_USE_DUALSTACK_ENDPOINT` environment variable when unset.}
 #' }
 #' @param
 #' credentials
@@ -94,7 +95,8 @@ NULL
 #'     close_connection = "logical",
 #'     timeout = "numeric",
 #'     s3_force_path_style = "logical",
-#'     sts_regional_endpoint = "string"
+#'     sts_regional_endpoint = "string",
+#'     use_dual_stack = "logical"
 #'   ),
 #'   credentials = list(
 #'     creds = list(
@@ -168,7 +170,7 @@ braket <- function(config = list(), credentials = list(), endpoint = NULL, regio
 
 .braket$metadata <- list(
   service_name = "braket",
-  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.amazonaws.com", global = FALSE), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.amazonaws.eu", global = FALSE)),
+  endpoints = list("^(us|eu|ap|sa|ca|me|af|il|mx)\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.amazonaws.com", global = FALSE, dualstack_endpoint = "braket.{region}.api.aws"), "^cn\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.amazonaws.com.cn", global = FALSE), "^us\\-gov\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.amazonaws.com", global = FALSE), "^us\\-iso\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.c2s.ic.gov", global = FALSE), "^us\\-isob\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.sc2s.sgov.gov", global = FALSE), "^eu\\-isoe\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.cloud.adc-e.uk", global = FALSE), "^us\\-isof\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.csp.hci.ic.gov", global = FALSE), "^eusc\\-(de)\\-\\w+\\-\\d+$" = list(endpoint = "braket.{region}.amazonaws.eu", global = FALSE)),
   service_id = "Braket",
   api_version = "2019-09-01",
   signing_name = "braket",

@@ -30,6 +30,7 @@ NULL
 #' \item{\strong{timeout}: The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
 #' \item{\strong{s3_force_path_style}: Set this to `true` to force the request to use path-style addressing, i.e. `http://s3.amazonaws.com/BUCKET/KEY`.}
 #' \item{\strong{sts_regional_endpoint}: Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
+#' \item{\strong{use_dual_stack}: Set this to `true` to use the dualstack (IPv4 and IPv6) endpoint for a service, where available, falling back to the regular endpoint when it isn't. Defaults to the `AWS_USE_DUALSTACK_ENDPOINT` environment variable when unset.}
 #' }
 #' @param
 #' credentials
@@ -68,7 +69,8 @@ NULL
 #'     close_connection = "logical",
 #'     timeout = "numeric",
 #'     s3_force_path_style = "logical",
-#'     sts_regional_endpoint = "string"
+#'     sts_regional_endpoint = "string",
+#'     use_dual_stack = "logical"
 #'   ),
 #'   credentials = list(
 #'     creds = list(
@@ -204,6 +206,7 @@ NULL
 #'  \link[=lightsail_get_operation]{get_operation} \tab Returns information about a specific operation\cr
 #'  \link[=lightsail_get_operations]{get_operations} \tab Returns information about all operations\cr
 #'  \link[=lightsail_get_operations_for_resource]{get_operations_for_resource} \tab Gets operations for a specific resource (an instance or a static IP)\cr
+#'  \link[=lightsail_get_profile]{get_profile} \tab Returns information about the profile of the Amazon Lightsail account that makes the request\cr
 #'  \link[=lightsail_get_regions]{get_regions} \tab Returns a list of all valid regions for Amazon Lightsail\cr
 #'  \link[=lightsail_get_relational_database]{get_relational_database} \tab Returns information about a specific database in Amazon Lightsail\cr
 #'  \link[=lightsail_get_relational_database_blueprints]{get_relational_database_blueprints} \tab Returns a list of available database blueprints in Amazon Lightsail\cr

@@ -12,7 +12,7 @@ imagebuilder_list_image_build_versions(
 )
 }
 \arguments{
-\item{imageVersionArn}{The Amazon Resource Name (ARN) of the image whose build versions you want to retrieve.}
+\item{imageVersionArn}{The Amazon Resource Name (ARN) of the image version whose build versions you want to retrieve. The ARN must specify an exact version (\verb{<major>.<minor>.<patch>}) - wildcards aren't allowed. This parameter is optional. If you don't specify it, Image Builder returns build versions for all of the images in your account.}
 
 \item{filters}{Use the following filters to streamline results:
 \itemize{
@@ -23,9 +23,9 @@ imagebuilder_list_image_build_versions(
 \item \code{version}
 }}
 
-\item{maxResults}{Specify the maximum number of items to return in a request.}
+\item{maxResults}{The maximum number of items to return in a single request.}
 
-\item{nextToken}{A token to specify where to start paginating. This is the nextToken from a previously truncated response.}
+\item{nextToken}{A token to specify where to start paginating. Use the \code{nextToken} value from a previously truncated response.}
 }
 \description{
 Returns a list of image build versions.

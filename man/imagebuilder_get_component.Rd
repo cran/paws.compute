@@ -2,15 +2,15 @@
 % Please edit documentation in R/imagebuilder_operations.R
 \name{imagebuilder_get_component}
 \alias{imagebuilder_get_component}
-\title{Gets a component object}
+\title{Retrieves a component object}
 \usage{
 imagebuilder_get_component(componentBuildVersionArn)
 }
 \arguments{
-\item{componentBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the component that you want to get. Regex requires the suffix \verb{/\\\\d+$}.}
+\item{componentBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the component that you want to get. You can specify a build version ARN, or a component version ARN. The version can use the \code{x} wildcard in trailing positions, for example \verb{1.0.x} or \verb{1.x.x}. Version ARNs resolve to the latest available matching component build version.}
 }
 \description{
-Gets a component object.
+Retrieves a component object.
 
 See \url{https://www.paws-r-sdk.com/docs/imagebuilder_get_component/} for full documentation.
 }

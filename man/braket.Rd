@@ -24,6 +24,7 @@ braket(config = list(), credentials = list(), endpoint = NULL, region = NULL)
 \item{\strong{timeout}: The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
 \item{\strong{s3_force_path_style}: Set this to \code{true} to force the request to use path-style addressing, i.e. \verb{http://s3.amazonaws.com/BUCKET/KEY}.}
 \item{\strong{sts_regional_endpoint}: Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
+\item{\strong{use_dual_stack}: Set this to \code{true} to use the dualstack (IPv4 and IPv6) endpoint for a service, where available, falling back to the regular endpoint when it isn't. Defaults to the \code{AWS_USE_DUALSTACK_ENDPOINT} environment variable when unset.}
 }}
 
 \item{credentials}{Optional credentials shorthand for the config parameter
@@ -50,7 +51,7 @@ Operations section.
 \description{
 The Amazon Braket API Reference provides information about the operations and structures supported by Amazon Braket.
 
-To learn about the permissions required to call an Amazon Braket API action, see \href{https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonbraket.html}{Actions, resources, and condition keys for Amazon Braket}. \href{https://amazon-braket-sdk-python.readthedocs.io/en/latest/}{Amazon Braket Python SDK} and the \href{https://docs.aws.amazon.com/cli/latest/reference/braket/}{AWS Command Line Interface} can be used to make discovery and creation of API calls easier. For more information about Amazon Braket features, see \href{https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html}{What is Amazon Braket?} and important \href{https://docs.aws.amazon.com/braket/latest/developerguide/braket-terms.html}{terms and concepts} in the \emph{Amazon Braket Developer Guide}.
+To learn about the permissions required to call an Amazon Braket API action, see \href{https://docs.aws.amazon.com/service-authorization/latest/reference/}{Actions, resources, and condition keys for Amazon Braket}. \href{https://amazon-braket-sdk-python.readthedocs.io/en/latest/}{Amazon Braket Python SDK} and the \href{https://docs.aws.amazon.com/cli/latest/reference/braket/}{AWS Command Line Interface} can be used to make discovery and creation of API calls easier. For more information about Amazon Braket features, see \href{https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html}{What is Amazon Braket?} and important \href{https://docs.aws.amazon.com/braket/latest/developerguide/braket-terms.html}{terms and concepts} in the \emph{Amazon Braket Developer Guide}.
 
 \strong{In this guide:}
 \itemize{
@@ -94,7 +95,8 @@ To learn about the permissions required to call an Amazon Braket API action, see
     close_connection = "logical",
     timeout = "numeric",
     s3_force_path_style = "logical",
-    sts_regional_endpoint = "string"
+    sts_regional_endpoint = "string",
+    use_dual_stack = "logical"
   ),
   credentials = list(
     creds = list(

@@ -24,6 +24,7 @@ lambda(config = list(), credentials = list(), endpoint = NULL, region = NULL)
 \item{\strong{timeout}: The time in seconds till a timeout exception is thrown when attempting to make a connection. The default is 60 seconds.}
 \item{\strong{s3_force_path_style}: Set this to \code{true} to force the request to use path-style addressing, i.e. \verb{http://s3.amazonaws.com/BUCKET/KEY}.}
 \item{\strong{sts_regional_endpoint}: Set sts regional endpoint resolver to regional or legacy \url{https://docs.aws.amazon.com/sdkref/latest/guide/feature-sts-regionalized-endpoints.html}}
+\item{\strong{use_dual_stack}: Set this to \code{true} to use the dualstack (IPv4 and IPv6) endpoint for a service, where available, falling back to the regular endpoint when it isn't. Defaults to the \code{AWS_USE_DUALSTACK_ENDPOINT} environment variable when unset.}
 }}
 
 \item{credentials}{Optional credentials shorthand for the config parameter
@@ -100,7 +101,8 @@ Root certificates from the first two authorities are available from \href{https:
     close_connection = "logical",
     timeout = "numeric",
     s3_force_path_style = "logical",
-    sts_regional_endpoint = "string"
+    sts_regional_endpoint = "string",
+    use_dual_stack = "logical"
   ),
   credentials = list(
     creds = list(
@@ -140,6 +142,7 @@ Root certificates from the first two authorities are available from \href{https:
 \link[=lambda_delete_function_url_config]{delete_function_url_config} \tab Deletes a Lambda function URL\cr
 \link[=lambda_delete_layer_version]{delete_layer_version} \tab Deletes a version of an Lambda layer\cr
 \link[=lambda_delete_provisioned_concurrency_config]{delete_provisioned_concurrency_config} \tab Deletes the provisioned concurrency configuration for a function\cr
+\link[=lambda_delete_resource_policy]{delete_resource_policy} \tab Deletes a resource-based policy from a Lambda resource\cr
 \link[=lambda_get_account_settings]{get_account_settings} \tab Retrieves details about your account's limits and usage in an Amazon Web Services Region\cr
 \link[=lambda_get_alias]{get_alias} \tab Returns details about a Lambda function alias\cr
 \link[=lambda_get_capacity_provider]{get_capacity_provider} \tab Retrieves information about a specific capacity provider, including its configuration, state, and associated resources\cr
@@ -161,6 +164,7 @@ Root certificates from the first two authorities are available from \href{https:
 \link[=lambda_get_layer_version_policy]{get_layer_version_policy} \tab Returns the permission policy for a version of an Lambda layer\cr
 \link[=lambda_get_policy]{get_policy} \tab Returns the resource-based IAM policy for a function, version, or alias\cr
 \link[=lambda_get_provisioned_concurrency_config]{get_provisioned_concurrency_config} \tab Retrieves the provisioned concurrency configuration for a function's alias or version\cr
+\link[=lambda_get_resource_policy]{get_resource_policy} \tab Retrieves the resource-based policy attached to a Lambda resource\cr
 \link[=lambda_get_runtime_management_config]{get_runtime_management_config} \tab Retrieves the runtime management configuration for a function's version\cr
 \link[=lambda_invoke]{invoke} \tab Invokes a Lambda function\cr
 \link[=lambda_invoke_async]{invoke_async} \tab For asynchronous function invocation, use Invoke\cr
@@ -188,6 +192,7 @@ Root certificates from the first two authorities are available from \href{https:
 \link[=lambda_put_function_recursion_config]{put_function_recursion_config} \tab Sets your function's recursive loop detection configuration\cr
 \link[=lambda_put_function_scaling_config]{put_function_scaling_config} \tab Sets the scaling configuration for a Lambda Managed Instances function\cr
 \link[=lambda_put_provisioned_concurrency_config]{put_provisioned_concurrency_config} \tab Adds a provisioned concurrency configuration to a function's alias or version\cr
+\link[=lambda_put_resource_policy]{put_resource_policy} \tab Adds a resource-based policy to a Lambda resource\cr
 \link[=lambda_put_runtime_management_config]{put_runtime_management_config} \tab Sets the runtime management configuration for a function's version\cr
 \link[=lambda_remove_layer_version_permission]{remove_layer_version_permission} \tab Removes a statement from the permissions policy for a version of an Lambda layer\cr
 \link[=lambda_remove_permission]{remove_permission} \tab Revokes function-use permission from an Amazon Web Services service or another Amazon Web Services account\cr

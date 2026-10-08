@@ -2,15 +2,15 @@
 % Please edit documentation in R/imagebuilder_operations.R
 \name{imagebuilder_get_image_recipe}
 \alias{imagebuilder_get_image_recipe}
-\title{Gets an image recipe}
+\title{Retrieves an image recipe}
 \usage{
 imagebuilder_get_image_recipe(imageRecipeArn)
 }
 \arguments{
-\item{imageRecipeArn}{[required] The Amazon Resource Name (ARN) of the image recipe that you want to retrieve.}
+\item{imageRecipeArn}{[required] The Amazon Resource Name (ARN) of the image recipe that you want to retrieve. You can use the \code{x} wildcard in trailing version positions to retrieve the latest matching version, for example \code{x.x.x} or \verb{1.x.x}.}
 }
 \description{
-Gets an image recipe.
+Retrieves an image recipe.
 
 See \url{https://www.paws-r-sdk.com/docs/imagebuilder_get_image_recipe/} for full documentation.
 }

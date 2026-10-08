@@ -1,3 +1,3 @@
-svc <- paws::lightsail()
+svc <- paws.compute::lightsail()
 
 

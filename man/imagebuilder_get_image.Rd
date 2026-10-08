@@ -2,15 +2,15 @@
 % Please edit documentation in R/imagebuilder_operations.R
 \name{imagebuilder_get_image}
 \alias{imagebuilder_get_image}
-\title{Gets an image}
+\title{Retrieves an image}
 \usage{
 imagebuilder_get_image(imageBuildVersionArn)
 }
 \arguments{
-\item{imageBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the image that you want to get.}
+\item{imageBuildVersionArn}{[required] The Amazon Resource Name (ARN) of the image that you want to get. You can specify a full build version ARN, or a version ARN with or without wildcards (\code{x.x.x}, \verb{1.x.x}, or \verb{1.0.x}). A version or wildcard ARN resolves to the latest matching build version that has reached \code{AVAILABLE} status. Builds that were later deprecated, disabled, or deleted don't resolve. To get an image in any other state, such as a failed or in-progress build, specify the full build version ARN.}
 }
 \description{
-Gets an image.
+Retrieves an image.
 
 See \url{https://www.paws-r-sdk.com/docs/imagebuilder_get_image/} for full documentation.
 }

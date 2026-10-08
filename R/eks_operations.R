@@ -3,6 +3,41 @@
 #' @include eks_service.R
 NULL
 
+#' Activates a successor certificate authority (CA) as the signing
+#' certificate authority for your cluster, completing a CA rotation
+#'
+#' @description
+#' Activates a successor certificate authority (CA) as the signing certificate authority for your cluster, completing a CA rotation.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_activate_certificate_authority/](https://www.paws-r-sdk.com/docs/eks_activate_certificate_authority/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of your cluster.
+#' @param certificateAuthorityId &#91;required&#93; The ID of the certificate authority to activate as the cluster's signing certificate authority. This certificate authority must already exist on the cluster and have a `distributionStatus` of `COMPLETE`.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_activate_certificate_authority
+eks_activate_certificate_authority <- function(clusterName, certificateAuthorityId, clientRequestToken = NULL) {
+  op <- new_operation(
+    name = "ActivateCertificateAuthority",
+    http_method = "POST",
+    http_path = "/clusters/{name}/certificate-authorities/{certificateAuthorityId}/activate",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .eks$activate_certificate_authority_input(clusterName = clusterName, certificateAuthorityId = certificateAuthorityId, clientRequestToken = clientRequestToken)
+  output <- .eks$activate_certificate_authority_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$activate_certificate_authority <- eks_activate_certificate_authority
+
 #' Associates an access policy and its scope to an access entry
 #'
 #' @description
@@ -25,7 +60,8 @@ eks_associate_access_policy <- function(clusterName, principalArn, policyArn, ac
     http_path = "/clusters/{name}/access-entries/{principalArn}/access-policies",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$associate_access_policy_input(clusterName = clusterName, principalArn = principalArn, policyArn = policyArn, accessScope = accessScope)
   output <- .eks$associate_access_policy_output()
@@ -58,7 +94,8 @@ eks_associate_encryption_config <- function(clusterName, encryptionConfig, clien
     http_path = "/clusters/{name}/encryption-config/associate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$associate_encryption_config_input(clusterName = clusterName, encryptionConfig = encryptionConfig, clientRequestToken = clientRequestToken)
   output <- .eks$associate_encryption_config_output()
@@ -92,7 +129,8 @@ eks_associate_identity_provider_config <- function(clusterName, oidc, tags = NUL
     http_path = "/clusters/{name}/identity-provider-configs/associate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$associate_identity_provider_config_input(clusterName = clusterName, oidc = oidc, tags = tags, clientRequestToken = clientRequestToken)
   output <- .eks$associate_identity_provider_config_output()
@@ -103,6 +141,41 @@ eks_associate_identity_provider_config <- function(clusterName, oidc, tags = NUL
   return(response)
 }
 .eks$operations$associate_identity_provider_config <- eks_associate_identity_provider_config
+
+#' Cancels an in-progress update to an Amazon EKS cluster on a best-effort
+#' basis
+#'
+#' @description
+#' Cancels an in-progress update to an Amazon EKS cluster on a best-effort basis. Cancellation is only performed if the update can be cancelled. Currently, this is supported for `VersionRollback` update types on EKS Auto Mode clusters when nodes are rolling back.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_cancel_update/](https://www.paws-r-sdk.com/docs/eks_cancel_update/) for full documentation.
+#'
+#' @param name &#91;required&#93; The name of the Amazon EKS cluster associated with the update.
+#' @param updateId &#91;required&#93; The ID of the update to cancel.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_cancel_update
+eks_cancel_update <- function(name, updateId, clientRequestToken = NULL) {
+  op <- new_operation(
+    name = "CancelUpdate",
+    http_method = "POST",
+    http_path = "/clusters/{name}/updates/{updateId}/cancel-update",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .eks$cancel_update_input(name = name, updateId = updateId, clientRequestToken = clientRequestToken)
+  output <- .eks$cancel_update_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$cancel_update <- eks_cancel_update
 
 #' Creates an access entry
 #'
@@ -141,7 +214,8 @@ eks_create_access_entry <- function(clusterName, principalArn, kubernetesGroups 
     http_path = "/clusters/{name}/access-entries",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$create_access_entry_input(clusterName = clusterName, principalArn = principalArn, kubernetesGroups = kubernetesGroups, tags = tags, clientRequestToken = clientRequestToken, username = username, type = type)
   output <- .eks$create_access_entry_output()
@@ -193,7 +267,8 @@ eks_create_addon <- function(clusterName, addonName, addonVersion = NULL, servic
     http_path = "/clusters/{name}/addons",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$create_addon_input(clusterName = clusterName, addonName = addonName, addonVersion = addonVersion, serviceAccountRoleArn = serviceAccountRoleArn, resolveConflicts = resolveConflicts, clientRequestToken = clientRequestToken, tags = tags, configurationValues = configurationValues, podIdentityAssociations = podIdentityAssociations, namespaceConfig = namespaceConfig)
   output <- .eks$create_addon_output()
@@ -257,7 +332,8 @@ eks_create_capability <- function(capabilityName, clusterName, clientRequestToke
     http_path = "/clusters/{name}/capabilities",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$create_capability_input(capabilityName = capabilityName, clusterName = clusterName, clientRequestToken = clientRequestToken, type = type, roleArn = roleArn, configuration = configuration, tags = tags, deletePropagationPolicy = deletePropagationPolicy)
   output <- .eks$create_capability_output()
@@ -268,6 +344,40 @@ eks_create_capability <- function(capabilityName, clusterName, clientRequestToke
   return(response)
 }
 .eks$operations$create_capability <- eks_create_capability
+
+#' Appends a successor certificate authority (CA) to your cluster,
+#' beginning the CA rotation process
+#'
+#' @description
+#' Appends a successor certificate authority (CA) to your cluster, beginning the CA rotation process.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_create_certificate_authority/](https://www.paws-r-sdk.com/docs/eks_create_certificate_authority/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of your cluster.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_create_certificate_authority
+eks_create_certificate_authority <- function(clusterName, clientRequestToken = NULL) {
+  op <- new_operation(
+    name = "CreateCertificateAuthority",
+    http_method = "POST",
+    http_path = "/clusters/{name}/certificate-authorities",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .eks$create_certificate_authority_input(clusterName = clusterName, clientRequestToken = clientRequestToken)
+  output <- .eks$create_certificate_authority_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$create_certificate_authority <- eks_create_certificate_authority
 
 #' Creates an Amazon EKS control plane
 #'
@@ -307,20 +417,24 @@ eks_create_capability <- function(capabilityName, clusterName, clientRequestToke
 #' @param storageConfig Enable or disable the block storage capability of EKS Auto Mode when creating your EKS Auto Mode cluster. If the block storage capability is enabled, EKS Auto Mode will create and delete EBS volumes in your Amazon Web Services account.
 #' @param deletionProtection Indicates whether to enable deletion protection for the cluster. When enabled, the cluster cannot be deleted unless deletion protection is first disabled. This helps prevent accidental cluster deletion. Default value is `false`.
 #' @param controlPlaneScalingConfig The control plane scaling tier configuration. For more information, see EKS Provisioned Control Plane in the Amazon EKS User Guide.
+#' @param kubeApiServerConfig The Kubernetes API server configuration for the new cluster.
+#' @param kubeSchedulerConfig The Kubernetes scheduler configuration for the new cluster.
+#' @param kubeControllerManagerConfig The Kubernetes controller manager configuration for the new cluster.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_create_cluster
-eks_create_cluster <- function(name, version = NULL, roleArn, resourcesVpcConfig, kubernetesNetworkConfig = NULL, logging = NULL, clientRequestToken = NULL, tags = NULL, encryptionConfig = NULL, outpostConfig = NULL, accessConfig = NULL, bootstrapSelfManagedAddons = NULL, upgradePolicy = NULL, zonalShiftConfig = NULL, remoteNetworkConfig = NULL, computeConfig = NULL, storageConfig = NULL, deletionProtection = NULL, controlPlaneScalingConfig = NULL) {
+eks_create_cluster <- function(name, version = NULL, roleArn, resourcesVpcConfig, kubernetesNetworkConfig = NULL, logging = NULL, clientRequestToken = NULL, tags = NULL, encryptionConfig = NULL, outpostConfig = NULL, accessConfig = NULL, bootstrapSelfManagedAddons = NULL, upgradePolicy = NULL, zonalShiftConfig = NULL, remoteNetworkConfig = NULL, computeConfig = NULL, storageConfig = NULL, deletionProtection = NULL, controlPlaneScalingConfig = NULL, kubeApiServerConfig = NULL, kubeSchedulerConfig = NULL, kubeControllerManagerConfig = NULL) {
   op <- new_operation(
     name = "CreateCluster",
     http_method = "POST",
     http_path = "/clusters",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .eks$create_cluster_input(name = name, version = version, roleArn = roleArn, resourcesVpcConfig = resourcesVpcConfig, kubernetesNetworkConfig = kubernetesNetworkConfig, logging = logging, clientRequestToken = clientRequestToken, tags = tags, encryptionConfig = encryptionConfig, outpostConfig = outpostConfig, accessConfig = accessConfig, bootstrapSelfManagedAddons = bootstrapSelfManagedAddons, upgradePolicy = upgradePolicy, zonalShiftConfig = zonalShiftConfig, remoteNetworkConfig = remoteNetworkConfig, computeConfig = computeConfig, storageConfig = storageConfig, deletionProtection = deletionProtection, controlPlaneScalingConfig = controlPlaneScalingConfig)
+  input <- .eks$create_cluster_input(name = name, version = version, roleArn = roleArn, resourcesVpcConfig = resourcesVpcConfig, kubernetesNetworkConfig = kubernetesNetworkConfig, logging = logging, clientRequestToken = clientRequestToken, tags = tags, encryptionConfig = encryptionConfig, outpostConfig = outpostConfig, accessConfig = accessConfig, bootstrapSelfManagedAddons = bootstrapSelfManagedAddons, upgradePolicy = upgradePolicy, zonalShiftConfig = zonalShiftConfig, remoteNetworkConfig = remoteNetworkConfig, computeConfig = computeConfig, storageConfig = storageConfig, deletionProtection = deletionProtection, controlPlaneScalingConfig = controlPlaneScalingConfig, kubeApiServerConfig = kubeApiServerConfig, kubeSchedulerConfig = kubeSchedulerConfig, kubeControllerManagerConfig = kubeControllerManagerConfig)
   output <- .eks$create_cluster_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -355,7 +469,8 @@ eks_create_eks_anywhere_subscription <- function(name, term, licenseQuantity = N
     http_path = "/eks-anywhere-subscriptions",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$create_eks_anywhere_subscription_input(name = name, term = term, licenseQuantity = licenseQuantity, licenseType = licenseType, autoRenew = autoRenew, clientRequestToken = clientRequestToken, tags = tags)
   output <- .eks$create_eks_anywhere_subscription_output()
@@ -392,7 +507,8 @@ eks_create_fargate_profile <- function(fargateProfileName, clusterName, podExecu
     http_path = "/clusters/{name}/fargate-profiles",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$create_fargate_profile_input(fargateProfileName = fargateProfileName, clusterName = clusterName, podExecutionRoleArn = podExecutionRoleArn, subnets = subnets, selectors = selectors, clientRequestToken = clientRequestToken, tags = tags)
   output <- .eks$create_fargate_profile_output()
@@ -446,7 +562,8 @@ eks_create_nodegroup <- function(clusterName, nodegroupName, scalingConfig = NUL
     http_path = "/clusters/{name}/node-groups",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$create_nodegroup_input(clusterName = clusterName, nodegroupName = nodegroupName, scalingConfig = scalingConfig, diskSize = diskSize, subnets = subnets, instanceTypes = instanceTypes, amiType = amiType, remoteAccess = remoteAccess, nodeRole = nodeRole, labels = labels, taints = taints, tags = tags, clientRequestToken = clientRequestToken, launchTemplate = launchTemplate, updateConfig = updateConfig, nodeRepairConfig = nodeRepairConfig, capacityType = capacityType, version = version, releaseVersion = releaseVersion, warmPoolConfig = warmPoolConfig)
   output <- .eks$create_nodegroup_output()
@@ -514,7 +631,8 @@ eks_create_pod_identity_association <- function(clusterName, namespace, serviceA
     http_path = "/clusters/{name}/pod-identity-associations",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$create_pod_identity_association_input(clusterName = clusterName, namespace = namespace, serviceAccount = serviceAccount, roleArn = roleArn, clientRequestToken = clientRequestToken, tags = tags, disableSessionTags = disableSessionTags, targetRoleArn = targetRoleArn, policy = policy)
   output <- .eks$create_pod_identity_association_output()
@@ -546,7 +664,8 @@ eks_delete_access_entry <- function(clusterName, principalArn) {
     http_path = "/clusters/{name}/access-entries/{principalArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$delete_access_entry_input(clusterName = clusterName, principalArn = principalArn)
   output <- .eks$delete_access_entry_output()
@@ -579,7 +698,8 @@ eks_delete_addon <- function(clusterName, addonName, preserve = NULL) {
     http_path = "/clusters/{name}/addons/{addonName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$delete_addon_input(clusterName = clusterName, addonName = addonName, preserve = preserve)
   output <- .eks$delete_addon_output()
@@ -611,7 +731,8 @@ eks_delete_capability <- function(clusterName, capabilityName) {
     http_path = "/clusters/{name}/capabilities/{capabilityName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$delete_capability_input(clusterName = clusterName, capabilityName = capabilityName)
   output <- .eks$delete_capability_output()
@@ -622,6 +743,40 @@ eks_delete_capability <- function(clusterName, capabilityName) {
   return(response)
 }
 .eks$operations$delete_capability <- eks_delete_capability
+
+#' Deletes a certificate authority (CA) from your cluster
+#'
+#' @description
+#' Deletes a certificate authority (CA) from your cluster.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_delete_certificate_authority/](https://www.paws-r-sdk.com/docs/eks_delete_certificate_authority/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of your cluster.
+#' @param certificateAuthorityId &#91;required&#93; The ID of the certificate authority to delete. You can't delete the certificate authority that's currently signing certificates for the cluster.
+#' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_delete_certificate_authority
+eks_delete_certificate_authority <- function(clusterName, certificateAuthorityId, clientRequestToken = NULL) {
+  op <- new_operation(
+    name = "DeleteCertificateAuthority",
+    http_method = "DELETE",
+    http_path = "/clusters/{name}/certificate-authorities/{certificateAuthorityId}",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .eks$delete_certificate_authority_input(clusterName = clusterName, certificateAuthorityId = certificateAuthorityId, clientRequestToken = clientRequestToken)
+  output <- .eks$delete_certificate_authority_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$delete_certificate_authority <- eks_delete_certificate_authority
 
 #' Deletes an Amazon EKS cluster control plane
 #'
@@ -642,7 +797,8 @@ eks_delete_cluster <- function(name) {
     http_path = "/clusters/{name}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$delete_cluster_input(name = name)
   output <- .eks$delete_cluster_output()
@@ -673,7 +829,8 @@ eks_delete_eks_anywhere_subscription <- function(id) {
     http_path = "/eks-anywhere-subscriptions/{id}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$delete_eks_anywhere_subscription_input(id = id)
   output <- .eks$delete_eks_anywhere_subscription_output()
@@ -705,7 +862,8 @@ eks_delete_fargate_profile <- function(clusterName, fargateProfileName) {
     http_path = "/clusters/{name}/fargate-profiles/{fargateProfileName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$delete_fargate_profile_input(clusterName = clusterName, fargateProfileName = fargateProfileName)
   output <- .eks$delete_fargate_profile_output()
@@ -737,7 +895,8 @@ eks_delete_nodegroup <- function(clusterName, nodegroupName) {
     http_path = "/clusters/{name}/node-groups/{nodegroupName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$delete_nodegroup_input(clusterName = clusterName, nodegroupName = nodegroupName)
   output <- .eks$delete_nodegroup_output()
@@ -769,7 +928,8 @@ eks_delete_pod_identity_association <- function(clusterName, associationId) {
     http_path = "/clusters/{name}/pod-identity-associations/{associationId}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$delete_pod_identity_association_input(clusterName = clusterName, associationId = associationId)
   output <- .eks$delete_pod_identity_association_output()
@@ -801,7 +961,8 @@ eks_deregister_cluster <- function(name) {
     http_path = "/cluster-registrations/{name}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$deregister_cluster_input(name = name)
   output <- .eks$deregister_cluster_output()
@@ -833,7 +994,8 @@ eks_describe_access_entry <- function(clusterName, principalArn) {
     http_path = "/clusters/{name}/access-entries/{principalArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_access_entry_input(clusterName = clusterName, principalArn = principalArn)
   output <- .eks$describe_access_entry_output()
@@ -865,7 +1027,8 @@ eks_describe_addon <- function(clusterName, addonName) {
     http_path = "/clusters/{name}/addons/{addonName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_addon_input(clusterName = clusterName, addonName = addonName)
   output <- .eks$describe_addon_output()
@@ -897,7 +1060,8 @@ eks_describe_addon_configuration <- function(addonName, addonVersion) {
     http_path = "/addons/configuration-schemas",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_addon_configuration_input(addonName = addonName, addonVersion = addonVersion)
   output <- .eks$describe_addon_configuration_output()
@@ -936,7 +1100,8 @@ eks_describe_addon_versions <- function(kubernetesVersion = NULL, maxResults = N
     http_path = "/addons/supported-versions",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "addons"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_addon_versions_input(kubernetesVersion = kubernetesVersion, maxResults = maxResults, nextToken = nextToken, addonName = addonName, types = types, publishers = publishers, owners = owners)
   output <- .eks$describe_addon_versions_output()
@@ -970,7 +1135,8 @@ eks_describe_capability <- function(clusterName, capabilityName) {
     http_path = "/clusters/{name}/capabilities/{capabilityName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_capability_input(clusterName = clusterName, capabilityName = capabilityName)
   output <- .eks$describe_capability_output()
@@ -981,6 +1147,42 @@ eks_describe_capability <- function(clusterName, capabilityName) {
   return(response)
 }
 .eks$operations$describe_capability <- eks_describe_capability
+
+#' Returns detailed information about a certificate authority (CA) in your
+#' cluster, including its validity period, signing and distribution status,
+#' provenance, scheduled auto-activation events, and public certificate
+#' data
+#'
+#' @description
+#' Returns detailed information about a certificate authority (CA) in your cluster, including its validity period, signing and distribution status, provenance, scheduled auto-activation events, and public certificate data.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_describe_certificate_authority/](https://www.paws-r-sdk.com/docs/eks_describe_certificate_authority/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of your cluster.
+#' @param certificateAuthorityId &#91;required&#93; The ID of the certificate authority to describe.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_describe_certificate_authority
+eks_describe_certificate_authority <- function(clusterName, certificateAuthorityId) {
+  op <- new_operation(
+    name = "DescribeCertificateAuthority",
+    http_method = "GET",
+    http_path = "/clusters/{name}/certificate-authorities/{certificateAuthorityId}",
+    host_prefix = "",
+    paginator = list(),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .eks$describe_certificate_authority_input(clusterName = clusterName, certificateAuthorityId = certificateAuthorityId)
+  output <- .eks$describe_certificate_authority_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$describe_certificate_authority <- eks_describe_certificate_authority
 
 #' Describes an Amazon EKS cluster
 #'
@@ -1001,7 +1203,8 @@ eks_describe_cluster <- function(name) {
     http_path = "/clusters/{name}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_cluster_input(name = name)
   output <- .eks$describe_cluster_output()
@@ -1041,7 +1244,8 @@ eks_describe_cluster_versions <- function(clusterType = NULL, maxResults = NULL,
     http_path = "/cluster-versions",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "clusterVersions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_cluster_versions_input(clusterType = clusterType, maxResults = maxResults, nextToken = nextToken, defaultOnly = defaultOnly, includeAll = includeAll, clusterVersions = clusterVersions, status = status, versionStatus = versionStatus)
   output <- .eks$describe_cluster_versions_output()
@@ -1072,7 +1276,8 @@ eks_describe_eks_anywhere_subscription <- function(id) {
     http_path = "/eks-anywhere-subscriptions/{id}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_eks_anywhere_subscription_input(id = id)
   output <- .eks$describe_eks_anywhere_subscription_output()
@@ -1104,7 +1309,8 @@ eks_describe_fargate_profile <- function(clusterName, fargateProfileName) {
     http_path = "/clusters/{name}/fargate-profiles/{fargateProfileName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_fargate_profile_input(clusterName = clusterName, fargateProfileName = fargateProfileName)
   output <- .eks$describe_fargate_profile_output()
@@ -1136,7 +1342,8 @@ eks_describe_identity_provider_config <- function(clusterName, identityProviderC
     http_path = "/clusters/{name}/identity-provider-configs/describe",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_identity_provider_config_input(clusterName = clusterName, identityProviderConfig = identityProviderConfig)
   output <- .eks$describe_identity_provider_config_output()
@@ -1168,7 +1375,8 @@ eks_describe_insight <- function(clusterName, id) {
     http_path = "/clusters/{name}/insights/{id}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_insight_input(clusterName = clusterName, id = id)
   output <- .eks$describe_insight_output()
@@ -1200,7 +1408,8 @@ eks_describe_insights_refresh <- function(clusterName) {
     http_path = "/clusters/{name}/insights-refresh",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_insights_refresh_input(clusterName = clusterName)
   output <- .eks$describe_insights_refresh_output()
@@ -1232,7 +1441,8 @@ eks_describe_nodegroup <- function(clusterName, nodegroupName) {
     http_path = "/clusters/{name}/node-groups/{nodegroupName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_nodegroup_input(clusterName = clusterName, nodegroupName = nodegroupName)
   output <- .eks$describe_nodegroup_output()
@@ -1264,7 +1474,8 @@ eks_describe_pod_identity_association <- function(clusterName, associationId) {
     http_path = "/clusters/{name}/pod-identity-associations/{associationId}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_pod_identity_association_input(clusterName = clusterName, associationId = associationId)
   output <- .eks$describe_pod_identity_association_output()
@@ -1299,7 +1510,8 @@ eks_describe_update <- function(name, updateId, nodegroupName = NULL, addonName 
     http_path = "/clusters/{name}/updates/{updateId}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$describe_update_input(name = name, updateId = updateId, nodegroupName = nodegroupName, addonName = addonName, capabilityName = capabilityName)
   output <- .eks$describe_update_output()
@@ -1332,7 +1544,8 @@ eks_disassociate_access_policy <- function(clusterName, principalArn, policyArn)
     http_path = "/clusters/{name}/access-entries/{principalArn}/access-policies/{policyArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$disassociate_access_policy_input(clusterName = clusterName, principalArn = principalArn, policyArn = policyArn)
   output <- .eks$disassociate_access_policy_output()
@@ -1365,7 +1578,8 @@ eks_disassociate_identity_provider_config <- function(clusterName, identityProvi
     http_path = "/clusters/{name}/identity-provider-configs/disassociate",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$disassociate_identity_provider_config_input(clusterName = clusterName, identityProviderConfig = identityProviderConfig, clientRequestToken = clientRequestToken)
   output <- .eks$disassociate_identity_provider_config_output()
@@ -1401,7 +1615,8 @@ eks_list_access_entries <- function(clusterName, associatedPolicyArn = NULL, max
     http_path = "/clusters/{name}/access-entries",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "accessEntries"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_access_entries_input(clusterName = clusterName, associatedPolicyArn = associatedPolicyArn, maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_access_entries_output()
@@ -1435,7 +1650,8 @@ eks_list_access_policies <- function(maxResults = NULL, nextToken = NULL) {
     http_path = "/access-policies",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "accessPolicies"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_access_policies_input(maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_access_policies_output()
@@ -1470,7 +1686,8 @@ eks_list_addons <- function(clusterName, maxResults = NULL, nextToken = NULL) {
     http_path = "/clusters/{name}/addons",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "addons"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_addons_input(clusterName = clusterName, maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_addons_output()
@@ -1506,7 +1723,8 @@ eks_list_associated_access_policies <- function(clusterName, principalArn, maxRe
     http_path = "/clusters/{name}/access-entries/{principalArn}/access-policies",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", non_aggregate_keys = list( "clusterName", "principalArn"), output_token = "nextToken", result_key = "associatedAccessPolicies"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_associated_access_policies_input(clusterName = clusterName, principalArn = principalArn, maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_associated_access_policies_output()
@@ -1539,7 +1757,8 @@ eks_list_capabilities <- function(clusterName, nextToken = NULL, maxResults = NU
     http_path = "/clusters/{name}/capabilities",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "capabilities"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_capabilities_input(clusterName = clusterName, nextToken = nextToken, maxResults = maxResults)
   output <- .eks$list_capabilities_output()
@@ -1550,6 +1769,42 @@ eks_list_capabilities <- function(clusterName, nextToken = NULL, maxResults = NU
   return(response)
 }
 .eks$operations$list_capabilities <- eks_list_capabilities
+
+#' Lists the certificate authorities (CAs) for your cluster
+#'
+#' @description
+#' Lists the certificate authorities (CAs) for your cluster. A cluster has at most two certificate authorities: the outgoing CA that's currently signing and, during a rotation, one successor CA.
+#'
+#' See [https://www.paws-r-sdk.com/docs/eks_list_certificate_authorities/](https://www.paws-r-sdk.com/docs/eks_list_certificate_authorities/) for full documentation.
+#'
+#' @param clusterName &#91;required&#93; The name of your cluster.
+#' @param maxResults The maximum number of results to return in a single call. To retrieve the remaining results, make another call with the returned `nextToken` value. If you don't specify a value, the default is 100 results.
+#' @param nextToken The `nextToken` value returned from a previous paginated request, where `maxResults` was used and the results exceeded the value of that parameter. Pagination continues from the end of the previous results that returned the `nextToken` value. This value is null when there are no more results to return.
+#' 
+#' This token should be treated as an opaque identifier that is used only to retrieve the next items in a list and not for other programmatic purposes.
+#'
+#' @keywords internal
+#'
+#' @rdname eks_list_certificate_authorities
+eks_list_certificate_authorities <- function(clusterName, maxResults = NULL, nextToken = NULL) {
+  op <- new_operation(
+    name = "ListCertificateAuthorities",
+    http_method = "GET",
+    http_path = "/clusters/{name}/certificate-authorities",
+    host_prefix = "",
+    paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "certificateAuthorities"),
+    stream_api = FALSE,
+    http_checksum = NULL
+  )
+  input <- .eks$list_certificate_authorities_input(clusterName = clusterName, maxResults = maxResults, nextToken = nextToken)
+  output <- .eks$list_certificate_authorities_output()
+  config <- get_config()
+  svc <- .eks$service(config, op)
+  request <- new_request(svc, op, input, output)
+  response <- send_request(request)
+  return(response)
+}
+.eks$operations$list_certificate_authorities <- eks_list_certificate_authorities
 
 #' Lists the Amazon EKS clusters in your Amazon Web Services account in the
 #' specified Amazon Web Services Region
@@ -1575,7 +1830,8 @@ eks_list_clusters <- function(maxResults = NULL, nextToken = NULL, include = NUL
     http_path = "/clusters",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "clusters"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_clusters_input(maxResults = maxResults, nextToken = nextToken, include = include)
   output <- .eks$list_clusters_output()
@@ -1608,7 +1864,8 @@ eks_list_eks_anywhere_subscriptions <- function(maxResults = NULL, nextToken = N
     http_path = "/eks-anywhere-subscriptions",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "subscriptions"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_eks_anywhere_subscriptions_input(maxResults = maxResults, nextToken = nextToken, includeStatus = includeStatus)
   output <- .eks$list_eks_anywhere_subscriptions_output()
@@ -1644,7 +1901,8 @@ eks_list_fargate_profiles <- function(clusterName, maxResults = NULL, nextToken 
     http_path = "/clusters/{name}/fargate-profiles",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "fargateProfileNames"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_fargate_profiles_input(clusterName = clusterName, maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_fargate_profiles_output()
@@ -1679,7 +1937,8 @@ eks_list_identity_provider_configs <- function(clusterName, maxResults = NULL, n
     http_path = "/clusters/{name}/identity-provider-configs",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "identityProviderConfigs"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_identity_provider_configs_input(clusterName = clusterName, maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_identity_provider_configs_output()
@@ -1713,7 +1972,8 @@ eks_list_insights <- function(clusterName, filter = NULL, maxResults = NULL, nex
     http_path = "/clusters/{name}/insights",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "insights"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_insights_input(clusterName = clusterName, filter = filter, maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_insights_output()
@@ -1750,7 +2010,8 @@ eks_list_nodegroups <- function(clusterName, maxResults = NULL, nextToken = NULL
     http_path = "/clusters/{name}/node-groups",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "nodegroups"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_nodegroups_input(clusterName = clusterName, maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_nodegroups_output()
@@ -1787,7 +2048,8 @@ eks_list_pod_identity_associations <- function(clusterName, namespace = NULL, se
     http_path = "/clusters/{name}/pod-identity-associations",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "associations"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_pod_identity_associations_input(clusterName = clusterName, namespace = namespace, serviceAccount = serviceAccount, maxResults = maxResults, nextToken = nextToken)
   output <- .eks$list_pod_identity_associations_output()
@@ -1818,7 +2080,8 @@ eks_list_tags_for_resource <- function(resourceArn) {
     http_path = "/tags/{resourceArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_tags_for_resource_input(resourceArn = resourceArn)
   output <- .eks$list_tags_for_resource_output()
@@ -1857,7 +2120,8 @@ eks_list_updates <- function(name, nodegroupName = NULL, addonName = NULL, capab
     http_path = "/clusters/{name}/updates",
     host_prefix = "",
     paginator = list(input_token = "nextToken", limit_key = "maxResults", output_token = "nextToken", result_key = "updateIds"),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$list_updates_input(name = name, nodegroupName = nodegroupName, addonName = addonName, capabilityName = capabilityName, nextToken = nextToken, maxResults = maxResults)
   output <- .eks$list_updates_output()
@@ -1891,7 +2155,8 @@ eks_register_cluster <- function(name, connectorConfig, clientRequestToken = NUL
     http_path = "/cluster-registrations",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$register_cluster_input(name = name, connectorConfig = connectorConfig, clientRequestToken = clientRequestToken, tags = tags)
   output <- .eks$register_cluster_output()
@@ -1923,7 +2188,8 @@ eks_start_insights_refresh <- function(clusterName) {
     http_path = "/clusters/{name}/insights-refresh",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$start_insights_refresh_input(clusterName = clusterName)
   output <- .eks$start_insights_refresh_output()
@@ -1956,7 +2222,8 @@ eks_tag_resource <- function(resourceArn, tags) {
     http_path = "/tags/{resourceArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$tag_resource_input(resourceArn = resourceArn, tags = tags)
   output <- .eks$tag_resource_output()
@@ -1988,7 +2255,8 @@ eks_untag_resource <- function(resourceArn, tagKeys) {
     http_path = "/tags/{resourceArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$untag_resource_input(resourceArn = resourceArn, tagKeys = tagKeys)
   output <- .eks$untag_resource_output()
@@ -2027,7 +2295,8 @@ eks_update_access_entry <- function(clusterName, principalArn, kubernetesGroups 
     http_path = "/clusters/{name}/access-entries/{principalArn}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$update_access_entry_input(clusterName = clusterName, principalArn = principalArn, kubernetesGroups = kubernetesGroups, clientRequestToken = clientRequestToken, username = username)
   output <- .eks$update_access_entry_output()
@@ -2075,7 +2344,8 @@ eks_update_addon <- function(clusterName, addonName, addonVersion = NULL, servic
     http_path = "/clusters/{name}/addons/{addonName}/update",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$update_addon_input(clusterName = clusterName, addonName = addonName, addonVersion = addonVersion, serviceAccountRoleArn = serviceAccountRoleArn, resolveConflicts = resolveConflicts, clientRequestToken = clientRequestToken, configurationValues = configurationValues, podIdentityAssociations = podIdentityAssociations)
   output <- .eks$update_addon_output()
@@ -2112,7 +2382,8 @@ eks_update_capability <- function(clusterName, capabilityName, roleArn = NULL, c
     http_path = "/clusters/{name}/capabilities/{capabilityName}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$update_capability_input(clusterName = clusterName, capabilityName = capabilityName, roleArn = roleArn, configuration = configuration, clientRequestToken = clientRequestToken, deletePropagationPolicy = deletePropagationPolicy)
   output <- .eks$update_capability_output()
@@ -2132,7 +2403,7 @@ eks_update_capability <- function(clusterName, capabilityName, roleArn = NULL, c
 #' See [https://www.paws-r-sdk.com/docs/eks_update_cluster_config/](https://www.paws-r-sdk.com/docs/eks_update_cluster_config/) for full documentation.
 #'
 #' @param name &#91;required&#93; The name of the Amazon EKS cluster to update.
-#' @param resourcesVpcConfig An object representing the VPC configuration to use for an Amazon EKS cluster.
+#' @param resourcesVpcConfig An object representing the VPC configuration to use for the cluster update. You can use this parameter to update the control plane egress mode, the subnets used by the cluster, the security groups, and the endpoint access settings.
 #' @param logging Enable or disable exporting the Kubernetes control plane logs for your cluster to CloudWatch Logs . By default, cluster control plane logs aren't exported to CloudWatch Logs . For more information, see [Amazon EKS cluster control plane logs](https://docs.aws.amazon.com/eks/latest/userguide/control-plane-logs.html) in the *Amazon EKS User Guide* .
 #' 
 #' CloudWatch Logs ingestion, archive storage, and data scanning rates apply to exported control plane logs. For more information, see [CloudWatch Pricing](https://aws.amazon.com/cloudwatch/pricing/).
@@ -2150,20 +2421,24 @@ eks_update_capability <- function(clusterName, capabilityName, roleArn = NULL, c
 #' @param remoteNetworkConfig The configuration in the cluster for EKS Hybrid Nodes. You can add, change, or remove this configuration after the cluster is created.
 #' @param deletionProtection Specifies whether to enable or disable deletion protection for the cluster. When enabled (`true`), the cluster cannot be deleted until deletion protection is explicitly disabled. When disabled (`false`), the cluster can be deleted normally.
 #' @param controlPlaneScalingConfig The control plane scaling tier configuration. For more information, see EKS Provisioned Control Plane in the Amazon EKS User Guide.
+#' @param kubeApiServerConfig The Kubernetes API server configuration for the updated cluster.
+#' @param kubeSchedulerConfig The Kubernetes scheduler configuration for the updated cluster.
+#' @param kubeControllerManagerConfig The Kubernetes controller manager configuration for the updated cluster.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_update_cluster_config
-eks_update_cluster_config <- function(name, resourcesVpcConfig = NULL, logging = NULL, clientRequestToken = NULL, accessConfig = NULL, upgradePolicy = NULL, zonalShiftConfig = NULL, computeConfig = NULL, kubernetesNetworkConfig = NULL, storageConfig = NULL, remoteNetworkConfig = NULL, deletionProtection = NULL, controlPlaneScalingConfig = NULL) {
+eks_update_cluster_config <- function(name, resourcesVpcConfig = NULL, logging = NULL, clientRequestToken = NULL, accessConfig = NULL, upgradePolicy = NULL, zonalShiftConfig = NULL, computeConfig = NULL, kubernetesNetworkConfig = NULL, storageConfig = NULL, remoteNetworkConfig = NULL, deletionProtection = NULL, controlPlaneScalingConfig = NULL, kubeApiServerConfig = NULL, kubeSchedulerConfig = NULL, kubeControllerManagerConfig = NULL) {
   op <- new_operation(
     name = "UpdateClusterConfig",
     http_method = "POST",
     http_path = "/clusters/{name}/update-config",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .eks$update_cluster_config_input(name = name, resourcesVpcConfig = resourcesVpcConfig, logging = logging, clientRequestToken = clientRequestToken, accessConfig = accessConfig, upgradePolicy = upgradePolicy, zonalShiftConfig = zonalShiftConfig, computeConfig = computeConfig, kubernetesNetworkConfig = kubernetesNetworkConfig, storageConfig = storageConfig, remoteNetworkConfig = remoteNetworkConfig, deletionProtection = deletionProtection, controlPlaneScalingConfig = controlPlaneScalingConfig)
+  input <- .eks$update_cluster_config_input(name = name, resourcesVpcConfig = resourcesVpcConfig, logging = logging, clientRequestToken = clientRequestToken, accessConfig = accessConfig, upgradePolicy = upgradePolicy, zonalShiftConfig = zonalShiftConfig, computeConfig = computeConfig, kubernetesNetworkConfig = kubernetesNetworkConfig, storageConfig = storageConfig, remoteNetworkConfig = remoteNetworkConfig, deletionProtection = deletionProtection, controlPlaneScalingConfig = controlPlaneScalingConfig, kubeApiServerConfig = kubeApiServerConfig, kubeSchedulerConfig = kubeSchedulerConfig, kubeControllerManagerConfig = kubeControllerManagerConfig)
   output <- .eks$update_cluster_config_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -2183,21 +2458,23 @@ eks_update_cluster_config <- function(name, resourcesVpcConfig = NULL, logging =
 #' @param name &#91;required&#93; The name of the Amazon EKS cluster to update.
 #' @param version &#91;required&#93; The desired Kubernetes version following a successful update.
 #' @param clientRequestToken A unique, case-sensitive identifier that you provide to ensure the idempotency of the request.
-#' @param force Set this value to `true` to override upgrade-blocking readiness checks when updating a cluster.
+#' @param force Set this value to `true` to override upgrade-blocking or rollback-blocking readiness checks when updating a cluster.
+#' @param rollbackConfig The rollback configuration for the cluster version rollback.
 #'
 #' @keywords internal
 #'
 #' @rdname eks_update_cluster_version
-eks_update_cluster_version <- function(name, version, clientRequestToken = NULL, force = NULL) {
+eks_update_cluster_version <- function(name, version, clientRequestToken = NULL, force = NULL, rollbackConfig = NULL) {
   op <- new_operation(
     name = "UpdateClusterVersion",
     http_method = "POST",
     http_path = "/clusters/{name}/updates",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
-  input <- .eks$update_cluster_version_input(name = name, version = version, clientRequestToken = clientRequestToken, force = force)
+  input <- .eks$update_cluster_version_input(name = name, version = version, clientRequestToken = clientRequestToken, force = force, rollbackConfig = rollbackConfig)
   output <- .eks$update_cluster_version_output()
   config <- get_config()
   svc <- .eks$service(config, op)
@@ -2228,7 +2505,8 @@ eks_update_eks_anywhere_subscription <- function(id, autoRenew, clientRequestTok
     http_path = "/eks-anywhere-subscriptions/{id}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$update_eks_anywhere_subscription_input(id = id, autoRenew = autoRenew, clientRequestToken = clientRequestToken)
   output <- .eks$update_eks_anywhere_subscription_output()
@@ -2267,7 +2545,8 @@ eks_update_nodegroup_config <- function(clusterName, nodegroupName, labels = NUL
     http_path = "/clusters/{name}/node-groups/{nodegroupName}/update-config",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$update_nodegroup_config_input(clusterName = clusterName, nodegroupName = nodegroupName, labels = labels, taints = taints, scalingConfig = scalingConfig, updateConfig = updateConfig, nodeRepairConfig = nodeRepairConfig, warmPoolConfig = warmPoolConfig, clientRequestToken = clientRequestToken)
   output <- .eks$update_nodegroup_config_output()
@@ -2307,7 +2586,8 @@ eks_update_nodegroup_version <- function(clusterName, nodegroupName, version = N
     http_path = "/clusters/{name}/node-groups/{nodegroupName}/update-version",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$update_nodegroup_version_input(clusterName = clusterName, nodegroupName = nodegroupName, version = version, releaseVersion = releaseVersion, launchTemplate = launchTemplate, force = force, clientRequestToken = clientRequestToken)
   output <- .eks$update_nodegroup_version_output()
@@ -2356,7 +2636,8 @@ eks_update_pod_identity_association <- function(clusterName, associationId, role
     http_path = "/clusters/{name}/pod-identity-associations/{associationId}",
     host_prefix = "",
     paginator = list(),
-    stream_api = FALSE
+    stream_api = FALSE,
+    http_checksum = NULL
   )
   input <- .eks$update_pod_identity_association_input(clusterName = clusterName, associationId = associationId, roleArn = roleArn, clientRequestToken = clientRequestToken, disableSessionTags = disableSessionTags, targetRoleArn = targetRoleArn, policy = policy)
   output <- .eks$update_pod_identity_association_output()

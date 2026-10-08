@@ -2,8 +2,8 @@
 % Please edit documentation in R/imagebuilder_operations.R
 \name{imagebuilder_distribute_image}
 \alias{imagebuilder_distribute_image}
-\title{DistributeImage distributes existing AMIs to additional regions and
-accounts without rebuilding the image}
+\title{Distributes an existing AMI to target Regions and accounts without
+running the full image build process}
 \usage{
 imagebuilder_distribute_image(
   sourceImage,
@@ -15,20 +15,27 @@ imagebuilder_distribute_image(
 )
 }
 \arguments{
-\item{sourceImage}{[required] The source image Amazon Resource Name (ARN) to distribute.}
+\item{sourceImage}{[required] The source image to distribute. You can specify the source in any of the following formats:
+\itemize{
+\item An AMI ID.
+\item An Amazon Web Services Systems Manager Parameter Store reference, prefixed by \verb{ssm:}, followed by the parameter name or ARN.
+\item An Image Builder image Amazon Resource Name (ARN). An image version ARN resolves to the latest available build version.
+}
 
-\item{distributionConfigurationArn}{[required] The Amazon Resource Name (ARN) of the distribution configuration to use.}
+Whichever format you use, the source must resolve to an AMI in the current Amazon Web Services Region.}
 
-\item{executionRole}{[required] The IAM role to use for the distribution.}
+\item{distributionConfigurationArn}{[required] The Amazon Resource Name (ARN) of the distribution configuration. The configuration defines target Regions, accounts, and AMI settings. The distribution configuration must be in the same Region as this operation.}
 
-\item{tags}{The tags to apply to the distributed image.}
+\item{executionRole}{[required] The name or Amazon Resource Name (ARN) of the IAM role that Image Builder assumes to distribute the image.}
 
-\item{clientToken}{[required] Unique, case-sensitive identifier you provide to ensure idempotency of the request. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
+\item{tags}{The tags to apply to the new Image Builder image resource that this operation creates. To tag the output AMIs, use \code{amiTags} in the distribution configuration.}
+
+\item{clientToken}{[required] A unique, case-sensitive identifier you provide to ensure that the operation runs no more than one time. If you retry a request with the same client token, Image Builder returns the original response without running the operation again. For more information, see \href{https://docs.aws.amazon.com/ec2/latest/devguide/ec2-api-idempotency.html}{Ensuring idempotency} in the \emph{Amazon EC2 API Reference}.}
 
 \item{loggingConfiguration}{The logging configuration for the distribution.}
 }
 \description{
-DistributeImage distributes existing AMIs to additional regions and accounts without rebuilding the image.
+Distributes an existing AMI to target Regions and accounts without running the full image build process. This operation only runs the distribution phase on an image that has already been built.
 
 See \url{https://www.paws-r-sdk.com/docs/imagebuilder_distribute_image/} for full documentation.
 }
